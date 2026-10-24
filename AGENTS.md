@@ -2,7 +2,7 @@
 
 ## Contrato de telas
 - Telas produzidas pelo Pi são **apenas JSON** em `src/ui-screens/<slug>.json`, com metadados em `src/ui-screen-meta/<slug>.json`. Nunca gerar TSX/JSX visual arbitrário para telas.
-- Usar exclusivamente os 156 tipos registrados (41 base, 112 extensões) em `src/ui-catalog/catalog.ts` e `extensions/catalog.ts`. Antes de gerar a interface, ler `src/ui-catalog/contracts.lock.json` e os padrões aprovados em `src/ui-patterns/`.
+- Usar exclusivamente os 102 tipos registrados (41 base, 61 extensões) em `src/ui-catalog/catalog.ts` e `extensions/catalog.ts`. Antes de gerar a interface, ler `src/ui-catalog/contracts.lock.json` e os padrões aprovados em `src/ui-patterns/`.
 - Priorizar composição a partir dos oito padrões JSON aprovados. Não alterar os contratos de base nem criar componentes apenas para variar aparência.
 - Os três exploradores `/?screen=explorador-primitivos`, `/?screen=explorador-compostos` e `/?screen=explorador-exemplos` são ferramentas fixas do shell: não autoriza JSX fora do registry, adaptadores ou ferramentas administrativas aprovadas.
 - Design system: `src/globals.css`, Inter / Playfair Display / JetBrains Mono, temas OKLCH claro e escuro. Não alterar tokens globais silenciosamente.
@@ -39,29 +39,18 @@
 - `shadcn-plan.json` determina dependências para instalação, **não** contratos aprovados.
 - Migrações de contratos devem alterar schemas, registry, telas, padrões, exemplos, lock/fingerprints, documentação e testes em conjunto.
 
-## Galerias completas do shadcn/create (v0.12)
-- Ambas as telas de exemplo **devem conservar cobertura integral**: 31 cards do `preview` e 33 cards do `preview-02`, conforme `src/ui-catalog/create-preview-inventory.json`.
-- Para atualizar exemplos, consulte os arquivos `index.tsx` dos dois blocos Base UI no repositório oficial. Não acrescente JSX arbitrário nem componentes de terceiros fora do catálogo.
-- Cada card do manifesto deve ser representado por exatamente **um tipo composto próprio** no JSON da página, com o mesmo nome oficial; não reconstruir sua árvore na tela.
-- Composição interna em `extensions/composites/templates/` e adaptador em `extensions/components/`; execute `npm run composites:check`.
-- Rode `npm run examples:check` e `npm run check:catalog`; antes de declarar homologado, execute build e teste visual no navegador.
-- `class-variance-authority` é dependência **de produção**: nenhuma instalação deve deixar o projeto sem esse pacote.
-
-## Exemplos oficiais como referência
-- `src/ui-screens/exemplo-01.json` e `exemplo-02.json` usam 64 componentes compostos independentes do shadcn/create. Cada componente tem schema Zod, React TSX, registry, template interno e origem em sources.json. Não recrie esses cards como JSX arbitrário nas telas.
-- Não copiar blocos React diretamente para a pasta de telas. Se uma primitiva oficial faltar, criar esquema em `extensions/catalog.ts`, adaptador em `extensions/registry.tsx`, componente React, versão/fingerprint e documentação antes de utilizá-la.
-- Consultar https://ui.shadcn.com/docs/components para cada componente necessário. A instalação oficial exige `shadcn:install` e checagens reais antes de produção.
-
-
-## Regra inegociável: fidelidade às referências
-
-Antes de compor um card do shadcn/create, **ler o JSX oficial e verificar a aparência renderizada**; registrar a revisão, diferenças e screenshots antes de considerar visualmente aprovado. Não basta reutilizar um Card genérico. Consultar `docs/revisao-visual-shadcn.md` e `src/ui-catalog/create-reference-audit.json`. Rodar `npm run reference:check`; para aprovação visual rodar `npm run reference:strict`.
+## ReUI e composições shadcn ativas
+- A navegação de exemplos contém apenas **ReUI** (`/?screen=reui`), com 559 prévias agrupadas por 31 famílias.
+- Galeria 1, Galeria 2 e o bloco visual Dashboard foram removidos intencionalmente; não os recrie por conveniência.
+- `Dashboard01` e suas primitivas/contratos continuam no catálogo composto; a remoção diz respeito apenas à tela Dashboard.
+- Composições declarativas ativas ficam em `extensions/composites/templates/`, com manifesto e schemas individuais.
+- Novas composições exigem origem, revisão visual, aprovação independente e testes; não declarar screenshot homologada sem evidência.
 
 ## Blocos oficiais shadcn/ui Base UI (v0.14)
 Antes de admitir um novo bloco de `apps/v4/registry/bases/base/blocks`, consultar todos os arquivos-fonte do bloco e o preview em `ui.shadcn.com/view/new-york-v4/<slug>`. Auditar nomes, imports, layout, dados, estado e interações. Registrar arquivos em `src/ui-catalog/block-source-inventory.json`; criar schema Zod individual, implementação, template JSON, registro, fingerprint e galeria. É proibido importar JSX remoto no JSON ou habilitar ações externas sem autorização. Capturas visuais precisam ser revisadas separadamente: não marcar `screenshot-compared` sem evidências reais. `npm run blocks:check` é obrigatório; `blocks:strict` requer homologação de screenshots.
 
 ## Navegação e exemplos — v0.15
-- Só `Galeria 1`, `Galeria 2` e os blocos Dashboard/Login/Cadastro/Sidebars são telas ativas. Não recriar as seis telas removidas sem pedido explícito.
+- O menu apresenta ReUI, Login, Cadastro e Sidebars, além dos exploradores. Dashboard01 é contrato composto, não uma tela navegável.
 - `CHANGELOG.md` registra mudanças por versão; `README.md` descreve somente o estado atual.
 - `CatalogExplorer` é ferramenta fixa de inspeção, não um tipo de tela gerada pelo Pi. Editar props apenas em memória, com validação Zod; não persistir alterações automaticamente.
 - Evitar overflow de controles do Carousel; mantê-los no fluxo dentro dos limites do componente.
@@ -104,12 +93,12 @@ Antes de admitir um novo bloco de `apps/v4/registry/bases/base/blocks`, consulta
 ## v0.21: três exploradores e componentes aposentados
 - Ferramentas: `explorador-primitivos` (base + 13 primitivas aprovadas em extensão), `explorador-compostos` (somente tipos retidos), `explorador-exemplos` (seis telas e oito padrões com edição de nó). Não publicar o antigo `explorador`.
 - Antes de usar qualquer tipo em specs, consultar `pi-catalog/contracts.json` e evitar os nomes listados em `pi-catalog/retired-contracts.json`; migre para primitivas equivalentes.
-- Galerias preservam 64 exemplos; dez demos agora usam primitivas inline. Não recriar seus contratos sem funcionalidade comprovada.
+- As galerias legadas shadcn/create e seus 54 contratos exclusivos foram retirados; preservar os 102 contratos ativos e as composições dos blocos.
 - Execute `npm run composites:pruning:check` e `npm run test:offline`; se npm estiver disponível, validar Zod real e browser.
 
 
 ## Sandbox de validação v0.22
-Não declarar build, screenshots comparadas ou E2E aprovados se não houver evidência registrada. Use `npm run sandbox:verify`, preserve o código shadcn instalado via CLI oficial e valide as duas galerias em desktop/mobile. Todos os labels e escolhas oficiais podem ser personalizáveis via schema, mas ações e URLs não são substituíveis por conteúdo arbitrário.
+Não declarar build, screenshots comparadas ou E2E aprovados se não houver evidência registrada. Use `npm run sandbox:verify`, preserve o código shadcn instalado via CLI oficial e valide a ReUI em desktop/mobile. Todos os labels e escolhas oficiais podem ser personalizáveis via schema, mas ações e URLs não são substituíveis por conteúdo arbitrário.
 
 ## CSS e registry — v0.23
 
