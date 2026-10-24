@@ -1,21 +1,19 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
-import { createHash } from 'node:crypto';
-const read = path=>JSON.parse(readFileSync(path,'utf8'));
-const inv=read('src/ui-catalog/create-preview-inventory.json');
-const lock=read('src/ui-catalog/contracts.lock.json');
-let count=0;
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+const read=p=>JSON.parse(readFileSync(p,'utf8'));
+const manifest=read('src/ui-catalog/extensions/composites/generated-manifest.json').components;
+const lock=read('src/ui-catalog/contracts.lock.json').components;
 const errors=[];
-for(const preview of inv.previews)for(const card of preview.cards){
-  count++;
-  if(card.representation==='inline-primitives')continue;
-  const entry=lock.components.find(x=>x.name===card.id);
-  if(!entry || !entry.compositionHash){errors.push(`${card.id}: sem hash de composição`);continue;}
-  const hash=createHash('sha256').update(readFileSync(card.templatePath)).digest('hex');
-  if(hash!==entry.compositionHash) errors.push(`${card.id}: template mudou sem revisão/hash atualizado`);
-  const contents=read(card.templatePath);
-  if(contents.elements?.[contents.root]?.type!=='Card')errors.push(`${card.id}: composição sem card raiz`);
+for(const item of manifest){
+ const contract=lock.find(x=>x.name===item.name);
+ if(!contract) {errors.push(`${item.name}: contrato ausente`);continue;}
+ const path=`src/ui-catalog/extensions/composites/templates/${item.template}`;
+ const raw=readFileSync(path);
+ const actual=createHash('sha256').update(raw).digest('hex');
+ if(contract.compositionHash && contract.compositionHash!==actual)errors.push(`${item.name}: hash de composição divergente`);
+ const spec=JSON.parse(raw);
+ if(spec.elements?.[spec.root]?.type!=='Card')errors.push(`${item.name}: composição sem Card raiz`);
 }
-if(count!==64)errors.push(`Esperados 64 cards de referência: ${count}`);
-if(errors.length){for(const x of errors)console.error('✗ '+x);process.exit(1);}
-console.log(`✓ ${count} composições com integridade SHA-256 verificada.`);
+if(errors.length){errors.forEach(e=>console.error('✗ '+e));process.exit(1)}
+console.log(`✓ ${manifest.length} composições ativas e hashes conferidos (incluindo Dashboard01).`);

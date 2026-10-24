@@ -5,8 +5,8 @@ import { dirname } from 'node:path';
 import { createHash } from 'node:crypto';
 const read = path => JSON.parse(readFileSync(path, 'utf8'));
 const strict = process.argv.includes('--strict');
-const inventory = read('src/ui-catalog/create-preview-inventory.json');
-const cards = inventory.previews.flatMap(group => group.cards.map(card => ({...card, screen:group.screen})));
+// Galerias 1/2 removidas: evidências de referência são restritas às primitivas oficiais.
+const cards = [];
 const viewports = ['desktop', 'mobile'];
 const required = viewports.flatMap(viewport => cards.map(card => ({
   viewport, id: card.id,
@@ -68,4 +68,4 @@ console.log(JSON.stringify({
   officialDocsExpected:officialDocs?.expectedCases ?? 76,
   officialDocsExpectedComparable:officialDocs?.expectedComparableCases ?? 58,
 },null,2));
-if (strict && (!fingerprint || missingPrimitives.length || cards.length !== 64 || missingLocal.length)) process.exitCode = 1;
+if (strict && (!fingerprint || missingPrimitives.length || missingLocal.length)) process.exitCode = 1;

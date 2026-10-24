@@ -19,7 +19,6 @@ import { compositeImplementations } from './generated/composite-implementations'
 import { DataTable,type DataTableProps } from './components/data-table';
 import { DatePicker,type DatePickerProps } from './components/date-picker';
 import { Field,type FieldProps } from './components/field';
-import { NotificationSettings, type NotificationSettingsProps } from "./components/notification-settings";
 import { BlockSidebar, type BlockSidebarProps } from "./components/block-sidebar";
 import { SiteCardsActivityGoal, type SiteCardsActivityGoalProps } from "./components/site-cards-activity-goal";
 import { SiteCardsChat, type SiteCardsChatProps } from "./components/site-cards-chat";
@@ -56,7 +55,4 @@ export const extensionImplementations = {
   SiteCardsTeamMembers: ({props,emit}:{props:SiteCardsTeamMembersProps;emit?:(event:string)=>void}) => <SiteCardsTeamMembers props={props} onEvent={emit} />,
 
   ...compositeImplementations,
-  // Overrides the static preview with the reviewed interactive select-all variant.
-  NotificationSettings: ({props}:{props:NotificationSettingsProps}) => <NotificationSettings props={props}/>,
-
 };

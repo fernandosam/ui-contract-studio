@@ -45,4 +45,4 @@ jobs:
       - run: npm run shadcn:verify && npm run shadcn:integrity -- --strict
       - run: npm run validate && npm run build
       - name: Validate Pi generator negative and positive cases
-        run: npm run pi:validate -- --file=pi-catalog/examples/ShippingAddress.json --out=reports/pi-validation/ci.json
+        run: npm run pi:validate -- --file=pi-catalog/examples/Dashboard01.json --out=reports/pi-validation/ci.json

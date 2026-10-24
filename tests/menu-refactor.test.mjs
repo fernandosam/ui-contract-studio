@@ -7,16 +7,15 @@ const data=p=>JSON.parse(text(p));
 const deleted=['dashboard','usuarios','catalogo','playground','extensoes','auditoria'];
 test('menu possui grupos e opções desejadas, sem telas obsoletas',()=>{
  const screens=readdirSync('src/ui-screens').filter(n=>n.endsWith('.json')).sort();
- assert.deepEqual(screens,['blocos-dashboard.json','blocos-login.json','blocos-sidebar.json','blocos-signup.json','exemplo-01.json','exemplo-02.json']);
+ assert.deepEqual(screens,['blocos-login.json','blocos-sidebar.json','blocos-signup.json']);
  for(const id of deleted)assert.ok(!screens.includes(id+'.json'));
  const titles=Object.fromEntries(screens.map(n=>[n.replace('.json',''),data('src/ui-screen-meta/'+n).title]));
- assert.equal(titles['exemplo-01'],'Galeria 1');assert.equal(titles['exemplo-02'],'Galeria 2');
- for(const [id,title] of [['blocos-dashboard','Dashboard'],['blocos-login','Login'],['blocos-signup','Cadastro'],['blocos-sidebar','Sidebars']]){
+ for(const [id,title] of [['blocos-login','Login'],['blocos-signup','Cadastro'],['blocos-sidebar','Sidebars']]){
   assert.equal(titles[id],title);
   assert.equal(data(`src/ui-screen-meta/${id}.json`).section,'Blocos shadcn');
  }
  const layout=text('src/ui-runtime/layout.tsx');
- assert.match(layout,/label:"Blocos shadcn"/);assert.match(layout,/label:"Exemplos"/);assert.match(layout,/SidebarGroupLabel/);
+ assert.match(layout,/label:"Blocos shadcn"/);assert.match(text('src/ui-runtime/app.tsx'),/slug:'reui',title:'ReUI'/);assert.match(layout,/SidebarGroupLabel/);
 });
 test('explorador edita valores simples e complexos e valida specs por Zod antes de aprovar',()=>{
  const editor=text('src/ui-runtime/catalog-explorer.tsx');

@@ -11,7 +11,8 @@ O diferencial é o **contrato seguro e verificável** entre o agente e os elemen
 - **Explorador de primitivas:** catálogo com propriedades validadas, orientações de uso e exemplos.
 - **Explorador de compostos:** padrões reutilizáveis com dados e propriedades aprovadas.
 - **Explorador de exemplos:** inspeção e edição local de telas declarativas.
-- **Galerias:** exemplos de shadcn/ui, blocos e ReUI, com histórico de origem e verificações próprias.
+- **ReUI:** galeria de exemplos agrupados por componente, com filtros, prévias e orientações para agentes.
+- **Blocos shadcn/ui:** telas de Login, Cadastro e Sidebars. O composto `Dashboard01` permanece disponível no catálogo, sem página Dashboard.
 - **Integração com agentes:** schemas Zod, fixtures, manifestos, exemplos e validação de specs JSON.
 
 As specs de agentes **não aceitam JSX, HTML, callbacks, ações nem URLs arbitrárias**. Os cenários de login, pagamentos e dados são demonstrativos, sem acesso a sistemas reais.

@@ -11,11 +11,11 @@ const plan=readJSON("shadcn-plan.json");
 const specs=[...readdirSync("src/ui-screens").map(x=>"src/ui-screens/"+x),...readdirSync("src/ui-patterns").filter(x=>x.endsWith(".json")&&!x.endsWith(".meta.json")).map(x=>"src/ui-patterns/"+x)].filter(x=>x.endsWith(".json"));
 
 test("39 contratos base em 2.0.0 e Accordion e Button em 2.1.0, 3 extensões anteriores e 54 composições restantes, 10 demonstrações inline",()=>{
- assert.equal(contracts.components.length,156);
+ assert.equal(contracts.components.length,102);
  assert.equal(contracts.components.filter(c=>c.tier==='base'&&c.version==='2.0.0').length,39);
  assert.equal(contracts.components.filter(c=>c.name==='Accordion'&&c.version==='2.1.0').length,1);
  assert.equal(contracts.components.filter(c=>c.name==='Button'&&c.version==='2.1.0').length,1);
- assert.equal(contracts.components.filter(c=>c.tier==='extension').length,115);
+ assert.equal(contracts.components.filter(c=>c.tier==='extension').length,61);
  for (const name of ["DataTable","DatePicker","Field"]) assert.ok(contracts.components.some(c=>c.name===name));
 });
 
@@ -41,7 +41,7 @@ test("telas e padrões não usam props legadas",()=>{
   if(node.type==='Button')assert.ok(!["primary","danger"].includes(node.props.variant),`${file}: variant obsoleta`);
   if(node.type==='Badge')assert.ok(!["success","warning","danger"].includes(node.props.variant),`${file}: variant obsoleta`);
  }}
- assert.equal(specs.length,14);
+ assert.equal(specs.length,11);
 });
 
 test("registry referencia implementações shadcn e não mantém Modal manual",()=>{

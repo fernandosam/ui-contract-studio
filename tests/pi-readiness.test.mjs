@@ -10,10 +10,10 @@ const content=read('src/ui-catalog/composite-content-fields.json').components;
 const known=lock.components.map(c=>c.name);
 const generatedComposites=new Set(JSON.parse(readFileSync('src/ui-catalog/extensions/composites/generated-manifest.json','utf8')).components.map(x=>x.name));
 
-test('Pi possui 156 exemplos válidos estruturalmente e contratos sem duplicidade',()=>{
- assert.equal(manifest.catalogSize,156);
- assert.equal(manifest.contracts.length,156);
- assert.equal(new Set(manifest.contracts.map(c=>c.type)).size,156);
+test('Pi possui 102 exemplos válidos estruturalmente e contratos sem duplicidade',()=>{
+ assert.equal(manifest.catalogSize,102);
+ assert.equal(manifest.contracts.length,102);
+ assert.equal(new Set(manifest.contracts.map(c=>c.type)).size,102);
  for(const c of manifest.contracts){
    assert.ok(existsSync(c.example),c.type);
    const spec=read(c.example);
@@ -23,10 +23,10 @@ test('Pi possui 156 exemplos válidos estruturalmente e contratos sem duplicidad
  }
 });
 
-test('96 compostos expõem content com estrita lista de  chaves editáveis',()=>{
- assert.equal(Object.keys(content).length,96);
+test('42 compostos expõem content com estrita lista de  chaves editáveis',()=>{
+ assert.equal(Object.keys(content).length,42);
  const fields=Object.values(content).flatMap(c=>c.fields);
- assert.ok(fields.length>500);
+ assert.ok(fields.length>300);
  for(const [name,config] of Object.entries(content)){
    const info=manifest.contracts.find(x=>x.type===name);
    assert.equal(info?.contentProperty,'content');

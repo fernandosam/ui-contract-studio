@@ -1,0 +1,15 @@
+{
+  "root": "sample-stack",
+  "elements": {
+    "sample-stack": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": []
+    }
+  }
+}

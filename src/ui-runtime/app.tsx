@@ -10,17 +10,18 @@ const ReuiGallery=lazy(()=>import('./catalog-explorer').then(m=>({default:m.Reui
 const ExamplesExplorer=lazy(()=>import('./catalog-explorer').then(m=>({default:m.ExamplesExplorer})));
 
 const explorerEntries=[
- {slug:'galeria-3',title:'Galeria 3',subtitle:'Exemplos ReUI agrupados por componente, com filtro e carregamento progressivo.',section:'Exemplos',order:202,icon:'layers',spec:null},
+ {slug:'reui',title:'ReUI',subtitle:'Exemplos ReUI agrupados por componente, com filtro e carregamento progressivo.',section:'Exemplos',order:202,icon:'layers',spec:null},
  {slug:'explorador-primitivos',title:'Primitivos shadcn',subtitle:'Componentes base, propriedades e comportamento isolado.',section:'Ferramentas',order:990,icon:'layers',spec:null},
  {slug:'explorador-compostos',title:'Componentes compostos',subtitle:'Padrões com identidade e comportamento próprios.',section:'Ferramentas',order:991,icon:'layers',spec:null},
  {slug:'explorador-exemplos',title:'Exemplos',subtitle:'Telas completas e padrões JSON com inspeção de cada nó.',section:'Ferramentas',order:992,icon:'layers',spec:null},
 ];
 export function App() {
-  const requested = new URLSearchParams(window.location.search).get('screen') ?? 'exemplo-01';
+  const query = new URLSearchParams(window.location.search).get('screen');
+  const requested = query === 'galeria-3' ? 'reui' : (query ?? 'reui');
   const tool=explorerEntries.find(x=>x.slug===requested);
-  const entry = tool ?? (screens[requested] ?? screens['exemplo-01'] ?? navigation[0]);
+  const entry = tool ?? (screens[requested] ?? explorerEntries[0] ?? navigation[0]);
   if (!entry) return <main role="alert">Nenhuma tela cadastrada.</main>;
   return <PageShell title={entry.title} subtitle={entry.subtitle} section={entry.section} navigation={[...navigation,...explorerEntries]} current={entry.slug}>
-    {tool ? <Suspense fallback={<p role="status">Carregando explorador…</p>}>{tool.slug==='explorador-primitivos'?<PrimitiveExplorer/>:tool.slug==='explorador-compostos'?<CompositeExplorer/>:tool.slug==='galeria-3'?<ReuiGallery/>:<ExamplesExplorer/>}</Suspense> : <SpecScreen spec={entry.spec} />}
+    {tool ? <Suspense fallback={<p role="status">Carregando explorador…</p>}>{tool.slug==='explorador-primitivos'?<PrimitiveExplorer/>:tool.slug==='explorador-compostos'?<CompositeExplorer/>:tool.slug==='reui'?<ReuiGallery/>:<ExamplesExplorer/>}</Suspense> : <SpecScreen spec={entry.spec} />}
   </PageShell>;
 }

@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
-test('Galeria 3 filtra componentes e limita renderizacao inicial',async({page})=>{
- await page.goto('/?screen=galeria-3');
- await expect(page.getByRole('heading',{name:'Galeria 3 · ReUI'})).toBeVisible();
+test('ReUI filtra componentes e limita renderizacao inicial',async({page})=>{
+ await page.goto('/?screen=reui');
+ await expect(page.getByRole('heading',{name:'ReUI'})).toBeVisible();
  await expect(page.locator('[data-testid^="reui-preview-"]')).toHaveCount(11);
  await page.getByLabel('Filtrar componente').selectOption('Button');
  await expect(page.getByRole('heading',{name:'Button',exact:true})).toBeVisible();

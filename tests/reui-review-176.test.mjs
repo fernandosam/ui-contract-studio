@@ -34,7 +34,7 @@ test("176 pendentes foram avaliados; nenhum permanece com aprovação implícita
   }
  }
  assert.ok(oldPending.has("c-button-group-57"))
- assert.equal(lock.components.length,156)
+ assert.equal(lock.components.length,102)
  assert.deepEqual(
    matrix.entries.filter(e=>e.reviewStatus==="approved").map(e=>e.exampleId).sort(),
    ["c-accordion-11","c-rating-6","c-textarea-6"]

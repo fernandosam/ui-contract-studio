@@ -17,7 +17,7 @@ Se for indispensável um componente novo, interrompa a tarefa até realizar a ad
 - `shadcn-plan.json` determina dependências para instalação, **não** contratos aprovados.
 - Migrações de contratos devem alterar schemas, registry, telas, padrões, exemplos, lock/fingerprints, documentação e testes em conjunto.
 
-Referências de exemplos: `src/ui-catalog/create-preview-inventory.json` (64 exemplos oficiais, alguns montados inline, 2 páginas). Preserve integralmente a cobertura ao alterar `exemplo-01`/`exemplo-02`, e execute `npm run examples:check`.
+Referências de exemplos: use `/?screen=reui`, os padrões JSON aprovados e os exemplos de `pi-catalog/examples/`. As antigas galerias 1/2 não devem ser restauradas.
 
 
 ## Fluxo obrigatório Pi v0.18

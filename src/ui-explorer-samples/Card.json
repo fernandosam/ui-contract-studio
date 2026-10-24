@@ -1,0 +1,15 @@
+{
+  "root": "sample-card",
+  "elements": {
+    "sample-card": {
+      "type": "Card",
+      "props": {
+        "title": "Card de exemplo",
+        "description": "Componente base com propriedades declarativas.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": []
+    }
+  }
+}

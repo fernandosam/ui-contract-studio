@@ -6,7 +6,7 @@
 import {readFileSync,existsSync,writeFileSync} from 'node:fs';
 const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const manifest=read('src/ui-catalog/extensions/composites/generated-manifest.json').components;
-const gallery=read('src/ui-catalog/create-reference-audit.json').cards;
+const gallery=[]; // As galerias legadas foram removidas; auditamos apenas composições ativas.
 const blocks=read('src/ui-catalog/block-source-inventory.json').blocks;
 const site=read('src/ui-catalog/site-compositions-audit.json');
 const siteFiles=Array.isArray(site)?site:(site.files??site.items??[]);
@@ -34,7 +34,7 @@ for(const name of independent){
  all.push({name,category:'stateful',sourcePath,sourceUrl:'https://github.com/shadcn-ui/ui/blob/main/'+sourcePath,previewUrl:'https://ui.shadcn.com/examples/cards',sourceReview:'source-reference-documented',visualStatus:'screenshot-pending',template:null,missingLabels:[],notes:['Local interactive adaptation; compare original JSX and rendered browser states']});
 }
 if(all.length!==manifest.length+independent.length)throw Error(`Expected ${manifest.length+independent.length} composites, received ${all.length}`);
-const audit={schemaVersion:1,version:read('package.json').version,composites:all.length,categories:Object.fromEntries([...new Set(all.map(x=>x.category))].map(x=>[x,all.filter(y=>y.category===x).length])),sourceScope:'Prior v0.13/v0.14/v0.16 code reviews supplemented by selected current upstream DOM/source checks; NOT fresh screenshot certification for all 118.',visualScope:'Actual browser screenshot comparison is PENDING for all 118. Missing labels are heuristic, not a pixel-diff.',items:all};
+const audit={schemaVersion:1,version:read('package.json').version,composites:all.length,categories:Object.fromEntries([...new Set(all.map(x=>x.category))].map(x=>[x,all.filter(y=>y.category===x).length])),sourceScope:'Active shadcn block and site component source references; no screenshot certification.',visualScope:'Browser screenshot comparison pending for active block and site compositions.',items:all};
 const json=JSON.stringify(audit,null,2)+'\n';const dest='src/ui-catalog/composite-fidelity-audit.json';
 if(process.argv.includes('--check')){
  if(!existsSync(dest)||readFileSync(dest,'utf8')!==json)throw Error('Audit stale; run npm run composites:fidelity');

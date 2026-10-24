@@ -5,7 +5,7 @@ import {graphErrors} from "./lib/spec-invariants.mjs";
 import {signatures} from "./lib/contract-lock.mjs";
 const read=p=>JSON.parse(readFileSync(p,"utf8"));
 const audit=read("src/ui-catalog/block-source-inventory.json"), lock=read("src/ui-catalog/contracts.lock.json"), sources=read("src/ui-catalog/sources.json");
-const gallery=["blocos-dashboard","blocos-login","blocos-signup","blocos-sidebar"].map(x=>read(`src/ui-screens/${x}.json`));
+const gallery=["blocos-login","blocos-signup","blocos-sidebar"].map(x=>read(`src/ui-screens/${x}.json`));
 const allowed=lock.components.slice(0,44).map(x=>x.name).concat(["BlockSidebar"]);
 const names=new Set(lock.components.map(x=>x.name));
 const errors=[];let files=0;
@@ -26,7 +26,8 @@ for(const block of audit.blocks){
  if(Object.values(spec.elements).some(x=>!allowed.includes(x.type)))errors.push(`${block.name}: tipo não aprovado`);
  if(spec.elements[spec.root]?.type!=="Card")errors.push(`${block.name}: raiz não é Card`);
  const appearances=gallery.flatMap(g=>Object.values(g.elements)).filter(x=>x.type===block.id);
- if(appearances.length!==1)errors.push(`${block.name}: ocorrência esperada 1, encontrada ${appearances.length}`);
+ const expectedAppearances=block.id==="Dashboard01"?0:1;
+ if(appearances.length!==expectedAppearances)errors.push(`${block.name}: ocorrência esperada ${expectedAppearances}, encontrada ${appearances.length}`);
 }
 if(files!==103||audit.filesReviewed.length!==103)errors.push(`Inventário incompleto: ${files} arquivos (${audit.filesReviewed.length} linhas)`);
 if(lock.components.length!==sources.components.length||names.size!==lock.components.length||signatures().length!==lock.components.length)errors.push("Total de contratos incompatível");

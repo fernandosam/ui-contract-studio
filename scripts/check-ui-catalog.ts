@@ -67,9 +67,8 @@ const sources = JSON.parse(readFileSync(resolve(root, "src/ui-catalog/sources.js
 const officialTypes = ['Card', 'Stack', 'Grid', 'Separator', 'Tabs', 'Accordion', 'Collapsible', 'Dialog', 'Drawer', 'Carousel', 'Table', 'Heading', 'Text', 'Image', 'Icon', 'Avatar', 'Badge', 'Alert', 'Progress', 'Skeleton', 'Spinner', 'Tooltip', 'Popover', 'Rating', 'Metric', 'BarGraph', 'LineGraph', 'Input', 'Textarea', 'Select', 'Checkbox', 'Radio', 'Switch', 'Slider', 'Button', 'Link', 'DropdownMenu', 'Toggle', 'ToggleGroup', 'ButtonGroup', 'Pagination'];
 const errors: string[] = [];
 const same = (a: string[], b: string[]) => JSON.stringify(a) === JSON.stringify(b);
-// O preview estático de NotificationSettings é substituído pela versão interativa revisada.
-// Outros overrides precisariam de aprovação e teste explícitos.
-if (!same(overlaps, ["NotificationSettings"])) errors.push("Sobreposições não aprovadas no registry de extensões: " + overlaps.join(", "));
+// Um contrato só pode ter uma implementação aprovada.
+if (!same(overlaps, [])) errors.push("Sobreposições não aprovadas no registry de extensões: " + overlaps.join(", "));
 if (!same(baseNames, [...officialTypes].sort())) errors.push("Os 41 contratos de base foram modificados: adições devem usar extensions/.");
 if (extensionNames.some(name => officialTypes.includes(name))) errors.push("As extensões não podem sobrescrever nomes da base.");
 if (!same(extensionNames, extensionImplementationNames)) errors.push("Cada extensão precisa de um schema e um adapter no registry.");

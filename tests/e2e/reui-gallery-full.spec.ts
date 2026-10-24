@@ -5,14 +5,14 @@ type Guide={examples:[string,string][]};
 const guides=JSON.parse(readFileSync("src/ui-catalog/reui-guidance.json","utf8")) as Record<string,Guide>;
 
 /** Execução exclusiva do workflow E2E manual na main: cada família exercita TODAS as prévias. */
-test.describe("Galeria 3 — prévias reais, sem fallback obsoleto",()=>{
+test.describe("ReUI — prévias reais, sem fallback obsoleto",()=>{
  for(const [kind,guide] of Object.entries(guides)){
   test(`${kind}: renderizar os ${guide.examples.length} exemplos sob demanda`,async({page})=>{
    test.setTimeout(180_000);
    const pageErrors:string[]=[];
    page.on("pageerror",error=>pageErrors.push(error.message));
-   await page.goto("/?screen=galeria-3");
-   await expect(page.getByRole("heading",{name:"Galeria 3",level:1})).toBeVisible();
+   await page.goto("/?screen=reui");
+   await expect(page.getByRole("heading",{name:"ReUI",level:1})).toBeVisible();
    await page.getByLabel("Filtrar componente").selectOption(kind);
    await page.getByLabel("Pesquisar exemplos").fill("");
    const selector=kind==="Accordion"?"[data-reui-accordion-example]":kind==="Button"?"[data-reui-button-example]":kind==="Separator"?"[data-reui-separator-example]":"[data-reui-example]";

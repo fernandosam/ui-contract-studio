@@ -6,7 +6,7 @@ const root="src/ui-catalog/extensions/composites/";
 const guides=JSON.parse(readFileSync("src/ui-catalog/reui-guidance.json","utf8"));
 const slug=(kind)=>kind.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase();
 
-test("Galeria 3: 31 famílias e 559 composições ReUI versionadas individualmente",()=>{
+test("ReUI: 31 famílias e 559 composições ReUI versionadas individualmente",()=>{
  assert.equal(Object.keys(guides).length,31,"uma orientação por primitiva ReUI");
  const count=Object.values(guides).reduce((sum,guide)=>sum+guide.examples.length,0);
  assert.equal(count,559,"preservar todos os exemplos oficiais");
@@ -36,7 +36,7 @@ test("Galeria 3: 31 famílias e 559 composições ReUI versionadas individualmen
  assert.ok(registry.includes("const slug=kind.replace"),"resolução por nome de primitiva");
 });
 
-test("Galeria 3 não exibe aviso obsoleto e usa links canônicos para todas as primitivas",()=>{
+test("ReUI não exibe aviso obsoleto e usa links canônicos para todas as primitivas",()=>{
  const source=readFileSync("src/ui-runtime/catalog-explorer.tsx","utf8");
  assert.ok(!source.includes("Prévia local ainda não implementada"),"Todas as 559 prévias já possuem composição");
  assert.ok(!source.includes("name.toLowerCase()"),"Links de componentes compostos devem usar slug com hífen");

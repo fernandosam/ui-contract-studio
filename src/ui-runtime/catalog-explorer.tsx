@@ -296,7 +296,7 @@ export function ReuiGallery(){
  const groups=useMemo(()=>selected.map(name=>({name,items:filterReuiExamples(guides[name]?.examples??[],name,search,exampleGuides)})).filter(g=>g.items.length>0),[component,search]);
  const all=groups.flatMap(g=>g.items.map(item=>({...{kind:g.name},title:item[0],id:item[1]})));
  const visible=all.slice(0,limit);
- return <section aria-label="Galeria 3 ReUI" className="min-w-0 space-y-5">
+ return <section aria-label="ReUI" className="min-w-0 space-y-5">
   <div className="grid gap-3 rounded-lg border bg-card p-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
    <label className="grid gap-1 text-xs font-medium">Componente
     <select aria-label="Filtrar componente" className="w-full rounded-md border bg-background px-3 py-2 text-sm" value={component} onChange={e=>{setComponent(e.target.value);setLimit(12);}}>

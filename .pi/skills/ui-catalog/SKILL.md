@@ -6,11 +6,11 @@ description: Gerar telas com catálogo fechado json-render; reutilizar padrões 
 # UI Catalog v0.19
 
 ## Criar tela
-1. Leia AGENTS.md, `src/ui-catalog/create-preview-inventory.json`, contracts.lock.json, `src/ui-patterns/*.json` e consulte `/?screen=explorador-primitivos`, `/?screen=explorador-compostos` ou `/?screen=explorador-exemplos` se for útil.
-2. Reutilize um dos 8 padrões JSON aprovados ou as telas `exemplo-01`/`exemplo-02` como referência; componentes novos devem ser admitidos antes da tela. Consulte a documentação da primitiva em https://ui.shadcn.com/docs/components e execute `npx shadcn docs <nome>` quando disponível.; não introduza novas primitivas se os contratos cobrem a necessidade.
+1. Leia AGENTS.md, contracts.lock.json, `src/ui-patterns/*.json` e consulte `/?screen=explorador-primitivos`, `/?screen=explorador-compostos` ou `/?screen=explorador-exemplos` se for útil.
+2. Reutilize um dos 8 padrões JSON aprovados ou as telas de Login/Cadastro/Sidebars como referência; componentes novos devem ser admitidos antes da tela. Consulte a documentação da primitiva em https://ui.shadcn.com/docs/components e execute `npx shadcn docs <nome>` quando disponível.; não introduza novas primitivas se os contratos cobrem a necessidade.
 3. Reutilize somente os contratos compostos ativos no lock quando apropriados; a tela só pode referenciar tipos registrados e não pode copiar a árvore interna do card.
 4. Escreva `src/ui-screens/<slug>.json` + `src/ui-screen-meta/<slug>.json` com props, slots, eventos e ações válidos.
-5. Execute `npm run composites:check && npm run screens:check && npm run patterns:check && npm run examples:check && npm run check:catalog && npm run validate` e testes navegador aplicáveis.
+5. Execute `npm run composites:check && npm run screens:check && npm run patterns:check && npm run check:catalog && npm run validate` e testes navegador aplicáveis.
 6. Relate interfaces, contratos, exemplos, testes realmente executados e limitações.
 
 ## Expandir catálogo
@@ -43,21 +43,18 @@ description: Gerar telas com catálogo fechado json-render; reutilizar padrões 
 - `shadcn-plan.json` determina dependências para instalação, **não** contratos aprovados.
 - Migrações de contratos devem alterar schemas, registry, telas, padrões, exemplos, lock/fingerprints, documentação e testes em conjunto.
 
-## Referências shadcn/create
-- `exemplo-01.json` representa 31 cards do `preview`; `exemplo-02.json` representa 33 cards do `preview-02`. Dez vitrines agora são árvores inline de primitivas, e 54 cards são contratos compostos ativos. Não restaure wrappers redundantes.
-- Não remover cards sem atualizar o manifesto oficial e obter revisão. Para qualquer nova primitiva ausente, aplicar fluxo de admissão, nunca importar JSX diretamente nas telas.
-- A dependência `class-variance-authority@0.7.1` deve permanecer declarada em dependencies, pois as primitivas a utilizam em runtime.
-
-
-## Referência visual obrigatória
-
-Antes de compor um card do shadcn/create, **ler o JSX oficial e verificar a aparência renderizada**; registrar a revisão, diferenças e screenshots antes de considerar visualmente aprovado. Não basta reutilizar um Card genérico. Consultar `docs/revisao-visual-shadcn.md` e `src/ui-catalog/create-reference-audit.json`. Rodar `npm run reference:check`; para aprovação visual rodar `npm run reference:strict`.
+## Catálogo ReUI e composição visual
+- Consulte `/?screen=reui` para os 559 exemplos ReUI. Não reintroduza Galerias 1 e 2 ou seus antigos contratos.
+- A página Dashboard foi removida da navegação, mas seu contrato composto `Dashboard01` permanece aprovado.
+- Confira as implementações reais e os arquivos de origem dos blocos antes de alterar composições.
+- Valide com `npm run composites:check && npm run contracts:check && npm run validate && npm run build`.
+- Revisão visual exige screenshots reais e comparação manual; não invente homologação.
 
 ### Blocos shadcn oficiais
 Consulte `src/ui-catalog/block-source-inventory.json` antes de criar telas com Dashboard01, Login01..Login05, Signup01..Signup05, Sidebar01..Sidebar16. Todos são compostos aprovados, mas visualmente não homologados; não invente arquivos ou declare screenshots validadas. Para novas composições faça revisão de código + preview antes da criação do template.
 
 ## Navegação, histórico e previews editáveis (v0.15)
-- Grupos de menu: **Exemplos** (Galeria 1/Galeria 2), **Blocos shadcn** (Dashboard, Login, Cadastro, Sidebars) e **Ferramentas** (Explorador visual).
+- Grupos de menu: **Exemplos** (ReUI), **Blocos shadcn** (Login, Cadastro, Sidebars) e **Ferramentas** (três exploradores).
 - As telas antigas `dashboard`, `usuarios`, `catalogo`, `playground`, `extensoes` e `auditoria` foram retiradas do diretório `src/ui-screens`. Não recriá-las nem introduzir JSX de telas sem solicitação explícita.
 - Evolução do projeto em `CHANGELOG.md`; README apenas com orientação para a versão corrente.
 - Mudanças feitas no Explorador visual alteram somente um clone da spec para prévia; validar via Zod/`catalog.validate` antes de renderizar; nunca persistir props automaticamente.

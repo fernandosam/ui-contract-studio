@@ -64,7 +64,7 @@ export function ReuiCompositeExplorer() {
         <h2 className="text-lg font-semibold">Composições ReUI</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           {reuiCompositeCatalog.length} componentes React identificados e reutilizáveis,
-          derivados das prévias reais da Galeria 3. Cada um preserva a origem,
+          derivados das prévias reais da ReUI. Cada um preserva a origem,
           a orientação para agentes e o exemplo original.
         </p>
         <p className="mt-2 text-xs text-muted-foreground">

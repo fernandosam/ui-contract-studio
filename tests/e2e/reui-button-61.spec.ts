@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
-test('Galeria 3 apresenta os 61 exemplos oficiais de Button com paginação',async({page},testInfo)=>{
- await page.goto('/?screen=galeria-3');
+test('ReUI apresenta os 61 exemplos oficiais de Button com paginação',async({page},testInfo)=>{
+ await page.goto('/?screen=reui');
  await page.getByLabel('Filtrar componente').selectOption('Button');
  for(let total=12;total<61;total+=12){
   await expect(page.locator('[data-testid^="reui-preview-c-button-"]')).toHaveCount(total);

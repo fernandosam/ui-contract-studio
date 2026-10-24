@@ -7,7 +7,7 @@ const viewer = readFileSync("src/ui-catalog/extensions/composites/reui-source-vi
 const gallery = readFileSync("src/ui-runtime/catalog-explorer.tsx", "utf8")
 const codeBlock = readFileSync("src/components/ui/code-block.tsx", "utf8")
 
-test("Galeria 3: os 559 exemplos têm fonte local carregável apenas sob demanda", () => {
+test("ReUI: os 559 exemplos têm fonte local carregável apenas sob demanda", () => {
   let count = 0
   for (const [component, guide] of Object.entries(catalog)) {
     const slug = component.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
@@ -25,7 +25,7 @@ test("Galeria 3: os 559 exemplos têm fonte local carregável apenas sob demanda
   assert.ok(viewer.includes("if (!open || source !== null || failed) return"), "não carrega enquanto a gaveta está fechada")
 })
 
-test("Galeria 3: botão com ícone correto abre gaveta à direita, não painel embutido", () => {
+test("ReUI: botão com ícone correto abre gaveta à direita, não painel embutido", () => {
   assert.ok(gallery.includes("<ReuiSourceViewer id={id}/>"))
   assert.ok(!gallery.includes("Ver código ↗"))
   assert.match(viewer, /<CodeXmlIcon\b[^>]*aria-hidden=/)
@@ -40,7 +40,7 @@ test("Galeria 3: botão com ícone correto abre gaveta à direita, não painel e
   assert.ok(!viewer.includes("aria-expanded={expanded}"), "estado modal pertence ao Sheet")
 })
 
-test("Galeria 3: botão compacto e gaveta ampla sem alterar Sheet global", () => {
+test("ReUI: botão compacto e gaveta ampla sem alterar Sheet global", () => {
   assert.match(viewer, /variant="outline" size="xs"/, "botão Ver código menor");
   assert.match(viewer, /<CodeXmlIcon className="size-3"/, "ícone acompanha tamanho do botão");
   assert.ok(viewer.includes('style={{ width: "min(100vw, 1200px)", maxWidth: "none" }}'),

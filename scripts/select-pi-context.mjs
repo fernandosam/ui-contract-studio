@@ -5,7 +5,7 @@ import {resolve} from 'node:path';
 const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const all=read('pi-catalog/contracts.json');
 const option=process.argv.find(x=>x.startsWith('--types='));
-if(!option){console.error('Uso: npm run pi:context -- --types=Card,Button,ShippingAddress [--stdout] [--metadata-only]');process.exit(2)}
+if(!option){console.error('Uso: npm run pi:context -- --types=Card,Button,Dashboard01 [--stdout] [--metadata-only]');process.exit(2)}
 const names=[...new Set(option.slice('--types='.length).split(',').map(s=>s.trim()).filter(Boolean))];
 if(!names.length||names.length>25){console.error('Selecione entre 1 e 25 tipos por lote.');process.exit(2)}
 const metadataOnly=process.argv.includes('--metadata-only');

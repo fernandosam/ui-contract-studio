@@ -90,10 +90,6 @@ jobs:
         id: e2e
         continue-on-error: true
         run: npm run test:e2e
-      - name: Capturar os 64 cards em desktop e mobile
-        id: gallery
-        continue-on-error: true
-        run: npm run gallery:visual:capture
       # Captura referências reais: demos documentados em /docs/components/base/*.
       # Não são os mesmos 64 cards do shadcn/create; evidências separadas.
       - name: Capturar 38 exemplos oficiais e amostras locais mapeadas (desktop e mobile)
@@ -105,10 +101,6 @@ jobs:
           python-version: '3.12'
       - name: Instalar comparador de imagens
         run: python -m pip install Pillow==11.3.0
-      - name: Comparar com baselines oficiais dos 64 cards, se fornecidos
-        id: reference_comparison
-        continue-on-error: true
-        run: npm run gallery:visual:compare
       - name: Comparar 38 referências oficiais por viewport (58 pares locais; 18 sem contrato)
         id: docs_comparison
         continue-on-error: true
@@ -130,7 +122,7 @@ jobs:
               ? `- Pares locais comparados: ${report.comparedCases}/${report.expectedComparableCases}; sem contrato local: ${report.officialOnlyCases}; evidências ausentes: ${report.missingCases}.`
               : '',
             '- Índice de diferença **diagnóstico**; demos com conteúdo/estado distintos não são certificação pixel a pixel.',
-            '- A aprovação visual definitiva continua sujeita à revisão humana. Galeria 1/2 (64 cards) tem auditoria separada.',
+            '- A aprovação visual definitiva continua sujeita à revisão humana.',
             '- Consulte `reports/official-components/index.html` e `comparison.json` no artefato `galeria-evidencias`.',
           ].filter(Boolean).join('\n') + '\n';
           appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
@@ -163,7 +155,6 @@ jobs:
         with:
           name: galeria-evidencias-${{ github.run_id }}
           path: |
-            reports/gallery-fidelity/
             reports/official-components/
             reports/github-actions/visual-evidence.json
             playwright-report/
@@ -177,7 +168,6 @@ jobs:
         env:
           SHADCN_OUTCOME: ${{ steps.shadcn.outcome }}
           E2E_OUTCOME: ${{ steps.e2e.outcome }}
-          GALLERY_OUTCOME: ${{ steps.gallery.outcome }}
           OFFICIAL_DOCS_CAPTURE_OUTCOME: ${{ steps.docs_capture.outcome }}
           OFFICIAL_DOCS_COMPARISON_OUTCOME: ${{ steps.docs_comparison.outcome }}
         run: |
@@ -186,12 +176,12 @@ jobs:
             echo '::error::Instalação shadcn incompleta ou alterações propostas em CSS protegido. Revise docs/shadcn-cli-review no artefato.'
             exit 1
           fi
-          if [ "$E2E_OUTCOME" != success ] || [ "$GALLERY_OUTCOME" != success ]; then
-            echo '::error::Falha de E2E ou capturas; veja test-results e screenshots no artefato.'
+          if [ "$E2E_OUTCOME" != success ]; then
+            echo '::error::Falha de E2E; veja test-results e screenshots no artefato.'
             exit 1
           fi
           if [ "$OFFICIAL_DOCS_CAPTURE_OUTCOME" != success ] || [ "$OFFICIAL_DOCS_COMPARISON_OUTCOME" != success ]; then
             echo '::error::Faltam referências oficiais ou pares locais mapeados. Veja reports/official-components/comparison.json e index.html no artefato.'
             exit 1
           fi
-          echo 'Exemplos oficiais e locais capturados e comparados; diferenças visuais exigem revisão humana. Os 64 cards têm auditoria independente.'
+          echo 'Exemplos oficiais e locais capturados e comparados; diferenças visuais exigem revisão humana.'

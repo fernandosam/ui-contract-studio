@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import { readFileSync,readdirSync } from 'node:fs';
 import {signatures} from '../scripts/lib/contract-lock.mjs';
 const read=path=>readFileSync(path,'utf8');
-test('156 contratos estão versionados e fingerprints coerentes',()=>{
+test('102 contratos estão versionados e fingerprints coerentes',()=>{
  const lock=JSON.parse(read('src/ui-catalog/contracts.lock.json'));
- assert.equal(lock.components.length,156);
+ assert.equal(lock.components.length,102);
  for(const sig of signatures()) assert.equal(lock.components.find(x=>x.name===sig.name)?.fingerprint,sig.fingerprint,sig.name);
  assert.equal(lock.components.find(x=>x.name==='DataTable')?.version,'1.2.0');
 });
@@ -14,9 +14,10 @@ test('todas as telas têm metadados; nenhuma depende de um import manual',()=>{
  assert.match(read('src/ui-runtime/screen-registry.ts'),/import\.meta\.glob/);
  const screens=readdirSync('src/ui-screens').filter(x=>x.endsWith('.json'));
  for(const screen of screens){ const meta=JSON.parse(read(`src/ui-screen-meta/${screen}`));assert.ok(meta.title); }
- assert.ok(screens.includes('blocos-dashboard.json'));
+ assert.ok(!screens.includes('blocos-dashboard.json'));
+ assert.ok(screens.includes('blocos-login.json'));
  assert.ok(!screens.includes('auditoria.json'));
- assert.equal(screens.length,6);
+ assert.equal(screens.length,3);
 });
 test('dados externos não aceitam URLs geradas pela IA',()=>{
  const source=read('src/ui-data/providers.ts');
