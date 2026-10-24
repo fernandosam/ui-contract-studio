@@ -1,15 +1,5 @@
-# Qualidade e homologação — v0.19
+# Qualidade e homologação
 
-| Comando | Execução |
-|---|---|
-| `npm run test:offline` | Invariantes estruturais e regressões sem npm instalado |
-| `npm run check:core` | Regras rápidas de schema/manifesto/geração (requer tsx/npm) |
-| `npm run check` | Orquestra as verificações históricas **uma vez cada** |
-| `npm run validate` | `check`, lint e testes unitários/integrados |
-| `npm run build` | Somente TypeScript e Vite, sem repetir `check` |
-| `npm run verify` | `validate`, `build` e Playwright |
-| `npm run composites:generated:check` | Código gerado idêntico ao manifesto revisado |
+Este caminho permanece por compatibilidade com links existentes. O **guia vigente** é [Desenvolvimento e qualidade](development.md), que descreve os comandos reais, o CI, o E2E manual e a auditoria visual.
 
-O CI offline confere os invariantes e o gerador. O CI conectado é **fail closed**: exige lockfile npm, componentes shadcn instalados, `npm ci`, schemas reais, validação, build e Playwright. No ZIP sem dependências/lockfile, **não** se pode declarar build ou testes de navegador aprovados.
-
-Critério de regressão: 141 tipos ativos, 91 composições registradas na fábrica, 9 adapters explícitos, 6 telas e 8 padrões. `tests/simplification-v019.test.mjs` compara templates compilados e verifica a ausência do ciclo runtime.
+Resumo: execute `npm run test:offline` e `npm run docs:check` para documentação; `npm run validate` e `npm run build` no ambiente completo. A job de qualidade valida PRs e pushes em `main`; o E2E completo possui workflow **manual na main**. Nenhum desses checks, isoladamente, comprova equivalência visual.
