@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 for(let i=1;i<=11;i++){
- test(`Galeria 3 Accordion ${i} has interactive preview`,async({page})=>{
-  await page.goto('/?screen=galeria-3');
+ test(`ReUI Accordion ${i} has interactive preview`,async({page})=>{
+  await page.goto('/?screen=reui');
   await page.getByLabel('Filtrar componente').selectOption('Accordion');
   const block=page.locator(`[data-testid="reui-preview-c-accordion-${i}"]`);
   await expect(block).toBeVisible();
@@ -18,7 +18,7 @@ for(let i=1;i<=11;i++){
  });
 }
 test('Accordion 5 disables unavailable item',async({page})=>{
- await page.goto('/?screen=galeria-3');
+ await page.goto('/?screen=reui');
  await page.getByLabel('Filtrar componente').selectOption('Accordion');
  const block=page.getByTestId('reui-preview-c-accordion-5');
  const disabled=block.locator('[data-slot="accordion-trigger"]').nth(1);

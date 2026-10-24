@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test"
 
 /** Rodar na suíte E2E manual da main. O Sheet é um modal na lateral direita. */
-test.describe("Galeria 3 — código-fonte em gaveta lateral", () => {
+test.describe("ReUI — código-fonte em gaveta lateral", () => {
   test("abre à direita com Code Block formatado e fecha com Escape", async ({ page }) => {
-    await page.goto("/?screen=galeria-3")
+    await page.goto("/?screen=reui")
     await page.getByLabel("Filtrar componente").selectOption("Alert")
     const trigger = page.getByTestId("reui-code-toggle-c-alert-1")
     await expect(trigger).toContainText("Ver código")
@@ -18,7 +18,7 @@ test.describe("Galeria 3 — código-fonte em gaveta lateral", () => {
     await expect(code).toContainText("AlertDescription")
     await expect(code.locator('[data-slot="code-block-line"]').first()).toBeVisible()
     await expect(code.locator('span[class*="text-rose-"]')).not.toHaveCount(0)
-    await expect(page).toHaveURL(/screen=galeria-3/)
+    await expect(page).toHaveURL(/screen=reui/)
     await page.keyboard.press("Escape")
     await expect(panel).not.toBeVisible()
     await expect(trigger).toBeFocused()
@@ -30,7 +30,7 @@ test.describe("Galeria 3 — código-fonte em gaveta lateral", () => {
       { component: "Button", id: "c-button-1", code: "Button" },
       { component: "Textarea", id: "c-textarea-1", code: "Textarea" },
     ]
-    await page.goto("/?screen=galeria-3")
+    await page.goto("/?screen=reui")
     for (const entry of cases) {
       await page.getByLabel("Filtrar componente").selectOption(entry.component)
       await page.getByTestId("reui-code-toggle-" + entry.id).click()
@@ -43,7 +43,7 @@ test.describe("Galeria 3 — código-fonte em gaveta lateral", () => {
   })
 
   test("abrir uma gaveta não carrega nem abre outros códigos", async ({ page }) => {
-    await page.goto("/?screen=galeria-3")
+    await page.goto("/?screen=reui")
     await page.getByLabel("Filtrar componente").selectOption("Alert")
     await page.getByTestId("reui-code-toggle-c-alert-2").click()
     await expect(page.getByTestId("reui-source-panel-c-alert-2").getByTestId("reui-code-block")).toContainText("AlertTitle")
@@ -52,7 +52,7 @@ test.describe("Galeria 3 — código-fonte em gaveta lateral", () => {
 
   test("copia o TSX exato, sem os números das linhas", async ({ page, context }) => {
     await context.grantPermissions(["clipboard-read", "clipboard-write"])
-    await page.goto("/?screen=galeria-3")
+    await page.goto("/?screen=reui")
     await page.getByLabel("Filtrar componente").selectOption("Alert")
     await page.getByTestId("reui-code-toggle-c-alert-4").click()
     const panel = page.getByTestId("reui-source-panel-c-alert-4")
@@ -69,7 +69,7 @@ test.describe("Galeria 3 — código-fonte em gaveta lateral", () => {
   test("botão menor e gaveta ampla no desktop", async ({ page, isMobile }) => {
     test.skip(isMobile, "Verificação da largura em desktop")
     await page.setViewportSize({ width: 1440, height: 900 })
-    await page.goto("/?screen=galeria-3")
+    await page.goto("/?screen=reui")
     await page.getByLabel("Filtrar componente").selectOption("Alert")
     const button = page.getByTestId("reui-code-toggle-c-alert-1")
     const buttonBox = await button.boundingBox()
@@ -86,7 +86,7 @@ test.describe("Galeria 3 — código-fonte em gaveta lateral", () => {
 
   test("a gaveta ocupa o lado direito em dispositivos móveis", async ({ page, isMobile }) => {
     test.skip(!isMobile, "Cenário responsivo")
-    await page.goto("/?screen=galeria-3")
+    await page.goto("/?screen=reui")
     await page.getByLabel("Filtrar componente").selectOption("Alert")
     await page.getByTestId("reui-code-toggle-c-alert-1").click()
     const panel = page.getByTestId("reui-source-panel-c-alert-1")

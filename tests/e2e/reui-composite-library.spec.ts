@@ -11,8 +11,8 @@ test.describe("Explorador de composições ReUI (559)", () => {
     await expect(page.getByTestId("reui-composite-details")).toBeVisible()
   })
 
-  test("navega da Galeria 3 para a composição correspondente e preserva as orientações",async ({page}) => {
-    await page.goto("/?screen=galeria-3")
+  test("navega da ReUI para a composição correspondente e preserva as orientações",async ({page}) => {
+    await page.goto("/?screen=reui")
     await page.getByLabel("Filtrar componente").selectOption("Alert")
     const link=page.locator('a[href="?screen=explorador-compostos&reui=c-alert-1"]')
     await expect(link).toBeVisible()

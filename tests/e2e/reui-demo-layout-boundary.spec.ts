@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test"
 
 test.describe("ReUI — estilos de demonstração fora dos componentes",()=>{
-  test("Galeria 3 preserva centralização e largura de Accordion, mas o fonte não inclui o wrapper",async({page})=>{
-    await page.goto("/?screen=galeria-3")
+  test("ReUI preserva centralização e largura de Accordion, mas o fonte não inclui o wrapper",async({page})=>{
+    await page.goto("/?screen=reui")
     await page.getByLabel("Filtrar componente").selectOption("Accordion")
     const demo=page.getByTestId("reui-preview-c-accordion-1")
     await expect(demo.locator('[data-reui-accordion-example="1"]')).toHaveClass(/max-w-lg/)
@@ -25,7 +25,7 @@ test.describe("ReUI — estilos de demonstração fora dos componentes",()=>{
   })
 
   test("Exemplo Alert 12 mantém Frame e não inclui div de demonstração no código-fonte",async({page})=>{
-    await page.goto("/?screen=galeria-3")
+    await page.goto("/?screen=reui")
     await page.getByLabel("Filtrar componente").selectOption("Alert")
     await page.getByLabel("Pesquisar exemplos").fill("c-alert-12")
     const demo=page.getByTestId("reui-preview-c-alert-12")
