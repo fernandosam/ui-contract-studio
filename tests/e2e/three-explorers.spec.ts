@@ -12,19 +12,19 @@ test('três exploradores independentes no menu Ferramentas',async({page,isMobile
  await expect(page.getByRole('heading',{name:'Primitivos shadcn'}).first()).toBeVisible();
  await page.goto('/?screen=explorador-compostos');
  await expect(page.getByRole('heading',{name:'Componentes compostos'}).first()).toBeVisible();
- await page.getByLabel('Buscar componente').fill('ShippingAddress');
- await page.getByRole('button',{name:'ShippingAddress'}).click();
+ await page.getByLabel('Buscar componente').fill('Dashboard01');
+ await page.getByRole('button',{name:'Dashboard01'}).click();
  await expect(page.getByTestId('catalog-live-preview')).toBeVisible();
  await page.goto('/?screen=explorador-exemplos');
  await expect(page.getByRole('heading',{name:'Exemplos e padrões'})).toBeVisible();
- await page.getByLabel('Exemplo',{exact:true}).selectOption('exemplo-02');
+ await page.getByLabel('Exemplo',{exact:true}).selectOption('blocos-login');
  await expect(page.getByText(/44 nós|[0-9]+ nós/)).toBeVisible();
 });
 
 test('Explorador de exemplos permite selecionar nó e editar propriedades temporariamente',async({page})=>{
  await page.goto('/?screen=explorador-exemplos');
- await page.getByLabel('Exemplo',{exact:true}).selectOption('exemplo-01');
- await page.getByLabel('Filtrar nós').fill('Heading');
+ await page.getByLabel('Exemplo',{exact:true}).selectOption('blocos-login');
+ await page.getByLabel('Filtrar nós').fill('Text');
  const node=page.getByRole('group',{name:'Elementos do exemplo'}).getByRole('button').first();
  await node.click();
  await expect(page.getByTestId('catalog-live-preview')).toBeVisible();

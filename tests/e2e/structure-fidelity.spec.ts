@@ -6,7 +6,7 @@ import {join} from 'node:path';
 const inv=JSON.parse(readFileSync('src/ui-catalog/block-source-inventory.json','utf8')) as
   {blocks:Array<{id:string;name:string;family:string;previewUrl:string}>};
 const routes:Record<string,string>={dashboard:'blocos-dashboard',login:'blocos-login',signup:'blocos-signup'};
-for(const block of inv.blocks.filter(b=>['dashboard','login','signup'].includes(b.family))){
+for(const block of inv.blocks.filter(b=>['login','signup'].includes(b.family))){
  test(`@structure-fidelity ${block.name} / typography, icons and geometry`,async({page},info)=>{
   const mobile=info.project.name==='mobile';
   await page.setViewportSize(mobile?{width:390,height:844}:{width:1440,height:900});

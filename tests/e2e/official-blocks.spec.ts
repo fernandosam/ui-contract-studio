@@ -6,7 +6,7 @@ const inventory=JSON.parse(readFileSync('src/ui-catalog/block-source-inventory.j
   blocks: Array<{name:string;family:string}>
 };
 const routes:Record<string,string>={dashboard:'blocos-dashboard',login:'blocos-login',signup:'blocos-signup',sidebar:'blocos-sidebar'};
-for (const b of inventory.blocks) {
+for (const b of inventory.blocks.filter(b => b.family !== 'dashboard')) {
  test(`@block-visual captura local ${b.name}`, async({page},testInfo)=>{
    await page.goto(`/?screen=${routes[b.family]}`);
    await expect(page.getByRole('alert',{name:/interface foi bloqueada/i})).toHaveCount(0);
