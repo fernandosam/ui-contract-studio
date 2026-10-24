@@ -1,3 +1,5 @@
+> **Registro histórico (v0.23):** o resultado de DNS/npm descreve o ambiente usado na auditoria e não comprova o estado de instalações ou CI atuais. Consulte [desenvolvimento](development.md).
+
 # Auditoria CSS e registries — v0.23
 
 ## Arquivos atuais

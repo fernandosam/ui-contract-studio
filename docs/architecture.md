@@ -1,21 +1,32 @@
-# Arquitetura enxuta — v0.19
+# Arquitetura vigente
 
-## Fonte de verdade
+O UI Contract Studio combina React com um catálogo **fechado** de elementos renderizáveis a partir de JSON, validado com Zod. Agentes podem gerar specs, mas não definir componentes, código, URLs ou efeitos arbitrários.
 
-- **156 contratos**: Zod em `src/ui-catalog/catalog.ts` e `src/ui-catalog/extensions/catalog.ts`; versões e status revisados em `contracts.lock.json` e `sources.json`.
-- **41 tipos base**: renderers em `src/ui-catalog/components/playground.tsx` (não são editáveis pelo Pi).
-- **23 implementações TSX não geradas** em `src/ui-catalog/extensions/components/`, incluindo DataTable, DatePicker, Field, BlockSidebar, NotificationSettings, cinco widgets stateful e doze adaptadores de primitivas oficiais.
-- **91 templates aprovados**: árvores JSON versionadas em `src/ui-catalog/extensions/composites/templates/`.
-- **Fábrica/gerador**: `generated-manifest.json` lista nomes, templates e slots especiais; `scripts/generate-composite-registry.mjs` escreve `src/ui-catalog/extensions/generated/composite-implementations.tsx`. Nunca edite o arquivo gerado.
-- **Registry circular eliminado**: `SpecScreen` fornece o registry por `CompositeRegistryContext`; `ApprovedCardComposition` só consome contexto e valida a árvore compilada pelo helper puro `compile-composition.mjs`.
+## Fontes de verdade
 
-## Mudanças de composição
+| Responsabilidade | Fonte |
+| --- | --- |
+| Schemas de base/extensão | `src/ui-catalog/catalog.ts` e `src/ui-catalog/extensions/catalog.ts` |
+| Registry e adapters | `src/ui-catalog/registry.tsx` e `src/ui-catalog/extensions/registry.tsx` |
+| Versão, integridade e status dos contratos | `src/ui-catalog/contracts.lock.json` |
+| Origem, licença e revisão declarada | `src/ui-catalog/sources.json` |
+| API publicada para o agente | `pi-catalog/contracts.json` |
+| Tipos aposentados | `pi-catalog/retired-contracts.json` |
+| Telas e padrões | `src/ui-screens/` e `src/ui-patterns/` |
+| Composições estáticas | `src/ui-catalog/extensions/composites/templates/` |
+| Plano das fontes shadcn/ui | `shadcn-plan.json` |
+| Exemplos ReUI | `src/ui-catalog/extensions/composites/reui-composite-definitions.ts` |
 
-Altere o template revisado e, se necessário, suas props estritas em Zod; atualize hashes com revisão humana. Se adicionar/remover uma composição, altere o manifesto e gere o código novamente. **Não adicione JSX arbitrário, eventos livres ou callbacks ao JSON**.
+No snapshot 0.24.0, lock e manifesto Pi registram **102 contratos ativos** (41 base e 61 extensões). O plano shadcn/ui contém **50 primitivas planejadas/locais** e a ReUI reúne **559 exemplos React**. São inventários independentes: instalar uma primitiva ou criar um exemplo não adiciona um contrato Pi. Em futuras versões, consulte os arquivos em vez de presumir que essas contagens permanecem iguais.
 
-Os `pi-catalog/examples/*.json` são os exemplos canônicos compartilhados pelo Pi e pelo Explorador. São produzidos a partir de templates, telas, padrões e amostras isoladas revisadas através de `pi:fixtures`. Não altere o resultado gerado diretamente; edite a origem e execute o gerador.
+## Responsabilidades
 
-## Fingerprints
+1. **Primitivas:** implementações shadcn/ui em `src/components/ui/` e componentes ReUI não autorizam uso automático na spec.
+2. **Catálogo:** Zod controla tipos, propriedades, slots, eventos e ações; adapters implementam o que foi aprovado.
+3. **Composições:** templates JSON, manifesto `generated-manifest.json` e código derivado em `src/ui-catalog/extensions/generated/`. Nunca edite saídas geradas. Comportamento stateful exige React explícito.
+4. **Runtime:** `src/ui-runtime/` fornece exploradores e renderização; o registry de composições é transmitido por contexto.
+5. **Pi Agent:** contexto selecionado e exemplos em `pi-catalog/`, com validação da spec antes de utilizar.
 
-- `fingerprint`: SHA-256 textual legado, mantido para compatibilidade com versões antigas.
-- `semanticFingerprint`: SHA-256 de tokens de contrato sem espaços/comentários irrelevantes, preservando strings e operadores. Novos PRs devem ser comparados semanticamente quando ambos os lados suportarem o campo; mudanças de schema exigem revisão e incremento de versão.
+As propriedades `content` e `nodeProps` só editam valores autorizados: não substituem tipos, árvore, URLs, handlers, ações ou identidade dos campos. Versões/fingerprints e `status: approved` documentam integridade técnica, **não aprovação humana**. Demos de login, pagamento e acesso remoto não fornecem serviços de produção.
+
+Veja [componentes](components.md), [agentes](agents.md), [desenvolvimento](development.md) e [governança](governance.md).

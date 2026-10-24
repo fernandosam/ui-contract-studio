@@ -1,45 +1,37 @@
-# Sandbox isolado de testes (v0.22)
+# Sandbox de testes conectados
 
-Esta sandbox é **reproduzível, mas exige acesso à Internet** para os pacotes npm e os componentes shadcn. O projeto não distribui um `node_modules` artificial nem um `package-lock.json` inventado.
+A sandbox é um ambiente auxiliar para validar o projeto com **dependências reais, rede HTTPS e navegador**, não um atalho para presumir compatibilidade. Os scripts oficiais permanecem em `sandbox/` e não devem produzir lockfiles ou resultados de testes fictícios.
 
-## Registries npm alternativos (HTTPS)
+## Conectividade npm
 
-```bash
+~~~bash
 npm run sandbox:registry:probe
-# Ao detectar um registry alcançável, o runner usa npm_config_registry somente no processo:
 UI_CONTRACT_STUDIO_NPM_REGISTRY=https://registry.npmmirror.com npm run sandbox:verify
-# Também é possível priorizar vários endpoints próprios, sempre com HTTPS:
-UI_CONTRACT_STUDIO_NPM_REGISTRIES=https://registry.npmmirror.com,https://registry.yarnpkg.com npm run sandbox:verify
-```
+~~~
 
-O script testa o pacote `react` e seu `version` em `/react/latest` antes de escolher. Ele exige TLS válido e registra erros em `reports/sandbox/npm-registry-probe.json`; não altera configurações globais. O `shadcn:install` **ainda precisa acessar o registry oficial de componentes UI**, que não é a mesma coisa que o npm registry. Em redes empresariais, configure DNS, proxy confiável ou o repositório npm interno aprovado. Não usar `strict-ssl=false` nem mirror HTTP. Mesmo com espelho, não considere o projeto homologado até a execução real de `npm ci`, TypeScript, Vite e Playwright.
+É possível fornecer endpoints próprios por `UI_CONTRACT_STUDIO_NPM_REGISTRIES` (separados por vírgula). O script verifica DNS/TLS e salva detalhes em `reports/sandbox/npm-registry-probe.json`, sem alterar o registro npm global. O **registro de componentes shadcn/ui é distinto** do registro npm. Não desabilite verificação TLS nem utilize espelhos HTTP.
 
-## Opção 1 — WSL / Linux
+## Executar
 
-```bash
+No Linux/WSL:
+
+~~~bash
 bash sandbox/run-all-tests.sh
-```
+~~~
 
-O script primeiro executa os testes offline. Quando o DNS do npm está disponível, instala dependências, executa o CLI oficial shadcn, produz um lockfile **apenas com os pacotes reais**, usa `npm ci` e executa catálogos, Zod, lint, testes, typecheck, build e Playwright. Também produz capturas locais dos 64 cards, separadas por desktop/mobile. Logs em `reports/sandbox/run.log`.
+O script executa testes estruturais antes de tentar a rede, instala dependências, verifica primitivas shadcn, gera schemas, executa checks, lint, typecheck, build e testes Playwright. Logs em `reports/sandbox/run.log`; um bloqueio de DNS deve ser reportado como **não executado**, não como sucesso.
 
-## Opção 2 — Docker
+Em Docker:
 
-```bash
+~~~bash
 docker build -f sandbox/Dockerfile -t ui-contract-studio-sandbox .
 docker run --rm -v "$PWD/reports:/workspace/reports" ui-contract-studio-sandbox
-```
+~~~
 
-> O Docker **também precisa de acesso à Internet** para apt e npm. Os resultados de build e screenshots referem-se aos componentes instalados naquela execução. Para reproduzir em CI, versione o `package-lock.json` obtido de uma instalação genuína e as primitivas oficiais em `src/components/ui/`.
+O Docker também precisa de Internet para dependências e imagens base. O uso local do Playwright pela sandbox **não muda** a política do GitHub: o E2E completo é acionado manualmente na `main`.
 
-## Referências e comparação visual
+## Evidências visuais
 
-Após uma execução conectada, o Playwright salva **64 arquivos PNG por viewport** em `reports/gallery-fidelity/local/desktop/` e `/mobile/`.
+Para exemplos oficiais shadcn, utilize `npm run shadcn:official:capture` e `npm run shadcn:official:compare`, conforme [auditoria oficial](../docs/official-component-visual-audit.md). Capturas locais são diagnósticas; a aprovação visual requer correspondência de estados e revisão humana. As referências às antigas Galerias 1 e 2 correspondem a material **histórico retirado do produto**, não a uma etapa de validação vigente.
 
-As capturas correspondentes do shadcn/create devem ser obtidas e revisadas manualmente, na mesma resolução, variante Base UI e tema, sendo salvas em `reports/gallery-fidelity/reference/{desktop,mobile}/<NomeDoCard>.png`.
-
-```bash
-npm run shadcn:official:capture
-npm run shadcn:official:compare
-```
-
-A comparação só calcula diferenças de pixels para arquivos presentes e com dimensões iguais. **Não aprova automaticamente fidelidade**: datas, fontes, dados e tema precisam coincidir e um revisor deve inspecionar as diferenças. A falta de PNGs oficiais **faz a comparação falhar**, não permite declarar sucesso.
+A [documentação de qualidade](../docs/development.md) distingue testes automáticos, E2E manual e homologação visual.

@@ -1,88 +1,32 @@
 ---
 name: ui-catalog
-description: Gerar telas com catálogo fechado json-render; reutilizar padrões JSON e admitir extensões com revisão independente.
+description: Gerar telas JSON com catálogo json-render fechado, reaproveitar padrões e submeter extensões a revisão independente.
 ---
 
-# UI Catalog v0.19
+# Skill UI Catalog
 
-## Criar tela
-1. Leia AGENTS.md, contracts.lock.json, `src/ui-patterns/*.json` e consulte `/?screen=explorador-primitivos`, `/?screen=explorador-compostos` ou `/?screen=explorador-exemplos` se for útil.
-2. Reutilize um dos 8 padrões JSON aprovados ou as telas de Login/Cadastro/Sidebars como referência; componentes novos devem ser admitidos antes da tela. Consulte a documentação da primitiva em https://ui.shadcn.com/docs/components e execute `npx shadcn docs <nome>` quando disponível.; não introduza novas primitivas se os contratos cobrem a necessidade.
-3. Reutilize somente os contratos compostos ativos no lock quando apropriados; a tela só pode referenciar tipos registrados e não pode copiar a árvore interna do card.
-4. Escreva `src/ui-screens/<slug>.json` + `src/ui-screen-meta/<slug>.json` com props, slots, eventos e ações válidos.
-5. Execute `npm run composites:check && npm run screens:check && npm run patterns:check && npm run check:catalog && npm run validate` e testes navegador aplicáveis.
-6. Relate interfaces, contratos, exemplos, testes realmente executados e limitações.
+Siga as regras de [AGENTS.md](../../../AGENTS.md). Este documento é o procedimento operacional para o Pi; não substitui as políticas de contratos, segurança e revisão.
 
-## Expandir catálogo
-- Primeiro confirme uma lacuna funcional comprovável; nunca apenas por motivo estético.
-- Para lógica/estado próprios, escreva um componente React em `extensions/components`, schema Zod estrito em `extensions/catalog.ts` e adapter no registry. Para composição estática, use o manifesto e o gerador da v0.19; não crie wrappers.
-- Proponha revisão independente de sources.json / contracts.lock.json. Não marque sua própria extensão como aprovada.
-- Verifique compatibilidade, acessibilidade, efeitos, ações seguras, props inválidas e regressões visuais.
-- Não instalar shadcn Studio; usar componentes shadcn oficiais somente como implementação interna.
+## Criar ou alterar uma tela
 
-## Dados e ações
-- DataTable remoto aplica debounce e usa `sourceId` autorizado: não montar URLs a partir do JSON.
-- O endpoint `processos-api` requer servidor real com SSO/autenticação, escopo e isolamento por tenant. A autorização NÃO pode ser decidida no cliente.
-- DatePicker obedece limite e obrigatoriedade; confirmar teclado e estados de erro.
-- Não adicionar tokens, dados sigilosos, URLs arbitrárias ou ações destrutivas sem autorização.
+1. Leia `pi-catalog/contracts.json`, `src/ui-catalog/contracts.lock.json`, `pi-catalog/retired-contracts.json` e `src/ui-patterns/`. Reutilize tipos aprovados e padrões antes de propor novidades.
+2. Selecione o contexto necessário: `npm run pi:zod-schema` e `npm run pi:context -- --types=Card,Button --stdout` (até 25 tipos). Consulte os exemplos em `pi-catalog/examples/`. Não use `--metadata-only` para geração.
+3. Gere **apenas** `src/ui-screens/<slug>.json` e `src/ui-screen-meta/<slug>.json`; use os schemas Zod, props canônicas, slots, eventos e ações aprovadas. Não copie JSX de templates e não use URLs ou callbacks livres.
+4. Para compostos, altere somente `content` e `nodeProps` com chaves declaradas no contexto; preserve a árvore, os nomes de campos, o tipo de nó, ações e links.
+5. Execute `npm run pi:validate -- --file=<spec.json>`, corrija `issues[].pointer`, então rode `npm run patterns:check && npm run check:catalog && npm run validate && npm run build` quando disponível. Informe bloqueios e validações realmente realizadas.
 
-## Avaliação do agente
-- `tests/prompt-evals/scenarios.json`: 20 casos; usar `npm run eval:pi:context` e execução real via `npm run eval:pi:run -- --execute` com `PI_EVAL_CONFIRM=yes`.
-- Rodar `npm run eval:pi:strict` após a avaliação para validar schemas e gerar métricas. Sem saídas reais, reportar 'não executado'.
-- Não executar 20 gerações pagas automaticamente em toda mudança; o workflow CI dedicado é manual/explicita custo.
+## Expandir o catálogo
 
-## Homologação
-- Se npm ou navegador indisponível, rodar somente testes offline e declarar build/E2E não verificados.
-- `npm run bootstrap:connected` instala primitivas oficiais, prepara lockfile e tenta build; revisar mudanças do CLI antes de versionar.
+- A inclusão exige uma lacuna funcional demonstrável e **admissão com schema Zod + componente React + registry**, provenance/licença em `sources.json`, versão e fingerprint em `contracts.lock.json`, testes e aprovação independente.
+- Para composições declarativas estáticas, edite o template/manifesto e execute `npm run composites:generate`; nunca edite `src/ui-catalog/extensions/generated/`. Para estado ou eventos próprios, use React e adapter tipado.
+- shadcn/ui e ReUI são fontes de implementação e exemplos, **não** concessões de acesso ao catálogo Pi. Consulte [componentes](../../../docs/components.md) e os inventários de origem.
+- Não altere o shell, tokens ou schemas-base apenas por diferença estética.
 
-## API pública shadcn/ui — versão 0.9
-- Para novos JSONs, utilize **somente** os nomes e props atuais de `src/ui-catalog/catalog.ts` e `src/ui-catalog/extensions/catalog.ts`.
-- Os contratos aprovados têm versão semântica (base v2.0.0). Props antigas (`Button.variant=primary/danger`, `Badge.text`, `Alert.type/message`, `Dialog.openPath`) não são permitidas.
-- Os componentes React devem delegar a primitivas shadcn/ui oficiais quando houver equivalente. Sem equivalente nativo, documentar a composição, sem anunciar API oficial inexistente.
-- Para componentes compostos (`Card`, `Table`, `Tabs`, `DatePicker`, `DataTable`), expor apenas dados serializáveis, props compatíveis e eventos autorizados; **não** aceitar JSX/callbacks/HTML/className vindos de JSON.
-- `shadcn-plan.json` determina dependências para instalação, **não** contratos aprovados.
-- Migrações de contratos devem alterar schemas, registry, telas, padrões, exemplos, lock/fingerprints, documentação e testes em conjunto.
+## Dados, testes e evidências
 
-## Catálogo ReUI e composição visual
-- Consulte `/?screen=reui` para os 559 exemplos ReUI. Não reintroduza Galerias 1 e 2 ou seus antigos contratos.
-- A página Dashboard foi removida da navegação, mas seu contrato composto `Dashboard01` permanece aprovado.
-- Confira as implementações reais e os arquivos de origem dos blocos antes de alterar composições.
-- Valide com `npm run composites:check && npm run contracts:check && npm run validate && npm run build`.
-- Revisão visual exige screenshots reais e comparação manual; não invente homologação.
+- DataTable aceita somente `sourceId` autorizado. O endpoint demonstrativo `processos-api` não inclui SSO/autorização; essas garantias pertencem ao backend.
+- Faça `npm run test:offline` e os checks afetados; `npm run verify` executa validação, build e navegador em ambiente completo. E2E no GitHub é manual na `main`.
+- Testes visuais só são homologados com referências, screenshots locais e revisão humana. Não marque execução ou aprovação sem evidência.
+- Avaliação real do Pi é manual, com `PI_EVAL_CONFIRM=yes` e, para reparo pago, `PI_EVAL_REPAIR_CONFIRM=yes`. Não substitua resultados ausentes por dados sintéticos.
 
-### Blocos shadcn oficiais
-Consulte `src/ui-catalog/block-source-inventory.json` antes de criar telas com Dashboard01, Login01..Login05, Signup01..Signup05, Sidebar01..Sidebar16. Todos são compostos aprovados, mas visualmente não homologados; não invente arquivos ou declare screenshots validadas. Para novas composições faça revisão de código + preview antes da criação do template.
-
-## Navegação, histórico e previews editáveis (v0.15)
-- Grupos de menu: **Exemplos** (ReUI), **Blocos shadcn** (Login, Cadastro, Sidebars) e **Ferramentas** (três exploradores).
-- As telas antigas `dashboard`, `usuarios`, `catalogo`, `playground`, `extensoes` e `auditoria` foram retiradas do diretório `src/ui-screens`. Não recriá-las nem introduzir JSX de telas sem solicitação explícita.
-- Evolução do projeto em `CHANGELOG.md`; README apenas com orientação para a versão corrente.
-- Mudanças feitas no Explorador visual alteram somente um clone da spec para prévia; validar via Zod/`catalog.validate` antes de renderizar; nunca persistir props automaticamente.
-- No Carousel, manter setas no fluxo e dentro dos limites do viewport em todos os breakpoints; testar antes de homologar.
-
-### Novos contratos compostos Site* (v0.16)
-Consultar `src/ui-catalog/site-compositions-audit.json` antes de compor com padrões do portal shadcn v4. A auditoria encontrou 27 compostos originais, 12 aposentados na v0.21. Consulte a lista ativa; use seus tipos declarativos, sem copiar JSX remoto. A inspeção de TSX não comprova equivalência visual; somente screenshots aprovados podem fazê-lo.
-
-## Contexto selecionado para Pi (v0.17)
-- Leia `pi-catalog/contracts.json`, escolha os tipos e execute `npm run pi:context -- --types=<TipoA>,<TipoB>`; envie ao agente `reports/pi-context/selected.json`.
-- Um exemplo individual para cada contrato ativo: `pi-catalog/examples/`. As composições ativas têm `props.content` com uma lista fechada de chaves de texto; nunca invente caminhos.
-- Três demos interativas (Goal, Chat, Cookies) emitem eventos locais, **sem persistência remota**.
-- Valide com `npm run pi:verify`, `npm run test:offline`, `npm run check:catalog` e, conectado ao npm, `npm run pi:zod-schema`, `npm run validate`, `npm run build` e E2E. Se estiver offline, informe explicitamente a limitação.
-
-## Contexto tipado (v0.18)
-- Gere schemas Zod reais via `npm run pi:zod-schema` e selecione até 25 tipos com `npm run pi:context -- --types=<nomes> --stdout`.
-- **Não** considere `--metadata-only` apto para geração. Use `propsSchema` e `events` retornados como limites exatos.
-- Valide toda spec por `npm run pi:validate -- --file=<caminho> --out=reports/pi-validation/<nome>.json` antes de salvar mudanças. Reparos devem tratar `issues[].pointer` e manter as ações permitidas.
-- Priorize props semânticas em PaymentMethod/TeamMembers/ActivityGoal/Chat/CookieSettings, com conteúdo demo e sem efeitos institucionais.
-- Não declare CI verde se `npm ci`, Zod para todos os contratos aprovados, build e Playwright não tiverem sido efetivamente executados.
-
-## Implementação enxuta v0.19
-- Composição estática: adicionar à lista declarativa revisada e gerar via `npm run composites:generate`; não criar TSX wrapper.
-- Comportamento stateful novo: exige componente React próprio, schema estrito, testes, versão de contrato e aprovação.
-- Amostras canônicas para o Pi e Explorador em `pi-catalog/examples/` geradas por `pi:fixtures`; chave semântica é sugestão, chave canônica do Zod é obrigatória.
-
-## v0.20 — Dados flexíveis em componentes compostos
-Para alterar tabelas, séries, opções, navegação e demais dados da composição, consulte `nodeProps` dentro do schema Zod exportado do Pi e as amostras individuais. Não invente IDs: eles vêm do template oficial e do manifesto `configurableNodeProperties`. Nunca altere eventos, ações, tipos de nós, nomes de campos ou URLs por essa API. Reportar comparação visual como pendente enquanto faltarem capturas oficiais/locais aprovadas.
-
-## v0.21: migração de tipos aposentados
-Antes de escolher um composto, consultar `pi-catalog/retired-contracts.json`, `docs/revisao-compostos-v021.md` e executar `npm run composites:pruning:check`. Não emitir tipos removidos nem restaurar Card/Stack sem capacidade própria.
+Veja [fluxo do Pi](../../../docs/pi-workflow.md), [qualidade](../../../docs/development.md) e [governança](../../../docs/governance.md).

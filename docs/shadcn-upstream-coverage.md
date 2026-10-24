@@ -1,3 +1,5 @@
+> **Levantamento pontual em 23/10/2026:** a situação de PRs, fontes locais e componentes reflete a data do relatório. Para a versão atual, consulte [componentes](components.md), [integração shadcn](integracao-shadcn.md) e os manifestos do repositório.
+
 # Cobertura oficial shadcn/ui — 23/10/2026
 
 Referência: https://ui.shadcn.com/docs/components.md — 66 itens oficiais.

@@ -1,10 +1,13 @@
 # Fluxo do Pi Agent
 
-1. Consulte `pi-catalog/contracts.json`, incluindo `configuredContentFields` e rótulos semânticos de referência.
-2. Gere o JSON Schema do Zod real com `npm run pi:zod-schema`; nunca infira APIs pela aparência visual.
-3. Selecione apenas os tipos necessários: `npm run pi:context -- --types=Card,ShippingAddress`.
-4. Gere uma spec JSON usando apenas os 163 tipos aprovados, propriedades/eventos explicitamente autorizados e os **nomes de chaves canônicos** de cada `props.content`.
-5. Valide `npm run pi:validate -- --file=...`; interprete os caminhos e erros específicos antes de editar arquivos.
-6. Execute os checks relevantes, compile e valide comportamento em navegador. Registre falhas e limitações.
+A orientação vigente está em [Agentes e Pi](agents.md) e na [skill UI Catalog](../.pi/skills/ui-catalog/SKILL.md).
 
-O manifesto pode exibir um `semanticName` legível para auxiliar na escolha de campos, mas o nome validado/publicado continua sendo a chave original até uma migração formal da API. Isso evita alterar as 96 composições publicamente sem revisão independente. Nunca envie dados sigilosos ou credenciais ao agente.
+Fluxo resumido:
+
+1. Consulte `pi-catalog/contracts.json`, tipos aposentados e padrões aprovados.
+2. Execute `npm run pi:zod-schema` e `npm run pi:context -- --types=Card,Button` com os tipos estritamente necessários.
+3. Gere somente JSON com propriedades, eventos e ações do schema real; não utilize `--metadata-only` para geração.
+4. Valide com `npm run pi:validate -- --file=<spec.json>`; resolva `issues[].pointer`.
+5. Registre verificações reais e limitações. Nunca divulgue segredos ou trate demos de pagamento/autorização como serviços reais.
+
+O `semanticName` ajuda a leitura; o nome público da propriedade continua sendo a chave Zod até migração formal.

@@ -1,14 +1,29 @@
-# Documentação do UI Contract Studio
+# Documentação — UI Contract Studio
 
-| Documento | Assunto |
+Esta página separa **guias vigentes** de **registros históricos de auditoria**. Para o comportamento atual, consulte primeiro os manifestos e o código indicados em [arquitetura](architecture.md).
+
+## Guias vigentes
+
+| Guia | Objetivo |
 | --- | --- |
-| [architecture.md](architecture.md) | Arquitetura e contratos declarativos |
-| [quality.md](quality.md) | Testes, validações e CI |
-| [pi-workflow.md](pi-workflow.md) | Integração com agentes |
-| [admissao-componentes.md](admissao-componentes.md) | Admissão e revisão de componentes |
-| [componentes-compostos.md](componentes-compostos.md) | Composições e padrões reutilizáveis |
-| [integracao-dados.md](integracao-dados.md) | Limites e segurança de dados |
-| [protecao-repositorio.md](protecao-repositorio.md) | Governança de mudanças |
-| [publicacao-open-source.md](publicacao-open-source.md) | Auditoria obrigatória antes da publicação |
+| [README](../README.md) | Apresentação e instalação |
+| [Arquitetura](architecture.md) | Fontes de verdade e camadas |
+| [Componentes e contratos](components.md) | shadcn/ui, ReUI, composições e admissão |
+| [Agentes e Pi](agents.md) | Geração segura e validação de specs |
+| [Desenvolvimento](development.md) | Ambiente, testes, CI e E2E |
+| [Governança](governance.md) | Revisão e auditoria contínua do repositório público |
 
-Consulte também [CHANGELOG.md](../CHANGELOG.md) e [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
+## Referências especializadas
+
+- [Fontes de dados e DataTable](integracao-dados.md)
+- [Biblioteca ReUI](reui-composite-library.md)
+- [Fidelidade visual das composições](revisao-visual-shadcn.md)
+- [Auditoria de exemplos oficiais](official-component-visual-audit.md)
+- [Sandbox conectada](../sandbox/README.md)
+- [Segurança](../SECURITY.md) e [avisos de terceiros](../THIRD_PARTY_NOTICES.md)
+
+## Histórico e auditorias
+
+O [índice histórico](history/README.md) agrupa decisões e levantamentos de versões anteriores. Contagens e instruções registradas em auditorias antigas **não são automaticamente válidas para a versão atual**.
+
+Veja também o [CHANGELOG](../CHANGELOG.md) e o [guia de contribuição](../CONTRIBUTING.md).

@@ -1,13 +1,15 @@
-# Checklist de publicação — UI Contract Studio
+# Auditoria contínua de publicação — UI Contract Studio
 
-A criação de um novo repositório e a ausência de histórico Git anterior **não comprovam autorização de divulgação**. Mantenha o repositório novo **privado** até concluir:
+**Estado atual:** o repositório `fernandosam/ui-contract-studio` **já é público**. Esta página deixou de ser uma checklist para "tornar público" e passou a acompanhar a segurança e a conformidade **após** a publicação.
 
-- [ ] Auditoria de credenciais e dados pessoais em todo o snapshot (arquivos texto e binários).
-- [ ] Revisão de titularidade do código e eventual autorização institucional necessária.
-- [ ] Verificação de licenças de componentes, exemplos, imagens, ícones e outros recursos de terceiros.
-- [ ] Revisão de LICENSE, THIRD_PARTY_NOTICES.md e SECURITY.md.
-- [ ] Verificação de npm ci, npm run test:offline, npm run validate e npm run build.
-- [ ] Testes E2E manuais e CI do novo repositório, respeitando a configuração de runners.
-- [ ] Revisão dos arquivos e metadados antes de tornar a visibilidade pública.
+Um histórico Git independente não elimina obrigações de confidencialidade, direitos autorais e licenciamento. Não assuma que qualquer verificação abaixo foi concluída apenas porque o repositório está visível.
 
-Este snapshot conserva somente arquivos versionados da aplicação e inicia com uma nova pasta ".git", sem commits antigos. Não transfira issues, pull requests, tags, logs, artefatos ou secrets do projeto anterior.
+- [ ] Analisar segredos, dados pessoais, endpoints internos e arquivos binários introduzidos em mudanças futuras.
+- [ ] Verificar titularidade e eventual autorização para código e materiais incorporados.
+- [ ] Conferir licenças e atribuições de componentes, imagens, exemplos, fontes e marcas de terceiros.
+- [ ] Manter `LICENSE`, `THIRD_PARTY_NOTICES.md` e `SECURITY.md` revisados.
+- [ ] Executar `npm ci`, `npm run test:offline`, `npm run docs:check`, `npm run validate` e `npm run build` no contexto adequado.
+- [ ] Avaliar a necessidade de E2E manual e de screenshots para cada mudança visual significativa.
+- [ ] Confirmar no GitHub regras de proteção e revisão de PR antes de afirmar que estão ativas.
+
+Não importe histórico, credenciais, logs ou artefatos confidenciais de outro projeto. Consulte a política geral em [governança](governance.md) e o canal de relato em [SECURITY.md](../SECURITY.md).

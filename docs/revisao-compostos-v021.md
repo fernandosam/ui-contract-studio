@@ -1,3 +1,5 @@
+> **Registro histórico (v0.21):** os totais desta revisão documentam a decisão de retirada daquela versão. Consulte [componentes](components.md) e os manifestos atuais antes de reutilizar contagens.
+
 # Revisão dos componentes compostos — v0.21
 
 **Critério de permanência:** o componente deve criar um modelo semântico independente, um fluxo/estado/evento reconhecível ou um padrão de layout de página reutilizável e selecionável. **Critério de retirada:** ele apenas agrupa primitives existentes num Card/Stack/Alert sem API ou comportamento próprio.

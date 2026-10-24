@@ -1,12 +1,7 @@
-# Governança de catálogo em repositório compartilhado
+# Proteção do repositório
 
-O status `approved` **não comprova aprovação humana**; ele é somente metadado. Configure no GitHub/GitLab antes de confiar no pipeline:
+A política vigente está em [Governança](governance.md). O arquivo [CODEOWNERS.template](CODEOWNERS.template) é apenas uma sugestão de configuração e **não significa que exista uma regra de branch ativa**.
 
-1. Adapte `docs/CODEOWNERS.template` para usuários/equipes reais e salve em `.github/CODEOWNERS` (GitHub). Para GitLab, configure Code Owners correspondente.
-2. Proteja a branch principal: PR/MR obrigatório, aprovação de code owner e proibição de bypass para agentes e contas comuns.
-3. Marque o job `integration` como obrigatório; bloqueie merge se faltar lockfile, componentes, build ou Playwright.
-4. Ao mudar schema/props/events, eleve a versão do contrato, revise todas as specs, atualize o fingerprint e o manifesto com revisão registrada.
-5. Não permita ao Pi modificar `sources.json` ou `contracts.lock.json` sem revisão; o guard local ajuda, mas shell/Bash e administradores podem contorná-lo.
-6. Use `CONTRACT_BASE_REF` no CI para comparar versões com a branch-base. O script **não verifica identidade/aprovação humana**; a plataforma de Git deve impor isso.
+Configure no GitHub a exigência de PR, checks de qualidade e revisão independente para alterações de contratos. O job `integration` verifica dependências, schemas, build e testes integrados, **não o Playwright completo**: o E2E é executado manualmente na `main`. Não torne o E2E um status obrigatório de PR se ele não é acionado em PRs.
 
-**Pendente fora do projeto**: dados reais de usuários/equipes responsáveis e ativação das regras no serviço de hospedagem. Nenhuma proteção remota foi alterada automaticamente.
+A ferramenta Pi não pode autoaprovar `sources.json` ou `contracts.lock.json`. `approved` nesses arquivos é metadado; proteção e identidade de revisores devem ser verificadas na plataforma.
