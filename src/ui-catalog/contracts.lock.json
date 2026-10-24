@@ -85,12 +85,12 @@
     },
     {
       "name": "Carousel",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
       "fingerprint": "4d8cebc6b73b15456926fe675988b8ff597e3647b5b1edb7e5ce46e894965de6",
-      "semanticFingerprint": "50bdfccff59443eb9e7bbf3f3942bf792e7bdbd40f75915fd61f485f17bcfc0f"
+      "semanticFingerprint": "8527a2b1dcd02969a490ea11d705efe4a1ddbff0525ef381aa3878cddc432d3b"
     },
     {
       "name": "Table",
@@ -139,12 +139,12 @@
     },
     {
       "name": "Avatar",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
       "fingerprint": "7e15d02da83ee2939bc2c6f271d44ccc76244ab754dbbf7aae1634bf9e3d0771",
-      "semanticFingerprint": "fd8305ac52a76ee6c9290b8839d239fecb0e3b5a2e658083c48b644f74b6a489"
+      "semanticFingerprint": "21decbd2cd215e3ad7357b4c460c191bccd28a4d4b9036805039fdd2cd8940af"
     },
     {
       "name": "Badge",
@@ -157,12 +157,12 @@
     },
     {
       "name": "Alert",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
       "fingerprint": "f327c30430942f2b62feb6d175f0e38725a6fc997442d9cd995621b69e5c627f",
-      "semanticFingerprint": "836bf33d9233a23c4c97ebab9a82a6c313f151abfbc39062b3827746bb756709"
+      "semanticFingerprint": "88e538514f69b9ddfc24d9bb68b55984559d2f2f372c24d75748bd912d83adf2"
     },
     {
       "name": "Progress",
@@ -328,12 +328,12 @@
     },
     {
       "name": "DropdownMenu",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
       "fingerprint": "fb63dd412e4789d08dee0daa5c6ede43bb920b94702b54d0e95764e6784db4b3",
-      "semanticFingerprint": "e1ead4ca0bd7d83cfed04340604e573378f878847fb779cb81d25ae60454cd5f"
+      "semanticFingerprint": "96fef6fb3095602f832ae3d7a2c01ba908b1b250c8260fc19eda5ee0b483883c"
     },
     {
       "name": "Toggle",
@@ -364,12 +364,12 @@
     },
     {
       "name": "Pagination",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
       "fingerprint": "a864907a4ceb2fcc5c55b3a0915dbab12abe92bd2d621d76d6c6b32c992edd0f",
-      "semanticFingerprint": "00ae104f0ad6710b9087b0235eb4b06adda41365f12a2371e845afc5d7fcc27c"
+      "semanticFingerprint": "0786e24b4dc3bdb06264d9829a6fb2417a4b61ac822dbf72ad494f41620150a1"
     },
     {
       "name": "DataTable",
