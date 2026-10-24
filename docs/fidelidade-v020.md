@@ -1,3 +1,5 @@
+> **Registro histórico (v0.20):** números, lacunas e estado de homologação refletem o snapshot auditado, não necessariamente a versão atual. Consulte [arquitetura](architecture.md) e [revisão visual vigente](revisao-visual-shadcn.md).
+
 # Revisão de composições e configuração de dados — v0.20
 
 ## Escopo e evidências
