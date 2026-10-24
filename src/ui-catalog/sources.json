@@ -100,7 +100,7 @@
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
       "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Table",
@@ -160,7 +160,7 @@
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
       "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Badge",
@@ -180,7 +180,7 @@
       "license": "Projeto base (implementação local)",
       "reviewedOn": "2026-10-16",
       "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Progress",
@@ -370,7 +370,7 @@
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
       "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Toggle",
@@ -410,7 +410,7 @@
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
       "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "contractVersion": "2.1.0"
     },
     {
       "name": "DataTable",
