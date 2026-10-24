@@ -125,7 +125,7 @@ export const playgroundImplementations = {
   Collapsible: ({props,children,bindings,emit})=>{const [open,setOpen]=useValue(props.open??props.defaultOpen??false,bindings?.open);return <ShadcnCollapsible open={open} disabled={props.disabled} onOpenChange={(v:boolean)=>{setOpen(v);notify(emit,"openChange");}}><CollapsibleTrigger render={<ShadcnButton variant="outline" type="button"/>}>{props.title}<ChevronDown className="ml-2 size-4"/></CollapsibleTrigger><CollapsibleContent className="mt-2 flex flex-col gap-3">{children}</CollapsibleContent></ShadcnCollapsible>;},
   Dialog: ({props,children,bindings,emit})=>{const [open,setOpen]=useValue(props.open??props.defaultOpen??false,bindings?.open);return <ShadcnDialog open={open} onOpenChange={(v:boolean)=>{setOpen(v);notify(emit,"openChange");}}><DialogTrigger render={<ShadcnButton type="button" variant="outline"/>}>Abrir: {props.title}</DialogTrigger><DialogContent><DialogHeader><DialogTitle>{props.title}</DialogTitle>{props.description&&<DialogDescription>{props.description}</DialogDescription>}</DialogHeader>{children}</DialogContent></ShadcnDialog>;},
   Drawer: ({props,children,bindings,emit})=>{const [open,setOpen]=useValue(props.open??props.defaultOpen??false,bindings?.open);return <ShadcnDrawer open={open} swipeDirection={props.swipeDirection??"down"} onOpenChange={(v:boolean)=>{setOpen(v);notify(emit,"openChange");}}><DrawerTrigger render={<ShadcnButton type="button" variant="outline"/>}>Abrir painel: {props.title}</DrawerTrigger><DrawerContent><DrawerHeader><DrawerTitle>{props.title}</DrawerTitle>{props.description&&<DrawerDescription>{props.description}</DrawerDescription>}</DrawerHeader><div className="p-4">{children}</div></DrawerContent></ShadcnDrawer>;},
-  Carousel: ({props}) => <div className="w-full min-w-0">
+  Carousel: ({props}) => <div className="w-full min-w-0 overflow-hidden">
     <ShadcnCarousel orientation={props.orientation??"horizontal"} opts={{loop:props.loop??false}}
       className="w-full min-w-0 max-w-full" aria-label={props.ariaLabel??"Carrossel de componentes"}>
       <CarouselContent>{(props.items??[]).map((item:any,i:number)=><CarouselItem key={i}
@@ -134,7 +134,7 @@ export const playgroundImplementations = {
       </CarouselItem>)}</CarouselContent>
       {(props.showArrows!==false||props.showIndicators)&&<div className="mt-4 flex items-center justify-between gap-2 px-1">
         {props.showIndicators?<CarouselIndicators/>:<span/>}
-        {props.showArrows!==false&&<div className="flex items-center gap-2" role="group" aria-label="Controles do carrossel">
+        {props.showArrows!==false&&<div className="flex items-center justify-end gap-2" role="group" aria-label="Controles do carrossel">
           <CarouselPrevious className="static inset-auto translate-x-0 translate-y-0" style={{position:"static",transform:"none",inset:"auto"}}/>
           <CarouselNext className="static inset-auto translate-x-0 translate-y-0" style={{position:"static",transform:"none",inset:"auto"}}/>
         </div>}
