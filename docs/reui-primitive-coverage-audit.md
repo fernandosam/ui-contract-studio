@@ -54,9 +54,9 @@
 
 ## Correções e prioridades identificadas
 
-**P1 — ampliar primitivas existentes sob controle de versão:** `Carousel` (modelo de mídia com URL autorizada, miniaturas, responsividade, movimento reduzido); `DropdownMenu` (itens aninhados, separadores, check/radio com eventos); `Pagination` (janela de páginas, salto primeiro/último, tamanho da página); `Rating` (precisão parcial com leitura acessível e estado read-only coerente).
+**P1 — evolução parcial nesta revisão:** `Carousel` agora expõe loop, orientação, setas, indicadores e densidade responsiva, **sem mídia remota nem autoplay**; `DropdownMenu` expõe separadores, rótulos, checkbox local e submenu de um nível, **sem rádio/grupos de ações de domínio**; `Pagination` implementa a janela `siblingCount`, primeira/última, salto e seletor de itens por página quando `totalItems` é conhecido. `Rating` já possui cálculo de preenchimento fracionário (`ratingStarFillPercent`); testes de interação fracionária e certificação visual permanecem pendentes.
 
-**P2 — reforçar composições semânticas seguras:** `ButtonGroup` (combinações com input/menu/botões), `RadioGroup` (cards/planos/pagamento), `Avatar` (stack/status), `Alert` (status tipado); sempre reutilizar primitivas antes de criar novo contrato. Preservar contratos separados `OnboardingChecklist`, `RatingDistribution` e `CharacterCountTextarea`.
+**P2 — reforçar composições semânticas seguras:** `Avatar` recebeu indicador local de presença; `Alert` recebeu tom semântico e fechamento local. `ButtonGroup` (combinações com input/menu/botões), `RadioGroup` (cards/planos/pagamento), Avatar stack e alertas com ações externas continuam exigindo composição tipada; sempre reutilizar primitivas antes de criar novo contrato. Preservar contratos separados `OnboardingChecklist`, `RatingDistribution` e `CharacterCountTextarea`.
 
 **Guardrails:** nem todos os exemplos são autônomos; vários importam componentes auxiliares, imagens de serviços de demonstração e estados React locais. Nada disso autoriza o Pi a emitir JSX, URL externa livre, `className`, autenticação ou handlers de negócio. A execução de exemplos visuais ReUI não equivale à admissão de seus comportamentos.
 
@@ -69,6 +69,6 @@ npm run reui:audit:check
 npm run reui:audit -- --write
 ```
 
-A primeira opção inspeciona todas as fontes e verifica os hashes da linha de base versionada; a segunda gera `src/ui-catalog/reui-primitive-coverage-audit.json` com **um registro detalhado por exemplo** (sinais extraídos e decisão de cobertura). O comando não modifica contratos Zod, nem aprova tipos.
+A primeira opção inspeciona todas as fontes e verifica os hashes da linha de base versionada; a segunda gera `src/ui-catalog/reui-primitive-coverage-audit.json` com **um registro detalhado por exemplo** (sinais extraídos e decisão de cobertura). O comando não modifica contratos Zod, nem aprova tipos. Agora a auditoria extrai também `observedPresentationProps` por exemplo, `observedProps` e `sharedProps` por família (frequência por arquivo, não por ocorrência). São indicadores heurísticos de atributos JSX, **não aprovação automática**, e devem ser conferidos em código antes de evoluir o schema.
 
-**Próxima etapa de certificação:** testes E2E/ARIA e comparação visual com upstream por variação, depois implementação progressiva das lacunas P1 em branches separadas, com incremento de versão e fingerprints revisados.
+**Próxima etapa de certificação:** executar testes E2E/ARIA e comparação visual com upstream por variação, revisar os cinco contratos `2.1.0` no PR e decidir separadamente sobre mídia local autorizada, controles com seleção por rádio e demais capacidades não admitidas.
