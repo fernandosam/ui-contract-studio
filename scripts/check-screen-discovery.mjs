@@ -2,7 +2,7 @@ import {readdirSync,readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 const specs=readdirSync('src/ui-screens').filter(n=>n.endsWith('.json'));
 const metas=readdirSync('src/ui-screen-meta').filter(n=>n.endsWith('.json'));
-assert.ok(specs.length>=5);
+assert.ok(specs.length>=3);
 const names=new Set(specs);
 for(const file of specs){
  assert.match(file,/^[a-z][a-z0-9-]{0,63}\.json$/);

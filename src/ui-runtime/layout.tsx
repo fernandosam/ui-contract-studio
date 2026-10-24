@@ -11,7 +11,7 @@ import {
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 const ICONS: Record<string,LucideIcon> = {dashboard:LayoutGrid,layers:Layers,activity:Workflow,calendar:CalendarDays,shield:ShieldCheck,settings:Settings2};
-const BLOCK_ICONS: Record<string, LucideIcon> = {"blocos-dashboard":LayoutGrid,"blocos-login":LogIn,"blocos-signup":UserPlus,"blocos-sidebar":PanelLeft};
+const BLOCK_ICONS: Record<string, LucideIcon> = {"blocos-login":LogIn,"blocos-signup":UserPlus,"blocos-sidebar":PanelLeft};
 const GROUPS = [
   {label:"Exemplos", accepts:(entry:ScreenEntry) => entry.section === "Exemplos"},
   {label:"Blocos shadcn", accepts:(entry:ScreenEntry) => entry.section === "Blocos shadcn"},

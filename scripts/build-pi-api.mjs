@@ -44,7 +44,7 @@ const contracts=lock.components.map(c=>{
 });
 const manifest={schemaVersion:1,projectVersion:read('package.json').version,catalogSize:contracts.length,
   policy:'O Pi pode criar APENAS specs JSON, usando Zod, exemplos e actionDefinitions. Content e nodeProps só podem editar chaves autorizadas do template; não alteram eventos, estilos arbitrários, URLs ou tipos de componentes.',
-  defaultRoute:'/?screen=exemplo-01',
+  defaultRoute:'/?screen=reui',
   sourceOfTruth:['src/ui-catalog/catalog.ts','src/ui-catalog/extensions/catalog.ts','src/ui-catalog/registry.tsx'],
   actions:['setState','pushState','removeState','buttonClick','formSubmit','linkClick'],
   contracts};

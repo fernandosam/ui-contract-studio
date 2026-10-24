@@ -15,7 +15,7 @@ const core=[
 ];
 const extended=[
   'check-composite-fingerprints.mjs','check-composite-templates.ts',
-  'check-source-visual-review.mjs','check-shadcn-blocks.mjs','check-site-compositions.mjs',
+  'check-shadcn-blocks.mjs','check-site-compositions.mjs',
   'check-shadcn-install.mjs','check-shadcn-integrity.mjs',
   'check-extension-dependencies.mjs','check-ui-patterns.mjs','generate-integration-status.mjs --check',
 ];

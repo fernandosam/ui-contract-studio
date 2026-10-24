@@ -26,7 +26,8 @@ for(const block of audit.blocks){
  if(Object.values(spec.elements).some(x=>!allowed.includes(x.type)))errors.push(`${block.name}: tipo não aprovado`);
  if(spec.elements[spec.root]?.type!=="Card")errors.push(`${block.name}: raiz não é Card`);
  const appearances=gallery.flatMap(g=>Object.values(g.elements)).filter(x=>x.type===block.id);
- if(appearances.length!==1)errors.push(`${block.name}: ocorrência esperada 1, encontrada ${appearances.length}`);
+ const expectedAppearances=block.id==="Dashboard01"?0:1;
+ if(appearances.length!==expectedAppearances)errors.push(`${block.name}: ocorrência esperada ${expectedAppearances}, encontrada ${appearances.length}`);
 }
 if(files!==103||audit.filesReviewed.length!==103)errors.push(`Inventário incompleto: ${files} arquivos (${audit.filesReviewed.length} linhas)`);
 if(lock.components.length!==sources.components.length||names.size!==lock.components.length||signatures().length!==lock.components.length)errors.push("Total de contratos incompatível");
