@@ -1,0 +1,13 @@
+{
+  "root": "sample-grid",
+  "elements": {
+    "sample-grid": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "md"
+      },
+      "children": []
+    }
+  }
+}

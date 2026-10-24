@@ -1,0 +1,19 @@
+{
+  "root": "b003",
+  "elements": {
+    "b003": {
+      "type": "Dashboard01",
+      "props": {
+        "content": {
+          "b001.title": "Dashboard · Documents"
+        },
+        "nodeProps": {
+          "b003": {
+            "label": "Total Revenue"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

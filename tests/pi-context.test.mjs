@@ -4,10 +4,10 @@ import {spawnSync} from 'node:child_process';
 import {readFileSync, existsSync} from 'node:fs';
 const api=JSON.parse(readFileSync('pi-catalog/contracts.json','utf8'));
 test('context pack contém somente tipos solicitados e exemplos íntegros',()=>{
- const run=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types=Button,ShippingAddress,SiteCardsActivityGoal','--stdout','--metadata-only'],{encoding:'utf8'});
+ const run=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types=Button,Dashboard01,SiteCardsActivityGoal','--stdout','--metadata-only'],{encoding:'utf8'});
  assert.equal(run.status,0,run.stderr);
  const pack=JSON.parse(run.stdout);
- assert.deepEqual(pack.selected.map(x=>x.contract.type),['Button','ShippingAddress','SiteCardsActivityGoal']);
+ assert.deepEqual(pack.selected.map(x=>x.contract.type),['Button','Dashboard01','SiteCardsActivityGoal']);
  assert.ok(pack.selected.every(x=>x.example.elements[x.example.root].type===x.contract.type));
  assert.equal(pack.selected[1].contract.contentProperty,'content');
  assert.ok(pack.selected[1].contract.configuredContentFields.length>0);
