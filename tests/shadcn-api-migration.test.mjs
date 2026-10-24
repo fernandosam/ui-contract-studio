@@ -10,11 +10,10 @@ const contracts=readJSON("src/ui-catalog/contracts.lock.json");
 const plan=readJSON("shadcn-plan.json");
 const specs=[...readdirSync("src/ui-screens").map(x=>"src/ui-screens/"+x),...readdirSync("src/ui-patterns").filter(x=>x.endsWith(".json")&&!x.endsWith(".meta.json")).map(x=>"src/ui-patterns/"+x)].filter(x=>x.endsWith(".json"));
 
-test("39 contratos base em 2.0.0 e Accordion e Button em 2.1.0, 3 extensões anteriores e 54 composições restantes, 10 demonstrações inline",()=>{
+test("34 contratos base em 2.0.0 e sete primitivas em 2.1.0; extensões preservadas",()=>{
  assert.equal(contracts.components.length,102);
- assert.equal(contracts.components.filter(c=>c.tier==='base'&&c.version==='2.0.0').length,39);
- assert.equal(contracts.components.filter(c=>c.name==='Accordion'&&c.version==='2.1.0').length,1);
- assert.equal(contracts.components.filter(c=>c.name==='Button'&&c.version==='2.1.0').length,1);
+ assert.equal(contracts.components.filter(c=>c.tier==='base'&&c.version==='2.0.0').length,34);
+ for (const name of ["Accordion","Button","Carousel","Avatar","Alert","DropdownMenu","Pagination"]) assert.equal(contracts.components.filter(c=>c.name===name&&c.version==="2.1.0").length,1,name);
  assert.equal(contracts.components.filter(c=>c.tier==='extension').length,61);
  for (const name of ["DataTable","DatePicker","Field"]) assert.ok(contracts.components.some(c=>c.name===name));
 });
