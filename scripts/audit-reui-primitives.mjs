@@ -149,4 +149,13 @@ const filepath="src/ui-catalog/reui-primitive-coverage-audit.json",data=JSON.str
 if(process.argv.includes("--write"))writeFileSync(filepath,data);
 if(process.argv.includes("--check")&&existsSync(filepath)&&readFileSync(filepath,"utf8")!==data)
   throw new Error(filepath+" desatualizado. Execute npm run reui:audit -- --write");
-console.log("ReUI source audit: "+examples.length+" examples / "+summary.length+" families; "+JSON.stringify(totals));
+if(process.argv.includes("--summary-json")) {
+  console.log(JSON.stringify({
+    count:report.count,familiesCount:report.familiesCount,
+    families:report.families.map(f=>({
+      family:f.family,examples:f.examples,observedProps:f.observedProps,sharedProps:f.sharedProps
+    }))
+  }));
+} else {
+  console.log("ReUI source audit: "+examples.length+" examples / "+summary.length+" families; "+JSON.stringify(totals));
+}
