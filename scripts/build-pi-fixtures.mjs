@@ -7,7 +7,8 @@ const catalog=read('src/ui-catalog/contracts.lock.json').components;
 const contents=read('src/ui-catalog/composite-content-fields.json').components;
 const composites=read('src/ui-catalog/extensions/composites/generated-manifest.json').components;
 const templates=new Map(composites.map(x=>[x.name,read('src/ui-catalog/extensions/composites/templates/'+x.template)]));
-const sources=['src/ui-explorer-samples','src/ui-screens','src/ui-catalog/extensions/composites/templates','src/ui-patterns'];
+// As fixtures Pi aprovadas preservam exemplos de contratos ativos quando telas legadas saem de circulação.
+const sources=['src/ui-explorer-samples','pi-catalog/examples','src/ui-screens','src/ui-catalog/extensions/composites/templates','src/ui-patterns'];
 const candidates=new Map();
 for(const folder of sources)for(const filename of readdirSync(folder).filter(n=>n.endsWith('.json')&&!n.endsWith('.meta.json')).sort()){
  const spec=read(join(folder,filename));

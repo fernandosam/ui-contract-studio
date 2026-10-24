@@ -5,7 +5,7 @@ import {graphErrors} from "./lib/spec-invariants.mjs";
 import {signatures} from "./lib/contract-lock.mjs";
 const read=p=>JSON.parse(readFileSync(p,"utf8"));
 const audit=read("src/ui-catalog/block-source-inventory.json"), lock=read("src/ui-catalog/contracts.lock.json"), sources=read("src/ui-catalog/sources.json");
-const gallery=["blocos-dashboard","blocos-login","blocos-signup","blocos-sidebar"].map(x=>read(`src/ui-screens/${x}.json`));
+const gallery=["blocos-login","blocos-signup","blocos-sidebar"].map(x=>read(`src/ui-screens/${x}.json`));
 const allowed=lock.components.slice(0,44).map(x=>x.name).concat(["BlockSidebar"]);
 const names=new Set(lock.components.map(x=>x.name));
 const errors=[];let files=0;
