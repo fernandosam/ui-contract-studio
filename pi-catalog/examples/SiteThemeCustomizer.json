@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteThemeCustomizer",
+      "props": {
+        "content": {
+          "c001.title": "Theme Customizer"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "Theme"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

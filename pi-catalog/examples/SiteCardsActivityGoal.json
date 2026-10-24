@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsActivityGoal",
+      "props": {
+        "content": {
+          "c001.title": "Move Goal"
+        },
+        "goal": 350,
+        "minimum": 200,
+        "maximum": 400,
+        "step": 10,
+        "showBarChart": true
+      },
+      "children": []
+    }
+  }
+}

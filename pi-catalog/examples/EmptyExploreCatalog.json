@@ -1,0 +1,19 @@
+{
+  "root": "n0044",
+  "elements": {
+    "n0044": {
+      "type": "EmptyExploreCatalog",
+      "props": {
+        "content": {
+          "n0042.title": "Seu catálogo está vazio"
+        },
+        "nodeProps": {
+          "n0043": {
+            "label": "Começar agora"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

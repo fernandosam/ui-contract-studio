@@ -1,0 +1,88 @@
+{
+  "root": "graphs",
+  "elements": {
+    "graphs": {
+      "type": "Card",
+      "props": {
+        "title": "Gráficos",
+        "description": "Implementações SVG locais e acessíveis."
+      },
+      "children": [
+        "graph_grid"
+      ]
+    },
+    "graph_grid": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "md"
+      },
+      "children": [
+        "graph_bar",
+        "graph_line"
+      ]
+    },
+    "graph_bar": {
+      "type": "BarGraph",
+      "props": {
+        "title": "Volume de solicitações (dados fictícios)",
+        "data": [
+          {
+            "label": "Seg",
+            "value": 12
+          },
+          {
+            "label": "Ter",
+            "value": 20
+          },
+          {
+            "label": "Qua",
+            "value": 15
+          },
+          {
+            "label": "Qui",
+            "value": 29
+          },
+          {
+            "label": "Sex",
+            "value": 24
+          }
+        ]
+      },
+      "children": []
+    },
+    "graph_line": {
+      "type": "LineGraph",
+      "props": {
+        "title": "Tendência (dados fictícios)",
+        "data": [
+          {
+            "label": "Seg",
+            "value": 12
+          },
+          {
+            "label": "Ter",
+            "value": 20
+          },
+          {
+            "label": "Qua",
+            "value": 15
+          },
+          {
+            "label": "Qui",
+            "value": 29
+          },
+          {
+            "label": "Sex",
+            "value": 24
+          }
+        ]
+      },
+      "children": []
+    }
+  },
+  "state": {
+    "dialogOpen": false,
+    "drawerOpen": false
+  }
+}

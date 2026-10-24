@@ -1,0 +1,8 @@
+# Copiar para .github/CODEOWNERS substituindo EXPLICITAMENTE pelos usuários/equipes reais.
+# NÃO ativar esta amostra com proprietários fictícios.
+# * @sua-organizacao/sua-equipe
+# /src/ui-catalog/ @sua-organizacao/equipe-design-system
+# /.pi/ @sua-organizacao/equipe-design-system
+# /src/ui-runtime/ @sua-organizacao/equipe-design-system
+# /scripts/check-* @sua-organizacao/equipe-design-system
+# /.github/workflows/ @sua-organizacao/equipe-infra

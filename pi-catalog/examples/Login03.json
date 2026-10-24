@@ -1,0 +1,19 @@
+{
+  "root": "b005",
+  "elements": {
+    "b005": {
+      "type": "Login03",
+      "props": {
+        "content": {
+          "b001.title": "Welcome back"
+        },
+        "nodeProps": {
+          "b002": {
+            "label": "Acme Inc."
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

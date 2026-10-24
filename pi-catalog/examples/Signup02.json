@@ -1,0 +1,19 @@
+{
+  "root": "b004",
+  "elements": {
+    "b004": {
+      "type": "Signup02",
+      "props": {
+        "content": {
+          "b001.title": "Create your account"
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Acme Inc. · Identidade da empresa"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

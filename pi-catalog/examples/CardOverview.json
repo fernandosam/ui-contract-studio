@@ -1,0 +1,19 @@
+{
+  "root": "n0014",
+  "elements": {
+    "n0014": {
+      "type": "CardOverview",
+      "props": {
+        "content": {
+          "n0010.label": "PRODUCT"
+        },
+        "nodeProps": {
+          "n0010": {
+            "label": "PRODUCT"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

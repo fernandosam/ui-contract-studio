@@ -1,0 +1,32 @@
+{
+  "root": "onboarding",
+  "elements": {
+    "onboarding": {
+      "type": "OnboardingChecklist",
+      "props": {
+        "steps": [
+          {
+            "id": "account",
+            "title": "Criar conta",
+            "description": "Conta criada e endereço de e-mail confirmado.",
+            "status": "completed"
+          },
+          {
+            "id": "profile",
+            "title": "Configurar perfil",
+            "description": "Informe seus dados de perfil e preferências.",
+            "status": "active"
+          },
+          {
+            "id": "security",
+            "title": "Ativar segurança",
+            "description": "Configure o segundo fator de autenticação.",
+            "status": "pending"
+          }
+        ],
+        "defaultOpenId": "profile"
+      },
+      "children": []
+    }
+  }
+}

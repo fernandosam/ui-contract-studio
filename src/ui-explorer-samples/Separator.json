@@ -1,0 +1,12 @@
+{
+  "root": "divider",
+  "elements": {
+    "divider": {
+      "type": "Separator",
+      "props": {
+        "orientation": "horizontal"
+      },
+      "children": []
+    }
+  }
+}

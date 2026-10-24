@@ -1,0 +1,58 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 07 · Acme Inc.",
+        "description": "Adaptação do bloco oficial sidebar-07 · icon-collapse · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação icon-collapse: Playground",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Acme Inc.",
+        "sections": [
+          {
+            "label": "Platform",
+            "items": [
+              "Playground",
+              "History",
+              "Starred",
+              "Settings",
+              "Models",
+              "Documentation"
+            ]
+          },
+          {
+            "label": "Projects",
+            "items": [
+              "Design Engineering",
+              "Sales & Marketing",
+              "Travel"
+            ]
+          }
+        ],
+        "active": "Playground",
+        "variant": "sidebar",
+        "collapsible": "icon",
+        "footer": "shadcn · m@example.com"
+      },
+      "children": []
+    }
+  }
+}

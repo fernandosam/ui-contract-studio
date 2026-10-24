@@ -1,0 +1,22 @@
+{
+  "root": "action_menu",
+  "elements": {
+    "action_menu": {
+      "type": "DropdownMenu",
+      "props": {
+        "label": "Mais ações",
+        "items": [
+          {
+            "label": "Editar",
+            "value": "edit"
+          },
+          {
+            "label": "Ver detalhes",
+            "value": "detail"
+          }
+        ]
+      },
+      "children": []
+    }
+  }
+}

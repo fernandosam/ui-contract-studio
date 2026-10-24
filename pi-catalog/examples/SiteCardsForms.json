@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsForms",
+      "props": {
+        "content": {
+          "c001.title": "Upgrade your Subscription"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "Name"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

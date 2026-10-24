@@ -1,0 +1,19 @@
+{
+  "root": "n0111",
+  "elements": {
+    "n0111": {
+      "type": "ReleaseCatalog",
+      "props": {
+        "content": {
+          "n0107.label": "PRODUCT"
+        },
+        "nodeProps": {
+          "n0107": {
+            "label": "PRODUCT"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

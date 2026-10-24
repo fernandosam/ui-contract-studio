@@ -1,0 +1,19 @@
+{
+  "root": "n0031",
+  "elements": {
+    "n0031": {
+      "type": "DividendIncome",
+      "props": {
+        "content": {
+          "n0029.label": "Rendimento acumulado"
+        },
+        "nodeProps": {
+          "n0029": {
+            "label": "Rendimento acumulado"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

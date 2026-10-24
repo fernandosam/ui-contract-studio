@@ -1,0 +1,150 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Welcome back",
+        "description": "Login with your Apple or Google account",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b006",
+        "b007",
+        "b010",
+        "b011",
+        "b012",
+        "b013"
+      ]
+    },
+    "b002": {
+      "type": "Badge",
+      "props": {
+        "label": "Acme Inc.",
+        "variant": "secondary"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "login_03_email",
+        "type": "email",
+        "placeholder": "m@example.com",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "Input",
+      "props": {
+        "label": "Password",
+        "name": "login_03_password",
+        "type": "password",
+        "placeholder": "",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Text",
+      "props": {
+        "text": "Forgot your password?",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b006": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b003",
+        "b004",
+        "b005"
+      ]
+    },
+    "b007": {
+      "type": "Button",
+      "props": {
+        "label": "Login with Apple",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b008": {
+      "type": "Button",
+      "props": {
+        "label": "Login with Google",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b009": {
+      "type": "Button",
+      "props": {
+        "label": "Login",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b010": {
+      "type": "Text",
+      "props": {
+        "text": "Or continue with",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "b011": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b008",
+        "b009"
+      ]
+    },
+    "b012": {
+      "type": "Text",
+      "props": {
+        "text": "Don't have an account? Sign up",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b013": {
+      "type": "Text",
+      "props": {
+        "text": "By clicking continue, you agree to our Terms of Service and Privacy Policy.",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

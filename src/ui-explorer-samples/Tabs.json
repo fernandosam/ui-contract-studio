@@ -1,0 +1,28 @@
+{
+  "root": "layout_tabs",
+  "elements": {
+    "layout_tabs": {
+      "type": "Tabs",
+      "props": {
+        "tabs": [
+          {
+            "label": "Visão geral",
+            "value": "overview"
+          },
+          {
+            "label": "Detalhes",
+            "value": "details"
+          },
+          {
+            "label": "Configurações",
+            "value": "settings"
+          }
+        ],
+        "defaultValue": "overview",
+        "value": null,
+        "orientation": "horizontal"
+      },
+      "children": []
+    }
+  }
+}

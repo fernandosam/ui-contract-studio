@@ -1,0 +1,19 @@
+{
+  "root": "b013",
+  "elements": {
+    "b013": {
+      "type": "Sidebar11",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 11 · Files"
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação tree: button.tsx"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

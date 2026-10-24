@@ -1,0 +1,31 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Blocos shadcn · Dashboard",
+        "description": "Blocos adaptados do diretório oficial Base UI do shadcn; fontes e preview revisados.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Cada item abaixo usa um contrato próprio; a implementação não é JSX livre.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Dashboard01",
+      "props": {},
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Payment Method",
+        "description": "Add a new payment method to your account.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c002",
+        "c003",
+        "c004",
+        "c005",
+        "c009",
+        "c010"
+      ]
+    },
+    "c002": {
+      "type": "Input",
+      "props": {
+        "label": "Name",
+        "name": "name_1",
+        "type": "text",
+        "placeholder": "Name",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Text",
+      "props": {
+        "text": "Select the plan that best fits your needs.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Radio",
+      "props": {
+        "label": "Plan",
+        "name": "plan_3",
+        "options": [
+          {
+            "label": "Starter Plan — $10",
+            "value": "starter-plan-10"
+          },
+          {
+            "label": "Pro Plan — $20",
+            "value": "pro-plan-20"
+          }
+        ],
+        "defaultValue": "starter-plan-10"
+      },
+      "children": []
+    },
+    "c005": {
+      "type": "Input",
+      "props": {
+        "label": "Card number",
+        "name": "card_number_4",
+        "type": "text",
+        "placeholder": "Card number",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c006": {
+      "type": "Select",
+      "props": {
+        "label": "Expires",
+        "name": "expires_5",
+        "options": [
+          {
+            "label": "January",
+            "value": "january"
+          },
+          {
+            "label": "February",
+            "value": "february"
+          },
+          {
+            "label": "March",
+            "value": "march"
+          },
+          {
+            "label": "April",
+            "value": "april"
+          },
+          {
+            "label": "May",
+            "value": "may"
+          },
+          {
+            "label": "June",
+            "value": "june"
+          },
+          {
+            "label": "July",
+            "value": "july"
+          },
+          {
+            "label": "August",
+            "value": "august"
+          },
+          {
+            "label": "September",
+            "value": "september"
+          },
+          {
+            "label": "October",
+            "value": "october"
+          },
+          {
+            "label": "November",
+            "value": "november"
+          },
+          {
+            "label": "December",
+            "value": "december"
+          }
+        ],
+        "placeholder": "Select"
+      },
+      "children": []
+    },
+    "c007": {
+      "type": "Select",
+      "props": {
+        "label": "Year",
+        "name": "year_6",
+        "options": [
+          {
+            "label": "2026",
+            "value": "2026"
+          },
+          {
+            "label": "2027",
+            "value": "2027"
+          },
+          {
+            "label": "2028",
+            "value": "2028"
+          },
+          {
+            "label": "2029",
+            "value": "2029"
+          }
+        ],
+        "placeholder": "Select"
+      },
+      "children": []
+    },
+    "c008": {
+      "type": "Input",
+      "props": {
+        "label": "CVC",
+        "name": "cvc_7",
+        "type": "text",
+        "placeholder": "CVC",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c009": {
+      "type": "Grid",
+      "props": {
+        "columns": 3,
+        "gap": "md"
+      },
+      "children": [
+        "c006",
+        "c007",
+        "c008"
+      ]
+    },
+    "c010": {
+      "type": "Button",
+      "props": {
+        "label": "Continue",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Continue (sem efeito externo)"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "root": "see-users",
+  "elements": {
+    "see-users": {
+      "type": "Link",
+      "props": {
+        "label": "Ver usuários",
+        "href": "?screen=usuarios"
+      },
+      "children": []
+    }
+  }
+}

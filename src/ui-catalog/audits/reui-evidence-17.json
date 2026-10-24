@@ -1,0 +1,298 @@
+{
+  "start": 274,
+  "end": 292,
+  "entries": [
+    {
+      "id": "c-dialog-5",
+      "sha": "df744541f497a445448a747655874fedadf45be9",
+      "lines": 90,
+      "imports": [
+        "button",
+        "dialog",
+        "field",
+        "input"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dialog-6",
+      "sha": "5bed9f83656d997085c492e685e493f254841532",
+      "lines": 55,
+      "imports": [
+        "button",
+        "dialog"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dialog-7",
+      "sha": "f647609b90d1a66036a18d87fd41685be4b18ebe",
+      "lines": 55,
+      "imports": [
+        "button",
+        "dialog"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dialog-8",
+      "sha": "2d2d646167dcb8e6c217b90efd4011191b1281a6",
+      "lines": 84,
+      "imports": [
+        "button",
+        "dialog",
+        "label",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dialog-9",
+      "sha": "3863aee368b176165987e45b68e821ff6c955d87",
+      "lines": 77,
+      "imports": [
+        "button",
+        "dialog"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dialog-10",
+      "sha": "94a65beb35d3d1ba894f8310a41fc28776c6be03",
+      "lines": 36,
+      "imports": [
+        "button",
+        "dialog"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-drawer-1",
+      "sha": "d714427fbe7975d60e7e61dbf7ba7466f5b4e0a0",
+      "lines": 48,
+      "imports": [
+        "button",
+        "drawer"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-drawer-2",
+      "sha": "277bb86359e311c8e1a89900ccb3c0154d81d32d",
+      "lines": 48,
+      "imports": [
+        "button",
+        "drawer"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-drawer-3",
+      "sha": "cc27343451462767def757a21db6a8a8b16cdade",
+      "lines": 48,
+      "imports": [
+        "button",
+        "drawer"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-drawer-4",
+      "sha": "a85156d0dfa47da61863f3fa86dda57c92c02416",
+      "lines": 48,
+      "imports": [
+        "button",
+        "drawer"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-drawer-5",
+      "sha": "9d9c9d54ed65c26033797eb72c07499f1894b2f8",
+      "lines": 64,
+      "imports": [
+        "button",
+        "drawer"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dropdown-menu-1",
+      "sha": "00621ebc6cf45572e658f202d0a9ba1dbd12fcfa",
+      "lines": 40,
+      "imports": [
+        "button",
+        "dropdown-menu"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dropdown-menu-2",
+      "sha": "a01cddd6dcef3c44b4db659f4f5a55bcf226a327",
+      "lines": 43,
+      "imports": [
+        "button",
+        "dropdown-menu"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dropdown-menu-3",
+      "sha": "4e0c43a178bea694d8e220775190d21bd601aa5e",
+      "lines": 71,
+      "imports": [
+        "button",
+        "dropdown-menu"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dropdown-menu-4",
+      "sha": "015a1e3e99b2d1b4d9fb4c3d57ec63786430a8c8",
+      "lines": 49,
+      "imports": [
+        "button",
+        "dropdown-menu"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dropdown-menu-5",
+      "sha": "b53dc0fef42768c21d203bf75d6927c185b6b01e",
+      "lines": 50,
+      "imports": [
+        "button",
+        "dropdown-menu"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": true,
+      "counter": false
+    },
+    {
+      "id": "c-dropdown-menu-6",
+      "sha": "f56e6df0d4e571bf36a56d72ef3fa415a940c9f8",
+      "lines": 79,
+      "imports": [
+        "button",
+        "dropdown-menu"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-dropdown-menu-7",
+      "sha": "3da00bdd224337e22d1b6d26be066fb34c9ba77f",
+      "lines": 73,
+      "imports": [
+        "button",
+        "dropdown-menu"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

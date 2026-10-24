@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "rules": "Não são resultados de geração da IA. Para avaliar o Pi é necessário fornecer specs produzidas por ele em eval-results/.",
+  "scenarios": [
+    {
+      "id": "login",
+      "prompt": "Crie formulário de login com email, senha e ação de entrada.",
+      "requiredTypes": [
+        "Card",
+        "Input",
+        "Button"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "usuarios",
+      "prompt": "Crie gerenciamento de usuários com filtros e tabela.",
+      "requiredTypes": [
+        "DataTable",
+        "Heading"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "indicadores",
+      "prompt": "Crie dashboard de indicadores com KPI e tendência.",
+      "requiredTypes": [
+        "Metric",
+        "Grid"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "processos",
+      "prompt": "Crie consulta de processos com paginação de servidor e seleção.",
+      "requiredTypes": [
+        "DataTable"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "periodo",
+      "prompt": "Crie filtro de período com calendário e seleção de data.",
+      "requiredTypes": [
+        "DatePicker"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "alertas",
+      "prompt": "Crie painel de alertas categorizados.",
+      "requiredTypes": [
+        "Alert",
+        "Badge"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "graficos",
+      "prompt": "Crie dashboard de produção semanal com gráfico de barras.",
+      "requiredTypes": [
+        "BarGraph"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "tendencia",
+      "prompt": "Crie gráfico de tendência mensal.",
+      "requiredTypes": [
+        "LineGraph"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "cadastro",
+      "prompt": "Crie formulário de cadastro de pessoa com seleção e confirmação.",
+      "requiredTypes": [
+        "Input",
+        "Select",
+        "Button"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "preferencias",
+      "prompt": "Crie preferências com interruptores e opções.",
+      "requiredTypes": [
+        "Switch",
+        "Checkbox"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "detalhes",
+      "prompt": "Crie página de detalhes de processo com seções retráteis.",
+      "requiredTypes": [
+        "Accordion"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "aba-relatorios",
+      "prompt": "Crie tela com abas de relatórios.",
+      "requiredTypes": [
+        "Tabs"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "auditoria",
+      "prompt": "Crie timeline simples de auditoria de ações com tabela.",
+      "requiredTypes": [
+        "Table"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "tarefas",
+      "prompt": "Crie lista de tarefas com indicadores de progresso.",
+      "requiredTypes": [
+        "Progress",
+        "Card"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "erros",
+      "prompt": "Crie tela de erro e recuperação com botão.",
+      "requiredTypes": [
+        "Alert",
+        "Button"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "loading",
+      "prompt": "Crie estado de carregamento do painel.",
+      "requiredTypes": [
+        "Skeleton"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "vazio",
+      "prompt": "Crie estado vazio de consultas usando componentes base.",
+      "requiredTypes": [
+        "Text",
+        "Button"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "pesquisa",
+      "prompt": "Crie formulário de pesquisa de processos por identificador.",
+      "requiredTypes": [
+        "Input",
+        "Button"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "perfil",
+      "prompt": "Crie ficha de usuário com avatar, status e dados.",
+      "requiredTypes": [
+        "Avatar",
+        "Badge"
+      ],
+      "prohibitCustomJSX": true
+    },
+    {
+      "id": "operacoes",
+      "prompt": "Crie menu de operações com diálogo de confirmação.",
+      "requiredTypes": [
+        "DropdownMenu",
+        "Dialog"
+      ],
+      "prohibitCustomJSX": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "Item",
+      "props": {
+        "title": "Item demonstrativo",
+        "description": "Informação secundária.",
+        "variant": "outline",
+        "size": "default"
+      },
+      "children": []
+    }
+  }
+}

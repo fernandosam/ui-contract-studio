@@ -1,0 +1,23 @@
+{
+  "root": "action_button",
+  "elements": {
+    "action_button": {
+      "type": "Button",
+      "props": {
+        "label": "Testar ação local",
+        "variant": "default",
+        "disabled": false,
+        "size": "sm"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Botão acionado no ambiente demonstrativo."
+          }
+        }
+      }
+    }
+  }
+}

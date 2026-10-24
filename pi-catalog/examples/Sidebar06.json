@@ -1,0 +1,19 @@
+{
+  "root": "b008",
+  "elements": {
+    "b008": {
+      "type": "Sidebar06",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 06 · Documentation"
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação newsletter: Data Fetching"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

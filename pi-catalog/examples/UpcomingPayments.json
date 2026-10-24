@@ -1,0 +1,19 @@
+{
+  "root": "n0150",
+  "elements": {
+    "n0150": {
+      "type": "UpcomingPayments",
+      "props": {
+        "content": {
+          "n0147.label": "TRANSACTIONS"
+        },
+        "nodeProps": {
+          "n0147": {
+            "label": "TRANSACTIONS"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

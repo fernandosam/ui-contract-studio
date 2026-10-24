@@ -1,0 +1,223 @@
+{
+  "root": "root",
+  "elements": {
+    "street": {
+      "type": "Input",
+      "props": {
+        "label": "Street address",
+        "name": "shipping_street",
+        "type": "text",
+        "placeholder": "123 Main Street",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "apt": {
+      "type": "Input",
+      "props": {
+        "label": "Apt / Suite",
+        "name": "shipping_apt",
+        "type": "text",
+        "placeholder": "Apt 4B",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "city": {
+      "type": "Input",
+      "props": {
+        "label": "City",
+        "name": "shipping_city",
+        "type": "text",
+        "placeholder": "San Francisco",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "state": {
+      "type": "Select",
+      "props": {
+        "label": "State",
+        "name": "shipping_state",
+        "options": [
+          {
+            "label": "California",
+            "value": "CA"
+          },
+          {
+            "label": "New York",
+            "value": "NY"
+          },
+          {
+            "label": "Texas",
+            "value": "TX"
+          }
+        ],
+        "placeholder": "Select state",
+        "value": null,
+        "defaultValue": "CA",
+        "disabled": false,
+        "required": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "cityState": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "sm"
+      },
+      "children": [
+        "city",
+        "state"
+      ]
+    },
+    "zip": {
+      "type": "Input",
+      "props": {
+        "label": "ZIP Code",
+        "name": "shipping_zip",
+        "type": "text",
+        "placeholder": "94102",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "country": {
+      "type": "Select",
+      "props": {
+        "label": "Country",
+        "name": "shipping_country",
+        "options": [
+          {
+            "label": "United States",
+            "value": "US"
+          },
+          {
+            "label": "Canada",
+            "value": "CA"
+          },
+          {
+            "label": "United Kingdom",
+            "value": "UK"
+          }
+        ],
+        "placeholder": "Select country",
+        "value": null,
+        "defaultValue": "US",
+        "disabled": false,
+        "required": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "zipCountry": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "sm"
+      },
+      "children": [
+        "zip",
+        "country"
+      ]
+    },
+    "save": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Save as default address",
+        "name": "shipping_save",
+        "checked": true,
+        "defaultChecked": true,
+        "disabled": false,
+        "required": false
+      },
+      "children": []
+    },
+    "cancel": {
+      "type": "Button",
+      "props": {
+        "label": "Cancel",
+        "variant": "outline",
+        "size": "sm",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Preview: Cancel (no external action)"
+          }
+        }
+      }
+    },
+    "submit": {
+      "type": "Button",
+      "props": {
+        "label": "Save Address",
+        "variant": "default",
+        "size": "sm",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Preview: Save Address (no external action)"
+          }
+        }
+      }
+    },
+    "buttons": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "end"
+      },
+      "children": [
+        "cancel",
+        "submit"
+      ]
+    },
+    "root": {
+      "type": "Card",
+      "props": {
+        "title": "Shipping Address",
+        "description": "Where should we deliver?",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "street",
+        "apt",
+        "cityState",
+        "zipCountry",
+        "save",
+        "buttons"
+      ]
+    }
+  }
+}

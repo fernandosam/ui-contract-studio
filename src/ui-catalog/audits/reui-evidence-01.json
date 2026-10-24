@@ -1,0 +1,130 @@
+{
+  "start": 0,
+  "end": 8,
+  "entries": [
+    {
+      "id": "c-accordion-1",
+      "sha": "8375a532898f115a241d8e5ae5bb6a42ef70d963",
+      "lines": 41,
+      "imports": [
+        "accordion"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-accordion-2",
+      "sha": "1415ed6c728335aefb4d110f5a0957d48e769155",
+      "lines": 61,
+      "imports": [
+        "accordion"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-accordion-3",
+      "sha": "4ad26f5c8408a8bb82c89f70982cb4923ce86dd8",
+      "lines": 65,
+      "imports": [
+        "accordion"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-accordion-4",
+      "sha": "bc70fc4de52c0a5bafb29d6ed00c523f0603070e",
+      "lines": 99,
+      "imports": [
+        "accordion",
+        "button",
+        "card"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-accordion-5",
+      "sha": "dec3ed48135a4d5c1080468febfd23929ab34655",
+      "lines": 58,
+      "imports": [
+        "accordion"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-accordion-6",
+      "sha": "206666cf87bd741ab3e5b2152e62ae5ed4856f51",
+      "lines": 96,
+      "imports": [
+        "badge",
+        "accordion"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-accordion-7",
+      "sha": "c610d573600128cc27c3bd790cceab07be0e48fe",
+      "lines": 102,
+      "imports": [
+        "badge",
+        "accordion"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-accordion-8",
+      "sha": "7e4eb8ebd929bb44a38c01a8fe609b5338b0689d",
+      "lines": 91,
+      "imports": [
+        "accordion"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

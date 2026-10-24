@@ -1,0 +1,66 @@
+{
+  "root": "n0018",
+  "elements": {
+    "n0015": {
+      "type": "Badge",
+      "props": {
+        "label": "SAVINGS",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0016": {
+      "type": "Metric",
+      "props": {
+        "label": "Disponível para resgate",
+        "value": "R$ 1.284,00",
+        "change": null,
+        "changeType": "neutral",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "n0017": {
+      "type": "Progress",
+      "props": {
+        "value": 82,
+        "label": "Progresso da meta",
+        "max": 100
+      },
+      "children": []
+    },
+    "n0018": {
+      "type": "Card",
+      "props": {
+        "title": "Claimable Balance",
+        "description": "Saldo disponível · Disponível para resgate",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0015",
+        "n0016",
+        "n0017",
+        "claimable_balance_0",
+        "claimable_balance_1"
+      ]
+    },
+    "claimable_balance_0": {
+      "type": "Text",
+      "props": {
+        "text": "Net Royalties",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "claimable_balance_1": {
+      "type": "Text",
+      "props": {
+        "text": "Processing Fee",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

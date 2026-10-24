@@ -1,0 +1,56 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Cookie Settings",
+        "description": "Manage your cookie settings here.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c003",
+        "c004"
+      ]
+    },
+    "c002": {
+      "type": "Switch",
+      "props": {
+        "label": "Necessary",
+        "name": "flag_1",
+        "defaultChecked": true
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Field",
+      "props": {
+        "label": "Strictly Necessary",
+        "description": "These cookies are essential in order to use the website and use its features.",
+        "orientation": "horizontal"
+      },
+      "children": [
+        "c002"
+      ]
+    },
+    "c004": {
+      "type": "Button",
+      "props": {
+        "label": "Save preferences",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Save preferences (sem efeito externo)"
+          }
+        }
+      }
+    }
+  }
+}

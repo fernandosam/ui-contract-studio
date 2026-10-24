@@ -1,0 +1,12 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "AspectRatio",
+      "props": {
+        "ratio": 1.7777777777777777
+      },
+      "children": []
+    }
+  }
+}

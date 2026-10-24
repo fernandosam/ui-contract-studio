@@ -1,0 +1,19 @@
+{
+  "root": "n0036",
+  "elements": {
+    "n0036": {
+      "type": "EmptyConnectBank",
+      "props": {
+        "content": {
+          "n0034.title": "Nenhuma conta conectada"
+        },
+        "nodeProps": {
+          "n0035": {
+            "label": "Começar agora"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

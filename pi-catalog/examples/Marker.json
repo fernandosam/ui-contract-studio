@@ -1,0 +1,13 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "Marker",
+      "props": {
+        "text": "Etapa em andamento",
+        "variant": "border"
+      },
+      "children": []
+    }
+  }
+}

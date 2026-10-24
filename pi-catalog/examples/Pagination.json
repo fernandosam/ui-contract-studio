@@ -1,0 +1,13 @@
+{
+  "root": "action_pagination",
+  "elements": {
+    "action_pagination": {
+      "type": "Pagination",
+      "props": {
+        "totalPages": 5,
+        "page": 2
+      },
+      "children": []
+    }
+  }
+}

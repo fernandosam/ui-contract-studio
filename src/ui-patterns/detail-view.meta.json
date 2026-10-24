@@ -1,0 +1,10 @@
+{
+  "id": "detail-view",
+  "title": "Detalhes de processo",
+  "category": "detail",
+  "description": "Detalhes e tabela complementar",
+  "originScreen": "dashboard",
+  "sourceRoot": "detail-grid",
+  "approved": true,
+  "immutableContracts": true
+}

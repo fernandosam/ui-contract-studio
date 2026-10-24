@@ -1,0 +1,14 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsPaymentMethod",
+      "props": {
+        "content": {
+          "c001.title": "Payment Method"
+        },
+        "randomJSX": "<script>alert(1)</script>"
+      }
+    }
+  }
+}

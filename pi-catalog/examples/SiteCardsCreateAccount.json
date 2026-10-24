@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsCreateAccount",
+      "props": {
+        "content": {
+          "c001.title": "Create an account"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "GitHub"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

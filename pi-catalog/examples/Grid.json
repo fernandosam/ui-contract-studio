@@ -1,0 +1,50 @@
+{
+  "root": "n0031",
+  "elements": {
+    "n0031": {
+      "type": "Grid",
+      "props": {
+        "columns": 3,
+        "gap": "md"
+      },
+      "children": [
+        "n0009",
+        "n0013",
+        "n0017",
+        "n0021",
+        "n0026",
+        "n0030"
+      ]
+    },
+    "n0009": {
+      "type": "ActivateAgentDialog",
+      "props": {},
+      "children": []
+    },
+    "n0013": {
+      "type": "AnalyticsCard",
+      "props": {},
+      "children": []
+    },
+    "n0017": {
+      "type": "AnomalyAlert",
+      "props": {},
+      "children": []
+    },
+    "n0021": {
+      "type": "BarChartCard",
+      "props": {},
+      "children": []
+    },
+    "n0026": {
+      "type": "BookAppointment",
+      "props": {},
+      "children": []
+    },
+    "n0030": {
+      "type": "CodespacesCard",
+      "props": {},
+      "children": []
+    }
+  }
+}

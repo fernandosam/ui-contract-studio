@@ -1,0 +1,14 @@
+{
+  "root": "sample",
+  "elements": {
+    "sample": {
+      "type": "Collapsible",
+      "props": {
+        "title": "Detalhes opcionais",
+        "defaultOpen": true,
+        "disabled": false
+      },
+      "children": []
+    }
+  }
+}

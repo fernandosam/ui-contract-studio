@@ -1,0 +1,19 @@
+{
+  "root": "n0018",
+  "elements": {
+    "n0018": {
+      "type": "ClaimableBalance",
+      "props": {
+        "content": {
+          "n0015.label": "SAVINGS"
+        },
+        "nodeProps": {
+          "n0015": {
+            "label": "SAVINGS"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

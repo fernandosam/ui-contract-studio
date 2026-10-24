@@ -1,0 +1,72 @@
+{
+  "root": "users-card",
+  "elements": {
+    "users-card": {
+      "type": "Card",
+      "props": {
+        "title": "Lista de usuários (fictícios)",
+        "description": "Experimente a busca e a paginação sem APIs externas."
+      },
+      "children": [
+        "users-table"
+      ]
+    },
+    "users-table": {
+      "type": "Table",
+      "props": {
+        "caption": "Usuários fictícios",
+        "columns": [
+          "Identificador",
+          "Nome",
+          "Perfil",
+          "Status"
+        ],
+        "rows": [
+          [
+            "DEMO-001",
+            "Ana Martins",
+            "Analista",
+            "Ativo"
+          ],
+          [
+            "DEMO-002",
+            "Bruno Costa",
+            "Administrador",
+            "Ativo"
+          ],
+          [
+            "DEMO-003",
+            "Carla Nunes",
+            "Consulta",
+            "Pendente"
+          ],
+          [
+            "DEMO-004",
+            "Daniel Rocha",
+            "Analista",
+            "Ativo"
+          ],
+          [
+            "DEMO-005",
+            "Elisa Ribeiro",
+            "Consulta",
+            "Inativo"
+          ],
+          [
+            "DEMO-006",
+            "Felipe Araújo",
+            "Analista",
+            "Ativo"
+          ],
+          [
+            "DEMO-007",
+            "Gabriela Lima",
+            "Consulta",
+            "Pendente"
+          ]
+        ]
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsCreateAccount",
+      "props": {},
+      "children": []
+    }
+  }
+}

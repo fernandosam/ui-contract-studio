@@ -1,0 +1,44 @@
+{
+  "root": "table",
+  "elements": {
+    "table": {
+      "type": "DataTable",
+      "props": {
+        "caption": "Solicitações fictícias",
+        "columns": [
+          {
+            "key": "processo",
+            "label": "Processo",
+            "sortable": true,
+            "type": "text"
+          },
+          {
+            "key": "unidade",
+            "label": "Unidade",
+            "sortable": true,
+            "type": "text"
+          },
+          {
+            "key": "situacao",
+            "label": "Situação",
+            "sortable": true,
+            "type": "status"
+          },
+          {
+            "key": "criadoEm",
+            "label": "Criado em",
+            "sortable": true,
+            "type": "date"
+          }
+        ],
+        "rows": [],
+        "pageSize": 5,
+        "searchable": true,
+        "selectable": true,
+        "sourceId": "demo-processos",
+        "selectedIds": null
+      },
+      "children": []
+    }
+  }
+}

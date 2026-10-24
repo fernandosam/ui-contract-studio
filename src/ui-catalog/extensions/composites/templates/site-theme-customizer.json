@@ -1,0 +1,122 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Theme Customizer",
+        "description": "Adjust colors, typography and border radius.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c002",
+        "c003",
+        "c004",
+        "c005",
+        "c006"
+      ]
+    },
+    "c002": {
+      "type": "Select",
+      "props": {
+        "label": "Theme",
+        "name": "theme_1",
+        "options": [
+          {
+            "label": "Neutral",
+            "value": "neutral"
+          },
+          {
+            "label": "Stone",
+            "value": "stone"
+          },
+          {
+            "label": "Zinc",
+            "value": "zinc"
+          },
+          {
+            "label": "Slate",
+            "value": "slate"
+          },
+          {
+            "label": "Gray",
+            "value": "gray"
+          }
+        ],
+        "placeholder": "Select",
+        "value": null,
+        "defaultValue": null
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Select",
+      "props": {
+        "label": "Format",
+        "name": "format_2",
+        "options": [
+          {
+            "label": "OKLCH",
+            "value": "oklch"
+          },
+          {
+            "label": "HSL",
+            "value": "hsl"
+          }
+        ],
+        "placeholder": "Select",
+        "value": null,
+        "defaultValue": null
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Slider",
+      "props": {
+        "label": "Radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "defaultValue": 12
+      },
+      "children": []
+    },
+    "c005": {
+      "type": "Tabs",
+      "props": {
+        "tabs": [
+          {
+            "label": "Tailwind v4",
+            "value": "v4"
+          },
+          {
+            "label": "Tailwind v3",
+            "value": "v3"
+          }
+        ],
+        "value": null,
+        "defaultValue": null
+      },
+      "children": []
+    },
+    "c006": {
+      "type": "Button",
+      "props": {
+        "label": "Copy Theme Code",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Copy Theme Code (sem efeito externo)"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 1,
+  "generator": "scripts/generate-composite-registry.mjs",
+  "components": [
+    {
+      "name": "AccountAccess",
+      "template": "account-access.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/account-access.tsx"
+    },
+    {
+      "name": "ActivateAgentDialog",
+      "template": "activate-agent-dialog.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/activate-agent-dialog.tsx"
+    },
+    {
+      "name": "AnalyticsCard",
+      "template": "analytics-card.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/analytics-card.tsx"
+    },
+    {
+      "name": "AnomalyAlert",
+      "template": "anomaly-alert.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/anomaly-alert.tsx"
+    },
+    {
+      "name": "BarChartCard",
+      "template": "bar-chart-card.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/bar-chart-card.tsx"
+    },
+    {
+      "name": "Dashboard01",
+      "template": "block-dashboard-01.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-dashboard-01.tsx",
+      "blockSlug": "dashboard-01"
+    },
+    {
+      "name": "Login01",
+      "template": "block-login-01.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-login-01.tsx",
+      "blockSlug": "login-01"
+    },
+    {
+      "name": "Login02",
+      "template": "block-login-02.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-login-02.tsx",
+      "blockSlug": "login-02"
+    },
+    {
+      "name": "Login03",
+      "template": "block-login-03.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-login-03.tsx",
+      "blockSlug": "login-03"
+    },
+    {
+      "name": "Login04",
+      "template": "block-login-04.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-login-04.tsx",
+      "blockSlug": "login-04"
+    },
+    {
+      "name": "Login05",
+      "template": "block-login-05.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-login-05.tsx",
+      "blockSlug": "login-05"
+    },
+    {
+      "name": "Sidebar01",
+      "template": "block-sidebar-01.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-01.tsx",
+      "blockSlug": "sidebar-01"
+    },
+    {
+      "name": "Sidebar02",
+      "template": "block-sidebar-02.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-02.tsx",
+      "blockSlug": "sidebar-02"
+    },
+    {
+      "name": "Sidebar03",
+      "template": "block-sidebar-03.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-03.tsx",
+      "blockSlug": "sidebar-03"
+    },
+    {
+      "name": "Sidebar04",
+      "template": "block-sidebar-04.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-04.tsx",
+      "blockSlug": "sidebar-04"
+    },
+    {
+      "name": "Sidebar05",
+      "template": "block-sidebar-05.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-05.tsx",
+      "blockSlug": "sidebar-05"
+    },
+    {
+      "name": "Sidebar06",
+      "template": "block-sidebar-06.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-06.tsx",
+      "blockSlug": "sidebar-06"
+    },
+    {
+      "name": "Sidebar07",
+      "template": "block-sidebar-07.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-07.tsx",
+      "blockSlug": "sidebar-07"
+    },
+    {
+      "name": "Sidebar08",
+      "template": "block-sidebar-08.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-08.tsx",
+      "blockSlug": "sidebar-08"
+    },
+    {
+      "name": "Sidebar09",
+      "template": "block-sidebar-09.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-09.tsx",
+      "blockSlug": "sidebar-09"
+    },
+    {
+      "name": "Sidebar10",
+      "template": "block-sidebar-10.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-10.tsx",
+      "blockSlug": "sidebar-10"
+    },
+    {
+      "name": "Sidebar11",
+      "template": "block-sidebar-11.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-11.tsx",
+      "blockSlug": "sidebar-11"
+    },
+    {
+      "name": "Sidebar12",
+      "template": "block-sidebar-12.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-12.tsx",
+      "blockSlug": "sidebar-12"
+    },
+    {
+      "name": "Sidebar13",
+      "template": "block-sidebar-13.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-13.tsx",
+      "blockSlug": "sidebar-13"
+    },
+    {
+      "name": "Sidebar14",
+      "template": "block-sidebar-14.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-14.tsx",
+      "blockSlug": "sidebar-14"
+    },
+    {
+      "name": "Sidebar15",
+      "template": "block-sidebar-15.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-15.tsx",
+      "blockSlug": "sidebar-15"
+    },
+    {
+      "name": "Sidebar16",
+      "template": "block-sidebar-16.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-sidebar-16.tsx",
+      "blockSlug": "sidebar-16"
+    },
+    {
+      "name": "Signup01",
+      "template": "block-signup-01.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-signup-01.tsx",
+      "blockSlug": "signup-01"
+    },
+    {
+      "name": "Signup02",
+      "template": "block-signup-02.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-signup-02.tsx",
+      "blockSlug": "signup-02"
+    },
+    {
+      "name": "Signup03",
+      "template": "block-signup-03.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-signup-03.tsx",
+      "blockSlug": "signup-03"
+    },
+    {
+      "name": "Signup04",
+      "template": "block-signup-04.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-signup-04.tsx",
+      "blockSlug": "signup-04"
+    },
+    {
+      "name": "Signup05",
+      "template": "block-signup-05.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/block-signup-05.tsx",
+      "blockSlug": "signup-05"
+    },
+    {
+      "name": "BookAppointment",
+      "template": "book-appointment.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/book-appointment.tsx"
+    },
+    {
+      "name": "CardOverview",
+      "template": "card-overview.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/card-overview.tsx"
+    },
+    {
+      "name": "ClaimableBalance",
+      "template": "claimable-balance.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/claimable-balance.tsx"
+    },
+    {
+      "name": "CodespacesCard",
+      "template": "codespaces-card.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/codespaces-card.tsx"
+    },
+    {
+      "name": "ContributionHistory",
+      "template": "contribution-history.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/contribution-history.tsx"
+    },
+    {
+      "name": "ContributionsActivity",
+      "template": "contributions-activity.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/contributions-activity.tsx"
+    },
+    {
+      "name": "Contributors",
+      "template": "contributors.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/contributors.tsx"
+    },
+    {
+      "name": "CoverArt",
+      "template": "cover-art.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/cover-art.tsx"
+    },
+    {
+      "name": "DividendIncome",
+      "template": "dividend-income.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/dividend-income.tsx"
+    },
+    {
+      "name": "EmptyConnectBank",
+      "template": "empty-connect-bank.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/empty-connect-bank.tsx"
+    },
+    {
+      "name": "EmptyDistributeTrack",
+      "template": "empty-distribute-track.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/empty-distribute-track.tsx"
+    },
+    {
+      "name": "EmptyExploreCatalog",
+      "template": "empty-explore-catalog.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/empty-explore-catalog.tsx"
+    },
+    {
+      "name": "EnvironmentVariables",
+      "template": "environment-variables.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/environment-variables.tsx"
+    },
+    {
+      "name": "Faq",
+      "template": "faq.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/faq.tsx"
+    },
+    {
+      "name": "FeedbackForm",
+      "template": "feedback-form.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/feedback-form.tsx"
+    },
+    {
+      "name": "FileUpload",
+      "template": "file-upload.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/file-upload.tsx"
+    },
+    {
+      "name": "FrontDoor",
+      "template": "front-door.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/front-door.tsx"
+    },
+    {
+      "name": "GithubProfile",
+      "template": "github-profile.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/github-profile.tsx"
+    },
+    {
+      "name": "IndexInvesting",
+      "template": "index-investing.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/index-investing.tsx"
+    },
+    {
+      "name": "InviteTeam",
+      "template": "invite-team.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/invite-team.tsx"
+    },
+    {
+      "name": "Invoice",
+      "template": "invoice.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/invoice.tsx"
+    },
+    {
+      "name": "KitchenIsland",
+      "template": "kitchen-island.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/kitchen-island.tsx"
+    },
+    {
+      "name": "NewMilestone",
+      "template": "new-milestone.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/new-milestone.tsx"
+    },
+    {
+      "name": "NoTeamMembers",
+      "template": "no-team-members.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/no-team-members.tsx"
+    },
+    {
+      "name": "NotFound",
+      "template": "not-found.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/not-found.tsx"
+    },
+    {
+      "name": "NotificationSettings",
+      "template": "notification-settings.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/notification-settings.tsx"
+    },
+    {
+      "name": "ObservabilityCard",
+      "template": "observability-card.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/observability-card.tsx"
+    },
+    {
+      "name": "Payments",
+      "template": "payments.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/payments.tsx"
+    },
+    {
+      "name": "PayoutThreshold",
+      "template": "payout-threshold.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/payout-threshold.tsx"
+    },
+    {
+      "name": "PieChartCard",
+      "template": "pie-chart-card.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/pie-chart-card.tsx"
+    },
+    {
+      "name": "PowerUsage",
+      "template": "power-usage.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/power-usage.tsx"
+    },
+    {
+      "name": "Preferences",
+      "template": "preferences.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/preferences.tsx"
+    },
+    {
+      "name": "ReceivingMethod",
+      "template": "receiving-method.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/receiving-method.tsx"
+    },
+    {
+      "name": "RecentTransactions",
+      "template": "recent-transactions.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/recent-transactions.tsx"
+    },
+    {
+      "name": "ReleaseCatalog",
+      "template": "release-catalog.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/release-catalog.tsx"
+    },
+    {
+      "name": "ReportBug",
+      "template": "report-bug.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/report-bug.tsx"
+    },
+    {
+      "name": "RollerShades",
+      "template": "roller-shades.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/roller-shades.tsx"
+    },
+    {
+      "name": "SavingsProgress",
+      "template": "savings-progress.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/savings-progress.tsx"
+    },
+    {
+      "name": "SavingsTargets",
+      "template": "savings-targets.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/savings-targets.tsx"
+    },
+    {
+      "name": "ShippingAddress",
+      "template": "shipping-address.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/shipping-address.tsx"
+    },
+    {
+      "name": "SiteCardsCreateAccount",
+      "template": "site-cards-create-account.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-cards-create-account.tsx"
+    },
+    {
+      "name": "SiteCardsForms",
+      "template": "site-cards-forms.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-cards-forms.tsx"
+    },
+    {
+      "name": "SiteCardsReportIssue",
+      "template": "site-cards-report-issue.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-cards-report-issue.tsx"
+    },
+    {
+      "name": "SiteCardsShare",
+      "template": "site-cards-share.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-cards-share.tsx"
+    },
+    {
+      "name": "SiteCardsStats",
+      "template": "site-cards-stats.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-cards-stats.tsx"
+    },
+    {
+      "name": "SiteColorPalette",
+      "template": "site-color-palette.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-color-palette.tsx"
+    },
+    {
+      "name": "SiteCommandMenu",
+      "template": "site-command-menu.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-command-menu.tsx"
+    },
+    {
+      "name": "SiteDirectoryList",
+      "template": "site-directory-list.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-directory-list.tsx"
+    },
+    {
+      "name": "SiteNavUser",
+      "template": "site-nav-user.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-nav-user.tsx"
+    },
+    {
+      "name": "SiteThemeCustomizer",
+      "template": "site-theme-customizer.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/site-theme-customizer.tsx"
+    },
+    {
+      "name": "SleepReport",
+      "template": "sleep-report.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/sleep-report.tsx"
+    },
+    {
+      "name": "SocialLinks",
+      "template": "social-links.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/social-links.tsx"
+    },
+    {
+      "name": "StockPerformance",
+      "template": "stock-performance.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/stock-performance.tsx"
+    },
+    {
+      "name": "SyncingState",
+      "template": "syncing-state.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/syncing-state.tsx"
+    },
+    {
+      "name": "TransferFunds",
+      "template": "transfer-funds.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/transfer-funds.tsx"
+    },
+    {
+      "name": "UpcomingPayments",
+      "template": "upcoming-payments.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/upcoming-payments.tsx"
+    },
+    {
+      "name": "UsageCard",
+      "template": "usage-card.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/usage-card.tsx"
+    },
+    {
+      "name": "Visitors",
+      "template": "visitors.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/visitors.tsx"
+    },
+    {
+      "name": "WeeklyFitnessSummary",
+      "template": "weekly-fitness-summary.json",
+      "formerComponentPath": "src/ui-catalog/extensions/components/weekly-fitness-summary.tsx"
+    }
+  ]
+}

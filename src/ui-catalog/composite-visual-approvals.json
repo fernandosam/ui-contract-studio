@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 1,
+  "policy": "Approval only after manually comparing original and local screenshots in desktop and mobile. Do not invent evidence.",
+  "approvals": []
+}

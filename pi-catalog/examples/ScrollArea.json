@@ -1,0 +1,12 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "ScrollArea",
+      "props": {
+        "height": "sm"
+      },
+      "children": []
+    }
+  }
+}

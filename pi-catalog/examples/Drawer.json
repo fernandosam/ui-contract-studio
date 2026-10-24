@@ -1,0 +1,28 @@
+{
+  "root": "action_drawer",
+  "elements": {
+    "action_drawer": {
+      "type": "Drawer",
+      "props": {
+        "title": "Painel lateral/inferior",
+        "description": null,
+        "defaultOpen": false
+      },
+      "children": [
+        "action_drawer_text"
+      ]
+    },
+    "action_drawer_text": {
+      "type": "Text",
+      "props": {
+        "text": "Drawer com componente interno aprovado.",
+        "variant": "body"
+      },
+      "children": []
+    }
+  },
+  "state": {
+    "dialogOpen": false,
+    "drawerOpen": false
+  }
+}

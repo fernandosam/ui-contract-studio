@@ -1,0 +1,62 @@
+{
+  "root": "n0089",
+  "elements": {
+    "n0086": {
+      "type": "Badge",
+      "props": {
+        "label": "CHART",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0089": {
+      "type": "Card",
+      "props": {
+        "title": "Observability Plus is replacing Monitoring",
+        "description": "Observabilidade · Solicitações por minuto",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0086",
+        "observability_card_0",
+        "observability_card_1",
+        "observability_card_2"
+      ]
+    },
+    "observability_card_0": {
+      "type": "Badge",
+      "props": {
+        "label": "New",
+        "variant": "secondary"
+      },
+      "children": []
+    },
+    "observability_card_1": {
+      "type": "Text",
+      "props": {
+        "text": "Observability Plus is replacing Monitoring",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "observability_card_2": {
+      "type": "Button",
+      "props": {
+        "label": "Learn More",
+        "size": "sm",
+        "variant": "outline",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Learn More (sem operação externa)"
+          }
+        }
+      }
+    }
+  }
+}

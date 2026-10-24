@@ -1,0 +1,19 @@
+{
+  "root": "dates",
+  "elements": {
+    "dates": {
+      "type": "DatePicker",
+      "props": {
+        "label": "Data de referência",
+        "name": "data_referencia",
+        "value": "2026-10-20",
+        "placeholder": "Selecione uma data",
+        "minDate": "2025-01-01",
+        "maxDate": "2027-12-31",
+        "disabled": false,
+        "required": false
+      },
+      "children": []
+    }
+  }
+}

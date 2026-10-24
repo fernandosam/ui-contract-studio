@@ -1,0 +1,52 @@
+{
+  "root": "n0117",
+  "elements": {
+    "n0117": {
+      "type": "Card",
+      "props": {
+        "title": "Living Room",
+        "description": "Persianas · Controle de iluminação",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "roller_shades_0",
+        "roller_shades_1"
+      ]
+    },
+    "roller_shades_0": {
+      "type": "Slider",
+      "props": {
+        "label": "Openness",
+        "min": 0,
+        "max": 100,
+        "defaultValue": 60,
+        "step": 5
+      },
+      "children": []
+    },
+    "roller_shades_1": {
+      "type": "ToggleGroup",
+      "props": {
+        "items": [
+          {
+            "label": "Open",
+            "value": "open"
+          },
+          {
+            "label": "Pause",
+            "value": "pause"
+          },
+          {
+            "label": "Close",
+            "value": "close"
+          }
+        ],
+        "type": "single",
+        "variant": "outline",
+        "size": "sm"
+      },
+      "children": []
+    }
+  }
+}

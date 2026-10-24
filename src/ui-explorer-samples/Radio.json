@@ -1,0 +1,20 @@
+{
+  "root": "form_radio",
+  "elements": {
+    "form_radio": {
+      "type": "Radio",
+      "props": {
+        "label": "Prioridade",
+        "name": "priority",
+        "options": [
+          "Baixa",
+          "Média",
+          "Alta"
+        ],
+        "value": "Média",
+        "defaultValue": null
+      },
+      "children": []
+    }
+  }
+}

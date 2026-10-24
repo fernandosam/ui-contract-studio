@@ -1,0 +1,13 @@
+{
+  "root": "data_spinner",
+  "elements": {
+    "data_spinner": {
+      "type": "Spinner",
+      "props": {
+        "size": "sm",
+        "label": "Processamento ilustrativo"
+      },
+      "children": []
+    }
+  }
+}

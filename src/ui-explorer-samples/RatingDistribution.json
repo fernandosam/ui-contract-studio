@@ -1,0 +1,19 @@
+{
+  "root": "reviewDistribution",
+  "elements": {
+    "reviewDistribution": {
+      "type": "RatingDistribution",
+      "props": {
+        "title": "Avaliações dos usuários",
+        "counts": [
+          5,
+          8,
+          18,
+          45,
+          124
+        ]
+      },
+      "children": []
+    }
+  }
+}

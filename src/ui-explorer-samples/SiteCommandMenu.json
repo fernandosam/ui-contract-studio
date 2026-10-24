@@ -1,0 +1,10 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCommandMenu",
+      "props": {},
+      "children": []
+    }
+  }
+}

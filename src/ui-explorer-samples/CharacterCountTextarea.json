@@ -1,0 +1,18 @@
+{
+  "root": "characterTextarea",
+  "elements": {
+    "characterTextarea": {
+      "type": "CharacterCountTextarea",
+      "props": {
+        "label": "Biografia",
+        "name": "bio",
+        "maxLength": 280,
+        "initialValue": "",
+        "warningThreshold": 20,
+        "rows": 3,
+        "placeholder": "Conte um pouco sobre você..."
+      },
+      "children": []
+    }
+  }
+}

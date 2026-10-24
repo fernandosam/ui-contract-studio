@@ -1,0 +1,19 @@
+{
+  "root": "n0045",
+  "elements": {
+    "n0045": {
+      "type": "EnvironmentVariables",
+      "props": {
+        "content": {
+          "n0042.label": "Alertas importantes"
+        },
+        "nodeProps": {
+          "n0042": {
+            "label": "Alertas importantes"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

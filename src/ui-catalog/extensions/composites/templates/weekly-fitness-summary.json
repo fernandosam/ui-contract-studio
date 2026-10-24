@@ -1,0 +1,72 @@
+{
+  "root": "n0144",
+  "elements": {
+    "n0142": {
+      "type": "Metric",
+      "props": {
+        "label": "Treinos concluídos",
+        "value": "5/7",
+        "change": null,
+        "changeType": "neutral",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "n0143": {
+      "type": "LineGraph",
+      "props": {
+        "title": "Tendência semanal",
+        "data": [
+          {
+            "label": "Jan",
+            "value": 18
+          },
+          {
+            "label": "Fev",
+            "value": 25
+          },
+          {
+            "label": "Mar",
+            "value": 21
+          },
+          {
+            "label": "Abr",
+            "value": 33
+          },
+          {
+            "label": "Mai",
+            "value": 28
+          },
+          {
+            "label": "Jun",
+            "value": 42
+          }
+        ]
+      },
+      "children": []
+    },
+    "n0144": {
+      "type": "Card",
+      "props": {
+        "title": "Weekly Fitness Summary",
+        "description": "Atividade semanal · Treinos concluídos",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0142",
+        "n0143",
+        "weekly_fitness_summary_0"
+      ]
+    },
+    "weekly_fitness_summary_0": {
+      "type": "Text",
+      "props": {
+        "text": "Calories and workout load by day",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

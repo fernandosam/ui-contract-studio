@@ -1,0 +1,19 @@
+{
+  "root": "b003",
+  "elements": {
+    "b003": {
+      "type": "Signup01",
+      "props": {
+        "content": {
+          "b001.title": "Create an account"
+        },
+        "nodeProps": {
+          "b002": {
+            "label": "Full Name"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

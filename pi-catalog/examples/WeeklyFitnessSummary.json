@@ -1,0 +1,19 @@
+{
+  "root": "n0144",
+  "elements": {
+    "n0144": {
+      "type": "WeeklyFitnessSummary",
+      "props": {
+        "content": {
+          "n0142.label": "Treinos concluídos"
+        },
+        "nodeProps": {
+          "n0142": {
+            "label": "Treinos concluídos"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

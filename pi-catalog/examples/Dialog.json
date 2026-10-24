@@ -1,0 +1,45 @@
+{
+  "root": "n0008",
+  "elements": {
+    "n0008": {
+      "type": "Dialog",
+      "props": {
+        "title": "Ativar agente",
+        "description": "Ativação demonstrativa; nenhuma conexão externa é realizada.",
+        "open": null,
+        "defaultOpen": false
+      },
+      "children": [
+        "n0006",
+        "n0007"
+      ]
+    },
+    "n0006": {
+      "type": "Text",
+      "props": {
+        "text": "Confirme a ativação demonstrativa.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0007": {
+      "type": "Button",
+      "props": {
+        "label": "Confirmar",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Confirmar (nenhuma operação externa)"
+          }
+        }
+      }
+    }
+  }
+}

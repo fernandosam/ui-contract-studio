@@ -1,0 +1,47 @@
+{
+  "root": "n0116",
+  "elements": {
+    "n0113": {
+      "type": "Badge",
+      "props": {
+        "label": "TREND",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0114": {
+      "type": "Metric",
+      "props": {
+        "label": "Horas de sono",
+        "value": "7h 45min",
+        "change": null,
+        "changeType": "neutral",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "n0116": {
+      "type": "Card",
+      "props": {
+        "title": "Sleep Report",
+        "description": "Relatório de sono · Horas de sono",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0113",
+        "n0114",
+        "sleep_report_0"
+      ]
+    },
+    "sleep_report_0": {
+      "type": "Badge",
+      "props": {
+        "label": "Good",
+        "variant": "secondary"
+      },
+      "children": []
+    }
+  }
+}

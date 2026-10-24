@@ -1,0 +1,13 @@
+{
+  "root": "data_popover",
+  "elements": {
+    "data_popover": {
+      "type": "Popover",
+      "props": {
+        "trigger": "Mostrar ajuda",
+        "content": "Popover disponível no catálogo."
+      },
+      "children": []
+    }
+  }
+}

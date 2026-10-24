@@ -1,0 +1,93 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 06 · Documentation",
+        "description": "Adaptação do bloco oficial sidebar-06 · newsletter · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b006"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação newsletter: Data Fetching",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Documentation",
+        "sections": [
+          {
+            "label": "Navigation",
+            "items": [
+              "Getting Started",
+              "Build Your Application",
+              "API Reference",
+              "Architecture"
+            ]
+          },
+          {
+            "label": "Newsletter",
+            "items": [
+              "Subscribe"
+            ]
+          }
+        ],
+        "active": "Data Fetching",
+        "variant": "sidebar",
+        "collapsible": "offcanvas",
+        "footer": "Documentação · modo demonstração"
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "sidebar_6_email",
+        "type": "email",
+        "placeholder": "Email",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Button",
+      "props": {
+        "label": "Subscribe",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b006": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "start"
+      },
+      "children": [
+        "b004",
+        "b005"
+      ]
+    }
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Registry Directory",
+        "description": "Discover reusable UI components.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c002",
+        "c007",
+        "c012",
+        "c017"
+      ]
+    },
+    "c002": {
+      "type": "Input",
+      "props": {
+        "label": "Search directory",
+        "name": "search_directory_1",
+        "type": "search",
+        "placeholder": "Search directory",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Text",
+      "props": {
+        "text": "Command Palette",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Text",
+      "props": {
+        "text": "Search and run commands",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c005": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch"
+      },
+      "children": [
+        "c003",
+        "c004"
+      ]
+    },
+    "c006": {
+      "type": "Button",
+      "props": {
+        "label": "Add",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Add (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c007": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c005",
+        "c006"
+      ]
+    },
+    "c008": {
+      "type": "Text",
+      "props": {
+        "text": "Data Table",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c009": {
+      "type": "Text",
+      "props": {
+        "text": "Explore data and pagination",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c010": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch"
+      },
+      "children": [
+        "c008",
+        "c009"
+      ]
+    },
+    "c011": {
+      "type": "Button",
+      "props": {
+        "label": "Add",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Add (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c012": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c010",
+        "c011"
+      ]
+    },
+    "c013": {
+      "type": "Text",
+      "props": {
+        "text": "Navigation",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c014": {
+      "type": "Text",
+      "props": {
+        "text": "Responsive navigation patterns",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c015": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch"
+      },
+      "children": [
+        "c013",
+        "c014"
+      ]
+    },
+    "c016": {
+      "type": "Button",
+      "props": {
+        "label": "Add",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Add (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c017": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c015",
+        "c016"
+      ]
+    }
+  }
+}

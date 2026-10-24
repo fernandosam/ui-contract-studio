@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsStats",
+      "props": {
+        "content": {
+          "c001.title": "Statistics"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "Total Revenue"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

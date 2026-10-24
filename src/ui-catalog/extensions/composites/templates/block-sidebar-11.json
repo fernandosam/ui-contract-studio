@@ -1,0 +1,68 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 11 · Files",
+        "description": "Adaptação do bloco oficial sidebar-11 · tree · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b004"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação tree: button.tsx",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Text",
+      "props": {
+        "text": "Changes   README.md (M) · api/hello/route.ts (U)",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Files",
+        "sections": [
+          {
+            "label": "Changes",
+            "items": [
+              "README.md",
+              "api/hello/route.ts",
+              "app/layout.tsx"
+            ]
+          },
+          {
+            "label": "Files",
+            "items": [
+              "app",
+              "components",
+              "ui",
+              "button.tsx",
+              "card.tsx",
+              "lib",
+              "package.json"
+            ]
+          }
+        ],
+        "active": "button.tsx",
+        "variant": "sidebar",
+        "collapsible": "offcanvas",
+        "footer": "Documentação · modo demonstração"
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "root": "actions",
+  "elements": {
+    "actions": {
+      "type": "Card",
+      "props": {
+        "title": "Interações e ações",
+        "description": "Botões, navegação interna, modais, menus e paginação."
+      },
+      "children": [
+        "action_row",
+        "action_row2",
+        "action_row3"
+      ]
+    },
+    "action_row": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "md",
+        "align": "center",
+        "justify": "start"
+      },
+      "children": [
+        "action_button",
+        "action_link",
+        "action_menu",
+        "action_toggle"
+      ]
+    },
+    "action_button": {
+      "type": "Button",
+      "props": {
+        "label": "Testar ação local",
+        "variant": "default",
+        "disabled": false
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Botão acionado no ambiente demonstrativo."
+          }
+        }
+      }
+    },
+    "action_link": {
+      "type": "Link",
+      "props": {
+        "label": "Voltar ao dashboard",
+        "href": "?screen=dashboard"
+      },
+      "children": []
+    },
+    "action_menu": {
+      "type": "DropdownMenu",
+      "props": {
+        "label": "Mais ações",
+        "items": [
+          {
+            "label": "Editar",
+            "value": "edit"
+          },
+          {
+            "label": "Ver detalhes",
+            "value": "detail"
+          }
+        ]
+      },
+      "children": []
+    },
+    "action_toggle": {
+      "type": "Toggle",
+      "props": {
+        "label": "Favorito",
+        "pressed": false,
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "action_row2": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "md",
+        "align": "center",
+        "justify": "start"
+      },
+      "children": [
+        "action_toggle_group",
+        "action_button_group"
+      ]
+    },
+    "action_toggle_group": {
+      "type": "ToggleGroup",
+      "props": {
+        "items": [
+          {
+            "label": "Lista",
+            "value": "list"
+          },
+          {
+            "label": "Grade",
+            "value": "grid"
+          }
+        ],
+        "type": "single",
+        "value": "list"
+      },
+      "children": []
+    },
+    "action_button_group": {
+      "type": "ButtonGroup",
+      "props": {
+        "buttons": [
+          {
+            "label": "Hoje",
+            "value": "today"
+          },
+          {
+            "label": "Semana",
+            "value": "week"
+          },
+          {
+            "label": "Mês",
+            "value": "month"
+          }
+        ],
+        "selected": "week"
+      },
+      "children": []
+    },
+    "action_row3": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "md",
+        "align": "center",
+        "justify": "start"
+      },
+      "children": [
+        "action_pagination",
+        "action_dialog",
+        "action_drawer"
+      ]
+    },
+    "action_pagination": {
+      "type": "Pagination",
+      "props": {
+        "totalPages": 5,
+        "page": 2
+      },
+      "children": []
+    },
+    "action_dialog": {
+      "type": "Dialog",
+      "props": {
+        "title": "Diálogo demonstrativo",
+        "description": "Exemplo de componente com estado controlado.",
+        "defaultOpen": false
+      },
+      "children": [
+        "action_dialog_text"
+      ]
+    },
+    "action_dialog_text": {
+      "type": "Text",
+      "props": {
+        "text": "Este é o conteúdo do diálogo gerado a partir de JSON.",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "action_drawer": {
+      "type": "Drawer",
+      "props": {
+        "title": "Painel lateral/inferior",
+        "description": null,
+        "defaultOpen": false
+      },
+      "children": [
+        "action_drawer_text"
+      ]
+    },
+    "action_drawer_text": {
+      "type": "Text",
+      "props": {
+        "text": "Drawer com componente interno aprovado.",
+        "variant": "body"
+      },
+      "children": []
+    }
+  },
+  "state": {
+    "dialogOpen": false,
+    "drawerOpen": false
+  }
+}

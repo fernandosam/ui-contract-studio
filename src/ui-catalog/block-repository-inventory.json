@@ -1,0 +1,1066 @@
+{
+  "schemaVersion": 1,
+  "source": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks",
+  "scope": "All 175 source files in Base UI blocks tree; directory entries excluded",
+  "assessmentDate": "2026-10-21",
+  "totalFiles": 175,
+  "newBlockFiles": 103,
+  "preexistingPreviewCardFiles": 64,
+  "unrenderedCardsOrHelpers": 4,
+  "entrypoints": 2,
+  "registryMetadata": 1,
+  "placeholder": 1,
+  "notes": "103 source files read in this revision; 64 card sources audited in v0.13; four additional cards/helpers not directly previewed and intentionally not admitted without visual reference; preview-03 is a stub. Visual page previews reviewed as DOM/text and source classes, not screen captures.",
+  "files": [
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/chart-area-interactive.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/chart-area-interactive.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/data-table.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/data-table.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-documents.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-documents.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-main.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-secondary.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-user.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/section-cards.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/section-cards.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/site-header.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/site-header.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/data.json",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/data.json"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-01/components/login-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-01/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-01/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-01/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-02/components/login-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-02/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-02/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-02/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-03/components/login-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-03/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-03/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-03/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-04/components/login-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-04/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-04/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-04/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-05/components/login-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-05/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-05/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-05/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-01/components/signup-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-01/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-01/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-01/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-02/components/signup-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-02/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-02/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-02/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-03/components/signup-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-03/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-03/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-03/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-04/components/signup-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-04/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-04/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-04/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-05/components/signup-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-05/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-05/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-05/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-01/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-01/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-01/components/search-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-01/components/search-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-01/components/version-switcher.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-01/components/version-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-01/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-01/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-02/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-02/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-02/components/search-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-02/components/search-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-02/components/version-switcher.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-02/components/version-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-02/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-02/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-03/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-03/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-03/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-03/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-04/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-04/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-04/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-04/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-05/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-05/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-05/components/search-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-05/components/search-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-05/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-05/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-06/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-06/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-06/components/nav-main.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-06/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-06/components/sidebar-opt-in-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-06/components/sidebar-opt-in-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-06/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-06/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-main.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-projects.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-projects.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-user.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/team-switcher.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/team-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-main.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-projects.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-projects.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-secondary.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-user.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-09/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-09/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-09/components/nav-user.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-09/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-09/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-09/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-actions.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-actions.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-favorites.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-favorites.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-main.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-secondary.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-workspaces.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-workspaces.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/team-switcher.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/team-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-11/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-11/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-11/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-11/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/components/calendars.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/components/calendars.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/components/date-picker.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/components/date-picker.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/components/nav-user.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-13/components/settings-dialog.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-13/components/settings-dialog.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-13/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-13/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-14/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-14/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-14/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-14/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/calendars.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/calendars.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/date-picker.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/date-picker.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-favorites.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-favorites.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-main.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-secondary.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-user.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-workspaces.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-workspaces.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-left.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-left.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-right.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-right.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/team-switcher.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/team-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/app-sidebar.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-main.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-projects.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-projects.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-secondary.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-user.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/search-form.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/search-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/site-header.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/site-header.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/page.tsx",
+      "role": "new-block-source",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/activate-agent-dialog.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/activate-agent-dialog.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/analytics-card.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/analytics-card.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/anomaly-alert.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/anomaly-alert.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/bar-chart-card.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/bar-chart-card.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/book-appointment.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/book-appointment.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/codespaces-card.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/codespaces-card.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/contributions-activity.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/contributions-activity.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/contributors.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/contributors.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/environment-variables.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/environment-variables.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/feedback-form.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/feedback-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/file-upload.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/file-upload.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/github-profile.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/github-profile.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/icon-preview-grid.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/icon-preview-grid.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/invite-team.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/invite-team.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/invoice.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/invoice.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/live-waveform.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/live-waveform.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/no-team-members.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/no-team-members.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/not-found.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/not-found.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/observability-card.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/observability-card.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/pie-chart-card.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/pie-chart-card.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/report-bug.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/report-bug.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/shipping-address.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/shipping-address.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/shortcuts.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/shortcuts.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/skeleton-loading.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/skeleton-loading.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/sleep-report.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/sleep-report.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/style-overview.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/style-overview.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/typography-specimen.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/typography-specimen.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/ui-elements.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/ui-elements.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/usage-card.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/usage-card.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/visitors.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/visitors.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/weekly-fitness-summary.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/weekly-fitness-summary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/index.tsx",
+      "role": "preview-entrypoint",
+      "admitted": false,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/index.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/account-access.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/account-access.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/card-overview.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/card-overview.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/claimable-balance.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/claimable-balance.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/contribution-history.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/contribution-history.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/cover-art.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/cover-art.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/dividend-income.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/dividend-income.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/empty-connect-bank.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-connect-bank.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/empty-distribute-track.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-distribute-track.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/empty-explore-catalog.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-explore-catalog.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/faq.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/faq.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/front-door.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/front-door.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/index-investing.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/index-investing.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/kitchen-island.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/kitchen-island.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/loading-card.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/loading-card.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/new-milestone.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/new-milestone.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/notification-settings.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/notification-settings.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/payments.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/payments.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/payout-threshold.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/payout-threshold.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/power-usage.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/power-usage.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/preferences.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/preferences.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/qr-connect.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/qr-connect.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/receiving-method.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/receiving-method.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/recent-transactions.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/recent-transactions.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/release-catalog.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/release-catalog.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/roller-shades.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/roller-shades.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/savings-progress.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/savings-progress.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/savings-targets.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/savings-targets.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/sidebar-nav.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/sidebar-nav.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/social-links.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/social-links.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/stock-performance.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/stock-performance.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/syncing-state.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/syncing-state.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/transfer-funds.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/transfer-funds.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/upcoming-payments.tsx",
+      "role": "existing-preview-card",
+      "admitted": true,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/upcoming-payments.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/index.tsx",
+      "role": "preview-entrypoint",
+      "admitted": false,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/index.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/assign-issue.tsx",
+      "role": "unrendered-component",
+      "admitted": false,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/assign-issue.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview/cards/bar-visualizer.tsx",
+      "role": "unrendered-component",
+      "admitted": false,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/bar-visualizer.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/album-card.tsx",
+      "role": "unrendered-component",
+      "admitted": false,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/album-card.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-02/cards/catalog-toolbar.tsx",
+      "role": "unrendered-helper",
+      "admitted": false,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/catalog-toolbar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/preview-03/index.tsx",
+      "role": "placeholder-only",
+      "admitted": false,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-03/index.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/_registry.ts",
+      "role": "registry-metadata",
+      "admitted": false,
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/_registry.ts"
+    }
+  ]
+}

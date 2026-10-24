@@ -1,0 +1,14 @@
+{
+  "root": "data_skeleton",
+  "elements": {
+    "data_skeleton": {
+      "type": "Skeleton",
+      "props": {
+        "width": "70%",
+        "height": "18px",
+        "rounded": false
+      },
+      "children": []
+    }
+  }
+}

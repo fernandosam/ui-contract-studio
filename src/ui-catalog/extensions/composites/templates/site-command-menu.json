@@ -1,0 +1,135 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Search documentation",
+        "description": "Command menu with searchable groups.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c002",
+        "c003",
+        "c004",
+        "c005",
+        "c009"
+      ]
+    },
+    "c002": {
+      "type": "Input",
+      "props": {
+        "label": "Search",
+        "name": "search_1",
+        "type": "search",
+        "placeholder": "Search",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Text",
+      "props": {
+        "text": "Suggestions",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Button",
+      "props": {
+        "label": "Search documentation",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Search documentation (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c005": {
+      "type": "Text",
+      "props": {
+        "text": "Navigate",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c006": {
+      "type": "Button",
+      "props": {
+        "label": "Home",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Home (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c007": {
+      "type": "Button",
+      "props": {
+        "label": "Charts",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Charts (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c008": {
+      "type": "Button",
+      "props": {
+        "label": "Forms",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Forms (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c009": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c006",
+        "c007",
+        "c008"
+      ]
+    }
+  }
+}

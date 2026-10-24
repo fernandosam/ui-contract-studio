@@ -1,0 +1,68 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 14 · Table of Contents",
+        "description": "Adaptação do bloco oficial sidebar-14 · toc · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação toc: Data Fetching",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Table of Contents",
+        "sections": [
+          {
+            "label": "Getting Started",
+            "items": [
+              "Installation",
+              "Project Structure"
+            ]
+          },
+          {
+            "label": "Build Your Application",
+            "items": [
+              "Routing",
+              "Data Fetching",
+              "Rendering"
+            ]
+          },
+          {
+            "label": "API Reference",
+            "items": [
+              "Components",
+              "Functions"
+            ]
+          },
+          {
+            "label": "Architecture",
+            "items": [
+              "Accessibility",
+              "Fast Refresh"
+            ]
+          }
+        ],
+        "active": "Data Fetching",
+        "variant": "sidebar",
+        "collapsible": "none",
+        "footer": "Documentação · modo demonstração"
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsPaymentMethod",
+      "props": {
+        "content": {
+          "c001.title": "Payment Method"
+        },
+        "plans": [
+          {
+            "id": "starter",
+            "label": "Starter Plan",
+            "displayPrice": "$10",
+            "description": "Basic features"
+          },
+          {
+            "id": "pro",
+            "label": "Pro Plan",
+            "displayPrice": "$20",
+            "description": "Advanced features"
+          }
+        ],
+        "defaultPlan": "starter",
+        "checkoutLabel": "Select plan"
+      },
+      "children": []
+    }
+  }
+}

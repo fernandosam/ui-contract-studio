@@ -1,0 +1,19 @@
+{
+  "root": "n0098",
+  "elements": {
+    "n0098": {
+      "type": "ReportBug",
+      "props": {
+        "content": {
+          "n0095.label": "Title"
+        },
+        "nodeProps": {
+          "n0095": {
+            "label": "Title"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

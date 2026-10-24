@@ -1,0 +1,66 @@
+{
+  "root": "n0052",
+  "elements": {
+    "n0048": {
+      "type": "Badge",
+      "props": {
+        "label": "PRODUCT",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0049": {
+      "type": "Image",
+      "props": {
+        "alt": "Imagem ilustrativa de Acesso principal; não é foto do produto",
+        "width": 330,
+        "height": 120
+      },
+      "children": []
+    },
+    "n0050": {
+      "type": "Text",
+      "props": {
+        "text": "Automação residencial demonstrativa.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0051": {
+      "type": "Switch",
+      "props": {
+        "label": "Ativar automação",
+        "name": "auto_frontdoor",
+        "checked": false,
+        "defaultChecked": false,
+        "disabled": false,
+        "required": false
+      },
+      "children": []
+    },
+    "n0052": {
+      "type": "Card",
+      "props": {
+        "title": "Front Door",
+        "description": "Porta de entrada · Acesso principal",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0048",
+        "n0049",
+        "n0050",
+        "n0051",
+        "front_door_0"
+      ]
+    },
+    "front_door_0": {
+      "type": "Badge",
+      "props": {
+        "label": "Smart Lock Pro",
+        "variant": "secondary"
+      },
+      "children": []
+    }
+  }
+}

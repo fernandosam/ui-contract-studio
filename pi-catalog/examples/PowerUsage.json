@@ -1,0 +1,19 @@
+{
+  "root": "n0089",
+  "elements": {
+    "n0089": {
+      "type": "PowerUsage",
+      "props": {
+        "content": {
+          "n0087.label": "Consumo em kWh"
+        },
+        "nodeProps": {
+          "n0087": {
+            "label": "Consumo em kWh"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

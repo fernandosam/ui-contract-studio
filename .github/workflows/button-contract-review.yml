@@ -1,0 +1,31 @@
+name: Update Button contract v2.1
+on:
+  push:
+    branches:
+      - feat/reui-button-61-previews-20261023
+    paths:
+      - scripts/refresh-button-contract-lock.mjs
+      - .github/workflows/button-contract-review.yml
+permissions:
+  contents: write
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Update only Button contract fingerprints
+        run: node scripts/refresh-button-contract-lock.mjs
+      - name: Commit reviewed lock to feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/ui-catalog/contracts.lock.json src/ui-catalog/sources.json pi-catalog/contracts.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: version Button JSON contract 2.1.0 [skip ci]'
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

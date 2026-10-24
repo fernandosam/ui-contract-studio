@@ -1,0 +1,150 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Login to your account",
+        "description": "Enter your email below to login to your account",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b008",
+        "b009",
+        "b011",
+        "b012",
+        "b013"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Acme Inc. · Identidade da empresa",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "login_02_email",
+        "type": "email",
+        "placeholder": "m@example.com",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "Input",
+      "props": {
+        "label": "Password",
+        "name": "login_02_password",
+        "type": "password",
+        "placeholder": "",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Text",
+      "props": {
+        "text": "Forgot your password?",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b006": {
+      "type": "Image",
+      "props": {
+        "alt": "Painel visual do layout de autenticação; placeholder local",
+        "width": 480,
+        "height": 370
+      },
+      "children": []
+    },
+    "b007": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b003",
+        "b004",
+        "b005"
+      ]
+    },
+    "b008": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "md"
+      },
+      "children": [
+        "b007",
+        "b006"
+      ]
+    },
+    "b009": {
+      "type": "Button",
+      "props": {
+        "label": "Login",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b010": {
+      "type": "Button",
+      "props": {
+        "label": "Login with GitHub",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b011": {
+      "type": "Text",
+      "props": {
+        "text": "Or continue with",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "b012": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b010"
+      ]
+    },
+    "b013": {
+      "type": "Text",
+      "props": {
+        "text": "Don't have an account? Sign up",
+        "variant": "caption"
+      },
+      "children": []
+    }
+  }
+}

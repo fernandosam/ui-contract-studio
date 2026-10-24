@@ -1,0 +1,10 @@
+{
+  "id": "dashboard-analytics",
+  "title": "Análise gráfica",
+  "category": "dashboard",
+  "description": "Gráficos de barras e linhas",
+  "originScreen": "playground",
+  "sourceRoot": "graphs",
+  "approved": true,
+  "immutableContracts": true
+}

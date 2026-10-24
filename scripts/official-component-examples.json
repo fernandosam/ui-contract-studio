@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "upstream": "https://ui.shadcn.com",
+  "sourceRepository": "https://github.com/shadcn-ui/ui",
+  "sourcePath": "apps/v4/content/docs/components/base",
+  "sourceRef": "main",
+  "note": "Os 38 exemplos oficiais são capturados. Somente componentes com contrato json-render equivalente no Explorer recebem capturas locais e comparação diagnóstica. Nove sem contrato são explicitamente listados como referência oficial sem par; nenhum par é fabricado.",
+  "examples": [
+    {
+      "component": "button",
+      "docPath": "/docs/components/base/button",
+      "exampleId": "button-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Button"
+    },
+    {
+      "component": "card",
+      "docPath": "/docs/components/base/card",
+      "exampleId": "card-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Card"
+    },
+    {
+      "component": "input",
+      "docPath": "/docs/components/base/input",
+      "exampleId": "input-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Input"
+    },
+    {
+      "component": "table",
+      "docPath": "/docs/components/base/table",
+      "exampleId": "table-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Table"
+    },
+    {
+      "component": "popover",
+      "docPath": "/docs/components/base/popover",
+      "exampleId": "popover-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Popover"
+    },
+    {
+      "component": "select",
+      "docPath": "/docs/components/base/select",
+      "exampleId": "select-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Select"
+    },
+    {
+      "component": "badge",
+      "docPath": "/docs/components/base/badge",
+      "exampleId": "badge-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Badge"
+    },
+    {
+      "component": "checkbox",
+      "docPath": "/docs/components/base/checkbox",
+      "exampleId": "checkbox-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Checkbox"
+    },
+    {
+      "component": "separator",
+      "docPath": "/docs/components/base/separator",
+      "exampleId": "separator-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Separator"
+    },
+    {
+      "component": "alert",
+      "docPath": "/docs/components/base/alert",
+      "exampleId": "alert-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Alert"
+    },
+    {
+      "component": "progress",
+      "docPath": "/docs/components/base/progress",
+      "exampleId": "progress-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Progress"
+    },
+    {
+      "component": "skeleton",
+      "docPath": "/docs/components/base/skeleton",
+      "exampleId": "skeleton-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Skeleton"
+    },
+    {
+      "component": "textarea",
+      "docPath": "/docs/components/base/textarea",
+      "exampleId": "textarea-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Textarea"
+    },
+    {
+      "component": "label",
+      "docPath": "/docs/components/base/label",
+      "exampleId": "label-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": null
+    },
+    {
+      "component": "avatar",
+      "docPath": "/docs/components/base/avatar",
+      "exampleId": "avatar-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Avatar"
+    },
+    {
+      "component": "spinner",
+      "docPath": "/docs/components/base/spinner",
+      "exampleId": "spinner-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Spinner"
+    },
+    {
+      "component": "tabs",
+      "docPath": "/docs/components/base/tabs",
+      "exampleId": "tabs-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Tabs"
+    },
+    {
+      "component": "accordion",
+      "docPath": "/docs/components/base/accordion",
+      "exampleId": "accordion-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Accordion"
+    },
+    {
+      "component": "tooltip",
+      "docPath": "/docs/components/base/tooltip",
+      "exampleId": "tooltip-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Tooltip"
+    },
+    {
+      "component": "radio-group",
+      "docPath": "/docs/components/base/radio-group",
+      "exampleId": "radio-group-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": null
+    },
+    {
+      "component": "switch",
+      "docPath": "/docs/components/base/switch",
+      "exampleId": "switch-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Switch"
+    },
+    {
+      "component": "slider",
+      "docPath": "/docs/components/base/slider",
+      "exampleId": "slider-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Slider"
+    },
+    {
+      "component": "dropdown-menu",
+      "docPath": "/docs/components/base/dropdown-menu",
+      "exampleId": "dropdown-menu-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "DropdownMenu"
+    },
+    {
+      "component": "dialog",
+      "docPath": "/docs/components/base/dialog",
+      "exampleId": "dialog-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Dialog"
+    },
+    {
+      "component": "field",
+      "docPath": "/docs/components/base/field",
+      "exampleId": "field-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Field"
+    },
+    {
+      "component": "sidebar",
+      "docPath": "/docs/components/base/sidebar",
+      "exampleId": "sidebar-demo",
+      "style": "base-nova",
+      "capture": "block",
+      "localType": null
+    },
+    {
+      "component": "calendar",
+      "docPath": "/docs/components/base/calendar",
+      "exampleId": "calendar-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": null
+    },
+    {
+      "component": "combobox",
+      "docPath": "/docs/components/base/combobox",
+      "exampleId": "combobox-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": null
+    },
+    {
+      "component": "command",
+      "docPath": "/docs/components/base/command",
+      "exampleId": "command-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": null
+    },
+    {
+      "component": "breadcrumb",
+      "docPath": "/docs/components/base/breadcrumb",
+      "exampleId": "breadcrumb-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": null
+    },
+    {
+      "component": "input-group",
+      "docPath": "/docs/components/base/input-group",
+      "exampleId": "input-group-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": null
+    },
+    {
+      "component": "resizable",
+      "docPath": "/docs/components/base/resizable",
+      "exampleId": "resizable-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": null
+    },
+    {
+      "component": "drawer",
+      "docPath": "/docs/components/base/drawer",
+      "exampleId": "drawer-demo",
+      "style": "base-rhea",
+      "capture": "component",
+      "localType": "Drawer"
+    },
+    {
+      "component": "collapsible",
+      "docPath": "/docs/components/base/collapsible",
+      "exampleId": "collapsible-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Collapsible"
+    },
+    {
+      "component": "toggle",
+      "docPath": "/docs/components/base/toggle",
+      "exampleId": "toggle-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Toggle"
+    },
+    {
+      "component": "toggle-group",
+      "docPath": "/docs/components/base/toggle-group",
+      "exampleId": "toggle-group-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "ToggleGroup"
+    },
+    {
+      "component": "button-group",
+      "docPath": "/docs/components/base/button-group",
+      "exampleId": "button-group-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "ButtonGroup"
+    },
+    {
+      "component": "carousel",
+      "docPath": "/docs/components/base/carousel",
+      "exampleId": "carousel-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Carousel"
+    }
+  ]
+}

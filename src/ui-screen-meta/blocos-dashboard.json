@@ -1,0 +1,7 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Dashboard do shadcn/ui: KPIs, gráfico, tabela e sidebar.",
+  "section": "Blocos shadcn",
+  "order": 300,
+  "icon": "layers"
+}

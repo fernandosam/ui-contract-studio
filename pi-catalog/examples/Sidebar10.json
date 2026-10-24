@@ -1,0 +1,19 @@
+{
+  "root": "b012",
+  "elements": {
+    "b012": {
+      "type": "Sidebar10",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 10 · Acme Inc."
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação favorites: Project Management & Task Tracking"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

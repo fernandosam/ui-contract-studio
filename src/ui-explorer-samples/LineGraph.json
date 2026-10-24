@@ -1,0 +1,34 @@
+{
+  "root": "graph_line",
+  "elements": {
+    "graph_line": {
+      "type": "LineGraph",
+      "props": {
+        "title": "Tendência (dados fictícios)",
+        "data": [
+          {
+            "label": "Seg",
+            "value": 12
+          },
+          {
+            "label": "Ter",
+            "value": 20
+          },
+          {
+            "label": "Qua",
+            "value": 15
+          },
+          {
+            "label": "Qui",
+            "value": 29
+          },
+          {
+            "label": "Sex",
+            "value": 24
+          }
+        ]
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "root": "notice",
+  "elements": {
+    "notice": {
+      "type": "Alert",
+      "props": {
+        "title": "Ambiente de demonstração",
+        "description": "Este exemplo utiliza apenas dados fictícios. Os indicadores existem para exercitar o catálogo.",
+        "variant": "default"
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsCookieSettings",
+      "props": {},
+      "children": []
+    }
+  }
+}

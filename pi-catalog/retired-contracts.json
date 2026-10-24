@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "version": "0.21.0",
+  "policy": "Removidos da geração; combinar primitivas existentes ou escolher substituto sem criar um contrato redundante.",
+  "retired": [
+    {
+      "name": "IconPreviewGrid",
+      "category": "gallery",
+      "reason": "Uma grade de ícones não possui API ou comportamento distinto do Grid + Icon.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "LiveWaveformCard",
+      "category": "gallery",
+      "reason": "Apresenta um BarGraph estático, sem áudio ao vivo ou API de waveform.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "LoadingCard",
+      "category": "gallery",
+      "reason": "Apenas agrupa Skeleton dentro de Card.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "QrConnect",
+      "category": "gallery",
+      "reason": "Apresenta Image e Button sem código QR funcional ou pareamento.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "Shortcuts",
+      "category": "gallery",
+      "reason": "Apresenta etiquetas de atalhos e botões sem registrar comandos ou hotkeys.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "SidebarNav",
+      "category": "gallery",
+      "reason": "Apenas agrupa Link/Text sem navegação gerenciada.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "SiteAnnouncement",
+      "category": "site",
+      "reason": "Badge + Text + Icon em Card sem comportamento distinto.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteCallout",
+      "category": "site",
+      "reason": "Card envolvendo Alert; Alert primitivo já representa a funcionalidade.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteCardsCalendar",
+      "category": "site",
+      "reason": "Card envolvendo apenas DatePicker.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteCardsExerciseMinutes",
+      "category": "site",
+      "reason": "Card envolvendo apenas LineGraph.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteChartToolbar",
+      "category": "site",
+      "reason": "Tabs, Buttons e LineGraph sem editor real de gráficos.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteCodeBlockCommand",
+      "category": "site",
+      "reason": "Tabs, Text e Button sem cópia de código ou alternância de shell real.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteComponentPreview",
+      "category": "site",
+      "reason": "Tabs, Alert e Button sem carregar preview/código reais.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteDirectorySearch",
+      "category": "site",
+      "reason": "Card, Input e Button sem execução de busca.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteDocsBreadcrumb",
+      "category": "site",
+      "reason": "Stack de Text/Icon sem breadcrumbs semânticos/navegação.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteDocsTableOfContents",
+      "category": "site",
+      "reason": "Text e Popover estáticos sem sincronização com documento.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteSiteHeader",
+      "category": "site",
+      "reason": "Text e Button agrupados sem navegação/estado de header.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SiteThemeSelector",
+      "category": "site",
+      "reason": "Select e Button sem integração com provider de tema.",
+      "replacement": "approved primitive combination on demand"
+    },
+    {
+      "name": "SkeletonLoading",
+      "category": "gallery",
+      "reason": "Apenas reúne quatro primitivas Skeleton.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "StyleOverview",
+      "category": "gallery",
+      "reason": "Apenas apresenta amostras visuais de estilo usando Text/Separator/Button.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "TypographySpecimen",
+      "category": "gallery",
+      "reason": "Apenas exemplifica tipografia e campo de texto.",
+      "replacement": "inline primitives in gallery"
+    },
+    {
+      "name": "UIElements",
+      "category": "gallery",
+      "reason": "Apenas demonstra controles base sem estado composto.",
+      "replacement": "inline primitives in gallery"
+    }
+  ]
+}

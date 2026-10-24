@@ -1,0 +1,14 @@
+{
+  "root": "form_switch",
+  "elements": {
+    "form_switch": {
+      "type": "Switch",
+      "props": {
+        "label": "Ativar notificações",
+        "name": "active",
+        "checked": true
+      },
+      "children": []
+    }
+  }
+}

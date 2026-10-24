@@ -1,0 +1,250 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Team Members",
+        "description": "Invite your team members to collaborate.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c007",
+        "c013",
+        "c019"
+      ]
+    },
+    "c002": {
+      "type": "Avatar",
+      "props": {
+        "name": "Sofia Davis",
+        "size": "sm"
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Text",
+      "props": {
+        "text": "Sofia Davis",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Text",
+      "props": {
+        "text": "m@example.com",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c005": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch"
+      },
+      "children": [
+        "c003",
+        "c004"
+      ]
+    },
+    "c006": {
+      "type": "Select",
+      "props": {
+        "label": "Role of Sofia Davis",
+        "name": "role_of_sofia_davis_5",
+        "options": [
+          {
+            "label": "Viewer",
+            "value": "viewer"
+          },
+          {
+            "label": "Developer",
+            "value": "developer"
+          },
+          {
+            "label": "Billing",
+            "value": "billing"
+          },
+          {
+            "label": "Owner",
+            "value": "owner"
+          }
+        ],
+        "placeholder": "Select"
+      },
+      "children": []
+    },
+    "c007": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c002",
+        "c005",
+        "c006"
+      ]
+    },
+    "c008": {
+      "type": "Avatar",
+      "props": {
+        "name": "Jackson Lee",
+        "size": "sm"
+      },
+      "children": []
+    },
+    "c009": {
+      "type": "Text",
+      "props": {
+        "text": "Jackson Lee",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c010": {
+      "type": "Text",
+      "props": {
+        "text": "p@example.com",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c011": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch"
+      },
+      "children": [
+        "c009",
+        "c010"
+      ]
+    },
+    "c012": {
+      "type": "Select",
+      "props": {
+        "label": "Role of Jackson Lee",
+        "name": "role_of_jackson_lee_11",
+        "options": [
+          {
+            "label": "Viewer",
+            "value": "viewer"
+          },
+          {
+            "label": "Developer",
+            "value": "developer"
+          },
+          {
+            "label": "Billing",
+            "value": "billing"
+          },
+          {
+            "label": "Owner",
+            "value": "owner"
+          }
+        ],
+        "placeholder": "Select"
+      },
+      "children": []
+    },
+    "c013": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c008",
+        "c011",
+        "c012"
+      ]
+    },
+    "c014": {
+      "type": "Avatar",
+      "props": {
+        "name": "Isabella Nguyen",
+        "size": "sm"
+      },
+      "children": []
+    },
+    "c015": {
+      "type": "Text",
+      "props": {
+        "text": "Isabella Nguyen",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c016": {
+      "type": "Text",
+      "props": {
+        "text": "i@example.com",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c017": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch"
+      },
+      "children": [
+        "c015",
+        "c016"
+      ]
+    },
+    "c018": {
+      "type": "Select",
+      "props": {
+        "label": "Role of Isabella Nguyen",
+        "name": "role_of_isabella_nguyen_17",
+        "options": [
+          {
+            "label": "Viewer",
+            "value": "viewer"
+          },
+          {
+            "label": "Developer",
+            "value": "developer"
+          },
+          {
+            "label": "Billing",
+            "value": "billing"
+          },
+          {
+            "label": "Owner",
+            "value": "owner"
+          }
+        ],
+        "placeholder": "Select"
+      },
+      "children": []
+    },
+    "c019": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c014",
+        "c017",
+        "c018"
+      ]
+    }
+  }
+}

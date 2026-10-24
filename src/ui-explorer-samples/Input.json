@@ -1,0 +1,24 @@
+{
+  "root": "form_input",
+  "elements": {
+    "form_input": {
+      "type": "Input",
+      "props": {
+        "label": "Nome",
+        "name": "nome",
+        "type": "text",
+        "placeholder": "Exemplo de nome",
+        "value": null,
+        "checks": [
+          {
+            "type": "required",
+            "message": "Campo obrigatório"
+          }
+        ],
+        "required": true,
+        "disabled": false
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 12 · Calendars",
+        "description": "Adaptação do bloco oficial sidebar-12 · calendar · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b004",
+        "b005"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação calendar: October 2026",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "DatePicker",
+      "props": {
+        "label": "October 2026",
+        "name": "sidebar_12_date",
+        "value": null,
+        "placeholder": "Select date",
+        "minDate": null,
+        "maxDate": null,
+        "disabled": false,
+        "required": false
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Calendars",
+        "sections": [
+          {
+            "label": "My Calendars",
+            "items": [
+              "Personal",
+              "Work",
+              "Family"
+            ]
+          },
+          {
+            "label": "Other",
+            "items": [
+              "New Calendar"
+            ]
+          }
+        ],
+        "active": "October 2026",
+        "variant": "sidebar",
+        "collapsible": "offcanvas",
+        "footer": "Documentação · modo demonstração"
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Text",
+      "props": {
+        "text": "Calendars: Personal · Work · Family",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "root": "n0121",
+  "elements": {
+    "n0121": {
+      "type": "SavingsProgress",
+      "props": {
+        "content": {
+          "n0119.label": "Meta de reserva"
+        },
+        "nodeProps": {
+          "n0119": {
+            "label": "Meta de reserva"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

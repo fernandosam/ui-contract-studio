@@ -1,0 +1,17 @@
+{
+  "root": "form_textarea",
+  "elements": {
+    "form_textarea": {
+      "type": "Textarea",
+      "props": {
+        "label": "Observações",
+        "name": "notas",
+        "placeholder": "Escreva uma observação...",
+        "rows": 3,
+        "value": null,
+        "checks": null
+      },
+      "children": []
+    }
+  }
+}

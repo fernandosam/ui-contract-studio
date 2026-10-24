@@ -1,0 +1,55 @@
+{
+  "root": "n0017",
+  "elements": {
+    "n0015": {
+      "type": "Alert",
+      "props": {
+        "title": "Pico inesperado",
+        "description": "O consumo ficou acima do padrão na última hora.",
+        "variant": "destructive"
+      },
+      "children": []
+    },
+    "n0016": {
+      "type": "Button",
+      "props": {
+        "label": "Inspecionar",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Inspecionar (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0017": {
+      "type": "Card",
+      "props": {
+        "title": "Get alerted for anomalies",
+        "description": "Anomalia detectada · Pico inesperado",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0015",
+        "anomaly_alert_0",
+        "n0016"
+      ]
+    },
+    "anomaly_alert_0": {
+      "type": "Text",
+      "props": {
+        "text": "Upgrade to Observability Plus",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

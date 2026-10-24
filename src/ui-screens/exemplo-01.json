@@ -1,0 +1,742 @@
+{
+  "root": "n0146",
+  "elements": {
+    "n0001": {
+      "type": "Badge",
+      "props": {
+        "label": "shadcn/create · PREVIEW",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0002": {
+      "type": "Heading",
+      "props": {
+        "text": "Galeria completa de cards · PREVIEW",
+        "level": "h1"
+      },
+      "children": []
+    },
+    "n0003": {
+      "type": "Text",
+      "props": {
+        "text": "Cards compostos com títulos e controles orientados pelo JSX oficial; visual ainda em revisão por screenshots. Ações locais e dados demonstrativos.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0004": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "n0001",
+        "n0002",
+        "n0003"
+      ]
+    },
+    "n0009": {
+      "type": "ActivateAgentDialog",
+      "props": {},
+      "children": []
+    },
+    "n0013": {
+      "type": "AnalyticsCard",
+      "props": {},
+      "children": []
+    },
+    "n0017": {
+      "type": "AnomalyAlert",
+      "props": {},
+      "children": []
+    },
+    "n0021": {
+      "type": "BarChartCard",
+      "props": {},
+      "children": []
+    },
+    "n0026": {
+      "type": "BookAppointment",
+      "props": {},
+      "children": []
+    },
+    "n0030": {
+      "type": "CodespacesCard",
+      "props": {},
+      "children": []
+    },
+    "n0031": {
+      "type": "Grid",
+      "props": {
+        "columns": 3,
+        "gap": "md"
+      },
+      "children": [
+        "n0009",
+        "n0013",
+        "n0017",
+        "n0021",
+        "n0026",
+        "n0030"
+      ]
+    },
+    "n0035": {
+      "type": "ContributionsActivity",
+      "props": {},
+      "children": []
+    },
+    "n0040": {
+      "type": "Contributors",
+      "props": {},
+      "children": []
+    },
+    "n0045": {
+      "type": "EnvironmentVariables",
+      "props": {},
+      "children": []
+    },
+    "n0050": {
+      "type": "FeedbackForm",
+      "props": {},
+      "children": []
+    },
+    "n0054": {
+      "type": "FileUpload",
+      "props": {},
+      "children": []
+    },
+    "n0059": {
+      "type": "GithubProfile",
+      "props": {},
+      "children": []
+    },
+    "n0060": {
+      "type": "Grid",
+      "props": {
+        "columns": 3,
+        "gap": "md"
+      },
+      "children": [
+        "n0035",
+        "n0040",
+        "n0045",
+        "n0050",
+        "n0054",
+        "n0059"
+      ]
+    },
+    "n0065": {
+      "type": "Card",
+      "props": {
+        "title": "Icons",
+        "description": "Biblioteca de ícones · Lucide Icons",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0065__inline__n0062",
+        "n0065__inline__n0063",
+        "n0065__inline__n0064",
+        "n0065__inline__icon_preview_grid_0",
+        "n0065__inline__icon_preview_grid_1",
+        "n0065__inline__icon_preview_grid_2"
+      ]
+    },
+    "n0069": {
+      "type": "InviteTeam",
+      "props": {},
+      "children": []
+    },
+    "n0073": {
+      "type": "Invoice",
+      "props": {},
+      "children": []
+    },
+    "n0076": {
+      "type": "Card",
+      "props": {
+        "title": "Live Audio Waveform",
+        "description": "Áudio ao vivo · Captação de áudio",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0076__inline__n0075",
+        "n0076__inline__live_waveform_card_0"
+      ]
+    },
+    "n0080": {
+      "type": "NoTeamMembers",
+      "props": {},
+      "children": []
+    },
+    "n0084": {
+      "type": "NotFound",
+      "props": {},
+      "children": []
+    },
+    "n0085": {
+      "type": "Grid",
+      "props": {
+        "columns": 3,
+        "gap": "md"
+      },
+      "children": [
+        "n0065",
+        "n0069",
+        "n0073",
+        "n0076",
+        "n0080",
+        "n0084"
+      ]
+    },
+    "n0089": {
+      "type": "ObservabilityCard",
+      "props": {},
+      "children": []
+    },
+    "n0093": {
+      "type": "PieChartCard",
+      "props": {},
+      "children": []
+    },
+    "n0098": {
+      "type": "ReportBug",
+      "props": {},
+      "children": []
+    },
+    "n0103": {
+      "type": "ShippingAddress",
+      "props": {},
+      "children": []
+    },
+    "n0107": {
+      "type": "Card",
+      "props": {
+        "title": "Shortcuts",
+        "description": "Atalhos · Ações frequentes",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0107__inline__shortcuts_0",
+        "n0107__inline__shortcuts_1",
+        "n0107__inline__n0105",
+        "n0107__inline__n0106"
+      ]
+    },
+    "n0111": {
+      "type": "Card",
+      "props": {
+        "title": "Loading",
+        "description": "Carregando cartão · Aguarde",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0111__inline__n0109",
+        "n0111__inline__n0110",
+        "n0111__inline__skeleton_loading_0",
+        "n0111__inline__skeleton_loading_1"
+      ]
+    },
+    "n0112": {
+      "type": "Grid",
+      "props": {
+        "columns": 3,
+        "gap": "md"
+      },
+      "children": [
+        "n0089",
+        "n0093",
+        "n0098",
+        "n0103",
+        "n0107",
+        "n0111"
+      ]
+    },
+    "n0116": {
+      "type": "SleepReport",
+      "props": {},
+      "children": []
+    },
+    "n0121": {
+      "type": "Card",
+      "props": {
+        "title": "Style Overview",
+        "description": "Visão geral do estilo · Identidade visual",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0121__inline__style_overview_0",
+        "n0121__inline__n0119",
+        "n0121__inline__n0120"
+      ]
+    },
+    "n0126": {
+      "type": "Card",
+      "props": {
+        "title": "Typography",
+        "description": "Tipografia · Inter / JetBrains Mono",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0126__inline__n0123",
+        "n0126__inline__n0124",
+        "n0126__inline__n0125",
+        "n0126__inline__typography_specimen_0",
+        "n0126__inline__typography_specimen_1"
+      ]
+    },
+    "n0131": {
+      "type": "Card",
+      "props": {
+        "title": "UI Elements",
+        "description": "Elementos de UI · Controles interativos",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0131__inline__n0127",
+        "n0131__inline__u_i_elements_0",
+        "n0131__inline__u_i_elements_1",
+        "n0131__inline__u_i_elements_2",
+        "n0131__inline__u_i_elements_3",
+        "n0131__inline__n0128",
+        "n0131__inline__n0129",
+        "n0131__inline__n0130"
+      ]
+    },
+    "n0135": {
+      "type": "UsageCard",
+      "props": {},
+      "children": []
+    },
+    "n0139": {
+      "type": "Visitors",
+      "props": {},
+      "children": []
+    },
+    "n0140": {
+      "type": "Grid",
+      "props": {
+        "columns": 3,
+        "gap": "md"
+      },
+      "children": [
+        "n0116",
+        "n0121",
+        "n0126",
+        "n0131",
+        "n0135",
+        "n0139"
+      ]
+    },
+    "n0144": {
+      "type": "WeeklyFitnessSummary",
+      "props": {},
+      "children": []
+    },
+    "n0145": {
+      "type": "Grid",
+      "props": {
+        "columns": 3,
+        "gap": "md"
+      },
+      "children": [
+        "n0144"
+      ]
+    },
+    "n0146": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "lg",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "n0004",
+        "n0031",
+        "n0060",
+        "n0085",
+        "n0112",
+        "n0140",
+        "n0145"
+      ]
+    },
+    "n0065__inline__n0062": {
+      "type": "Icon",
+      "props": {
+        "name": "Users",
+        "size": "lg",
+        "color": "primary"
+      },
+      "children": []
+    },
+    "n0065__inline__n0063": {
+      "type": "Icon",
+      "props": {
+        "name": "Calendar",
+        "size": "lg",
+        "color": "primary"
+      },
+      "children": []
+    },
+    "n0065__inline__n0064": {
+      "type": "Icon",
+      "props": {
+        "name": "Shield",
+        "size": "lg",
+        "color": "primary"
+      },
+      "children": []
+    },
+    "n0065__inline__icon_preview_grid_0": {
+      "type": "Icon",
+      "props": {
+        "name": "Settings",
+        "size": "md"
+      },
+      "children": []
+    },
+    "n0065__inline__icon_preview_grid_1": {
+      "type": "Icon",
+      "props": {
+        "name": "Mail",
+        "size": "md"
+      },
+      "children": []
+    },
+    "n0065__inline__icon_preview_grid_2": {
+      "type": "Icon",
+      "props": {
+        "name": "Calendar",
+        "size": "md"
+      },
+      "children": []
+    },
+    "n0076__inline__n0075": {
+      "type": "BarGraph",
+      "props": {
+        "title": "Intensidade do sinal",
+        "data": [
+          {
+            "label": "Jan",
+            "value": 18
+          },
+          {
+            "label": "Fev",
+            "value": 25
+          },
+          {
+            "label": "Mar",
+            "value": 21
+          },
+          {
+            "label": "Abr",
+            "value": 33
+          },
+          {
+            "label": "Mai",
+            "value": 28
+          },
+          {
+            "label": "Jun",
+            "value": 42
+          }
+        ]
+      },
+      "children": []
+    },
+    "n0076__inline__live_waveform_card_0": {
+      "type": "Text",
+      "props": {
+        "text": "A live microphone input requires explicit user permission; static visualization only",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0107__inline__n0105": {
+      "type": "Button",
+      "props": {
+        "label": "Abrir opção",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Abrir opção (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0107__inline__n0106": {
+      "type": "Button",
+      "props": {
+        "label": "Configurar",
+        "size": "sm",
+        "variant": "default",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Configurar (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0107__inline__shortcuts_0": {
+      "type": "Text",
+      "props": {
+        "text": "⌘ K — Search",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0107__inline__shortcuts_1": {
+      "type": "Text",
+      "props": {
+        "text": "⌘ B — Toggle sidebar",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0111__inline__n0109": {
+      "type": "Skeleton",
+      "props": {
+        "width": "100%",
+        "height": "18px",
+        "rounded": true
+      },
+      "children": []
+    },
+    "n0111__inline__n0110": {
+      "type": "Skeleton",
+      "props": {
+        "width": "74%",
+        "height": "18px",
+        "rounded": false
+      },
+      "children": []
+    },
+    "n0111__inline__skeleton_loading_0": {
+      "type": "Skeleton",
+      "props": {
+        "width": "100%",
+        "height": "80px",
+        "rounded": true
+      },
+      "children": []
+    },
+    "n0111__inline__skeleton_loading_1": {
+      "type": "Skeleton",
+      "props": {
+        "width": "65%",
+        "height": "16px",
+        "rounded": true
+      },
+      "children": []
+    },
+    "n0121__inline__n0119": {
+      "type": "Button",
+      "props": {
+        "label": "Ver tema",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Ver tema (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0121__inline__n0120": {
+      "type": "Separator",
+      "props": {
+        "orientation": "horizontal",
+        "decorative": true
+      },
+      "children": []
+    },
+    "n0121__inline__style_overview_0": {
+      "type": "Text",
+      "props": {
+        "text": "Background · Foreground · Primary · Secondary",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0126__inline__n0123": {
+      "type": "Heading",
+      "props": {
+        "text": "Amostra tipográfica",
+        "level": "h3"
+      },
+      "children": []
+    },
+    "n0126__inline__n0124": {
+      "type": "Text",
+      "props": {
+        "text": "Texto de corpo 14px · Inter",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0126__inline__n0125": {
+      "type": "Text",
+      "props": {
+        "text": "const theme = \"neutral\"",
+        "variant": "code"
+      },
+      "children": []
+    },
+    "n0126__inline__typography_specimen_0": {
+      "type": "Text",
+      "props": {
+        "text": "Heading · Body · Caption",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0126__inline__typography_specimen_1": {
+      "type": "Textarea",
+      "props": {
+        "label": "Share Feedback",
+        "name": "typography_specimen_1",
+        "placeholder": "Share Feedback",
+        "value": null
+      },
+      "children": []
+    },
+    "n0131__inline__n0127": {
+      "type": "Badge",
+      "props": {
+        "label": "VISUAL",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0131__inline__n0128": {
+      "type": "Button",
+      "props": {
+        "label": "Primário",
+        "size": "sm",
+        "variant": "default",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Primário (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0131__inline__n0129": {
+      "type": "Button",
+      "props": {
+        "label": "Secundário",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Secundário (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0131__inline__n0130": {
+      "type": "Toggle",
+      "props": {
+        "label": "Ativar",
+        "pressed": false,
+        "defaultPressed": false,
+        "variant": "outline",
+        "size": "sm",
+        "disabled": false
+      },
+      "children": []
+    },
+    "n0131__inline__u_i_elements_0": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Checkbox",
+        "name": "u_i_elements_0",
+        "defaultChecked": false
+      },
+      "children": []
+    },
+    "n0131__inline__u_i_elements_1": {
+      "type": "Slider",
+      "props": {
+        "label": "Volume",
+        "min": 0,
+        "max": 100,
+        "defaultValue": 60,
+        "step": 5
+      },
+      "children": []
+    },
+    "n0131__inline__u_i_elements_2": {
+      "type": "Radio",
+      "props": {
+        "label": "Options",
+        "name": "u_i_elements_2",
+        "options": [
+          {
+            "label": "One",
+            "value": "one"
+          },
+          {
+            "label": "Two",
+            "value": "two"
+          }
+        ],
+        "defaultValue": "one",
+        "value": null
+      },
+      "children": []
+    },
+    "n0131__inline__u_i_elements_3": {
+      "type": "Textarea",
+      "props": {
+        "label": "Message",
+        "name": "u_i_elements_3",
+        "placeholder": "Message",
+        "value": null
+      },
+      "children": []
+    }
+  }
+}

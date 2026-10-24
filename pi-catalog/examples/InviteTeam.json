@@ -1,0 +1,19 @@
+{
+  "root": "n0069",
+  "elements": {
+    "n0069": {
+      "type": "InviteTeam",
+      "props": {
+        "content": {
+          "n0067.label": "Email"
+        },
+        "nodeProps": {
+          "n0067": {
+            "label": "Email"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

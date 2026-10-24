@@ -1,0 +1,15 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "Kbd",
+      "props": {
+        "keys": [
+          "Ctrl",
+          "K"
+        ]
+      },
+      "children": []
+    }
+  }
+}

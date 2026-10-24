@@ -1,0 +1,19 @@
+{
+  "root": "b007",
+  "elements": {
+    "b007": {
+      "type": "Signup05",
+      "props": {
+        "content": {
+          "b001.title": "Welcome to Acme Inc."
+        },
+        "nodeProps": {
+          "b002": {
+            "label": "Email"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

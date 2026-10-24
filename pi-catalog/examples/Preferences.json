@@ -1,0 +1,19 @@
+{
+  "root": "n0094",
+  "elements": {
+    "n0094": {
+      "type": "Preferences",
+      "props": {
+        "content": {
+          "n0091.label": "Alertas importantes"
+        },
+        "nodeProps": {
+          "n0091": {
+            "label": "Alertas importantes"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

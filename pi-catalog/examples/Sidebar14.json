@@ -1,0 +1,19 @@
+{
+  "root": "b016",
+  "elements": {
+    "b016": {
+      "type": "Sidebar14",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 14 · Table of Contents"
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação toc: Data Fetching"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

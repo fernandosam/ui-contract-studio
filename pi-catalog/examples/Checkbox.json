@@ -1,0 +1,14 @@
+{
+  "root": "form_checkbox",
+  "elements": {
+    "form_checkbox": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Receber notificações",
+        "name": "notify",
+        "checked": true
+      },
+      "children": []
+    }
+  }
+}

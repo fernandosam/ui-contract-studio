@@ -1,0 +1,14 @@
+{
+  "root": "data_avatar",
+  "elements": {
+    "data_avatar": {
+      "type": "Avatar",
+      "props": {
+        "src": null,
+        "name": "Pessoa Exemplo",
+        "size": "md"
+      },
+      "children": []
+    }
+  }
+}

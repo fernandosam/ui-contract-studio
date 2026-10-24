@@ -1,0 +1,113 @@
+{
+  "root": "n0070",
+  "elements": {
+    "n0067": {
+      "type": "Input",
+      "props": {
+        "label": "Goal Name",
+        "name": "f_newmilestone",
+        "type": "text",
+        "placeholder": "e.g. New Car, Home Downpayment",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "n0068": {
+      "type": "Input",
+      "props": {
+        "label": "Target Amount",
+        "name": "details_newmilestone",
+        "type": "text",
+        "placeholder": "$15,000",
+        "value": "$15,000",
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "n0069": {
+      "type": "Button",
+      "props": {
+        "label": "Create Goal",
+        "size": "sm",
+        "variant": "default",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Continuar (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0070": {
+      "type": "Card",
+      "props": {
+        "title": "Set a new milestone",
+        "description": "Define your financial target and we'll help you pace your savings.",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0067",
+        "milestone_fields",
+        "milestone_footer"
+      ]
+    },
+    "new_milestone_0": {
+      "type": "Input",
+      "props": {
+        "label": "Target Date",
+        "name": "new_milestone_0",
+        "type": "text",
+        "placeholder": "Dec 2025",
+        "value": "Dec 2025"
+      },
+      "children": []
+    },
+    "milestone_fields": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "sm"
+      },
+      "children": [
+        "n0068",
+        "new_milestone_0"
+      ]
+    },
+    "milestone_cancel": {
+      "type": "Button",
+      "props": {
+        "label": "Cancel",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "milestone_footer": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "n0069",
+        "milestone_cancel"
+      ]
+    }
+  }
+}

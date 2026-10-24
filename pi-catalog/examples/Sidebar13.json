@@ -1,0 +1,19 @@
+{
+  "root": "b015",
+  "elements": {
+    "b015": {
+      "type": "Sidebar13",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 13 · Settings"
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação dialog: Messages & media"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

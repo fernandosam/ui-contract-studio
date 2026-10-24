@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsReportIssue",
+      "props": {
+        "content": {
+          "c001.title": "Report an issue"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "Area"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

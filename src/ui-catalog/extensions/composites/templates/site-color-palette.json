@@ -1,0 +1,189 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Color Palette",
+        "description": "Inspect theme tokens and output format.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c002",
+        "c006",
+        "c010",
+        "c014"
+      ]
+    },
+    "c002": {
+      "type": "Select",
+      "props": {
+        "label": "Format",
+        "name": "format_1",
+        "options": [
+          {
+            "label": "OKLCH",
+            "value": "oklch"
+          },
+          {
+            "label": "HSL",
+            "value": "hsl"
+          },
+          {
+            "label": "HEX",
+            "value": "hex"
+          }
+        ],
+        "placeholder": "Select",
+        "value": null,
+        "defaultValue": null
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Badge",
+      "props": {
+        "label": "Primary",
+        "variant": "secondary"
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Text",
+      "props": {
+        "text": "oklch(0.65 0.19 265)",
+        "variant": "code"
+      },
+      "children": []
+    },
+    "c005": {
+      "type": "Button",
+      "props": {
+        "label": "Copy",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Copy (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c006": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c003",
+        "c004",
+        "c005"
+      ]
+    },
+    "c007": {
+      "type": "Badge",
+      "props": {
+        "label": "Background",
+        "variant": "secondary"
+      },
+      "children": []
+    },
+    "c008": {
+      "type": "Text",
+      "props": {
+        "text": "oklch(1 0 0)",
+        "variant": "code"
+      },
+      "children": []
+    },
+    "c009": {
+      "type": "Button",
+      "props": {
+        "label": "Copy",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Copy (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c010": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c007",
+        "c008",
+        "c009"
+      ]
+    },
+    "c011": {
+      "type": "Badge",
+      "props": {
+        "label": "Muted",
+        "variant": "secondary"
+      },
+      "children": []
+    },
+    "c012": {
+      "type": "Text",
+      "props": {
+        "text": "oklch(0.97 0 0)",
+        "variant": "code"
+      },
+      "children": []
+    },
+    "c013": {
+      "type": "Button",
+      "props": {
+        "label": "Copy",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Copy (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c014": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c011",
+        "c012",
+        "c013"
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "root": "n0030",
+  "elements": {
+    "n0030": {
+      "type": "CodespacesCard",
+      "props": {
+        "content": {
+          "n0028.text": "Ambiente de demonstração pronto para iniciar."
+        },
+        "nodeProps": {
+          "n0028": {
+            "text": "Ambiente de demonstração pronto para iniciar."
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

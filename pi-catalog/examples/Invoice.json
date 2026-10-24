@@ -1,0 +1,19 @@
+{
+  "root": "n0073",
+  "elements": {
+    "n0073": {
+      "type": "Invoice",
+      "props": {
+        "content": {
+          "status.label": "Pending"
+        },
+        "nodeProps": {
+          "status": {
+            "label": "Pending"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

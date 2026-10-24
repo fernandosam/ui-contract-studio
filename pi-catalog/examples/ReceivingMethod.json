@@ -1,0 +1,19 @@
+{
+  "root": "n0102",
+  "elements": {
+    "n0102": {
+      "type": "ReceivingMethod",
+      "props": {
+        "content": {
+          "n0101.label": "Confirmar"
+        },
+        "nodeProps": {
+          "n0101": {
+            "label": "Confirmar"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

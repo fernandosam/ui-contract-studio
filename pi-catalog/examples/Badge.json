@@ -1,0 +1,13 @@
+{
+  "root": "approved",
+  "elements": {
+    "approved": {
+      "type": "Badge",
+      "props": {
+        "variant": "secondary",
+        "label": "Catálogo validado"
+      },
+      "children": []
+    }
+  }
+}

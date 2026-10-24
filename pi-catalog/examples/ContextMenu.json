@@ -1,0 +1,21 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "ContextMenu",
+      "props": {
+        "trigger": "Clique com botão direito nesta área",
+        "items": [
+          {
+            "label": "Visualizar"
+          },
+          {
+            "label": "Editar",
+            "disabled": true
+          }
+        ]
+      },
+      "children": []
+    }
+  }
+}

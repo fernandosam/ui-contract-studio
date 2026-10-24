@@ -1,0 +1,15 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsCookieSettings",
+      "props": {
+        "content": {
+          "c001.title": "Cookie Settings"
+        },
+        "showOptionalCookies": false
+      },
+      "children": []
+    }
+  }
+}

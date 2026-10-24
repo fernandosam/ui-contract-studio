@@ -1,0 +1,71 @@
+{
+  "root": "n0106",
+  "elements": {
+    "n0104": {
+      "type": "Table",
+      "props": {
+        "columns": [
+          "Descrição",
+          "Valor"
+        ],
+        "rows": [
+          [
+            "Pagamento A",
+            "R$ 120"
+          ],
+          [
+            "Pagamento B",
+            "R$ 480"
+          ],
+          [
+            "Pagamento C",
+            "R$ 65"
+          ]
+        ],
+        "caption": null
+      },
+      "children": []
+    },
+    "n0105": {
+      "type": "Button",
+      "props": {
+        "label": "Ver detalhes",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Ver detalhes (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0106": {
+      "type": "Card",
+      "props": {
+        "title": "Recent Transactions",
+        "description": "Transações recentes · Movimentações",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0104",
+        "recent_transactions_0",
+        "n0105"
+      ]
+    },
+    "recent_transactions_0": {
+      "type": "Text",
+      "props": {
+        "text": "Blue Bottle Coffee · Whole Foods Market · Stripe Payout · Uber · Netflix",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Move Goal",
+        "description": "Set your daily activity goal.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c005",
+        "c006",
+        "c007"
+      ]
+    },
+    "c002": {
+      "type": "Button",
+      "props": {
+        "label": "− 10",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: − 10 (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c003": {
+      "type": "Metric",
+      "props": {
+        "label": "Calories/day",
+        "value": "350"
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Button",
+      "props": {
+        "label": "+ 10",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: + 10 (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c005": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c002",
+        "c003",
+        "c004"
+      ]
+    },
+    "c006": {
+      "type": "BarGraph",
+      "props": {
+        "title": "Goal",
+        "data": [
+          {
+            "label": "1",
+            "value": 400
+          },
+          {
+            "label": "2",
+            "value": 300
+          },
+          {
+            "label": "3",
+            "value": 200
+          },
+          {
+            "label": "4",
+            "value": 300
+          },
+          {
+            "label": "5",
+            "value": 200
+          },
+          {
+            "label": "6",
+            "value": 278
+          },
+          {
+            "label": "7",
+            "value": 189
+          },
+          {
+            "label": "8",
+            "value": 239
+          },
+          {
+            "label": "9",
+            "value": 300
+          },
+          {
+            "label": "10",
+            "value": 200
+          },
+          {
+            "label": "11",
+            "value": 278
+          },
+          {
+            "label": "12",
+            "value": 189
+          },
+          {
+            "label": "13",
+            "value": 349
+          }
+        ]
+      },
+      "children": []
+    },
+    "c007": {
+      "type": "Button",
+      "props": {
+        "label": "Set Goal",
+        "variant": "secondary",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Set Goal (sem efeito externo)"
+          }
+        }
+      }
+    }
+  }
+}

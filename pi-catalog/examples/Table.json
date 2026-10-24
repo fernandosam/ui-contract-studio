@@ -1,0 +1,49 @@
+{
+  "root": "process-table",
+  "elements": {
+    "process-table": {
+      "type": "Table",
+      "props": {
+        "caption": "Movimentações de processos ilustrativas",
+        "columns": [
+          "Protocolo",
+          "Assunto",
+          "Situação"
+        ],
+        "rows": [
+          [
+            "TRT-DEMO-001",
+            "Análise documental",
+            "Em andamento"
+          ],
+          [
+            "TRT-DEMO-002",
+            "Cadastro de usuário",
+            "Concluído"
+          ],
+          [
+            "TRT-DEMO-003",
+            "Atualização cadastral",
+            "Pendente"
+          ],
+          [
+            "TRT-DEMO-004",
+            "Solicitação interna",
+            "Em andamento"
+          ],
+          [
+            "TRT-DEMO-005",
+            "Validação de acesso",
+            "Concluído"
+          ],
+          [
+            "TRT-DEMO-006",
+            "Revisão do formulário",
+            "Pendente"
+          ]
+        ]
+      },
+      "children": []
+    }
+  }
+}

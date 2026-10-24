@@ -1,0 +1,10 @@
+{
+  "id": "form-fields",
+  "title": "Campos de formulário",
+  "category": "forms",
+  "description": "Campos acessíveis padronizados",
+  "originScreen": "playground",
+  "sourceRoot": "forms",
+  "approved": true,
+  "immutableContracts": true
+}

@@ -1,0 +1,23 @@
+{
+  "root": "action_toggle_group",
+  "elements": {
+    "action_toggle_group": {
+      "type": "ToggleGroup",
+      "props": {
+        "items": [
+          {
+            "label": "Lista",
+            "value": "list"
+          },
+          {
+            "label": "Grade",
+            "value": "grid"
+          }
+        ],
+        "type": "single",
+        "value": "list"
+      },
+      "children": []
+    }
+  }
+}

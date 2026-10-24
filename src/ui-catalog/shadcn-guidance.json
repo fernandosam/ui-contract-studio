@@ -1,0 +1,194 @@
+{
+  "AspectRatio": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/aspect-ratio",
+    "whenUse": [
+      "Imagens, mídias ou painéis que precisam manter uma proporção fixa durante o redimensionamento.",
+      "Visualizações quadradas, retratos ou paisagens cujas dimensões devem permanecer previsíveis."
+    ],
+    "whenNotUse": [
+      "Conteúdo textual variável em que uma altura fixa poderia causar corte.",
+      "Quando a proporção deve acompanhar naturalmente o conteúdo e não ser imposta."
+    ],
+    "agentNotes": [
+      "A propriedade ratio é numérica e validada entre 0,25 e 4; por exemplo, 16/9 para widescreen.",
+      "Insira somente filhos já aprovados pelo catálogo, via slot default; nunca gere tags HTML ou JSX arbitrário.",
+      "Para mídia informativa, forneça texto alternativo acessível no componente de imagem utilizado como filho."
+    ]
+  },
+  "Kbd": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/kbd",
+    "whenUse": [
+      "Mostrar atalhos de teclado junto às ações da interface.",
+      "Documentar combinações de teclas em instruções concisas."
+    ],
+    "whenNotUse": [
+      "Como substituto de um botão clicável ou campo de formulário.",
+      "Para exibir códigos longos ou sequências que não representem teclas."
+    ],
+    "agentNotes": [
+      "O contrato recebe apenas keys, uma lista de uma a cinco teclas com textos curtos.",
+      "Os símbolos apresentados não criam comportamento nem registram atalhos globais.",
+      "Mantenha a descrição textual da ação próxima ao atalho para usuários de tecnologias assistivas."
+    ]
+  },
+  "Empty": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/empty",
+    "whenUse": [
+      "Listas, buscas e coleções sem resultados ou conteúdo inicial.",
+      "Explicar como o usuário pode sair de um estado vazio e oferecer uma próxima ação aprovada."
+    ],
+    "whenNotUse": [
+      "Como substituto de um Alert para erro, falha ou situação urgente.",
+      "Como indicador de carregamento; utilize Skeleton ou Spinner."
+    ],
+    "agentNotes": [
+      "Título obrigatório e descrição nullable são textos estritos validados por Zod.",
+      "Ações opcionais devem ser filhos declarativos aprovados no slot default; não use callbacks arbitrários.",
+      "Diferencie nenhum resultado, dados ainda não criados e falha ao carregar; a mensagem deve corresponder ao estado real."
+    ]
+  },
+  "ScrollArea": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/scroll-area",
+    "whenUse": [
+      "Conteúdo comprovadamente maior que o espaço disponível, como listas longas ou transcrições.",
+      "Painéis cuja altura controlada deve evitar deslocamento excessivo do restante da página."
+    ],
+    "whenNotUse": [
+      "Quando o fluxo natural da página é suficiente e não exige uma segunda região rolável.",
+      "Para esconder controles essenciais dentro de uma pequena área de rolagem sem indicação visual."
+    ],
+    "agentNotes": [
+      "A altura é restrita a sm, md ou lg; estilos arbitrários e dimensões livres não fazem parte do contrato.",
+      "Use o slot default apenas com componentes declarativos autorizados; preserve rolagem e foco por teclado.",
+      "A implementação inicial oferece orientação vertical; rolagem horizontal e RTL exigem revisão específica antes de ampliar o contrato."
+    ]
+  },
+  "AlertDialog": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/alert-dialog",
+    "whenUse": [
+      "Solicitar confirmação explícita antes de ações sensíveis.",
+      "Quando o padrão semântico do shadcn/ui for adequado."
+    ],
+    "whenNotUse": [
+      "Avisos simples; prefira Alert.",
+      "Quando contrato aprovado já supre a funcionalidade."
+    ],
+    "agentNotes": [
+      "Não executar operações destrutivas automaticamente.",
+      "Schema Zod estrito: sem JSX, HTML, URLs ou CSS arbitrário.",
+      "Revisar acessibilidade, tema e comportamento antes da aprovação."
+    ]
+  },
+  "Attachment": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/attachment",
+    "whenUse": [
+      "Exibir anexos e estados de upload existentes.",
+      "Quando o padrão semântico do shadcn/ui for adequado."
+    ],
+    "whenNotUse": [
+      "Para realizar upload; apenas apresenta dados.",
+      "Quando contrato aprovado já supre a funcionalidade."
+    ],
+    "agentNotes": [
+      "Não acessar arquivos nem endpoints.",
+      "Schema Zod estrito: sem JSX, HTML, URLs ou CSS arbitrário.",
+      "Revisar acessibilidade, tema e comportamento antes da aprovação."
+    ]
+  },
+  "Bubble": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/bubble",
+    "whenUse": [
+      "Balões curtos de conversa.",
+      "Quando o padrão semântico do shadcn/ui for adequado."
+    ],
+    "whenNotUse": [
+      "Para conversas com autoria; use Message.",
+      "Quando contrato aprovado já supre a funcionalidade."
+    ],
+    "agentNotes": [
+      "Sem HTML ou callbacks arbitrários.",
+      "Schema Zod estrito: sem JSX, HTML, URLs ou CSS arbitrário.",
+      "Revisar acessibilidade, tema e comportamento antes da aprovação."
+    ]
+  },
+  "ContextMenu": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/context-menu",
+    "whenUse": [
+      "Opções sob clique direito.",
+      "Quando o padrão semântico do shadcn/ui for adequado."
+    ],
+    "whenNotUse": [
+      "Como único caminho para ação importante.",
+      "Quando contrato aprovado já supre a funcionalidade."
+    ],
+    "agentNotes": [
+      "Somente seleção demonstrativa local.",
+      "Schema Zod estrito: sem JSX, HTML, URLs ou CSS arbitrário.",
+      "Revisar acessibilidade, tema e comportamento antes da aprovação."
+    ]
+  },
+  "HoverCard": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/hover-card",
+    "whenUse": [
+      "Prévia não essencial em hover.",
+      "Quando o padrão semântico do shadcn/ui for adequado."
+    ],
+    "whenNotUse": [
+      "Para informações essenciais.",
+      "Quando contrato aprovado já supre a funcionalidade."
+    ],
+    "agentNotes": [
+      "Verificar alternativa teclado/touch.",
+      "Schema Zod estrito: sem JSX, HTML, URLs ou CSS arbitrário.",
+      "Revisar acessibilidade, tema e comportamento antes da aprovação."
+    ]
+  },
+  "Item": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/item",
+    "whenUse": [
+      "Linha estruturada com título e descrição.",
+      "Quando o padrão semântico do shadcn/ui for adequado."
+    ],
+    "whenNotUse": [
+      "Quando Card for mais adequado.",
+      "Quando contrato aprovado já supre a funcionalidade."
+    ],
+    "agentNotes": [
+      "Somente variantes oficiais.",
+      "Schema Zod estrito: sem JSX, HTML, URLs ou CSS arbitrário.",
+      "Revisar acessibilidade, tema e comportamento antes da aprovação."
+    ]
+  },
+  "Marker": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/marker",
+    "whenUse": [
+      "Estado ou progresso textual.",
+      "Quando o padrão semântico do shadcn/ui for adequado."
+    ],
+    "whenNotUse": [
+      "Sem rótulo descritivo.",
+      "Quando contrato aprovado já supre a funcionalidade."
+    ],
+    "agentNotes": [
+      "Manter leitura acessível.",
+      "Schema Zod estrito: sem JSX, HTML, URLs ou CSS arbitrário.",
+      "Revisar acessibilidade, tema e comportamento antes da aprovação."
+    ]
+  },
+  "Message": {
+    "sourceUrl": "https://ui.shadcn.com/docs/components/base/message",
+    "whenUse": [
+      "Texto de conversa com autoria.",
+      "Quando o padrão semântico do shadcn/ui for adequado."
+    ],
+    "whenNotUse": [
+      "Para Markdown arbitrário ou ações externas.",
+      "Quando contrato aprovado já supre a funcionalidade."
+    ],
+    "agentNotes": [
+      "Não permite URLs ou JSX.",
+      "Schema Zod estrito: sem JSX, HTML, URLs ou CSS arbitrário.",
+      "Revisar acessibilidade, tema e comportamento antes da aprovação."
+    ]
+  }
+}

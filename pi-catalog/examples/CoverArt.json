@@ -1,0 +1,19 @@
+{
+  "root": "n0027",
+  "elements": {
+    "n0027": {
+      "type": "CoverArt",
+      "props": {
+        "content": {
+          "n0025.text": "Arte de capa demonstrativa."
+        },
+        "nodeProps": {
+          "n0025": {
+            "text": "Arte de capa demonstrativa."
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

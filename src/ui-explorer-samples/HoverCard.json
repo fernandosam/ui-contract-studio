@@ -1,0 +1,15 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "HoverCard",
+      "props": {
+        "trigger": "Ver detalhes",
+        "title": "Prévia contextual",
+        "description": "Informações disponíveis sem navegar para outra página.",
+        "side": "bottom"
+      },
+      "children": []
+    }
+  }
+}

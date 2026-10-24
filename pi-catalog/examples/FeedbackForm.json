@@ -1,0 +1,19 @@
+{
+  "root": "n0050",
+  "elements": {
+    "n0050": {
+      "type": "FeedbackForm",
+      "props": {
+        "content": {
+          "n0049.label": "Submit"
+        },
+        "nodeProps": {
+          "n0049": {
+            "label": "Submit"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

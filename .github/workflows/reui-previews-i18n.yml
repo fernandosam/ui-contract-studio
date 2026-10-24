@@ -1,0 +1,50 @@
+name: Localize ReUI preview copy pt-BR
+on:
+  push:
+    branches:
+      - fix/reui-gallery3-preview-ptbr-20261023
+    paths:
+      - src/ui-catalog/reui-preview-i18n.ts
+      - scripts/translate-reui-previews.mts
+      - .github/workflows/reui-previews-i18n.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  localize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Translate text nodes and visible properties across all 559 ReUI previews
+        run: npx tsx scripts/translate-reui-previews.mts
+      - name: Confirm dictionary covers the TSX sources
+        run: npx tsx --test tests/reui-preview-i18n.integration.test.ts
+      - name: Smoke-test actual Vite dev response in pt-BR
+        run: node scripts/verify-reui-preview-dev.mjs
+      - name: Upload translation catalog as evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reui-preview-copy-pt-br
+          if-no-files-found: warn
+          path: src/ui-catalog/reui-preview-text.pt-BR.json
+      - name: Commit localized catalog to feature branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/ui-catalog/reui-preview-text.pt-BR.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs(i18n): complete localization of 559 ReUI previews [skip ci]'
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

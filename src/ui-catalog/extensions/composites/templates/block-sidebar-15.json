@@ -1,0 +1,90 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 15 · Acme Inc.",
+        "description": "Adaptação do bloco oficial sidebar-15 · dual · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b004",
+        "b005"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação dual: Project Management",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Text",
+      "props": {
+        "text": "Dois painéis laterais: favoritos/workspaces e calendário",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Acme Inc.",
+        "sections": [
+          {
+            "label": "Navigation",
+            "items": [
+              "Search",
+              "Ask AI",
+              "Home",
+              "Inbox"
+            ]
+          },
+          {
+            "label": "Favorites",
+            "items": [
+              "Project Management",
+              "Family Recipes",
+              "Fitness Tracker"
+            ]
+          },
+          {
+            "label": "Workspaces",
+            "items": [
+              "Personal",
+              "Professional",
+              "Creative"
+            ]
+          },
+          {
+            "label": "Calendars",
+            "items": [
+              "Personal",
+              "Work",
+              "Family"
+            ]
+          }
+        ],
+        "active": "Project Management",
+        "variant": "inset",
+        "collapsible": "icon",
+        "footer": "shadcn · m@example.com"
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Text",
+      "props": {
+        "text": "Calendars: Personal · Work · Family",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

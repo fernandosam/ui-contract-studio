@@ -1,0 +1,17 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "AlertDialog",
+      "props": {
+        "trigger": "Confirmar operação",
+        "title": "Deseja continuar?",
+        "description": "Confira os detalhes antes de confirmar.",
+        "cancelLabel": "Cancelar",
+        "confirmLabel": "Continuar",
+        "size": "default"
+      },
+      "children": []
+    }
+  }
+}

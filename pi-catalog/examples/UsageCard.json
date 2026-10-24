@@ -1,0 +1,19 @@
+{
+  "root": "n0135",
+  "elements": {
+    "n0135": {
+      "type": "UsageCard",
+      "props": {
+        "content": {
+          "n0133.label": "Créditos usados"
+        },
+        "nodeProps": {
+          "n0133": {
+            "label": "Créditos usados"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

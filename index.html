@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR" class="dark-theme">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Interfaces declarativas com catálogo aprovado e extensões validadas." />
+    <title>ui-contract-studio | Catálogo de componentes</title>
+    <script>
+      // Persisted theme is applied before rendering to prevent flashing.
+      try {
+        if (localStorage.getItem("ui-contract-studio-theme") === "light") {
+          document.documentElement.className = "light-theme";
+        }
+      } catch { /* Storage is optional; dark is the default. */ }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

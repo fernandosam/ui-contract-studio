@@ -1,0 +1,291 @@
+{
+  "start": 436,
+  "end": 454,
+  "entries": [
+    {
+      "id": "c-slider-3",
+      "sha": "6830a1cdeb6a30f757fa611b235658ec6ca5212c",
+      "lines": 11,
+      "imports": [
+        "slider"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-4",
+      "sha": "ecc6bfb3cb1779fd0eae618eb4c9fae178cee8ad",
+      "lines": 24,
+      "imports": [
+        "slider"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-5",
+      "sha": "7bd0bfb572c962180b07d5a83b3b71573eb62fcb",
+      "lines": 33,
+      "imports": [
+        "label",
+        "slider"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-6",
+      "sha": "4467f403592e31f97ea235605799fbd60574bd61",
+      "lines": 11,
+      "imports": [
+        "slider"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-7",
+      "sha": "e2c37b3b33e9e4b6d8a89a992b500f55acb43aba",
+      "lines": 48,
+      "imports": [
+        "input",
+        "label",
+        "slider"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-8",
+      "sha": "b38b00e55483ffbb1f0481355abe1fb422e5da93",
+      "lines": 46,
+      "imports": [
+        "label",
+        "slider"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-9",
+      "sha": "077923b2683bdd11c4f132fedc1c27e561f6e8a5",
+      "lines": 21,
+      "imports": [
+        "label",
+        "slider"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-10",
+      "sha": "fe16728ffedbc2b5fe0c8595bff248c2ccbb79ff",
+      "lines": 39,
+      "imports": [
+        "label",
+        "slider"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-11",
+      "sha": "558231493ec9cbb551ad8bf7af3a27db44ee4099",
+      "lines": 42,
+      "imports": [
+        "label",
+        "slider"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-slider-12",
+      "sha": "9c77fa79a3ba544989315f86ee4377c73c090e62",
+      "lines": 38,
+      "imports": [
+        "label",
+        "slider"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-1",
+      "sha": "1a08bb77557c64539c9bb7a571f60e87208d7424",
+      "lines": 11,
+      "imports": [
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-2",
+      "sha": "e075b222b62e247e4e7d0646a4ff427264a27f25",
+      "lines": 20,
+      "imports": [
+        "button",
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-3",
+      "sha": "b9825c2a735331643a98b19078b3a3f82a5e97b7",
+      "lines": 36,
+      "imports": [
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-4",
+      "sha": "0db60e0b8878af54667268671d10af611bc44220",
+      "lines": 23,
+      "imports": [
+        "field",
+        "input-group",
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-5",
+      "sha": "fc978531764e240ffafb54677be021d146d5f842",
+      "lines": 36,
+      "imports": [
+        "button",
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-6",
+      "sha": "1aa13f37d42bd92ee5d52e0f8ad60e6c38398379",
+      "lines": 23,
+      "imports": [
+        "button",
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-7",
+      "sha": "6480c65759f6f371b609bc31683568c7db90bb82",
+      "lines": 48,
+      "imports": [
+        "card",
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-8",
+      "sha": "653d8c9ba4e3958963079e3401f01dfbeb37745f",
+      "lines": 20,
+      "imports": [
+        "card",
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "start": 220,
+  "end": 238,
+  "entries": [
+    {
+      "id": "c-card-12",
+      "sha": "636123eb79ac428b53f4e028068d6f49fc898093",
+      "lines": 135,
+      "imports": [
+        "button",
+        "card",
+        "field",
+        "input",
+        "input-group"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-card-13",
+      "sha": "51394ccc4615617ec415354b752a733cc1622f9a",
+      "lines": 109,
+      "imports": [
+        "button",
+        "card",
+        "progress"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-card-14",
+      "sha": "0ce728ab295cb5c11d2b5f594f7ca46c15f025c6",
+      "lines": 61,
+      "imports": [
+        "card"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-card-15",
+      "sha": "e310a4cabbb43e1f1fddd21591a0ed0586bc5799",
+      "lines": 151,
+      "imports": [
+        "button",
+        "card",
+        "dropdown-menu",
+        "separator"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-card-16",
+      "sha": "4d767324f2df1bf664a67637a2df3872ca051aa0",
+      "lines": 114,
+      "imports": [
+        "avatar",
+        "button",
+        "card",
+        "dropdown-menu"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-card-17",
+      "sha": "5dc2fe66318096e49caabe65ddebf1ec2d53a183",
+      "lines": 57,
+      "imports": [
+        "card"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-card-18",
+      "sha": "d4a2da9dd744171f81857d3016e89355c8d8b571",
+      "lines": 58,
+      "imports": [
+        "card"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-1",
+      "sha": "58eae9d9f0222834154253283c0640243b2cd14a",
+      "lines": 36,
+      "imports": [
+        "card",
+        "carousel"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-2",
+      "sha": "8363d71c1c179f8b121aa2d5a99470bbaff5718c",
+      "lines": 44,
+      "imports": [
+        "card",
+        "carousel"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-3",
+      "sha": "ef4227efd6b8bdc95b19b5f74e0f4ea9af51bc9e",
+      "lines": 41,
+      "imports": [
+        "card",
+        "carousel"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-4",
+      "sha": "04ce440595e67c96f8850cb8255e90af8a325679",
+      "lines": 44,
+      "imports": [
+        "card",
+        "carousel"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-5",
+      "sha": "dba0383302e9ec4e7c526909f276c76d1fd9da29",
+      "lines": 49,
+      "imports": [
+        "carousel",
+        "card"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-6",
+      "sha": "f367f2c112efa939dd2e30e79586af37840ad6cf",
+      "lines": 42,
+      "imports": [
+        "card",
+        "carousel"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-7",
+      "sha": "780dccbd2d38b6af4f4d2c7078e0025717f3d092",
+      "lines": 36,
+      "imports": [
+        "card",
+        "carousel"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-8",
+      "sha": "682b0fbb7859991ed57c980342badfa31c7ae2d2",
+      "lines": 48,
+      "imports": [
+        "card",
+        "carousel"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-9",
+      "sha": "c36b962abaeef7a2f2efbcd5ab1135822a20ec2c",
+      "lines": 105,
+      "imports": [
+        "carousel"
+      ],
+      "state": true,
+      "events": true,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-10",
+      "sha": "c86188fe7ed32b1ac75619c8205211ed763f9e95",
+      "lines": 113,
+      "imports": [
+        "carousel"
+      ],
+      "state": true,
+      "events": true,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-carousel-11",
+      "sha": "c04aba2eefce8a1cccc518430b0820ba3da55b17",
+      "lines": 82,
+      "imports": [
+        "card",
+        "carousel"
+      ],
+      "state": true,
+      "events": true,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "root": "n0098",
+  "elements": {
+    "n0095": {
+      "type": "Input",
+      "props": {
+        "label": "Title",
+        "name": "f_reportbug",
+        "type": "text",
+        "placeholder": "Brief description of the issue",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "n0096": {
+      "type": "Textarea",
+      "props": {
+        "label": "Steps to reproduce",
+        "name": "bug_steps",
+        "placeholder": "1. Go to\n2. Click on\n3. Observe...",
+        "rows": 3,
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "n0097": {
+      "type": "Button",
+      "props": {
+        "label": "Submit Bug",
+        "size": "sm",
+        "variant": "default",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Continuar (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0098": {
+      "type": "Card",
+      "props": {
+        "title": "Report Bug",
+        "description": "Help us fix issues faster.",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0095",
+        "report_bug_selections",
+        "n0096",
+        "report_bug_2",
+        "report_bug_footer"
+      ]
+    },
+    "report_bug_0": {
+      "type": "Select",
+      "props": {
+        "label": "Severity",
+        "name": "report_bug_0",
+        "options": [
+          {
+            "label": "Critical",
+            "value": "critical"
+          },
+          {
+            "label": "High",
+            "value": "high"
+          },
+          {
+            "label": "Medium",
+            "value": "medium"
+          },
+          {
+            "label": "Low",
+            "value": "low"
+          }
+        ],
+        "placeholder": "Selecione",
+        "defaultValue": "medium",
+        "value": null
+      },
+      "children": []
+    },
+    "report_bug_1": {
+      "type": "Select",
+      "props": {
+        "label": "Component",
+        "name": "report_bug_1",
+        "options": [
+          {
+            "label": "Dashboard",
+            "value": "dashboard"
+          },
+          {
+            "label": "Auth",
+            "value": "auth"
+          },
+          {
+            "label": "API",
+            "value": "api"
+          },
+          {
+            "label": "Billing",
+            "value": "billing"
+          }
+        ],
+        "placeholder": "Selecione",
+        "defaultValue": "dashboard",
+        "value": null
+      },
+      "children": []
+    },
+    "report_bug_2": {
+      "type": "Textarea",
+      "props": {
+        "label": "Additional context (optional)",
+        "name": "report_bug_2",
+        "placeholder": "Any extra details that may help",
+        "value": null
+      },
+      "children": []
+    },
+    "report_bug_selections": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "sm"
+      },
+      "children": [
+        "report_bug_0",
+        "report_bug_1"
+      ]
+    },
+    "report_bug_attach": {
+      "type": "Button",
+      "props": {
+        "label": "Attach File",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": []
+    },
+    "report_bug_footer": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "end"
+      },
+      "children": [
+        "report_bug_attach",
+        "n0097"
+      ]
+    }
+  }
+}

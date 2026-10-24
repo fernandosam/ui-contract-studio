@@ -1,0 +1,32 @@
+name: Import official ReUI Button examples
+on:
+  push:
+    branches:
+      - feat/reui-button-61-previews-20261023
+    paths:
+      - scripts/sync-reui-button-patterns.mjs
+      - .github/workflows/reui-button-import.yml
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch 61 official ReUI sources
+        run: node scripts/sync-reui-button-patterns.mjs
+      - name: Commit imported examples to feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/ui-catalog/extensions/composites/reui-button-*.tsx src/ui-catalog/extensions/composites/reui-button-index.ts
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat: import official Button gallery patterns [skip ci]'
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

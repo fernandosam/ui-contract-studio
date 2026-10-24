@@ -1,0 +1,17 @@
+/** ReUI c-input-28: composição TSX independente. */
+import { Field, FieldLabel } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+
+export default function Pattern() {
+  return (
+    <Field className="w-full max-w-xs">
+      <FieldLabel htmlFor="color-picker">Theme Color</FieldLabel>
+      <Input
+        id="color-picker"
+        type="color"
+        className="h-10 w-20 cursor-pointer p-1"
+        defaultValue="#3b82f6"
+      />
+    </Field>
+  )
+}

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "contracts": {
+    "OnboardingChecklist": {
+      "whenUse": [
+        "Fluxos de onboarding ou setup com etapas concluídas, em andamento e pendentes.",
+        "Quando cada etapa precisa expor explicação expansível e indicar progresso sem ações remotas."
+      ],
+      "whenNotUse": [
+        "Perguntas frequentes comuns: prefira o contrato Accordion já aprovado.",
+        "Processos com persistência, autorização ou envio real: exigem integração explicitamente aprovada.",
+        "Indicador linear exclusivamente numérico: prefira Progress."
+      ],
+      "agentNotes": [
+        "Configure steps com IDs estáveis, título, descrição e status semânticos.",
+        "Não envie JSX, className ou callbacks. defaultOpenId deve referenciar uma etapa existente.",
+        "Uma única etapa pode ter status active; a interação de expandir é exclusivamente local."
+      ],
+      "referenceExamples": [
+        "c-accordion-11"
+      ]
+    },
+    "RatingDistribution": {
+      "whenUse": [
+        "Exibir média ponderada e proporções de avaliações por nota."
+      ],
+      "whenNotUse": [
+        "Coletar uma avaliação individual: use Rating.",
+        "Gráfico genérico sem semântica de estrelas: use BarGraph."
+      ],
+      "agentNotes": [
+        "Informe counts na ordem [1,2,3,4,5] estrelas, incluindo ao menos uma avaliação.",
+        "Não calcule porcentagens: o componente deriva contagem, média e percentuais."
+      ],
+      "referenceExamples": [
+        "c-rating-6"
+      ]
+    },
+    "CharacterCountTextarea": {
+      "whenUse": [
+        "Capturar texto com limite explícito e aviso acessível de aproximação do limite."
+      ],
+      "whenNotUse": [
+        "Textarea sem contador ou limites especializados: use Textarea.",
+        "Formulário com envio ao backend: exige handler autorizado."
+      ],
+      "agentNotes": [
+        "Defina maxLength entre 20 e 5000 e initialValue com tamanho inferior ao limite.",
+        "warningThreshold deve ser menor ou igual a maxLength; o componente só mantém estado local."
+      ],
+      "referenceExamples": [
+        "c-textarea-6"
+      ]
+    }
+  }
+}

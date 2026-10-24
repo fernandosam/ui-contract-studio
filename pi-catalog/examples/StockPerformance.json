@@ -1,0 +1,19 @@
+{
+  "root": "n0137",
+  "elements": {
+    "n0137": {
+      "type": "StockPerformance",
+      "props": {
+        "content": {
+          "n0135.label": "Rentabilidade"
+        },
+        "nodeProps": {
+          "n0135": {
+            "label": "Rentabilidade"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

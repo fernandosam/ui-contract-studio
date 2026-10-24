@@ -1,0 +1,19 @@
+{
+  "root": "b004",
+  "elements": {
+    "b004": {
+      "type": "Sidebar02",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 02 · Documentation"
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação collapsible: Data Fetching"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

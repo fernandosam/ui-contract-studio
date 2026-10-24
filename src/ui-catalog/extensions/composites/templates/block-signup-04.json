@@ -1,0 +1,197 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Create your account",
+        "description": "Enter your email below to create your account",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b009",
+        "b010",
+        "b014",
+        "b015",
+        "b016",
+        "b017"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Acme Inc. · Identidade da empresa",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "signup_04_email",
+        "type": "email",
+        "placeholder": "m@example.com",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "Input",
+      "props": {
+        "label": "Password",
+        "name": "signup_04_password",
+        "type": "password",
+        "placeholder": "",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Text",
+      "props": {
+        "text": "Must be at least 8 characters long.",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b006": {
+      "type": "Input",
+      "props": {
+        "label": "Confirm Password",
+        "name": "signup_04_confirm_password",
+        "type": "password",
+        "placeholder": "",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b007": {
+      "type": "Image",
+      "props": {
+        "alt": "Painel visual do layout de autenticação; placeholder local",
+        "width": 480,
+        "height": 370
+      },
+      "children": []
+    },
+    "b008": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b003",
+        "b004",
+        "b005",
+        "b006"
+      ]
+    },
+    "b009": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "md"
+      },
+      "children": [
+        "b008",
+        "b007"
+      ]
+    },
+    "b010": {
+      "type": "Button",
+      "props": {
+        "label": "Create Account",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b011": {
+      "type": "Button",
+      "props": {
+        "label": "Sign up with Apple",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b012": {
+      "type": "Button",
+      "props": {
+        "label": "Sign up with Google",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b013": {
+      "type": "Button",
+      "props": {
+        "label": "Sign up with Meta",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b014": {
+      "type": "Text",
+      "props": {
+        "text": "Or continue with",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "b015": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b011",
+        "b012",
+        "b013"
+      ]
+    },
+    "b016": {
+      "type": "Text",
+      "props": {
+        "text": "Already have an account? Sign in",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b017": {
+      "type": "Text",
+      "props": {
+        "text": "By clicking continue, you agree to our Terms of Service and Privacy Policy.",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

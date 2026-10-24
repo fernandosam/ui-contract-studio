@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteDirectoryList",
+      "props": {
+        "content": {
+          "c001.title": "Registry Directory"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "Search directory"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

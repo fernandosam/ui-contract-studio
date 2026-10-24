@@ -1,0 +1,61 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 04 · Documentation",
+        "description": "Adaptação do bloco oficial sidebar-04 · floating · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação floating: Data Fetching",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Documentation",
+        "sections": [
+          {
+            "label": "Getting Started",
+            "items": [
+              "Installation",
+              "Project Structure"
+            ]
+          },
+          {
+            "label": "Build Your Application",
+            "items": [
+              "Routing",
+              "Data Fetching",
+              "Styling"
+            ]
+          },
+          {
+            "label": "Architecture",
+            "items": [
+              "Accessibility",
+              "Fast Refresh"
+            ]
+          }
+        ],
+        "active": "Data Fetching",
+        "variant": "floating",
+        "collapsible": "offcanvas",
+        "footer": "Documentação · modo demonstração"
+      },
+      "children": []
+    }
+  }
+}

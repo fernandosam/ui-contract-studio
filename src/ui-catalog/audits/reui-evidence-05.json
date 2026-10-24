@@ -1,0 +1,261 @@
+{
+  "start": 58,
+  "end": 76,
+  "entries": [
+    {
+      "id": "c-avatar-28",
+      "sha": "667ebe63c40ee601159b2ee35b96318ec8a70a2f",
+      "lines": 59,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-29",
+      "sha": "b500d280055a80978c4153ad61c14ee503f3f88b",
+      "lines": 59,
+      "imports": [
+        "avatar",
+        "button",
+        "tooltip"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-30",
+      "sha": "9787548025c93a8f877e710a8f3a1de276ce5381",
+      "lines": 35,
+      "imports": [
+        "avatar",
+        "spinner"
+      ],
+      "state": true,
+      "events": false,
+      "image": true,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-31",
+      "sha": "7481bf5a7ccec6b042a9a1cb1762db11300866b0",
+      "lines": 69,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-32",
+      "sha": "d41adf1b214de3b83387cf279dffe73bb3268184",
+      "lines": 19,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-33",
+      "sha": "507ab7647bbbf94a113f525ae458277360f98b12",
+      "lines": 22,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-34",
+      "sha": "58d403456d9274ba7e552b08d98c7983bd08d8a1",
+      "lines": 24,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-35",
+      "sha": "33f3d292156723dada0df5444895b7b137c09bf1",
+      "lines": 116,
+      "imports": [
+        "avatar",
+        "button",
+        "dropdown-menu"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-1",
+      "sha": "5bb47bc35a6f62bed70b3a81f8e334f61d3b286d",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-2",
+      "sha": "8b659986ec9b5bffdfdabc72c1c5eac80146089d",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-3",
+      "sha": "36560d74081c7c71e650096a1c6efa26d64cbc2b",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-4",
+      "sha": "cf91a73d0f18d177efa7bbb0ef77cdfadcf461ae",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-5",
+      "sha": "028b2f3cf7a3e84df9d43acbc49e48a793b613be",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-6",
+      "sha": "410af17b6435028e95112c1d15f2cf43466d4151",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-7",
+      "sha": "a7a9b0280daa6f4d71babb478a4b31ae4767533b",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-8",
+      "sha": "ccdd4fa17e1e3c179dc6c88f15ef98437fafb856",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-9",
+      "sha": "e2322c63df7b9fa737dd48045f404178e5c5926c",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-10",
+      "sha": "7d3cb213e3e819a4a91c8a9da9622ed2a34789d9",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

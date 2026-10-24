@@ -1,0 +1,2817 @@
+{
+  "Accordion": {
+    "whenUse": [
+      "Perguntas frequentes em que cada questão expande sua resposta.",
+      "Configurações, planos, detalhes de produto ou etapas de integração organizados em seções expansíveis.",
+      "Listas de pessoas ou registros que revelam detalhes, como membros e permissões."
+    ],
+    "whenNotUse": [
+      "Para apenas um painel que abre e fecha, prefira Collapsible.",
+      "Para uma seção completa de perguntas frequentes de uma página institucional, considere um bloco FAQ.",
+      "Para alternar entre diferentes visões do mesmo espaço, prefira Tabs."
+    ],
+    "agentNotes": [
+      "Na variante Base UI, use multiple e defaultValue como lista de identificadores; na variante Radix, type controla expansão única ou múltipla e o defaultValue de modo único é uma string.",
+      "Conteúdos recolhidos podem não estar presentes no HTML entregue pelo servidor sem montagem persistente; não dependa deles para indexação ou conteúdo crítico.",
+      "Inclua título claro em cada AccordionTrigger e mantenha a hierarquia acessível de AccordionItem e AccordionContent.",
+      "Use disabled nos itens indisponíveis; estados aberto, fechado e desabilitado devem ser testados também por teclado.",
+      "Prefira expansão única para leitura sequencial e múltipla para comparar seções. Evite aninhar painéis sem necessidade.",
+      "Contrato JSON v2.1: items[].title, items[].content, items[].value opcional e items[].disabled opcional; type (single/multiple), collapsible, defaultValue, defaultValues, indicator (chevron/plus-minus/arrow-left) e appearance (plain/bordered/highlighted). São campos validados pelo Zod; não aceite estilos CSS arbitrários nem JSX gerado.",
+      "O indicador padrão vem de AccordionTrigger; esconda-o quando usar um indicador customizado, evitando duas setas simultâneas.",
+      "Os exemplos 9 e 11 são padrões compostos (avatares e onboarding); preserve a semântica e a navegação pelo teclado.",
+      "Para as variantes do ReUI com Avatar, Badge, Frame, campos de formulário ou QR code, use composições TSX previamente aprovadas; o contrato primitivo não aceita filhos JSX arbitrários."
+    ],
+    "examples": [
+      [
+        "Accordion básico com expansão única",
+        "c-accordion-1"
+      ],
+      [
+        "Accordion com indicadores de mais e menos",
+        "c-accordion-2"
+      ],
+      [
+        "Accordion com bordas e cantos arredondados",
+        "c-accordion-3"
+      ],
+      [
+        "Accordion incorporado a um Card",
+        "c-accordion-4"
+      ],
+      [
+        "Accordion com itens desabilitados e realce de estado",
+        "c-accordion-5"
+      ],
+      [
+        "Accordion avançado com ícones e badges",
+        "c-accordion-6"
+      ],
+      [
+        "Accordion com itens organizados em Frame e FramePanel",
+        "c-accordion-7"
+      ],
+      [
+        "Accordion aninhado com itens delimitados por bordas",
+        "c-accordion-8"
+      ],
+      [
+        "Accordion de usuários com avatares e indicadores de função",
+        "c-accordion-9"
+      ],
+      [
+        "Accordion com indicador de seta rotativa",
+        "c-accordion-10"
+      ],
+      [
+        "Accordion para etapas de integração, com ícones, badges e código QR",
+        "c-accordion-11"
+      ]
+    ]
+  },
+  "Alert": {
+    "whenUse": [
+      "Inline status messages in the page for success, info, warning and error outcomes",
+      "Notices that offer a next step, such as a security update, a renewal reminder or a plan upgrade",
+      "Status rows set inside a Frame panel, such as service health, deploy results and message notifications"
+    ],
+    "whenNotUse": [
+      "A yes or no decision that must be answered before the page goes on: use Alert Dialog (getcomponent(\"alert-dialog\"))",
+      "A brief confirmation that floats in a corner and disappears by itself: use Sonner (getcomponent(\"sonner\"))",
+      "A complete modal task, such as a plan cancellation form that holds a warning banner: use the Dialog blocks"
+    ],
+    "agentNotes": [
+      "Every Alert sets role alert, an assertive live region; pass role status for a notice that is not urgent",
+      "AlertTitle carries a 1 line clamp by default, so copy longer than a heading goes in AlertDescription",
+      "Alert has no open state or close part, so a Dismiss button must unmount it from state you own"
+    ],
+    "examples": [
+      [
+        "Alert — exemplo 1",
+        "c-alert-1"
+      ],
+      [
+        "Alert — exemplo 2",
+        "c-alert-2"
+      ],
+      [
+        "Alert — exemplo 3",
+        "c-alert-3"
+      ],
+      [
+        "Alert — exemplo 4",
+        "c-alert-4"
+      ],
+      [
+        "Alert — exemplo 5",
+        "c-alert-5"
+      ],
+      [
+        "Alert — exemplo 6",
+        "c-alert-6"
+      ],
+      [
+        "Alert — exemplo 7",
+        "c-alert-7"
+      ],
+      [
+        "Alert — exemplo 8",
+        "c-alert-8"
+      ],
+      [
+        "Alert — exemplo 9",
+        "c-alert-9"
+      ],
+      [
+        "Alert — exemplo 10",
+        "c-alert-10"
+      ],
+      [
+        "Alert — exemplo 11",
+        "c-alert-11"
+      ],
+      [
+        "Alert — exemplo 12",
+        "c-alert-12"
+      ],
+      [
+        "Alert — exemplo 13",
+        "c-alert-13"
+      ],
+      [
+        "Alert — exemplo 14",
+        "c-alert-14"
+      ],
+      [
+        "Alert — exemplo 15",
+        "c-alert-15"
+      ],
+      [
+        "Alert — exemplo 16",
+        "c-alert-16"
+      ],
+      [
+        "Alert — exemplo 17",
+        "c-alert-17"
+      ],
+      [
+        "Alert — exemplo 18",
+        "c-alert-18"
+      ],
+      [
+        "Alert — exemplo 19",
+        "c-alert-19"
+      ],
+      [
+        "Alert — exemplo 20",
+        "c-alert-20"
+      ]
+    ]
+  },
+  "Avatar": {
+    "whenUse": [
+      "Profile photos with initials or a user icon that stand in when the picture is missing or fails",
+      "Presence dots, verified marks and number badges pinned to the corners of a person's photo",
+      "Overlapping team stacks, social proof rows and user chips inside buttons or account triggers"
+    ],
+    "whenNotUse": [
+      "An account panel opened from a trigger, with the name, email and grouped actions: use Dropdown Menu (getcomponent(\"dropdown-menu\"))",
+      "A full account settings page where a person edits photo, name and details: use the Profile blocks",
+      "A workspace members directory with roles, invites and access status: use the Users blocks"
+    ],
+    "agentNotes": [
+      "Initials inside AvatarFallback are typed by hand in every example; derive them from each person's name rather than copying the sample letters",
+      "A square Avatar needs the same radius on AvatarImage, AvatarFallback and its after pseudo element border, since all 3 default to round"
+    ],
+    "examples": [
+      [
+        "Avatar — exemplo 1",
+        "c-avatar-1"
+      ],
+      [
+        "Avatar — exemplo 2",
+        "c-avatar-2"
+      ],
+      [
+        "Avatar — exemplo 3",
+        "c-avatar-3"
+      ],
+      [
+        "Avatar — exemplo 4",
+        "c-avatar-4"
+      ],
+      [
+        "Avatar — exemplo 5",
+        "c-avatar-5"
+      ],
+      [
+        "Avatar — exemplo 6",
+        "c-avatar-6"
+      ],
+      [
+        "Avatar — exemplo 7",
+        "c-avatar-7"
+      ],
+      [
+        "Avatar — exemplo 8",
+        "c-avatar-8"
+      ],
+      [
+        "Avatar — exemplo 9",
+        "c-avatar-9"
+      ],
+      [
+        "Avatar — exemplo 10",
+        "c-avatar-10"
+      ],
+      [
+        "Avatar — exemplo 11",
+        "c-avatar-11"
+      ],
+      [
+        "Avatar — exemplo 12",
+        "c-avatar-12"
+      ],
+      [
+        "Avatar — exemplo 13",
+        "c-avatar-13"
+      ],
+      [
+        "Avatar — exemplo 14",
+        "c-avatar-14"
+      ],
+      [
+        "Avatar — exemplo 15",
+        "c-avatar-15"
+      ],
+      [
+        "Avatar — exemplo 16",
+        "c-avatar-16"
+      ],
+      [
+        "Avatar — exemplo 17",
+        "c-avatar-17"
+      ],
+      [
+        "Avatar — exemplo 18",
+        "c-avatar-18"
+      ],
+      [
+        "Avatar — exemplo 19",
+        "c-avatar-19"
+      ],
+      [
+        "Avatar — exemplo 20",
+        "c-avatar-20"
+      ],
+      [
+        "Avatar — exemplo 21",
+        "c-avatar-21"
+      ],
+      [
+        "Avatar — exemplo 22",
+        "c-avatar-22"
+      ],
+      [
+        "Avatar — exemplo 23",
+        "c-avatar-23"
+      ],
+      [
+        "Avatar — exemplo 24",
+        "c-avatar-24"
+      ],
+      [
+        "Avatar — exemplo 25",
+        "c-avatar-25"
+      ],
+      [
+        "Avatar — exemplo 26",
+        "c-avatar-26"
+      ],
+      [
+        "Avatar — exemplo 27",
+        "c-avatar-27"
+      ],
+      [
+        "Avatar — exemplo 28",
+        "c-avatar-28"
+      ],
+      [
+        "Avatar — exemplo 29",
+        "c-avatar-29"
+      ],
+      [
+        "Avatar — exemplo 30",
+        "c-avatar-30"
+      ],
+      [
+        "Avatar — exemplo 31",
+        "c-avatar-31"
+      ],
+      [
+        "Avatar — exemplo 32",
+        "c-avatar-32"
+      ],
+      [
+        "Avatar — exemplo 33",
+        "c-avatar-33"
+      ],
+      [
+        "Avatar — exemplo 34",
+        "c-avatar-34"
+      ],
+      [
+        "Avatar — exemplo 35",
+        "c-avatar-35"
+      ]
+    ]
+  },
+  "Badge": {
+    "whenUse": [
+      "Status and severity labels in solid, light and outline tones for success, warning, info and errors",
+      "Counts and short tags such as an unread number or a New marker, sized to the text around them",
+      "Compact chips pairing a label with an icon, a dot, an avatar, a flag or a remove control, or acting as a link"
+    ],
+    "whenNotUse": [
+      "An action that saves, opens or submits a form when pressed: use Button (getcomponent(\"button\"))",
+      "Helper text revealed when a control is hovered or focused: use Tooltip (getcomponent(\"tooltip\"))",
+      "A finished KPI or profile tile with a trend or status chip as one detail: use the Card blocks"
+    ],
+    "agentNotes": [
+      "Import Badge from @/components/reui/badge; the shadcn Badge of the same name lacks size, radius and the success, info and warning variants",
+      "The default radius follows the style, square in lyra and sera and a pill in maia, luma and rhea; radius full gives a pill in every style"
+    ],
+    "examples": [
+      [
+        "Badge — composição 1",
+        "c-badge-1"
+      ],
+      [
+        "Badge — composição 2",
+        "c-badge-2"
+      ],
+      [
+        "Badge — composição 3",
+        "c-badge-3"
+      ],
+      [
+        "Badge — composição 4",
+        "c-badge-4"
+      ],
+      [
+        "Badge — composição 5",
+        "c-badge-5"
+      ],
+      [
+        "Badge — composição 6",
+        "c-badge-6"
+      ],
+      [
+        "Badge — composição 7",
+        "c-badge-7"
+      ],
+      [
+        "Badge — composição 8",
+        "c-badge-8"
+      ],
+      [
+        "Badge — composição 9",
+        "c-badge-9"
+      ],
+      [
+        "Badge — composição 10",
+        "c-badge-10"
+      ],
+      [
+        "Badge — composição 11",
+        "c-badge-11"
+      ],
+      [
+        "Badge — composição 12",
+        "c-badge-12"
+      ],
+      [
+        "Badge — composição 13",
+        "c-badge-13"
+      ],
+      [
+        "Badge — composição 14",
+        "c-badge-14"
+      ],
+      [
+        "Badge — composição 15",
+        "c-badge-15"
+      ],
+      [
+        "Badge — composição 16",
+        "c-badge-16"
+      ],
+      [
+        "Badge — composição 17",
+        "c-badge-17"
+      ],
+      [
+        "Badge — composição 18",
+        "c-badge-18"
+      ],
+      [
+        "Badge — composição 19",
+        "c-badge-19"
+      ],
+      [
+        "Badge — composição 20",
+        "c-badge-20"
+      ],
+      [
+        "Badge — composição 21",
+        "c-badge-21"
+      ],
+      [
+        "Badge — composição 22",
+        "c-badge-22"
+      ],
+      [
+        "Badge — composição 23",
+        "c-badge-23"
+      ],
+      [
+        "Badge — composição 24",
+        "c-badge-24"
+      ],
+      [
+        "Badge — composição 25",
+        "c-badge-25"
+      ]
+    ]
+  },
+  "Button": {
+    "whenUse": [
+      "Ações de páginas, formulários e diálogos, com hierarquia primária, secundária, contorno, fantasma, destrutiva ou estilo de link.",
+      "Controles somente com ícones, como pesquisar, copiar, abrir menu, fechar e alternar tema, sempre com nome acessível.",
+      "Ações com feedback de execução, carregamento, confirmação, contador, notificação ou atalho de teclado."
+    ],
+    "whenNotUse": [
+      "Várias ações relacionadas e unidas em um conjunto: prefira Button Group.",
+      "Alternância persistente entre ligado e desligado: use Toggle.",
+      "Ação incorporada à borda de um campo de texto: use Input Group."
+    ],
+    "agentNotes": [
+      "No Base UI, o Button assume type='button'; use type='submit' explicitamente para submissão de formulários.",
+      "Para navegação, renderize uma âncora semântica com render e nativeButton=false; nunca trate navegação como mero clique sem destino.",
+      "Marque ícones com data-icon='inline-start' ou 'inline-end' para que os espaçamentos internos sejam aplicados corretamente.",
+      "Botões apenas com ícone exigem aria-label; estado de carregamento deve impedir acionamentos repetidos.",
+      "Ações de copiar, alterar tema, expandir, menus e carregamento assíncrono exigem estado ou comportamento de composição; não são apenas propriedades cosméticas do Button.",
+      "Exemplos com redes sociais ou avatares são composições: não introduza JSX arbitrário nem URLs externas não autorizadas pelo contrato JSON.",
+      "Use os seis estilos oficiais (default, secondary, outline, ghost, destructive, link) e os oito tamanhos (default, xs, sm, lg, icon, icon-xs, icon-sm, icon-lg); prefira as primitivas oficiais a duplicar CSS."
+    ],
+    "examples": [
+      [
+        "Default button",
+        "c-button-1"
+      ],
+      [
+        "Secondary button",
+        "c-button-2"
+      ],
+      [
+        "Outline button",
+        "c-button-3"
+      ],
+      [
+        "Ghost button",
+        "c-button-4"
+      ],
+      [
+        "Destructive button",
+        "c-button-5"
+      ],
+      [
+        "Link button variant",
+        "c-button-6"
+      ],
+      [
+        "Extra small button",
+        "c-button-7"
+      ],
+      [
+        "Small button",
+        "c-button-8"
+      ],
+      [
+        "Large button",
+        "c-button-9"
+      ],
+      [
+        "Disabled button",
+        "c-button-10"
+      ],
+      [
+        "Icon button",
+        "c-button-11"
+      ],
+      [
+        "Button with an icon on the right",
+        "c-button-12"
+      ],
+      [
+        "Button in a loading state",
+        "c-button-13"
+      ],
+      [
+        "Button with an icon on the left",
+        "c-button-14"
+      ],
+      [
+        "Button with an invalid state highlight",
+        "c-button-15"
+      ],
+      [
+        "Secondary button with an icon on the left",
+        "c-button-16"
+      ],
+      [
+        "Secondary button with an icon on the right",
+        "c-button-17"
+      ],
+      [
+        "Outline button with an icon on the left",
+        "c-button-18"
+      ],
+      [
+        "Outline button with an icon on the right",
+        "c-button-19"
+      ],
+      [
+        "Ghost button with an icon on the left",
+        "c-button-20"
+      ],
+      [
+        "Ghost button with an icon on the right",
+        "c-button-21"
+      ],
+      [
+        "Destructive button with an icon on the left",
+        "c-button-22"
+      ],
+      [
+        "Destructive button with an icon on the right",
+        "c-button-23"
+      ],
+      [
+        "Extra small icon button",
+        "c-button-24"
+      ],
+      [
+        "Small icon button",
+        "c-button-25"
+      ],
+      [
+        "Large icon-only button",
+        "c-button-26"
+      ],
+      [
+        "Button rendered as a Next.js Link",
+        "c-button-27"
+      ],
+      [
+        "Link button with icon on the left",
+        "c-button-28"
+      ],
+      [
+        "Link button with icon on the right",
+        "c-button-29"
+      ],
+      [
+        "Large button with icon on the left",
+        "c-button-30"
+      ],
+      [
+        "Large button with icon on the right",
+        "c-button-31"
+      ],
+      [
+        "Outline button invalid state",
+        "c-button-32"
+      ],
+      [
+        "Ghost button invalid state",
+        "c-button-33"
+      ],
+      [
+        "Button with icon on left",
+        "c-button-34"
+      ],
+      [
+        "Ghost button more/less toggle",
+        "c-button-35"
+      ],
+      [
+        "Social login buttons",
+        "c-button-36"
+      ],
+      [
+        "Outline like button with count",
+        "c-button-37"
+      ],
+      [
+        "Star button with count",
+        "c-button-38"
+      ],
+      [
+        "Button with unread badge",
+        "c-button-39"
+      ],
+      [
+        "Button with icon, label and shortcuts",
+        "c-button-40"
+      ],
+      [
+        "Copy button with feedback",
+        "c-button-41"
+      ],
+      [
+        "Icon-only copy feedback",
+        "c-button-42"
+      ],
+      [
+        "Animated hamburger button",
+        "c-button-43"
+      ],
+      [
+        "Async action button",
+        "c-button-44"
+      ],
+      [
+        "Outline button inline count",
+        "c-button-45"
+      ],
+      [
+        "Button with status dot",
+        "c-button-46"
+      ],
+      [
+        "Ghost button with status badge",
+        "c-button-47"
+      ],
+      [
+        "Icon button notification badge",
+        "c-button-48"
+      ],
+      [
+        "Go back link",
+        "c-button-49"
+      ],
+      [
+        "Go back animated link",
+        "c-button-50"
+      ],
+      [
+        "Expanding icon button",
+        "c-button-51"
+      ],
+      [
+        "Multi-line button",
+        "c-button-52"
+      ],
+      [
+        "Sliding icon button",
+        "c-button-53"
+      ],
+      [
+        "Shortcut tooltip button",
+        "c-button-54"
+      ],
+      [
+        "Button with avatar",
+        "c-button-55"
+      ],
+      [
+        "Outline button with avatar",
+        "c-button-56"
+      ],
+      [
+        "Small button with avatar",
+        "c-button-57"
+      ],
+      [
+        "Small outline button with avatar",
+        "c-button-58"
+      ],
+      [
+        "Social login buttons Remix",
+        "c-button-59"
+      ],
+      [
+        "Social icon-only buttons",
+        "c-button-60"
+      ],
+      [
+        "Animated theme toggle button",
+        "c-button-61"
+      ]
+    ]
+  },
+  "ButtonGroup": {
+    "whenUse": [
+      "Toolbars of related actions joined into one strip, such as editor, media, zoom or export controls",
+      "Split buttons that pair a main action with a chevron menu of its variants, such as Save or Publish",
+      "Segmented pickers and filter bars that join buttons to selects, inputs, counters and status text"
+    ],
+    "whenNotUse": [
+      "Segmented choices whose pressed option screen readers must hear announced: use Toggle Group (getcomponent(\"toggle-group\"))",
+      "A text field with an icon, prefix or action drawn inside its own border: use Input Group (getcomponent(\"input-group\"))",
+      "A single standalone action, or actions spaced apart with no shared border: use Button (getcomponent(\"button\"))"
+    ],
+    "agentNotes": [
+      "On the base twin only children with a data-slot join at the seams, while radix joins every child; wrap custom markup in ButtonGroupText",
+      "ButtonGroup sets role group but no name; pass aria-label so screen readers say what the set controls"
+    ],
+    "examples": [
+      [
+        "Button Group — exemplo 1",
+        "c-button-group-1"
+      ],
+      [
+        "Button Group — exemplo 2",
+        "c-button-group-2"
+      ],
+      [
+        "Button Group — exemplo 3",
+        "c-button-group-3"
+      ],
+      [
+        "Button Group — exemplo 4",
+        "c-button-group-4"
+      ],
+      [
+        "Button Group — exemplo 5",
+        "c-button-group-5"
+      ],
+      [
+        "Button Group — exemplo 6",
+        "c-button-group-6"
+      ],
+      [
+        "Button Group — exemplo 7",
+        "c-button-group-7"
+      ],
+      [
+        "Button Group — exemplo 8",
+        "c-button-group-8"
+      ],
+      [
+        "Button Group — exemplo 9",
+        "c-button-group-9"
+      ],
+      [
+        "Button Group — exemplo 10",
+        "c-button-group-10"
+      ],
+      [
+        "Button Group — exemplo 11",
+        "c-button-group-11"
+      ],
+      [
+        "Button Group — exemplo 12",
+        "c-button-group-12"
+      ],
+      [
+        "Button Group — exemplo 13",
+        "c-button-group-13"
+      ],
+      [
+        "Button Group — exemplo 14",
+        "c-button-group-14"
+      ],
+      [
+        "Button Group — exemplo 15",
+        "c-button-group-15"
+      ],
+      [
+        "Button Group — exemplo 16",
+        "c-button-group-16"
+      ],
+      [
+        "Button Group — exemplo 17",
+        "c-button-group-17"
+      ],
+      [
+        "Button Group — exemplo 18",
+        "c-button-group-18"
+      ],
+      [
+        "Button Group — exemplo 19",
+        "c-button-group-19"
+      ],
+      [
+        "Button Group — exemplo 20",
+        "c-button-group-20"
+      ],
+      [
+        "Button Group — exemplo 21",
+        "c-button-group-21"
+      ],
+      [
+        "Button Group — exemplo 22",
+        "c-button-group-22"
+      ],
+      [
+        "Button Group — exemplo 23",
+        "c-button-group-23"
+      ],
+      [
+        "Button Group — exemplo 24",
+        "c-button-group-24"
+      ],
+      [
+        "Button Group — exemplo 25",
+        "c-button-group-25"
+      ],
+      [
+        "Button Group — exemplo 26",
+        "c-button-group-26"
+      ],
+      [
+        "Button Group — exemplo 27",
+        "c-button-group-27"
+      ],
+      [
+        "Button Group — exemplo 28",
+        "c-button-group-28"
+      ],
+      [
+        "Button Group — exemplo 29",
+        "c-button-group-29"
+      ],
+      [
+        "Button Group — exemplo 30",
+        "c-button-group-30"
+      ],
+      [
+        "Button Group — exemplo 31",
+        "c-button-group-31"
+      ],
+      [
+        "Button Group — exemplo 32",
+        "c-button-group-32"
+      ],
+      [
+        "Button Group — exemplo 33",
+        "c-button-group-33"
+      ],
+      [
+        "Button Group — exemplo 34",
+        "c-button-group-34"
+      ],
+      [
+        "Button Group — exemplo 35",
+        "c-button-group-35"
+      ],
+      [
+        "Button Group — exemplo 36",
+        "c-button-group-36"
+      ],
+      [
+        "Button Group — exemplo 37",
+        "c-button-group-37"
+      ],
+      [
+        "Button Group — exemplo 38",
+        "c-button-group-38"
+      ],
+      [
+        "Button Group — exemplo 39",
+        "c-button-group-39"
+      ],
+      [
+        "Button Group — exemplo 40",
+        "c-button-group-40"
+      ],
+      [
+        "Button Group — exemplo 41",
+        "c-button-group-41"
+      ],
+      [
+        "Button Group — exemplo 42",
+        "c-button-group-42"
+      ],
+      [
+        "Button Group — exemplo 43",
+        "c-button-group-43"
+      ],
+      [
+        "Button Group — exemplo 44",
+        "c-button-group-44"
+      ],
+      [
+        "Button Group — exemplo 45",
+        "c-button-group-45"
+      ],
+      [
+        "Button Group — exemplo 46",
+        "c-button-group-46"
+      ],
+      [
+        "Button Group — exemplo 47",
+        "c-button-group-47"
+      ],
+      [
+        "Button Group — exemplo 48",
+        "c-button-group-48"
+      ],
+      [
+        "Button Group — exemplo 49",
+        "c-button-group-49"
+      ],
+      [
+        "Button Group — exemplo 50",
+        "c-button-group-50"
+      ],
+      [
+        "Button Group — exemplo 51",
+        "c-button-group-51"
+      ],
+      [
+        "Button Group — exemplo 52",
+        "c-button-group-52"
+      ],
+      [
+        "Button Group — exemplo 53",
+        "c-button-group-53"
+      ],
+      [
+        "Button Group — exemplo 54",
+        "c-button-group-54"
+      ],
+      [
+        "Button Group — exemplo 55",
+        "c-button-group-55"
+      ],
+      [
+        "Button Group — exemplo 56",
+        "c-button-group-56"
+      ],
+      [
+        "Button Group — exemplo 57",
+        "c-button-group-57"
+      ]
+    ]
+  },
+  "Card": {
+    "whenUse": [
+      "Titled sections with body copy and footer actions, such as a help notice or a sign in form",
+      "Image tiles with a photo above the copy or filling the tile under a dark text overlay",
+      "Dashboard widgets such as a KPI with a trend, a usage meter or a deployment or integration status"
+    ],
+    "whenNotUse": [
+      "A finished grid of KPI tiles, feature links or profile records ready to drop in: use the Card blocks",
+      "A KPI panel with a range filter, a segmented meter or an activity feed beneath it: use the Stats blocks",
+      "A preview that pops up over a link while the pointer rests on it: use Hover Card (getcomponent(\"hover-card\"))"
+    ],
+    "agentNotes": [
+      "Each example caps Card with max-w-xs, max-w-sm or max-w-md; drop the cap when the card should fill a grid cell or column",
+      "size sm on Card tightens padding and gaps in every style; none of these examples sets it, so try it before padding overrides"
+    ],
+    "examples": [
+      [
+        "Card — exemplo 1",
+        "c-card-1"
+      ],
+      [
+        "Card — exemplo 2",
+        "c-card-2"
+      ],
+      [
+        "Card — exemplo 3",
+        "c-card-3"
+      ],
+      [
+        "Card — exemplo 4",
+        "c-card-4"
+      ],
+      [
+        "Card — exemplo 5",
+        "c-card-5"
+      ],
+      [
+        "Card — exemplo 6",
+        "c-card-6"
+      ],
+      [
+        "Card — exemplo 7",
+        "c-card-7"
+      ],
+      [
+        "Card — exemplo 8",
+        "c-card-8"
+      ],
+      [
+        "Card — exemplo 9",
+        "c-card-9"
+      ],
+      [
+        "Card — exemplo 10",
+        "c-card-10"
+      ],
+      [
+        "Card — exemplo 11",
+        "c-card-11"
+      ],
+      [
+        "Card — exemplo 12",
+        "c-card-12"
+      ],
+      [
+        "Card — exemplo 13",
+        "c-card-13"
+      ],
+      [
+        "Card — exemplo 14",
+        "c-card-14"
+      ],
+      [
+        "Card — exemplo 15",
+        "c-card-15"
+      ],
+      [
+        "Card — exemplo 16",
+        "c-card-16"
+      ],
+      [
+        "Card — exemplo 17",
+        "c-card-17"
+      ],
+      [
+        "Card — exemplo 18",
+        "c-card-18"
+      ]
+    ]
+  },
+  "Carousel": {
+    "whenUse": [
+      "Photo galleries and featured slides shown one at a time, moved by swipe, arrow buttons or a timer",
+      "Rows or columns of cards with several in view, sized per breakpoint or peeking at the next one",
+      "Media viewers where a thumbnail strip or a row of dots tracks the current slide and jumps to any one"
+    ],
+    "whenNotUse": [
+      "A rotating set of customer testimonials with star ratings and avatars: use the Review blocks",
+      "A shop page pairing a photo gallery with a buy box and size and color pickers: use the Product Detail blocks",
+      "A storefront section of shop collections with hover browse buttons: use the Category Card blocks"
+    ],
+    "agentNotes": [
+      "Every slide is a picsum.photos placeholder built with Array.from; map your own images and alt text from a real array",
+      "Where CarouselPrevious and CarouselNext are placed, they sit 3rem outside the slides at either end, so leave room or move them through className",
+      "Carousel reacts only to ArrowLeft and ArrowRight, vertical ones included, and only while focus sits on a control inside it"
+    ],
+    "examples": [
+      [
+        "Carousel — exemplo 1",
+        "c-carousel-1"
+      ],
+      [
+        "Carousel — exemplo 2",
+        "c-carousel-2"
+      ],
+      [
+        "Carousel — exemplo 3",
+        "c-carousel-3"
+      ],
+      [
+        "Carousel — exemplo 4",
+        "c-carousel-4"
+      ],
+      [
+        "Carousel — exemplo 5",
+        "c-carousel-5"
+      ],
+      [
+        "Carousel — exemplo 6",
+        "c-carousel-6"
+      ],
+      [
+        "Carousel — exemplo 7",
+        "c-carousel-7"
+      ],
+      [
+        "Carousel — exemplo 8",
+        "c-carousel-8"
+      ],
+      [
+        "Carousel — exemplo 9",
+        "c-carousel-9"
+      ],
+      [
+        "Carousel — exemplo 10",
+        "c-carousel-10"
+      ],
+      [
+        "Carousel — exemplo 11",
+        "c-carousel-11"
+      ]
+    ]
+  },
+  "Checkbox": {
+    "whenUse": [
+      "Consent and opt-in fields, such as accepting terms or turning on a feature",
+      "Lists where any number of options can be ticked, like notification channels or permissions",
+      "Selectable cards and tiles for modules, people or a saved payment card"
+    ],
+    "whenNotUse": [
+      "A choice where exactly 1 option of a set may be picked: use Radio Group (getcomponent(\"radio-group\"))",
+      "An on or off setting that applies the moment it is flipped: use Switch (getcomponent(\"switch\"))",
+      "A complete record entry page with many field types and a submit handler: use the Form blocks"
+    ],
+    "agentNotes": [
+      "No example passes a name to Checkbox, so a native submit sends none of these boxes; give each one a name inside a real form",
+      "The base twin sets the mixed state with the indeterminate prop; the radix twin passes checked as the string indeterminate",
+      "A mixed state draws the same CheckIcon as a ticked box, as the indicator has no minus icon; add one in Checkbox to show a dash"
+    ],
+    "examples": [
+      [
+        "Checkbox — exemplo 1",
+        "c-checkbox-1"
+      ],
+      [
+        "Checkbox — exemplo 2",
+        "c-checkbox-2"
+      ],
+      [
+        "Checkbox — exemplo 3",
+        "c-checkbox-3"
+      ],
+      [
+        "Checkbox — exemplo 4",
+        "c-checkbox-4"
+      ],
+      [
+        "Checkbox — exemplo 5",
+        "c-checkbox-5"
+      ],
+      [
+        "Checkbox — exemplo 6",
+        "c-checkbox-6"
+      ],
+      [
+        "Checkbox — exemplo 7",
+        "c-checkbox-7"
+      ],
+      [
+        "Checkbox — exemplo 8",
+        "c-checkbox-8"
+      ],
+      [
+        "Checkbox — exemplo 9",
+        "c-checkbox-9"
+      ],
+      [
+        "Checkbox — exemplo 10",
+        "c-checkbox-10"
+      ],
+      [
+        "Checkbox — exemplo 11",
+        "c-checkbox-11"
+      ],
+      [
+        "Checkbox — exemplo 12",
+        "c-checkbox-12"
+      ],
+      [
+        "Checkbox — exemplo 13",
+        "c-checkbox-13"
+      ],
+      [
+        "Checkbox — exemplo 14",
+        "c-checkbox-14"
+      ],
+      [
+        "Checkbox — exemplo 15",
+        "c-checkbox-15"
+      ],
+      [
+        "Checkbox — exemplo 16",
+        "c-checkbox-16"
+      ],
+      [
+        "Checkbox — exemplo 17",
+        "c-checkbox-17"
+      ],
+      [
+        "Checkbox — exemplo 18",
+        "c-checkbox-18"
+      ],
+      [
+        "Checkbox — exemplo 19",
+        "c-checkbox-19"
+      ],
+      [
+        "Checkbox — exemplo 20",
+        "c-checkbox-20"
+      ],
+      [
+        "Checkbox — exemplo 21",
+        "c-checkbox-21"
+      ],
+      [
+        "Checkbox — exemplo 22",
+        "c-checkbox-22"
+      ]
+    ]
+  },
+  "Collapsible": {
+    "whenUse": [
+      "Cards and panels that hold back secondary detail, such as order items, a usage breakdown or a profile",
+      "Optional settings, advanced form fields and single help answers kept closed until asked for",
+      "Nested navigation menus and file trees, built by placing one collapsible inside another"
+    ],
+    "whenNotUse": [
+      "Several stacked sections that open and close as one group, often one at a time: use Accordion (getcomponent(\"accordion\"))",
+      "A large folder hierarchy that people move through and expand with arrow keys: use Tree (getcomponent(\"tree\"))",
+      "A complete account or workspace configuration page of grouped switch rows: use the Settings blocks"
+    ],
+    "agentNotes": [
+      "The trigger's aria-expanded carries open state in both twins and stays scoped when collapsibles nest, so key chevrons and fills on it",
+      "A closed CollapsibleContent renders none of its children in either twin, so that text is missing from the server HTML",
+      "Base UI CollapsibleTrigger swaps its element through render and the Radix one through asChild; each reads only its own prop"
+    ],
+    "examples": [
+      [
+        "Collapsible — exemplo 1",
+        "c-collapsible-1"
+      ],
+      [
+        "Collapsible — exemplo 2",
+        "c-collapsible-2"
+      ],
+      [
+        "Collapsible — exemplo 3",
+        "c-collapsible-3"
+      ],
+      [
+        "Collapsible — exemplo 4",
+        "c-collapsible-4"
+      ],
+      [
+        "Collapsible — exemplo 5",
+        "c-collapsible-5"
+      ],
+      [
+        "Collapsible — exemplo 6",
+        "c-collapsible-6"
+      ],
+      [
+        "Collapsible — exemplo 7",
+        "c-collapsible-7"
+      ],
+      [
+        "Collapsible — exemplo 8",
+        "c-collapsible-8"
+      ],
+      [
+        "Collapsible — exemplo 9",
+        "c-collapsible-9"
+      ],
+      [
+        "Collapsible — exemplo 10",
+        "c-collapsible-10"
+      ]
+    ]
+  },
+  "Dialog": {
+    "whenUse": [
+      "Short forms and settings that need an answer before the page continues",
+      "Long text such as terms, read in a scrolling body that can grow to nearly full screen",
+      "Reference overlays and notices, such as a keyboard shortcuts list or a session timeout"
+    ],
+    "whenNotUse": [
+      "A yes or no confirmation before a destructive action: use Alert Dialog (getcomponent(\"alert-dialog\"))",
+      "Long forms or record details that slide in from the screen edge: use Sheet (getcomponent(\"sheet\"))",
+      "Mobile panels that open from the bottom and close with a swipe: use Drawer (getcomponent(\"drawer\"))"
+    ],
+    "agentNotes": [
+      "Compose the trigger through render on the base twin and asChild on the radix twin; the other one is silently ignored",
+      "DialogContent renders its own close button; pass showCloseButton as false to drop it"
+    ],
+    "examples": [
+      [
+        "Dialog — exemplo 1",
+        "c-dialog-1"
+      ],
+      [
+        "Dialog — exemplo 2",
+        "c-dialog-2"
+      ],
+      [
+        "Dialog — exemplo 3",
+        "c-dialog-3"
+      ],
+      [
+        "Dialog — exemplo 4",
+        "c-dialog-4"
+      ],
+      [
+        "Dialog — exemplo 5",
+        "c-dialog-5"
+      ],
+      [
+        "Dialog — exemplo 6",
+        "c-dialog-6"
+      ],
+      [
+        "Dialog — exemplo 7",
+        "c-dialog-7"
+      ],
+      [
+        "Dialog — exemplo 8",
+        "c-dialog-8"
+      ],
+      [
+        "Dialog — exemplo 9",
+        "c-dialog-9"
+      ],
+      [
+        "Dialog — exemplo 10",
+        "c-dialog-10"
+      ]
+    ]
+  },
+  "Drawer": {
+    "whenUse": [
+      "Touch panels that slide in from a screen edge and close with a swipe",
+      "Mobile tasks with a scrolling body between a title and footer actions"
+    ],
+    "whenNotUse": [
+      "A desktop side panel opened by mouse or keyboard with no swipe gesture: use Sheet (getcomponent(\"sheet\"))",
+      "A slide out mini bag with quantity steppers, subtotal and checkout: use the Shopping Cart blocks",
+      "A centered modal for a short form or a confirmation: use Dialog (getcomponent(\"dialog\"))"
+    ],
+    "agentNotes": [
+      "Set the edge with swipeDirection down, up, left or right on the base twin and direction bottom, top, left or right on radix",
+      "The base Drawer draws no grab handle unless you pass showSwipeHandle; the radix one draws it on every bottom drawer",
+      "The footer Submit Button has no handler and leaves the drawer open, unlike the DrawerClose Cancel beside it"
+    ],
+    "examples": [
+      [
+        "Drawer — exemplo 1",
+        "c-drawer-1"
+      ],
+      [
+        "Drawer — exemplo 2",
+        "c-drawer-2"
+      ],
+      [
+        "Drawer — exemplo 3",
+        "c-drawer-3"
+      ],
+      [
+        "Drawer — exemplo 4",
+        "c-drawer-4"
+      ],
+      [
+        "Drawer — exemplo 5",
+        "c-drawer-5"
+      ]
+    ]
+  },
+  "DropdownMenu": {
+    "whenUse": [
+      "Action and overflow menus on a button or a dots icon, such as edit, duplicate, share, export and delete",
+      "Account, workspace and create menus showing the signed in user, workspace switching and sign out",
+      "Toggles, exclusive choices and short lists, such as panel layout, theme, AI models or recent alerts"
+    ],
+    "whenNotUse": [
+      "Actions opened by right clicking or long pressing a surface, with no button to press: use Context Menu (getcomponent(\"context-menu\"))",
+      "A whole top bar with search, alerts, switchers and the user dropdown already placed: use the Navbar blocks",
+      "The account settings page an avatar link opens, with identity, team and billing forms: use the Profile blocks"
+    ],
+    "agentNotes": [
+      "DropdownMenuLabel throws on the base twin unless it sits inside a DropdownMenuGroup or DropdownMenuRadioGroup",
+      "On the base twin run an item's action from onClick; onSelect is a Radix item event that Base UI never fires",
+      "Pass the trigger element through render on the base twin and as the asChild child on radix; the prop meant for the other twin does nothing"
+    ],
+    "examples": [
+      [
+        "Dropdown Menu — exemplo 1",
+        "c-dropdown-menu-1"
+      ],
+      [
+        "Dropdown Menu — exemplo 2",
+        "c-dropdown-menu-2"
+      ],
+      [
+        "Dropdown Menu — exemplo 3",
+        "c-dropdown-menu-3"
+      ],
+      [
+        "Dropdown Menu — exemplo 4",
+        "c-dropdown-menu-4"
+      ],
+      [
+        "Dropdown Menu — exemplo 5",
+        "c-dropdown-menu-5"
+      ],
+      [
+        "Dropdown Menu — exemplo 6",
+        "c-dropdown-menu-6"
+      ],
+      [
+        "Dropdown Menu — exemplo 7",
+        "c-dropdown-menu-7"
+      ],
+      [
+        "Dropdown Menu — exemplo 8",
+        "c-dropdown-menu-8"
+      ],
+      [
+        "Dropdown Menu — exemplo 9",
+        "c-dropdown-menu-9"
+      ],
+      [
+        "Dropdown Menu — exemplo 10",
+        "c-dropdown-menu-10"
+      ],
+      [
+        "Dropdown Menu — exemplo 11",
+        "c-dropdown-menu-11"
+      ],
+      [
+        "Dropdown Menu — exemplo 12",
+        "c-dropdown-menu-12"
+      ],
+      [
+        "Dropdown Menu — exemplo 13",
+        "c-dropdown-menu-13"
+      ],
+      [
+        "Dropdown Menu — exemplo 14",
+        "c-dropdown-menu-14"
+      ],
+      [
+        "Dropdown Menu — exemplo 15",
+        "c-dropdown-menu-15"
+      ],
+      [
+        "Dropdown Menu — exemplo 16",
+        "c-dropdown-menu-16"
+      ],
+      [
+        "Dropdown Menu — exemplo 17",
+        "c-dropdown-menu-17"
+      ],
+      [
+        "Dropdown Menu — exemplo 18",
+        "c-dropdown-menu-18"
+      ]
+    ]
+  },
+  "Input": {
+    "whenUse": [
+      "Labeled text, email and search fields, plain or restyled as a pill, an underline or borderless",
+      "Native typed fields for passwords, phones, URLs, numbers, dates, times, files, colors and ranges",
+      "Field states and hints: disabled, required or optional marks, errors, character counts and password strength"
+    ],
+    "whenNotUse": [
+      "Icons, buttons, units or a prefix that sit inside the border of the box: use Input Group (getcomponent(\"input-group\"))",
+      "International numbers chosen by country flag and formatted as the user types: use Phone Input (getcomponent(\"phone-input\"))",
+      "A whole create or edit page that gathers many fields under one save action: use the Form blocks"
+    ],
+    "agentNotes": [
+      "The red invalid border comes from aria-invalid on Input in every style; FieldError only prints the message"
+    ],
+    "examples": [
+      [
+        "Input — exemplo 1",
+        "c-input-1"
+      ],
+      [
+        "Input — exemplo 2",
+        "c-input-2"
+      ],
+      [
+        "Input — exemplo 3",
+        "c-input-3"
+      ],
+      [
+        "Input — exemplo 4",
+        "c-input-4"
+      ],
+      [
+        "Input — exemplo 5",
+        "c-input-5"
+      ],
+      [
+        "Input — exemplo 6",
+        "c-input-6"
+      ],
+      [
+        "Input — exemplo 7",
+        "c-input-7"
+      ],
+      [
+        "Input — exemplo 8",
+        "c-input-8"
+      ],
+      [
+        "Input — exemplo 9",
+        "c-input-9"
+      ],
+      [
+        "Input — exemplo 10",
+        "c-input-10"
+      ],
+      [
+        "Input — exemplo 11",
+        "c-input-11"
+      ],
+      [
+        "Input — exemplo 12",
+        "c-input-12"
+      ],
+      [
+        "Input — exemplo 13",
+        "c-input-13"
+      ],
+      [
+        "Input — exemplo 14",
+        "c-input-14"
+      ],
+      [
+        "Input — exemplo 15",
+        "c-input-15"
+      ],
+      [
+        "Input — exemplo 16",
+        "c-input-16"
+      ],
+      [
+        "Input — exemplo 17",
+        "c-input-17"
+      ],
+      [
+        "Input — exemplo 18",
+        "c-input-18"
+      ],
+      [
+        "Input — exemplo 19",
+        "c-input-19"
+      ],
+      [
+        "Input — exemplo 20",
+        "c-input-20"
+      ],
+      [
+        "Input — exemplo 21",
+        "c-input-21"
+      ],
+      [
+        "Input — exemplo 22",
+        "c-input-22"
+      ],
+      [
+        "Input — exemplo 23",
+        "c-input-23"
+      ],
+      [
+        "Input — exemplo 24",
+        "c-input-24"
+      ],
+      [
+        "Input — exemplo 25",
+        "c-input-25"
+      ],
+      [
+        "Input — exemplo 26",
+        "c-input-26"
+      ],
+      [
+        "Input — exemplo 27",
+        "c-input-27"
+      ],
+      [
+        "Input — exemplo 28",
+        "c-input-28"
+      ],
+      [
+        "Input — exemplo 29",
+        "c-input-29"
+      ],
+      [
+        "Input — exemplo 30",
+        "c-input-30"
+      ],
+      [
+        "Input — exemplo 31",
+        "c-input-31"
+      ]
+    ]
+  },
+  "Pagination": {
+    "whenUse": [
+      "Numbered page links between previous and next controls under a list, a table or search results",
+      "Compact pagers of back and forward controls alone or beside a page count, for narrow spaces",
+      "Table footers pairing page controls with a rows per page select, a range count or a page jump field"
+    ],
+    "whenNotUse": [
+      "A records table that sorts and filters its rows and needs its pager built in: use Data Grid (getcomponent(\"data-grid\"))",
+      "A whole table section with a title, toolbar, rows and a working pager: use the Base blocks",
+      "Page controls kept in local state that run click handlers, with no URL per page: use Button Group (getcomponent(\"button-group\"))"
+    ],
+    "agentNotes": [
+      "PaginationLink renders its own anchor and takes neither render nor asChild; swap that anchor for your router link in your copy of the component",
+      "Every href is a hash placeholder and each page number, count and current page is typed in; derive them from your page state or URL"
+    ],
+    "examples": [
+      [
+        "Pagination — exemplo 1",
+        "c-pagination-1"
+      ],
+      [
+        "Pagination — exemplo 2",
+        "c-pagination-2"
+      ],
+      [
+        "Pagination — exemplo 3",
+        "c-pagination-3"
+      ],
+      [
+        "Pagination — exemplo 4",
+        "c-pagination-4"
+      ],
+      [
+        "Pagination — exemplo 5",
+        "c-pagination-5"
+      ],
+      [
+        "Pagination — exemplo 6",
+        "c-pagination-6"
+      ],
+      [
+        "Pagination — exemplo 7",
+        "c-pagination-7"
+      ],
+      [
+        "Pagination — exemplo 8",
+        "c-pagination-8"
+      ],
+      [
+        "Pagination — exemplo 9",
+        "c-pagination-9"
+      ],
+      [
+        "Pagination — exemplo 10",
+        "c-pagination-10"
+      ],
+      [
+        "Pagination — exemplo 11",
+        "c-pagination-11"
+      ],
+      [
+        "Pagination — exemplo 12",
+        "c-pagination-12"
+      ],
+      [
+        "Pagination — exemplo 13",
+        "c-pagination-13"
+      ],
+      [
+        "Pagination — exemplo 14",
+        "c-pagination-14"
+      ],
+      [
+        "Pagination — exemplo 15",
+        "c-pagination-15"
+      ]
+    ]
+  },
+  "Popover": {
+    "whenUse": [
+      "Quick edits and settings opened from a button, such as layer dimensions, switches or a volume slider",
+      "Previews opened by a click, such as a person's bio card, a template image with actions or an AI feature pitch",
+      "Inline details and short guides, such as exact times behind a relative date or a stepped feature tour"
+    ],
+    "whenNotUse": [
+      "A full account page that edits a person's name, avatar, email, team and billing: use the Profile blocks",
+      "A full page of record fields, such as an invoice or a product, ending in a submit row: use the Form blocks",
+      "A task that must block the page and hold focus until the user answers: use Dialog (getcomponent(\"dialog\"))"
+    ],
+    "agentNotes": [
+      "Compose PopoverTrigger through render on the base twin and asChild on the radix twin, as every example does; the other twin's prop does not compose",
+      "PopoverContent is w-72 in both twins whatever it holds; size it with a width class such as w-auto or w-64",
+      "The base PopoverTitle names the popup for screen readers; the radix one is a plain div, so give radix PopoverContent an aria-label"
+    ],
+    "examples": [
+      [
+        "Popover — exemplo 1",
+        "c-popover-1"
+      ],
+      [
+        "Popover — exemplo 2",
+        "c-popover-2"
+      ],
+      [
+        "Popover — exemplo 3",
+        "c-popover-3"
+      ],
+      [
+        "Popover — exemplo 4",
+        "c-popover-4"
+      ],
+      [
+        "Popover — exemplo 5",
+        "c-popover-5"
+      ],
+      [
+        "Popover — exemplo 6",
+        "c-popover-6"
+      ],
+      [
+        "Popover — exemplo 7",
+        "c-popover-7"
+      ],
+      [
+        "Popover — exemplo 8",
+        "c-popover-8"
+      ],
+      [
+        "Popover — exemplo 9",
+        "c-popover-9"
+      ],
+      [
+        "Popover — exemplo 10",
+        "c-popover-10"
+      ],
+      [
+        "Popover — exemplo 11",
+        "c-popover-11"
+      ]
+    ]
+  },
+  "Progress": {
+    "whenUse": [
+      "Labeled bars that report how far an upload, a download or a workspace setup has got, as a percent",
+      "File transfer rows with time left, and setup checklists whose bar counts the steps done",
+      "Compact bars in dense list rows, and bars pinned to a set height or filled in a color of their own"
+    ],
+    "whenNotUse": [
+      "A drop zone or picker where people choose the documents and images to send: use File Upload (getcomponent(\"file-upload\"))",
+      "Numbered steps the user can open or move between, each with its own panel: use Stepper (getcomponent(\"stepper\"))",
+      "A wait of unknown length, where no share of the work done can be shown: use Spinner (getcomponent(\"spinner\"))"
+    ],
+    "agentNotes": [
+      "ProgressLabel and ProgressValue exist in the base twin only; radix Progress drops its children, so print the label and percent beside it",
+      "Set bar height on the progress-track slot in base, as c-progress-2 does, and with a height class on Progress in radix, whose root is the track",
+      "Only a base ProgressLabel names the bar for screen readers; give every other bar, radix ones included, an aria-label naming the task"
+    ],
+    "examples": [
+      [
+        "Progress — exemplo 1",
+        "c-progress-1"
+      ],
+      [
+        "Progress — exemplo 2",
+        "c-progress-2"
+      ],
+      [
+        "Progress — exemplo 3",
+        "c-progress-3"
+      ],
+      [
+        "Progress — exemplo 4",
+        "c-progress-4"
+      ],
+      [
+        "Progress — exemplo 5",
+        "c-progress-5"
+      ],
+      [
+        "Progress — exemplo 6",
+        "c-progress-6"
+      ],
+      [
+        "Progress — exemplo 7",
+        "c-progress-7"
+      ],
+      [
+        "Progress — exemplo 8",
+        "c-progress-8"
+      ]
+    ]
+  },
+  "RadioGroup": {
+    "whenUse": [
+      "Short single choice lists in forms and settings, such as density, visibility, role or release channel",
+      "Option tiles and divided card rows for shipping speed, contact method, language or a teammate",
+      "Checkout and plan steps that pick one saved payment method or one priced subscription tier"
+    ],
+    "whenNotUse": [
+      "A list where any number of the options can be ticked together: use Checkbox (getcomponent(\"checkbox\"))",
+      "A whole modal step built around one choice, such as a template or a sync scope: use the Dialog blocks",
+      "A full plan table with billing period tabs and a feature list per tier: use the Pricing blocks"
+    ],
+    "agentNotes": [
+      "Every example seeds RadioGroup through defaultValue and reads nothing back; pass a controlled value and a change handler to act on the pick",
+      "No example sets a name on RadioGroup, so a native form post carries no choice; add one when the group lives in a form",
+      "Every RadioGroupItem id is a fixed string such as r1 or an option value; derive unique ids when a group can render twice on one page"
+    ],
+    "examples": [
+      [
+        "Radio Group — exemplo 1",
+        "c-radio-group-1"
+      ],
+      [
+        "Radio Group — exemplo 2",
+        "c-radio-group-2"
+      ],
+      [
+        "Radio Group — exemplo 3",
+        "c-radio-group-3"
+      ],
+      [
+        "Radio Group — exemplo 4",
+        "c-radio-group-4"
+      ],
+      [
+        "Radio Group — exemplo 5",
+        "c-radio-group-5"
+      ],
+      [
+        "Radio Group — exemplo 6",
+        "c-radio-group-6"
+      ],
+      [
+        "Radio Group — exemplo 7",
+        "c-radio-group-7"
+      ],
+      [
+        "Radio Group — exemplo 8",
+        "c-radio-group-8"
+      ],
+      [
+        "Radio Group — exemplo 9",
+        "c-radio-group-9"
+      ],
+      [
+        "Radio Group — exemplo 10",
+        "c-radio-group-10"
+      ],
+      [
+        "Radio Group — exemplo 11",
+        "c-radio-group-11"
+      ],
+      [
+        "Radio Group — exemplo 12",
+        "c-radio-group-12"
+      ],
+      [
+        "Radio Group — exemplo 13",
+        "c-radio-group-13"
+      ],
+      [
+        "Radio Group — exemplo 14",
+        "c-radio-group-14"
+      ],
+      [
+        "Radio Group — exemplo 15",
+        "c-radio-group-15"
+      ],
+      [
+        "Radio Group — exemplo 16",
+        "c-radio-group-16"
+      ],
+      [
+        "Radio Group — exemplo 17",
+        "c-radio-group-17"
+      ]
+    ]
+  },
+  "Select": {
+    "whenUse": [
+      "Form fields that pick one value from a short fixed list, such as a fruit, timezone, country or size",
+      "Pickers whose options carry a status dot, badge, avatar, flag, icon or one line description",
+      "Toolbar filters and property pickers, such as status, priority, access level or assignee"
+    ],
+    "whenNotUse": [
+      "A long list the user wants to search by typing part of a name: use Combobox (getcomponent(\"combobox\"))",
+      "A plain form field that should open the phone or browser's own picker: use Native Select (getcomponent(\"native-select\"))",
+      "Options nested in levels, such as a category and then its subcategories: use Cascader (getcomponent(\"cascader\"))"
+    ],
+    "agentNotes": [
+      "Pass alignItemWithTrigger false on the base twin or position popper on radix to open the list below the trigger, not over it",
+      "With no children, base SelectValue prints a string value raw unless Select gets items; radix SelectValue mirrors the chosen SelectItem",
+      "Base SelectItem can take a whole object as value, matched to defaultValue by reference; radix values must be non-empty strings"
+    ],
+    "examples": [
+      [
+        "Select — exemplo 1",
+        "c-select-1"
+      ],
+      [
+        "Select — exemplo 2",
+        "c-select-2"
+      ],
+      [
+        "Select — exemplo 3",
+        "c-select-3"
+      ],
+      [
+        "Select — exemplo 4",
+        "c-select-4"
+      ],
+      [
+        "Select — exemplo 5",
+        "c-select-5"
+      ],
+      [
+        "Select — exemplo 6",
+        "c-select-6"
+      ],
+      [
+        "Select — exemplo 7",
+        "c-select-7"
+      ],
+      [
+        "Select — exemplo 8",
+        "c-select-8"
+      ],
+      [
+        "Select — exemplo 9",
+        "c-select-9"
+      ],
+      [
+        "Select — exemplo 10",
+        "c-select-10"
+      ],
+      [
+        "Select — exemplo 11",
+        "c-select-11"
+      ],
+      [
+        "Select — exemplo 12",
+        "c-select-12"
+      ],
+      [
+        "Select — exemplo 13",
+        "c-select-13"
+      ],
+      [
+        "Select — exemplo 14",
+        "c-select-14"
+      ],
+      [
+        "Select — exemplo 15",
+        "c-select-15"
+      ],
+      [
+        "Select — exemplo 16",
+        "c-select-16"
+      ],
+      [
+        "Select — exemplo 17",
+        "c-select-17"
+      ],
+      [
+        "Select — exemplo 18",
+        "c-select-18"
+      ],
+      [
+        "Select — exemplo 19",
+        "c-select-19"
+      ],
+      [
+        "Select — exemplo 20",
+        "c-select-20"
+      ],
+      [
+        "Select — exemplo 21",
+        "c-select-21"
+      ],
+      [
+        "Select — exemplo 22",
+        "c-select-22"
+      ],
+      [
+        "Select — exemplo 23",
+        "c-select-23"
+      ],
+      [
+        "Select — exemplo 24",
+        "c-select-24"
+      ],
+      [
+        "Select — exemplo 25",
+        "c-select-25"
+      ],
+      [
+        "Select — exemplo 26",
+        "c-select-26"
+      ],
+      [
+        "Select — exemplo 27",
+        "c-select-27"
+      ],
+      [
+        "Select — exemplo 28",
+        "c-select-28"
+      ],
+      [
+        "Select — exemplo 29",
+        "c-select-29"
+      ],
+      [
+        "Select — exemplo 30",
+        "c-select-30"
+      ],
+      [
+        "Select — exemplo 31",
+        "c-select-31"
+      ],
+      [
+        "Select — exemplo 32",
+        "c-select-32"
+      ],
+      [
+        "Select — exemplo 33",
+        "c-select-33"
+      ]
+    ]
+  },
+  "Separator": {
+    "whenUse": [
+      "Thin rules between a heading and its body, or between the stacked rows of a list or a summary",
+      "Vertical rules between inline labels or side by side menu entries along one row",
+      "Labeled breaks with a short caption centered on the rule, like an or continue with line"
+    ],
+    "whenNotUse": [
+      "A trail of links from the current page back up to its parent pages: use Breadcrumb (getcomponent(\"breadcrumb\"))",
+      "Step lines and named phase breaks in an agent run log or transcript: use Marker (getcomponent(\"marker\"))",
+      "A list of rows each led by an avatar or icon, with text and an action: use Item (getcomponent(\"item\"))"
+    ],
+    "agentNotes": [
+      "The base Separator renders role separator, while the radix twin defaults decorative to true and renders role none, hidden from screen readers",
+      "A vertical Separator takes its height from self-stretch, so it shows only in a flex row or grid unless given a height such as h-8"
+    ],
+    "examples": [
+      [
+        "Divisor horizontal com descrição",
+        "c-separator-1"
+      ],
+      [
+        "Divisores verticais de navegação",
+        "c-separator-2"
+      ],
+      [
+        "Divisores entre grupos de configurações",
+        "c-separator-3"
+      ],
+      [
+        "Divisores em listas de definição",
+        "c-separator-4"
+      ],
+      [
+        "Divisor com legenda centralizada",
+        "c-separator-5"
+      ],
+      [
+        "Divisores no resumo de pedido",
+        "c-separator-6"
+      ]
+    ]
+  },
+  "Skeleton": {
+    "whenUse": [
+      "Placeholders for avatars and user info, text paragraphs, forms and media cards while data loads",
+      "Loading states for data tables, dashboard stats, lists with row actions, profile pages and chat threads"
+    ],
+    "whenNotUse": [
+      "Sortable record tables that draw their own placeholder rows during a fetch: use Data Grid (getcomponent(\"data-grid\"))",
+      "Menu links in an app navigation rail that are still being fetched: use Sidebar (getcomponent(\"sidebar\"))",
+      "A wait whose result has no known shape, such as a file being processed: use Spinner (getcomponent(\"spinner\"))"
+    ],
+    "agentNotes": [
+      "Skeleton has no size of its own, so every placeholder here sets its height and width by class; size yours to the content it stands in for",
+      "Skeleton is a bare div with no role or text, so screen readers hear nothing; set aria-busy on the region it fills while loading",
+      "The default radius of Skeleton follows the style, square in lyra and sera and rounded-2xl in luma and rhea; circles need rounded-full"
+    ],
+    "examples": [
+      [
+        "Skeleton: composição 1",
+        "c-skeleton-1"
+      ],
+      [
+        "Skeleton: composição 2",
+        "c-skeleton-2"
+      ],
+      [
+        "Skeleton: composição 3",
+        "c-skeleton-3"
+      ],
+      [
+        "Skeleton: composição 4",
+        "c-skeleton-4"
+      ],
+      [
+        "Skeleton: composição 5",
+        "c-skeleton-5"
+      ],
+      [
+        "Skeleton: composição 6",
+        "c-skeleton-6"
+      ],
+      [
+        "Skeleton: composição 7",
+        "c-skeleton-7"
+      ],
+      [
+        "Skeleton: composição 8",
+        "c-skeleton-8"
+      ],
+      [
+        "Skeleton: composição 9",
+        "c-skeleton-9"
+      ],
+      [
+        "Skeleton: composição 10",
+        "c-skeleton-10"
+      ]
+    ]
+  },
+  "Slider": {
+    "whenUse": [
+      "Settings tuned by dragging along a bounded scale, such as volume, opacity or color temperature",
+      "Ranges picked with 2 or more thumbs on a single track, laid out horizontally or vertically",
+      "Durations, storage sizes and scores read off tick marks, scale labels, a value bubble or an emoji"
+    ],
+    "whenNotUse": [
+      "A complete shop facet panel with brands, colors, sizes and a price range: use the Filter Sidebar blocks",
+      "A value typed straight into a box, such as an exact price, with no scale to drag: use Input (getcomponent(\"input\"))",
+      "A read only bar that reports how far a task or upload has got: use Progress (getcomponent(\"progress\"))"
+    ],
+    "agentNotes": [
+      "The base Slider draws a thumb per entry of an array value or defaultValue; a plain number gets 2 stacked thumbs and 2 tab stops",
+      "htmlFor on a Label reaches only the root div of the base Slider, not its thumb input; name the slider with aria-labelledby instead",
+      "Base onValueChange is typed as a number or a read only array, so narrow it with Array.isArray; the radix twin passes a number array"
+    ],
+    "examples": [
+      [
+        "Slider — exemplo 1",
+        "c-slider-1"
+      ],
+      [
+        "Slider — exemplo 2",
+        "c-slider-2"
+      ],
+      [
+        "Slider — exemplo 3",
+        "c-slider-3"
+      ],
+      [
+        "Slider — exemplo 4",
+        "c-slider-4"
+      ],
+      [
+        "Slider — exemplo 5",
+        "c-slider-5"
+      ],
+      [
+        "Slider — exemplo 6",
+        "c-slider-6"
+      ],
+      [
+        "Slider — exemplo 7",
+        "c-slider-7"
+      ],
+      [
+        "Slider — exemplo 8",
+        "c-slider-8"
+      ],
+      [
+        "Slider — exemplo 9",
+        "c-slider-9"
+      ],
+      [
+        "Slider — exemplo 10",
+        "c-slider-10"
+      ],
+      [
+        "Slider — exemplo 11",
+        "c-slider-11"
+      ],
+      [
+        "Slider — exemplo 12",
+        "c-slider-12"
+      ]
+    ]
+  },
+  "Spinner": {
+    "whenUse": [
+      "Pending states inside buttons, status badges and search fields while a request runs",
+      "Loading views for a card or an empty panel, including blurred covers over content being refreshed",
+      "Inline notes such as checking, syncing or reconnecting, led by a small tinted spinner or bouncing dots"
+    ],
+    "whenNotUse": [
+      "Content of a known layout, held as muted placeholder shapes until it arrives: use Skeleton (getcomponent(\"skeleton\"))",
+      "A wait where the share of work done is known, such as an upload percent: use Progress (getcomponent(\"progress\"))",
+      "A save control that tracks its own pending and done states after a click: use Button (getcomponent(\"button\"))"
+    ],
+    "agentNotes": [
+      "No example holds a pending flag and disabled is hardcoded where it appears; show the indicator and lock controls from your own request state"
+    ],
+    "examples": [
+      [
+        "Spinner — exemplo 1",
+        "c-spinner-1"
+      ],
+      [
+        "Spinner — exemplo 2",
+        "c-spinner-2"
+      ],
+      [
+        "Spinner — exemplo 3",
+        "c-spinner-3"
+      ],
+      [
+        "Spinner — exemplo 4",
+        "c-spinner-4"
+      ],
+      [
+        "Spinner — exemplo 5",
+        "c-spinner-5"
+      ],
+      [
+        "Spinner — exemplo 6",
+        "c-spinner-6"
+      ],
+      [
+        "Spinner — exemplo 7",
+        "c-spinner-7"
+      ],
+      [
+        "Spinner — exemplo 8",
+        "c-spinner-8"
+      ],
+      [
+        "Spinner — exemplo 9",
+        "c-spinner-9"
+      ],
+      [
+        "Spinner — exemplo 10",
+        "c-spinner-10"
+      ],
+      [
+        "Spinner — exemplo 11",
+        "c-spinner-11"
+      ],
+      [
+        "Spinner — exemplo 12",
+        "c-spinner-12"
+      ]
+    ]
+  },
+  "Switch": {
+    "whenUse": [
+      "Single on or off preferences beside a label, such as airplane mode, sign in security or an AI feature",
+      "Grouped notification, privacy and editor preferences in a card, a Frame panel or a dense list",
+      "Options with a supporting sentence set as clickable tiles, including a risky one that erases data"
+    ],
+    "whenNotUse": [
+      "A complete options page with account, security and notification sections ready to drop in: use the Settings blocks",
+      "A row of pressed buttons that picks a view, an alignment or a time range: use Toggle Group (getcomponent(\"toggle-group\"))",
+      "A consent or terms box that is ticked and sent along with a form: use Checkbox (getcomponent(\"checkbox\"))"
+    ],
+    "agentNotes": [
+      "Every Switch here is uncontrolled, seeded by defaultChecked or left off, and nothing reads a flip back; control it to save the setting",
+      "No example gives Switch a name, so a native form submit carries none of these values; add one when the switch sits inside a form"
+    ],
+    "examples": [
+      [
+        "Switch — exemplo 1",
+        "c-switch-1"
+      ],
+      [
+        "Switch — exemplo 2",
+        "c-switch-2"
+      ],
+      [
+        "Switch — exemplo 3",
+        "c-switch-3"
+      ],
+      [
+        "Switch — exemplo 4",
+        "c-switch-4"
+      ],
+      [
+        "Switch — exemplo 5",
+        "c-switch-5"
+      ],
+      [
+        "Switch — exemplo 6",
+        "c-switch-6"
+      ],
+      [
+        "Switch — exemplo 7",
+        "c-switch-7"
+      ],
+      [
+        "Switch — exemplo 8",
+        "c-switch-8"
+      ],
+      [
+        "Switch — exemplo 9",
+        "c-switch-9"
+      ],
+      [
+        "Switch — exemplo 10",
+        "c-switch-10"
+      ],
+      [
+        "Switch — exemplo 11",
+        "c-switch-11"
+      ],
+      [
+        "Switch — exemplo 12",
+        "c-switch-12"
+      ],
+      [
+        "Switch — exemplo 13",
+        "c-switch-13"
+      ],
+      [
+        "Switch — exemplo 14",
+        "c-switch-14"
+      ]
+    ]
+  },
+  "Table": {
+    "whenUse": [
+      "Short lists of records such as invoices, orders, members, files or API keys, one per row",
+      "Rows that carry status badges, avatars, a totals footer or a menu of row actions",
+      "Label and value pairs describing one record, such as an employee profile or a server"
+    ],
+    "whenNotUse": [
+      "Rows the reader sorts, filters, pages or selects with checkboxes: use Data Grid (getcomponent(\"data-grid\"))",
+      "A ready made records section with a title bar, toolbar filters and a pager: use the Base blocks",
+      "An account page where a person edits their avatar, name, email and regional settings: use the Profile blocks"
+    ],
+    "agentNotes": [
+      "Table wraps the table in its own overflow-x-auto div, and className lands on the inner table, never on that scroll wrapper",
+      "TableCell and TableHead are nowrap in every style, so a long value widens the table and scrolls it sideways instead of wrapping"
+    ],
+    "examples": [
+      [
+        "Table — exemplo 1",
+        "c-table-1"
+      ],
+      [
+        "Table — exemplo 2",
+        "c-table-2"
+      ],
+      [
+        "Table — exemplo 3",
+        "c-table-3"
+      ],
+      [
+        "Table — exemplo 4",
+        "c-table-4"
+      ],
+      [
+        "Table — exemplo 5",
+        "c-table-5"
+      ],
+      [
+        "Table — exemplo 6",
+        "c-table-6"
+      ],
+      [
+        "Table — exemplo 7",
+        "c-table-7"
+      ],
+      [
+        "Table — exemplo 8",
+        "c-table-8"
+      ],
+      [
+        "Table — exemplo 9",
+        "c-table-9"
+      ],
+      [
+        "Table — exemplo 10",
+        "c-table-10"
+      ],
+      [
+        "Table — exemplo 11",
+        "c-table-11"
+      ],
+      [
+        "Table — exemplo 12",
+        "c-table-12"
+      ],
+      [
+        "Table — exemplo 13",
+        "c-table-13"
+      ],
+      [
+        "Table — exemplo 14",
+        "c-table-14"
+      ],
+      [
+        "Table — exemplo 15",
+        "c-table-15"
+      ],
+      [
+        "Table — exemplo 16",
+        "c-table-16"
+      ],
+      [
+        "Table — exemplo 17",
+        "c-table-17"
+      ]
+    ]
+  },
+  "Tabs": {
+    "whenUse": [
+      "Account, password and settings forms split into panels so only one shows at a time",
+      "Side navigation inside a page, with sections stacked in a column beside the open panel",
+      "Views of one surface, such as dashboard sections, mail folders or visitor stats by period"
+    ],
+    "whenNotUse": [
+      "A finished account settings page with workspace, team and billing sections built in: use the Profile blocks",
+      "A metric card whose period switch redraws a plotted trend: use the Line Chart blocks",
+      "A project header with a breadcrumb on top and a row of sections with avatars below: use the Navbar blocks"
+    ],
+    "agentNotes": [
+      "Only the active TabsContent renders in either twin, so other panels ship no server HTML and lose typed values on a switch",
+      "Arrow keys only move focus across TabsTrigger items on the base twin, where Enter or Space selects; radix selects on focus"
+    ],
+    "examples": [
+      [
+        "Tabs — exemplo 1",
+        "c-tabs-1"
+      ],
+      [
+        "Tabs — exemplo 2",
+        "c-tabs-2"
+      ],
+      [
+        "Tabs — exemplo 3",
+        "c-tabs-3"
+      ],
+      [
+        "Tabs — exemplo 4",
+        "c-tabs-4"
+      ],
+      [
+        "Tabs — exemplo 5",
+        "c-tabs-5"
+      ],
+      [
+        "Tabs — exemplo 6",
+        "c-tabs-6"
+      ],
+      [
+        "Tabs — exemplo 7",
+        "c-tabs-7"
+      ],
+      [
+        "Tabs — exemplo 8",
+        "c-tabs-8"
+      ],
+      [
+        "Tabs — exemplo 9",
+        "c-tabs-9"
+      ]
+    ]
+  },
+  "Textarea": {
+    "whenUse": [
+      "Messages, feedback and other free text answers that run over several lines",
+      "Labeled long text fields with a hint under the box, an error state or a disabled state",
+      "Profile bios that count characters toward a limit and grow as the user types"
+    ],
+    "whenNotUse": [
+      "A comment or prompt box with buttons or a live count inside its border: use Input Group (getcomponent(\"input-group\"))",
+      "A modal that asks for a note along with reasons to tick, such as a churn survey: use the Dialog blocks",
+      "A complete page of fields, such as a support ticket or a profile edit, saved together: use the Form blocks"
+    ],
+    "agentNotes": [
+      "Textarea grows with its text through field-sizing-content with no height cap, and Chromium ignores rows; set min-h and max-h classes",
+      "Only aria-invalid on Textarea turns its border red, in every style; a data-invalid flag on Field leaves the border as it was"
+    ],
+    "examples": [
+      [
+        "Textarea — exemplo 1",
+        "c-textarea-1"
+      ],
+      [
+        "Textarea — exemplo 2",
+        "c-textarea-2"
+      ],
+      [
+        "Textarea — exemplo 3",
+        "c-textarea-3"
+      ],
+      [
+        "Textarea — exemplo 4",
+        "c-textarea-4"
+      ],
+      [
+        "Textarea — exemplo 5",
+        "c-textarea-5"
+      ],
+      [
+        "Textarea — exemplo 6",
+        "c-textarea-6"
+      ]
+    ]
+  },
+  "Toggle": {
+    "whenUse": [
+      "Editor formatting controls that stay pressed, such as bold, italic, underline and strikethrough",
+      "Reaction and save controls, such as like, retweet, share and bookmark, with or without a count",
+      "Media and app controls with an on and off state, such as mute, pin to sidebar or a notifications bell"
+    ],
+    "whenNotUse": [
+      "A one time action such as Save, Send or Delete that keeps no pressed state: use Button (getcomponent(\"button\"))",
+      "Related actions joined edge to edge into one strip, such as playback or zoom controls: use Button Group (getcomponent(\"button-group\"))",
+      "A set of options read as one value and crossed with arrow keys, such as text alignment: use Toggle Group (getcomponent(\"toggle-group\"))"
+    ],
+    "agentNotes": [
+      "Pressed state lives inside each Toggle or a local useState and nothing saves it; read changes from onPressedChange to persist them",
+      "Every Toggle here is named by aria-label, which wins over its visible text for screen readers, so update both when relabelling"
+    ],
+    "examples": [
+      [
+        "Toggle — exemplo 1",
+        "c-toggle-1"
+      ],
+      [
+        "Toggle — exemplo 2",
+        "c-toggle-2"
+      ],
+      [
+        "Toggle — exemplo 3",
+        "c-toggle-3"
+      ],
+      [
+        "Toggle — exemplo 4",
+        "c-toggle-4"
+      ],
+      [
+        "Toggle — exemplo 5",
+        "c-toggle-5"
+      ],
+      [
+        "Toggle — exemplo 6",
+        "c-toggle-6"
+      ],
+      [
+        "Toggle — exemplo 7",
+        "c-toggle-7"
+      ],
+      [
+        "Toggle — exemplo 8",
+        "c-toggle-8"
+      ],
+      [
+        "Toggle — exemplo 9",
+        "c-toggle-9"
+      ],
+      [
+        "Toggle — exemplo 10",
+        "c-toggle-10"
+      ],
+      [
+        "Toggle — exemplo 11",
+        "c-toggle-11"
+      ],
+      [
+        "Toggle — exemplo 12",
+        "c-toggle-12"
+      ],
+      [
+        "Toggle — exemplo 13",
+        "c-toggle-13"
+      ],
+      [
+        "Toggle — exemplo 14",
+        "c-toggle-14"
+      ]
+    ]
+  },
+  "ToggleGroup": {
+    "whenUse": [
+      "Editor formatting and alignment controls kept as one set, such as bold, italic, underline or justify",
+      "View, column layout and theme switchers where the pressed item holds the current choice",
+      "Short option rows for a time range, status, sort order, billing period, channels or device settings"
+    ],
+    "whenNotUse": [
+      "Related actions such as export, zoom or playback joined in one strip with no pressed state: use Button Group (getcomponent(\"button-group\"))",
+      "A single on or off control such as bookmark or mute that stands on its own: use Toggle (getcomponent(\"toggle\"))",
+      "Labelled settings in a list, each flipped on or off beside its own text: use Switch (getcomponent(\"switch\"))"
+    ],
+    "agentNotes": [
+      "The base twin picks one item unless multiple is set and always takes an array defaultValue; the radix twin needs type single or multiple",
+      "No example passes value to ToggleGroup or reads a change back, so the pick stays inside the group; control it to act on the choice",
+      "A second click on a pressed ToggleGroupItem releases it in both twins, so even a single choice group can end with nothing picked"
+    ],
+    "examples": [
+      [
+        "Toggle Group — exemplo 1",
+        "c-toggle-group-1"
+      ],
+      [
+        "Toggle Group — exemplo 2",
+        "c-toggle-group-2"
+      ],
+      [
+        "Toggle Group — exemplo 3",
+        "c-toggle-group-3"
+      ],
+      [
+        "Toggle Group — exemplo 4",
+        "c-toggle-group-4"
+      ],
+      [
+        "Toggle Group — exemplo 5",
+        "c-toggle-group-5"
+      ],
+      [
+        "Toggle Group — exemplo 6",
+        "c-toggle-group-6"
+      ],
+      [
+        "Toggle Group — exemplo 7",
+        "c-toggle-group-7"
+      ],
+      [
+        "Toggle Group — exemplo 8",
+        "c-toggle-group-8"
+      ],
+      [
+        "Toggle Group — exemplo 9",
+        "c-toggle-group-9"
+      ],
+      [
+        "Toggle Group — exemplo 10",
+        "c-toggle-group-10"
+      ],
+      [
+        "Toggle Group — exemplo 11",
+        "c-toggle-group-11"
+      ],
+      [
+        "Toggle Group — exemplo 12",
+        "c-toggle-group-12"
+      ],
+      [
+        "Toggle Group — exemplo 13",
+        "c-toggle-group-13"
+      ],
+      [
+        "Toggle Group — exemplo 14",
+        "c-toggle-group-14"
+      ],
+      [
+        "Toggle Group — exemplo 15",
+        "c-toggle-group-15"
+      ],
+      [
+        "Toggle Group — exemplo 16",
+        "c-toggle-group-16"
+      ]
+    ]
+  },
+  "Tooltip": {
+    "whenUse": [
+      "Short labels for buttons and icon only toolbar actions, with a keyboard shortcut where one exists",
+      "Help text on an info icon, a warning, a verified mark, a locked feature or a disabled button",
+      "Compact summaries behind a trigger, such as service status, notifications, file details or a person"
+    ],
+    "whenNotUse": [
+      "Content with links or buttons that keyboard users must be able to reach: use Popover (getcomponent(\"popover\"))",
+      "A rich profile or page preview with a large photo, bio and dates: use Hover Card (getcomponent(\"hover-card\"))",
+      "A status or count that stays readable without pointing at anything: use Badge (getcomponent(\"badge\"))"
+    ],
+    "agentNotes": [
+      "Outside a TooltipProvider the base Tooltip opens after 600ms and inside one at once; the radix Tooltip throws without one",
+      "TooltipTrigger renders a button of its own, so a Button nested in it without render or radix asChild makes a button in a button",
+      "TooltipContent is portaled to the end of the body with no focus guards, so a link or button in it is not next in Tab order after its trigger"
+    ],
+    "examples": [
+      [
+        "Tooltip — exemplo 1",
+        "c-tooltip-1"
+      ],
+      [
+        "Tooltip — exemplo 2",
+        "c-tooltip-2"
+      ],
+      [
+        "Tooltip — exemplo 3",
+        "c-tooltip-3"
+      ],
+      [
+        "Tooltip — exemplo 4",
+        "c-tooltip-4"
+      ],
+      [
+        "Tooltip — exemplo 5",
+        "c-tooltip-5"
+      ],
+      [
+        "Tooltip — exemplo 6",
+        "c-tooltip-6"
+      ],
+      [
+        "Tooltip — exemplo 7",
+        "c-tooltip-7"
+      ],
+      [
+        "Tooltip — exemplo 8",
+        "c-tooltip-8"
+      ],
+      [
+        "Tooltip — exemplo 9",
+        "c-tooltip-9"
+      ],
+      [
+        "Tooltip — exemplo 10",
+        "c-tooltip-10"
+      ],
+      [
+        "Tooltip — exemplo 11",
+        "c-tooltip-11"
+      ],
+      [
+        "Tooltip — exemplo 12",
+        "c-tooltip-12"
+      ],
+      [
+        "Tooltip — exemplo 13",
+        "c-tooltip-13"
+      ],
+      [
+        "Tooltip — exemplo 14",
+        "c-tooltip-14"
+      ],
+      [
+        "Tooltip — exemplo 15",
+        "c-tooltip-15"
+      ],
+      [
+        "Tooltip — exemplo 16",
+        "c-tooltip-16"
+      ]
+    ]
+  },
+  "Rating": {
+    "whenUse": [
+      "Exibir avaliações numéricas ou por estrelas, incluindo valores parciais.",
+      "Coletar classificação em formulários quando a interação for acessível."
+    ],
+    "whenNotUse": [
+      "Não usar estrelas como única representação de dados sem texto alternativo.",
+      "Evitar para métricas que não correspondam a avaliações."
+    ],
+    "agentNotes": [
+      "Use a variante apenas de leitura quando a entrada não for necessária.",
+      "A escala e o valor devem ser explícitos, validados e limitados; não aceitar JSX arbitrário em JSON.",
+      "Para edição, use composições estáticas com controles por teclado."
+    ],
+    "examples": [
+      [
+        "Rating — exemplo 1",
+        "c-rating-1"
+      ],
+      [
+        "Rating — exemplo 2",
+        "c-rating-2"
+      ],
+      [
+        "Rating — exemplo 3",
+        "c-rating-3"
+      ],
+      [
+        "Rating — exemplo 4",
+        "c-rating-4"
+      ],
+      [
+        "Rating — exemplo 5",
+        "c-rating-5"
+      ],
+      [
+        "Rating — exemplo 6",
+        "c-rating-6"
+      ],
+      [
+        "Rating — exemplo 7",
+        "c-rating-7"
+      ],
+      [
+        "Rating — exemplo 8",
+        "c-rating-8"
+      ],
+      [
+        "Rating — exemplo 9",
+        "c-rating-9"
+      ]
+    ]
+  }
+}

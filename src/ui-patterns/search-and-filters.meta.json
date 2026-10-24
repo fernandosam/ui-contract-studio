@@ -1,0 +1,10 @@
+{
+  "id": "search-and-filters",
+  "title": "Consulta com filtros",
+  "category": "crud",
+  "description": "DataTable e filtros de data",
+  "originScreen": "extensoes",
+  "sourceRoot": "root",
+  "approved": true,
+  "immutableContracts": true
+}

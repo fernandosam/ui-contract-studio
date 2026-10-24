@@ -1,0 +1,14 @@
+{
+  "root": "layout_c",
+  "elements": {
+    "layout_c": {
+      "type": "Progress",
+      "props": {
+        "value": 100,
+        "max": 100,
+        "label": "Tipos cadastrados"
+      },
+      "children": []
+    }
+  }
+}

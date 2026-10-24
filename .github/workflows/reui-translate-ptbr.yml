@@ -1,0 +1,45 @@
+name: Translate ReUI example guidance to pt-BR
+on:
+  push:
+    branches:
+      - feat/reui-guidance-ptbr-20261023
+    paths:
+      - scripts/translate-reui-example-guidance.mjs
+      - .github/workflows/reui-translate-ptbr.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Translate all public example guidance from English into pt-BR
+        run: node scripts/translate-reui-example-guidance.mjs
+      - name: Verify coverage, data shape and Portuguese language markers
+        run: node --test tests/reui-example-localization.test.mjs
+      - name: Upload translation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reui-example-pt-br
+          if-no-files-found: warn
+          path: src/ui-catalog/reui-example-guidance.pt-BR.json
+      - name: Commit approved translations to feature branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/ui-catalog/reui-example-guidance.pt-BR.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs(i18n): translate all ReUI example usage criteria to pt-BR'
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

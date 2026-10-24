@@ -1,0 +1,19 @@
+{
+  "root": "b018",
+  "elements": {
+    "b018": {
+      "type": "Sidebar16",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 16 · Acme Inc."
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação header: Playground"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Upgrade your Subscription",
+        "description": "Plan and payment information",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c004",
+        "c007",
+        "c008",
+        "c009",
+        "c010"
+      ]
+    },
+    "c002": {
+      "type": "Input",
+      "props": {
+        "label": "Name",
+        "name": "name_1",
+        "type": "text",
+        "placeholder": "Name",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "email_2",
+        "type": "email",
+        "placeholder": "m@example.com",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c002",
+        "c003"
+      ]
+    },
+    "c005": {
+      "type": "Input",
+      "props": {
+        "label": "Card Number",
+        "name": "card_number_4",
+        "type": "text",
+        "placeholder": "Card Number",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c006": {
+      "type": "Input",
+      "props": {
+        "label": "CVC",
+        "name": "cvc_5",
+        "type": "text",
+        "placeholder": "CVC",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c007": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c005",
+        "c006"
+      ]
+    },
+    "c008": {
+      "type": "Radio",
+      "props": {
+        "label": "Plan",
+        "name": "plan_7",
+        "options": [
+          {
+            "label": "Starter",
+            "value": "starter"
+          },
+          {
+            "label": "Pro",
+            "value": "pro"
+          },
+          {
+            "label": "Enterprise",
+            "value": "enterprise"
+          }
+        ],
+        "defaultValue": "starter",
+        "value": null
+      },
+      "children": []
+    },
+    "c009": {
+      "type": "Textarea",
+      "props": {
+        "label": "Notes",
+        "name": "notes",
+        "placeholder": "Notes",
+        "rows": 3,
+        "value": null
+      },
+      "children": []
+    },
+    "c010": {
+      "type": "Button",
+      "props": {
+        "label": "Upgrade Plan",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Upgrade Plan (sem efeito externo)"
+          }
+        }
+      }
+    }
+  }
+}

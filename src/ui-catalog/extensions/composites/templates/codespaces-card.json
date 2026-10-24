@@ -1,0 +1,85 @@
+{
+  "root": "n0030",
+  "elements": {
+    "n0028": {
+      "type": "Text",
+      "props": {
+        "text": "Ambiente de demonstração pronto para iniciar.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0029": {
+      "type": "Button",
+      "props": {
+        "label": "Abrir ambiente",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Abrir ambiente (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0030": {
+      "type": "Card",
+      "props": {
+        "title": "Codespaces",
+        "description": "Ambiente de desenvolvimento · Branch principal",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0028",
+        "codespaces_card_0",
+        "codespaces_card_1",
+        "codespaces_card_2",
+        "n0029"
+      ]
+    },
+    "codespaces_card_0": {
+      "type": "Tabs",
+      "props": {
+        "tabs": [
+          {
+            "label": "Cloud",
+            "value": "cloud"
+          },
+          {
+            "label": "Local",
+            "value": "local"
+          }
+        ],
+        "value": null,
+        "defaultValue": null
+      },
+      "children": []
+    },
+    "codespaces_card_1": {
+      "type": "Text",
+      "props": {
+        "text": "Your workspaces in the cloud",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "codespaces_card_2": {
+      "type": "Input",
+      "props": {
+        "label": "Search codespaces",
+        "name": "codespaces_card_2",
+        "type": "text",
+        "placeholder": "Search codespaces",
+        "value": null
+      },
+      "children": []
+    }
+  }
+}

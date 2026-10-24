@@ -1,0 +1,1219 @@
+{
+  "schemaVersion": 1,
+  "repository": "shadcn-ui/ui",
+  "branch": "main",
+  "basePath": "apps/v4/registry/bases/base/blocks",
+  "reviewedOn": "2026-10-21",
+  "notes": "103 arquivos novos consultados no GitHub, identificando primitivas e estrutura TSX/JSON; 27 previews inspecionados em HTML, captura visual humana ainda necessária.",
+  "blocks": [
+    {
+      "id": "Dashboard01",
+      "name": "dashboard-01",
+      "family": "dashboard",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/chart-area-interactive.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/data-table.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-documents.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-main.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-secondary.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-user.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/section-cards.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/components/site-header.tsx",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/data.json",
+        "apps/v4/registry/bases/base/blocks/dashboard-01/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/dashboard-01",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/dashboard-01",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-dashboard-01.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "c235a8de7d6ab3fe06196a57ec93251e410c4d76f1fccaa27baf815401aa632e",
+      "originalTitle": "Dashboard · Documents",
+      "elementCount": 9,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Login01",
+      "name": "login-01",
+      "family": "login",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/login-01/components/login-form.tsx",
+        "apps/v4/registry/bases/base/blocks/login-01/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-01",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/login-01",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-login-01.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "824972e114c68a7840102c20f738809e03a60d7eabb37564371d10eb4852ab57",
+      "originalTitle": "Login to your account",
+      "elementCount": 10,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Login02",
+      "name": "login-02",
+      "family": "login",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/login-02/components/login-form.tsx",
+        "apps/v4/registry/bases/base/blocks/login-02/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-02",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/login-02",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-login-02.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "59664de83240da49b82a3e9e2845da9fc12dfa38c3031885e35616cf2af05057",
+      "originalTitle": "Login to your account",
+      "elementCount": 13,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Login03",
+      "name": "login-03",
+      "family": "login",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/login-03/components/login-form.tsx",
+        "apps/v4/registry/bases/base/blocks/login-03/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-03",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/login-03",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-login-03.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "b1cdc0d099099aabba2a5e34795f986af4acb6fdac82a92922229ec53d26b6a5",
+      "originalTitle": "Welcome back",
+      "elementCount": 13,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Login04",
+      "name": "login-04",
+      "family": "login",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/login-04/components/login-form.tsx",
+        "apps/v4/registry/bases/base/blocks/login-04/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-04",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/login-04",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-login-04.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "25c9fde71f609ffe524a79c846db9015d221351bbfde6565fd727306d7cfd892",
+      "originalTitle": "Welcome back",
+      "elementCount": 16,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Login05",
+      "name": "login-05",
+      "family": "login",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/login-05/components/login-form.tsx",
+        "apps/v4/registry/bases/base/blocks/login-05/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-05",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/login-05",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-login-05.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "ae124395e859fe462bd39f5497924904a5e4b4791ad310bf5e0aea501f937a0c",
+      "originalTitle": "Welcome to Acme Inc.",
+      "elementCount": 10,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Signup01",
+      "name": "signup-01",
+      "family": "signup",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/signup-01/components/signup-form.tsx",
+        "apps/v4/registry/bases/base/blocks/signup-01/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-01",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/signup-01",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-signup-01.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "3dc337ffd0b9443318b01f9bb223012f1f41df6b6093cdc669aeaec44ae0a69c",
+      "originalTitle": "Create an account",
+      "elementCount": 12,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Signup02",
+      "name": "signup-02",
+      "family": "signup",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/signup-02/components/signup-form.tsx",
+        "apps/v4/registry/bases/base/blocks/signup-02/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-02",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/signup-02",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-signup-02.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "cd3ddae8bcbce5d29f3e03eb93e3c3a736ab17d845e937520db9d65609cfe663",
+      "originalTitle": "Create your account",
+      "elementCount": 15,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Signup03",
+      "name": "signup-03",
+      "family": "signup",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/signup-03/components/signup-form.tsx",
+        "apps/v4/registry/bases/base/blocks/signup-03/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-03",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/signup-03",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-signup-03.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "049ad288406864f013e16a1e03db8b579f1ece2a4029d17e089f7e5cd6bda226",
+      "originalTitle": "Create your account",
+      "elementCount": 11,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Signup04",
+      "name": "signup-04",
+      "family": "signup",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/signup-04/components/signup-form.tsx",
+        "apps/v4/registry/bases/base/blocks/signup-04/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-04",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/signup-04",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-signup-04.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "53e88f00754e224bd8d32ca24f383df6caaaa399b4db5fbdd8f899ce90d6a654",
+      "originalTitle": "Create your account",
+      "elementCount": 17,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Signup05",
+      "name": "signup-05",
+      "family": "signup",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/signup-05/components/signup-form.tsx",
+        "apps/v4/registry/bases/base/blocks/signup-05/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-05",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/signup-05",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-signup-05.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "1f0cd609a926f1d695ed7c0dda26d96bbf6058c608cc05fe31c86040427b113d",
+      "originalTitle": "Welcome to Acme Inc.",
+      "elementCount": 10,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar01",
+      "name": "sidebar-01",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-01/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-01/components/search-form.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-01/components/version-switcher.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-01/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-01",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-01",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-01.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "7ae74ae0cffb536082a082506432f1ea0782eb1382c9448462c4505867bd94f3",
+      "originalTitle": "Sidebar 01 · Documentation",
+      "elementCount": 4,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar02",
+      "name": "sidebar-02",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-02/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-02/components/search-form.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-02/components/version-switcher.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-02/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-02",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-02",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-02.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "0cbe215e5d9ffa8afaee03cb0111e948ef2d40466837028404709a8767abe966",
+      "originalTitle": "Sidebar 02 · Documentation",
+      "elementCount": 3,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar03",
+      "name": "sidebar-03",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-03/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-03/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-03",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-03",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-03.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "b643ae3e6ed76c64ec5ebb525ae76826a7a1f26b447f44ebbca7570e1b6c9c3e",
+      "originalTitle": "Sidebar 03 · Documentation",
+      "elementCount": 3,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar04",
+      "name": "sidebar-04",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-04/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-04/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-04",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-04",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-04.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "1eab0f25585e84ae62865f82dd026dab34288af01903020ad6bfe0d4c278bca9",
+      "originalTitle": "Sidebar 04 · Documentation",
+      "elementCount": 3,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar05",
+      "name": "sidebar-05",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-05/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-05/components/search-form.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-05/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-05",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-05",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-05.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "0fcb93b2a0e4ad1960797babe77e5df5b96809da02c84d7fa1bc79d4359058f4",
+      "originalTitle": "Sidebar 05 · Documentation",
+      "elementCount": 4,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar06",
+      "name": "sidebar-06",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-06/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-06/components/nav-main.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-06/components/sidebar-opt-in-form.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-06/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-06",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-06",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-06.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "6027485f3155622951a625c4848eada996c56e09be311816d476514a19edc3d4",
+      "originalTitle": "Sidebar 06 · Documentation",
+      "elementCount": 6,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar07",
+      "name": "sidebar-07",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-07/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-main.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-projects.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-user.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-07/components/team-switcher.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-07/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-07",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-07",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-07.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "89f27c82c8fad267e109e35d4eaddcc934a12ad53547b30a50ea4edd70a1504a",
+      "originalTitle": "Sidebar 07 · Acme Inc.",
+      "elementCount": 3,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar08",
+      "name": "sidebar-08",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-08/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-main.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-projects.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-secondary.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-user.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-08/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-08",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-08",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-08.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "14de7cb404a684d7c91c614a031abcbcdec44055cf6f9352ccc78c5ead22c03d",
+      "originalTitle": "Sidebar 08 · Acme Inc.",
+      "elementCount": 3,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar09",
+      "name": "sidebar-09",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-09/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-09/components/nav-user.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-09/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-09",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-09",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-09.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "42d2b000670434fcfac1d975b8ce8e857144a763e43778d7bf137e581b1eb562",
+      "originalTitle": "Sidebar 09 · Acme Inc.",
+      "elementCount": 5,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar10",
+      "name": "sidebar-10",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-10/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-actions.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-favorites.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-main.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-secondary.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-workspaces.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-10/components/team-switcher.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-10/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-10",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-10",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-10.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "8fdf624515fa21d33bb3e98aac619743db1b7c1263bb107f928266f79b2e7e76",
+      "originalTitle": "Sidebar 10 · Acme Inc.",
+      "elementCount": 3,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar11",
+      "name": "sidebar-11",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-11/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-11/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-11",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-11",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-11.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "3099a7b9f1b4a885678e49d67e46bc4422e70543ce7428c8a05a0110b289eae0",
+      "originalTitle": "Sidebar 11 · Files",
+      "elementCount": 4,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar12",
+      "name": "sidebar-12",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-12/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-12/components/calendars.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-12/components/date-picker.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-12/components/nav-user.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-12/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-12",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-12",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-12.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "4f62cae4ad2124dcdeb9e7691fc5b6d4f745db0c77255d49ab676d9bcaee1029",
+      "originalTitle": "Sidebar 12 · Calendars",
+      "elementCount": 5,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar13",
+      "name": "sidebar-13",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-13/components/settings-dialog.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-13/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-13",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-13",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-13.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "52658db900415dd0ffd31261da45d7e0f78112a97c031a368097f3ab5abb2636",
+      "originalTitle": "Sidebar 13 · Settings",
+      "elementCount": 6,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar14",
+      "name": "sidebar-14",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-14/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-14/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-14",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-14",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-14.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "51668d167c1a7a916767d014c2e2bb7c53ad370ecbb0a8df01136253055507de",
+      "originalTitle": "Sidebar 14 · Table of Contents",
+      "elementCount": 3,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar15",
+      "name": "sidebar-15",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/calendars.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/date-picker.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-favorites.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-main.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-secondary.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-user.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-workspaces.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-left.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-right.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/components/team-switcher.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-15/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-15",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-15",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-15.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "ee421d61717a358635fe2b36ab4f72381ba774d0807dc163e5c98ac987a98e0e",
+      "originalTitle": "Sidebar 15 · Acme Inc.",
+      "elementCount": 5,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    },
+    {
+      "id": "Sidebar16",
+      "name": "sidebar-16",
+      "family": "sidebar",
+      "sourceFiles": [
+        "apps/v4/registry/bases/base/blocks/sidebar-16/components/app-sidebar.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-main.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-projects.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-secondary.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-user.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-16/components/search-form.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-16/components/site-header.tsx",
+        "apps/v4/registry/bases/base/blocks/sidebar-16/page.tsx"
+      ],
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-16",
+      "previewUrl": "https://ui.shadcn.com/view/new-york-v4/sidebar-16",
+      "sourceReview": "read-source-structure",
+      "visualReview": "preview-dom-read-screenshot-pending",
+      "implementation": "json-render-approved-composition",
+      "templatePath": "src/ui-catalog/extensions/composites/templates/block-sidebar-16.json",
+      "componentPath": "src/ui-catalog/extensions/generated/composite-implementations.tsx",
+      "compositionHash": "5716d3cbed8efe5e0329a7826cee453b80e3f36c059c991bea2aa4953e778e27",
+      "originalTitle": "Sidebar 16 · Acme Inc.",
+      "elementCount": 4,
+      "notes": "Adaptação visual estrutural, sem garantia de fidelidade pixel a pixel; interações apenas locais."
+    }
+  ],
+  "filesReviewed": [
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/app-sidebar.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/chart-area-interactive.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/chart-area-interactive.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/data-table.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/data-table.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-documents.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-documents.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-main.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-secondary.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-user.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/section-cards.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/section-cards.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/components/site-header.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/components/site-header.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/data.json",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/data.json"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/dashboard-01/page.tsx",
+      "block": "dashboard-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/dashboard-01/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-01/components/login-form.tsx",
+      "block": "login-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-01/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-01/page.tsx",
+      "block": "login-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-01/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-02/components/login-form.tsx",
+      "block": "login-02",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-02/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-02/page.tsx",
+      "block": "login-02",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-02/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-03/components/login-form.tsx",
+      "block": "login-03",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-03/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-03/page.tsx",
+      "block": "login-03",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-03/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-04/components/login-form.tsx",
+      "block": "login-04",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-04/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-04/page.tsx",
+      "block": "login-04",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-04/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-05/components/login-form.tsx",
+      "block": "login-05",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-05/components/login-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/login-05/page.tsx",
+      "block": "login-05",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/login-05/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-01/components/signup-form.tsx",
+      "block": "signup-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-01/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-01/page.tsx",
+      "block": "signup-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-01/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-02/components/signup-form.tsx",
+      "block": "signup-02",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-02/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-02/page.tsx",
+      "block": "signup-02",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-02/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-03/components/signup-form.tsx",
+      "block": "signup-03",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-03/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-03/page.tsx",
+      "block": "signup-03",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-03/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-04/components/signup-form.tsx",
+      "block": "signup-04",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-04/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-04/page.tsx",
+      "block": "signup-04",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-04/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-05/components/signup-form.tsx",
+      "block": "signup-05",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-05/components/signup-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/signup-05/page.tsx",
+      "block": "signup-05",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/signup-05/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-01/components/app-sidebar.tsx",
+      "block": "sidebar-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-01/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-01/components/search-form.tsx",
+      "block": "sidebar-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-01/components/search-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-01/components/version-switcher.tsx",
+      "block": "sidebar-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-01/components/version-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-01/page.tsx",
+      "block": "sidebar-01",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-01/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-02/components/app-sidebar.tsx",
+      "block": "sidebar-02",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-02/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-02/components/search-form.tsx",
+      "block": "sidebar-02",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-02/components/search-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-02/components/version-switcher.tsx",
+      "block": "sidebar-02",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-02/components/version-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-02/page.tsx",
+      "block": "sidebar-02",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-02/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-03/components/app-sidebar.tsx",
+      "block": "sidebar-03",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-03/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-03/page.tsx",
+      "block": "sidebar-03",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-03/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-04/components/app-sidebar.tsx",
+      "block": "sidebar-04",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-04/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-04/page.tsx",
+      "block": "sidebar-04",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-04/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-05/components/app-sidebar.tsx",
+      "block": "sidebar-05",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-05/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-05/components/search-form.tsx",
+      "block": "sidebar-05",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-05/components/search-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-05/page.tsx",
+      "block": "sidebar-05",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-05/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-06/components/app-sidebar.tsx",
+      "block": "sidebar-06",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-06/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-06/components/nav-main.tsx",
+      "block": "sidebar-06",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-06/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-06/components/sidebar-opt-in-form.tsx",
+      "block": "sidebar-06",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-06/components/sidebar-opt-in-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-06/page.tsx",
+      "block": "sidebar-06",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-06/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/app-sidebar.tsx",
+      "block": "sidebar-07",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-main.tsx",
+      "block": "sidebar-07",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-projects.tsx",
+      "block": "sidebar-07",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-projects.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-user.tsx",
+      "block": "sidebar-07",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/components/team-switcher.tsx",
+      "block": "sidebar-07",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/components/team-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-07/page.tsx",
+      "block": "sidebar-07",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-07/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/app-sidebar.tsx",
+      "block": "sidebar-08",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-main.tsx",
+      "block": "sidebar-08",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-projects.tsx",
+      "block": "sidebar-08",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-projects.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-secondary.tsx",
+      "block": "sidebar-08",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-user.tsx",
+      "block": "sidebar-08",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-08/page.tsx",
+      "block": "sidebar-08",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-08/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-09/components/app-sidebar.tsx",
+      "block": "sidebar-09",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-09/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-09/components/nav-user.tsx",
+      "block": "sidebar-09",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-09/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-09/page.tsx",
+      "block": "sidebar-09",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-09/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/app-sidebar.tsx",
+      "block": "sidebar-10",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-actions.tsx",
+      "block": "sidebar-10",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-actions.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-favorites.tsx",
+      "block": "sidebar-10",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-favorites.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-main.tsx",
+      "block": "sidebar-10",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-secondary.tsx",
+      "block": "sidebar-10",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-workspaces.tsx",
+      "block": "sidebar-10",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/nav-workspaces.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/components/team-switcher.tsx",
+      "block": "sidebar-10",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/components/team-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-10/page.tsx",
+      "block": "sidebar-10",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-10/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-11/components/app-sidebar.tsx",
+      "block": "sidebar-11",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-11/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-11/page.tsx",
+      "block": "sidebar-11",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-11/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/components/app-sidebar.tsx",
+      "block": "sidebar-12",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/components/calendars.tsx",
+      "block": "sidebar-12",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/components/calendars.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/components/date-picker.tsx",
+      "block": "sidebar-12",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/components/date-picker.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/components/nav-user.tsx",
+      "block": "sidebar-12",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-12/page.tsx",
+      "block": "sidebar-12",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-12/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-13/components/settings-dialog.tsx",
+      "block": "sidebar-13",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-13/components/settings-dialog.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-13/page.tsx",
+      "block": "sidebar-13",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-13/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-14/components/app-sidebar.tsx",
+      "block": "sidebar-14",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-14/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-14/page.tsx",
+      "block": "sidebar-14",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-14/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/calendars.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/calendars.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/date-picker.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/date-picker.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-favorites.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-favorites.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-main.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-secondary.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-user.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-workspaces.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/nav-workspaces.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-left.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-left.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-right.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/sidebar-right.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/components/team-switcher.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/components/team-switcher.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-15/page.tsx",
+      "block": "sidebar-15",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-15/page.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/app-sidebar.tsx",
+      "block": "sidebar-16",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/app-sidebar.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-main.tsx",
+      "block": "sidebar-16",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-main.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-projects.tsx",
+      "block": "sidebar-16",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-projects.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-secondary.tsx",
+      "block": "sidebar-16",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-secondary.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-user.tsx",
+      "block": "sidebar-16",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/nav-user.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/search-form.tsx",
+      "block": "sidebar-16",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/search-form.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/components/site-header.tsx",
+      "block": "sidebar-16",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/components/site-header.tsx"
+    },
+    {
+      "path": "apps/v4/registry/bases/base/blocks/sidebar-16/page.tsx",
+      "block": "sidebar-16",
+      "review": "structure-and-imports",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/sidebar-16/page.tsx"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "root": "n0059",
+  "elements": {
+    "n0057": {
+      "type": "Text",
+      "props": {
+        "text": "Engenharia de software e ferramentas de desenvolvimento.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "n0059": {
+      "type": "Card",
+      "props": {
+        "title": "Profile",
+        "description": "Perfil do desenvolvedor · Alex Morgan",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0057",
+        "github_profile_0",
+        "github_profile_1",
+        "github_profile_2",
+        "github_profile_3"
+      ]
+    },
+    "github_profile_0": {
+      "type": "Input",
+      "props": {
+        "label": "Name",
+        "name": "github_profile_0",
+        "type": "text",
+        "placeholder": "Name",
+        "value": null
+      },
+      "children": []
+    },
+    "github_profile_1": {
+      "type": "Input",
+      "props": {
+        "label": "Public Email",
+        "name": "github_profile_1",
+        "type": "text",
+        "placeholder": "Public Email",
+        "value": null
+      },
+      "children": []
+    },
+    "github_profile_2": {
+      "type": "Textarea",
+      "props": {
+        "label": "Bio",
+        "name": "github_profile_2",
+        "placeholder": "Bio",
+        "value": null
+      },
+      "children": []
+    },
+    "github_profile_3": {
+      "type": "Button",
+      "props": {
+        "label": "Save Changes",
+        "size": "sm",
+        "variant": "outline",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Save Changes (sem operação externa)"
+          }
+        }
+      }
+    }
+  }
+}

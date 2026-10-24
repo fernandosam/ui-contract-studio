@@ -1,0 +1,23 @@
+{
+  "root": "layout_acc",
+  "elements": {
+    "layout_acc": {
+      "type": "Accordion",
+      "props": {
+        "items": [
+          {
+            "title": "O que é um catálogo fechado?",
+            "content": "As telas usam somente tipos e propriedades conhecidos."
+          },
+          {
+            "title": "E se faltar algum tipo?",
+            "content": "Reutilize composição dos 41 tipos aprovados. Se não for possível, relate a limitação sem adicionar componentes."
+          }
+        ],
+        "type": "single",
+        "defaultValue": null
+      },
+      "children": []
+    }
+  }
+}

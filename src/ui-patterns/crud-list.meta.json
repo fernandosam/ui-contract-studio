@@ -1,0 +1,10 @@
+{
+  "id": "crud-list",
+  "title": "Lista de registros",
+  "category": "crud",
+  "description": "Tabela de registros em card",
+  "originScreen": "usuarios",
+  "sourceRoot": "users-card",
+  "approved": true,
+  "immutableContracts": true
+}

@@ -1,0 +1,14 @@
+{
+  "root": "data_icon",
+  "elements": {
+    "data_icon": {
+      "type": "Icon",
+      "props": {
+        "name": "Shield",
+        "size": "lg",
+        "color": "primary"
+      },
+      "children": []
+    }
+  }
+}

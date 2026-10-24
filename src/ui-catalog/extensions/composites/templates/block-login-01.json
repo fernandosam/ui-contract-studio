@@ -1,0 +1,121 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Login to your account",
+        "description": "Enter your email below to login to your account",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b005",
+        "b006",
+        "b008",
+        "b009",
+        "b010"
+      ]
+    },
+    "b002": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "login_01_email",
+        "type": "email",
+        "placeholder": "m@example.com",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Input",
+      "props": {
+        "label": "Password",
+        "name": "login_01_password",
+        "type": "password",
+        "placeholder": "",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "Text",
+      "props": {
+        "text": "Forgot your password?",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b004"
+      ]
+    },
+    "b006": {
+      "type": "Button",
+      "props": {
+        "label": "Login",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b007": {
+      "type": "Button",
+      "props": {
+        "label": "Login with Google",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b008": {
+      "type": "Text",
+      "props": {
+        "text": "Or continue with",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "b009": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b007"
+      ]
+    },
+    "b010": {
+      "type": "Text",
+      "props": {
+        "text": "Don't have an account? Sign up",
+        "variant": "caption"
+      },
+      "children": []
+    }
+  }
+}

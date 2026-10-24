@@ -1,0 +1,19 @@
+{
+  "root": "n0040",
+  "elements": {
+    "n0040": {
+      "type": "Contributors",
+      "props": {
+        "content": {
+          "n0036.label": "STATS"
+        },
+        "nodeProps": {
+          "n0036": {
+            "label": "STATS"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

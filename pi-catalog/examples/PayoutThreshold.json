@@ -1,0 +1,19 @@
+{
+  "root": "n0084",
+  "elements": {
+    "n0084": {
+      "type": "PayoutThreshold",
+      "props": {
+        "content": {
+          "payout_threshold_0.label": "Threshold"
+        },
+        "nodeProps": {
+          "payout_threshold_0": {
+            "label": "Threshold"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

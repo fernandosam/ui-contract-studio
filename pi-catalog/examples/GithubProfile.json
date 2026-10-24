@@ -1,0 +1,19 @@
+{
+  "root": "n0059",
+  "elements": {
+    "n0059": {
+      "type": "GithubProfile",
+      "props": {
+        "content": {
+          "n0057.text": "Engenharia de software e ferramentas de desenvolvimento."
+        },
+        "nodeProps": {
+          "n0057": {
+            "text": "Engenharia de software e ferramentas de desenvolvimento."
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

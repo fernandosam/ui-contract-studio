@@ -1,0 +1,16 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "Attachment",
+      "props": {
+        "fileName": "relatorio.pdf",
+        "details": "PDF · 2,4 MB",
+        "state": "done",
+        "size": "default",
+        "orientation": "horizontal"
+      },
+      "children": []
+    }
+  }
+}

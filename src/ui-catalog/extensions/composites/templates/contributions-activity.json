@@ -1,0 +1,59 @@
+{
+  "root": "n0035",
+  "elements": {
+    "n0033": {
+      "type": "Metric",
+      "props": {
+        "label": "Contribuições",
+        "value": "148",
+        "change": "+12%",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "n0034": {
+      "type": "Progress",
+      "props": {
+        "value": 68,
+        "label": "Progresso das contribuições",
+        "max": 100
+      },
+      "children": []
+    },
+    "n0035": {
+      "type": "Card",
+      "props": {
+        "title": "Contributions & Activity",
+        "description": "Atividade de contribuições · Contribuições",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0033",
+        "n0034",
+        "contributions_activity_0",
+        "contributions_activity_1"
+      ]
+    },
+    "contributions_activity_0": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Code contributions",
+        "name": "contributions_activity_0",
+        "defaultChecked": false
+      },
+      "children": []
+    },
+    "contributions_activity_1": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Reviews and issue activity",
+        "name": "contributions_activity_1",
+        "defaultChecked": false
+      },
+      "children": []
+    }
+  }
+}

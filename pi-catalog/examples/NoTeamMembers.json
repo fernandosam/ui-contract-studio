@@ -1,0 +1,19 @@
+{
+  "root": "n0080",
+  "elements": {
+    "n0080": {
+      "type": "NoTeamMembers",
+      "props": {
+        "content": {
+          "n0078.title": "Nenhum membro ainda"
+        },
+        "nodeProps": {
+          "n0079": {
+            "label": "Começar agora"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

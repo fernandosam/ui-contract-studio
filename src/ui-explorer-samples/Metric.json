@@ -1,0 +1,17 @@
+{
+  "root": "m1",
+  "elements": {
+    "m1": {
+      "type": "Metric",
+      "props": {
+        "label": "Processos em análise",
+        "value": "1.284",
+        "change": "+8,2% neste mês",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    }
+  }
+}

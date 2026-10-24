@@ -1,0 +1,30 @@
+/** Exemplo c-toggle-2 do ReUI (Base UI). */
+import { Toggle } from "@/components/ui/toggle"
+import { IconPlaceholder } from "@/ui-catalog/extensions/composites/reui-button-adapters"
+
+export default function Pattern() {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-2">
+      <Toggle variant="outline" aria-label="Toggle italic">
+        <IconPlaceholder
+          lucide="ItalicIcon"
+          tabler="IconItalic"
+          hugeicons="TextItalicIcon"
+          phosphor="TextItalicIcon"
+          remixicon="RiItalic"
+        />
+        Italic
+      </Toggle>
+      <Toggle variant="outline" aria-label="Toggle bold">
+        <IconPlaceholder
+          lucide="BoldIcon"
+          tabler="IconBold"
+          hugeicons="TextBoldIcon"
+          phosphor="TextBIcon"
+          remixicon="RiBold"
+        />
+        Bold
+      </Toggle>
+    </div>
+  )
+}

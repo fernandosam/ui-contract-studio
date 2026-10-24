@@ -1,0 +1,15 @@
+{
+  "root": "data_rating",
+  "elements": {
+    "data_rating": {
+      "type": "Rating",
+      "props": {
+        "value": 4,
+        "max": 5,
+        "label": "Avaliação local",
+        "interactive": true
+      },
+      "children": []
+    }
+  }
+}

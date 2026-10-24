@@ -1,0 +1,13 @@
+{
+  "root": "main-heading",
+  "elements": {
+    "main-heading": {
+      "type": "Heading",
+      "props": {
+        "text": "Atividades recentes",
+        "level": "h2"
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "Empty",
+      "props": {
+        "title": "Nenhum resultado",
+        "description": "Ajuste os filtros para pesquisar."
+      },
+      "children": []
+    }
+  }
+}

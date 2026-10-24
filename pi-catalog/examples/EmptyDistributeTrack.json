@@ -1,0 +1,19 @@
+{
+  "root": "n0040",
+  "elements": {
+    "n0040": {
+      "type": "EmptyDistributeTrack",
+      "props": {
+        "content": {
+          "n0038.title": "Nenhum lançamento"
+        },
+        "nodeProps": {
+          "n0039": {
+            "label": "Começar agora"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "root": "info-text",
+  "elements": {
+    "info-text": {
+      "type": "Text",
+      "props": {
+        "text": "As telas são arquivos JSON. O Pi pode propor novos componentes, mas só pode utilizá-los após validação e registro.",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

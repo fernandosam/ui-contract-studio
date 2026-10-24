@@ -1,0 +1,39 @@
+/** Exemplo c-toggle-4 do ReUI (Base UI). */
+import { Button } from "@/components/ui/button"
+import { Toggle } from "@/components/ui/toggle"
+import { IconPlaceholder } from "@/ui-catalog/extensions/composites/reui-button-adapters"
+
+export default function Pattern() {
+  return (
+    <div className="flex flex-col items-center justify-center gap-4">
+      <div className="flex items-center gap-2">
+        <Button size="sm" variant="outline">
+          Button
+        </Button>
+        <Toggle variant="outline" size="sm" aria-label="Small toggle">
+          Toggle
+        </Toggle>
+      </div>
+      <div className="flex items-center gap-2">
+        <Button variant="outline" size="icon">
+          <IconPlaceholder
+            lucide="BoldIcon"
+            tabler="IconBold"
+            hugeicons="TextBoldIcon"
+            phosphor="TextBIcon"
+            remixicon="RiBold"
+          />
+        </Button>
+        <Toggle variant="outline" aria-label="Toggle bold icon">
+          <IconPlaceholder
+            lucide="BoldIcon"
+            tabler="IconBold"
+            hugeicons="TextBoldIcon"
+            phosphor="TextBIcon"
+            remixicon="RiBold"
+          />
+        </Toggle>
+      </div>
+    </div>
+  )
+}

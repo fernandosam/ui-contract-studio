@@ -1,0 +1,10 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsChat",
+      "props": {},
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "root": "forms",
+  "elements": {
+    "forms": {
+      "type": "Card",
+      "props": {
+        "title": "Formulários",
+        "description": "Sem envio real: os controles mantêm estado local ou associado ao json-render."
+      },
+      "children": [
+        "form_grid"
+      ]
+    },
+    "form_grid": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "lg"
+      },
+      "children": [
+        "form_a",
+        "form_b"
+      ]
+    },
+    "form_a": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "md",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "form_input",
+        "form_email",
+        "form_textarea",
+        "form_select"
+      ]
+    },
+    "form_input": {
+      "type": "Input",
+      "props": {
+        "label": "Nome",
+        "name": "nome",
+        "type": "text",
+        "placeholder": "Exemplo de nome",
+        "value": null,
+        "checks": [
+          {
+            "type": "required",
+            "message": "Campo obrigatório"
+          }
+        ],
+        "required": true
+      },
+      "children": []
+    },
+    "form_email": {
+      "type": "Input",
+      "props": {
+        "label": "E-mail",
+        "name": "email",
+        "type": "email",
+        "placeholder": "nome@exemplo.com",
+        "value": null,
+        "checks": [
+          {
+            "type": "email",
+            "message": "E-mail inválido"
+          }
+        ],
+        "required": false
+      },
+      "children": []
+    },
+    "form_textarea": {
+      "type": "Textarea",
+      "props": {
+        "label": "Observações",
+        "name": "notas",
+        "placeholder": "Escreva uma observação...",
+        "rows": 3,
+        "value": null,
+        "checks": null
+      },
+      "children": []
+    },
+    "form_select": {
+      "type": "Select",
+      "props": {
+        "label": "Setor",
+        "name": "setor",
+        "options": [
+          "Tecnologia",
+          "Atendimento",
+          "Administração"
+        ],
+        "placeholder": "Selecione o setor",
+        "value": null,
+        "checks": null,
+        "defaultValue": null
+      },
+      "children": []
+    },
+    "form_b": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "md",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "form_checkbox",
+        "form_radio",
+        "form_switch",
+        "form_slider"
+      ]
+    },
+    "form_checkbox": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Receber notificações",
+        "name": "notify",
+        "checked": true
+      },
+      "children": []
+    },
+    "form_radio": {
+      "type": "Radio",
+      "props": {
+        "label": "Prioridade",
+        "name": "priority",
+        "options": [
+          "Baixa",
+          "Média",
+          "Alta"
+        ],
+        "value": "Média",
+        "defaultValue": null
+      },
+      "children": []
+    },
+    "form_switch": {
+      "type": "Switch",
+      "props": {
+        "label": "Ativar notificações",
+        "name": "active",
+        "checked": true
+      },
+      "children": []
+    },
+    "form_slider": {
+      "type": "Slider",
+      "props": {
+        "label": "Limite",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "value": 55
+      },
+      "children": []
+    }
+  },
+  "state": {
+    "dialogOpen": false,
+    "drawerOpen": false
+  }
+}

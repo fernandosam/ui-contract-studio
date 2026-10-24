@@ -1,0 +1,57 @@
+{
+  "root": "n0093",
+  "elements": {
+    "n0090": {
+      "type": "Badge",
+      "props": {
+        "label": "STATS",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0091": {
+      "type": "Metric",
+      "props": {
+        "label": "Distribuição",
+        "value": "148",
+        "change": "+12%",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "n0092": {
+      "type": "Progress",
+      "props": {
+        "value": 68,
+        "label": "Progresso das contribuições",
+        "max": 100
+      },
+      "children": []
+    },
+    "n0093": {
+      "type": "Card",
+      "props": {
+        "title": "Browser Share",
+        "description": "Canais de aquisição · Distribuição",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0090",
+        "n0091",
+        "n0092",
+        "pie_chart_card_0"
+      ]
+    },
+    "pie_chart_card_0": {
+      "type": "Text",
+      "props": {
+        "text": "January - June 2026",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

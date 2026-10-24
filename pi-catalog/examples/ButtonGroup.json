@@ -1,0 +1,26 @@
+{
+  "root": "action_button_group",
+  "elements": {
+    "action_button_group": {
+      "type": "ButtonGroup",
+      "props": {
+        "buttons": [
+          {
+            "label": "Hoje",
+            "value": "today"
+          },
+          {
+            "label": "Semana",
+            "value": "week"
+          },
+          {
+            "label": "Mês",
+            "value": "month"
+          }
+        ],
+        "selected": "week"
+      },
+      "children": []
+    }
+  }
+}

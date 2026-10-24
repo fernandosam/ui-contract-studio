@@ -1,0 +1,19 @@
+{
+  "root": "n0080",
+  "elements": {
+    "n0080": {
+      "type": "Payments",
+      "props": {
+        "content": {
+          "n0079.label": "Ver detalhes"
+        },
+        "nodeProps": {
+          "n0079": {
+            "label": "Ver detalhes"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

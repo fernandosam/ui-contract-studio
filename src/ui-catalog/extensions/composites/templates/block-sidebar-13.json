@@ -1,0 +1,87 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 13 · Settings",
+        "description": "Adaptação do bloco oficial sidebar-13 · dialog · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b005",
+        "b006"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação dialog: Messages & media",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Button",
+      "props": {
+        "label": "Open Dialog",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "Text",
+      "props": {
+        "text": "Configure your workspace settings.",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Dialog",
+      "props": {
+        "title": "Settings",
+        "description": "Messages & media",
+        "defaultOpen": false,
+        "open": null
+      },
+      "children": [
+        "b004"
+      ]
+    },
+    "b006": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Settings",
+        "sections": [
+          {
+            "label": "General",
+            "items": [
+              "Profile",
+              "Account",
+              "Notifications"
+            ]
+          },
+          {
+            "label": "Workspace",
+            "items": [
+              "Appearance",
+              "Messages & media",
+              "Privacy"
+            ]
+          }
+        ],
+        "active": "Messages & media",
+        "variant": "sidebar",
+        "collapsible": "offcanvas",
+        "footer": "Documentação · modo demonstração"
+      },
+      "children": []
+    }
+  }
+}

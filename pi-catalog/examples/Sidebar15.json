@@ -1,0 +1,19 @@
+{
+  "root": "b017",
+  "elements": {
+    "b017": {
+      "type": "Sidebar15",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 15 · Acme Inc."
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação dual: Project Management"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "form-dialog",
+  "title": "Formulário e ações",
+  "category": "forms",
+  "description": "Diálogo, drawer e controles de ações",
+  "originScreen": "playground",
+  "sourceRoot": "actions",
+  "approved": true,
+  "immutableContracts": true
+}

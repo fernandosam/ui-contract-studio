@@ -1,0 +1,22 @@
+{
+  "root": "form_select",
+  "elements": {
+    "form_select": {
+      "type": "Select",
+      "props": {
+        "label": "Setor",
+        "name": "setor",
+        "options": [
+          "Tecnologia",
+          "Atendimento",
+          "Administração"
+        ],
+        "placeholder": "Selecione o setor",
+        "value": null,
+        "checks": null,
+        "defaultValue": null
+      },
+      "children": []
+    }
+  }
+}

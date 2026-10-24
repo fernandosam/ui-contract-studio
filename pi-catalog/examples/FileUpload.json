@@ -1,0 +1,19 @@
+{
+  "root": "n0054",
+  "elements": {
+    "n0054": {
+      "type": "FileUpload",
+      "props": {
+        "content": {
+          "n0052.title": "Envio de arquivo"
+        },
+        "nodeProps": {
+          "n0053": {
+            "label": "Selecionar arquivo"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

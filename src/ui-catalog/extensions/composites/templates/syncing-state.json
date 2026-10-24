@@ -1,0 +1,44 @@
+{
+  "root": "n0141",
+  "elements": {
+    "n0140": {
+      "type": "Spinner",
+      "props": {
+        "size": "sm",
+        "label": "O processamento está em andamento."
+      },
+      "children": []
+    },
+    "n0141": {
+      "type": "Card",
+      "props": {
+        "title": "Syncing your accounts",
+        "description": "Sincronização · Atualizando dados",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0140",
+        "syncing_state_0"
+      ]
+    },
+    "syncing_state_0": {
+      "type": "Button",
+      "props": {
+        "label": "Cancel",
+        "size": "sm",
+        "variant": "outline",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Cancel (sem operação externa)"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "root": "n0004",
+  "elements": {
+    "n0004": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "n0001",
+        "n0002",
+        "n0003"
+      ]
+    },
+    "n0001": {
+      "type": "Badge",
+      "props": {
+        "label": "shadcn/create · PREVIEW",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0002": {
+      "type": "Heading",
+      "props": {
+        "text": "Galeria completa de cards · PREVIEW",
+        "level": "h1"
+      },
+      "children": []
+    },
+    "n0003": {
+      "type": "Text",
+      "props": {
+        "text": "Cards compostos com títulos e controles orientados pelo JSX oficial; visual ainda em revisão por screenshots. Ações locais e dados demonstrativos.",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

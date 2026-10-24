@@ -1,0 +1,117 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Sofia Davis",
+        "description": "m@example.com",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c004",
+        "c005",
+        "c006",
+        "c007",
+        "c010"
+      ]
+    },
+    "c002": {
+      "type": "Avatar",
+      "props": {
+        "name": "Sofia Davis",
+        "size": "sm"
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Badge",
+      "props": {
+        "label": "Online",
+        "variant": "secondary"
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c002",
+        "c003"
+      ]
+    },
+    "c005": {
+      "type": "Text",
+      "props": {
+        "text": "Hi Sofia, how are you doing?",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c006": {
+      "type": "Text",
+      "props": {
+        "text": "I’m good! Just finishing up some work.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c007": {
+      "type": "Text",
+      "props": {
+        "text": "Excellent, let me know when you are free.",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c008": {
+      "type": "Input",
+      "props": {
+        "label": "Message",
+        "name": "message_7",
+        "type": "text",
+        "placeholder": "Message",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c009": {
+      "type": "Button",
+      "props": {
+        "label": "Send",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Send (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c010": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c008",
+        "c009"
+      ]
+    }
+  }
+}

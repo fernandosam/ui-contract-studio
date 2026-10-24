@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 3,
+  "library": "shadcn/ui",
+  "registry": "official",
+  "projectStyle": "base-vega",
+  "primitiveBase": "base-ui",
+  "installation": "not-executed",
+  "notes": "50 primitivas planejadas/locais; oito novas primitivas propostas para revisão e testes.",
+  "groups": [
+    {
+      "id": "foundation",
+      "label": "Primitivas para adaptadores e extensões",
+      "items": [
+        {
+          "name": "button",
+          "purpose": "Componente shadcn/UI usado por adaptadores existentes e extensões DataTable/DatePicker",
+          "catalogContract": "Button",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "card",
+          "purpose": "Componente shadcn/UI usado por adaptadores existentes e extensões DataTable/DatePicker",
+          "catalogContract": "Card",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "input",
+          "purpose": "Componente shadcn/UI usado por adaptadores existentes e extensões DataTable/DatePicker",
+          "catalogContract": "Input",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "table",
+          "purpose": "Componente shadcn/UI usado por adaptadores existentes e extensões DataTable/DatePicker",
+          "catalogContract": "Table",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "popover",
+          "purpose": "Componente shadcn/UI usado por adaptadores existentes e extensões DataTable/DatePicker",
+          "catalogContract": null,
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "select",
+          "purpose": "Componente shadcn/UI usado por adaptadores existentes e extensões DataTable/DatePicker",
+          "catalogContract": "Select",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "badge",
+          "purpose": "Componente shadcn/UI usado por adaptadores existentes e extensões DataTable/DatePicker",
+          "catalogContract": "Badge",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "checkbox",
+          "purpose": "Componente shadcn/UI usado por adaptadores existentes e extensões DataTable/DatePicker",
+          "catalogContract": "Checkbox",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "separator",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "alert",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "progress",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "skeleton",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "textarea",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "label",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "avatar",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "spinner",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "tabs",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "accordion",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "tooltip",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "radio-group",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "switch",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "slider",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "dropdown-menu",
+          "purpose": "Implementação oficial do shadcn/ui necessária ao registry atualizado",
+          "catalogContract": null,
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "dialog",
+          "purpose": "Primitiva oficial para contratos Dialog na nova API Base UI",
+          "catalogContract": "Dialog",
+          "integration": "primitive-adapter"
+        },
+        {
+          "name": "field",
+          "purpose": "Agrupamento acessível para o preview de formulários de shadcn/create",
+          "catalogContract": "Field",
+          "integration": "approved-extension"
+        }
+      ]
+    },
+    {
+      "id": "very-high",
+      "label": "Muito alta",
+      "items": [
+        {
+          "name": "sidebar",
+          "purpose": "Menu lateral responsivo do shell; não expor nas telas automaticamente",
+          "catalogContract": null,
+          "integration": "shell"
+        },
+        {
+          "name": "calendar",
+          "purpose": "Seleção de datas",
+          "catalogContract": null,
+          "integration": "candidate-extension"
+        },
+        {
+          "name": "combobox",
+          "purpose": "Busca/seleção em listas grandes",
+          "catalogContract": null,
+          "integration": "candidate-extension"
+        }
+      ]
+    },
+    {
+      "id": "high",
+      "label": "Alta",
+      "items": [
+        {
+          "name": "command",
+          "purpose": "Paleta de comandos e busca global",
+          "catalogContract": null,
+          "integration": "candidate-extension"
+        },
+        {
+          "name": "breadcrumb",
+          "purpose": "Trilha de navegação do shell",
+          "catalogContract": null,
+          "integration": "shell"
+        },
+        {
+          "name": "input-group",
+          "purpose": "Input com addons e ícones; primitiva para adaptadores",
+          "catalogContract": null,
+          "integration": "primitive"
+        }
+      ]
+    },
+    {
+      "id": "medium",
+      "label": "Média",
+      "items": [
+        {
+          "name": "resizable",
+          "purpose": "Painéis redimensionáveis",
+          "catalogContract": null,
+          "integration": "candidate-extension"
+        },
+        {
+          "name": "drawer",
+          "purpose": "Painel lateral/inferior",
+          "catalogContract": "Drawer",
+          "integration": "existing-contract"
+        },
+        {
+          "name": "collapsible",
+          "purpose": "Área recolhível",
+          "catalogContract": "Collapsible",
+          "integration": "existing-contract"
+        },
+        {
+          "name": "toggle",
+          "purpose": "Botão alternável",
+          "catalogContract": "Toggle",
+          "integration": "existing-contract"
+        },
+        {
+          "name": "toggle-group",
+          "purpose": "Grupo de botões alternáveis",
+          "catalogContract": "ToggleGroup",
+          "integration": "existing-contract"
+        },
+        {
+          "name": "button-group",
+          "purpose": "Agrupamento de botões",
+          "catalogContract": "ButtonGroup",
+          "integration": "existing-contract"
+        },
+        {
+          "name": "carousel",
+          "purpose": "Carrossel",
+          "catalogContract": "Carousel",
+          "integration": "existing-contract"
+        }
+      ]
+    },
+    {
+      "id": "upstream-simple",
+      "label": "Primitivas oficiais adicionais",
+      "items": [
+        {
+          "name": "aspect-ratio",
+          "purpose": "Primitiva oficial AspectRatio com contrato seguro",
+          "catalogContract": "AspectRatio",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "kbd",
+          "purpose": "Primitiva oficial Kbd com contrato seguro",
+          "catalogContract": "Kbd",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "empty",
+          "purpose": "Primitiva oficial Empty com contrato seguro",
+          "catalogContract": "Empty",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "scroll-area",
+          "purpose": "Primitiva oficial ScrollArea com contrato seguro",
+          "catalogContract": "ScrollArea",
+          "integration": "primitive-or-existing-contract"
+        }
+      ]
+    },
+    {
+      "id": "upstream-admitted",
+      "label": "Primitivas shadcn oficiais — nova admissão",
+      "items": [
+        {
+          "name": "alert-dialog",
+          "purpose": "Implementação oficial Base UI com contrato seguro AlertDialog",
+          "catalogContract": "AlertDialog",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "attachment",
+          "purpose": "Implementação oficial Base UI com contrato seguro Attachment",
+          "catalogContract": "Attachment",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "bubble",
+          "purpose": "Implementação oficial Base UI com contrato seguro Bubble",
+          "catalogContract": "Bubble",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "context-menu",
+          "purpose": "Implementação oficial Base UI com contrato seguro ContextMenu",
+          "catalogContract": "ContextMenu",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "hover-card",
+          "purpose": "Implementação oficial Base UI com contrato seguro HoverCard",
+          "catalogContract": "HoverCard",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "item",
+          "purpose": "Implementação oficial Base UI com contrato seguro Item",
+          "catalogContract": "Item",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "marker",
+          "purpose": "Implementação oficial Base UI com contrato seguro Marker",
+          "catalogContract": "Marker",
+          "integration": "primitive-or-existing-contract"
+        },
+        {
+          "name": "message",
+          "purpose": "Implementação oficial Base UI com contrato seguro Message",
+          "catalogContract": "Message",
+          "integration": "primitive-or-existing-contract"
+        }
+      ]
+    }
+  ],
+  "version": "0.10.0"
+}

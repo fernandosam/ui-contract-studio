@@ -1,0 +1,48 @@
+name: UI Contract Studio quality
+concurrency:
+  group: quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  offline-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify offline invariants
+        run: npm run test:offline && npm run composites:generated:check && npm run contracts:check && npm run patterns:check && npm run integration:check
+      - name: Compare contracts with PR base
+        env:
+          CONTRACT_BASE_REF: ${{ github.event.pull_request.base.sha }}
+        run: node scripts/check-contract-diff.mjs
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Require reviewed npm lockfile before restore
+        run: |
+          test -f package-lock.json || (echo 'Lockfile missing: generate it locally with npm + shadcn CLI, review and commit; CI must fail closed.' && exit 1)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Export authoritative schemas for Pi
+        run: npm run pi:zod-schema
+      - name: Verify checkout provenance and primitives
+        run: npm run doctor:strict
+      - run: npm run shadcn:verify && npm run shadcn:integrity -- --strict
+      - run: npm run validate && npm run build
+      - name: Validate Pi generator negative and positive cases
+        run: npm run pi:validate -- --file=pi-catalog/examples/ShippingAddress.json --out=reports/pi-validation/ci.json

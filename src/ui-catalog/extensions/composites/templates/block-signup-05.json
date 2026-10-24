@@ -1,0 +1,116 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Welcome to Acme Inc.",
+        "description": "Already have an account? Sign in",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b003",
+        "b004",
+        "b007",
+        "b008",
+        "b009",
+        "b010"
+      ]
+    },
+    "b002": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "signup_05_email",
+        "type": "email",
+        "placeholder": "m@example.com",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b002"
+      ]
+    },
+    "b004": {
+      "type": "Button",
+      "props": {
+        "label": "Create Account",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Button",
+      "props": {
+        "label": "Continue with Apple",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b006": {
+      "type": "Button",
+      "props": {
+        "label": "Continue with Google",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b007": {
+      "type": "Text",
+      "props": {
+        "text": "Or continue with",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "b008": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b005",
+        "b006"
+      ]
+    },
+    "b009": {
+      "type": "Text",
+      "props": {
+        "text": "Already have an account? Sign in",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b010": {
+      "type": "Text",
+      "props": {
+        "text": "By clicking continue, you agree to our Terms of Service and Privacy Policy.",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

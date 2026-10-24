@@ -1,0 +1,48 @@
+name: E2E manual (main)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-manual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    name: Testes funcionais e layout
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Preparar Chromium
+        run: |
+          browser="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser" ]; then
+            echo "UI_CONTRACT_STUDIO_CHROMIUM_EXECUTABLE=$browser" >> "$GITHUB_ENV"
+            "$browser" --version
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Testes E2E funcionais e de layout
+        run: npm run test:e2e
+      - name: Evidências E2E
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: |
+            playwright-report/
+            test-results/
+            reports/auth-layout/
+            reports/structure-fidelity/
+          if-no-files-found: ignore

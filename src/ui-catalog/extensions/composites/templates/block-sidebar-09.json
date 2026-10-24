@@ -1,0 +1,139 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 09 · Acme Inc.",
+        "description": "Adaptação do bloco oficial sidebar-09 · mail · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b004",
+        "b005",
+        "mail_preview_title",
+        "mail_preview_filter",
+        "mail_preview_list"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação mail: Inbox",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Input",
+      "props": {
+        "label": "Search",
+        "name": "filter_sidebar_9",
+        "type": "search",
+        "placeholder": "Search...",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Acme Inc.",
+        "sections": [
+          {
+            "label": "Mail",
+            "items": [
+              "Inbox",
+              "Drafts",
+              "Sent",
+              "Junk",
+              "Trash"
+            ]
+          },
+          {
+            "label": "Messages",
+            "items": [
+              "William Smith",
+              "Alice Smith",
+              "Bob Johnson",
+              "Emily Davis"
+            ]
+          }
+        ],
+        "active": "Inbox",
+        "variant": "sidebar",
+        "collapsible": "icon",
+        "footer": "shadcn · m@example.com"
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Text",
+      "props": {
+        "text": "Inbox · Unreads · William Smith · Alice Smith · Bob Johnson",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "mail_preview_title": {
+      "type": "Heading",
+      "props": {
+        "text": "Inbox",
+        "level": "h3"
+      },
+      "children": []
+    },
+    "mail_preview_filter": {
+      "type": "Input",
+      "props": {
+        "label": "Filter messages",
+        "name": "mail_preview_filter",
+        "type": "search",
+        "placeholder": "Type to search...",
+        "value": null
+      },
+      "children": []
+    },
+    "mail_preview_list": {
+      "type": "Table",
+      "props": {
+        "caption": "Inbox messages · dados demonstrativos",
+        "columns": [
+          "Sender",
+          "Subject",
+          "Preview"
+        ],
+        "rows": [
+          [
+            "William Smith",
+            "Meeting Tomorrow",
+            "Reminder about our meeting tomorrow at 10 AM."
+          ],
+          [
+            "Alice Smith",
+            "Re: Project Update",
+            "Thanks for the update. The progress looks great."
+          ],
+          [
+            "Bob Johnson",
+            "Weekend Plans",
+            "Thinking of organizing a team outing."
+          ],
+          [
+            "Emily Davis",
+            "Re: Question about Budget",
+            "Reviewed the budget numbers you sent over."
+          ]
+        ]
+      },
+      "children": []
+    }
+  }
+}

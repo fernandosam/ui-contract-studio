@@ -1,0 +1,128 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Statistics",
+        "description": "Quick metrics from the dashboard",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c004",
+        "c005",
+        "c006"
+      ]
+    },
+    "c002": {
+      "type": "Metric",
+      "props": {
+        "label": "Total Revenue",
+        "value": "$15,231.89",
+        "change": "+20.1% from last month",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Metric",
+      "props": {
+        "label": "Subscriptions",
+        "value": "+2,350",
+        "change": "+180.1% from last month",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Grid",
+      "props": {
+        "columns": 2,
+        "gap": "md"
+      },
+      "children": [
+        "c002",
+        "c003"
+      ]
+    },
+    "c005": {
+      "type": "LineGraph",
+      "props": {
+        "title": "Revenue trend",
+        "data": [
+          {
+            "label": "1",
+            "value": 32
+          },
+          {
+            "label": "2",
+            "value": 41
+          },
+          {
+            "label": "3",
+            "value": 35
+          },
+          {
+            "label": "4",
+            "value": 48
+          },
+          {
+            "label": "5",
+            "value": 57
+          },
+          {
+            "label": "6",
+            "value": 61
+          },
+          {
+            "label": "7",
+            "value": 72
+          }
+        ]
+      },
+      "children": []
+    },
+    "c006": {
+      "type": "LineGraph",
+      "props": {
+        "title": "Subscriptions trend",
+        "data": [
+          {
+            "label": "1",
+            "value": 12
+          },
+          {
+            "label": "2",
+            "value": 21
+          },
+          {
+            "label": "3",
+            "value": 25
+          },
+          {
+            "label": "4",
+            "value": 39
+          },
+          {
+            "label": "5",
+            "value": 43
+          },
+          {
+            "label": "6",
+            "value": 52
+          },
+          {
+            "label": "7",
+            "value": 66
+          }
+        ]
+      },
+      "children": []
+    }
+  }
+}

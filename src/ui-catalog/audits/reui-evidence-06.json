@@ -1,0 +1,251 @@
+{
+  "start": 76,
+  "end": 94,
+  "entries": [
+    {
+      "id": "c-badge-11",
+      "sha": "abbf51c428b50eb71455b533981cf8a1d855a535",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-12",
+      "sha": "c6e84f590be6887de2c8c2883068dad4aac6f30a",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-13",
+      "sha": "1b3cd591e1869eba52e43fb675b349959a638fcb",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-14",
+      "sha": "0e3b9744412695d7719d0ee65d5feb8c7426842c",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-15",
+      "sha": "90a3ff6be5ef3a6d775f71a80adb5021d0064b8f",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-16",
+      "sha": "b263ae6fb5343d41a0c62e244a6871251f4170c3",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-17",
+      "sha": "fdd0a8c1b128f4d84ea22fd4695ab2fa9771ae64",
+      "lines": 7,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-18",
+      "sha": "4c39d505febf18ea941eb40f64f1f291f5bcf014",
+      "lines": 13,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-19",
+      "sha": "e51d6beba8c3c6d5e350ba64630d9099922078ed",
+      "lines": 41,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-20",
+      "sha": "35dbd467d11639c91bd124d5fa6b6a1442d2c4b0",
+      "lines": 20,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-21",
+      "sha": "befd5f7457e3416a740ac9cad465c997a51c737e",
+      "lines": 27,
+      "imports": [
+        "button"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-22",
+      "sha": "5c2583f076869bdea2066e7725f3dcebdd926ed2",
+      "lines": 12,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-23",
+      "sha": "047ff2854a56f1de136c2b33b0cb523a9983d948",
+      "lines": 11,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-24",
+      "sha": "dbea5ef69e3b3b9699441799020cb25db8fb2e77",
+      "lines": 36,
+      "imports": [
+        "avatar",
+        "button"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-badge-25",
+      "sha": "99d82f6800886d3dd33adb937ba10dcfdb4ec653",
+      "lines": 18,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-button-1",
+      "sha": "04c807dd6aefd47562638d8266ddd97186f66ecb",
+      "lines": 6,
+      "imports": [
+        "button"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-button-2",
+      "sha": "eeefb4ff9d2618f6d16579c0c26274a63a688e5b",
+      "lines": 6,
+      "imports": [
+        "button"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-button-3",
+      "sha": "5108790d366f16a1d024d5c4fa995be218be1c86",
+      "lines": 6,
+      "imports": [
+        "button"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

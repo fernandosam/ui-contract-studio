@@ -1,0 +1,89 @@
+{
+  "root": "n0137",
+  "elements": {
+    "n0135": {
+      "type": "Metric",
+      "props": {
+        "label": "Rentabilidade",
+        "value": "+12,4%",
+        "change": "+12,4%",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "n0136": {
+      "type": "LineGraph",
+      "props": {
+        "title": "Tendência semanal",
+        "data": [
+          {
+            "label": "Jan",
+            "value": 18
+          },
+          {
+            "label": "Fev",
+            "value": 25
+          },
+          {
+            "label": "Mar",
+            "value": 21
+          },
+          {
+            "label": "Abr",
+            "value": 33
+          },
+          {
+            "label": "Mai",
+            "value": 28
+          },
+          {
+            "label": "Jun",
+            "value": 42
+          }
+        ]
+      },
+      "children": []
+    },
+    "n0137": {
+      "type": "Card",
+      "props": {
+        "title": "Stock Performance",
+        "description": "Desempenho de ações · Rentabilidade",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0135",
+        "n0136",
+        "stock_performance_0"
+      ]
+    },
+    "stock_performance_0": {
+      "type": "Select",
+      "props": {
+        "label": "Ticker",
+        "name": "stock_performance_0",
+        "options": [
+          {
+            "label": "AAPL",
+            "value": "aapl"
+          },
+          {
+            "label": "GOOGL",
+            "value": "googl"
+          },
+          {
+            "label": "NVDA",
+            "value": "nvda"
+          }
+        ],
+        "placeholder": "Selecione",
+        "value": null,
+        "defaultValue": null
+      },
+      "children": []
+    }
+  }
+}

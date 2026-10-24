@@ -1,0 +1,19 @@
+{
+  "root": "n0021",
+  "elements": {
+    "n0021": {
+      "type": "BarChartCard",
+      "props": {
+        "content": {
+          "n0019.label": "Últimos 6 meses"
+        },
+        "nodeProps": {
+          "n0019": {
+            "label": "Últimos 6 meses"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

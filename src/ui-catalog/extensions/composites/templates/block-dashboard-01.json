@@ -1,0 +1,202 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Dashboard · Documents",
+        "description": "A dashboard with sidebar, charts and data table. Dados fictícios conforme preview oficial.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b007",
+        "b008",
+        "b009"
+      ]
+    },
+    "b002": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Acme Inc.",
+        "sections": [
+          {
+            "label": "Platform",
+            "items": [
+              "Dashboard",
+              "Lifecycle",
+              "Analytics",
+              "Projects",
+              "Team"
+            ]
+          },
+          {
+            "label": "Documents",
+            "items": [
+              "Data Library",
+              "Reports",
+              "Word Assistant"
+            ]
+          },
+          {
+            "label": "Others",
+            "items": [
+              "Settings",
+              "Get Help",
+              "Search"
+            ]
+          }
+        ],
+        "active": "Dashboard",
+        "variant": "inset",
+        "collapsible": "icon",
+        "footer": "shadcn m@example.com"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Metric",
+      "props": {
+        "label": "Total Revenue",
+        "value": "$1,250.00",
+        "change": "+12.5%",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "Metric",
+      "props": {
+        "label": "New Customers",
+        "value": "1,234",
+        "change": "-20%",
+        "changeType": "negative",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Metric",
+      "props": {
+        "label": "Active Accounts",
+        "value": "45,678",
+        "change": "+12.5%",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "b006": {
+      "type": "Metric",
+      "props": {
+        "label": "Growth Rate",
+        "value": "4.5%",
+        "change": "+4.5%",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "b007": {
+      "type": "Grid",
+      "props": {
+        "columns": 4,
+        "gap": "md"
+      },
+      "children": [
+        "b003",
+        "b004",
+        "b005",
+        "b006"
+      ]
+    },
+    "b008": {
+      "type": "LineGraph",
+      "props": {
+        "title": "Total Visitors · Last 3 months",
+        "data": [
+          {
+            "label": "Apr",
+            "value": 125
+          },
+          {
+            "label": "May",
+            "value": 190
+          },
+          {
+            "label": "Jun",
+            "value": 167
+          },
+          {
+            "label": "Jul",
+            "value": 245
+          },
+          {
+            "label": "Aug",
+            "value": 215
+          },
+          {
+            "label": "Sep",
+            "value": 309
+          }
+        ]
+      },
+      "children": []
+    },
+    "b009": {
+      "type": "Table",
+      "props": {
+        "columns": [
+          "Header",
+          "Section Type",
+          "Status",
+          "Target",
+          "Limit",
+          "Reviewer"
+        ],
+        "rows": [
+          [
+            "Cover page",
+            "Cover page",
+            "In Process",
+            "22",
+            "5",
+            "Eddie Lake"
+          ],
+          [
+            "Table of contents",
+            "Table of contents",
+            "Done",
+            "12",
+            "8",
+            "Eddie Lake"
+          ],
+          [
+            "Executive summary",
+            "Narrative",
+            "Done",
+            "23",
+            "9",
+            "Jamik Tashpulatov"
+          ],
+          [
+            "Technical approach",
+            "Narrative",
+            "Done",
+            "17",
+            "6",
+            "Eddie Lake"
+          ]
+        ],
+        "caption": "Documents · Section table"
+      },
+      "children": []
+    }
+  }
+}

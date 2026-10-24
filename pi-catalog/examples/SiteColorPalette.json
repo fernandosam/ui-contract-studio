@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteColorPalette",
+      "props": {
+        "content": {
+          "c001.title": "Color Palette"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "Format"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

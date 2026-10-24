@@ -1,0 +1,13 @@
+{
+  "root": "data_tooltip",
+  "elements": {
+    "data_tooltip": {
+      "type": "Tooltip",
+      "props": {
+        "text": "Passe o mouse aqui",
+        "content": "Informação contextual adicional."
+      },
+      "children": []
+    }
+  }
+}

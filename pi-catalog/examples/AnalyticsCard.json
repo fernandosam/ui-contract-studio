@@ -1,0 +1,19 @@
+{
+  "root": "n0013",
+  "elements": {
+    "n0013": {
+      "type": "AnalyticsCard",
+      "props": {
+        "content": {
+          "n0010.label": "CHART"
+        },
+        "nodeProps": {
+          "n0010": {
+            "label": "CHART"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

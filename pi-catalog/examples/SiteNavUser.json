@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteNavUser",
+      "props": {
+        "content": {
+          "c001.title": "User Menu"
+        },
+        "nodeProps": {
+          "c003": {
+            "text": "Alex Morgan"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

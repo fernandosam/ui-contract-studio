@@ -1,0 +1,281 @@
+{
+  "start": 40,
+  "end": 58,
+  "entries": [
+    {
+      "id": "c-avatar-10",
+      "sha": "9aa9e760f13055ff084daa6405356f6fbea14311",
+      "lines": 36,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-11",
+      "sha": "b809366288c3a96d7c4579f24b96d21bc0001307",
+      "lines": 38,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-12",
+      "sha": "80384d7d589e36a44db7bcd5d54b051cac35efa2",
+      "lines": 48,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-13",
+      "sha": "b37dc4b7b1e799630a15efffcb68b7dae19c7a31",
+      "lines": 42,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-14",
+      "sha": "823396acc7a5f568c71af96e8dbc2d2219051bdc",
+      "lines": 30,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-15",
+      "sha": "fa86151a4a1957b3edb1b4c1eb49a8c7fec4d422",
+      "lines": 26,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-16",
+      "sha": "868e5269409bfbdb8b5fe9f6626bdfec59c5ad80",
+      "lines": 33,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-17",
+      "sha": "a816dea8929a66f93b664f3c21ad3315bac1f14b",
+      "lines": 20,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-18",
+      "sha": "66c713301d5a4f7b842df932286316cd0d35cb85",
+      "lines": 38,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-19",
+      "sha": "18a19495c09fcded2c8af2d46ad9d5574098c38d",
+      "lines": 23,
+      "imports": [
+        "avatar",
+        "button"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-20",
+      "sha": "2a5d9a51ab8da58e485ab582d57c777590ecc4be",
+      "lines": 47,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-21",
+      "sha": "9ca28c69d6c9bd6eadbac12ffd71a1cb49d98a94",
+      "lines": 48,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-22",
+      "sha": "c83c26c87764f69d4501fc44d6fed52052260649",
+      "lines": 55,
+      "imports": [
+        "avatar",
+        "tooltip"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-23",
+      "sha": "edacda7a5d9944d9da0c5fce260e57b376654a89",
+      "lines": 62,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-24",
+      "sha": "07c00d8b1e6754b5b4c8d289a4f173868d7756e1",
+      "lines": 74,
+      "imports": [
+        "avatar",
+        "tooltip"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-25",
+      "sha": "095556921709078bd228f65df75fbc5b77a8e314",
+      "lines": 46,
+      "imports": [
+        "avatar"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-26",
+      "sha": "423658cc0b02bc0386b2dc808be6f99eca2d506e",
+      "lines": 24,
+      "imports": [
+        "avatar",
+        "button"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-avatar-27",
+      "sha": "3a6027dafb547a224d2f26e732003e30017eb800",
+      "lines": 23,
+      "imports": [
+        "avatar",
+        "button"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

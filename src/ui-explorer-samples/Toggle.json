@@ -1,0 +1,14 @@
+{
+  "root": "action_toggle",
+  "elements": {
+    "action_toggle": {
+      "type": "Toggle",
+      "props": {
+        "label": "Favorito",
+        "pressed": false,
+        "variant": "outline"
+      },
+      "children": []
+    }
+  }
+}

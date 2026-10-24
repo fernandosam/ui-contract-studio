@@ -1,0 +1,65 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Sidebar 10 · Acme Inc.",
+        "description": "Adaptação do bloco oficial sidebar-10 · favorites · navegação demonstrativa local",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Variação favorites: Project Management & Task Tracking",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Acme Inc.",
+        "sections": [
+          {
+            "label": "Navigation",
+            "items": [
+              "Search",
+              "Ask AI",
+              "Home",
+              "Inbox"
+            ]
+          },
+          {
+            "label": "Favorites",
+            "items": [
+              "Project Management & Task Tracking",
+              "Family Recipe Collection",
+              "Fitness Tracker",
+              "Book Notes"
+            ]
+          },
+          {
+            "label": "Workspaces",
+            "items": [
+              "Personal Life Management",
+              "Professional Development",
+              "Creative Projects"
+            ]
+          }
+        ],
+        "active": "Project Management & Task Tracking",
+        "variant": "sidebar",
+        "collapsible": "icon",
+        "footer": "shadcn · m@example.com"
+      },
+      "children": []
+    }
+  }
+}

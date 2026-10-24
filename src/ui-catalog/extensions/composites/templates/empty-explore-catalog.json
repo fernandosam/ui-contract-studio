@@ -1,0 +1,55 @@
+{
+  "root": "n0044",
+  "elements": {
+    "n0042": {
+      "type": "Alert",
+      "props": {
+        "title": "Seu catálogo está vazio",
+        "description": "Encontre itens para começar.",
+        "variant": "default"
+      },
+      "children": []
+    },
+    "n0043": {
+      "type": "Button",
+      "props": {
+        "label": "Começar agora",
+        "size": "sm",
+        "variant": "default",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Começar agora (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0044": {
+      "type": "Card",
+      "props": {
+        "title": "Explore Catalog",
+        "description": "Explorar catálogo · Seu catálogo está vazio",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0042",
+        "empty_explore_catalog_0",
+        "n0043"
+      ]
+    },
+    "empty_explore_catalog_0": {
+      "type": "Text",
+      "props": {
+        "text": "Browse available catalog entries",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

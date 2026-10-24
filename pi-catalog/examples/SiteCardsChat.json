@@ -1,0 +1,14 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsChat",
+      "props": {
+        "content": {
+          "c001.title": "Sofia Davis"
+        }
+      },
+      "children": []
+    }
+  }
+}

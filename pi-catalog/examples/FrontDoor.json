@@ -1,0 +1,19 @@
+{
+  "root": "n0052",
+  "elements": {
+    "n0052": {
+      "type": "FrontDoor",
+      "props": {
+        "content": {
+          "n0048.label": "PRODUCT"
+        },
+        "nodeProps": {
+          "n0048": {
+            "label": "PRODUCT"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

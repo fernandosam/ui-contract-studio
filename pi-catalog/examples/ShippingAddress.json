@@ -1,0 +1,19 @@
+{
+  "root": "n0103",
+  "elements": {
+    "n0103": {
+      "type": "ShippingAddress",
+      "props": {
+        "content": {
+          "street.label": "Street address"
+        },
+        "nodeProps": {
+          "street": {
+            "label": "Street address"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

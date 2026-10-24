@@ -1,0 +1,19 @@
+{
+  "root": "b014",
+  "elements": {
+    "b014": {
+      "type": "Sidebar12",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 12 · Calendars"
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação calendar: October 2026"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

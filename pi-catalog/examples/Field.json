@@ -1,0 +1,150 @@
+{
+  "root": "notifications_field_group",
+  "elements": {
+    "notifications_field_group": {
+      "type": "Field",
+      "props": {
+        "label": "Notifications",
+        "description": "Choose which updates you receive.",
+        "orientation": "vertical",
+        "invalid": false
+      },
+      "children": [
+        "notification_settings_0",
+        "notification_settings_1_field",
+        "notification_settings_2_field",
+        "notification_settings_3_field",
+        "notification_settings_4_field"
+      ]
+    },
+    "notification_settings_0": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Select all",
+        "name": "notification_settings_0",
+        "defaultChecked": true
+      },
+      "children": []
+    },
+    "notification_settings_1_field": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "notification_settings_1",
+        "notification_settings_1_help"
+      ]
+    },
+    "notification_settings_1": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Transaction alerts",
+        "name": "notification_settings_1",
+        "defaultChecked": true
+      },
+      "children": []
+    },
+    "notification_settings_1_help": {
+      "type": "Text",
+      "props": {
+        "text": "Deposits, withdrawals, and transfers.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "notification_settings_2_field": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "notification_settings_2",
+        "notification_settings_2_help"
+      ]
+    },
+    "notification_settings_2": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Security alerts",
+        "name": "notification_settings_2",
+        "defaultChecked": true
+      },
+      "children": []
+    },
+    "notification_settings_2_help": {
+      "type": "Text",
+      "props": {
+        "text": "Login attempts and account changes.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "notification_settings_3_field": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "notification_settings_3",
+        "notification_settings_3_help"
+      ]
+    },
+    "notification_settings_3": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Goal milestones",
+        "name": "notification_settings_3",
+        "defaultChecked": false
+      },
+      "children": []
+    },
+    "notification_settings_3_help": {
+      "type": "Text",
+      "props": {
+        "text": "Updates at 25%, 50%, 75%, and 100%.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "notification_settings_4_field": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "notification_settings_4",
+        "notification_settings_4_help"
+      ]
+    },
+    "notification_settings_4": {
+      "type": "Checkbox",
+      "props": {
+        "label": "Market updates",
+        "name": "notification_settings_4",
+        "defaultChecked": false
+      },
+      "children": []
+    },
+    "notification_settings_4_help": {
+      "type": "Text",
+      "props": {
+        "text": "Daily portfolio summary and price alerts.",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

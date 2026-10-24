@@ -1,0 +1,113 @@
+{
+  "root": "stats",
+  "elements": {
+    "stats": {
+      "type": "Grid",
+      "props": {
+        "columns": 4
+      },
+      "children": [
+        "m1-card",
+        "m2-card",
+        "m3-card",
+        "m4-card"
+      ]
+    },
+    "m1-card": {
+      "type": "Card",
+      "props": {
+        "title": null,
+        "description": null,
+        "maxWidth": "full",
+        "centered": false
+      },
+      "children": [
+        "m1"
+      ]
+    },
+    "m1": {
+      "type": "Metric",
+      "props": {
+        "label": "Processos em análise",
+        "value": "1.284",
+        "change": "+8,2% neste mês",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "m2-card": {
+      "type": "Card",
+      "props": {
+        "title": null,
+        "description": null,
+        "maxWidth": "full",
+        "centered": false
+      },
+      "children": [
+        "m2"
+      ]
+    },
+    "m2": {
+      "type": "Metric",
+      "props": {
+        "label": "Usuários ativos",
+        "value": "326",
+        "change": "+12 novos acessos",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "m3-card": {
+      "type": "Card",
+      "props": {
+        "title": null,
+        "description": null,
+        "maxWidth": "full",
+        "centered": false
+      },
+      "children": [
+        "m3"
+      ]
+    },
+    "m3": {
+      "type": "Metric",
+      "props": {
+        "label": "Tempo médio",
+        "value": "2,4 dias",
+        "change": "-0,5 dia na média",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "m4-card": {
+      "type": "Card",
+      "props": {
+        "title": null,
+        "description": null,
+        "maxWidth": "full",
+        "centered": false
+      },
+      "children": [
+        "m4"
+      ]
+    },
+    "m4": {
+      "type": "Metric",
+      "props": {
+        "label": "Concluídos",
+        "value": "91,6%",
+        "change": "Meta demonstrativa",
+        "changeType": "neutral",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "root": "layout_carousel",
+  "elements": {
+    "layout_carousel": {
+      "type": "Carousel",
+      "props": {
+        "items": [
+          {
+            "title": "Descoberta",
+            "description": "Consultar componentes existentes."
+          },
+          {
+            "title": "Admissão",
+            "description": "Inspecionar e registrar novas variantes."
+          },
+          {
+            "title": "Renderização",
+            "description": "Gerar JSON validado."
+          }
+        ]
+      },
+      "children": []
+    }
+  }
+}

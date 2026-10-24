@@ -1,0 +1,55 @@
+{
+  "root": "n0054",
+  "elements": {
+    "n0052": {
+      "type": "Alert",
+      "props": {
+        "title": "Envio de arquivo",
+        "description": "A prévia não processa arquivos.",
+        "variant": "default"
+      },
+      "children": []
+    },
+    "n0053": {
+      "type": "Button",
+      "props": {
+        "label": "Selecionar arquivo",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Selecionar arquivo (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0054": {
+      "type": "Card",
+      "props": {
+        "title": "File Upload",
+        "description": "Enviar arquivos · Arraste arquivos",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0052",
+        "file_upload_0",
+        "n0053"
+      ]
+    },
+    "file_upload_0": {
+      "type": "Text",
+      "props": {
+        "text": "Drag and drop or browse · PNG, JPG, PDF up to 10MB",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

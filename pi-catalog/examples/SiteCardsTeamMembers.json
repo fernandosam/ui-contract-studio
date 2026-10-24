@@ -1,0 +1,33 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsTeamMembers",
+      "props": {
+        "content": {
+          "c001.title": "Team Members"
+        },
+        "members": [
+          {
+            "id": "sofia",
+            "name": "Sofia Davis",
+            "role": "Owner"
+          },
+          {
+            "id": "jackson",
+            "name": "Jackson Lee",
+            "role": "Developer"
+          }
+        ],
+        "roles": [
+          "Viewer",
+          "Developer",
+          "Billing",
+          "Owner"
+        ],
+        "allowRoleChanges": true
+      },
+      "children": []
+    }
+  }
+}

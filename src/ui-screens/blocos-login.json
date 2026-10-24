@@ -1,0 +1,55 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Blocos shadcn · Login",
+        "description": "Blocos adaptados do diretório oficial Base UI do shadcn; fontes e preview revisados.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b004",
+        "b005",
+        "b006",
+        "b007"
+      ]
+    },
+    "b002": {
+      "type": "Text",
+      "props": {
+        "text": "Cada item abaixo usa um contrato próprio; a implementação não é JSX livre.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Login01",
+      "props": {},
+      "children": []
+    },
+    "b004": {
+      "type": "Login02",
+      "props": {},
+      "children": []
+    },
+    "b005": {
+      "type": "Login03",
+      "props": {},
+      "children": []
+    },
+    "b006": {
+      "type": "Login04",
+      "props": {},
+      "children": []
+    },
+    "b007": {
+      "type": "Login05",
+      "props": {},
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "root": "root",
+  "elements": {
+    "status": {
+      "type": "Badge",
+      "props": {
+        "label": "Pending",
+        "variant": "secondary"
+      },
+      "children": []
+    },
+    "table": {
+      "type": "Table",
+      "props": {
+        "columns": [
+          "Item",
+          "Qty",
+          "Rate",
+          "Amount"
+        ],
+        "rows": [
+          [
+            "Design System License",
+            "1",
+            "$499.00",
+            "$499.00"
+          ],
+          [
+            "Priority Support",
+            "12",
+            "$99.00",
+            "$1,188.00"
+          ],
+          [
+            "Custom Components",
+            "3",
+            "$250.00",
+            "$750.00"
+          ],
+          [
+            "Subtotal",
+            "",
+            "",
+            "$2,437.00"
+          ],
+          [
+            "Tax",
+            "",
+            "",
+            "$0.00"
+          ],
+          [
+            "Total Due",
+            "",
+            "",
+            "$2,437.00"
+          ]
+        ],
+        "caption": "Invoice line items and totals (demo data; no payment processing)."
+      },
+      "children": []
+    },
+    "download": {
+      "type": "Button",
+      "props": {
+        "label": "Download PDF",
+        "variant": "outline",
+        "size": "sm",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Preview: Download PDF (no external action)"
+          }
+        }
+      }
+    },
+    "pay": {
+      "type": "Button",
+      "props": {
+        "label": "Pay Now",
+        "variant": "default",
+        "size": "sm",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Preview: Pay Now (no external action)"
+          }
+        }
+      }
+    },
+    "buttons": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "end"
+      },
+      "children": [
+        "download",
+        "pay"
+      ]
+    },
+    "root": {
+      "type": "Card",
+      "props": {
+        "title": "Invoice #INV-2847",
+        "description": "Due March 30, 2026",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "status",
+        "table",
+        "buttons",
+        "invoice_0"
+      ]
+    },
+    "invoice_0": {
+      "type": "Text",
+      "props": {
+        "text": "USD · Demo invoice; no payment is processed.",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "root": "n0084",
+  "elements": {
+    "n0084": {
+      "type": "Card",
+      "props": {
+        "title": "Payout Threshold",
+        "description": "Limite de saque · Mínimo R$ 500",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "payout_currency",
+        "payout_threshold_0",
+        "payout_threshold_1",
+        "payout_threshold_2"
+      ]
+    },
+    "payout_threshold_0": {
+      "type": "Slider",
+      "props": {
+        "label": "Threshold",
+        "min": 0,
+        "max": 100,
+        "defaultValue": 60,
+        "step": 5
+      },
+      "children": []
+    },
+    "payout_threshold_1": {
+      "type": "Textarea",
+      "props": {
+        "label": "Notes",
+        "name": "payout_threshold_1",
+        "placeholder": "Notes",
+        "value": null
+      },
+      "children": []
+    },
+    "payout_threshold_2": {
+      "type": "Button",
+      "props": {
+        "label": "Save Threshold",
+        "size": "sm",
+        "variant": "outline",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Save Threshold (sem operação externa)"
+          }
+        }
+      }
+    },
+    "payout_currency": {
+      "type": "Select",
+      "props": {
+        "label": "Payout currency",
+        "name": "payout_currency",
+        "options": [
+          {
+            "label": "USD",
+            "value": "usd"
+          },
+          {
+            "label": "EUR",
+            "value": "eur"
+          }
+        ],
+        "defaultValue": "usd",
+        "placeholder": null,
+        "value": null
+      },
+      "children": []
+    }
+  }
+}

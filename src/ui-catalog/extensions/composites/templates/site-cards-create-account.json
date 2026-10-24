@@ -1,0 +1,120 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "Create an account",
+        "description": "Enter your email below to create your account",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c004",
+        "c005",
+        "c006",
+        "c007",
+        "c008"
+      ]
+    },
+    "c002": {
+      "type": "Button",
+      "props": {
+        "label": "GitHub",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: GitHub (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c003": {
+      "type": "Button",
+      "props": {
+        "label": "Google",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Google (sem efeito externo)"
+          }
+        }
+      }
+    },
+    "c004": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c002",
+        "c003"
+      ]
+    },
+    "c005": {
+      "type": "Text",
+      "props": {
+        "text": "Or continue with",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c006": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "email_5",
+        "type": "email",
+        "placeholder": "m@example.com",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c007": {
+      "type": "Input",
+      "props": {
+        "label": "Password",
+        "name": "password_6",
+        "type": "password",
+        "placeholder": "Password",
+        "value": null,
+        "readOnly": false
+      },
+      "children": []
+    },
+    "c008": {
+      "type": "Button",
+      "props": {
+        "label": "Create Account",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Demonstração: Create Account (sem efeito externo)"
+          }
+        }
+      }
+    }
+  }
+}

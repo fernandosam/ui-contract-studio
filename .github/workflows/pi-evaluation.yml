@@ -1,0 +1,54 @@
+name: Pi generation evaluation (real runs)
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'Configured Pi model (blank uses Pi default)'
+        required: true
+        type: string
+      repair:
+        description: 'Executar uma tentativa EXTRA de reparo com custo adicional'
+        type: boolean
+        required: false
+        default: false
+jobs:
+  real-pi-evaluation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 95
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --no-audit --no-fund
+      - run: npm run pi:zod-schema
+      - name: Configure real Pi CLI (model provider billed through explicit secret)
+        env:
+          API_KEY: ${{ secrets.PI_EVAL_API_KEY }}
+        run: |
+          test -n "$API_KEY" || (echo 'PI_EVAL_API_KEY secret must be configured before running the benchmark.' && exit 1)
+          npm install -g @mariozechner/pi-coding-agent
+      - name: Run 20 prompts with actual Pi model
+        env:
+          PI_EVAL_CONFIRM: 'yes'
+          PI_EVAL_MODEL: ${{ inputs.model }}
+          OPENAI_API_KEY: ${{ secrets.PI_EVAL_API_KEY }}
+        run: |
+          npm run eval:pi:context
+          if [ "${{ inputs.repair }}" = "true" ]; then
+            PI_EVAL_REPAIR_CONFIRM=yes npm run eval:pi:run -- --execute --repair
+          else
+            npm run eval:pi:run -- --execute
+          fi
+      - name: Strict validation and metrics (never skip missing results)
+        run: npm run eval:pi:strict
+      - name: Attach original outputs and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pi-evaluation-evidence
+          path: |
+            eval-results/
+            reports/pi-eval/
+            reports/pi-evaluation.*
+          if-no-files-found: ignore

@@ -1,0 +1,1784 @@
+{
+  "schemaVersion": 2,
+  "policy": "v0.21: 153 contratos ativos após revisão criteriosa de 22 wrappers sem semântica própria; migrações para primitivas inline documentadas em docs/revisao-compostos-v021.md. Sem reutilizar nomes excluídos.",
+  "components": [
+    {
+      "name": "Card",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "53bfae3c9a801d6a2ac7d3d8fac3f9c7b897da51c5f3b58b92887c9c18b2eb69",
+      "semanticFingerprint": "3346cd0cbd754ecae6df29c30575dd826a72814798c97b7a62626a075ac2f9fa"
+    },
+    {
+      "name": "Stack",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "efb68d0a4f60dd7627935cb92f2a4922c3c6bc2eff0f24e46a5ef403011fd8de",
+      "semanticFingerprint": "f7ace5856e6390e8627d3120f7f34a838dd2bda1218b88ede0734cac7f686216"
+    },
+    {
+      "name": "Grid",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "b38b430fedac8cbd25d18bba94ed911b84c995da5fd798a50e51867ca8e503c6",
+      "semanticFingerprint": "5a7292faf727b54b6ce84580795ca2179143f3ee6f253053945a7cc71a1fc88d"
+    },
+    {
+      "name": "Separator",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "a701092fddb00d0c7d22882f2c2b605c332a8314272cf918f01cc81728fc03a3",
+      "semanticFingerprint": "86b8e989e7c44b5702c45864dfc9f18c4af271b3ba13365f770138a564c3ebb8"
+    },
+    {
+      "name": "Tabs",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "f83728363e4f40d485b6716c6f8b476c5ab9cce6bdaebc2102ce691741a04be9",
+      "semanticFingerprint": "ca7052829aa439e89877d76b963ed4349002e1eb6573ae10c23afae6964b5add"
+    },
+    {
+      "name": "Accordion",
+      "version": "2.1.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "752942f605f4aecd614ec56d9868a338f3ae40cebdc3b6e84ea64a5e8b281377",
+      "semanticFingerprint": "fa794010d1dfbef79a87d9ec491ddd7aa2782b6116453e16373c9dac73db8c98"
+    },
+    {
+      "name": "Collapsible",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "5f98b8f5e59bef3fa818a1492c5653740d0c6520cb8c71e6d93b57d688cd94a5",
+      "semanticFingerprint": "10b7279d39d639cd5654fdc391b06732c4e9c7b546cb0310a09258f7a7a470e6"
+    },
+    {
+      "name": "Dialog",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "239ba6c1a3f1dfcb58bbd29aedc26864a4cd254e4340dcdef82d4307bef2cc17",
+      "semanticFingerprint": "e13c46d6a682ae288a5a29610843ad66e7163d090201725ce64e432fff3fdcf0"
+    },
+    {
+      "name": "Drawer",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "6fd06ca236f97655af84447bb037bef0f1631b59943d4fdbeabb2e6a5d11c2df",
+      "semanticFingerprint": "240df2528bd6108ecec05eeca5b1bfdb25da84f0491c79c4c0c02f2ef582ac33"
+    },
+    {
+      "name": "Carousel",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "4d8cebc6b73b15456926fe675988b8ff597e3647b5b1edb7e5ce46e894965de6",
+      "semanticFingerprint": "50bdfccff59443eb9e7bbf3f3942bf792e7bdbd40f75915fd61f485f17bcfc0f"
+    },
+    {
+      "name": "Table",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "e363458a6373922896e2f1456e8e3d1a7b1f713395e9662c57ecb0f209820005",
+      "semanticFingerprint": "9c5992dfc73334be8f06a9fbe1df8fa65b9f5033779540bbfdcd0d8bfc97509e"
+    },
+    {
+      "name": "Heading",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "130987537ae854f2aedd3a22f92fa7d5336291ab90edda3f569eef4b9141d398",
+      "semanticFingerprint": "8733d76294f56e476fab0c80598005684afaf8d5deecfe0e5531a483dedfbd6d"
+    },
+    {
+      "name": "Text",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "8a4ac438770bf46c20aa87f3430cf115da981c96a48526cc63c72b60b40fc053",
+      "semanticFingerprint": "00e031077d467658b280b722947a2635a23b778aefbd09377342197bd7e672c8"
+    },
+    {
+      "name": "Image",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "253c4fbb1130608458d67eab44049923e747b6f3d465ef308326588aa76ff8e4",
+      "semanticFingerprint": "42230acc32e9914b6782698d697ebe81619bea362926da871fa717f5b43de42f"
+    },
+    {
+      "name": "Icon",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "05fdedaa9a183371989f1ffefb78ede55ff2bced732d0f7f0b872ccab162fdd5",
+      "semanticFingerprint": "eed0391b1124877325d355aa7dde48c5e64d2edff36f837f8cb95592370eee97"
+    },
+    {
+      "name": "Avatar",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "7e15d02da83ee2939bc2c6f271d44ccc76244ab754dbbf7aae1634bf9e3d0771",
+      "semanticFingerprint": "fd8305ac52a76ee6c9290b8839d239fecb0e3b5a2e658083c48b644f74b6a489"
+    },
+    {
+      "name": "Badge",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "48cbe3e36cd0120ddce4f980ccc3bb662cccf294375bccaa7c8386191cc69993",
+      "semanticFingerprint": "bc60302e034b413f132793615418f283caf5f0f4ae586040bd91a55c1a4171a1"
+    },
+    {
+      "name": "Alert",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "f327c30430942f2b62feb6d175f0e38725a6fc997442d9cd995621b69e5c627f",
+      "semanticFingerprint": "836bf33d9233a23c4c97ebab9a82a6c313f151abfbc39062b3827746bb756709"
+    },
+    {
+      "name": "Progress",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "cb822a7316c9340093b0d578fa8bf0c431249cc82d0e344e77b8662be2954ffe",
+      "semanticFingerprint": "1c8b7b6161265a4b4ec106a7add26a94fa5e1b3c732d9c74cf4a82c1faa149ae"
+    },
+    {
+      "name": "Skeleton",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "67b97ea83361da9bc86f6fcc799c3d0e1203be8b8a150c2e4f325ca2449350ee",
+      "semanticFingerprint": "e194615e21ff0f1eda637e366d74fc4a9fe848c12a5e3945cd7eafdd28ac3f9d"
+    },
+    {
+      "name": "Spinner",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "ee816c0ad914f0008cc8be64d9de0e796871525d25a675740f784870047d1740",
+      "semanticFingerprint": "3b385763da572758f5d07b3b2b4eaf6a311fc7c0033fc50d84e2b0883a2c8e4c"
+    },
+    {
+      "name": "Tooltip",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "669b6e94876a8252acc60fb353705d777cb66b3f2c8367587c842ed1fe714da9",
+      "semanticFingerprint": "1d4e2b5c0ea57859395eda642defb359af37a17c154be2c494028d1ff5989945"
+    },
+    {
+      "name": "Popover",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "38c7394e766a308f9ed0cce88602cd113105365459fa3e7261031d689fde1bdb",
+      "semanticFingerprint": "c3cec89ea8ace734f4d6abc86ca8539531e4635989221b9f2618b68598b4c3dc"
+    },
+    {
+      "name": "Rating",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "edad45ebe118fdff82f85a5cdc54e7e0bd82347a809034644ebb84b73ac61333",
+      "semanticFingerprint": "343f761a112657b945061a6293289b6ac44b0828666c5fb33c74c36c59c6b27a"
+    },
+    {
+      "name": "Metric",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "a1cc83c54130c702f430ed3729cf45325693452d04f953091f401ef3275cd35c",
+      "semanticFingerprint": "70335fffb5813e4f47432989d59886315259bbdbc79d050d26e74780af411a8e"
+    },
+    {
+      "name": "BarGraph",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "39f90240fb6d4eb74c2ef6d4555d6bd78889775430e0cccae716e085b18fffdf",
+      "semanticFingerprint": "dad7103530b94c0e49409d22b491a69d51f41bfa595528483037b0c698457cb8"
+    },
+    {
+      "name": "LineGraph",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "a0dde8d64b3c060144789896d36bf6842e8727a3b888c793a23184ac75cbec66",
+      "semanticFingerprint": "f485774f0bf2502fc020ac25bf26002ef6bb20cf79c81e70b759640c62bdb19c"
+    },
+    {
+      "name": "Input",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "32633a40ad3e55bb5ff91513775967d219e5e2e6fb012a78128a4e2adf385fa8",
+      "semanticFingerprint": "81ace36634edae1ee381f434d9476d84cd97bcb21b89999499e2669a6fc4b1ad"
+    },
+    {
+      "name": "Textarea",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "116b12cf902311dad307145a901a7334cb78767318b8ca4168c6149ab08a6faf",
+      "semanticFingerprint": "4004c5224cbb8ba4cf2304d027d00105ce97745f873f94616ffa0cd92338873b"
+    },
+    {
+      "name": "Select",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "e827d027ed2168f4157d8708f5702093cfd0961fd17b37a9cbafbce6b50682fa",
+      "semanticFingerprint": "3a9448960eb4aebbfe6c5dc38235c6898c19be2f6507cf7ea3aa07b638dec776"
+    },
+    {
+      "name": "Checkbox",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "6ba103737645a7213a8466b1cc5d075cbf0b5da728093c6b526f484b6a3200b7",
+      "semanticFingerprint": "77dc9a5358d389c06bbbfac140e5f857720bc4ff3f2e47f87ec10f0eae73ad84"
+    },
+    {
+      "name": "Radio",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "e4b9a24370de06c5f04b93e36b63060e574bf2e3fbb57172c24b3a9488c87883",
+      "semanticFingerprint": "24234812e0f36252222146f1abe6ea68b26a703323c84beca024b6dcbb82f9b7"
+    },
+    {
+      "name": "Switch",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "65f91da98aa3867b484515a415d7a7395f1f64d6b4dc9019c19c6d0fb108ac2b",
+      "semanticFingerprint": "d188cd21a2978bf7ea2db243af7a68a36a4356a31a31d750310dcd8ecc99e07c"
+    },
+    {
+      "name": "Slider",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "37b9b971b6536402e133041bf86dfb56e6e140704f4b2fae05bf74b0187b9406",
+      "semanticFingerprint": "7e8317c1081a1be99d07bc0933087e287e2e0b722475b348aba9bf79051186e5"
+    },
+    {
+      "name": "Button",
+      "version": "2.1.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "5f87306b8d1fd46c1ee1dc29d9d3e995bd738e25e96dd324cda99f65dff6d39e",
+      "semanticFingerprint": "9a8db5b1f66321cdc68e47aaf728018f5538f3eacf2440a253bcf83f82f0f672"
+    },
+    {
+      "name": "Link",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "99b77f08b27b3ec3ca03e6f188cfa78de4c89bc615c2092589416d3e62c69554",
+      "semanticFingerprint": "f7922764457ccc4a6946ec1461cfd834904b3fe9ee434acc08054cb35b730603"
+    },
+    {
+      "name": "DropdownMenu",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "fb63dd412e4789d08dee0daa5c6ede43bb920b94702b54d0e95764e6784db4b3",
+      "semanticFingerprint": "e1ead4ca0bd7d83cfed04340604e573378f878847fb779cb81d25ae60454cd5f"
+    },
+    {
+      "name": "Toggle",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "d4252292fe10c43e24d36876e6b4fc6846c1ba8ec227d1344c9a6ec590763fd9",
+      "semanticFingerprint": "0cf9622ddecb56c6bfd81cbd6eafc3a21d6f4c5ed0c9e276a07d070d04ccd207"
+    },
+    {
+      "name": "ToggleGroup",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "7f36e16aa26582ce8d50ecf06370be2735c2e16ca28ce05b0c00e6a02a41175c",
+      "semanticFingerprint": "83730e570fe7d558e77efeb4cfe00d80f174617b2e2a2ba12463bb9861f67c2c"
+    },
+    {
+      "name": "ButtonGroup",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "caba8fd99bc6fea799eaa6917a13d4a337ebee0a66a5b248663b9c47b28b3152",
+      "semanticFingerprint": "e338632fb59a01b5047ea2401f1268eee668245ccdc494a18d024059f8dac0e6"
+    },
+    {
+      "name": "Pagination",
+      "version": "2.0.0",
+      "tier": "base",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "a864907a4ceb2fcc5c55b3a0915dbab12abe92bd2d621d76d6c6b32c992edd0f",
+      "semanticFingerprint": "00ae104f0ad6710b9087b0235eb4b06adda41365f12a2371e845afc5d7fcc27c"
+    },
+    {
+      "name": "DataTable",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "search",
+        "sort",
+        "paginate",
+        "select",
+        "bound-selection",
+        "data-source",
+        "column-types"
+      ],
+      "fingerprint": "943309b1573cf55882b1a5b5591942084e7ce75345ac94413ba4b8ee017cff9e",
+      "semanticFingerprint": "1874535edc36998b2ce8448e6f7034177fe31be66b409c376e16537497c5d559"
+    },
+    {
+      "name": "DatePicker",
+      "version": "1.1.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "date-selection",
+        "required",
+        "date-range-validation"
+      ],
+      "fingerprint": "fb553421304780d68af6db60092a3347a853e129ea6c81648829ecc704940c52",
+      "semanticFingerprint": "badc9fced2cc9c57241674894c7a556432196edcc075998ed9c096a8164fb839"
+    },
+    {
+      "name": "Field",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "grouping",
+        "orientation",
+        "helper-text"
+      ],
+      "fingerprint": "7dba0bf1844a8261d565a6cee923e3a553d4f7d9406809c97a9da98a84537177",
+      "semanticFingerprint": "3849e395d90dd387f617e6c073f1778908b7a3761dcf837c9d4965ad9d5e4a9c"
+    },
+    {
+      "name": "ActivateAgentDialog",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "c2b9c3051957270aec05c8efe1378be439f2794eb74eba38163ed748a2600982",
+      "compositionHash": "10a6b23652a710c2da62b8daa9e4ba166cba1392e90b71dc98c16cd4e0d35cee",
+      "semanticFingerprint": "2f79d92038aa4736be9f8dac9517a6b114ae52f67788c723fc9eaf8c239272f7"
+    },
+    {
+      "name": "AnalyticsCard",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "bcd90172dd2007b58895b1e1517a419877d2bfa9cac9c5969be47d52eb4ced1a",
+      "compositionHash": "1ef21c976cb219295e431c3b6492a845fe0529a98508e33c5d581618faea83bf",
+      "semanticFingerprint": "bc3a5759ab5ad04cc7d22e4836f9741fa108e43b1f32a0e81e125a688389207f"
+    },
+    {
+      "name": "AnomalyAlert",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "adc147f5b4c5c2328e7824bf2b1a895b478340b342bd8090d61754e1eb1dc9da",
+      "compositionHash": "daebabcaefe4b75a6a45a069d9f5d1a9b3bf1cfc79e90a06eb057d4687ba487c",
+      "semanticFingerprint": "a0263f7c95d6238c04adb2a0f0e57162e7c6aebaa9d19b6eb11d214a717308a6"
+    },
+    {
+      "name": "BarChartCard",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "07cb8993ba45b3c2554c514154763f3c771ff59106556064e46bd9a4d85ba97c",
+      "compositionHash": "f33d5628749484d2eb2f30af746926cb4b9125ededc01d4693ceeaf98bd8cb2e",
+      "semanticFingerprint": "103d43cfc52110514d0c8f3db130e451dd9f59c3d478441f612ab017f502c737"
+    },
+    {
+      "name": "BookAppointment",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "e1940628102a45594cf36941c11743903db15dcdaa362f41cf0803ecf111ee4d",
+      "compositionHash": "fdb54cc6ff0c87ad75082fd1f9ca0af652c3b2924ad053fa5afedc7b03efbc76",
+      "semanticFingerprint": "7abb6f54eb2596d2c2f99524055a1a986aa270fe805eec5c058081eead14c22c"
+    },
+    {
+      "name": "CodespacesCard",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "b98b07362873ffa0668931d262cc9c5b73fd18255d8653b42a1a25f5d84928f0",
+      "compositionHash": "b98db1592519918a4235eb3e24e2235a8e3f8acfe5a1784b4a1f92382d19b65f",
+      "semanticFingerprint": "4d76029606c4141324f84a96ccec3096e3222445880270683f454ae376211782"
+    },
+    {
+      "name": "ContributionsActivity",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "a30a83852f71a6c128df28ecd4cc4cd234ba5c18c0bd02779ddfd24274801bab",
+      "compositionHash": "be25b139f72ab480acd8825cf937cf8a3480a51ac7ec993324982293fcb29253",
+      "semanticFingerprint": "2b98f4b5e3847537a11a5b5a09a4afe1285eecef75c3ffe4e6d115200cdf2bfd"
+    },
+    {
+      "name": "Contributors",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "306ddf789966643e3711c9bacadeafcd0c44193c10b996b71cb469bdcf0a6981",
+      "compositionHash": "348d5ed1e601d67325e646524e6e3ff04369bb26aa408ed001db42c3556c78fe",
+      "semanticFingerprint": "c85550e22017b510d6b3b42760d38d789df4090acd91afa96a4ee5592552e591"
+    },
+    {
+      "name": "EnvironmentVariables",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "12c0f7b3f70998a6486beed76383fe1478a52065c112a216bffe5e9f309d70bf",
+      "compositionHash": "f20b1df94dcfc07fbb57c92a7b78da64f887db4c19377fe847589c790bbf200a",
+      "semanticFingerprint": "66c95d6d11713d9efe12de7d0fdb837b9a99d7e9f5b381aff029009846f42223"
+    },
+    {
+      "name": "FeedbackForm",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "beb1f0b949d35a35c91eccc32d68acd16ce8c8ababae74fcbfde9a2a4f809056",
+      "compositionHash": "6b2a6205131f4b14b769b5fe1390f3f17406ecd5b9f4e4cf190625f50ca97055",
+      "semanticFingerprint": "c5fc6118690438b0e53aed4ee090697dd2fb9cc47277e159642da8014bae74e1"
+    },
+    {
+      "name": "FileUpload",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "8b4f8e9ba0cad246c974b40666cad66c84e216850f26f9bac118d66641e3ba89",
+      "compositionHash": "02269a95fc341e29d28216262e4dcac72cd2489e9258845e68b9989cda18e84e",
+      "semanticFingerprint": "eabc51279a7d2c7809e748e999b526445b08ff810d79d57465e33e917f33f2e5"
+    },
+    {
+      "name": "GithubProfile",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "79ae2785d185b9ddb6020df2895e0de4b7b3ce48d738d07feef3b40bd6d5d6a1",
+      "compositionHash": "9b5cd8b0b70d7b6a2b83823cca54f02073c4655fb9ac6173599c90b924daf347",
+      "semanticFingerprint": "3f6b8903e927ce347127927e2f8060c215fc8773829affbefd44bf2941b0ac53"
+    },
+    {
+      "name": "InviteTeam",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "14274dcf6bac5a5342e0e381879f61184a7ae688a4fc5fac52e48a65c97f18e8",
+      "compositionHash": "9c5dc1e6128635bf882876aac807e7d2255039162ee5dd6d5be0ef5c1571b602",
+      "semanticFingerprint": "6ef8a36c9d0c1391bd82e7afc3b14a82aa566c886cf06e40afc7dcfdcea5cd9d"
+    },
+    {
+      "name": "Invoice",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "bc07f1eb6987d533cb65843b1488fe8f0cdcf863ee5e693c22971f65549a62c0",
+      "compositionHash": "e10224e3e3ba30a898cb024dc8ce2e45ee1a96c9bacfb86384bff8f14068343c",
+      "semanticFingerprint": "5932a9bb68ad640a4b30924eff8510f7d56d4ee89abb8b1a278b7e7763b73ad5"
+    },
+    {
+      "name": "NoTeamMembers",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "8ac4fd2daffd5240dce695c38f02e6f828671739459333449141091f3f3b704c",
+      "compositionHash": "aa92e9c4bab346d1615bde56f97f5c3492bf54734b5f4a1eef6714d5a037c5ce",
+      "semanticFingerprint": "a20c69b564c35f778f18100b6d8fe1b2c83bfd97bb3b53a6003e62243c7bdd4b"
+    },
+    {
+      "name": "NotFound",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "08eee97f96d5c9a3430040426cca6132870b54516d2ca40b101f163c465908f4",
+      "compositionHash": "6fb85c8ed2193244493f36535b376e1f83c44dcccb5502858880e807c2677209",
+      "semanticFingerprint": "3d033ad15b3f79146496eca258e742cd36ef63a390e21f8f88edd1a6c727985d"
+    },
+    {
+      "name": "ObservabilityCard",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "18270364dfa78f2a13b3be8f76bb2e38e948bb49c97c5afea363e535d5d044c5",
+      "compositionHash": "2503957f369741366de194800d8f92add1121e2fb92df3805c4a1e344ba9c15d",
+      "semanticFingerprint": "8bf3fc82b7533dbb35ee93185242835d4d913fa69b8583d256865ca4f70f0b91"
+    },
+    {
+      "name": "PieChartCard",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "20c2ddfd93b35806d7b2587eeb4812b41b6155c70dbb54709e16565183fd670b",
+      "compositionHash": "1007b30ca302740055a805c893fce9f962a153bc9bacfe20d1e40c1f7d7f760e",
+      "semanticFingerprint": "f441c555b841269f57a906c8c99127079a588eed4d117e7e46a8d3fd1468778d"
+    },
+    {
+      "name": "ReportBug",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "3b10bc141b97a7af12afe9a5deee86fe19d1c11ee3ff57e5daf80b13d0e244b9",
+      "compositionHash": "f9e15227269af524bfae9ca1628606ca6e933c1b09329b08b07ded745542c433",
+      "semanticFingerprint": "e789b1aa057d0f1e8cc017aed8e04b57182647a063b38bc384bfd6e32cc80d79"
+    },
+    {
+      "name": "ShippingAddress",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "b0e878cde7f0deeab199016464e27e1c1806233cef2b98bed159ee25ee3b40ab",
+      "compositionHash": "77d3696f8a71526a62bcc1b775c0b42d5b3a3eea83725c5922927117f4df0d64",
+      "semanticFingerprint": "f6618abf00ac4c1998716ffcc559c2112758d40c65c0e03558860144ca0b4f6c"
+    },
+    {
+      "name": "SleepReport",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "898b9f0e3f69f1d9395502303fdc6d4c25603bea4d0fb818dcc26b8c44f9278a",
+      "compositionHash": "2aab03373b480328a5005ab427191f651ac15ba3e98342f12b47563476ddc123",
+      "semanticFingerprint": "944cfc46cfe7db3dc59a4f7fb5e0ba3845a4319b75136414ebb06612285c5681"
+    },
+    {
+      "name": "UsageCard",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "07e7b39594fd5252bdd571709de81cd9ea648ff00219c0f27242dfba70b5c5e0",
+      "compositionHash": "9c0a7e74109b39b2ae85a07cee1e57bc8ceaa12e6a1db0de5e0e858b277ab14c",
+      "semanticFingerprint": "cb5ca2d9821f6c817bd8d0252ff18bbdbc5016f3b1a66b684186a28403ed5e6d"
+    },
+    {
+      "name": "Visitors",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "175f8c61ac5faa2dfd3dd8da27c17dde7dc9f55f32a43b2fd2904847d6de9c1a",
+      "compositionHash": "536d999f5cf21634a0ff969f5a4ce3533c74c6a81d51cbf5a1ecc60fb51794c0",
+      "semanticFingerprint": "2fedf030d6ef91093cc204a74c035715cf61a3f13f96f64ba0fbd1fcb8c40dae"
+    },
+    {
+      "name": "WeeklyFitnessSummary",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "d4037f0b33ad7aed43eb646b0762aa87021e339914048d73b063c8142ce5bb24",
+      "compositionHash": "d82a1003ee24d95085ad61a153ce34c12914dba41ec4a04dfe77f63e48098c6a",
+      "semanticFingerprint": "b8e0318a18de99d867a3ffe87a7d354a14ee058cd77a2b18a8ab25e35f7aa24f"
+    },
+    {
+      "name": "AccountAccess",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "a148f73239e0f17d3f58ce3846be34551c363eadecbe25bd0cef0f677ccc2e4a",
+      "compositionHash": "49c3d01cdad83e097690c9149db6c83fd4851392be6baf1d0ee624c28135958e",
+      "semanticFingerprint": "43ed3f178d81730c1a6c21dcf41db2abeb8df0a17fbf3cb5f79395acf931e6ae"
+    },
+    {
+      "name": "CardOverview",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "1a716e974090b119cfc00f3d6f18efedad517e1185ce9776073855f6165c9f74",
+      "compositionHash": "05da4a11e291e1667dba3a11c152d9bd4bdca31c3255498a6fe22be72f6ca198",
+      "semanticFingerprint": "64444a47d097c91a1ecca4b212b7673f83adba8caf467dc42d40310f2f94bd1f"
+    },
+    {
+      "name": "ClaimableBalance",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "fa1c7fdf7a811427bdd847866dc6872e676c154f87636bc19bbf8e4328220695",
+      "compositionHash": "a856175cadb5de933f7de8981339da28cf37141faf696313dc6144f6b959b919",
+      "semanticFingerprint": "582a1ea9414c2ac87e05492c813c41a90565528e150b5f46f5159fc9c4fd6a0c"
+    },
+    {
+      "name": "ContributionHistory",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "f10fb5f3077df9e1d218f3457cc96b276cd89351a7d577c53e3fcafc3f371410",
+      "compositionHash": "a991b982187d03eeef99406edcdda44e7fc27ca2e2bdf9a1d66b62c86b24f733",
+      "semanticFingerprint": "9b82d2eea93c50495edf0f57696786085f969669946c4572ec354f6965f1f0cd"
+    },
+    {
+      "name": "CoverArt",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "6b7dbaf860f2acb74ea2a93ab56a38c64aec0be168bb748f8a1aa87361a8f35a",
+      "compositionHash": "0a9365b4b24d5292b42d7724e584a0ee2e8c59dea3e0a32273235cbde1ff8fdb",
+      "semanticFingerprint": "9f7b41824fe42dc62fe885cb4bab4de0e824b039a40d67912cd38cbcc79cfaab"
+    },
+    {
+      "name": "DividendIncome",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "5acca247c67e8928ecdb3c7c00137ec1eb0a2da745dc3e3a16d4fd2c9bead7ca",
+      "compositionHash": "c5cd8ca332246a02bff90641fa072db8a543db60055d227160c77bae83131cd8",
+      "semanticFingerprint": "f516237681a8e8007499aba2a44fed6f930121e884ef3ffeed6a1eefba598d33"
+    },
+    {
+      "name": "EmptyConnectBank",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "78afa8665afd327ba7af7291dac6ba1b00433c2918f0dadef6f45938d702c76d",
+      "compositionHash": "1406215b37c83650067ef511a77fba084094751d67e600057fb36d7420b59527",
+      "semanticFingerprint": "49ac200bfc4c814eb493bf0064e89046718940db57d4c889aac869a36d456750"
+    },
+    {
+      "name": "EmptyDistributeTrack",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "c6e6a5ad9f83721c9fe460d43406e40bd4ee890f2e823f6c68ec7f1bc5697884",
+      "compositionHash": "7445ecb3da322826f43daf173fbca501b94005cb074a2fb9fa542f547144fb4b",
+      "semanticFingerprint": "507ffe927d1e16610c6d3bcadec06ec034b94e728876881fc5f2fc69c9e8f6ae"
+    },
+    {
+      "name": "EmptyExploreCatalog",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "baffbae00e9038f039054593ec7b04028cd3fe2878fe623b26c66f087e02bbee",
+      "compositionHash": "6e6b5f16b1be8750b37ab5e6a87207d6d557f1cace4ec70be89661c45da80bb9",
+      "semanticFingerprint": "267aae46de5e0dfb1ce82bb86e737f931fc89475fc07fd9bcf4a4bf3722d2467"
+    },
+    {
+      "name": "Faq",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "9c4ee453c592f67311405721bcc7c7b8b43cc99afa6f46e03a65387666abca45",
+      "compositionHash": "48efde464dd45960a7693de3d5921f82df6dd768c6297b7957d34de67c462c4c",
+      "semanticFingerprint": "aafc7d61f64e2c35ad3a57e77c4d97e22c2208f7ed485b2ffaf03cebe12cb558"
+    },
+    {
+      "name": "FrontDoor",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "4713df7ff1726fc235458b57b51d5af55237f931feeba3487434cc9e0a149ff7",
+      "compositionHash": "ec3687633688f364d610bfd29fffbd06e563204ae3b4ed9792cc00eabf2b2e75",
+      "semanticFingerprint": "ed76c74c04e26f17d736f779ce40a9492bb78fe48f4dcca120e306ef2c73efa1"
+    },
+    {
+      "name": "IndexInvesting",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "9a9cf50f86aa8d7d5381fd40a36bc1a11fc6d94fa530d4a44e87a99ca1a462bc",
+      "compositionHash": "a786cfad7fc53fed7a0dae31bebc590543f20fa44cf02fde70688c038af03d79",
+      "semanticFingerprint": "35aca5c9279f7f40760f87a4518336874e176df69a2d5ab8ed081b4fbf47f8f1"
+    },
+    {
+      "name": "KitchenIsland",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "024d5bb83e0847140e14b57b40c3250ec459d934ca2e760ce09994de0721b7ef",
+      "compositionHash": "34f737b16a01e500cf5796877b8b1aa872c8b12ab9b5d0ab437765ba24b7d719",
+      "semanticFingerprint": "7f45a467b3e12b9bad804d6d050af4a46f441f24295c78bad627cf36aeba87f9"
+    },
+    {
+      "name": "NewMilestone",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "04118470da5860dde1040a41ba15e3ae35f8d47c37ffbf92a6a18d1a0b02a2d0",
+      "compositionHash": "e039a60664a95e65e2d31fcc3e0ed012aa5f43ade83089f7b2914b43e82073ae",
+      "semanticFingerprint": "5fe1955e4b5bcd69d52070ba55b80df7a6ec96b31fc7d9cdddaf3addedd01ab0"
+    },
+    {
+      "name": "NotificationSettings",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "82aefd56882daaae01850584c80e7698c8dc9a12c1c5b4c93f43672509b10f35",
+      "compositionHash": "76f9921a59f61fb760a09d185bcd6f49e5df33c09e42e071371527c84f595297",
+      "semanticFingerprint": "1451947bc063e9e06b1bc125b0c24ad2fd258813257ee2e32de3742f15bcda0e"
+    },
+    {
+      "name": "Payments",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "5be1bfc467962ff79bf6c6265edf6815d2576eea3522c5c2ca2296a838ba8fed",
+      "compositionHash": "be90c141f28e9d4ab15c806e0ba21eb08618ef0d9001efb588ea946d22ff5651",
+      "semanticFingerprint": "3415f6b5c46a75f28699703d8246065b6b8eb4d5278d6cd329e0342fed6c36f9"
+    },
+    {
+      "name": "PayoutThreshold",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "7e567e6ddd98c8f7ade716221ab57f6946e741f03efe9bc6832b50148cc19562",
+      "compositionHash": "5f72f3facc664b5b02cd61562b1fc6d8033132a8faeb37880cc7894b4cfaaf44",
+      "semanticFingerprint": "1f006045f6aea0ed238adb6a56b25dfbdc8a0d5ca8a3a598e1ee06ea350b975f"
+    },
+    {
+      "name": "PowerUsage",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "f97face3bfec0a39cd1cf3b03d5176edb47b714b32f64a1af128786fa4ca58df",
+      "compositionHash": "38f10c13b533656d3170354614a8c5d0ac62f314b56fb6020452799c8ff0d771",
+      "semanticFingerprint": "a01dd914cb0bd8024ca7becf44c141c86e8b2a2cc96a94ad90e9e1476156d53a"
+    },
+    {
+      "name": "Preferences",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "96d8ad7836c41953fa61aafea8e1a901f145b8db84f0362d3790a5f79baede34",
+      "compositionHash": "1fe82e4daaba49cae937fe7c9a672e8e9392ab9a6efd0c26d264da4acf5fbaf7",
+      "semanticFingerprint": "f87d681dd4a3b62192d35f33d708104d9041e8198133d24e5b1f175bf094c39d"
+    },
+    {
+      "name": "ReceivingMethod",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "e5fd7be726fcafbb35e84edb1923cc789ef0a3437279bec8fcfa1dd1a2571244",
+      "compositionHash": "a900b5ca6b9032172e343b463fb06176eeb16ca7a5eb2e6fe187f2146c7f89bc",
+      "semanticFingerprint": "498b410636186619d47a9b8d51211f7769d447bcbca5c8a3c3440800986c9b5f"
+    },
+    {
+      "name": "RecentTransactions",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "4dc66144343f655ffb2e51f0b069280fd73c8a21b62f7498969d0a655c994267",
+      "compositionHash": "f964cb05715bb345311234d6a8f9edffbe86acdc0c3398634011f280276c21cc",
+      "semanticFingerprint": "bd25e61deee493dcf5ce38ec8415d562a86d91ae968ba198d425d2d63340a732"
+    },
+    {
+      "name": "ReleaseCatalog",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "6e28de7a943a007aaf295ee86719611cdf16ce728121d542626176bf57012568",
+      "compositionHash": "6a5710a3b907bfd29d434ce6bfef3e12bd385fcb76292ca3bb5433acd5e073e7",
+      "semanticFingerprint": "7b140bc24224e38a3ed81997402d9dfe88fa2d700d683b50a464325a59942a97"
+    },
+    {
+      "name": "RollerShades",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "80ebc130f7574c513fd4684150578261e9ac0221952f2c807af3eb0d14a15618",
+      "compositionHash": "71306cac526156910fb763f882e03a5b7a129a05e5eece1aa47f7ecbf4653e87",
+      "semanticFingerprint": "435102b85d52a66ac1dcf2495ebb4917c39119ae9a538d5baa5bbc52dcbbc3c9"
+    },
+    {
+      "name": "SavingsProgress",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "1f24c43528d1b4e3873cd4fd827e0d70b8a890c496c1d9b0f03d589a657bf670",
+      "compositionHash": "51448e14fa50e8b9eeb5544a3ec1d2d68cff2925aa30805d2afbe378dd4d076a",
+      "semanticFingerprint": "f7dd9041d369f7e91edcd33a23c3ea9ca815da05612cee60608a10aca236837f"
+    },
+    {
+      "name": "SavingsTargets",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "be13735a7a38e8d1c5432df46d6690950599bb6061f127699c59275d164cbcfb",
+      "compositionHash": "80b58badd75a8e475a28e6b3fe270fc36cce5a746d629ad177e742d81b807e7c",
+      "semanticFingerprint": "6ab781fc76f9751791f90fcf245c151f2e7199b6091ce224aacfa5a303e0d75e"
+    },
+    {
+      "name": "SocialLinks",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "ba74bf5c09d58f9298698a17c9803ad4968266d3761dfc014f3d23d869217699",
+      "compositionHash": "db69812e29e98f3d814296c4fbe8c45a12a9be65514b4f54756613c52cd65c20",
+      "semanticFingerprint": "c473ec875d7671334cda4416379f7d52fc7d19480b7253846e5e6ae96b26803d"
+    },
+    {
+      "name": "StockPerformance",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "78726d7d76fe035acb27a27ca7cb635422155cd23714559dd749eb02f47e624b",
+      "compositionHash": "4f6cd0d41fcd6d3ddd31adde00d069200c8362e5f76e25c94a10c41de3c0ee9b",
+      "semanticFingerprint": "14a3cb933b8133528aa217ce778b2bd8938780794c35ef2a02f2abe55375cf41"
+    },
+    {
+      "name": "SyncingState",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "e8a663e5408711dba89365fef11c69376cf3959f7975dbb76a4d6c779ea1bc87",
+      "compositionHash": "dd74460801b6bcb119bafc60dcb52920237524601b0403a70959057633daa436",
+      "semanticFingerprint": "9add4f327a42847b40d251aa14d89d1ae503bac3f80a946a4b552f5094ba8d82"
+    },
+    {
+      "name": "TransferFunds",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "f9849e4822a1aabe788550703e185d1529511aa6f145edf38de66331ff0fe0ee",
+      "compositionHash": "ad1a55d1eb954b3ee5af770313118982e90ec62e687dfbee6d232487a7fda42a",
+      "semanticFingerprint": "8415e8602d585916442a1380137785c1a4d3f888bb5f0a82deab4d67cabe9e51"
+    },
+    {
+      "name": "UpcomingPayments",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "composite",
+        "shadcn-create",
+        "demo"
+      ],
+      "fingerprint": "04685a575c28c96ce3eea216ce315466964be5e5f9e3bc7bf6cb693bf1b1d90e",
+      "compositionHash": "267d2487e359f3384ac467f48e7c0fa534b55e8d49d5e00695bff8f8cd1e39d6",
+      "semanticFingerprint": "28a780029efa32c4b7435b1050b0dfcf413bbae9cb11ad7eaa02299ff2216ff9"
+    },
+    {
+      "name": "BlockSidebar",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "94666fe0cd1e00fadf2c02f515e522304c1438896affcd55e863a8bc9deb4601",
+      "semanticFingerprint": "9a311dcd14620b48ed682d84dee15e4eb5863b64d73bc9cf71eee9bf404c060b"
+    },
+    {
+      "name": "Dashboard01",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "864f2a9d827359f986c3ba6cb76680175e453067ad9611cd0ee84e7e7bdecedf",
+      "compositionHash": "c235a8de7d6ab3fe06196a57ec93251e410c4d76f1fccaa27baf815401aa632e",
+      "semanticFingerprint": "f60a93adb79eb0362cfd2e431cac84a5fce79e54d5e6ba0759630ef5dd83abf8"
+    },
+    {
+      "name": "Login01",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "6a204d997256988fe51ed7a96abbbd5aa74dde1bdce71c8e8d6eeb62ffa3649f",
+      "compositionHash": "824972e114c68a7840102c20f738809e03a60d7eabb37564371d10eb4852ab57",
+      "semanticFingerprint": "f1ecc00c30a1f44e4bf878c2572635eff1984b70470182db6d8fefd086ce161a"
+    },
+    {
+      "name": "Login02",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "f347dce66e3b4e1bdd734b175adb9cfe217dbf4037e0271ff92c18469c407007",
+      "compositionHash": "59664de83240da49b82a3e9e2845da9fc12dfa38c3031885e35616cf2af05057",
+      "semanticFingerprint": "23a34a0aee5b6ad860bda8332f08f52f5068e8c5ae2eef8ecb4572f1380002da"
+    },
+    {
+      "name": "Login03",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "ac6219f524f5b9aef14353ee409e39bb09e87f6691c1fca51994078e9c031f18",
+      "compositionHash": "b1cdc0d099099aabba2a5e34795f986af4acb6fdac82a92922229ec53d26b6a5",
+      "semanticFingerprint": "489bace1799f30befc231681dc5f0432c2c8dd1321b583ecf4b52354bc336bd8"
+    },
+    {
+      "name": "Login04",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "fb78981cf821b77a57c9733c07ed5a3e80f5d4ebf642d990cfa337bd2f5f4fe5",
+      "compositionHash": "25c9fde71f609ffe524a79c846db9015d221351bbfde6565fd727306d7cfd892",
+      "semanticFingerprint": "82a9ff66e767d4a9bb135c5ff53442f35f9964098c184e0e6a994a9ef1abd816"
+    },
+    {
+      "name": "Login05",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "4ebbf50f6930abf89b271f5665f802a4bf1b1e28321524b384883b7dcf28842a",
+      "compositionHash": "ae124395e859fe462bd39f5497924904a5e4b4791ad310bf5e0aea501f937a0c",
+      "semanticFingerprint": "3285cf60f5ed28f9196a8f66b6747fb38d74fb1a1af386690ab7dd418b4e9b5d"
+    },
+    {
+      "name": "Signup01",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "4ba9c440f896ee699fd45b776787e137c8a346eba7a6d4e9de2de39c8e908746",
+      "compositionHash": "3dc337ffd0b9443318b01f9bb223012f1f41df6b6093cdc669aeaec44ae0a69c",
+      "semanticFingerprint": "c3705369b5f72c3260ab04be4629a28559943f5bca4b03947b1e40dd96d01ef4"
+    },
+    {
+      "name": "Signup02",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "15809f62f00fe0de4734c1f1a73d9f8efc4a345ac48db42a31253bdc46bae64a",
+      "compositionHash": "cd3ddae8bcbce5d29f3e03eb93e3c3a736ab17d845e937520db9d65609cfe663",
+      "semanticFingerprint": "b4a3122003677804737e2e4644702f9c990b8260342efbb11f305702f8e3c613"
+    },
+    {
+      "name": "Signup03",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "2edb3bf0e5dab12d6797320e67d1c6d1191f965f8344836b83b34648da29e714",
+      "compositionHash": "049ad288406864f013e16a1e03db8b579f1ece2a4029d17e089f7e5cd6bda226",
+      "semanticFingerprint": "f282a65fb12d2151be00db203a4df303cb0327adb82610b4f2f1e8f7a54a1d71"
+    },
+    {
+      "name": "Signup04",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "ce080be1fd66df2e658b9f761c3ba55df617e4bdc65f296bfbebd53235d4628b",
+      "compositionHash": "53e88f00754e224bd8d32ca24f383df6caaaa399b4db5fbdd8f899ce90d6a654",
+      "semanticFingerprint": "74ed31c7f6b979f9201e43a08173abdc4ded344ec4bf64944967db44230bb36b"
+    },
+    {
+      "name": "Signup05",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "74059a19d5561a5a60fa8eb6b1d93580637a8dd7b94026665de20128c14cf193",
+      "compositionHash": "1f0cd609a926f1d695ed7c0dda26d96bbf6058c608cc05fe31c86040427b113d",
+      "semanticFingerprint": "af9cd1946da8470c43a4307c6322aca6cb049979a0118d0dc4fc8f486ae77e5e"
+    },
+    {
+      "name": "Sidebar01",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "d52c78b1584d4d0af727247303aac862af8f7498aeb5205151b1bbf4299da796",
+      "compositionHash": "7ae74ae0cffb536082a082506432f1ea0782eb1382c9448462c4505867bd94f3",
+      "semanticFingerprint": "44e0994657da9a3352e428b42a40773fedf0ae766fe9f3d551adc598aa8db80d"
+    },
+    {
+      "name": "Sidebar02",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "989ef1aa411b0f9349c71b9ffab1d1ddd3e271524e5aca6a3364a00d7610fa70",
+      "compositionHash": "0cbe215e5d9ffa8afaee03cb0111e948ef2d40466837028404709a8767abe966",
+      "semanticFingerprint": "a34913426b6c4e22468431b34fa62f73953ce31016da3495dc8945038182aced"
+    },
+    {
+      "name": "Sidebar03",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "6a2e487a7822a125ddd1e0320c345bb745655bc332cd05944aa65a305c304eee",
+      "compositionHash": "b643ae3e6ed76c64ec5ebb525ae76826a7a1f26b447f44ebbca7570e1b6c9c3e",
+      "semanticFingerprint": "9857b624aed6ac89fd561e73fa83af37349edbb57960d6a1b5b8b9376fccce97"
+    },
+    {
+      "name": "Sidebar04",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "4e6c91e02264bf0c0b3dc1a947a923720085126099dc1e39e1d75ce0b257c5c4",
+      "compositionHash": "1eab0f25585e84ae62865f82dd026dab34288af01903020ad6bfe0d4c278bca9",
+      "semanticFingerprint": "e0e51b24a5ba3a94d961bbdb5bc74674fc31bdc2bcbc4061d83be78b07f2eb54"
+    },
+    {
+      "name": "Sidebar05",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "a6494331db7528e7122e8b3ecee39a7eec0f9b1418cbdc6f38d7a5335572dba1",
+      "compositionHash": "0fcb93b2a0e4ad1960797babe77e5df5b96809da02c84d7fa1bc79d4359058f4",
+      "semanticFingerprint": "3740b7fbeb785678bd948575fab3ed897b4f7fb1304e4e8bcfe1df09109694e2"
+    },
+    {
+      "name": "Sidebar06",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "510e64bd721aae1941459877773f93569234fd0f3083d27f70f290c6f9b75db3",
+      "compositionHash": "6027485f3155622951a625c4848eada996c56e09be311816d476514a19edc3d4",
+      "semanticFingerprint": "e72201595a353689da5538b15a29ee240aa77ce420f770a17834fbfecd49626a"
+    },
+    {
+      "name": "Sidebar07",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "e1dea63d24b89d4e50b11f5e22e38be493c16091934a4319ffb1c26e55885569",
+      "compositionHash": "89f27c82c8fad267e109e35d4eaddcc934a12ad53547b30a50ea4edd70a1504a",
+      "semanticFingerprint": "f90fc623fe01322b83cd4ed02808cea7db56cb9a29386b1589fcec6a38d8878d"
+    },
+    {
+      "name": "Sidebar08",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "1afd7ea8c14e20895db0f6a311dadac829437b4aeb2f417588093501073d4802",
+      "compositionHash": "14de7cb404a684d7c91c614a031abcbcdec44055cf6f9352ccc78c5ead22c03d",
+      "semanticFingerprint": "49a8f9021526e29a5eaba87b466cffe4d3c5771a2f34fb9ed78627db1fe90685"
+    },
+    {
+      "name": "Sidebar09",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "01e487cd9ddd500e5779b8c8796be4a6240badafa46bde55b9c04e2c6336879d",
+      "compositionHash": "42d2b000670434fcfac1d975b8ce8e857144a763e43778d7bf137e581b1eb562",
+      "semanticFingerprint": "40e88dd7f1eca13e037e265a9dbb475d1dc36f75cbb7ceebcfd5f17acb6c0d1c"
+    },
+    {
+      "name": "Sidebar10",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "8c4b41e52d47f0bf31613888e850cda72a2085611f09c36f67dd34177826c4eb",
+      "compositionHash": "8fdf624515fa21d33bb3e98aac619743db1b7c1263bb107f928266f79b2e7e76",
+      "semanticFingerprint": "d118d5453ef7850b453e9dd0bbdae0d821cff0b7127eecb59c9e67c332e8b908"
+    },
+    {
+      "name": "Sidebar11",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "4b1a5f54743a7af7b4b0ce188edb99c3c7de2f003b0f4c8fcc6c876c392074af",
+      "compositionHash": "3099a7b9f1b4a885678e49d67e46bc4422e70543ce7428c8a05a0110b289eae0",
+      "semanticFingerprint": "0a3b92a528db0d2ba44b808b94587e65f312c3fba175bbc3e0a46a4926fe81c9"
+    },
+    {
+      "name": "Sidebar12",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "d1fead91bbab6eb70911d116b96d80eece545c5883c7910f1bbf89820bab4a9c",
+      "compositionHash": "4f62cae4ad2124dcdeb9e7691fc5b6d4f745db0c77255d49ab676d9bcaee1029",
+      "semanticFingerprint": "9110da6e8aaa2ba807fd52159eb4112c6742bff6090d2c2acb1722ae0a3db982"
+    },
+    {
+      "name": "Sidebar13",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "872609e76424fa78d6d95e49f3a6d9670d7376c8e541e3c1e40d666bf915c6fd",
+      "compositionHash": "52658db900415dd0ffd31261da45d7e0f78112a97c031a368097f3ab5abb2636",
+      "semanticFingerprint": "493ab5013538cc7e90202d301fb3ff895fc697f9b7bf67402d8f4d45c4df6393"
+    },
+    {
+      "name": "Sidebar14",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "e87c08c1c19ca5710b7e49cf6a884bebb0f2ade4631529e9174f43c6a1e285ac",
+      "compositionHash": "51668d167c1a7a916767d014c2e2bb7c53ad370ecbb0a8df01136253055507de",
+      "semanticFingerprint": "c62a725b5ac85198f470c5f86783ab933c363bb9d050bbf41cbc3f8aa63a9d31"
+    },
+    {
+      "name": "Sidebar15",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "9c10f553285c3aa77b29c0fc1e251aafbe3f51c33ae9740d09960ba4310492dc",
+      "compositionHash": "ee421d61717a358635fe2b36ab4f72381ba774d0807dc163e5c98ac987a98e0e",
+      "semanticFingerprint": "105914f2e77b76436dcb2d151d4d5f64aa3d70ad72b67c1d68a17b1305e81f54"
+    },
+    {
+      "name": "Sidebar16",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "524114d6b1f864b6f26225b0a12922e7bc19a5067b67d11f9ecf77bf8a88cc80",
+      "compositionHash": "5716d3cbed8efe5e0329a7826cee453b80e3f36c059c991bea2aa4953e778e27",
+      "semanticFingerprint": "e4bd9a5514b5625dce4343b03a0406274b234041ee47081290dbdb7719a97be5"
+    },
+    {
+      "name": "SiteColorPalette",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "c65e2db96ceb5e23089fc61445ef9acbf44c6052ff992ad19d2489b7677b3ffb",
+      "compositionHash": "63bed340e0c7514f1c94d19ee4aac1445d995e36a13b344eeaab3475c10f2f2f",
+      "semanticFingerprint": "68794ae3db28a8aca78893cdd4b2e5fe7775dff6d944b068d5be0f0cf12ac91a"
+    },
+    {
+      "name": "SiteCommandMenu",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "c69de15e1c1e372bf5c131a8c951cf52a53dba1e06412bda410ba0d0d33044fd",
+      "compositionHash": "78ea9ce832c32c16d8d9602f9a3393e658e62b9e44b1ea91f223da39ac293c45",
+      "semanticFingerprint": "99524711102204bdfc960df151fa947a53529444017bd52e13fb0aeb9ecac494"
+    },
+    {
+      "name": "SiteDirectoryList",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "1789bc900cfc588272ba7d7f85bb439b54e489bf4ed5734affc617b9a0452d3d",
+      "compositionHash": "ee1647ecc5ecdd8d5a51a6fe46afbab4fddda3d6aa0624548e45e4b2c1744298",
+      "semanticFingerprint": "ff01bae70e30dd6882e95446da09a8d89d3fcdd72a315597288e9c4b09d4a390"
+    },
+    {
+      "name": "SiteNavUser",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "028fa8aca0c75c5da4a26b17501b0ce009dc434461a06e1301ed81916525be6c",
+      "compositionHash": "15da136a472dc20ea240be70de518a6ed236c86d93c93f9fde6b35fe828e72c6",
+      "semanticFingerprint": "62531c314d80291b2b669fb3b6d5f8b007979b9dd17f9eea95cdc9a7afa251c7"
+    },
+    {
+      "name": "SiteThemeCustomizer",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "1cafeeb918cc1b1149c018de2a34e960789d9afaf2e4c6742d395eebfa48a916",
+      "compositionHash": "8461c79c64e285878a111be2e72c32088aea73d29a3a85ded6c5a5b9c3055c51",
+      "semanticFingerprint": "8cf87de3813bbf05881965899aec68322461f7e5097dd8b9500d7840cc117ab4"
+    },
+    {
+      "name": "SiteCardsActivityGoal",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "7dd5ac94b02391fa27505414e7808f69c91dd7bf340d8845d70c660d169847d2",
+      "compositionHash": "1520705b0c8558634b7a7eba9231436c5e9099b823a1b5d05097f8574da104ab",
+      "semanticFingerprint": "8528791337928a7ecdd6d8f2fe3d44be580dd2ab875a5d2ba94484b77ca9e70d"
+    },
+    {
+      "name": "SiteCardsChat",
+      "version": "1.1.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "2f54f42b24597e1868d6afa51676e90d76943ce84bd4770c2ecf81af9e1b9c67",
+      "compositionHash": "3eb2834679dcf0a7c1b7aed88132c6f27e32a093b71a7f0996e0fa90cec1de79",
+      "semanticFingerprint": "483b66d44e1876e359dc70ca6d66f73bd0b174172ec3231abcac876710008031"
+    },
+    {
+      "name": "SiteCardsCookieSettings",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "3f32ab9d5fad814276f674878501fbafbb68c658518081a85364742799b407cb",
+      "compositionHash": "da9ae88c2f1977df3f88833742990bcdaf97e9cafb723ccba86d6f36fe050e2a",
+      "semanticFingerprint": "82987bf7c906e2556219d9d2675702650f872a3ce00c2dd0bd41fc255c69ec43"
+    },
+    {
+      "name": "SiteCardsCreateAccount",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "07de9d0fd26b2d4233d40dd2a1ce28541e128d21dfcb7dca12dda03c2beb93c4",
+      "compositionHash": "3154553a83f81f44044b97daa70ce842fd301142fd5783da54f18c73ced73738",
+      "semanticFingerprint": "59c0f30fa34c03eed9f9398444d4c7bf4f9235be3ed065082e5ae632bdd1dd3c"
+    },
+    {
+      "name": "SiteCardsForms",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "b44efc5d2b8e5f9d359af006b6d02135650ee62fc2c4f19cdfb9df1979ce1a6f",
+      "compositionHash": "b32096ce491d7cad62d824ab0c8281096a307e078fccc0d0f33a81fded390fb1",
+      "semanticFingerprint": "4124409753b6f6ec12b0cc78251406cd1d2495eed3df1e0cae05eccb34dda9d6"
+    },
+    {
+      "name": "SiteCardsPaymentMethod",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "2a27675bdca63dfb2330c1d82cb88d299ad1d429de82128440d352392c59b6f3",
+      "compositionHash": "4729f8e6262392133a3cbed47d05cbb457e69cb6956ed0f032dfd958bc94286d",
+      "semanticFingerprint": "577693d40f37f1234783bc565faef38240cb7d26b2e78f10fbd414bea66c7a2e"
+    },
+    {
+      "name": "SiteCardsReportIssue",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "ce242998a25b658a43be405e1f461d332567ccd5df04bb8df59275caec5de73f",
+      "compositionHash": "75467c3efb3be459e6f4fd20c898503614137219b666c35fddd8f75304cc7902",
+      "semanticFingerprint": "3a3641f99d6155cdc9eccb9706455e64ab9300d64bc198a27584a524bf1bb910"
+    },
+    {
+      "name": "SiteCardsShare",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "2130d4ad8270a6ccc09f360d233dcf17b3821e51db2a93f4c9ee016224afc0f6",
+      "compositionHash": "84f86a7b16359ec3c78d1120e50c3ec459a2586d2f23a3de532d63f4da7b356b",
+      "semanticFingerprint": "2a37f49dc0eff870bb874b9fef7b8dcf774e94e295bbabb5e5549449efd231da"
+    },
+    {
+      "name": "SiteCardsStats",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "70b792dea8fe4f65fa539f5d1fbedc4dd11463c99b489cd20d258b9f961d7c86",
+      "compositionHash": "c9950592036c4ba64c8be0ab83bd4aa631911f81dc0729b8bc87e6f3f8dea236",
+      "semanticFingerprint": "b4e34c9aff502a2d4ccc213dbaea6bed5e94c37ec946e2f6e8ab9063fd35f49e"
+    },
+    {
+      "name": "SiteCardsTeamMembers",
+      "version": "1.2.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [
+        "site-v4-composite",
+        "safe-demonstration"
+      ],
+      "fingerprint": "f7351fba7cc6ebf94a1b40557b3b705af5d697352595a130164b00180b6876f8",
+      "compositionHash": "d4d70aead2093a2a48c8f8212d1555d90060384f20ac95b091694e12a35d48e9",
+      "semanticFingerprint": "6b0afc9d4d51dbec6b0612890fab52b8f043f6c96402e15877d4499d6625b557"
+    },
+    {
+      "name": "AspectRatio",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "c95bbe6eb6ca501c13c67e12063d34d85a146b558d6f34d936f9491287f7b5dc",
+      "semanticFingerprint": "18b320a2b6b8124b61238d440f0aa8316ae5a3597a9ae2733ae1f4cf29fa8205"
+    },
+    {
+      "name": "Kbd",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "dab23985260fce01c5279c74098bde1bf281c0b1f8b71017cbdbbf623a011fcc",
+      "semanticFingerprint": "422664caa07c33c278edcf584b2b0cad9d64b89449e7dbc762f34e73fc2ba812"
+    },
+    {
+      "name": "Empty",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "bcb039036bf0e3aaf618993f69005cb60f4bba895d0264823daa88ae587ecc64",
+      "semanticFingerprint": "3b9527108d8806fddba137061522996beaf94cd50883a3eae626ed7547bf7882"
+    },
+    {
+      "name": "ScrollArea",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "128db85dc940c881ed4af84119d6f46b69c8061fca5c76c95b629af33a85c5be",
+      "semanticFingerprint": "67881520aacbb3fa92680454f3d5551107806dac59dfd8fe518f9df10b053416"
+    },
+    {
+      "name": "AlertDialog",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "be19205a891e7c0a2b62b68912b8f325e5a9131ed58aadd04a79ea5bcc082ef7",
+      "semanticFingerprint": "4dfd49201c25d8ae956519ea6acb7d6729cc68d42a0db7dae1ae5016e9bbaa06"
+    },
+    {
+      "name": "Attachment",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "cec42f8cb775fa9cfa6125fe3b1bc540e26a9ffbf4f85044e7b150f039a5a83f",
+      "semanticFingerprint": "8fc378fb75acf0fd46a26909fe06a49aaa02207f03cdd92a43f110719d0e2d35"
+    },
+    {
+      "name": "Bubble",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "4f3b2b137a23d792f5db08aa8da63ec460bac097d1ba64c7695641b75410a47e",
+      "semanticFingerprint": "840c7ede8d5d6ddda8349cb01ad2946f934247b7868a4f1c4692b0f74f036a28"
+    },
+    {
+      "name": "ContextMenu",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "c728e0c1b33c7444921e1b4e41130a8427bed5aa341bd8e55db473d427209992",
+      "semanticFingerprint": "6d1ae4311dcfff5a30567954394cf0414c206c32107989f16f8e665db2052b61"
+    },
+    {
+      "name": "HoverCard",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "06096e7b48df2d323a159fd71a9bd384f2bdde04d53b814f15bc716a6c197d19",
+      "semanticFingerprint": "fe623412110a8a2359114cb99b9f05d22d3a997d0580ecc251cc46eb9515c34a"
+    },
+    {
+      "name": "Item",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "e81d1b74381d58c073ed5f67dc2ee4854f8892e380ba3ec99079ae9d39c61513",
+      "semanticFingerprint": "1f4324e2c60e569895a47373c2af91217560a5bf4bd46e0e21507c205f62e5cb"
+    },
+    {
+      "name": "Marker",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "57b05af35a8d531fee32a5d1607dc7e1fabb639f1cc9a30031fe4802333a4fbe",
+      "semanticFingerprint": "8555e2f42d84750b07b4985dd12af10d481c6502065f4fcfa40e628b2d315f18"
+    },
+    {
+      "name": "Message",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "ec8a4138c8d440c6790d902be0b0d51a3b6772c5c76357ed4588c614d08f00c9",
+      "semanticFingerprint": "d52019fc0cec20afc14377840898ec58078d89779a3d29a3b5c5270aae23c854"
+    },
+    {
+      "name": "OnboardingChecklist",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "2241f9a6301c67b4de9df517cd9f981213391fdd683d721909de06bdc263832b",
+      "semanticFingerprint": "89755cb47b8e5c0ffd82ab72f8d9df5067659bcc0f29a4dd81077c4777afd376"
+    },
+    {
+      "name": "RatingDistribution",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "2f42c25235ed8ee1c2d6ca38277231f07afad87388c128feb55511f280ff7559",
+      "semanticFingerprint": "725a30650e02fff1df9ab054af1ba4f4e1970a48db372d6f8b2165590080d5c3"
+    },
+    {
+      "name": "CharacterCountTextarea",
+      "version": "1.0.0",
+      "tier": "extension",
+      "status": "approved",
+      "capabilities": [],
+      "fingerprint": "c08931b2222ba2bae67e59959ced7243a8d781e82838d2c0cc83f6e8bcac2f89",
+      "semanticFingerprint": "413efe84adc391b6499af66033bf40d40860b6ebce7a871051a82b1a29079a96"
+    }
+  ],
+  "semanticFingerprintVersion": 2
+}

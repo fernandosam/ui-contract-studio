@@ -1,0 +1,14 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "Bubble",
+      "props": {
+        "text": "Mensagem de demonstração.",
+        "variant": "secondary",
+        "align": "start"
+      },
+      "children": []
+    }
+  }
+}

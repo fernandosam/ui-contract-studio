@@ -1,0 +1,13 @@
+{
+  "root": "data_image",
+  "elements": {
+    "data_image": {
+      "type": "Image",
+      "props": {
+        "alt": "Imagem representativa ilustrativa",
+        "height": 95
+      },
+      "children": []
+    }
+  }
+}

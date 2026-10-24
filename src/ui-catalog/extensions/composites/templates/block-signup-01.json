@@ -1,0 +1,153 @@
+{
+  "root": "b001",
+  "elements": {
+    "b001": {
+      "type": "Card",
+      "props": {
+        "title": "Create an account",
+        "description": "Enter your information below to create your account",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "b007",
+        "b008",
+        "b010",
+        "b011",
+        "b012"
+      ]
+    },
+    "b002": {
+      "type": "Input",
+      "props": {
+        "label": "Full Name",
+        "name": "signup_01_full_name",
+        "type": "text",
+        "placeholder": "John Doe",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b003": {
+      "type": "Input",
+      "props": {
+        "label": "Email",
+        "name": "signup_01_email",
+        "type": "email",
+        "placeholder": "m@example.com",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b004": {
+      "type": "Input",
+      "props": {
+        "label": "Password",
+        "name": "signup_01_password",
+        "type": "password",
+        "placeholder": "",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b005": {
+      "type": "Text",
+      "props": {
+        "text": "Must be at least 8 characters long.",
+        "variant": "caption"
+      },
+      "children": []
+    },
+    "b006": {
+      "type": "Input",
+      "props": {
+        "label": "Confirm Password",
+        "name": "signup_01_confirm_password",
+        "type": "password",
+        "placeholder": "",
+        "value": null,
+        "disabled": false,
+        "required": false,
+        "readOnly": false,
+        "checks": null
+      },
+      "children": []
+    },
+    "b007": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b002",
+        "b003",
+        "b004",
+        "b005",
+        "b006"
+      ]
+    },
+    "b008": {
+      "type": "Button",
+      "props": {
+        "label": "Create Account",
+        "variant": "default",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b009": {
+      "type": "Button",
+      "props": {
+        "label": "Sign up with Google",
+        "variant": "outline",
+        "size": "sm",
+        "type": "button"
+      },
+      "children": []
+    },
+    "b010": {
+      "type": "Text",
+      "props": {
+        "text": "Or continue with",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "b011": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch",
+        "justify": "start"
+      },
+      "children": [
+        "b009"
+      ]
+    },
+    "b012": {
+      "type": "Text",
+      "props": {
+        "text": "Already have an account? Sign in",
+        "variant": "caption"
+      },
+      "children": []
+    }
+  }
+}

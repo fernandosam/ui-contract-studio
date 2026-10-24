@@ -1,0 +1,19 @@
+{
+  "root": "n0070",
+  "elements": {
+    "n0070": {
+      "type": "NewMilestone",
+      "props": {
+        "content": {
+          "n0067.label": "Goal Name"
+        },
+        "nodeProps": {
+          "n0067": {
+            "label": "Goal Name"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

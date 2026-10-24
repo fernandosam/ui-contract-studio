@@ -1,0 +1,10 @@
+{
+  "id": "dashboard-kpis",
+  "title": "Indicadores KPI",
+  "category": "dashboard",
+  "description": "Cartões de métricas em grade",
+  "originScreen": "dashboard",
+  "sourceRoot": "stats",
+  "approved": true,
+  "immutableContracts": true
+}

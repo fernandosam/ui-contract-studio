@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCardsShare",
+      "props": {
+        "content": {
+          "c001.title": "Share this document"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "Link"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

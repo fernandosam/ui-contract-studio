@@ -1,0 +1,294 @@
+{
+  "Accordion": [
+    [
+      "A basic single-expand accordion",
+      "c-accordion-1"
+    ],
+    [
+      "Accordion with plus/minus indicators",
+      "c-accordion-2"
+    ],
+    [
+      "Accordion with borders and rounded corners",
+      "c-accordion-3"
+    ],
+    [
+      "Accordion embedded within a Card",
+      "c-accordion-4"
+    ],
+    [
+      "Accordion with disabled items and highlighted state",
+      "c-accordion-5"
+    ],
+    [
+      "Advanced accordion with custom icons and badges",
+      "c-accordion-6"
+    ],
+    [
+      "Accordion items integrated within Frame and FramePanel",
+      "c-accordion-7"
+    ],
+    [
+      "Nested accordion example with bordered items",
+      "c-accordion-8"
+    ],
+    [
+      "User list accordion with avatars and role indicators",
+      "c-accordion-9"
+    ],
+    [
+      "Accordion with rotating arrow indicator",
+      "c-accordion-10"
+    ],
+    [
+      "Accordion component for onboarding or setup steps",
+      "c-accordion-11"
+    ]
+  ],
+  "Button": [
+    [
+      "Default button",
+      "c-button-1"
+    ],
+    [
+      "Secondary button",
+      "c-button-2"
+    ],
+    [
+      "Outline button",
+      "c-button-3"
+    ],
+    [
+      "Ghost button",
+      "c-button-4"
+    ],
+    [
+      "Destructive button",
+      "c-button-5"
+    ],
+    [
+      "Link button variant",
+      "c-button-6"
+    ],
+    [
+      "Extra small button",
+      "c-button-7"
+    ],
+    [
+      "Small button",
+      "c-button-8"
+    ],
+    [
+      "Large button",
+      "c-button-9"
+    ],
+    [
+      "Disabled button",
+      "c-button-10"
+    ],
+    [
+      "Icon button",
+      "c-button-11"
+    ],
+    [
+      "Button with an icon on the right",
+      "c-button-12"
+    ],
+    [
+      "Button in a loading state",
+      "c-button-13"
+    ],
+    [
+      "Button with an icon on the left",
+      "c-button-14"
+    ],
+    [
+      "Button with an invalid state highlight",
+      "c-button-15"
+    ],
+    [
+      "Secondary button with an icon on the left",
+      "c-button-16"
+    ],
+    [
+      "Secondary button with an icon on the right",
+      "c-button-17"
+    ],
+    [
+      "Outline button with an icon on the left",
+      "c-button-18"
+    ],
+    [
+      "Outline button with an icon on the right",
+      "c-button-19"
+    ],
+    [
+      "Ghost button with an icon on the left",
+      "c-button-20"
+    ],
+    [
+      "Ghost button with an icon on the right",
+      "c-button-21"
+    ],
+    [
+      "Destructive button with an icon on the left",
+      "c-button-22"
+    ],
+    [
+      "Destructive button with an icon on the right",
+      "c-button-23"
+    ],
+    [
+      "Extra small icon button",
+      "c-button-24"
+    ],
+    [
+      "Small icon button",
+      "c-button-25"
+    ],
+    [
+      "Large icon-only button",
+      "c-button-26"
+    ],
+    [
+      "Button rendered as a Next.js Link",
+      "c-button-27"
+    ],
+    [
+      "Link button with icon on the left",
+      "c-button-28"
+    ],
+    [
+      "Link button with icon on the right",
+      "c-button-29"
+    ],
+    [
+      "Large button with icon on the left",
+      "c-button-30"
+    ],
+    [
+      "Large button with icon on the right",
+      "c-button-31"
+    ],
+    [
+      "Outline button invalid state",
+      "c-button-32"
+    ],
+    [
+      "Ghost button invalid state",
+      "c-button-33"
+    ],
+    [
+      "Button with icon on left",
+      "c-button-34"
+    ],
+    [
+      "Ghost button more/less toggle",
+      "c-button-35"
+    ],
+    [
+      "Social login buttons",
+      "c-button-36"
+    ],
+    [
+      "Outline like button with count",
+      "c-button-37"
+    ],
+    [
+      "Star button with count",
+      "c-button-38"
+    ],
+    [
+      "Button with unread badge",
+      "c-button-39"
+    ],
+    [
+      "Button with icon, label and shortcuts",
+      "c-button-40"
+    ],
+    [
+      "Copy button with feedback",
+      "c-button-41"
+    ],
+    [
+      "Icon-only copy feedback",
+      "c-button-42"
+    ],
+    [
+      "Animated hamburger button",
+      "c-button-43"
+    ],
+    [
+      "Async action button",
+      "c-button-44"
+    ],
+    [
+      "Outline button inline count",
+      "c-button-45"
+    ],
+    [
+      "Button with status dot",
+      "c-button-46"
+    ],
+    [
+      "Ghost button with status badge",
+      "c-button-47"
+    ],
+    [
+      "Icon button notification badge",
+      "c-button-48"
+    ],
+    [
+      "Go back link",
+      "c-button-49"
+    ],
+    [
+      "Go back animated link",
+      "c-button-50"
+    ],
+    [
+      "Expanding icon button",
+      "c-button-51"
+    ],
+    [
+      "Multi-line button",
+      "c-button-52"
+    ],
+    [
+      "Sliding icon button",
+      "c-button-53"
+    ],
+    [
+      "Shortcut tooltip button",
+      "c-button-54"
+    ],
+    [
+      "Button with avatar",
+      "c-button-55"
+    ],
+    [
+      "Outline button with avatar",
+      "c-button-56"
+    ],
+    [
+      "Small button with avatar",
+      "c-button-57"
+    ],
+    [
+      "Small outline button with avatar",
+      "c-button-58"
+    ],
+    [
+      "Social login buttons Remix",
+      "c-button-59"
+    ],
+    [
+      "Social icon-only buttons",
+      "c-button-60"
+    ],
+    [
+      "Animated theme toggle button",
+      "c-button-61"
+    ]
+  ]
+}

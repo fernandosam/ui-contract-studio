@@ -1,0 +1,16 @@
+{
+  "root": "form_slider",
+  "elements": {
+    "form_slider": {
+      "type": "Slider",
+      "props": {
+        "label": "Limite",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "value": 55
+      },
+      "children": []
+    }
+  }
+}

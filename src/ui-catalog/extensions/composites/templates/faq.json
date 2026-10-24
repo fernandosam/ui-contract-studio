@@ -1,0 +1,55 @@
+{
+  "root": "n0047",
+  "elements": {
+    "n0046": {
+      "type": "Accordion",
+      "props": {
+        "items": [
+          {
+            "title": "Como funciona?",
+            "content": "Prévia local e sem persistência."
+          },
+          {
+            "title": "Há cobranças?",
+            "content": "Não: os dados são demonstrativos."
+          }
+        ],
+        "type": "single",
+        "collapsible": true,
+        "defaultValue": null
+      },
+      "children": []
+    },
+    "n0047": {
+      "type": "Card",
+      "props": {
+        "title": "FAQ",
+        "description": "Perguntas frequentes · Dúvidas comuns",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0046",
+        "faq_0"
+      ]
+    },
+    "faq_0": {
+      "type": "Tabs",
+      "props": {
+        "tabs": [
+          {
+            "label": "General",
+            "value": "general"
+          },
+          {
+            "label": "Billing",
+            "value": "billing"
+          }
+        ],
+        "value": null,
+        "defaultValue": null
+      },
+      "children": []
+    }
+  }
+}

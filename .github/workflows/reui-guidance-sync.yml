@@ -1,0 +1,55 @@
+name: Sync ReUI public guidance
+on:
+  push:
+    branches:
+      - feat/reui-guidance-gallery3-20261023
+      - feat/reui-example-guidance-gallery3-20261023
+    paths:
+      - scripts/sync-reui-guidance.mjs
+      - scripts/sync-reui-example-guidance.mjs
+      - .github/workflows/reui-guidance-sync.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch public ReUI component descriptions
+        if: github.ref_name == 'feat/reui-guidance-gallery3-20261023'
+        run: node scripts/sync-reui-guidance.mjs
+      - name: Fetch best-for and when-not-to-use for all ReUI examples
+        if: github.ref_name == 'feat/reui-example-guidance-gallery3-20261023'
+        run: node scripts/sync-reui-example-guidance.mjs
+      - name: Upload public documentation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reui-guidance-catalog
+          if-no-files-found: warn
+          path: |
+            src/ui-catalog/reui-guidance.json
+            src/ui-catalog/reui-example-guidance.json
+      - name: Commit verified guidance to feature branch
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if [[ "$GITHUB_REF_NAME" == 'feat/reui-example-guidance-gallery3-20261023' ]]; then
+            git add src/ui-catalog/reui-example-guidance.json
+          else
+            git add src/ui-catalog/reui-guidance.json
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs: sync verified per-example ReUI guidance [skip ci]'
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

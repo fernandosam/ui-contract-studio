@@ -1,0 +1,19 @@
+{
+  "root": "b005",
+  "elements": {
+    "b005": {
+      "type": "Sidebar03",
+      "props": {
+        "content": {
+          "b001.title": "Sidebar 03 · Documentation"
+        },
+        "nodeProps": {
+          "b002": {
+            "text": "Variação submenu: Data Fetching"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

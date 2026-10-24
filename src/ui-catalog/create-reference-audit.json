@@ -1,0 +1,2131 @@
+{
+  "schemaVersion": 1,
+  "upstream": "shadcn-ui/ui",
+  "ref": "main",
+  "reviewedOn": "2026-10-21",
+  "codeVerification": "GitHub original Base UI TSX inspected; visible JSX text and imported UI primitives recorded",
+  "visualVerification": "Visual layout inferred from original JSX; related gallery preview visually observed, but original 64 rendered cards not screenshot-compared. Browser comparison required before claiming visual fidelity.",
+  "cards": [
+    {
+      "name": "ActivateAgentDialog",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/activate-agent-dialog.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/activate-agent-dialog.tsx",
+      "originalTitle": "Ship faster & safer with Vercel Agent",
+      "sourcePrimitiveImports": [
+        "badge",
+        "button",
+        "alert",
+        "item"
+      ],
+      "visibleSourceLabels": [
+        "Code reviews",
+        "Code suggestions",
+        "Root-cause analysis",
+        "Enable with $100 credits"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/activate-agent-dialog.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "10a6b23652a710c2da62b8daa9e4ba166cba1392e90b71dc98c16cd4e0d35cee"
+    },
+    {
+      "name": "AnalyticsCard",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/analytics-card.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/analytics-card.tsx",
+      "originalTitle": "Analytics",
+      "sourcePrimitiveImports": [
+        "badge",
+        "button",
+        "chart"
+      ],
+      "visibleSourceLabels": [
+        "+10%"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/analytics-card.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "1ef21c976cb219295e431c3b6492a845fe0529a98508e33c5d581618faea83bf"
+    },
+    {
+      "name": "AnomalyAlert",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/anomaly-alert.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/anomaly-alert.tsx",
+      "originalTitle": "Get alerted for anomalies",
+      "sourcePrimitiveImports": [
+        "button",
+        "empty"
+      ],
+      "visibleSourceLabels": [
+        "Upgrade to Observability Plus"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/anomaly-alert.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "daebabcaefe4b75a6a45a069d9f5d1a9b3bf1cfc79e90a06eb057d4687ba487c"
+    },
+    {
+      "name": "BarChartCard",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/bar-chart-card.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/bar-chart-card.tsx",
+      "originalTitle": "Traffic channels",
+      "sourcePrimitiveImports": [
+        "button",
+        "chart"
+      ],
+      "visibleSourceLabels": [
+        "View report"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/bar-chart-card.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "f33d5628749484d2eb2f30af746926cb4b9125ededc01d4693ceeaf98bd8cb2e"
+    },
+    {
+      "name": "BookAppointment",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/book-appointment.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/book-appointment.tsx",
+      "originalTitle": "Book Appointment",
+      "sourcePrimitiveImports": [
+        "alert",
+        "button",
+        "field",
+        "toggle-group"
+      ],
+      "visibleSourceLabels": [
+        "Dr. Sarah Chen · Cardiology",
+        "Available on March 18, 2026",
+        "New patient?",
+        "Please arrive 15 minutes early."
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/book-appointment.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "fdb54cc6ff0c87ad75082fd1f9ca0af652c3b2924ad053fa5afedc7b03efbc76"
+    },
+    {
+      "name": "CodespacesCard",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/codespaces-card.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/codespaces-card.tsx",
+      "originalTitle": "Codespaces",
+      "sourcePrimitiveImports": [
+        "button",
+        "dropdown-menu",
+        "empty",
+        "field",
+        "input-group",
+        "item",
+        "separator",
+        "spinner",
+        "tabs",
+        "tooltip"
+      ],
+      "visibleSourceLabels": [
+        "Local",
+        "Your workspaces in the cloud",
+        "No codespaces",
+        "HTTPS",
+        "SSH",
+        "GitHub CLI"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/codespaces-card.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "b98db1592519918a4235eb3e24e2235a8e3f8acfe5a1784b4a1f92382d19b65f"
+    },
+    {
+      "name": "ContributionsActivity",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/contributions-activity.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/contributions-activity.tsx",
+      "originalTitle": "Contributions & Activity",
+      "sourcePrimitiveImports": [
+        "button",
+        "checkbox",
+        "field"
+      ],
+      "visibleSourceLabels": [
+        "Contributions & Activity"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/contributions-activity.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "be25b139f72ab480acd8825cf937cf8a3480a51ac7ec993324982293fcb29253"
+    },
+    {
+      "name": "Contributors",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/contributors.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/contributors.tsx",
+      "originalTitle": "Contributors",
+      "sourcePrimitiveImports": [
+        "avatar",
+        "badge"
+      ],
+      "visibleSourceLabels": [
+        "312"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/contributors.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "348d5ed1e601d67325e646524e6e3ff04369bb26aa408ed001db42c3556c78fe"
+    },
+    {
+      "name": "EnvironmentVariables",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/environment-variables.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/environment-variables.tsx",
+      "originalTitle": "Environment Variables",
+      "sourcePrimitiveImports": [
+        "button"
+      ],
+      "visibleSourceLabels": [
+        "Production · 8 variables",
+        "Edit",
+        "Deploy"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/environment-variables.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "f20b1df94dcfc07fbb57c92a7b78da64f887db4c19377fe847589c790bbf200a"
+    },
+    {
+      "name": "FeedbackForm",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/feedback-form.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/feedback-form.tsx",
+      "originalTitle": "Feedback",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "native-select",
+        "textarea"
+      ],
+      "visibleSourceLabels": [
+        "Topic",
+        "Billing",
+        "Domains",
+        "Storage",
+        "Feedback"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/feedback-form.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "6b2a6205131f4b14b769b5fe1390f3f17406ecd5b9f4e4cf190625f50ca97055"
+    },
+    {
+      "name": "FileUpload",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/file-upload.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/file-upload.tsx",
+      "originalTitle": "File Upload",
+      "sourcePrimitiveImports": [
+        "button",
+        "empty"
+      ],
+      "visibleSourceLabels": [
+        "Drag and drop or browse",
+        "PNG, JPG, PDF up to 10MB",
+        "Browse Files"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/file-upload.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "02269a95fc341e29d28216262e4dcac72cd2489e9258845e68b9989cda18e84e"
+    },
+    {
+      "name": "GithubProfile",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/github-profile.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/github-profile.tsx",
+      "originalTitle": "Profile",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input",
+        "native-select",
+        "textarea"
+      ],
+      "visibleSourceLabels": [
+        "Manage your profile information.",
+        "Name",
+        "Public Email",
+        "Bio"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/github-profile.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "9b5cd8b0b70d7b6a2b83823cca54f02073c4655fb9ac6173599c90b924daf347"
+    },
+    {
+      "name": "IconPreviewGrid",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/icon-preview-grid.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/icon-preview-grid.tsx",
+      "originalTitle": "Icons",
+      "sourcePrimitiveImports": [
+        "card"
+      ],
+      "visibleSourceLabels": [
+        "IconPlaceholder"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/icon-preview-grid.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "1f857985137b6e6674884d79898afbf0adb03bb16d2a3605d62bb56e1b25520e",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "InviteTeam",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/invite-team.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/invite-team.tsx",
+      "originalTitle": "Invite Team",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input",
+        "select",
+        "separator"
+      ],
+      "visibleSourceLabels": [
+        "Add members to your workspace",
+        "Admin",
+        "Editor",
+        "Viewer",
+        "Or share invite link",
+        "Send Invites"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/invite-team.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "9c5dc1e6128635bf882876aac807e7d2255039162ee5dd6d5be0ef5c1571b602"
+    },
+    {
+      "name": "Invoice",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/invoice.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/invoice.tsx",
+      "originalTitle": "Invoice #INV-2847",
+      "sourcePrimitiveImports": [
+        "badge",
+        "button",
+        "table"
+      ],
+      "visibleSourceLabels": [
+        "Due March 30, 2026",
+        "Pending",
+        "Item",
+        "Qty",
+        "Rate",
+        "Amount"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/invoice.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "e10224e3e3ba30a898cb024dc8ce2e45ee1a96c9bacfb86384bff8f14068343c",
+      "notes": "Structure/text aligned to current official TSX; screenshot comparison still pending."
+    },
+    {
+      "name": "LiveWaveformCard",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/live-waveform.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/live-waveform.tsx",
+      "originalTitle": "Live Audio Waveform",
+      "sourcePrimitiveImports": [
+        "button",
+        "custom-waveform"
+      ],
+      "visibleSourceLabels": [
+        "Live Audio Waveform"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/live-waveform-card.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Live microphone recording intentionally not enabled"
+      ],
+      "compositionHash": "4f87580f7444b68bf7f049ea7e82f17c1a44a4f17930815a2d4ca7eb78f02fb3",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "NoTeamMembers",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/no-team-members.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/no-team-members.tsx",
+      "originalTitle": "No Team Members",
+      "sourcePrimitiveImports": [
+        "avatar",
+        "button",
+        "empty"
+      ],
+      "visibleSourceLabels": [
+        "Invite Members"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/no-team-members.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "aa92e9c4bab346d1615bde56f97f5c3492bf54734b5f4a1eef6714d5a037c5ce"
+    },
+    {
+      "name": "NotFound",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/not-found.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/not-found.tsx",
+      "originalTitle": "404 - Not Found",
+      "sourcePrimitiveImports": [
+        "button",
+        "empty",
+        "input-group",
+        "kbd"
+      ],
+      "visibleSourceLabels": [
+        "Go to homepage"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/not-found.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "6fb85c8ed2193244493f36535b376e1f83c44dcccb5502858880e807c2677209"
+    },
+    {
+      "name": "ObservabilityCard",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/observability-card.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/observability-card.tsx",
+      "originalTitle": "Observability Plus is replacing Monitoring",
+      "sourcePrimitiveImports": [
+        "badge",
+        "button"
+      ],
+      "visibleSourceLabels": [
+        "Observability Plus is replacing Monitoring"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/observability-card.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "2503957f369741366de194800d8f92add1121e2fb92df3805c4a1e344ba9c15d"
+    },
+    {
+      "name": "PieChartCard",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/pie-chart-card.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/pie-chart-card.tsx",
+      "originalTitle": "Browser Share",
+      "sourcePrimitiveImports": [
+        "badge",
+        "chart",
+        "progress"
+      ],
+      "visibleSourceLabels": [
+        "January - June 2026"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/pie-chart-card.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "1007b30ca302740055a805c893fce9f962a153bc9bacfe20d1e40c1f7d7f760e"
+    },
+    {
+      "name": "ReportBug",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/report-bug.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/report-bug.tsx",
+      "originalTitle": "Report Bug",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input",
+        "select",
+        "textarea"
+      ],
+      "visibleSourceLabels": [
+        "Help us fix issues faster.",
+        "Title",
+        "Severity",
+        "Critical",
+        "High",
+        "Medium",
+        "Low",
+        "Component",
+        "Dashboard",
+        "Auth",
+        "API",
+        "Billing",
+        "Steps to reproduce",
+        "Submit Bug"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/report-bug.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "f9e15227269af524bfae9ca1628606ca6e933c1b09329b08b07ded745542c433"
+    },
+    {
+      "name": "ShippingAddress",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/shipping-address.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/shipping-address.tsx",
+      "originalTitle": "Shipping Address",
+      "sourcePrimitiveImports": [
+        "button",
+        "checkbox",
+        "field",
+        "input",
+        "select"
+      ],
+      "visibleSourceLabels": [
+        "Where should we deliver?",
+        "Street address",
+        "Apt / Suite",
+        "City",
+        "State",
+        "ZIP Code",
+        "Country",
+        "Save as default address",
+        "Cancel",
+        "Save Address"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/shipping-address.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "77d3696f8a71526a62bcc1b775c0b42d5b3a3eea83725c5922927117f4df0d64",
+      "notes": "Structure/text aligned to current official TSX; screenshot comparison still pending."
+    },
+    {
+      "name": "Shortcuts",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/shortcuts.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/shortcuts.tsx",
+      "originalTitle": "Shortcuts",
+      "sourcePrimitiveImports": [
+        "item",
+        "kbd"
+      ],
+      "visibleSourceLabels": [
+        "Shortcuts"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/shortcuts.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "8a9199d1a8f6df1b39301b0f1b3013c8e7673de838a5e15aeb6d66c49838c4c8",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "SkeletonLoading",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/skeleton-loading.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/skeleton-loading.tsx",
+      "originalTitle": "Loading",
+      "sourcePrimitiveImports": [
+        "skeleton"
+      ],
+      "visibleSourceLabels": [
+        "Loading"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/skeleton-loading.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "d19497f8e6408efa58e44fd94c38b97cc0761b5d2eb484f1051f413445a6ca1d",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "SleepReport",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/sleep-report.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/sleep-report.tsx",
+      "originalTitle": "Sleep Report",
+      "sourcePrimitiveImports": [
+        "badge",
+        "button",
+        "chart"
+      ],
+      "visibleSourceLabels": [
+        "Last night · 7h 24m",
+        "Good"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/sleep-report.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "2aab03373b480328a5005ab427191f651ac15ba3e98342f12b47563476ddc123"
+    },
+    {
+      "name": "StyleOverview",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/style-overview.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/style-overview.tsx",
+      "originalTitle": "Style Overview",
+      "sourcePrimitiveImports": [
+        "card"
+      ],
+      "visibleSourceLabels": [
+        "Colors and styles"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/style-overview.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "166845e8cf490553402a8adf04b6d73d0548c882fc06f123f6efadc743c6028c",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "TypographySpecimen",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/typography-specimen.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/typography-specimen.tsx",
+      "originalTitle": "Typography",
+      "sourcePrimitiveImports": [
+        "button",
+        "dialog",
+        "field",
+        "input",
+        "select",
+        "textarea"
+      ],
+      "visibleSourceLabels": [
+        "Share Feedback",
+        "Name",
+        "Email",
+        "Category",
+        "General",
+        "Bug Report",
+        "Feature Request",
+        "Improvement",
+        "Message",
+        "Submit"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/typography-specimen.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "032f99a581666efd835b6478d0572cf987eaf285be762124900cac57620e8d73",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "UIElements",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/ui-elements.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/ui-elements.tsx",
+      "originalTitle": "UI Elements",
+      "sourcePrimitiveImports": [
+        "alert-dialog",
+        "badge",
+        "button",
+        "button-group",
+        "checkbox",
+        "dropdown-menu",
+        "field",
+        "input-group",
+        "item",
+        "radio-group",
+        "slider",
+        "switch",
+        "textarea"
+      ],
+      "visibleSourceLabels": [
+        "Button",
+        "Secondary",
+        "Outline",
+        "Ghost",
+        "Two-factor authentication",
+        "Badge",
+        "Dialog",
+        "Button Group",
+        "Quick Actions"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/u-i-elements.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "0b93f4523f621cdab79489d984b789bc1fc2ccfde72685f2dc8556c182b26972",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "UsageCard",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/usage-card.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/usage-card.tsx",
+      "originalTitle": "Usage",
+      "sourcePrimitiveImports": [
+        "item",
+        "circular-gauge"
+      ],
+      "visibleSourceLabels": [
+        "Usage"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/usage-card.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "9c0a7e74109b39b2ae85a07cee1e57bc8ceaa12e6a1db0de5e0e858b277ab14c"
+    },
+    {
+      "name": "Visitors",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/visitors.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/visitors.tsx",
+      "originalTitle": "Visitors",
+      "sourcePrimitiveImports": [
+        "badge",
+        "chart"
+      ],
+      "visibleSourceLabels": [
+        "Last 6 months"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/visitors.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "536d999f5cf21634a0ff969f5a4ce3533c74c6a81d51cbf5a1ecc60fb51794c0"
+    },
+    {
+      "name": "WeeklyFitnessSummary",
+      "preview": "preview",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview/cards/weekly-fitness-summary.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/weekly-fitness-summary.tsx",
+      "originalTitle": "Weekly Fitness Summary",
+      "sourcePrimitiveImports": [
+        "button",
+        "chart"
+      ],
+      "visibleSourceLabels": [
+        "Calories and workout load by day",
+        "View details"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/weekly-fitness-summary.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "d82a1003ee24d95085ad61a153ce34c12914dba41ec4a04dfe77f63e48098c6a"
+    },
+    {
+      "name": "AccountAccess",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/account-access.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/account-access.tsx",
+      "originalTitle": "Account Access",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input",
+        "item"
+      ],
+      "visibleSourceLabels": [
+        "Email Address",
+        "Danger Zone"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/account-access.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "49c3d01cdad83e097690c9149db6c83fd4851392be6baf1d0ee624c28135958e"
+    },
+    {
+      "name": "CardOverview",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/card-overview.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/card-overview.tsx",
+      "originalTitle": "Card Balance",
+      "sourcePrimitiveImports": [
+        "badge",
+        "button",
+        "chart"
+      ],
+      "visibleSourceLabels": [
+        "US$12.94",
+        "Payment Due",
+        "1 Apr",
+        "Yearly Activity",
+        "+US$0.25 Daily Cash"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/card-overview.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "05da4a11e291e1667dba3a11c152d9bd4bdca31c3255498a6fe22be72f6ca198"
+    },
+    {
+      "name": "ClaimableBalance",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/claimable-balance.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/claimable-balance.tsx",
+      "originalTitle": "Claimable Balance",
+      "sourcePrimitiveImports": [
+        "badge",
+        "item",
+        "separator"
+      ],
+      "visibleSourceLabels": [
+        "$0.00"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/claimable-balance.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "a856175cadb5de933f7de8981339da28cf37141faf696313dc6144f6b959b919"
+    },
+    {
+      "name": "ContributionHistory",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/contribution-history.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/contribution-history.tsx",
+      "originalTitle": "Contribution History",
+      "sourcePrimitiveImports": [
+        "badge",
+        "button",
+        "chart",
+        "item"
+      ],
+      "visibleSourceLabels": [
+        "Last 6 months of activity",
+        "View Full Report"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/contribution-history.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "a991b982187d03eeef99406edcdda44e7fc27ca2e2bdf9a1d66b62c86b24f733"
+    },
+    {
+      "name": "CoverArt",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/cover-art.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/cover-art.tsx",
+      "originalTitle": "Cover Art",
+      "sourcePrimitiveImports": [
+        "button",
+        "item",
+        "label"
+      ],
+      "visibleSourceLabels": [
+        "Cover Art"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/cover-art.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "0a9365b4b24d5292b42d7724e584a0ee2e8c59dea3e0a32273235cbde1ff8fdb"
+    },
+    {
+      "name": "DividendIncome",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/dividend-income.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/dividend-income.tsx",
+      "originalTitle": "Q2 Dividend Income",
+      "sourcePrimitiveImports": [
+        "button",
+        "chart",
+        "item"
+      ],
+      "visibleSourceLabels": [
+        "Q2 Dividend Income"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/dividend-income.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "c5cd8ca332246a02bff90641fa072db8a543db60055d227160c77bae83131cd8"
+    },
+    {
+      "name": "EmptyConnectBank",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/empty-connect-bank.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-connect-bank.tsx",
+      "originalTitle": "Connect Bank",
+      "sourcePrimitiveImports": [
+        "button",
+        "empty"
+      ],
+      "visibleSourceLabels": [
+        "Set Up Payouts"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/empty-connect-bank.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "1406215b37c83650067ef511a77fba084094751d67e600057fb36d7420b59527"
+    },
+    {
+      "name": "EmptyDistributeTrack",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/empty-distribute-track.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-distribute-track.tsx",
+      "originalTitle": "Distribute Track",
+      "sourcePrimitiveImports": [
+        "button",
+        "empty"
+      ],
+      "visibleSourceLabels": [
+        "Create Release"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/empty-distribute-track.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "7445ecb3da322826f43daf173fbca501b94005cb074a2fb9fa542f547144fb4b"
+    },
+    {
+      "name": "EmptyExploreCatalog",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/empty-explore-catalog.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-explore-catalog.tsx",
+      "originalTitle": "Explore Catalog",
+      "sourcePrimitiveImports": [
+        "button",
+        "empty"
+      ],
+      "visibleSourceLabels": [
+        "View Catalog"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/empty-explore-catalog.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "6e6b5f16b1be8750b37ab5e6a87207d6d557f1cace4ec70be89661c45da80bb9"
+    },
+    {
+      "name": "Faq",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/faq.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/faq.tsx",
+      "originalTitle": "FAQ",
+      "sourcePrimitiveImports": [
+        "accordion",
+        "button",
+        "tabs"
+      ],
+      "visibleSourceLabels": [
+        "FAQ"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/faq.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "48efde464dd45960a7693de3d5921f82df6dd768c6297b7957d34de67c462c4c"
+    },
+    {
+      "name": "FrontDoor",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/front-door.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/front-door.tsx",
+      "originalTitle": "Front Door",
+      "sourcePrimitiveImports": [
+        "badge"
+      ],
+      "visibleSourceLabels": [
+        "Smart Lock Pro"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/front-door.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "ec3687633688f364d610bfd29fffbd06e563204ae3b4ed9792cc00eabf2b2e75"
+    },
+    {
+      "name": "IndexInvesting",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/index-investing.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/index-investing.tsx",
+      "originalTitle": "Dollar-Cost Averaging",
+      "sourcePrimitiveImports": [
+        "card"
+      ],
+      "visibleSourceLabels": [
+        "Dollar-Cost Averaging"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/index-investing.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "a786cfad7fc53fed7a0dae31bebc590543f20fa44cf02fde70688c038af03d79"
+    },
+    {
+      "name": "KitchenIsland",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/kitchen-island.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/kitchen-island.tsx",
+      "originalTitle": "Kitchen Island",
+      "sourcePrimitiveImports": [
+        "item",
+        "slider",
+        "switch",
+        "toggle-group"
+      ],
+      "visibleSourceLabels": [
+        "Hue Color Ambient",
+        "Scenes",
+        "Brightness",
+        "Color Temp",
+        "Volume",
+        "Fade"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/kitchen-island.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "34f737b16a01e500cf5796877b8b1aa872c8b12ab9b5d0ab437765ba24b7d719"
+    },
+    {
+      "name": "LoadingCard",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/loading-card.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/loading-card.tsx",
+      "originalTitle": "Loading",
+      "sourcePrimitiveImports": [
+        "skeleton"
+      ],
+      "visibleSourceLabels": [
+        "Loading"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/loading-card.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "f5be9878d3e30341739a7680b5289f7bf353f7e31d9a8f84c1b52e0970b1ce44",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "NewMilestone",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/new-milestone.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/new-milestone.tsx",
+      "originalTitle": "Set a new milestone",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input"
+      ],
+      "visibleSourceLabels": [
+        "Goal Name",
+        "Target Amount",
+        "Target Date",
+        "Create Goal"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/new-milestone.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "e039a60664a95e65e2d31fcc3e0ed012aa5f43ade83089f7b2914b43e82073ae"
+    },
+    {
+      "name": "NotificationSettings",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/notification-settings.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/notification-settings.tsx",
+      "originalTitle": "Notifications",
+      "sourcePrimitiveImports": [
+        "button",
+        "checkbox",
+        "field"
+      ],
+      "visibleSourceLabels": [
+        "Select all",
+        "Transaction alerts",
+        "Security alerts",
+        "Goal milestones",
+        "Market updates",
+        "Save Preferences"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/notification-settings.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "76f9921a59f61fb760a09d185bcd6f49e5df33c09e42e071371527c84f595297",
+      "notes": "Structure/text aligned to current official TSX; screenshot comparison still pending."
+    },
+    {
+      "name": "Payments",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/payments.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/payments.tsx",
+      "originalTitle": "Payments",
+      "sourcePrimitiveImports": [
+        "breadcrumb",
+        "button",
+        "dropdown-menu",
+        "item"
+      ],
+      "visibleSourceLabels": [
+        "Change transfer limit",
+        "Scheduled transfers",
+        "Direct Debits",
+        "Recurring card payments"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/payments.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "be90c141f28e9d4ab15c806e0ba21eb08618ef0d9001efb588ea946d22ff5651"
+    },
+    {
+      "name": "PayoutThreshold",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/payout-threshold.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/payout-threshold.tsx",
+      "originalTitle": "Payout Threshold",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "select",
+        "slider",
+        "textarea"
+      ],
+      "visibleSourceLabels": [
+        "$50 (MIN)",
+        "$10,000 (MAX)",
+        "Notes",
+        "Save Threshold"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/payout-threshold.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "5f72f3facc664b5b02cd61562b1fc6d8033132a8faeb37880cc7894b4cfaaf44"
+    },
+    {
+      "name": "PowerUsage",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/power-usage.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/power-usage.tsx",
+      "originalTitle": "Power Usage",
+      "sourcePrimitiveImports": [
+        "chart",
+        "progress",
+        "separator"
+      ],
+      "visibleSourceLabels": [
+        "Whole Home",
+        "3.4 kW",
+        "Solar Gen",
+        "Battery Level",
+        "85%"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/power-usage.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "38f10c13b533656d3170354614a8c5d0ac62f314b56fb6020452799c8ff0d771"
+    },
+    {
+      "name": "Preferences",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/preferences.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/preferences.tsx",
+      "originalTitle": "Preferences",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "select",
+        "switch"
+      ],
+      "visibleSourceLabels": [
+        "Default Currency",
+        "Reset",
+        "Save Preferences"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/preferences.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "1fe82e4daaba49cae937fe7c9a672e8e9392ab9a6efd0c26d264da4acf5fbaf7"
+    },
+    {
+      "name": "QrConnect",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/qr-connect.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/qr-connect.tsx",
+      "originalTitle": "Connect Your Mobile Device",
+      "sourcePrimitiveImports": [
+        "button",
+        "custom-qr"
+      ],
+      "visibleSourceLabels": [
+        "Scan to connect your mobile device"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/qr-connect.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "QR pattern requires dedicated approved QR renderer, not a generic Image"
+      ],
+      "compositionHash": "bb94090774e970eb6761420878b874d2ce250be8c4a5a75d0ce3d2d73f7004b2",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "ReceivingMethod",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/receiving-method.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/receiving-method.tsx",
+      "originalTitle": "Payout Preferences",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input",
+        "radio-group"
+      ],
+      "visibleSourceLabels": [
+        "Receiving Method",
+        "Bank Transfer",
+        "SWIFT / IBAN",
+        "PayPal",
+        "IBAN / Account Number"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/receiving-method.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "a900b5ca6b9032172e343b463fb06176eeb16ca7a5eb2e6fe187f2146c7f89bc"
+    },
+    {
+      "name": "RecentTransactions",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/recent-transactions.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/recent-transactions.tsx",
+      "originalTitle": "Recent Transactions",
+      "sourcePrimitiveImports": [
+        "button",
+        "dropdown-menu",
+        "table"
+      ],
+      "visibleSourceLabels": [
+        "Blue Bottle Coffee",
+        "Whole Foods Market",
+        "Stripe Payout",
+        "Uber Technologies",
+        "Netflix Subscription"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/recent-transactions.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "f964cb05715bb345311234d6a8f9edffbe86acdc0c3398634011f280276c21cc"
+    },
+    {
+      "name": "ReleaseCatalog",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/release-catalog.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/release-catalog.tsx",
+      "originalTitle": "Explore Investments",
+      "sourcePrimitiveImports": [
+        "badge",
+        "input-group",
+        "item",
+        "toggle-group"
+      ],
+      "visibleSourceLabels": [
+        "Stocks",
+        "ETFs",
+        "REITs"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/release-catalog.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "6a5710a3b907bfd29d434ce6bfef3e12bd385fcb76292ca3bb5433acd5e073e7"
+    },
+    {
+      "name": "RollerShades",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/roller-shades.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/roller-shades.tsx",
+      "originalTitle": "Living Room",
+      "sourcePrimitiveImports": [
+        "slider",
+        "toggle-group"
+      ],
+      "visibleSourceLabels": [
+        "Roller Shades"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/roller-shades.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "71306cac526156910fb763f882e03a5b7a129a05e5eece1aa47f7ecbf4653e87"
+    },
+    {
+      "name": "SavingsProgress",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/savings-progress.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/savings-progress.tsx",
+      "originalTitle": "Savings Progress",
+      "sourcePrimitiveImports": [
+        "chart",
+        "separator"
+      ],
+      "visibleSourceLabels": [
+        "October 2024",
+        "Monthly Average",
+        "$1,250",
+        "Top Contributor",
+        "Auto-Transfer"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/savings-progress.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "51448e14fa50e8b9eeb5544a3ec1d2d68cff2925aa30805d2afbe378dd4d076a"
+    },
+    {
+      "name": "SavingsTargets",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/savings-targets.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/savings-targets.tsx",
+      "originalTitle": "Savings Targets",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input-group",
+        "item",
+        "native-select",
+        "progress"
+      ],
+      "visibleSourceLabels": [
+        "Active milestones for 2024",
+        "Buy Investment",
+        "Amount to Invest",
+        "Order Type",
+        "Review Order"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/savings-targets.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "80b58badd75a8e475a28e6b3fe270fc36cce5a746d629ad177e742d81b807e7c"
+    },
+    {
+      "name": "SidebarNav",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/sidebar-nav.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/sidebar-nav.tsx",
+      "originalTitle": "Overview",
+      "sourcePrimitiveImports": [
+        "sidebar"
+      ],
+      "visibleSourceLabels": [
+        "Planning",
+        "Account",
+        "Support"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/sidebar-nav.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "2d1957940a932500984a1fe9cc565ba4b326276684ffe50965582a7865779b36",
+      "currentUsage": "inline-primitives",
+      "retiredContract": true
+    },
+    {
+      "name": "SocialLinks",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/social-links.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/social-links.tsx",
+      "originalTitle": "Social Links",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input-group"
+      ],
+      "visibleSourceLabels": [
+        "Spotify Artist URL",
+        "Instagram Handle",
+        "SoundCloud URL",
+        "Website",
+        "Save Changes"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/social-links.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "db69812e29e98f3d814296c4fbe8c45a12a9be65514b4f54756613c52cd65c20"
+    },
+    {
+      "name": "StockPerformance",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/stock-performance.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/stock-performance.tsx",
+      "originalTitle": "Stock Performance",
+      "sourcePrimitiveImports": [
+        "chart",
+        "combobox",
+        "field",
+        "separator"
+      ],
+      "visibleSourceLabels": [
+        "6-month price history.",
+        "Ticker"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/stock-performance.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [
+        "Rich chart/imagery may differ from Recharts and images in original"
+      ],
+      "compositionHash": "4f6cd0d41fcd6d3ddd31adde00d069200c8362e5f76e25c94a10c41de3c0ee9b"
+    },
+    {
+      "name": "SyncingState",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/syncing-state.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/syncing-state.tsx",
+      "originalTitle": "Syncing your accounts",
+      "sourcePrimitiveImports": [
+        "button",
+        "empty",
+        "spinner"
+      ],
+      "visibleSourceLabels": [
+        "Cancel"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/syncing-state.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "dd74460801b6bcb119bafc60dcb52920237524601b0403a70959057633daa436"
+    },
+    {
+      "name": "TransferFunds",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/transfer-funds.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/transfer-funds.tsx",
+      "originalTitle": "Transfer Funds",
+      "sourcePrimitiveImports": [
+        "button",
+        "field",
+        "input-group",
+        "item",
+        "select",
+        "separator"
+      ],
+      "visibleSourceLabels": [
+        "From Account",
+        "To Account",
+        "Total amount",
+        "Confirm Transfer"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/transfer-funds.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "ad1a55d1eb954b3ee5af770313118982e90ec62e687dfbee6d232487a7fda42a"
+    },
+    {
+      "name": "UpcomingPayments",
+      "preview": "preview-02",
+      "sourcePath": "apps/v4/registry/bases/base/blocks/preview-02/cards/upcoming-payments.tsx",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/upcoming-payments.tsx",
+      "originalTitle": "Upcoming Payments",
+      "sourcePrimitiveImports": [
+        "badge",
+        "calendar",
+        "item"
+      ],
+      "visibleSourceLabels": [
+        "Netflix Subscription",
+        "Rent Payment",
+        "Auto Insurance"
+      ],
+      "templatePath": "src/ui-catalog/extensions/composites/templates/upcoming-payments.json",
+      "sourceStatus": "read",
+      "visualStatus": "browser-screenshot-pending",
+      "visualInspection": {
+        "structure": "Derived from actual JSX component tree and class-based layout, not verified pixels",
+        "compare": [
+          "hierarchy",
+          "spacing and density",
+          "interactive controls",
+          "labels and sample data",
+          "light and dark"
+        ]
+      },
+      "knownGaps": [],
+      "compositionHash": "267d2487e359f3384ac467f48e7c0fa534b55e8d49d5e00695bff8f8cd1e39d6"
+    }
+  ]
+}

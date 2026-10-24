@@ -1,0 +1,14 @@
+{
+  "root": "exemplo",
+  "elements": {
+    "exemplo": {
+      "type": "Message",
+      "props": {
+        "author": "Assistente",
+        "text": "Esta mensagem é apenas demonstrativa.",
+        "align": "start"
+      },
+      "children": []
+    }
+  }
+}

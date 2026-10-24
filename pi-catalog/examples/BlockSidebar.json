@@ -1,0 +1,44 @@
+{
+  "root": "b002",
+  "elements": {
+    "b002": {
+      "type": "BlockSidebar",
+      "props": {
+        "heading": "Acme Inc.",
+        "sections": [
+          {
+            "label": "Platform",
+            "items": [
+              "Dashboard",
+              "Lifecycle",
+              "Analytics",
+              "Projects",
+              "Team"
+            ]
+          },
+          {
+            "label": "Documents",
+            "items": [
+              "Data Library",
+              "Reports",
+              "Word Assistant"
+            ]
+          },
+          {
+            "label": "Others",
+            "items": [
+              "Settings",
+              "Get Help",
+              "Search"
+            ]
+          }
+        ],
+        "active": "Dashboard",
+        "variant": "inset",
+        "collapsible": "icon",
+        "footer": "shadcn m@example.com"
+      },
+      "children": []
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "root": "detail-grid",
+  "elements": {
+    "detail-grid": {
+      "type": "Grid",
+      "props": {
+        "columns": 2
+      },
+      "children": [
+        "processes",
+        "info-card"
+      ]
+    },
+    "processes": {
+      "type": "Card",
+      "props": {
+        "title": "Últimas movimentações",
+        "description": "Busca e paginação funcionam localmente."
+      },
+      "children": [
+        "process-table"
+      ]
+    },
+    "process-table": {
+      "type": "Table",
+      "props": {
+        "caption": "Movimentações de processos ilustrativas",
+        "columns": [
+          "Protocolo",
+          "Assunto",
+          "Situação"
+        ],
+        "rows": [
+          [
+            "TRT-DEMO-001",
+            "Análise documental",
+            "Em andamento"
+          ],
+          [
+            "TRT-DEMO-002",
+            "Cadastro de usuário",
+            "Concluído"
+          ],
+          [
+            "TRT-DEMO-003",
+            "Atualização cadastral",
+            "Pendente"
+          ],
+          [
+            "TRT-DEMO-004",
+            "Solicitação interna",
+            "Em andamento"
+          ],
+          [
+            "TRT-DEMO-005",
+            "Validação de acesso",
+            "Concluído"
+          ],
+          [
+            "TRT-DEMO-006",
+            "Revisão do formulário",
+            "Pendente"
+          ]
+        ]
+      },
+      "children": []
+    },
+    "info-card": {
+      "type": "Card",
+      "props": {
+        "title": "Governança do catálogo",
+        "description": "Todo elemento visual pertence ao registry aprovado."
+      },
+      "children": [
+        "info-stack"
+      ]
+    },
+    "info-stack": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "md"
+      },
+      "children": [
+        "info-text",
+        "divider",
+        "metric-a",
+        "metric-b",
+        "link-catalog"
+      ]
+    },
+    "info-text": {
+      "type": "Text",
+      "props": {
+        "text": "As telas são arquivos JSON. O Pi pode propor novos componentes, mas só pode utilizá-los após validação e registro.",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "divider": {
+      "type": "Separator",
+      "props": {
+        "orientation": "horizontal"
+      },
+      "children": []
+    },
+    "metric-a": {
+      "type": "Badge",
+      "props": {
+        "variant": "secondary",
+        "label": "12 tipos autorizados"
+      },
+      "children": []
+    },
+    "metric-b": {
+      "type": "Text",
+      "props": {
+        "text": "Componentes não cadastrados são rejeitados antes da renderização.",
+        "variant": "lead"
+      },
+      "children": []
+    },
+    "link-catalog": {
+      "type": "Link",
+      "props": {
+        "label": "Explorar catálogo",
+        "href": "?screen=catalogo"
+      },
+      "children": []
+    }
+  }
+}

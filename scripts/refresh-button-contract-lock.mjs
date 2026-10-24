@@ -1,0 +1,16 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {signatures} from './lib/contract-lock.mjs';
+const read=p=>JSON.parse(readFileSync(p,'utf8'));
+const write=(p,j)=>writeFileSync(p,JSON.stringify(j,null,2)+'\n');
+const lockFile='src/ui-catalog/contracts.lock.json';
+const lock=read(lockFile), entry=lock.components.find(c=>c.name==='Button');
+if(!entry||!['2.0.0','2.1.0'].includes(entry.version))throw new Error('Unexpected Button version');
+const sig=signatures().find(c=>c.name==='Button');if(!sig)throw new Error('Missing Button signature');
+entry.version='2.1.0';entry.fingerprint=sig.fingerprint;entry.semanticFingerprint=sig.semanticFingerprint;write(lockFile,lock);
+const sourcesFile='src/ui-catalog/sources.json';const sources=read(sourcesFile);
+const source=sources.components.find(c=>c.name==='Button');if(!source)throw new Error('Missing Button source');
+source.contractVersion='2.1.0';write(sourcesFile,sources);
+const piFile='pi-catalog/contracts.json';const pi=read(piFile);
+const contract=pi.contracts.find(c=>c.type==='Button');if(!contract)throw new Error('Missing Pi Button contract');
+contract.version='2.1.0';write(piFile,pi);
+console.log('Button 2.1.0 fingerprints, sources and Pi manifest updated');

@@ -1,0 +1,98 @@
+{
+  "root": "n0080",
+  "elements": {
+    "n0078": {
+      "type": "Table",
+      "props": {
+        "columns": [
+          "Descrição",
+          "Valor"
+        ],
+        "rows": [
+          [
+            "Pagamento A",
+            "R$ 120"
+          ],
+          [
+            "Pagamento B",
+            "R$ 480"
+          ],
+          [
+            "Pagamento C",
+            "R$ 65"
+          ]
+        ],
+        "caption": null
+      },
+      "children": []
+    },
+    "n0079": {
+      "type": "Button",
+      "props": {
+        "label": "Ver detalhes",
+        "size": "sm",
+        "variant": "outline",
+        "disabled": false,
+        "type": "button"
+      },
+      "children": [],
+      "on": {
+        "press": {
+          "action": "buttonClick",
+          "params": {
+            "message": "Prévia: Ver detalhes (nenhuma operação externa)"
+          }
+        }
+      }
+    },
+    "n0080": {
+      "type": "Card",
+      "props": {
+        "title": "Payments",
+        "description": "Pagamentos · Contas do mês",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0078",
+        "payments_0",
+        "payments_1",
+        "payments_2",
+        "payments_3",
+        "n0079"
+      ]
+    },
+    "payments_0": {
+      "type": "Text",
+      "props": {
+        "text": "Change transfer limit",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "payments_1": {
+      "type": "Text",
+      "props": {
+        "text": "Scheduled transfers",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "payments_2": {
+      "type": "Text",
+      "props": {
+        "text": "Direct Debits",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "payments_3": {
+      "type": "Text",
+      "props": {
+        "text": "Recurring card payments",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

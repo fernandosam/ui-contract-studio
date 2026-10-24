@@ -1,0 +1,19 @@
+{
+  "root": "n0026",
+  "elements": {
+    "n0026": {
+      "type": "BookAppointment",
+      "props": {
+        "content": {
+          "n0023.label": "Nome"
+        },
+        "nodeProps": {
+          "n0023": {
+            "label": "Nome"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

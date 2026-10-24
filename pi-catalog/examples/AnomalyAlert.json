@@ -1,0 +1,19 @@
+{
+  "root": "n0017",
+  "elements": {
+    "n0017": {
+      "type": "AnomalyAlert",
+      "props": {
+        "content": {
+          "n0015.title": "Pico inesperado"
+        },
+        "nodeProps": {
+          "n0016": {
+            "label": "Inspecionar"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

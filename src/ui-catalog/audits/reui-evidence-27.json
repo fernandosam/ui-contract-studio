@@ -1,0 +1,296 @@
+{
+  "start": 454,
+  "end": 472,
+  "entries": [
+    {
+      "id": "c-spinner-9",
+      "sha": "0916bf040a58d3fef69ff0678e261eed35eac02e",
+      "lines": 30,
+      "imports": [
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-10",
+      "sha": "b8998f9dd0f107e1994e3fa2a4b9f6b8f016e2c9",
+      "lines": 11,
+      "imports": [],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-11",
+      "sha": "fe473f735c7ac71b7dd28f82207bb7780d8a29e1",
+      "lines": 34,
+      "imports": [
+        "card",
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-spinner-12",
+      "sha": "c79834dd830ea339ca9298472ec0c7d84da0e74b",
+      "lines": 15,
+      "imports": [
+        "spinner"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-1",
+      "sha": "491c64ef2c74314caa23decf6010e84fa5562fcc",
+      "lines": 15,
+      "imports": [
+        "field",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-2",
+      "sha": "36f5d6fe96cde1896ab3723d94c02d8bde8ebba0",
+      "lines": 29,
+      "imports": [
+        "field",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-3",
+      "sha": "42dd8ba4c3cfac9c85f7c345eb126d6113f89b4c",
+      "lines": 19,
+      "imports": [
+        "label",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-4",
+      "sha": "a0b1cf8d248d8cf8d98587167f26cd78feaee7d6",
+      "lines": 19,
+      "imports": [
+        "label",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-5",
+      "sha": "bb221c4af0169ad89f83fdeafe72b38b6561c487",
+      "lines": 24,
+      "imports": [
+        "field",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-6",
+      "sha": "bd9f844551a52a135858a2d5759a2ab8b37119c7",
+      "lines": 40,
+      "imports": [
+        "card",
+        "field",
+        "separator",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-7",
+      "sha": "c1f71175323dd1098000f781cf0a728938233b19",
+      "lines": 74,
+      "imports": [
+        "card",
+        "field",
+        "separator",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-8",
+      "sha": "1c91df0d2b26d13542149cae7d982faacea536b2",
+      "lines": 51,
+      "imports": [
+        "field",
+        "separator",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-9",
+      "sha": "5e390ea7c25927f25d48c8d06c5a33aeefd3e4ae",
+      "lines": 42,
+      "imports": [
+        "field",
+        "switch",
+        "tooltip"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-10",
+      "sha": "e946405210563f214c278fa99eb321923e2c66c2",
+      "lines": 33,
+      "imports": [
+        "badge",
+        "field",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-11",
+      "sha": "fb664c06346b3019b5685f1b968b087b2d24ea3d",
+      "lines": 35,
+      "imports": [
+        "field",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-12",
+      "sha": "c18d887d592ec1138467bb10ff3496a2781f18ec",
+      "lines": 31,
+      "imports": [
+        "field",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-13",
+      "sha": "e016583e76d1373d15cbdc907006f86f8d2e7e02",
+      "lines": 55,
+      "imports": [
+        "separator",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-switch-14",
+      "sha": "88a9ad0e3c0cee457e46bbf29fe878559e9786e3",
+      "lines": 113,
+      "imports": [
+        "field",
+        "switch"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

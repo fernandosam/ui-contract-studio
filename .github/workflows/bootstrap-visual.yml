@@ -1,0 +1,197 @@
+name: Bootstrap oficial e auditoria visual
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bootstrap-visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  policy-offline:
+    if: github.ref == 'refs/heads/main'
+    name: Contratos e testes sem rede
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testes estruturais
+        run: npm run test:offline
+      - name: Regras de geração e contratos
+        run: |
+          npm run composites:generated:check
+          npm run composites:node-props:check
+          npm run contracts:check
+          npm run pi:api:check
+          npm run pi:fixtures:check
+          npm run styles:check
+
+  bootstrap-and-visual:
+    permissions:
+      contents: read
+    name: Instalação real, build e galeria
+    needs: policy-offline
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      CI: 'true'
+      npm_config_registry: https://registry.npmjs.org/
+      npm_config_strict_ssl: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: https://registry.npmjs.org/
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Instalar npm com HTTPS e certificados verificados
+        run: npm install --include=dev --no-audit --no-fund
+
+      # shadcn CLI pode propor alterações nos estilos globais protegidos.
+      # O instalador preserva os originais, grava propostas e sinaliza código 2.
+      # Continua-se com a auditoria, mas o gate ao final exige revisão humana.
+      - name: Instalar primitivas oficiais shadcn
+        id: shadcn
+        continue-on-error: true
+        run: npm run shadcn:install
+      - name: Exigir todas as primitivas oficiais
+        run: |
+          npm run shadcn:verify
+          npm run shadcn:integrity -- --strict
+      - name: Gerar lockfile e comprovar npm ci
+        run: |
+          npm install --package-lock-only --no-audit --no-fund
+          npm ci --no-audit --no-fund
+      - name: Sincronizar status e schemas Zod
+        run: |
+          npm run integration:update
+          npm run pi:zod-schema
+      - name: Testes integrados, lint e contratos
+        run: npm run validate
+      - name: Typecheck e build de produção
+        run: npm run build
+      - name: Preparar Chromium para Playwright
+        run: |
+          browser="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser" ]; then
+            echo "UI_CONTRACT_STUDIO_CHROMIUM_EXECUTABLE=$browser" >> "$GITHUB_ENV"
+            "$browser" --version
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Testes E2E funcionais (desktop e mobile)
+        id: e2e
+        continue-on-error: true
+        run: npm run test:e2e
+      - name: Capturar os 64 cards em desktop e mobile
+        id: gallery
+        continue-on-error: true
+        run: npm run gallery:visual:capture
+      # Captura referências reais: demos documentados em /docs/components/base/*.
+      # Não são os mesmos 64 cards do shadcn/create; evidências separadas.
+      - name: Capturar 38 exemplos oficiais e amostras locais mapeadas (desktop e mobile)
+        id: docs_capture
+        continue-on-error: true
+        run: npm run shadcn:official:capture -- --workers=3 --retries=1 --max-failures=8
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar comparador de imagens
+        run: python -m pip install Pillow==11.3.0
+      - name: Comparar com baselines oficiais dos 64 cards, se fornecidos
+        id: reference_comparison
+        continue-on-error: true
+        run: npm run gallery:visual:compare
+      - name: Comparar 38 referências oficiais por viewport (58 pares locais; 18 sem contrato)
+        id: docs_comparison
+        continue-on-error: true
+        run: npm run shadcn:official:compare -- --strict
+
+      - name: Resumir evidências das referências oficiais
+        if: always()
+        run: |
+          node --input-type=module <<'NODE'
+          import { existsSync, readFileSync, appendFileSync } from 'node:fs';
+          const path = 'reports/official-components/comparison.json';
+          const report = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : null;
+          const summary = [
+            '### Comparação visual com exemplos oficiais shadcn/ui',
+            report
+              ? `- Exemplos oficiais: ${report.examples}; viewports: desktop e mobile; casos: ${report.expectedCases}.`
+              : '- Relatório indisponível: captura ou comparação não foi concluída.',
+            report
+              ? `- Pares locais comparados: ${report.comparedCases}/${report.expectedComparableCases}; sem contrato local: ${report.officialOnlyCases}; evidências ausentes: ${report.missingCases}.`
+              : '',
+            '- Índice de diferença **diagnóstico**; demos com conteúdo/estado distintos não são certificação pixel a pixel.',
+            '- A aprovação visual definitiva continua sujeita à revisão humana. Galeria 1/2 (64 cards) tem auditoria separada.',
+            '- Consulte `reports/official-components/index.html` e `comparison.json` no artefato `galeria-evidencias`.',
+          ].filter(Boolean).join('\n') + '\n';
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
+          NODE
+
+      - name: Registrar relatório de evidências
+        if: always()
+        run: node scripts/build-ci-visual-evidence.mjs
+      - name: Preparar artefato de bootstrap para revisão
+        if: always()
+        run: |
+          mkdir -p reports/github-actions
+          if [ -f package-lock.json ]; then sha256sum package-lock.json > reports/github-actions/lockfile-sha256.txt; fi
+          tar -czf reports/github-actions/projeto-bootstrap.tar.gz \
+            --exclude=.git --exclude=node_modules --exclude=dist \
+            --exclude=reports --exclude=playwright-report --exclude=test-results .
+      - name: Publicar código instalado, lockfile e propostas de CSS
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bootstrap-revisao-${{ github.run_id }}
+          path: |
+            reports/github-actions/projeto-bootstrap.tar.gz
+            reports/github-actions/lockfile-sha256.txt
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publicar screenshots, traces e relatório de comparação
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: galeria-evidencias-${{ github.run_id }}
+          path: |
+            reports/gallery-fidelity/
+            reports/official-components/
+            reports/github-actions/visual-evidence.json
+            playwright-report/
+            test-results/
+          if-no-files-found: warn
+          retention-days: 14
+
+      # Um workflow sem screenshots ou testes funcionais válidos não é homologado.
+      - name: Gate final de execução e revisão de CSS
+        if: always()
+        env:
+          SHADCN_OUTCOME: ${{ steps.shadcn.outcome }}
+          E2E_OUTCOME: ${{ steps.e2e.outcome }}
+          GALLERY_OUTCOME: ${{ steps.gallery.outcome }}
+          OFFICIAL_DOCS_CAPTURE_OUTCOME: ${{ steps.docs_capture.outcome }}
+          OFFICIAL_DOCS_COMPARISON_OUTCOME: ${{ steps.docs_comparison.outcome }}
+        run: |
+          node scripts/build-ci-visual-evidence.mjs --strict
+          if [ "$SHADCN_OUTCOME" != success ]; then
+            echo '::error::Instalação shadcn incompleta ou alterações propostas em CSS protegido. Revise docs/shadcn-cli-review no artefato.'
+            exit 1
+          fi
+          if [ "$E2E_OUTCOME" != success ] || [ "$GALLERY_OUTCOME" != success ]; then
+            echo '::error::Falha de E2E ou capturas; veja test-results e screenshots no artefato.'
+            exit 1
+          fi
+          if [ "$OFFICIAL_DOCS_CAPTURE_OUTCOME" != success ] || [ "$OFFICIAL_DOCS_COMPARISON_OUTCOME" != success ]; then
+            echo '::error::Faltam referências oficiais ou pares locais mapeados. Veja reports/official-components/comparison.json e index.html no artefato.'
+            exit 1
+          fi
+          echo 'Exemplos oficiais e locais capturados e comparados; diferenças visuais exigem revisão humana. Os 64 cards têm auditoria independente.'

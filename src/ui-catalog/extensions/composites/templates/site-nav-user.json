@@ -1,0 +1,76 @@
+{
+  "root": "c001",
+  "elements": {
+    "c001": {
+      "type": "Card",
+      "props": {
+        "title": "User Menu",
+        "description": "Account and workspace actions.",
+        "size": "default",
+        "maxWidth": "full"
+      },
+      "children": [
+        "c006",
+        "c007"
+      ]
+    },
+    "c002": {
+      "type": "Avatar",
+      "props": {
+        "name": "Alex Morgan",
+        "size": "sm",
+        "src": null
+      },
+      "children": []
+    },
+    "c003": {
+      "type": "Text",
+      "props": {
+        "text": "Alex Morgan",
+        "variant": "body"
+      },
+      "children": []
+    },
+    "c004": {
+      "type": "Text",
+      "props": {
+        "text": "m@example.com",
+        "variant": "muted"
+      },
+      "children": []
+    },
+    "c005": {
+      "type": "Stack",
+      "props": {
+        "direction": "vertical",
+        "gap": "sm",
+        "align": "stretch"
+      },
+      "children": [
+        "c003",
+        "c004"
+      ]
+    },
+    "c006": {
+      "type": "Stack",
+      "props": {
+        "direction": "horizontal",
+        "gap": "sm",
+        "align": "center",
+        "justify": "between"
+      },
+      "children": [
+        "c002",
+        "c005"
+      ]
+    },
+    "c007": {
+      "type": "Popover",
+      "props": {
+        "trigger": "Account options",
+        "content": "Upgrade to Pro · Account · Billing · Notifications · Log out"
+      },
+      "children": []
+    }
+  }
+}

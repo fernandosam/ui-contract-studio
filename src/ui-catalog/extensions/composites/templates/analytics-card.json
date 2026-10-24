@@ -1,0 +1,81 @@
+{
+  "root": "n0013",
+  "elements": {
+    "n0010": {
+      "type": "Badge",
+      "props": {
+        "label": "CHART",
+        "variant": "outline"
+      },
+      "children": []
+    },
+    "n0011": {
+      "type": "Metric",
+      "props": {
+        "label": "Sessões ativas",
+        "value": "25.840",
+        "change": "+8,6%",
+        "changeType": "positive",
+        "prefix": null,
+        "suffix": null
+      },
+      "children": []
+    },
+    "n0012": {
+      "type": "LineGraph",
+      "props": {
+        "title": "Evolução dos últimos 6 meses",
+        "data": [
+          {
+            "label": "Jan",
+            "value": 18
+          },
+          {
+            "label": "Fev",
+            "value": 25
+          },
+          {
+            "label": "Mar",
+            "value": 21
+          },
+          {
+            "label": "Abr",
+            "value": 33
+          },
+          {
+            "label": "Mai",
+            "value": 28
+          },
+          {
+            "label": "Jun",
+            "value": 42
+          }
+        ]
+      },
+      "children": []
+    },
+    "n0013": {
+      "type": "Card",
+      "props": {
+        "title": "Analytics",
+        "description": "Análises · Sessões ativas",
+        "maxWidth": "full",
+        "size": "default"
+      },
+      "children": [
+        "n0010",
+        "n0011",
+        "n0012",
+        "analytics_card_0"
+      ]
+    },
+    "analytics_card_0": {
+      "type": "Text",
+      "props": {
+        "text": "Analytics · últimos meses",
+        "variant": "muted"
+      },
+      "children": []
+    }
+  }
+}

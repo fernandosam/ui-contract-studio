@@ -1,0 +1,295 @@
+{
+  "start": 346,
+  "end": 364,
+  "entries": [
+    {
+      "id": "c-pagination-13",
+      "sha": "0bf94f0a6150bcb7f973fac3750861b32a0648a2",
+      "lines": 84,
+      "imports": [
+        "native-select",
+        "pagination"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-pagination-14",
+      "sha": "be2e9c8045883e7de97fa5a58a6cc5ec8c695d5d",
+      "lines": 61,
+      "imports": [
+        "input",
+        "pagination"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-pagination-15",
+      "sha": "9c746e54ff7ae1c0666ed1c37dbdbdb154a1cbc3",
+      "lines": 49,
+      "imports": [
+        "native-select",
+        "pagination"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-1",
+      "sha": "731c49e49d581cde2f87982b0d964eb56effb6e0",
+      "lines": 31,
+      "imports": [
+        "button",
+        "popover"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-2",
+      "sha": "09079460e397c1175901ae4b32163ac4ef74daee",
+      "lines": 36,
+      "imports": [
+        "button",
+        "popover"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-3",
+      "sha": "0eaafa9c1a41f9e0d5b6cee9d8b10d6ec7202ccf",
+      "lines": 47,
+      "imports": [
+        "button",
+        "field",
+        "input",
+        "popover"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-4",
+      "sha": "4104923d6f69fd0d46a8fdf3d527d5e9fae653cc",
+      "lines": 39,
+      "imports": [
+        "button",
+        "popover"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-5",
+      "sha": "0d4e067b438efbd21db9c09edb684172748bbb5a",
+      "lines": 55,
+      "imports": [
+        "button",
+        "dialog",
+        "popover"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-6",
+      "sha": "83135b101bbaa95bb909df3ff7d41bf8a19f7163",
+      "lines": 72,
+      "imports": [
+        "avatar",
+        "button",
+        "popover"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-7",
+      "sha": "568179a37ee22d37f7b058f279d0aca865a57051",
+      "lines": 63,
+      "imports": [
+        "button",
+        "popover"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-8",
+      "sha": "cb79b5faee23ff5e6bac52029aec5021a899fb82",
+      "lines": 68,
+      "imports": [
+        "button",
+        "popover"
+      ],
+      "state": false,
+      "events": false,
+      "image": true,
+      "remoteMedia": true,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-9",
+      "sha": "131c3f143a68d43d5d9ee190d8eb8087a2e35952",
+      "lines": 80,
+      "imports": [
+        "popover"
+      ],
+      "state": true,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-10",
+      "sha": "f0fbddcc4706a2d53fd1e1d4f1dea906d92f3e3f",
+      "lines": 64,
+      "imports": [
+        "button",
+        "popover",
+        "slider",
+        "switch"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-popover-11",
+      "sha": "f60686ed51d1bdf5bebc9cee0fe61b701f0b8ca8",
+      "lines": 130,
+      "imports": [
+        "button",
+        "popover"
+      ],
+      "state": true,
+      "events": true,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-progress-1",
+      "sha": "080db65469d4517b4136f6916e69d083d64005a1",
+      "lines": 18,
+      "imports": [
+        "progress"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-progress-2",
+      "sha": "a5613979af50a146d9fc9c1b072b856448e3fbed",
+      "lines": 18,
+      "imports": [
+        "progress"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-progress-3",
+      "sha": "bed48e2241e3851f6aa0e9317d266c622dff678a",
+      "lines": 18,
+      "imports": [
+        "progress"
+      ],
+      "state": false,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    },
+    {
+      "id": "c-progress-4",
+      "sha": "319fa5a9cdd1867f7784a1c671e605f02a7dbeeb",
+      "lines": 58,
+      "imports": [
+        "progress"
+      ],
+      "state": true,
+      "events": false,
+      "image": false,
+      "remoteMedia": false,
+      "timed": false,
+      "submenu": false,
+      "counter": false
+    }
+  ]
+}

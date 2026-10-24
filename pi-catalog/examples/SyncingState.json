@@ -1,0 +1,19 @@
+{
+  "root": "n0141",
+  "elements": {
+    "n0141": {
+      "type": "SyncingState",
+      "props": {
+        "content": {
+          "n0140.label": "O processamento está em andamento."
+        },
+        "nodeProps": {
+          "n0140": {
+            "label": "O processamento está em andamento."
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

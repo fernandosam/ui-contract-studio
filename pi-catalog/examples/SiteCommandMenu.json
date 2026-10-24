@@ -1,0 +1,19 @@
+{
+  "root": "preview",
+  "elements": {
+    "preview": {
+      "type": "SiteCommandMenu",
+      "props": {
+        "content": {
+          "c001.title": "Search documentation"
+        },
+        "nodeProps": {
+          "c002": {
+            "label": "Search"
+          }
+        }
+      },
+      "children": []
+    }
+  }
+}

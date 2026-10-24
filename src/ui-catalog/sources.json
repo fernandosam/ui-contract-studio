@@ -1,0 +1,1568 @@
+{
+  "schemaVersion": 2,
+  "policy": "v0.21: 153 contratos aprovados, 22 wrappers removidos; auditorias de origem preservadas e marcadas como legadas.",
+  "components": [
+    {
+      "name": "Card",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": null,
+      "license": "Projeto base (implementação local)",
+      "reviewedOn": "2026-10-16",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Stack",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": null,
+      "license": "Projeto base (implementação local)",
+      "reviewedOn": "2026-10-16",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Grid",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": null,
+      "license": "Projeto base (implementação local)",
+      "reviewedOn": "2026-10-16",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Separator",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Tabs",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Accordion",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.1.0"
+    },
+    {
+      "name": "Collapsible",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Dialog",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Drawer",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Carousel",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Table",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Heading",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": null,
+      "license": "Projeto base (implementação local)",
+      "reviewedOn": "2026-10-16",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Text",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": null,
+      "license": "Projeto base (implementação local)",
+      "reviewedOn": "2026-10-16",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Image",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Icon",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Avatar",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Badge",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": null,
+      "license": "Projeto base (implementação local)",
+      "reviewedOn": "2026-10-16",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Alert",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": null,
+      "license": "Projeto base (implementação local)",
+      "reviewedOn": "2026-10-16",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Progress",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Skeleton",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Spinner",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Tooltip",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Popover",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Rating",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Metric",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "BarGraph",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "LineGraph",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Input",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Textarea",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Select",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Checkbox",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Radio",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Switch",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Slider",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Button",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.1.0"
+    },
+    {
+      "name": "Link",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "DropdownMenu",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Toggle",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "ToggleGroup",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "ButtonGroup",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "Pagination",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+      "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
+      "reviewedOn": "2026-10-20",
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
+      "contractVersion": "2.0.0"
+    },
+    {
+      "name": "DataTable",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/data-table",
+      "license": "Código de integração próprio; referências shadcn/ui MIT e TanStack MIT",
+      "reviewedOn": "2026-10-20",
+      "notes": "Contrato local com TanStack Table + primitivas shadcn/ui; pesquisa, ordenação, seleção e paginação client-side. Limite 2000 linhas, dados fictícios; não é integração de dados institucionais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "DatePicker",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/date-picker",
+      "license": "Código de integração próprio; referências shadcn/ui MIT e TanStack MIT",
+      "reviewedOn": "2026-10-20",
+      "notes": "Contrato local com Calendar + Popover shadcn/ui Base UI; data ISO YYYY-MM-DD, controle min/max, mudança de estado via binding.",
+      "contractVersion": "1.1.0"
+    },
+    {
+      "name": "Field",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/field",
+      "license": "MIT (shadcn/ui); adaptador local para json-render",
+      "reviewedOn": "2026-10-21",
+      "notes": "Entrada explícita solicitada pelo responsável do projeto para compor os previews. Verificação independente, instalação do CLI e E2E ainda são requisitos antes de produção.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "ActivateAgentDialog",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/activate-agent-dialog.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "AnalyticsCard",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/analytics-card.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "AnomalyAlert",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/anomaly-alert.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "BarChartCard",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/bar-chart-card.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "BookAppointment",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/book-appointment.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "CodespacesCard",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/codespaces-card.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "ContributionsActivity",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/contributions-activity.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "Contributors",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/contributors.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "EnvironmentVariables",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/environment-variables.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "FeedbackForm",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/feedback-form.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "FileUpload",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/file-upload.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "GithubProfile",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/github-profile.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "InviteTeam",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/invite-team.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "Invoice",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/invoice.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "NoTeamMembers",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/no-team-members.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "NotFound",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/not-found.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "ObservabilityCard",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/observability-card.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "PieChartCard",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/pie-chart-card.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "ReportBug",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/report-bug.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "ShippingAddress",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/shipping-address.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "SleepReport",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/sleep-report.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "UsageCard",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/usage-card.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "Visitors",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/visitors.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "WeeklyFitnessSummary",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview/cards/weekly-fitness-summary.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "AccountAccess",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/account-access.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "CardOverview",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/card-overview.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "ClaimableBalance",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/claimable-balance.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "ContributionHistory",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/contribution-history.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "CoverArt",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/cover-art.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "DividendIncome",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/dividend-income.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "EmptyConnectBank",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-connect-bank.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "EmptyDistributeTrack",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-distribute-track.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "EmptyExploreCatalog",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/empty-explore-catalog.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "Faq",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/faq.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "FrontDoor",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/front-door.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "IndexInvesting",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/index-investing.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "KitchenIsland",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/kitchen-island.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "NewMilestone",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/new-milestone.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "NotificationSettings",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/notification-settings.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "Payments",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/payments.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "PayoutThreshold",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/payout-threshold.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "PowerUsage",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/power-usage.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "Preferences",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/preferences.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "ReceivingMethod",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/receiving-method.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "RecentTransactions",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/recent-transactions.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "ReleaseCatalog",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/release-catalog.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "RollerShades",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/roller-shades.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "SavingsProgress",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/savings-progress.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "SavingsTargets",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/savings-targets.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "SocialLinks",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/social-links.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "StockPerformance",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/stock-performance.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "SyncingState",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/syncing-state.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "TransferFunds",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/transfer-funds.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "UpcomingPayments",
+      "status": "approved",
+      "origin": "local-composite",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/blocks/preview-02/cards/upcoming-payments.tsx",
+      "license": "MIT (referência shadcn/ui); adaptação local declarativa",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Composição JSON própria preservada em template validado; React encapsulado e registrado. Não é cópia visual/funcional pixel a pixel do upstream; ações locais demonstrativas."
+    },
+    {
+      "name": "BlockSidebar",
+      "status": "approved",
+      "origin": "local",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/sidebar",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "Dashboard01",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/dashboard-01",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Login01",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-01",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Login02",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-02",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Login03",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-03",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Login04",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-04",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Login05",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/login-05",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Signup01",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-01",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Signup02",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-02",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Signup03",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-03",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Signup04",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-04",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Signup05",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/signup-05",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar01",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-01",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar02",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-02",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar03",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-03",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar04",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-04",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar05",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-05",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar06",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-06",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar07",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-07",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar08",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-08",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar09",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-09",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar10",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-10",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar11",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-11",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar12",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-12",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar13",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-13",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar14",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-14",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar15",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-15",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "Sidebar16",
+      "status": "approved",
+      "origin": "shadcn-ui/ui",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/tree/main/apps/v4/registry/bases/base/blocks/sidebar-16",
+      "license": "MIT (referência original); implementação demonstrativa própria",
+      "reviewedOn": "2026-10-21",
+      "notes": "Review de estrutura e DOM; screenshots pendentes. Ações locais.",
+      "contractVersion": "1.2.0"
+    },
+    {
+      "name": "SiteColorPalette",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/color-palette.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCommandMenu",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/command-menu.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteDirectoryList",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/directory-list.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteNavUser",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/nav-user.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteThemeCustomizer",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/theme-customizer.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsActivityGoal",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/activity-goal.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsChat",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/chat.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.1.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsCookieSettings",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/cookie-settings.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsCreateAccount",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/create-account.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsForms",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/forms.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsPaymentMethod",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/payment-method.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsReportIssue",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/report-issue.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsShare",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/share.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsStats",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/stats.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "SiteCardsTeamMembers",
+      "status": "approved",
+      "origin": "shadcn-ui/ui apps/v4/components",
+      "sourceUrl": "https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/cards/team-members.tsx",
+      "license": "MIT reference; local declarative adaptation",
+      "reviewedOn": "2026-10-21",
+      "contractVersion": "1.2.0",
+      "notes": "Source JSX inspected, reference visual reviewed where available; screenshot visual certification pending; interactions simulated locally."
+    },
+    {
+      "name": "AspectRatio",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/aspect-ratio",
+      "license": "MIT (shadcn/ui); adaptador local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposta técnica em branch isolada. Revisão independente, CI, fidelidade e acessibilidade são exigidos antes de merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "Kbd",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/kbd",
+      "license": "MIT (shadcn/ui); adaptador local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposta técnica em branch isolada. Revisão independente, CI, fidelidade e acessibilidade são exigidos antes de merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "Empty",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/empty",
+      "license": "MIT (shadcn/ui); adaptador local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposta técnica em branch isolada. Revisão independente, CI, fidelidade e acessibilidade são exigidos antes de merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "ScrollArea",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/scroll-area",
+      "license": "MIT (shadcn/ui); adaptador local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposta técnica em branch isolada. Revisão independente, CI, fidelidade e acessibilidade são exigidos antes de merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "AlertDialog",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/alert-dialog",
+      "license": "MIT (shadcn/ui); adaptação local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposto no PR #46 com fonte Base UI oficial; requer revisão humana, acessibilidade e comparação visual antes do merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "Attachment",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/attachment",
+      "license": "MIT (shadcn/ui); adaptação local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposto no PR #46 com fonte Base UI oficial; requer revisão humana, acessibilidade e comparação visual antes do merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "Bubble",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/bubble",
+      "license": "MIT (shadcn/ui); adaptação local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposto no PR #46 com fonte Base UI oficial; requer revisão humana, acessibilidade e comparação visual antes do merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "ContextMenu",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/context-menu",
+      "license": "MIT (shadcn/ui); adaptação local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposto no PR #46 com fonte Base UI oficial; requer revisão humana, acessibilidade e comparação visual antes do merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "HoverCard",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/hover-card",
+      "license": "MIT (shadcn/ui); adaptação local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposto no PR #46 com fonte Base UI oficial; requer revisão humana, acessibilidade e comparação visual antes do merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "Item",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/item",
+      "license": "MIT (shadcn/ui); adaptação local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposto no PR #46 com fonte Base UI oficial; requer revisão humana, acessibilidade e comparação visual antes do merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "Marker",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/marker",
+      "license": "MIT (shadcn/ui); adaptação local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposto no PR #46 com fonte Base UI oficial; requer revisão humana, acessibilidade e comparação visual antes do merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "Message",
+      "status": "approved",
+      "origin": "official-shadcn-adapter",
+      "sourceUrl": "https://ui.shadcn.com/docs/components/base/message",
+      "license": "MIT (shadcn/ui); adaptação local para json-render",
+      "reviewedOn": "2026-10-23",
+      "notes": "Proposto no PR #46 com fonte Base UI oficial; requer revisão humana, acessibilidade e comparação visual antes do merge.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "OnboardingChecklist",
+      "status": "approved",
+      "origin": "reui-semantic-adaptation",
+      "sourceUrl": "https://reui.io/components/accordion/c-accordion-11",
+      "license": "Implementação local inspirada em ReUI; verificar atribuição upstream antes de redistribuir",
+      "reviewedOn": "2026-10-24",
+      "notes": "Contrato semântico para etapas de onboarding com texto e status configuráveis; avaliação de equivalência com Accordion realizada: dados de progresso e estados próprios justificam extensão. Nenhuma ação remota. Revisão de fidelidade visual E2E ainda manual.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "RatingDistribution",
+      "status": "approved",
+      "origin": "reui-semantic-adaptation",
+      "sourceUrl": "https://reui.io/components/rating/c-rating-6",
+      "license": "Implementação local inspirada no padrão ReUI (keenthemes/reui); verificar licença de redistribuição upstream",
+      "reviewedOn": "2026-10-24",
+      "notes": "Sumário de distribuição com 5 contagens, média e percentuais derivados, sem dados fictícios nem rede.",
+      "contractVersion": "1.0.0"
+    },
+    {
+      "name": "CharacterCountTextarea",
+      "status": "approved",
+      "origin": "reui-semantic-adaptation",
+      "sourceUrl": "https://reui.io/components/textarea/c-textarea-6",
+      "license": "Implementação local inspirada no padrão ReUI (keenthemes/reui); verificar licença de redistribuição upstream",
+      "reviewedOn": "2026-10-24",
+      "notes": "Campo de texto com limite efetivo e contador de caracteres, sem envio remoto.",
+      "contractVersion": "1.0.0"
+    }
+  ],
+  "referenceCatalog": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
+  "referenceRenderer": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/registry.tsx"
+}
