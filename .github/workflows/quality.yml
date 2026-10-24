@@ -17,6 +17,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install reviewed dependencies before offline checks
+        run: npm ci --no-audit --no-fund
       - name: Verify offline invariants
         run: npm run test:offline && npm run composites:generated:check && npm run contracts:check && npm run patterns:check && npm run integration:check
       - name: Compare contracts with PR base
