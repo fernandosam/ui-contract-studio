@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify offline invariants
-        run: npm run test:offline && npm run composites:generated:check && npm run contracts:check && npm run patterns:check && npm run integration:check
+        run: npm run docs:check && npm run test:offline && npm run composites:generated:check && npm run contracts:check && npm run patterns:check && npm run integration:check
       - name: Compare contracts with PR base
         env:
           CONTRACT_BASE_REF: ${{ github.event.pull_request.base.sha }}
