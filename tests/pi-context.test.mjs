@@ -11,7 +11,7 @@ test('context pack contém somente tipos solicitados e exemplos íntegros',()=>{
  assert.ok(pack.selected.every(x=>x.example.elements[x.example.root].type===x.contract.type));
  assert.equal(pack.selected[1].contract.contentProperty,'content');
  assert.ok(pack.selected[1].contract.configuredContentFields.length>0);
- assert.equal(api.catalogSize,156);
+ assert.equal(api.catalogSize,102);
 });
 test('tipo não aprovado e lotes grandes são bloqueados',()=>{
  const invalid=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types=ArbitraryWidget','--stdout','--metadata-only'],{encoding:'utf8'});

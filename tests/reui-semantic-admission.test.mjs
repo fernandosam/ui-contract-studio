@@ -46,7 +46,7 @@ test("Contrato aprovado possui provenance, versão, fingerprint, schema e exempl
  assert.equal(spec.elements[spec.root].type,"OnboardingChecklist")
  assert.equal(spec.elements[spec.root].props.steps.length,3)
  assert.deepEqual(spec.elements[spec.root].children,[])
- assert.equal(contract.components.length,156)
+ assert.equal(contract.components.length,102)
 })
 
 test("Contrato não aceita código arbitrário nem depende de textos fixos do exemplo",()=>{

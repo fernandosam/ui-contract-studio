@@ -7,13 +7,13 @@ const read=(p:string)=>JSON.parse(readFileSync(p,'utf8'));
 const project=read('package.json');
 const all=read('pi-catalog/contracts.json');
 
-test('todos os 156 contratos expõem JSON Schema real e sem extravasamento de tipos',()=>{
+test('todos os 102 contratos expõem JSON Schema real e sem extravasamento de tipos',()=>{
  const path='pi-catalog/props-json-schema.json';
  assert.ok(existsSync(path),'Execute npm run pi:zod-schema antes do teste integrado');
  const schemas=read(path);
  assert.equal(schemas.schemaVersion,2);
  assert.equal(schemas.projectVersion,project.version);
- assert.equal(schemas.catalogSize,156);
+ assert.equal(schemas.catalogSize,102);
  assert.deepEqual(Object.keys(schemas.types).sort(),Object.keys(componentDefinitions).sort());
  for(const contract of all.contracts){
   const prop=schemas.types[contract.type];

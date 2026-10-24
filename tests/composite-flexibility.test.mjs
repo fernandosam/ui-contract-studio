@@ -9,8 +9,8 @@ const lock=read('src/ui-catalog/contracts.lock.json').components;
 const forbidden=['name','href','src','sourceId','checks','on','action','bindings'];
 const generated=readFileSync('src/ui-catalog/extensions/composites/generated-node-props.ts','utf8');
 const extensions=readFileSync('src/ui-catalog/extensions/catalog.ts','utf8');
-test('manifesto contém exatamente 91 composições e contratos tipados de nodeProps',()=>{
- assert.equal(manifest.length,91);
+test('manifesto contém exatamente 37 composições e contratos tipados de nodeProps',()=>{
+ assert.equal(manifest.length,37);
  for(const x of manifest){
   assert.match(generated,new RegExp(`\\b${x.name}: z.object\\(`));
   assert.match(extensions,new RegExp(`\\b${x.name}: \\{\\s*props: strict\\(\\{ nodeProps: compositeNodePropsSchemas\\.${x.name}\\.optional\\(\\)`));
@@ -58,7 +58,7 @@ test('generated node schemas and registry stay deterministic',()=>{
   assert.equal(result.status,0,result.stderr||result.stdout);
  }
 });
-test('Pi example covers nodeProps in all 91 static composites',()=>{
+test('Pi example covers nodeProps in all 37 static composites',()=>{
  for(const e of manifest){
   const spec=read(`pi-catalog/examples/${e.name}.json`);
   const props=spec.elements[spec.root].props;

@@ -10,15 +10,15 @@ const manifest=read('src/ui-catalog/extensions/composites/generated-manifest.jso
 const generated=text('src/ui-catalog/extensions/generated/composite-implementations.tsx');
 const oldLock=read('src/ui-catalog/contracts.lock.json');
 
-test('91 templates têm registro gerado único e nenhum wrapper manual restante',()=>{
- assert.equal(manifest.components.length,91);
- assert.equal(new Set(manifest.components.map(x=>x.name)).size,91);
+test('37 templates têm registro gerado único e nenhum wrapper manual restante',()=>{
+ assert.equal(manifest.components.length,37);
+ assert.equal(new Set(manifest.components.map(x=>x.name)).size,37);
  for(const item of manifest.components){
   assert.match(generated,new RegExp(`\\b${item.name}: createComposite<`));
   assert.ok(existsSync(`src/ui-catalog/extensions/composites/templates/${item.template}`));
-  assert.ok(!existsSync(item.formerComponentPath)||item.name==='NotificationSettings',item.name);
+  assert.ok(!existsSync(item.formerComponentPath),item.name);
  }
- assert.equal(readdirSync('src/ui-catalog/extensions/components').filter(x=>x.endsWith('.tsx')).length,25);
+ assert.equal(readdirSync('src/ui-catalog/extensions/components').filter(x=>x.endsWith('.tsx')).length,24);
  const result=spawnSync(process.execPath,['scripts/generate-composite-registry.mjs','--check'],{encoding:'utf8'});
  assert.equal(result.status,0,result.stderr);
 });
@@ -29,7 +29,7 @@ test('renderer não importa o registry raiz em runtime e recebe contexto tipado'
  assert.match(text('src/ui-catalog/extensions/registry.tsx'),/\.\.\.compositeImplementations/);
 });
 
-test('compilador puro mantém invariantes e propriedades anteriores para 91 composições',()=>{
+test('compilador puro mantém invariantes e propriedades anteriores para 37 composições',()=>{
  for(const item of manifest.components){
   const source=read(`src/ui-catalog/extensions/composites/templates/${item.template}`);
   const original=structuredClone(source);
@@ -50,7 +50,7 @@ test('fingerprints semânticos são insensíveis à formatação, não ao conte�
  assert.deepEqual(normalizedTokens('A: {props: z.string(), /* comment */ value: 2}'), normalizedTokens('A:{props:z.string(),value:2}'));
  assert.notDeepEqual(normalizedTokens('A:{label:"Texto A"}'),normalizedTokens('A:{label:"Texto B"}'));
  assert.notDeepEqual(normalizedTokens('A:{min:1}'),normalizedTokens('A:{min:2}'));
- assert.equal(oldLock.components.length,156);
+ assert.equal(oldLock.components.length,102);
  for(const item of signatures()){
   const old=oldLock.components.find(x=>x.name===item.name);
   assert.equal(old.semanticFingerprint,item.semanticFingerprint,item.name);
@@ -62,5 +62,5 @@ test('Exemplos do Pi e do Explorador usam a mesma fonte versionada',()=>{
  const source=text('src/ui-runtime/catalog-explorer.tsx');
  assert.match(source,/pi-catalog\/examples\/\*\.json/);
  assert.doesNotMatch(source,/import\.meta\.glob\('\.\.\/ui-catalog\/extensions\/composites\/templates/);
- assert.equal(readdirSync('pi-catalog/examples').filter(x=>x.endsWith('.json')).length,156);
+ assert.equal(readdirSync('pi-catalog/examples').filter(x=>x.endsWith('.json')).length,102);
 });

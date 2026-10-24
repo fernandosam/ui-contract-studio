@@ -10,10 +10,10 @@ const content=read('src/ui-catalog/composite-content-fields.json').components;
 const known=lock.components.map(c=>c.name);
 const generatedComposites=new Set(JSON.parse(readFileSync('src/ui-catalog/extensions/composites/generated-manifest.json','utf8')).components.map(x=>x.name));
 
-test('Pi possui 156 exemplos válidos estruturalmente e contratos sem duplicidade',()=>{
- assert.equal(manifest.catalogSize,156);
- assert.equal(manifest.contracts.length,156);
- assert.equal(new Set(manifest.contracts.map(c=>c.type)).size,156);
+test('Pi possui 102 exemplos válidos estruturalmente e contratos sem duplicidade',()=>{
+ assert.equal(manifest.catalogSize,102);
+ assert.equal(manifest.contracts.length,102);
+ assert.equal(new Set(manifest.contracts.map(c=>c.type)).size,102);
  for(const c of manifest.contracts){
    assert.ok(existsSync(c.example),c.type);
    const spec=read(c.example);

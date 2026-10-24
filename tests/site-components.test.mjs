@@ -64,7 +64,7 @@ test('card ReportIssue apresenta campos e níveis de severidade originais',()=>{
 });
 test('a política preserva seis telas existentes e não reintroduz as antigas',()=>{
  for(const id of ['dashboard','usuarios','catalogo','playground','extensoes','auditoria'])assert.ok(!existsSync(`src/ui-screens/${id}.json`));
- assert.equal(lock.components.length,156);
+ assert.equal(lock.components.length,102);
 });
 test('revisão visual estrita permanece pendente sem evidência de screenshots',()=>{
  const result=spawnSync(process.execPath,['scripts/check-site-compositions.mjs','--strict'],{encoding:'utf8'});

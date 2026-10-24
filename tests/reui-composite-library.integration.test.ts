@@ -69,7 +69,7 @@ test("API do componente composto ReUI rejeita JSX, className, estilos e callback
   assert.equal(reuiCompositePropsSchema.safeParse({ align: "top" }).success, false)
 })
 
-test("React implementa os 559 compostos sem contornar o catálogo de 156 contratos aprovados", () => {
+test("React implementa os 559 compostos sem contornar o catálogo de 102 contratos aprovados", () => {
   const code=readFileSync("src/ui-catalog/extensions/composites/reui-composite-catalog.tsx","utf8")
   const explorer=readFileSync("src/ui-runtime/reui-composite-explorer.tsx","utf8")
   const shell=readFileSync("src/ui-runtime/catalog-explorer.tsx","utf8")
@@ -83,5 +83,5 @@ test("React implementa os 559 compostos sem contornar o catálogo de 156 contrat
   assert.match(explorer,/Notas do agente/)
   assert.match(shell,/Composições ReUI \(559\)/)
   assert.match(shell,/Abrir componente composto/)
-  assert.equal(approved.components.length,156,"A admissão de novos contratos Pi não pode ser automática")
+  assert.equal(approved.components.length,102,"A admissão de novos contratos Pi não pode ser automática")
 })

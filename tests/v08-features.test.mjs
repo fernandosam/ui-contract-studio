@@ -6,9 +6,9 @@ const text=path=>readFileSync(path,'utf8');
 const read=path=>JSON.parse(text(path));
 const names=read('src/ui-catalog/contracts.lock.json').components.map(c=>c.name);
 test('v0.12 preserva os 44 anteriores e adiciona 54 componentes compostos ativos e 10 demonstrações inline',()=>{
- const lock=read('src/ui-catalog/contracts.lock.json');assert.equal(lock.components.length,156);
+ const lock=read('src/ui-catalog/contracts.lock.json');assert.equal(lock.components.length,102);
  assert.equal(lock.components.filter(c=>c.tier==='base').length,41);
- assert.equal(lock.components.filter(c=>c.tier==='extension').length,115);
+ assert.equal(lock.components.filter(c=>c.tier==='extension').length,61);
  assert.ok(['DataTable','DatePicker','Field'].every(name=>lock.components.some(c=>c.name===name)));
 });
 test('8 padrões só utilizam contratos aprovados e árvores válidas',()=>{
@@ -42,7 +42,7 @@ test('avaliação Pi tem modo estrito, executor real e relatórios de métricas'
 });
 test('manifesto é derivado da versão e não declara instalação concluída indevidamente',()=>{
  const status=read('integration-status.json');const pkg=read('package.json');
- assert.equal(status.version,pkg.version);assert.equal(status.totalContracts,156);
+ assert.equal(status.version,pkg.version);assert.equal(status.totalContracts,102);
  assert.equal(status.approvedPatternCount,8);assert.equal(status.lockfilePresent,existsSync('package-lock.json'));
  if(!status.lockfilePresent)assert.notEqual(status.installationStatus,'source-files-present-build-unverified');
 });

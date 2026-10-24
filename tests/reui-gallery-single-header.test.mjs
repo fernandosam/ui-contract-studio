@@ -8,7 +8,7 @@ const layout=readFileSync("src/ui-runtime/layout.tsx","utf8")
 const search=readFileSync("src/ui-runtime/reui-search.ts","utf8")
 
 test("Galeria 3 usa somente o título e o subtítulo do layout",()=>{
-  assert.ok(page.includes("slug:'galeria-3',title:'Galeria 3',subtitle:'Exemplos ReUI agrupados por componente, com filtro e carregamento progressivo.'"))
+  assert.ok(page.includes("slug:'reui',title:'ReUI',subtitle:'Exemplos ReUI agrupados por componente, com filtro e carregamento progressivo.'"))
   assert.ok(layout.includes("<h1"))
   assert.ok(layout.includes("{subtitle}"))
   assert.ok(!gallery.includes('Galeria 3 · ReUI'),"sem segundo título")
