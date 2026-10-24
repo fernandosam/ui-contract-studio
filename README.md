@@ -37,19 +37,19 @@ npm run validate       # verificações de catálogo, lint e testes
 npm run build          # TypeScript e Vite
 ~~~
 
-O CI de qualidade roda em pull requests e pushes na \`main\`. O **E2E completo** é executado manualmente na \`main\` em **Actions → E2E manual (main)**; a auditoria visual tem fluxo separado. A presença de componentes, testes estruturais ou diferenças de pixels não equivale a homologação visual.
+O CI de qualidade roda em pull requests e pushes na `main`. O **E2E completo** é executado manualmente na `main` em **Actions → E2E manual (main)**; a auditoria visual tem fluxo separado. A presença de componentes, testes estruturais ou diferenças de pixels não equivale a homologação visual.
 
 ## Onde encontrar
 
 | Local | Conteúdo |
 | --- | --- |
-| \`src/components/ui/\` | Primitivas locais shadcn/ui |
-| \`src/ui-catalog/\` | Contratos Zod, registry, fontes e manifestos |
-| \`src/ui-runtime/\` | Renderização, navegação e exploradores |
-| \`src/ui-screens/\`, \`src/ui-patterns/\` | Telas e padrões JSON |
-| \`pi-catalog/\` | APIs e exemplos consumidos pelo agente |
-| \`docs/\` | Guias vigentes e registros de auditoria |
-| \`sandbox/\` | Ferramentas de validação conectada |
+| `src/components/ui/` | Primitivas locais shadcn/ui |
+| `src/ui-catalog/` | Contratos Zod, registry, fontes e manifestos |
+| `src/ui-runtime/` | Renderização, navegação e exploradores |
+| `src/ui-screens/`, `src/ui-patterns/` | Telas e padrões JSON |
+| `pi-catalog/` | APIs e exemplos consumidos pelo agente |
+| `docs/` | Guias vigentes e registros de auditoria |
+| `sandbox/` | Ferramentas de validação conectada |
 
 Leia o [índice da documentação](docs/README.md), as [instruções para agentes](AGENTS.md), o [guia de contribuição](CONTRIBUTING.md) e o [CHANGELOG](CHANGELOG.md).
 
