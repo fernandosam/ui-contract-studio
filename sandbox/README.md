@@ -38,8 +38,8 @@ Após uma execução conectada, o Playwright salva **64 arquivos PNG por viewpor
 As capturas correspondentes do shadcn/create devem ser obtidas e revisadas manualmente, na mesma resolução, variante Base UI e tema, sendo salvas em `reports/gallery-fidelity/reference/{desktop,mobile}/<NomeDoCard>.png`.
 
 ```bash
-npm run gallery:visual:capture
-npm run gallery:visual:compare
+npm run shadcn:official:capture
+npm run shadcn:official:compare
 ```
 
 A comparação só calcula diferenças de pixels para arquivos presentes e com dimensões iguais. **Não aprova automaticamente fidelidade**: datas, fontes, dados e tema precisam coincidir e um revisor deve inspecionar as diferenças. A falta de PNGs oficiais **faz a comparação falhar**, não permite declarar sucesso.

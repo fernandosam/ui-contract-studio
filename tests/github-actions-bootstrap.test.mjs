@@ -9,11 +9,11 @@ test('CI executa instalação e build reais, sem desabilitar TLS',()=>{
  assert.ok(!text.includes('strict-ssl=false'));
 });
 test('CI não confunde screenshots locais com baselines originais',()=>{
- assert.ok(text.includes('gallery:visual:capture'));
- assert.ok(text.includes('gallery:visual:compare'));
+ assert.ok(!text.includes('gallery:visual:capture'));
+ assert.ok(text.includes('shadcn:official:capture'));
+ assert.ok(text.includes('shadcn:official:compare'));
  assert.ok(text.includes('build-ci-visual-evidence.mjs --strict'));
- const cmp=readFileSync('sandbox/compare_gallery.py','utf8');
- assert.ok(cmp.includes('missing-reference'));
+ assert.ok(text.includes('comparação não foi concluída'));
 });
 test('CI preserva origem e artefatos de revisão',()=>{
  assert.ok(text.includes('permissions:'));
