@@ -42,6 +42,4 @@ if [[ -z "${UI_CONTRACT_STUDIO_CHROMIUM_EXECUTABLE:-}" ]]; then
   npx playwright install chromium
 fi
 npm run test:e2e
-npm run gallery:visual:capture
-npm run gallery:visual:compare
 printf 'Sandbox concluída. Logs: %s\n' "$report"

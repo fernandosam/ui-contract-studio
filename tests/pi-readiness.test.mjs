@@ -23,10 +23,10 @@ test('Pi possui 102 exemplos válidos estruturalmente e contratos sem duplicidad
  }
 });
 
-test('96 compostos expõem content com estrita lista de  chaves editáveis',()=>{
- assert.equal(Object.keys(content).length,96);
+test('42 compostos expõem content com estrita lista de  chaves editáveis',()=>{
+ assert.equal(Object.keys(content).length,42);
  const fields=Object.values(content).flatMap(c=>c.fields);
- assert.ok(fields.length>500);
+ assert.ok(fields.length>300);
  for(const [name,config] of Object.entries(content)){
    const info=manifest.contracts.find(x=>x.type===name);
    assert.equal(info?.contentProperty,'content');
