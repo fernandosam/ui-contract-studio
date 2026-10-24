@@ -30,7 +30,8 @@ function branch(spec,root){
  return result;
 }
 const errors=[];
-if(candidates.size!==catalog.length)errors.push(`Amostras de apenas ${candidates.size}/${catalog.length} tipos`);
+const missing=catalog.filter(item=>!candidates.has(item.name)).map(item=>item.name);
+if(missing.length)errors.push(`Amostras ausentes para ${missing.length}/${catalog.length} contratos: ${missing.join(', ')}`);
 if(process.argv.includes('--write'))mkdirSync(target,{recursive:true});
 for(const item of catalog){
  const candidate=candidates.get(item.name);if(!candidate){errors.push(`${item.name}: nenhum exemplo localizado`);continue;}

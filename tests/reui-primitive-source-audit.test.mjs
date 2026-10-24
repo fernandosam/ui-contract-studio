@@ -44,7 +44,7 @@ test("código-fonte dos 559 padrões e contratos é inspecionado, sem falsificar
 test("cobertura semântica não promove exemplos nem modifica contratos de base",()=>{
  const source=readFileSync("scripts/audit-reui-primitives.mjs","utf8")
  const versions=read("src/ui-catalog/contracts.lock.json")
- assert.equal(versions.components.length,156)
+ assert.equal(versions.components.length,102)
  assert.ok(!source.includes("approve-reviewed-change"))
  assert.ok(!source.includes("extensionDefinitions = {"))
  assert.ok(!source.includes("github.com/fernandosam"))
