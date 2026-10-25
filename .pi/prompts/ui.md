@@ -1,9 +1,9 @@
-[English](ui.md) | [Português](ui.pt-BR.md)
-
 ---
 description: Create a JSON screen restricted to approved contracts, patterns, and v0.12 examples
 argument-hint: '<interface description>'
 ---
+
+[English](ui.md) | [Português](ui.pt-BR.md)
 
 Task: $ARGUMENTS
 

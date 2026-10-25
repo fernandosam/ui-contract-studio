@@ -65,9 +65,11 @@ function compareNames(label, expected, actual, errors) {
 export function checkDocumentation(root = projectRoot) {
   const errors = [];
   const docs = [
-    "README.md", "AGENTS.md", "CONTRIBUTING.md", "SECURITY.md",
-    ".pi/skills/ui-catalog/SKILL.md", "sandbox/README.md",
     ...findMarkdown(root, "docs"),
+    ...findMarkdown(root, ".pi"),
+    ...findMarkdown(root, "sandbox"),
+    ...readdirSync(root).filter(file => file.endsWith(".md")),
+
   ];
   for (const file of docs) {
     if (!existsSync(resolve(root, file))) {
@@ -107,9 +109,9 @@ export function checkDocumentation(root = projectRoot) {
   // Only the architecture guide carries snapshot totals; cross-check them.
   const architecture = read(root, "docs/architecture.md");
   for (const [label, total, pattern] of [
-    ["contratos", names.length, /\*\*(\d+) contratos ativos\*\*/],
-    ["shadcn", planned, /\*\*(\d+) primitivas planejadas\/locais\*\*/],
-    ["ReUI", reuiCount, /\*\*(\d+) exemplos React\*\*/],
+    ["contratos", names.length, /\*\*(\d+) (?:active contracts|contratos ativos)\*\*/],
+    ["shadcn", planned, /\*\*(\d+) (?:planned\/local primitives|primitivas planejadas\/locais)\*\*/],
+    ["ReUI", reuiCount, /\*\*(\d+) (?:React examples|exemplos React)\*\*/],
   ]) {
     if (Number(architecture.match(pattern)?.[1]) !== total) {
       errors.push("docs/architecture.md: quantidade de " + label + " desatualizada");

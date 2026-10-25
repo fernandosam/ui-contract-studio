@@ -1,9 +1,9 @@
-[English](SKILL.md) | [Português](SKILL.pt-BR.md)
-
 ---
 name: ui-catalog
 description: Gerar telas JSON com catálogo json-render fechado, reaproveitar padrões e submeter extensões a revisão independente.
 ---
+
+[English](SKILL.md) | [Português](SKILL.pt-BR.md)
 
 # Skill UI Catalog
 

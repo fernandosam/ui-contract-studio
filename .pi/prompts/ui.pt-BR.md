@@ -1,9 +1,9 @@
-[English](ui.md) | [Português](ui.pt-BR.md)
-
 ---
 description: Criar tela JSON restrita aos contratos aprovados e padrões e exemplos da v0.12
 argument-hint: '<descrição da interface>'
 ---
+
+[English](ui.md) | [Português](ui.pt-BR.md)
 
 Tarefa: $ARGUMENTS
 

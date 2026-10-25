@@ -1,9 +1,9 @@
-[English](SKILL.md) | [Português](SKILL.pt-BR.md)
-
 ---
 name: ui-catalog
 description: Generate JSON screens from a closed json-render catalog, reuse patterns, and submit extensions for independent review.
 ---
+
+[English](SKILL.md) | [Português](SKILL.pt-BR.md)
 
 # UI Catalog Skill
 
