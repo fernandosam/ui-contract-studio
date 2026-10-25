@@ -1,32 +1,34 @@
-# Arquitetura vigente
+[English](architecture.md) | [Português](architecture.pt-BR.md)
 
-O UI Contract Studio combina React com um catálogo **fechado** de elementos renderizáveis a partir de JSON, validado com Zod. Agentes podem gerar specs, mas não definir componentes, código, URLs ou efeitos arbitrários.
+# Current Architecture
 
-## Fontes de verdade
+UI Contract Studio combines React with a **closed** catalog of JSON-renderable elements validated by Zod. Agents may generate specs but must not define arbitrary components, code, URLs, or side effects.
 
-| Responsabilidade | Fonte |
+## Sources of truth
+
+| Responsibility | Source |
 | --- | --- |
-| Schemas de base/extensão | `src/ui-catalog/catalog.ts` e `src/ui-catalog/extensions/catalog.ts` |
-| Registry e adapters | `src/ui-catalog/registry.tsx` e `src/ui-catalog/extensions/registry.tsx` |
-| Versão, integridade e status dos contratos | `src/ui-catalog/contracts.lock.json` |
-| Origem, licença e revisão declarada | `src/ui-catalog/sources.json` |
-| API publicada para o agente | `pi-catalog/contracts.json` |
-| Tipos aposentados | `pi-catalog/retired-contracts.json` |
-| Telas e padrões | `src/ui-screens/` e `src/ui-patterns/` |
-| Composições estáticas | `src/ui-catalog/extensions/composites/templates/` |
-| Plano das fontes shadcn/ui | `shadcn-plan.json` |
-| Exemplos ReUI | `src/ui-catalog/extensions/composites/reui-composite-definitions.ts` |
+| Base/extension schemas | `src/ui-catalog/catalog.ts` and `src/ui-catalog/extensions/catalog.ts` |
+| Registry and adapters | `src/ui-catalog/registry.tsx` and `src/ui-catalog/extensions/registry.tsx` |
+| Contract version, integrity, and status | `src/ui-catalog/contracts.lock.json` |
+| Provenance, license, and declared review | `src/ui-catalog/sources.json` |
+| Published agent API | `pi-catalog/contracts.json` |
+| Retired types | `pi-catalog/retired-contracts.json` |
+| Screens and patterns | `src/ui-screens/` and `src/ui-patterns/` |
+| Static compositions | `src/ui-catalog/extensions/composites/templates/` |
+| shadcn/ui source plan | `shadcn-plan.json` |
+| ReUI examples | `src/ui-catalog/extensions/composites/reui-composite-definitions.ts` |
 
-No snapshot 0.24.0, lock e manifesto Pi registram **102 contratos ativos** (41 base e 61 extensões). O plano shadcn/ui contém **50 primitivas planejadas/locais** e a ReUI reúne **559 exemplos React**. São inventários independentes: instalar uma primitiva ou criar um exemplo não adiciona um contrato Pi. Em futuras versões, consulte os arquivos em vez de presumir que essas contagens permanecem iguais.
+In snapshot 0.24.0, the lock and Pi manifest list **102 active contracts** (41 base and 61 extensions). The shadcn/ui plan includes **50 planned/local primitives**, and ReUI contains **559 React examples**. These inventories are independent: installing a primitive or creating an example does not add a Pi contract. In future releases, consult the underlying files instead of assuming these counts still apply.
 
-## Responsabilidades
+## Responsibilities
 
-1. **Primitivas:** implementações shadcn/ui em `src/components/ui/` e componentes ReUI não autorizam uso automático na spec.
-2. **Catálogo:** Zod controla tipos, propriedades, slots, eventos e ações; adapters implementam o que foi aprovado.
-3. **Composições:** templates JSON, manifesto `generated-manifest.json` e código derivado em `src/ui-catalog/extensions/generated/`. Nunca edite saídas geradas. Comportamento stateful exige React explícito.
-4. **Runtime:** `src/ui-runtime/` fornece exploradores e renderização; o registry de composições é transmitido por contexto.
-5. **Pi Agent:** contexto selecionado e exemplos em `pi-catalog/`, com validação da spec antes de utilizar.
+1. **Primitives:** shadcn/ui implementations in `src/components/ui/` and ReUI components do not automatically authorize their use in a spec.
+2. **Catalog:** Zod controls types, properties, slots, events, and actions; adapters implement only approved capabilities.
+3. **Compositions:** JSON templates, the `generated-manifest.json` manifest, and derived code under `src/ui-catalog/extensions/generated/`. Never edit generated output. Stateful behavior requires explicit React code.
+4. **Runtime:** `src/ui-runtime/` provides explorers and rendering; the composition registry is passed through context.
+5. **Pi Agent:** selected context and examples in `pi-catalog/`, with spec validation before use.
 
-As propriedades `content` e `nodeProps` só editam valores autorizados: não substituem tipos, árvore, URLs, handlers, ações ou identidade dos campos. Versões/fingerprints e `status: approved` documentam integridade técnica, **não aprovação humana**. Demos de login, pagamento e acesso remoto não fornecem serviços de produção.
+`content` and `nodeProps` edit authorized values only: they cannot replace types, tree structure, URLs, handlers, actions, or field identity. Versions/fingerprints and `status: approved` document technical integrity, **not human approval**. Login, payment, and remote-access demos do not provide production services.
 
-Veja [componentes](components.md), [agentes](agents.md), [desenvolvimento](development.md) e [governança](governance.md).
+See [components](components.md), [agents](agents.md), [development](development.md), and [governance](governance.md).

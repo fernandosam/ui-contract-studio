@@ -1,30 +1,32 @@
-# Documentação — UI Contract Studio
+[English](README.md) | [Português](README.pt-BR.md)
 
-Esta página separa **guias vigentes** de **registros históricos de auditoria**. Para o comportamento atual, consulte primeiro os manifestos e o código indicados em [arquitetura](architecture.md).
+# Documentation — UI Contract Studio
 
-## Guias vigentes
+This page separates **current guides** from **historical audit records**. For current behavior, consult the manifests and source code listed under [architecture](architecture.md) first.
 
-| Guia | Objetivo |
+## Current guides
+
+| Guide | Purpose |
 | --- | --- |
-| [README](../README.md) | Apresentação e instalação |
-| [Arquitetura](architecture.md) | Fontes de verdade e camadas |
-| [Componentes e contratos](components.md) | shadcn/ui, ReUI, composições e admissão |
-| [Agentes e Pi](agents.md) | Geração segura e validação de specs |
-| [Desenvolvimento](development.md) | Ambiente, testes, CI e E2E |
-| [Governança](governance.md) | Revisão e auditoria contínua do repositório público |
+| [README](../README.md) | Introduction and installation |
+| [Architecture](architecture.md) | Sources of truth and layers |
+| [Components and contracts](components.md) | shadcn/ui, ReUI, compositions, and admission |
+| [Agents and Pi](agents.md) | Safe generation and spec validation |
+| [Development](development.md) | Environment, tests, CI, and E2E |
+| [Governance](governance.md) | Review and ongoing audits of the public repository |
 
-## Referências especializadas
+## Specialized references
 
-- [Fontes de dados e DataTable](integracao-dados.md)
-- [Biblioteca ReUI](reui-composite-library.md)
-- [Cobertura funcional das 31 famílias ReUI](reui-functional-coverage-31.md) — implementações, limites e certificação pendente
-- [Fidelidade visual das composições](revisao-visual-shadcn.md)
-- [Auditoria de exemplos oficiais](official-component-visual-audit.md)
-- [Sandbox conectada](../sandbox/README.md)
-- [Segurança](../SECURITY.md) e [avisos de terceiros](../THIRD_PARTY_NOTICES.md)
+- [Data sources and DataTable](integracao-dados.md)
+- [ReUI library](reui-composite-library.md)
+- [Functional coverage of 31 ReUI families](reui-functional-coverage-31.md) — implementations, limits, and pending certification
+- [Visual fidelity of compositions](revisao-visual-shadcn.md)
+- [Official example audit](official-component-visual-audit.md)
+- [Connected sandbox](../sandbox/README.md)
+- [Security](../SECURITY.md) and [third-party notices](../THIRD_PARTY_NOTICES.md)
 
-## Histórico e auditorias
+## History and audits
 
-O [índice histórico](history/README.md) agrupa decisões e levantamentos de versões anteriores. Contagens e instruções registradas em auditorias antigas **não são automaticamente válidas para a versão atual**.
+The [historical index](history/README.md) groups decisions and findings from previous versions. Counts and instructions recorded in older audits **do not automatically apply to the current version**.
 
-Veja também o [CHANGELOG](../CHANGELOG.md) e o [guia de contribuição](../CONTRIBUTING.md).
+Also see the [changelog](../CHANGELOG.md) and [contributing guide](../CONTRIBUTING.md).
