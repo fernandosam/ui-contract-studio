@@ -1,23 +1,25 @@
-> **Registro histórico (v0.23):** o resultado de DNS/npm descreve o ambiente usado na auditoria e não comprova o estado de instalações ou CI atuais. Consulte [desenvolvimento](development.md).
+[English](estilos-e-npm-v023.md) | [Português](estilos-e-npm-v023.pt-BR.md)
 
-# Auditoria CSS e registries — v0.23
+> **Historical record (v0.23):** DNS/npm results describe the environment used for that audit and do not establish current installation or CI status. See [development](development.md).
 
-## Arquivos atuais
+# CSS and Registry Audit — v0.23
 
-Não há `application.css` no projeto. A folha central do Tailwind/shadcn é `src/globals.css` (indicada em `components.json`); os estilos próprios ficam em `src/index.css`. A comparação segue o padrão Tailwind 4/shadcn de tokens CSS semânticos (`:root` + modo escuro, `@theme inline`, `@layer base`). Mantivemos `.dark-theme` porque os mecanismos de tema e testes existentes dependem desse seletor; não há necessidade de renomeá-lo para `.dark` e migrar tudo apenas por estética.
+## Files at the time
 
-## O que saiu
+There is no `application.css` in the project. The central Tailwind/shadcn stylesheet is `src/globals.css` (declared in `components.json`); project-specific styles are in `src/index.css`. The comparison follows the Tailwind 4/shadcn convention of semantic CSS tokens (`:root` + dark mode, `@theme inline`, `@layer base`). We retained `.dark-theme` because existing theme mechanisms and tests depend on that selector; renaming it to `.dark` and migrating everything for purely cosmetic reasons is unnecessary.
 
-- Definições de breakpoints e espaçamento idênticas aos defaults Tailwind v4; fontes duplicadas em blocos claro/escuro; variáveis de sombra desnecessárias.
-- Reset global de código, bloco pre, scrollbar invisível, botão `cursor: pointer`, body relativo em todo o site, declarações `box-sizing` duplicadas.
-- Estilos não utilizados do shell antigo, sidebar, badges, card genérico, botões, formulário, modais e vitrines anteriores ao shadcn. Estes estilos competiam com as primitivas oficiais.
+## What was removed
 
-## O que permanece
+- Breakpoint and spacing definitions identical to Tailwind v4 defaults; duplicated light/dark font declarations; unnecessary shadow variables.
+- Global code reset, pre-block styling, invisible scrollbar, `cursor: pointer` buttons, relative body positioning across the site, and duplicate `box-sizing` declarations.
+- Unused styles from the old shell, sidebar, badges, generic cards, buttons, forms, modals, and pre-shadcn galleries. These competed with official primitives.
 
-Paleta customizada OKLCH de claro/escuro, variáveis semânticas, raio e sombras diferenciados; `@theme inline` e os adaptadores customizados da API declarativa: Stack/Grid, Heading/Text, Chart, Metric, Rating, campos e Pagination. Não alteramos schemas, templates, contratos, dados, estrutura de galerias nem layouts de cards oficiais. Em uma execução conectada, compare capturas das 64 galerias antes/depois nas mesmas fontes e viewports.
+## What remains
 
-## Resultados executados nesta sandbox
+The custom light/dark OKLCH palette, semantic variables, distinct radii and shadows; `@theme inline`; and custom declarative API adapters: Stack/Grid, Heading/Text, Chart, Metric, Rating, fields, and Pagination. Schemas, templates, contracts, data, gallery structure, and official card layouts were not changed. In a connected run, compare captures of the 64 galleries before/after with the same fonts and viewports.
 
-`node sandbox/registry-probe.mjs` tentou três registries npm HTTPS. Todos falharam por DNS/tempo limite. Sem pacotes no cache, não houve `npm install`, `tsc`, build do Vite ou renderização em Playwright. Os testes `npm run test:offline` e verificações sem dependências são executáveis e devem ser repetidos após alterações. Veja `reports/sandbox/npm-registry-probe.json` para os erros e `sandbox/README.md` para as alternativas de rede.
+## Results actually obtained in that sandbox
 
-**Não alegar fidelidade visual** antes das capturas reais com dependências oficiais e comparação com previews do shadcn.
+`node sandbox/registry-probe.mjs` tried three HTTPS npm registries. All failed because of DNS/timeouts. Without cached packages, no `npm install`, `tsc`, Vite build, or Playwright rendering was performed. `npm run test:offline` and dependency-free checks can run and should be repeated after changes. See `reports/sandbox/npm-registry-probe.json` for errors and `sandbox/README.md` for networking alternatives.
+
+**Do not claim visual fidelity** until real captures are obtained with official dependencies and compared against shadcn previews.

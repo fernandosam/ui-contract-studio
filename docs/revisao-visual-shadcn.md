@@ -1,9 +1,11 @@
-# Fidelidade visual das composições shadcn/ui
+[English](revisao-visual-shadcn.md) | [Português](revisao-visual-shadcn.pt-BR.md)
 
-A revisão visual aplica-se aos **blocos e composições ativos** do projeto. As Galerias 1 e 2 do shadcn/create foram retiradas e seus inventários e testes específicos não fazem parte da verificação corrente.
+# Visual Fidelity of shadcn/ui Compositions
 
-Para alterar uma composição, consulte as fontes oficiais em `src/ui-catalog/block-source-inventory.json` e `src/ui-catalog/site-compositions-audit.json`. Compare o comportamento renderizado e o JSX original, incluindo dimensões, hierarquia, responsividade, temas e estados interativos. Registre screenshots reais de referência e da implementação local, sem presumir equivalência visual.
+Visual review applies to the project's **active blocks and compositions**. shadcn/create Galleries 1 and 2 were removed, and their specific inventories and tests are not part of current verification.
 
-Execute `npm run composites:check`, `npm run blocks:check`, `npm run validate` e `npm run build`. A auditoria de composições pode ser atualizada com `npm run composites:fidelity` e comparada por `npm run composites:compare`. A certificação visual não é automática.
+To change a composition, consult official sources in `src/ui-catalog/block-source-inventory.json` and `src/ui-catalog/site-compositions-audit.json`. Compare rendered behavior with the original JSX, including dimensions, hierarchy, responsiveness, themes, and interactive states. Record real screenshots of the reference and local implementation rather than assuming visual equivalence.
 
-O composto `Dashboard01` permanece disponível para reutilização e revisão individual, mesmo sem uma página Dashboard no menu.
+Run `npm run composites:check`, `npm run blocks:check`, `npm run validate`, and `npm run build`. Composition auditing can be updated with `npm run composites:fidelity` and compared using `npm run composites:compare`. Visual certification is not automatic.
+
+The `Dashboard01` composite remains available for reuse and individual review even without a Dashboard page in the menu.

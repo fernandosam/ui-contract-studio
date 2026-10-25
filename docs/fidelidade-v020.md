@@ -1,24 +1,26 @@
-> **Registro histórico (v0.20):** números, lacunas e estado de homologação refletem o snapshot auditado, não necessariamente a versão atual. Consulte [arquitetura](architecture.md) e [revisão visual vigente](revisao-visual-shadcn.md).
+[English](fidelidade-v020.md) | [Português](fidelidade-v020.pt-BR.md)
 
-# Revisão de composições e configuração de dados — v0.20
+> **Historical record (v0.20):** numbers, gaps, and certification status refer to the audited snapshot, not necessarily the current release. See [architecture](architecture.md) and the [current visual review](revisao-visual-shadcn.md).
 
-## Escopo e evidências
+# Composition and Data Configuration Review — v0.20
 
-Foram cruzados **118 componentes compostos** já presentes na v0.19:
+## Scope and evidence
 
-- 64 cards de `apps/v4/registry/bases/base/blocks/preview` e `preview-02` (revisão de código já documentada em `create-reference-audit.json`);
-- 27 blocos (dashboard, login, signup e sidebars), derivados de 103 arquivos e 27 previews (`block-source-inventory.json`);
-- 27 composições do portal `apps/v4/components` (22 declarativas e 5 com estado), descritas em `site-compositions-audit.json`.
+The review cross-referenced **118 composite components** already present in v0.19:
 
-**O que foi realmente verificado:** inventários e referências dos TSX, exemplos anteriores, presença dos elementos nos templates, rótulos publicados e páginas de preview HTML verificáveis; correção da apresentação de Activity Goal com barras, default de Cookie Settings mais próximo do original, e visualização de mensagens no Sidebar09. Os 118 componentes receberam análise automatizada com vínculos à origem e discrepâncias registradas em `src/ui-catalog/composite-fidelity-audit.json`; **41 têm divergências de rótulos identificadas heuristicamente**, que precisam de avaliação manual porque podem representar diferenças legítimas de layout ou localização.
+- 64 cards under `apps/v4/registry/bases/base/blocks/preview` and `preview-02` (code review previously documented in `create-reference-audit.json`);
+- 27 blocks (dashboard, login, signup, and sidebars), derived from 103 files and 27 previews (`block-source-inventory.json`);
+- 27 compositions from `apps/v4/components` (22 declarative and 5 stateful), documented in `site-compositions-audit.json`.
 
-**O que NÃO foi verificado:** não foram capturadas e comparadas lado a lado as 118 implementações locais com screenshots originais, em tema claro/escuro e desktop/mobile. A auditoria marca os 118 como **pendentes**. Não se afirma pixel-perfect; componentes como QR, visualizadores, grids e gráficos avançados permanecem adaptações e podem exigir novas primitivas aprovadas.
+**What was actually verified:** inventories and TSX source references, previous examples, elements present in templates, published labels, and inspectable HTML preview pages; improvements to Activity Goal bars, a Cookie Settings default closer to the original, and message rendering in Sidebar09. All 118 components underwent automated analysis with source references and discrepancies recorded in `src/ui-catalog/composite-fidelity-audit.json`; **41 have label differences detected heuristically**, requiring manual review because they may reflect legitimate layout or localization differences.
 
-## Flexibilidade tipada por nó
+**What was NOT verified:** the 118 local implementations were not captured and compared side by side with original screenshots, across light/dark themes and desktop/mobile. The audit marks all 118 as **pending**. No pixel-perfect claim is made; QR components, viewers, grids, and advanced charts remain adaptations and may need additional approved primitives.
 
-Os 113 compostos declarativos agora têm `nodeProps`, campo gerado de cada template em `src/ui-catalog/extensions/composites/generated-node-props.ts`, com schema Zod `.strict()` específico. São **2.293 propriedades expostas**, incluindo **81 arrays/objetos** (séries de gráficos, linhas de tabelas, seções da sidebar, opções etc.). O `content` textual antigo continua aceito.
+## Typed per-node flexibility
 
-Exemplo — Dashboard01:
+The 113 declarative composites then supported `nodeProps`, generated per template in `src/ui-catalog/extensions/composites/generated-node-props.ts` with specific `.strict()` Zod schemas. This exposed **2,293 properties**, including **81 arrays/objects** (chart series, table rows, sidebar sections, options, etc.). The existing textual `content` property remained supported.
+
+Example — Dashboard01:
 
 ```json
 {
@@ -40,18 +42,18 @@ Exemplo — Dashboard01:
 }
 ```
 
-Propriedades protegidas: não é possível substituir `type`, `children`, `on`, a identidade dos campos (`name`) ou links/URLs externos (`href`, `src`, `sourceId`). A camada pública Zod rejeita chaves de `nodeProps` desconhecidas; o template compilado é validado de novo pelo `catalog.validate()` antes de renderizar. As estruturas de dados podem ser alteradas **somente dentro dos limites dos contratos das primitivas** (p.ex., colunas/linhas válidas e gráficos com pelo menos um ponto).
+Protected properties: `type`, `children`, `on`, field identity (`name`), and external links/URLs (`href`, `src`, `sourceId`) cannot be replaced. The public Zod layer rejects unknown `nodeProps` keys; the compiled template is validated again by `catalog.validate()` before rendering. Data structures can change **only within primitive contract limits** (e.g., valid columns/rows and charts with at least one point).
 
-Os cinco componentes stateful continuam tendo APIs semânticas próprias. `SiteCardsActivityGoal` recebe `chartValues`, `goal`, `minimum`, `maximum`, `step` e `showBarChart`; Cookie Settings aceita `showOptionalCookies` e switches opcionais. Não há envio remoto, escrita de cookies ou autorização real.
+The five stateful components kept their semantic APIs. `SiteCardsActivityGoal` accepts `chartValues`, `goal`, `minimum`, `maximum`, `step`, and `showBarChart`; Cookie Settings accepts `showOptionalCookies` and optional switches. There is no remote submission, cookie writing, or actual authorization.
 
-## Fluxo de verificação
+## Verification workflow
 
 ```bash
 npm run composites:node-props:check
 npm run composites:generated:check
 npm run composites:fidelity
 npm run test:offline
-# No WSL, após instalar dependências:
+# On WSL, after installing dependencies:
 npm run pi:zod-schema
 npm run validate
 npm run build
@@ -59,6 +61,6 @@ npm run composites:capture
 npm run composites:compare
 ```
 
-Para a captura referencial, visite as URLs da auditoria e salve as imagens em `reports/composite-fidelity/reference/<Tipo>.png`. O Playwright gera as capturas locais de desktop em `reports/composite-fidelity/local/<Tipo>.png` e de mobile em `local/mobile/`. Compare no arquivo `reports/composite-fidelity/compare.html`. Após inspeção efetiva e com comentários, inclua em `src/ui-catalog/composite-visual-approvals.json` nome, revisor, data, observações e status `approved` para cada composição. `npm run composites:fidelity:strict` **não passa** enquanto houver itens pendentes ou evidências ausentes.
+For reference captures, visit the audit URLs and save images under `reports/composite-fidelity/reference/<Tipo>.png`. Playwright generates local desktop captures under `reports/composite-fidelity/local/<Tipo>.png` and mobile captures under `local/mobile/`. Compare them in `reports/composite-fidelity/compare.html`. After actual inspection with comments, add each composition's name, reviewer, date, observations, and `approved` status to `src/ui-catalog/composite-visual-approvals.json`. `npm run composites:fidelity:strict` **does not pass** while items or evidence remain pending.
 
-Sem `node_modules` e componentes shadcn locais, os testes offline verificam estrutura, integridade, exemplos e compilador puro, **não** certificam TypeScript completo, React no navegador ou semelhança exata com o preview.
+Without `node_modules` and local shadcn components, offline tests verify structure, integrity, examples, and the pure compiler; they **do not** certify full TypeScript, React in a browser, or exact similarity to the preview.

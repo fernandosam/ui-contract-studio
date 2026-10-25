@@ -1,44 +1,46 @@
-> **Registro histórico (v0.21):** os totais desta revisão documentam a decisão de retirada daquela versão. Consulte [componentes](components.md) e os manifestos atuais antes de reutilizar contagens.
+[English](revisao-compostos-v021.md) | [Português](revisao-compostos-v021.pt-BR.md)
 
-# Revisão dos componentes compostos — v0.21
+> **Historical record (v0.21):** the totals in this review document removal decisions from that version. Consult [components](components.md) and current manifests before reusing the counts.
 
-**Critério de permanência:** o componente deve criar um modelo semântico independente, um fluxo/estado/evento reconhecível ou um padrão de layout de página reutilizável e selecionável. **Critério de retirada:** ele apenas agrupa primitives existentes num Card/Stack/Alert sem API ou comportamento próprio.
+# Composite Component Review — v0.21
 
-A revisão foi deliberadamente conservadora: 118 composições anteriores examinadas por arquitetura e template; 22 wrappers retirados, 96 mantidos. Os 64 cards de referência permanecem representados visualmente, embora 10 tenham deixado de ser contratos para se tornar árvores inline na respectiva galeria. Os 27 blocos são mantidos porque oferecem layouts de página separados e navegáveis. A retirada é incompatível para clientes externos que ainda gerem os nomes aposentados.
+**Retention criterion:** the component creates an independent semantic model, a recognizable workflow/state/event, or a reusable, selectable page layout pattern. **Removal criterion:** it merely groups existing primitives within a Card/Stack/Alert without its own API or behavior.
 
-## Contratos retirados e alternativas
+The review was deliberately conservative: 118 previous compositions were examined by architecture and template; 22 wrappers were removed and 96 kept. The 64 reference cards remain represented visually, although 10 ceased to be contracts and became inline trees in the relevant gallery. The 27 blocks remain because they provide separate, navigable page layouts. Removal is breaking for external clients still generating the retired names.
 
-| Contrato | Motivo | Migração |
+## Removed contracts and alternatives
+
+| Contract | Reason | Migration |
 |---|---|---|
-| `IconPreviewGrid` | Uma grade de ícones não possui API ou comportamento distinto do Grid + Icon. | inline primitives in gallery |
-| `LiveWaveformCard` | Apresenta um BarGraph estático, sem áudio ao vivo ou API de waveform. | inline primitives in gallery |
-| `LoadingCard` | Apenas agrupa Skeleton dentro de Card. | inline primitives in gallery |
-| `QrConnect` | Apresenta Image e Button sem código QR funcional ou pareamento. | inline primitives in gallery |
-| `Shortcuts` | Apresenta etiquetas de atalhos e botões sem registrar comandos ou hotkeys. | inline primitives in gallery |
-| `SidebarNav` | Apenas agrupa Link/Text sem navegação gerenciada. | inline primitives in gallery |
-| `SiteAnnouncement` | Badge + Text + Icon em Card sem comportamento distinto. | approved primitive combination on demand |
-| `SiteCallout` | Card envolvendo Alert; Alert primitivo já representa a funcionalidade. | approved primitive combination on demand |
-| `SiteCardsCalendar` | Card envolvendo apenas DatePicker. | approved primitive combination on demand |
-| `SiteCardsExerciseMinutes` | Card envolvendo apenas LineGraph. | approved primitive combination on demand |
-| `SiteChartToolbar` | Tabs, Buttons e LineGraph sem editor real de gráficos. | approved primitive combination on demand |
-| `SiteCodeBlockCommand` | Tabs, Text e Button sem cópia de código ou alternância de shell real. | approved primitive combination on demand |
-| `SiteComponentPreview` | Tabs, Alert e Button sem carregar preview/código reais. | approved primitive combination on demand |
-| `SiteDirectorySearch` | Card, Input e Button sem execução de busca. | approved primitive combination on demand |
-| `SiteDocsBreadcrumb` | Stack de Text/Icon sem breadcrumbs semânticos/navegação. | approved primitive combination on demand |
-| `SiteDocsTableOfContents` | Text e Popover estáticos sem sincronização com documento. | approved primitive combination on demand |
-| `SiteSiteHeader` | Text e Button agrupados sem navegação/estado de header. | approved primitive combination on demand |
-| `SiteThemeSelector` | Select e Button sem integração com provider de tema. | approved primitive combination on demand |
-| `SkeletonLoading` | Apenas reúne quatro primitivas Skeleton. | inline primitives in gallery |
-| `StyleOverview` | Apenas apresenta amostras visuais de estilo usando Text/Separator/Button. | inline primitives in gallery |
-| `TypographySpecimen` | Apenas exemplifica tipografia e campo de texto. | inline primitives in gallery |
-| `UIElements` | Apenas demonstra controles base sem estado composto. | inline primitives in gallery |
+| `IconPreviewGrid` | An icon grid has no API or behavior distinct from Grid + Icon. | Inline primitives in gallery |
+| `LiveWaveformCard` | Shows a static BarGraph without live audio or a waveform API. | Inline primitives in gallery |
+| `LoadingCard` | Merely groups Skeleton inside Card. | Inline primitives in gallery |
+| `QrConnect` | Shows Image and Button without functional QR code or pairing. | Inline primitives in gallery |
+| `Shortcuts` | Shows shortcut labels and buttons without registering commands or hotkeys. | Inline primitives in gallery |
+| `SidebarNav` | Merely groups Link/Text without managed navigation. | Inline primitives in gallery |
+| `SiteAnnouncement` | Badge + Text + Icon in Card without distinct behavior. | Approved primitive combination on demand |
+| `SiteCallout` | Card wrapping Alert; primitive Alert already represents the functionality. | Approved primitive combination on demand |
+| `SiteCardsCalendar` | Card wrapping DatePicker only. | Approved primitive combination on demand |
+| `SiteCardsExerciseMinutes` | Card wrapping LineGraph only. | Approved primitive combination on demand |
+| `SiteChartToolbar` | Tabs, Buttons, and LineGraph without a real chart editor. | Approved primitive combination on demand |
+| `SiteCodeBlockCommand` | Tabs, Text, and Button without real copying or shell switching. | Approved primitive combination on demand |
+| `SiteComponentPreview` | Tabs, Alert, and Button without real preview/code loading. | Approved primitive combination on demand |
+| `SiteDirectorySearch` | Card, Input, and Button without running a search. | Approved primitive combination on demand |
+| `SiteDocsBreadcrumb` | Stack of Text/Icon without semantic breadcrumbs/navigation. | Approved primitive combination on demand |
+| `SiteDocsTableOfContents` | Static Text and Popover without syncing to a document. | Approved primitive combination on demand |
+| `SiteSiteHeader` | Text and Button grouped without header navigation/state. | Approved primitive combination on demand |
+| `SiteThemeSelector` | Select and Button without integration with the theme provider. | Approved primitive combination on demand |
+| `SkeletonLoading` | Merely combines four Skeleton primitives. | Inline primitives in gallery |
+| `StyleOverview` | Shows visual style samples using Text/Separator/Button only. | Inline primitives in gallery |
+| `TypographySpecimen` | Illustrates typography and a text field only. | Inline primitives in gallery |
+| `UIElements` | Demonstrates base controls without composite state. | Inline primitives in gallery |
 
-## Exploração no menu Ferramentas
+## Exploration under the Tools menu
 
-- **Primitivos shadcn**: 41 tipos base e o primitivo Field.
-- **Componentes compostos**: 99 contratos (96 composições semânticas e os adaptadores DataTable, DatePicker e BlockSidebar). Propriedades de conteúdo e `nodeProps` continuam sujeitas a schemas fechados.
-- **Exemplos**: escolha uma das seis telas ou oito padrões, selecione qualquer nó e ajuste suas props locais com validação Zod antes de renderizar a árvore completa.
+- **shadcn Primitives:** 41 base types and the Field primitive.
+- **Composite Components:** 99 contracts (96 semantic compositions and the DataTable, DatePicker, and BlockSidebar adapters). Content properties and `nodeProps` remain subject to closed schemas.
+- **Examples:** choose one of six screens or eight patterns, select any node, and adjust local props with Zod validation before rendering the complete tree.
 
-## Integridade e limitações
+## Integrity and limitations
 
-Execute `npm run composites:pruning:check`, `npm run test:offline`, `npm run pi:verify` e, com npm conectado, `npm run validate && npm run build && npm run test:e2e`. O resultado da auditoria é registrado em `src/ui-catalog/composite-pruning-review.json`. Não há confirmação de correspondência visual pixel a pixel; a v0.20 já mantinha esse processo pendente.
+Run `npm run composites:pruning:check`, `npm run test:offline`, `npm run pi:verify`, and, with connected npm, `npm run validate && npm run build && npm run test:e2e`. The audit result is recorded in `src/ui-catalog/composite-pruning-review.json`. Pixel-for-pixel visual matching was not confirmed; v0.20 already documented this process as pending.
