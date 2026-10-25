@@ -26,14 +26,14 @@
 | Família | Exemplos | Representação e evolução funcional | Limite que não deve virar prop genérica |
 |---|---:|---|---|
 | Accordion | 11 | Single/multiple, estado expandido, indicadores e aparência existentes | Conteúdo aninhado, avatares e checklist são composições |
-| Alert | 20 | Tons tipados e dismiss local já admitidos | Botões de ação e avisos com identidade externa |
-| Avatar | 35 | Fallback, dimensões e presença local | Fotos externas, grupos, badge, menu de conta |
+| Alert | 20 | **Novo:** título/ícone opcionais; tons tipados e dismiss local | Botões de ação e avisos com identidade externa |
+| Avatar | 35 | **Novo:** formato, posição do indicador, fallback, dimensões e presença local | Fotos externas, grupos, badge, menu de conta |
 | Badge | 25 | **Novo:** tons, aparência sólida/suave/contorno, tamanhos e dot | Links, remoção e imagens exigem composição |
 | Button | 61 | Variantes/tamanhos oficiais, loading, contagem e ícones admitidos anteriormente | Copy, login social, tema e split action têm estado/fluxo |
-| ButtonGroup | 57 | Seleção demonstrativa e orientação existentes | Input, menu, múltiplos comandos e transações |
+| ButtonGroup | 57 | **Novo:** variantes/tamanhos uniformes e ícones seguros; seleção demonstrativa e orientação | Input, menu, múltiplos comandos e transações |
 | Card | 18 | **Novo:** rodapé textual além dos slots e limites de largura | Layouts multimídia e botões compostos |
 | Carousel | 11 | Loop, setas, indicadores, densidade e orientação existentes | Mídias externas, thumbnails, autoplay |
-| Checkbox | 22 | Estado, required e disabled existentes | Grupos, cards de termos e submissões |
+| Checkbox | 22 | **Novo:** descrição e invalid, além de estado, required e disabled | Grupos, cards de termos e submissões |
 | Collapsible | 10 | Disclosure e slots declarados existentes | Árvore e controles internos complexos |
 | Dialog | 10 | Abertura controlada e conteúdo em slot existente | Formulários, confirmações e submissões remotas |
 | Drawer | 5 | Direção, estado de abertura e slot existentes | Workflows e componentes internos não autorizados |
@@ -42,21 +42,21 @@
 | Pagination | 15 | Janela de páginas, salto, first/last e page size já existentes | Consulta real, paginação remota e estado de URL |
 | Popover | 11 | Abertura, alinhamento e conteúdo textual existentes | Formulários e seleções ricas em composição |
 | Progress | 8 | **Novo:** tonalidades de estado e controle de exibição do valor | Etapas temporizadas e barras compostas |
-| RadioGroup | 17 | Opção única, disabled e orientação existentes | Cartões de preço, pagamento e avatares |
+| RadioGroup | 17 | **Novo:** descrição textual por opção; seleção única, disabled e orientação | Cartões de preço, pagamento e avatares |
 | Select | 33 | **Novo:** grupos rotulados e descrição de opções | Avatares, flags via URL, filtragem e entradas multimídia |
 | Separator | 6 | **Novo:** rótulo textual centralizado | Blocos completos de informação entre divisões |
-| Skeleton | 10 | Placeholder de forma/dimensões existentes | Templates inteiros de card, chat e tabela |
+| Skeleton | 10 | **Novo:** formas e quantidade limitada de linhas; dimensões existentes | Templates inteiros de card, chat e tabela |
 | Slider | 12 | **Novo:** 1–3 polegares, intervalos, passos e valores | Gradientes, ticks ricos, teclado de incremento e emoji |
 | Spinner | 12 | **Novo:** tons e rótulo apenas para leitor de tela | Overlays e botões compostos |
 | Switch | 14 | **Novo:** tamanho sm/default e descrição acessível | Preferências em cards, ajuda rica e persistência |
 | Table | 17 | **Novo:** vazio, densidade compacta e zebra | Ordenação/edição/filtros: utilizar DataTable |
 | Tabs | 9 | **Novo:** painéis textuais, list variant line e disabled por tab | Painéis React de formulários, roteamento e nested tabs |
 | Textarea | 6 | **Novo:** ajuda, invalid e maxLength | Contador dinâmico: CharacterCountTextarea |
-| Toggle | 14 | pressed, tamanho/variante e evento existentes | Contagem, ícones ricos, tooltip e combinações |
+| Toggle | 14 | **Novo:** ícones permitidos; pressed, tamanho/variante e evento | Contagem, ícones ricos, tooltip e combinações |
 | ToggleGroup | 16 | **Novo:** ícones allowlisted e opção individual disabled | Itens rich e ações externas |
 | Tooltip | 16 | **Novo:** ícone de gatilho e atalho textual | Conteúdo com avatar e ações ricas |
-| Rating | 9 | Exibição fracionária e seleção inteira existentes | Interatividade em meia estrela, avaliação com envio, escalas de faces |
-| **Total** | **559** | **31 famílias com exemplos React versionados; 14 contratos base evoluídos nesta rodada** | **Fidelidade completa ainda não certificada** |
+| Rating | 9 | **Novo:** seleção em meia estrela e valor visível; exibição fracionária | Interatividade em meia estrela, avaliação com envio, escalas de faces |
+| **Total** | **559** | **31 famílias com exemplos React versionados; 20 contratos base distintos evoluídos nesta rodada** | **Fidelidade completa ainda não certificada** |
 
 ## Evidência existente e critérios de conclusão
 
@@ -64,8 +64,8 @@
   snapshot/hash de fonte. A auditoria extrai propriedades recorrentes, estados
   e sinais de integração, mas não executa eventos nem navegador.
 - `tests/reui-family-functional-coverage.integration.test.ts` verifica a
-  correspondência das 31 famílias com 559 fontes, aceitação dos 14 novos
-  grupos de propriedades por Zod e recusa de atributos indevidos.
+  correspondência das 31 famílias com 559 fontes, aceitação dos 14 conjuntos iniciais de
+  propriedades por Zod, além de 8 conjuntos complementares e recusa de atributos indevidos.
 - `tests/e2e/reui-gallery-full.spec.ts` verifica a renderização no navegador
   dos 559 exemplos em 31 famílias, sem fallback de prévia, **quando executado**.
   Sua execução é manual na `main` segundo a política do projeto.
