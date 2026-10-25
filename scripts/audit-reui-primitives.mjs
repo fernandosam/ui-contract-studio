@@ -68,6 +68,28 @@ function assess(family,best,previous,signals,imports){
     return ["needs-behavior-review","O exemplo contém estado e eventos cuja semântica deve ser verificada contra eventos autorizados."];
   return ["core-contract-candidate","Semântica básica relacionada à primitiva; paridade exata de estilos, propriedades e estados não certificada."];
 }
+// Only literal, known JSX presentation props are counted. This is an
+// inventory of candidate capabilities, not an authorization to expose them.
+// Each property is counted at most once per example, not once per occurrence.
+const presentationProps = new Set(("variant size disabled orientation value defaultValue checked defaultChecked " +
+  "type placeholder required readOnly open defaultOpen multiple collapsible side align " +
+  "inset icon loading className label description title maxLength rows step min max " +
+  "loop opts draggable autoPlay autoplay showArrows showIndicators dir color " +
+  "name src alt href render asChild shortcut").split(" "));
+function exampleProps(family,code) {
+  const tags = family==="RadioGroup" ? new Set(["RadioGroup","RadioGroupItem"]) :
+    family==="Rating" ? new Set(["Rating","RatingItem"]) : new Set([family]);
+  const props=new Set();
+  // Heuristic: JSX opening tags, bounded to the named family. Custom nested
+  // components remain visible in implementationSignals.primitives instead.
+  for(const match of code.matchAll(/<([A-Z][A-Za-z0-9]*)\b([^>]*?)>/g)){
+    if(!tags.has(match[1]))continue;
+    for(const attr of match[2].matchAll(/(?:^|\s)([A-Za-z][A-Za-z0-9]*)\s*(?==|(?=\s|\/|$))/g)){
+      if(presentationProps.has(attr[1]))props.add(attr[1]);
+    }
+  }
+  return [...props].sort();
+}
 const examples=[],summary=[];
 for(const [family,info] of Object.entries(families)){
   const related=family==="RadioGroup"?"Radio":family;
@@ -92,15 +114,24 @@ for(const [family,info] of Object.entries(families)){
       exampleId:id,family,title,sourcePath:path,sourceSha256:sha(code),sourceLines:code.split("\n").length,
       sourceUrl:guide.sourceUrl,caseDescription:guide.bestFor,
       approvedContract:name,coverage,reason,
-      implementationSignals:{primitives:imports,...signals},
+      implementationSignals:{primitives:imports,observedPresentationProps:exampleProps(family,code),...signals},
       priorSemanticDecision:decision.classification,
       visualParity:"not-tested",keyboardParity:"not-tested",
     };
     examples.push(item);group.push(item);
   }
   const counts={};for(const e of group)counts[e.coverage]=(counts[e.coverage]??0)+1;
+  const propCounts=new Map();
+  for(const entry of group)for(const prop of entry.implementationSignals.observedPresentationProps){
+    propCounts.set(prop,(propCounts.get(prop)??0)+1);
+  }
+  const observedProps=[...propCounts].map(([property,examples])=>({
+    property,examples,coveragePercent:Math.round(examples*100/group.length),
+    inApprovedContract:contractProps.includes(property)
+  })).sort((a,b)=>b.examples-a.examples||a.property.localeCompare(b.property));
   summary.push({family,examples:group.length,contract:related,version:contracts.get(related)?.version??null,
-    contractProps,coverage:counts,signals:{
+    contractProps,observedProps,sharedProps:observedProps.filter(p=>p.examples>=2),
+    coverage:counts,signals:{
       state:group.filter(x=>x.implementationSignals.state).length,
       multiplePrimitives:group.filter(x=>x.implementationSignals.primitives.length>1).length,
       remoteMedia:group.filter(x=>x.implementationSignals.remoteMedia).length,
@@ -118,4 +149,13 @@ const filepath="src/ui-catalog/reui-primitive-coverage-audit.json",data=JSON.str
 if(process.argv.includes("--write"))writeFileSync(filepath,data);
 if(process.argv.includes("--check")&&existsSync(filepath)&&readFileSync(filepath,"utf8")!==data)
   throw new Error(filepath+" desatualizado. Execute npm run reui:audit -- --write");
-console.log("ReUI source audit: "+examples.length+" examples / "+summary.length+" families; "+JSON.stringify(totals));
+if(process.argv.includes("--summary-json")) {
+  console.log(JSON.stringify({
+    count:report.count,familiesCount:report.familiesCount,
+    families:report.families.map(f=>({
+      family:f.family,examples:f.examples,observedProps:f.observedProps,sharedProps:f.sharedProps
+    }))
+  }));
+} else {
+  console.log("ReUI source audit: "+examples.length+" examples / "+summary.length+" families; "+JSON.stringify(totals));
+}

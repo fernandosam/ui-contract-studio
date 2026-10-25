@@ -19,17 +19,17 @@ import { TooltipProvider, Tooltip as ShadcnTooltip, TooltipTrigger, TooltipConte
 import { Popover as ShadcnPopover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Select as ShadcnSelect, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { RadioGroup as ShadcnRadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { DropdownMenu as ShadcnDropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenu as ShadcnDropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuShortcut } from "@/components/ui/dropdown-menu";
 import { Toggle as ShadcnToggle } from "@/components/ui/toggle";
 import { ToggleGroup as ShadcnToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ButtonGroup as ShadcnButtonGroup } from "@/components/ui/button-group";
-import { Carousel as ShadcnCarousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel as ShadcnCarousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, useCarousel } from "@/components/ui/carousel";
 import { Card as ShadcnCard, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input as ShadcnInput } from "@/components/ui/input";
 import { Badge as ShadcnBadge } from "@/components/ui/badge";
 import { Table as ShadcnTable, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 /* eslint-disable @typescript-eslint/no-explicit-any -- json-render validates props using strict Zod schemas before rendering. */
-import { useId, useState, type ReactNode, type CSSProperties } from "react";
+import { useEffect, useId, useState, type ReactNode, type CSSProperties } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, Info,
   MapPin, Mail, Globe, Calendar, Star, Heart, Check, X, ArrowRight, Phone,
   Building, Clock, Shield, Zap, Users, Eye, Download, Upload, Search,
@@ -65,6 +65,26 @@ function Chart({ data, title, kind }: {data: {label:string;value:number}[];title
     </svg>
     <div className="pg-chart-legend">{data.map((d,i)=><span key={i}>{d.label}</span>)}</div>
   </figure>;
+}
+
+function CarouselIndicators() {
+  const {api}=useCarousel();
+  const [selected,setSelected]=useState(0);
+  useEffect(()=>{
+    if(!api)return;
+    const update=()=>setSelected(api.selectedScrollSnap());
+    update();
+    api.on("select",update);
+    api.on("reInit",update);
+    return ()=>{api.off("select",update);api.off("reInit",update);};
+  },[api]);
+  if(!api)return null;
+  return <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Selecionar slide">
+    {api.scrollSnapList().map((_,i)=><button type="button" key={i}
+      onClick={()=>api.scrollTo(i)} aria-label={`Ir para slide ${i+1}`}
+      aria-current={i===selected?"true":undefined}
+      className={`size-2.5 rounded-full border border-primary ${i===selected?"bg-primary":"bg-transparent"}`}/>)}
+  </div>;
 }
 
 export const playgroundImplementations = {
@@ -105,15 +125,20 @@ export const playgroundImplementations = {
   Collapsible: ({props,children,bindings,emit})=>{const [open,setOpen]=useValue(props.open??props.defaultOpen??false,bindings?.open);return <ShadcnCollapsible open={open} disabled={props.disabled} onOpenChange={(v:boolean)=>{setOpen(v);notify(emit,"openChange");}}><CollapsibleTrigger render={<ShadcnButton variant="outline" type="button"/>}>{props.title}<ChevronDown className="ml-2 size-4"/></CollapsibleTrigger><CollapsibleContent className="mt-2 flex flex-col gap-3">{children}</CollapsibleContent></ShadcnCollapsible>;},
   Dialog: ({props,children,bindings,emit})=>{const [open,setOpen]=useValue(props.open??props.defaultOpen??false,bindings?.open);return <ShadcnDialog open={open} onOpenChange={(v:boolean)=>{setOpen(v);notify(emit,"openChange");}}><DialogTrigger render={<ShadcnButton type="button" variant="outline"/>}>Abrir: {props.title}</DialogTrigger><DialogContent><DialogHeader><DialogTitle>{props.title}</DialogTitle>{props.description&&<DialogDescription>{props.description}</DialogDescription>}</DialogHeader>{children}</DialogContent></ShadcnDialog>;},
   Drawer: ({props,children,bindings,emit})=>{const [open,setOpen]=useValue(props.open??props.defaultOpen??false,bindings?.open);return <ShadcnDrawer open={open} swipeDirection={props.swipeDirection??"down"} onOpenChange={(v:boolean)=>{setOpen(v);notify(emit,"openChange");}}><DrawerTrigger render={<ShadcnButton type="button" variant="outline"/>}>Abrir painel: {props.title}</DrawerTrigger><DrawerContent><DrawerHeader><DrawerTitle>{props.title}</DrawerTitle>{props.description&&<DrawerDescription>{props.description}</DrawerDescription>}</DrawerHeader><div className="p-4">{children}</div></DrawerContent></ShadcnDrawer>;},
-  Carousel: ({props}) => <div className="w-full min-w-0 max-w-full overflow-hidden" data-testid="safe-carousel">
-    <ShadcnCarousel orientation={props.orientation??"horizontal"} className="w-full min-w-0 max-w-full" aria-label="Carrossel de componentes">
-      <CarouselContent>{(props.items??[]).map((item:any,i:number)=><CarouselItem key={i} className={props.orientation==="vertical"?"basis-full":"basis-full sm:basis-3/4 lg:basis-1/2"}>
+  Carousel: ({props}) => <div className="w-full min-w-0 overflow-hidden">
+    <ShadcnCarousel orientation={props.orientation??"horizontal"} opts={{loop:props.loop??false}}
+      className="w-full min-w-0 max-w-full" aria-label={props.ariaLabel??"Carrossel de componentes"}>
+      <CarouselContent>{(props.items??[]).map((item:any,i:number)=><CarouselItem key={i}
+        className={props.orientation==="vertical"?"basis-full":props.slidesPerView===1?"basis-full":props.slidesPerView===2?"basis-full lg:basis-1/2":props.slidesPerView===3?"basis-full sm:basis-1/2 lg:basis-1/3":"basis-full sm:basis-3/4 lg:basis-1/2"}>
         <ShadcnCard className="h-full min-w-0"><CardHeader>{item.title&&<CardTitle>{item.title}</CardTitle>}{item.description&&<CardDescription>{item.description}</CardDescription>}</CardHeader></ShadcnCard>
       </CarouselItem>)}</CarouselContent>
-      <div className="mt-4 flex items-center justify-end gap-2 px-1" role="group" aria-label="Controles do carrossel">
-        <CarouselPrevious className="static inset-auto translate-x-0 translate-y-0" style={{position:"static",transform:"none",inset:"auto"}}/>
-        <CarouselNext className="static inset-auto translate-x-0 translate-y-0" style={{position:"static",transform:"none",inset:"auto"}}/>
-      </div>
+      {(props.showArrows!==false||props.showIndicators)&&<div className="mt-4 flex items-center justify-between gap-2 px-1">
+        {props.showIndicators?<CarouselIndicators/>:<span/>}
+        {props.showArrows!==false&&<div className="flex items-center justify-end gap-2" role="group" aria-label="Controles do carrossel">
+          <CarouselPrevious className="static inset-auto translate-x-0 translate-y-0" style={{position:"static",transform:"none",inset:"auto"}}/>
+          <CarouselNext className="static inset-auto translate-x-0 translate-y-0" style={{position:"static",transform:"none",inset:"auto"}}/>
+        </div>}
+      </div>}
     </ShadcnCarousel>
   </div>,
   Table: ({props})=><div className="overflow-x-auto rounded-md border border-border" ref={node=>{
@@ -126,9 +151,24 @@ export const playgroundImplementations = {
   Text: ({props})=><p className={`pg-text pg-text--${props.variant??"body"}`}>{props.text}</p>,
   Image: ({props})=><div className="pg-placeholder" role="img" aria-label={props.alt} style={{maxWidth:props.width??undefined,height:props.height??120}}><span>▧</span><small>{props.alt}</small></div>,
   Icon: ({props})=>{const Icon=lucideIcons[props.name as keyof typeof lucideIcons];return Icon?<Icon size={props.size==="lg"?24:props.size==="sm"?16:20} className={`pg-icon--${props.color??"default"}`} aria-hidden="true"/>:null;},
-  Avatar: ({props})=><ShadcnAvatar className={props.size==="lg"?"size-12":props.size==="sm"?"size-8":"size-10"}><AvatarFallback aria-label={props.name}>{String(props.name).split(" ").map((x:string)=>x[0]).slice(0,2).join("").toUpperCase()}</AvatarFallback></ShadcnAvatar>,
+  Avatar: ({props})=><span className="relative inline-flex shrink-0">
+    <ShadcnAvatar className={props.size==="lg"?"size-12":props.size==="sm"?"size-8":"size-10"}>
+      <AvatarFallback aria-label={props.name}>{String(props.name).split(" ").map((x:string)=>x[0]).slice(0,2).join("").toUpperCase()}</AvatarFallback>
+    </ShadcnAvatar>
+    {props.status&&<span role="img" aria-label={`Presença: ${({online:"disponível",away:"ausente",busy:"ocupado",offline:"desconectado"} as Record<string,string>)[props.status]}`}
+      className={`absolute bottom-0 right-0 size-3 rounded-full border-2 border-background ${props.status==="online"?"bg-green-600":props.status==="busy"?"bg-red-600":props.status==="away"?"bg-amber-500":"bg-muted-foreground"}`}/>}
+  </span>,
   Badge: ({props})=><ShadcnBadge variant={props.variant??"default"}>{props.label}</ShadcnBadge>,
-  Alert: ({props})=><ShadcnAlert variant={props.variant??"default"}><Info className="size-4"/><AlertTitle>{props.title}</AlertTitle>{props.description&&<AlertDescription>{props.description}</AlertDescription>}</ShadcnAlert>,
+  Alert: ({props})=>{
+    const [visible,setVisible]=useState(true);
+    if(!visible)return null;
+    const ToneIcon=props.tone==="success"?CheckCircle:props.tone==="warning"?AlertTriangle:props.tone==="error"?XCircle:Info;
+    return <ShadcnAlert variant={props.variant==="destructive"||props.tone==="error"?"destructive":"default"} className="relative">
+      <ToneIcon className="size-4"/><AlertTitle>{props.title}</AlertTitle>
+      {props.description&&<AlertDescription>{props.description}</AlertDescription>}
+      {props.dismissible&&<button type="button" aria-label="Fechar aviso" className="absolute right-2 top-2 rounded p-1 focus-visible:outline-2 focus-visible:outline-ring" onClick={()=>setVisible(false)}><X aria-hidden="true" className="size-4"/></button>}
+    </ShadcnAlert>;
+  },
   Progress: ({props})=><div className="pg-field">{props.label&&<ShadcnLabel>{props.label}</ShadcnLabel>}<ShadcnProgress aria-label={props.label??"Progresso"} value={props.max?100*props.value/props.max:props.value}/><span className="pg-muted">{Math.round(props.value)} / {props.max??100}</span></div>,
   Skeleton: ({props})=><ShadcnSkeleton className={props.rounded?"rounded-full":"rounded-md"} style={{width:props.width??"100%",height:props.height??"1.3rem"}}/>,
   Spinner: ({props})=><span role="status" className="inline-flex items-center gap-2"><ShadcnSpinner className={props.size==="lg"?"size-8":props.size==="sm"?"size-4":"size-6"}/>{props.label??"Carregando"}</span>,
@@ -178,7 +218,28 @@ export const playgroundImplementations = {
     </ShadcnButton>;
   },
   Link: ({props,emit})=><a className={buttonVariants({variant:props.variant??"link",size:"sm"})} href={props.href} onClick={()=>notify(emit,"press")}>{props.label}</a>,
-  DropdownMenu: ({props,emit})=><ShadcnDropdownMenu><DropdownMenuTrigger render={<ShadcnButton type="button" variant="outline" disabled={props.disabled}/>}>{props.label}<ChevronDown className="size-4"/></DropdownMenuTrigger><DropdownMenuContent side={props.side??"bottom"} align={props.align??"start"}>{props.items.map((item:any)=><DropdownMenuItem key={item.value} disabled={item.disabled} onClick={()=>notify(emit,"select")}>{item.label}</DropdownMenuItem>)}</DropdownMenuContent></ShadcnDropdownMenu>,
+  DropdownMenu: ({props,emit})=>{
+    const [checks,setChecks]=useState<Record<string,boolean>>({});
+    const renderLeaf=(item:any)=><DropdownMenuItem key={item.value} disabled={item.disabled} variant={item.variant??"default"} onClick={()=>notify(emit,"select")}>
+      {item.label}{item.shortcut&&<DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>}
+    </DropdownMenuItem>;
+    return <ShadcnDropdownMenu><DropdownMenuTrigger render={<ShadcnButton type="button" variant="outline" disabled={props.disabled}/>}>{props.label}<ChevronDown className="size-4"/></DropdownMenuTrigger>
+      <DropdownMenuContent side={props.side??"bottom"} align={props.align??"start"}>
+        {props.items.map((item:any)=>{
+          if(item.type==="separator")return <DropdownMenuSeparator key={item.value}/>;
+          if(item.type==="label")return <DropdownMenuLabel key={item.value}>{item.label}</DropdownMenuLabel>;
+          if(item.type==="checkbox")return <DropdownMenuCheckboxItem key={item.value} disabled={item.disabled}
+            checked={checks[item.value]??item.defaultChecked??false}
+            onCheckedChange={(next:boolean)=>{setChecks(previous=>({...previous,[item.value]:next}));notify(emit,"select");}}>{item.label}</DropdownMenuCheckboxItem>;
+          if(item.type==="submenu")return <DropdownMenuSub key={item.value}>
+            <DropdownMenuSubTrigger>{item.label}</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>{item.items.map(renderLeaf)}</DropdownMenuSubContent>
+          </DropdownMenuSub>;
+          return renderLeaf(item);
+        })}
+      </DropdownMenuContent>
+    </ShadcnDropdownMenu>;
+  },
   Toggle: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.pressed??props.defaultPressed??false,bindings?.pressed);return <ShadcnToggle variant={props.variant??"default"} size={props.size??"default"} disabled={props.disabled} pressed={value} onPressedChange={(v:boolean)=>{setValue(v);notify(emit,"change");}}>{props.label}</ShadcnToggle>;},
   ToggleGroup: ({props,bindings,emit})=>{
     const initial=props.value??props.defaultValue??"";
@@ -196,5 +257,40 @@ export const playgroundImplementations = {
     </ShadcnToggleGroup>;
   },
   ButtonGroup: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.selected??"",bindings?.selected);return <ShadcnButtonGroup orientation={props.orientation??"horizontal"}>{props.buttons.map((item:any)=><ShadcnButton key={item.value} type="button" disabled={item.disabled} variant={value===item.value?"default":"outline"} onClick={()=>{setValue(item.value);notify(emit,"change");}}>{item.label}</ShadcnButton>)}</ShadcnButtonGroup>;},
-  Pagination: ({props,bindings,emit})=>{const [page,setPage]=useValue(props.page??1,bindings?.page);const change=(p:number)=>{setPage(p);notify(emit,"change");};return <nav className="pg-pagination" aria-label="Paginação"><button aria-label="Anterior" disabled={page<=1} onClick={()=>change(page-1)}><ChevronLeft size={15}/></button>{Array.from({length:Math.min(props.totalPages,30)},(_,i)=><button key={i} aria-current={page===i+1?"page":undefined} onClick={()=>change(i+1)}>{i+1}</button>)}<button aria-label="Próximo" disabled={page>=props.totalPages} onClick={()=>change(page+1)}><ChevronRight size={15}/></button></nav>;},
+  Pagination: ({props,bindings,emit})=>{
+    const [page,setPage]=useValue(props.page??1,bindings?.page);
+    const [size,setSize]=useState(props.pageSize??10);
+    const [target,setTarget]=useState(String(props.page??1));
+    const total=Math.max(1,props.totalItems==null?props.totalPages:Math.ceil(props.totalItems/size));
+    const current=clamp(page,1,total),siblings=props.siblingCount??1;
+    const windowPages=new Set<number>([1,total]);
+    for(let p=Math.max(1,current-siblings);p<=Math.min(total,current+siblings);p++)windowPages.add(p);
+    // Includes a neighbor on both ends to avoid a lone ellipsis for exactly one page.
+    if(current-siblings===3)windowPages.add(2);
+    if(current+siblings===total-2)windowPages.add(total-1);
+    const pages=[...windowPages].sort((a,b)=>a-b);
+    const change=(next:number)=>{const bounded=clamp(next,1,total);setPage(bounded);setTarget(String(bounded));notify(emit,"change");};
+    return <div className="flex flex-wrap items-center gap-3">
+      <nav className="pg-pagination" aria-label="Paginação">
+        {props.showFirstLast&&<button type="button" aria-label="Primeira página" disabled={current===1} onClick={()=>change(1)}>«</button>}
+        <button type="button" aria-label="Anterior" disabled={current<=1} onClick={()=>change(current-1)}><ChevronLeft size={15}/></button>
+        {pages.map((p,i)=><span key={p} className="contents">
+          {i>0&&p-pages[i-1]>1&&<span aria-hidden="true" className="px-1">…</span>}
+          <button type="button" aria-label={`Página ${p}`} aria-current={current===p?"page":undefined} onClick={()=>change(p)}>{p}</button>
+        </span>)}
+        <button type="button" aria-label="Próximo" disabled={current>=total} onClick={()=>change(current+1)}><ChevronRight size={15}/></button>
+        {props.showFirstLast&&<button type="button" aria-label="Última página" disabled={current===total} onClick={()=>change(total)}>»</button>}
+      </nav>
+      {props.showGoTo&&<form className="inline-flex items-center gap-1" onSubmit={(event)=>{event.preventDefault();if(target.trim()!==""){const next=Number(target);if(Number.isInteger(next))change(next);}}}>
+        <label htmlFor="pg-pagination-goto" className="text-sm">Ir para</label>
+        <input id="pg-pagination-goto" type="number" min={1} max={total} value={target} onChange={e=>setTarget(e.target.value)} className="w-16 rounded border bg-background px-2 py-1 text-sm"/>
+        <button type="submit" className="rounded border px-2 py-1 text-sm">Ir</button>
+      </form>}
+      {props.showPageSize&&props.totalItems!=null&&<label className="inline-flex items-center gap-1 text-sm">Itens por página
+        <select className="rounded border bg-background px-2 py-1" value={size} onChange={e=>{setSize(Number(e.target.value));setPage(1);setTarget("1");notify(emit,"pageSizeChange");}}>
+          {[...new Set([...(props.pageSizeOptions??[10,20,50]),size])].sort((a,b)=>a-b).map(n=><option key={n} value={n}>{n}</option>)}
+        </select>
+      </label>}
+    </div>;
+  },
 } satisfies Record<string,(args:ComponentArgs)=>ReactNode>;

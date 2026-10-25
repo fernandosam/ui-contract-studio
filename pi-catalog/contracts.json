@@ -173,7 +173,7 @@
     },
     {
       "type": "Carousel",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -275,7 +275,7 @@
     },
     {
       "type": "Avatar",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -309,7 +309,7 @@
     },
     {
       "type": "Alert",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -632,7 +632,7 @@
     },
     {
       "type": "DropdownMenu",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -700,7 +700,7 @@
     },
     {
       "type": "Pagination",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",

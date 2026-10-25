@@ -1,5 +1,12 @@
 # Changelog — UI Contract Studio
 
+## Candidatos de evolução ReUI por propriedades comuns — revisão pendente
+
+- Auditoria dos 559 arquivos ReUI agrupados por 31 famílias agora inclui frequência de atributos JSX e correspondência com propriedades declaradas.
+- Contratos base de `Carousel`, `Avatar`, `Alert`, `DropdownMenu` e `Pagination` evoluídos para 2.1.0, com prévias atualizadas e validação Zod.
+- Sem admitir mídia externa, ações transacionais, JSX livre ou componentes ReUI automaticamente. Exige revisão independente e certificação funcional/visual.
+
+
 ## Documentação e consistência — 0.24.0
 
 - Guias vigentes reorganizados por finalidade: arquitetura, componentes, agentes, desenvolvimento e governança; auditorias anteriores identificadas como históricas.
