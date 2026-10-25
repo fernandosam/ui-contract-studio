@@ -217,7 +217,7 @@ export const playgroundImplementations = {
       {Array.from({length:max},(_,i)=>{
         const fill=ratingStarFillPercent(current,i,max);
         const glyph=<span aria-hidden="true" className="pg-rating-glyph" style={{backgroundImage:"linear-gradient(90deg, var(--warning) "+fill+"%, var(--muted-foreground) "+fill+"%)"}}>★</span>;
-        if(props.interactive===false)return <span key={i} className="pg-rating-static">{glyph}</span>;
+        if(props.interactive === false)return <span key={i} className="pg-rating-static">{glyph}</span>;
         if(props.step===0.5)return <span key={i} className="relative inline-flex align-middle">{glyph}
           {[0.5,1].map((part,j)=><button key={j} type="button" className={`absolute inset-y-0 ${j===0?"left-0":"right-0"} w-1/2 rounded-sm focus-visible:outline-2 focus-visible:outline-ring`}
             aria-label={`${i+part} de ${max} estrelas`} aria-pressed={current===i+part} onClick={()=>select(i+part)}/>)}
