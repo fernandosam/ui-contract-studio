@@ -1,32 +1,34 @@
+[English](SKILL.md) | [Português](SKILL.pt-BR.md)
+
 ---
 name: ui-catalog
-description: Gerar telas JSON com catálogo json-render fechado, reaproveitar padrões e submeter extensões a revisão independente.
+description: Generate JSON screens from a closed json-render catalog, reuse patterns, and submit extensions for independent review.
 ---
 
-# Skill UI Catalog
+# UI Catalog Skill
 
-Siga as regras de [AGENTS.md](../../../AGENTS.md). Este documento é o procedimento operacional para o Pi; não substitui as políticas de contratos, segurança e revisão.
+Follow the rules in [AGENTS.md](../../../AGENTS.md). This document provides Pi's operational procedure; it does not replace contract, security, or review policies.
 
-## Criar ou alterar uma tela
+## Creating or changing a screen
 
-1. Leia `pi-catalog/contracts.json`, `src/ui-catalog/contracts.lock.json`, `pi-catalog/retired-contracts.json` e `src/ui-patterns/`. Reutilize tipos aprovados e padrões antes de propor novidades.
-2. Selecione o contexto necessário: `npm run pi:zod-schema` e `npm run pi:context -- --types=Card,Button --stdout` (até 25 tipos). Consulte os exemplos em `pi-catalog/examples/`. Não use `--metadata-only` para geração.
-3. Gere **apenas** `src/ui-screens/<slug>.json` e `src/ui-screen-meta/<slug>.json`; use os schemas Zod, props canônicas, slots, eventos e ações aprovadas. Não copie JSX de templates e não use URLs ou callbacks livres.
-4. Para compostos, altere somente `content` e `nodeProps` com chaves declaradas no contexto; preserve a árvore, os nomes de campos, o tipo de nó, ações e links.
-5. Execute `npm run pi:validate -- --file=<spec.json>`, corrija `issues[].pointer`, então rode `npm run patterns:check && npm run check:catalog && npm run validate && npm run build` quando disponível. Informe bloqueios e validações realmente realizadas.
+1. Read `pi-catalog/contracts.json`, `src/ui-catalog/contracts.lock.json`, `pi-catalog/retired-contracts.json`, and `src/ui-patterns/`. Reuse approved types and patterns before proposing new ones.
+2. Select the required context: `npm run pi:zod-schema` and `npm run pi:context -- --types=Card,Button --stdout` (up to 25 types). Consult examples in `pi-catalog/examples/`. Do not use `--metadata-only` when generating.
+3. Generate **only** `src/ui-screens/<slug>.json` and `src/ui-screen-meta/<slug>.json`; use Zod schemas, canonical props, approved slots, events, and actions. Do not copy JSX from templates or use unrestricted URLs or callbacks.
+4. For composites, change only `content` and `nodeProps` using keys declared in the context; preserve the tree, field names, node type, actions, and links.
+5. Run `npm run pi:validate -- --file=<spec.json>`, resolve `issues[].pointer`, then run `npm run patterns:check && npm run check:catalog && npm run validate && npm run build` where available. Report blockers and checks actually performed.
 
-## Expandir o catálogo
+## Extending the catalog
 
-- A inclusão exige uma lacuna funcional demonstrável e **admissão com schema Zod + componente React + registry**, provenance/licença em `sources.json`, versão e fingerprint em `contracts.lock.json`, testes e aprovação independente.
-- Para composições declarativas estáticas, edite o template/manifesto e execute `npm run composites:generate`; nunca edite `src/ui-catalog/extensions/generated/`. Para estado ou eventos próprios, use React e adapter tipado.
-- shadcn/ui e ReUI são fontes de implementação e exemplos, **não** concessões de acesso ao catálogo Pi. Consulte [componentes](../../../docs/components.md) e os inventários de origem.
-- Não altere o shell, tokens ou schemas-base apenas por diferença estética.
+- Admission requires a demonstrable functional gap and **a Zod schema + React component + registry**, provenance/license in `sources.json`, version/fingerprint in `contracts.lock.json`, tests, and independent approval.
+- For static declarative compositions, edit the template/manifest and run `npm run composites:generate`; never edit `src/ui-catalog/extensions/generated/`. For stateful compositions or events, use React and a typed adapter.
+- shadcn/ui and ReUI are implementation and example sources, **not** grants of access to the Pi catalog. See [components](../../../docs/components.md) and source inventories.
+- Do not change the app shell, tokens, or base schemas for purely cosmetic reasons.
 
-## Dados, testes e evidências
+## Data, tests, and evidence
 
-- DataTable aceita somente `sourceId` autorizado. O endpoint demonstrativo `processos-api` não inclui SSO/autorização; essas garantias pertencem ao backend.
-- Faça `npm run test:offline` e os checks afetados; `npm run verify` executa validação, build e navegador em ambiente completo. E2E no GitHub é manual na `main`.
-- Testes visuais só são homologados com referências, screenshots locais e revisão humana. Não marque execução ou aprovação sem evidência.
-- Avaliação real do Pi é manual, com `PI_EVAL_CONFIRM=yes` e, para reparo pago, `PI_EVAL_REPAIR_CONFIRM=yes`. Não substitua resultados ausentes por dados sintéticos.
+- DataTable accepts only an authorized `sourceId`. The `processos-api` demo endpoint does not include SSO/authorization; those guarantees belong in the backend.
+- Run `npm run test:offline` and affected checks; `npm run verify` performs validation, build, and browser testing in a complete environment. GitHub E2E is manual on `main`.
+- Visual testing is certified only with references, local screenshots, and human review. Do not claim execution or approval without evidence.
+- Live Pi evaluations are manual and require `PI_EVAL_CONFIRM=yes`, and `PI_EVAL_REPAIR_CONFIRM=yes` for paid repair. Do not replace missing results with synthetic data.
 
-Veja [fluxo do Pi](../../../docs/pi-workflow.md), [qualidade](../../../docs/development.md) e [governança](../../../docs/governance.md).
+See the [Pi workflow](../../../docs/pi-workflow.md), [quality](../../../docs/development.md), and [governance](../../../docs/governance.md).

@@ -1,28 +1,31 @@
+[English](ui.md) | [Português](ui.pt-BR.md)
+
 ---
-description: Criar tela JSON restrita aos contratos aprovados e padrões e exemplos da v0.12
-argument-hint: '<descrição da interface>'
+description: Create a JSON screen restricted to approved contracts, patterns, and v0.12 examples
+argument-hint: '<interface description>'
 ---
 
-Tarefa: $ARGUMENTS
+Task: $ARGUMENTS
 
-Siga AGENTS.md e a skill ui-catalog. Primeiro pesquise os padrões aprovados em src/ui-patterns; selecione e adapte um deles se possível. Gere apenas JSON em src/ui-screens com metadados. Não modifique o shell, código React, tokens ou catálogo sem necessidade técnica e revisão independente. Verifique schemas, contratos e validações aplicáveis. Ao terminar, apresente as alterações e resultados efetivamente observados.
+Follow AGENTS.md and the ui-catalog skill. First search approved patterns in src/ui-patterns; choose and adapt one when possible. Generate only JSON under src/ui-screens, with metadata. Do not change the app shell, React code, tokens, or catalog without a technical need and independent review. Check the relevant schemas, contracts, and validation rules. At the end, describe the actual changes and results observed.
 
-Se for indispensável um componente novo, interrompa a tarefa até realizar a admissão completa, com schema Zod, componente React, registry, manifesto, testes e revisão independente.
+If a new component is indispensable, stop until its full admission is completed, including a Zod schema, React component, registry, manifest, tests, and independent review.
 
-## API pública shadcn/ui — versão 0.9
-- Para novos JSONs, utilize **somente** os nomes e props atuais de `src/ui-catalog/catalog.ts` e `src/ui-catalog/extensions/catalog.ts`.
-- Os contratos aprovados têm versão semântica (base v2.0.0). Props antigas (`Button.variant=primary/danger`, `Badge.text`, `Alert.type/message`, `Dialog.openPath`) não são permitidas.
-- Os componentes React devem delegar a primitivas shadcn/ui oficiais quando houver equivalente. Sem equivalente nativo, documentar a composição, sem anunciar API oficial inexistente.
-- Para componentes compostos (`Card`, `Table`, `Tabs`, `DatePicker`, `DataTable`), expor apenas dados serializáveis, props compatíveis e eventos autorizados; **não** aceitar JSX/callbacks/HTML/className vindos de JSON.
-- `shadcn-plan.json` determina dependências para instalação, **não** contratos aprovados.
-- Migrações de contratos devem alterar schemas, registry, telas, padrões, exemplos, lock/fingerprints, documentação e testes em conjunto.
+## Public shadcn/ui API — Version 0.9
 
-Referências de exemplos: use `/?screen=reui`, os padrões JSON aprovados e os exemplos de `pi-catalog/examples/`. As antigas galerias 1/2 não devem ser restauradas.
+- For new JSON screens, use **only** the current type names and props in `src/ui-catalog/catalog.ts` and `src/ui-catalog/extensions/catalog.ts`.
+- Approved contracts have semantic versions (base v2.0.0). Old props (`Button.variant=primary/danger`, `Badge.text`, `Alert.type/message`, `Dialog.openPath`) are not allowed.
+- React components should delegate to official shadcn/ui primitives when available. If no native equivalent exists, document the composition without claiming a nonexistent official API.
+- For composed components (`Card`, `Table`, `Tabs`, `DatePicker`, `DataTable`), expose only serializable data, compatible props, and authorized events; **do not** accept JSX/callbacks/HTML/className from JSON.
+- `shadcn-plan.json` determines installation dependencies, **not** approved contracts.
+- Contract migrations must update schemas, registry, screens, patterns, examples, lock/fingerprints, docs, and tests together.
 
+Example references: use `/?screen=reui`, approved JSON patterns, and examples from `pi-catalog/examples/`. Do not restore the former Galleries 1/2.
 
-## Fluxo obrigatório Pi v0.18
-1. Escolha até 25 tipos necessários a partir de `pi-catalog/contracts.json`.
-2. `npm run pi:zod-schema` e `npm run pi:context -- --types=<tipos> --stdout`: use os schemas reais retornados.
-3. Gere somente spec JSON com `root`, `elements` e `children: []` em todos os nós.
-4. `npm run pi:validate -- --file=<spec.json>`; corrija os JSON Pointers. Não altere contratos nem scripts para contornar erros sem revisão.
-5. A saída deve ser revisada antes de integrar na aplicação; teste visual e CI são etapas adicionais.
+## Required Pi v0.18 Workflow
+
+1. Choose up to 25 required types from `pi-catalog/contracts.json`.
+2. Run `npm run pi:zod-schema` and `npm run pi:context -- --types=<tipos> --stdout`: use the actual schemas returned.
+3. Generate only a JSON spec with `root`, `elements`, and `children: []` on every node.
+4. Run `npm run pi:validate -- --file=<spec.json>`; fix JSON Pointers. Do not modify contracts or scripts to bypass errors without review.
+5. Review the output before integrating it into the application; visual tests and CI are additional steps.

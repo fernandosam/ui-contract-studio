@@ -1,9 +1,11 @@
-# Contribuindo para o UI Contract Studio
+[English](CONTRIBUTING.md) | [Português](CONTRIBUTING.pt-BR.md)
 
-1. Para mudanças relevantes na API de contratos, abra uma issue antes do PR. Trabalhe em uma branch dedicada, com alterações pequenas e descritas.
-2. Reutilize componentes existentes. Para adicionar um contrato, siga a [admissão de componentes](docs/components.md): schema Zod estrito, origem/licença, React/registry quando necessário, exemplos e testes.
-3. Mantenha telas de agentes em JSON: sem JSX, HTML, callbacks, URLs arbitrárias ou integrações não autorizadas. Não inclua credenciais, dados pessoais ou recursos de terceiros sem licença.
-4. Execute `npm run test:offline`, `npm run docs:check` se alterar documentação, `npm run validate` e `npm run build` em ambiente preparado. Descreva claramente qualquer etapa não executada.
-5. Solicite revisão humana para mudanças em catálogo, manifestos e contratos. Um CI verde não comprova aprovação de segurança ou fidelidade visual.
+# Contributing to UI Contract Studio
 
-Consulte [AGENTS.md](AGENTS.md), o [guia de desenvolvimento](docs/development.md), a [governança](docs/governance.md) e a [política de segurança](SECURITY.md).
+1. For significant contract API changes, open an issue before the PR. Work in a dedicated branch with small, well-described changes.
+2. Reuse existing components. To add a contract, follow the [component admission guidelines](docs/components.md): strict Zod schema, provenance/license, React/registry where necessary, examples, and tests.
+3. Keep agent-generated screens in JSON: no arbitrary JSX, HTML, callbacks, URLs, or unauthorized integrations. Do not include credentials, personal data, or unlicensed third-party assets.
+4. Run `npm run test:offline`, `npm run docs:check` when changing documentation, `npm run validate`, and `npm run build` in a prepared environment. Clearly report any steps not run.
+5. Request human review for changes to the catalog, manifests, and contracts. Passing CI does not establish security approval or visual fidelity.
+
+See [AGENTS.md](AGENTS.md), the [development guide](docs/development.md), [governance](docs/governance.md), and the [security policy](SECURITY.md).
