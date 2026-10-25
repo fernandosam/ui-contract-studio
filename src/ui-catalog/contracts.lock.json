@@ -4,12 +4,12 @@
   "components": [
     {
       "name": "Card",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "53bfae3c9a801d6a2ac7d3d8fac3f9c7b897da51c5f3b58b92887c9c18b2eb69",
-      "semanticFingerprint": "3346cd0cbd754ecae6df29c30575dd826a72814798c97b7a62626a075ac2f9fa"
+      "fingerprint": "b65e0994cf0eca756639f37e627ec26fc5a782fef91bfe1340f05bc67b70fba4",
+      "semanticFingerprint": "39f3c4ebea8e3e937f9b64d3fda3dd0c5c9422e153f419a3b403c5e7cda0c0d8"
     },
     {
       "name": "Stack",
@@ -31,21 +31,21 @@
     },
     {
       "name": "Separator",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "a701092fddb00d0c7d22882f2c2b605c332a8314272cf918f01cc81728fc03a3",
-      "semanticFingerprint": "86b8e989e7c44b5702c45864dfc9f18c4af271b3ba13365f770138a564c3ebb8"
+      "fingerprint": "1782c1f15548a1876e213a1f95cea177cf3e3427a6c09cb6dc87658f13cf2fad",
+      "semanticFingerprint": "0488d3683ade9e6887b109424cc8d023796f692e05cf55768e04a410879a1358"
     },
     {
       "name": "Tabs",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "f83728363e4f40d485b6716c6f8b476c5ab9cce6bdaebc2102ce691741a04be9",
-      "semanticFingerprint": "ca7052829aa439e89877d76b963ed4349002e1eb6573ae10c23afae6964b5add"
+      "fingerprint": "667a89d2cf04a97f1c58015f67ebaf4e34501257795d45351fc0d38b93bc3a52",
+      "semanticFingerprint": "824f2d2863d53d1fced877dbcee2e57bb23054afdab1dbaefa39bfb7a8a8fa92"
     },
     {
       "name": "Accordion",
@@ -94,12 +94,12 @@
     },
     {
       "name": "Table",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "e363458a6373922896e2f1456e8e3d1a7b1f713395e9662c57ecb0f209820005",
-      "semanticFingerprint": "9c5992dfc73334be8f06a9fbe1df8fa65b9f5033779540bbfdcd0d8bfc97509e"
+      "fingerprint": "8991cc1e448458e40a52647dd29db2f00d0e9501b06205e326363e63f1a8b277",
+      "semanticFingerprint": "4d5eb3579a8928b8b39b3c2091f74db784e95e2ace2c1bd2dee72d52d207fcd4"
     },
     {
       "name": "Heading",
@@ -148,12 +148,12 @@
     },
     {
       "name": "Badge",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "48cbe3e36cd0120ddce4f980ccc3bb662cccf294375bccaa7c8386191cc69993",
-      "semanticFingerprint": "bc60302e034b413f132793615418f283caf5f0f4ae586040bd91a55c1a4171a1"
+      "fingerprint": "9fea07e01fb690726461df48edaa5e0ca0ff0cf0cf03be0e6d6b8e61feb7e1b9",
+      "semanticFingerprint": "0704a31c2cf0790237c9ca915e2e9a7a5c20c6dee69454b3f77d3acb862dd1ba"
     },
     {
       "name": "Alert",
@@ -166,12 +166,12 @@
     },
     {
       "name": "Progress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "cb822a7316c9340093b0d578fa8bf0c431249cc82d0e344e77b8662be2954ffe",
-      "semanticFingerprint": "1c8b7b6161265a4b4ec106a7add26a94fa5e1b3c732d9c74cf4a82c1faa149ae"
+      "fingerprint": "48522e5c0bff7bb1f66b14a8fda8421dd20fdb91b22bf14ddcaeaff5c47728e6",
+      "semanticFingerprint": "d7934260aba18e0705ccd353d7289281273db64c041ff8382d7495337155ab34"
     },
     {
       "name": "Skeleton",
@@ -184,21 +184,21 @@
     },
     {
       "name": "Spinner",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "ee816c0ad914f0008cc8be64d9de0e796871525d25a675740f784870047d1740",
-      "semanticFingerprint": "3b385763da572758f5d07b3b2b4eaf6a311fc7c0033fc50d84e2b0883a2c8e4c"
+      "fingerprint": "2a4c066e031ce0d1ea3b518c2efa4919a23fac2058901ac0a4420a9eefe69d03",
+      "semanticFingerprint": "4824bc939a23b3efaf48a145da3ec552759294d8126956568991c89c23acadda"
     },
     {
       "name": "Tooltip",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "669b6e94876a8252acc60fb353705d777cb66b3f2c8367587c842ed1fe714da9",
-      "semanticFingerprint": "1d4e2b5c0ea57859395eda642defb359af37a17c154be2c494028d1ff5989945"
+      "fingerprint": "844a808f92efe6129247f5dccb67b355eac8f3ae764ff118d96c5ffc4a600846",
+      "semanticFingerprint": "590b3d62250d7ffe476cbc74138f1fb7ef4b58619333a5b4305dd21c31c006bd"
     },
     {
       "name": "Popover",
@@ -247,30 +247,30 @@
     },
     {
       "name": "Input",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "32633a40ad3e55bb5ff91513775967d219e5e2e6fb012a78128a4e2adf385fa8",
-      "semanticFingerprint": "81ace36634edae1ee381f434d9476d84cd97bcb21b89999499e2669a6fc4b1ad"
+      "fingerprint": "a273b5b444732dcd7b97ef229bbc3af72ace2ae310486aab4c14f56076a87a34",
+      "semanticFingerprint": "d8a18e5a6c807eaa5bb09cc7c741fe4ebd7351edc00e0338309eee57e352a958"
     },
     {
       "name": "Textarea",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "116b12cf902311dad307145a901a7334cb78767318b8ca4168c6149ab08a6faf",
-      "semanticFingerprint": "4004c5224cbb8ba4cf2304d027d00105ce97745f873f94616ffa0cd92338873b"
+      "fingerprint": "50bf99bc00d3e0737997fbbe8530d88720ce0ddd6e59b31518a84e59315a6011",
+      "semanticFingerprint": "c8973ddd47c89f0aacc6a62a57d932633cb75f3c359ea324afb170e59bb33ab2"
     },
     {
       "name": "Select",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "e827d027ed2168f4157d8708f5702093cfd0961fd17b37a9cbafbce6b50682fa",
-      "semanticFingerprint": "3a9448960eb4aebbfe6c5dc38235c6898c19be2f6507cf7ea3aa07b638dec776"
+      "fingerprint": "37619824bc514caa71923b2d8dda50cac796c08502c39fe7a9eea80c7c776c9c",
+      "semanticFingerprint": "7712c7b6f2bf7da901799c56c26837fcab2d154e6f559a19a40c3889f71923e1"
     },
     {
       "name": "Checkbox",
@@ -292,21 +292,21 @@
     },
     {
       "name": "Switch",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "65f91da98aa3867b484515a415d7a7395f1f64d6b4dc9019c19c6d0fb108ac2b",
-      "semanticFingerprint": "d188cd21a2978bf7ea2db243af7a68a36a4356a31a31d750310dcd8ecc99e07c"
+      "fingerprint": "b29d5c663f9de2d6114319243ff04dfac0ae5a46b621b80c6a433291382aa8c0",
+      "semanticFingerprint": "fb837fdb1a678e8205459da16cf79150087c54f5b2fc1add292e3d829d26511e"
     },
     {
       "name": "Slider",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "37b9b971b6536402e133041bf86dfb56e6e140704f4b2fae05bf74b0187b9406",
-      "semanticFingerprint": "7e8317c1081a1be99d07bc0933087e287e2e0b722475b348aba9bf79051186e5"
+      "fingerprint": "e7cbb80e8b44e3458715f0af3a5a89e9468aa300a2a9aac6e78544dfe1d34ff6",
+      "semanticFingerprint": "f0045b2853dff0f6de0ba5847d7d598853e0a7b16f37f24061f9ae5de29fad4b"
     },
     {
       "name": "Button",
@@ -346,12 +346,12 @@
     },
     {
       "name": "ToggleGroup",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "7f36e16aa26582ce8d50ecf06370be2735c2e16ca28ce05b0c00e6a02a41175c",
-      "semanticFingerprint": "83730e570fe7d558e77efeb4cfe00d80f174617b2e2a2ba12463bb9861f67c2c"
+      "fingerprint": "729c070d8fa0cf16f8c6fce4f54a20c22384d2b55308cc056c30d5ef256efa88",
+      "semanticFingerprint": "8b4be74c592157052abc2aeba4b032b7d3af62da7944daa13145da54b22db20e"
     },
     {
       "name": "ButtonGroup",
