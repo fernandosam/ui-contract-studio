@@ -1,6 +1,6 @@
 [English](estilos-e-npm-v023.md) | [Português](estilos-e-npm-v023.pt-BR.md)
 
-> **Registro histórico (v0.23):** o resultado de DNS/npm descreve o ambiente usado na auditoria e não comprova o estado de instalações ou CI atuais. Consulte [desenvolvimento](development.md).
+> **Registro histórico (v0.23):** o resultado de DNS/npm descreve o ambiente usado na auditoria e não comprova o estado de instalações ou CI atuais. Consulte [desenvolvimento](development.pt-BR.md).
 
 # Auditoria CSS e registries — v0.23
 
