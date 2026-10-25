@@ -1,25 +1,27 @@
+[English](README.md) | [Português](README.pt-BR.md)
+
 # UI Contract Studio
 
-**Componentes de interface declarativa com contratos verificáveis para agentes de IA.**
+**Declarative UI components with verifiable contracts for AI agents.**
 
-O UI Contract Studio é um projeto independente em React para explorar componentes shadcn/ui (Base UI), composições e exemplos ReUI, além de gerar e validar telas JSON com **json-render**, **Zod** e **Pi Agent**. O objetivo é controlar quais componentes, propriedades, eventos e ações um agente pode utilizar.
+UI Contract Studio is an independent React project for exploring shadcn/ui (Base UI) components, compositions, and ReUI examples, as well as generating and validating JSON screens with **json-render**, **Zod**, and **Pi Agent**. Its goal is to control which components, properties, events, and actions an agent is allowed to use.
 
-## O que está disponível
+## What's available
 
-- **Explorador de primitivos:** contratos, propriedades, prévias e orientações de uso.
-- **Explorador de compostos:** composições reutilizáveis e suas APIs aprovadas.
-- **Explorador de exemplos:** inspeção e edição local de specs declarativas.
-- **ReUI:** galeria de exemplos React agrupados por família, com filtros e notas para agentes.
-- **Blocos shadcn/ui:** páginas de demonstração de Login, Cadastro e Sidebars.
-- **Pi Agent:** manifestos, schemas, exemplos, contexto selecionado e validação de specs.
+- **Primitive explorer:** contracts, properties, previews, and usage guidance.
+- **Composite explorer:** reusable compositions and their approved APIs.
+- **Example explorer:** inspection and local editing of declarative specs.
+- **ReUI:** a gallery of React examples grouped by component family, with filters and agent notes.
+- **shadcn/ui blocks:** demonstration pages for Login, Sign-up, and Sidebars.
+- **Pi Agent:** manifests, schemas, examples, selected context, and spec validation.
 
-O catálogo do Pi é **fechado**: componentes ReUI e arquivos shadcn/ui não se tornam contratos automaticamente. Telas geradas por agentes são **JSON**, sem JSX/HTML, callbacks, URLs externas ou ações arbitrárias. Autenticação, pagamentos e dados remotos apresentados nas demos não representam integrações de produção.
+The Pi catalog is **closed (allowlisted)**: ReUI components and shadcn/ui files do not automatically become approved contracts. Agent-generated screens are **JSON**, without arbitrary JSX/HTML, callbacks, external URLs, or actions. Authentication, payments, and remote data shown in demos are not production integrations.
 
 **Stack:** React 19 · TypeScript · Vite · Tailwind CSS 4 · shadcn/ui Base UI · Zod 4 · json-render · Playwright.
 
-## Começar
+## Getting started
 
-Requer Node.js **22+** e npm.
+Requires Node.js **22+** and npm.
 
 ~~~bash
 git clone https://github.com/fernandosam/ui-contract-studio.git
@@ -28,33 +30,33 @@ npm ci
 npm run dev
 ~~~
 
-## Verificar
+## Verification
 
 ~~~bash
-npm run test:offline   # invariantes sem dependências adicionais
-npm run docs:check     # links locais e consistência de manifestos
-npm run validate       # verificações de catálogo, lint e testes
-npm run build          # TypeScript e Vite
+npm run test:offline   # invariants without additional dependencies
+npm run docs:check     # local links and manifest consistency
+npm run validate       # catalog checks, lint, and tests
+npm run build          # TypeScript and Vite
 ~~~
 
-O CI de qualidade roda em pull requests e pushes na `main`. O **E2E completo** é executado manualmente na `main` em **Actions → E2E manual (main)**; a auditoria visual tem fluxo separado. A presença de componentes, testes estruturais ou diferenças de pixels não equivale a homologação visual.
+The quality CI runs on pull requests and pushes to `main`. The **full E2E suite** runs manually on `main` under **Actions → E2E manual (main)**; visual auditing follows a separate workflow. The presence of components, structural tests, or pixel differences alone does not constitute visual approval.
 
-## Onde encontrar
+## Repository structure
 
-| Local | Conteúdo |
+| Location | Contents |
 | --- | --- |
-| `src/components/ui/` | Primitivas locais shadcn/ui |
-| `src/ui-catalog/` | Contratos Zod, registry, fontes e manifestos |
-| `src/ui-runtime/` | Renderização, navegação e exploradores |
-| `src/ui-screens/`, `src/ui-patterns/` | Telas e padrões JSON |
-| `pi-catalog/` | APIs e exemplos consumidos pelo agente |
-| `docs/` | Guias vigentes e registros de auditoria |
-| `sandbox/` | Ferramentas de validação conectada |
+| `src/components/ui/` | Local shadcn/ui primitives |
+| `src/ui-catalog/` | Zod contracts, registry, sources, and manifests |
+| `src/ui-runtime/` | Rendering, navigation, and explorers |
+| `src/ui-screens/`, `src/ui-patterns/` | JSON screens and patterns |
+| `pi-catalog/` | APIs and examples consumed by the agent |
+| `docs/` | Current guides and audit records |
+| `sandbox/` | Connected validation tools |
 
-Leia o [índice da documentação](docs/README.md), as [instruções para agentes](AGENTS.md), o [guia de contribuição](CONTRIBUTING.md) e o [CHANGELOG](CHANGELOG.md).
+Read the [documentation index](docs/README.md), [agent instructions](AGENTS.md), [contributing guide](CONTRIBUTING.md), and [changelog](CHANGELOG.md).
 
-## Licença e publicação
+## License and publication
 
-O código autoral é distribuído sob [MIT](LICENSE); direitos, marcas e licenças de terceiros continuam aplicáveis. Consulte [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Original project code is distributed under the [MIT License](LICENSE); third-party rights, trademarks, and licenses still apply. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-**Este repositório já é público.** A publicação não dispensa auditoria de informações confidenciais, direitos autorais e permissões: veja [governança e auditoria contínua](docs/governance.md) e [segurança](SECURITY.md). O projeto não é produto oficial de órgão público. Não inclua dados pessoais, credenciais ou recursos internos restritos.
+**This repository is already public.** Publication does not replace audits of confidential information, copyrights, or permissions: see [governance and ongoing auditing](docs/governance.md) and [security](SECURITY.md). This project is not an official product of any public institution. Do not include personal data, credentials, or restricted internal resources.
