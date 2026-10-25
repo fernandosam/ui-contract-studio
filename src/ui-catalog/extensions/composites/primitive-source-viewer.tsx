@@ -12,7 +12,7 @@ import {
  * Carrega o TSX do componente local apenas após a abertura; não avalia fonte.
  * O JSON mostrado é a especificação autorizada do exemplo Pi, não JSX gerado.
  */
-const officialSources = import.meta.glob<string>("../../../../../components/ui/*.tsx", {
+const officialSources = import.meta.glob<string>("../../../components/ui/*.tsx", {
   query: "?raw",
   import: "default",
 })
