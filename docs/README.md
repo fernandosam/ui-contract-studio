@@ -17,6 +17,7 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 
 - [Fontes de dados e DataTable](integracao-dados.md)
 - [Biblioteca ReUI](reui-composite-library.md)
+- [Cobertura funcional das 31 famílias ReUI](reui-functional-coverage-31.md) — implementações, limites e certificação pendente
 - [Fidelidade visual das composições](revisao-visual-shadcn.md)
 - [Auditoria de exemplos oficiais](official-component-visual-audit.md)
 - [Sandbox conectada](../sandbox/README.md)

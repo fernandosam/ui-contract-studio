@@ -10,21 +10,21 @@ import { Slider as ShadcnSlider } from "@/components/ui/slider";
 import { Label as ShadcnLabel } from "@/components/ui/label";
 import { Avatar as ShadcnAvatar, AvatarFallback } from "@/components/ui/avatar";
 import { Spinner as ShadcnSpinner } from "@/components/ui/spinner";
-import { Tabs as ShadcnTabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs as ShadcnTabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Accordion as ShadcnAccordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Collapsible as ShadcnCollapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { Dialog as ShadcnDialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Drawer as ShadcnDrawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from "@/components/ui/drawer";
 import { TooltipProvider, Tooltip as ShadcnTooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Popover as ShadcnPopover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { Select as ShadcnSelect, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Select as ShadcnSelect, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup, SelectLabel, SelectSeparator } from "@/components/ui/select";
 import { RadioGroup as ShadcnRadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { DropdownMenu as ShadcnDropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuShortcut } from "@/components/ui/dropdown-menu";
 import { Toggle as ShadcnToggle } from "@/components/ui/toggle";
 import { ToggleGroup as ShadcnToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ButtonGroup as ShadcnButtonGroup } from "@/components/ui/button-group";
 import { Carousel as ShadcnCarousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, useCarousel } from "@/components/ui/carousel";
-import { Card as ShadcnCard, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card as ShadcnCard, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Input as ShadcnInput } from "@/components/ui/input";
 import { Badge as ShadcnBadge } from "@/components/ui/badge";
 import { Table as ShadcnTable, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -89,13 +89,16 @@ function CarouselIndicators() {
 
 export const playgroundImplementations = {
   Card: ({props,children}) => <ShadcnCard size={props.size??"default"} className={`pg-card--${props.maxWidth??"full"} ${props.centered?"mx-auto":""}`}>
-    {(props.title||props.description) && <CardHeader>{props.title && <CardTitle>{props.title}</CardTitle>}{props.description && <CardDescription>{props.description}</CardDescription>}</CardHeader>}
+    {(props.title||props.description) && <CardHeader>{props.title&&<CardTitle>{props.title}</CardTitle>}{props.description&&<CardDescription>{props.description}</CardDescription>}</CardHeader>}
     <CardContent className="flex flex-col gap-4">{children}</CardContent>
+    {props.footer&&<CardFooter className="text-sm text-muted-foreground">{props.footer}</CardFooter>}
   </ShadcnCard>,
   Stack: ({props,children}) => <div className={`pg-stack pg-stack--${props.direction??"vertical"} pg-gap--${props.gap??"md"} pg-align--${props.align??"stretch"} pg-justify--${props.justify??"start"}`}>{children}</div>,
   Grid: ({props,children}) => <div className="pg-grid" style={{"--columns":clamp(props.columns??1,1,6),"--gap":props.gap==="lg"?"24px":props.gap==="sm"?"10px":"16px"} as CSSProperties}>{children}</div>,
-  Separator: ({props})=><ShadcnSeparator orientation={props.orientation??"horizontal"} aria-hidden={props.decorative!==false}/>,
-  Tabs: ({props,bindings,emit})=>{ const items=props.tabs??[]; const [current,setCurrent]=useValue<string>(props.value??props.defaultValue??items[0]?.value??"",bindings?.value);return <ShadcnTabs value={current} orientation={props.orientation??"horizontal"} onValueChange={(v:string)=>{setCurrent(v);notify(emit,"change");}}><TabsList>{items.map((item:any)=><TabsTrigger key={item.value} value={item.value} disabled={props.disabled}>{item.label}</TabsTrigger>)}</TabsList></ShadcnTabs>;},
+  Separator: ({props})=>props.label&&props.orientation!=="vertical"
+    ? <div className="flex items-center gap-3" role="separator" aria-label={props.label}><ShadcnSeparator aria-hidden="true"/><span className="whitespace-nowrap text-xs text-muted-foreground">{props.label}</span><ShadcnSeparator aria-hidden="true"/></div>
+    : <ShadcnSeparator orientation={props.orientation??"horizontal"} aria-hidden={props.decorative!==false}/>,
+  Tabs: ({props,bindings,emit})=>{const items=props.tabs??[];const [current,setCurrent]=useValue<string>(props.value??props.defaultValue??items[0]?.value??"",bindings?.value);return <ShadcnTabs value={current} orientation={props.orientation??"horizontal"} onValueChange={(v:string)=>{setCurrent(v);notify(emit,"change");}}><TabsList variant={props.listVariant??"default"} className={props.fullWidth?"w-full":undefined}>{items.map((item:any)=><TabsTrigger key={item.value} value={item.value} disabled={props.disabled||item.disabled}>{item.label}</TabsTrigger>)}</TabsList>{items.map((item:any)=><TabsContent key={item.value} value={item.value}>{item.content&&<p className="p-3 text-sm">{item.content}</p>}</TabsContent>)}</ShadcnTabs>;},
   Accordion: ({props})=>{
     const items=props.items??[];
     const isMultiple=props.type==="multiple";
@@ -142,65 +145,116 @@ export const playgroundImplementations = {
     </ShadcnCarousel>
   </div>,
   Table: ({props})=><div className="overflow-x-auto rounded-md border border-border" ref={node=>{
-    // The upstream shadcn table owns an inner horizontal scroll region. Make it
-    // keyboard-focusable without modifying the integrity-checked official component.
     const region=node?.querySelector<HTMLElement>('[data-slot="table-container"]');
     if(region){region.tabIndex=0;region.setAttribute('role','region');region.setAttribute('aria-label',props.caption??'Tabela com rolagem horizontal');}
-  }}><ShadcnTable>{props.caption && <caption className="sr-only">{props.caption}</caption>}<TableHeader><TableRow>{props.columns.map((c:string,i:number)=><TableHead key={i}>{c}</TableHead>)}</TableRow></TableHeader><TableBody>{props.rows.map((row:string[],i:number)=><TableRow key={i}>{props.columns.map((_:string,j:number)=><TableCell key={j}>{row[j]??""}</TableCell>)}</TableRow>)}</TableBody></ShadcnTable></div>,
+  }}><ShadcnTable className={props.compact?"text-xs":"text-sm"}>{props.caption&&<caption className="sr-only">{props.caption}</caption>}
+    <TableHeader><TableRow>{props.columns.map((c:string,i:number)=><TableHead className={props.compact?"h-8 px-2":undefined} key={i}>{c}</TableHead>)}</TableRow></TableHeader>
+    <TableBody>{props.rows.length===0?<TableRow><TableCell colSpan={Math.max(1,props.columns.length)} className="text-center text-muted-foreground">{props.emptyMessage??"Nenhum registro."}</TableCell></TableRow>:
+      props.rows.map((row:string[],i:number)=><TableRow className={props.striped&&i%2===1?"bg-muted/50":undefined} key={i}>{props.columns.map((_:string,j:number)=><TableCell className={props.compact?"px-2 py-1.5":undefined} key={j}>{row[j]??""}</TableCell>)}</TableRow>)}</TableBody>
+  </ShadcnTable></div>,
   Heading: ({props})=>{const level=props.level??"h2";const className=`pg-heading pg-heading--${level}`;if(level==="h1")return <h1 className={className}>{props.text}</h1>;if(level==="h3")return <h3 className={className}>{props.text}</h3>;if(level==="h4")return <h4 className={className}>{props.text}</h4>;return <h2 className={className}>{props.text}</h2>;},
   Text: ({props})=><p className={`pg-text pg-text--${props.variant??"body"}`}>{props.text}</p>,
   Image: ({props})=><div className="pg-placeholder" role="img" aria-label={props.alt} style={{maxWidth:props.width??undefined,height:props.height??120}}><span>▧</span><small>{props.alt}</small></div>,
   Icon: ({props})=>{const Icon=lucideIcons[props.name as keyof typeof lucideIcons];return Icon?<Icon size={props.size==="lg"?24:props.size==="sm"?16:20} className={`pg-icon--${props.color??"default"}`} aria-hidden="true"/>:null;},
-  Avatar: ({props})=><span className="relative inline-flex shrink-0">
-    <ShadcnAvatar className={props.size==="lg"?"size-12":props.size==="sm"?"size-8":"size-10"}>
-      <AvatarFallback aria-label={props.name}>{String(props.name).split(" ").map((x:string)=>x[0]).slice(0,2).join("").toUpperCase()}</AvatarFallback>
-    </ShadcnAvatar>
-    {props.status&&<span role="img" aria-label={`Presença: ${({online:"disponível",away:"ausente",busy:"ocupado",offline:"desconectado"} as Record<string,string>)[props.status]}`}
-      className={`absolute bottom-0 right-0 size-3 rounded-full border-2 border-background ${props.status==="online"?"bg-green-600":props.status==="busy"?"bg-red-600":props.status==="away"?"bg-amber-500":"bg-muted-foreground"}`}/>}
-  </span>,
-  Badge: ({props})=><ShadcnBadge variant={props.variant??"default"}>{props.label}</ShadcnBadge>,
+  Avatar: ({props})=>{
+    const pos:Record<string,string>={"bottom-right":"bottom-0 right-0","bottom-left":"bottom-0 left-0","top-right":"top-0 right-0","top-left":"top-0 left-0"};
+    const square=props.shape==="square";
+    return <span className="relative inline-flex shrink-0">
+      <ShadcnAvatar className={`${props.size==="lg"?"size-12":props.size==="sm"?"size-8":"size-10"} ${square?"rounded-lg":"rounded-full"}`}>
+        <AvatarFallback className={square?"rounded-lg":undefined} aria-label={props.name}>{String(props.name).split(" ").map((x:string)=>x[0]).slice(0,2).join("").toUpperCase()}</AvatarFallback>
+      </ShadcnAvatar>
+      {props.status&&<span role="img" aria-label={`Presença: ${({online:"disponível",away:"ausente",busy:"ocupado",offline:"desconectado"} as Record<string,string>)[props.status]}`}
+        className={`absolute ${pos[props.statusPosition??"bottom-right"]} size-3 rounded-full border-2 border-background ${props.status==="online"?"bg-green-600":props.status==="busy"?"bg-red-600":props.status==="away"?"bg-amber-500":"bg-muted-foreground"}`}/>}
+    </span>;
+  },
+  Badge: ({props})=>{
+    const tone:Record<string,string>={
+      "success:solid":"bg-green-700 text-white border-transparent","success:soft":"border-green-700/30 bg-green-700/10 text-green-800 dark:text-green-300","success:outline":"border-green-700/50 text-green-700 dark:text-green-300",
+      "info:solid":"bg-blue-700 text-white border-transparent","info:soft":"border-blue-700/30 bg-blue-700/10 text-blue-800 dark:text-blue-300","info:outline":"border-blue-700/50 text-blue-700 dark:text-blue-300",
+      "warning:solid":"bg-amber-600 text-white border-transparent","warning:soft":"border-amber-600/30 bg-amber-600/10 text-amber-800 dark:text-amber-300","warning:outline":"border-amber-600/50 text-amber-700 dark:text-amber-300",
+      "error:solid":"bg-destructive text-destructive-foreground border-transparent","error:soft":"border-destructive/30 bg-destructive/10 text-destructive","error:outline":"border-destructive/50 text-destructive",
+      "neutral:solid":"bg-primary text-primary-foreground","neutral:soft":"bg-secondary text-secondary-foreground","neutral:outline":"border-border bg-transparent text-foreground"};
+    const key=`${props.tone??"neutral"}:${props.appearance??"solid"}`;
+    return <ShadcnBadge variant={props.tone||props.appearance?"outline":props.variant??"default"}
+      className={`${props.tone||props.appearance?tone[key]:""} ${props.size==="sm"?"text-[10px] px-1.5":props.size==="lg"?"text-sm px-3":"text-xs"}`}>
+      {props.dot&&<span aria-hidden="true" className="size-1.5 rounded-full bg-current"/>}{props.label}
+    </ShadcnBadge>;
+  },
   Alert: ({props})=>{
     const [visible,setVisible]=useState(true);
     if(!visible)return null;
     const ToneIcon=props.tone==="success"?CheckCircle:props.tone==="warning"?AlertTriangle:props.tone==="error"?XCircle:Info;
     return <ShadcnAlert variant={props.variant==="destructive"||props.tone==="error"?"destructive":"default"} className="relative">
-      <ToneIcon className="size-4"/><AlertTitle>{props.title}</AlertTitle>
+      {props.showIcon!==false&&<ToneIcon className="size-4"/>}{props.title&&<AlertTitle>{props.title}</AlertTitle>}
       {props.description&&<AlertDescription>{props.description}</AlertDescription>}
       {props.dismissible&&<button type="button" aria-label="Fechar aviso" className="absolute right-2 top-2 rounded p-1 focus-visible:outline-2 focus-visible:outline-ring" onClick={()=>setVisible(false)}><X aria-hidden="true" className="size-4"/></button>}
     </ShadcnAlert>;
   },
-  Progress: ({props})=><div className="pg-field">{props.label&&<ShadcnLabel>{props.label}</ShadcnLabel>}<ShadcnProgress aria-label={props.label??"Progresso"} value={props.max?100*props.value/props.max:props.value}/><span className="pg-muted">{Math.round(props.value)} / {props.max??100}</span></div>,
-  Skeleton: ({props})=><ShadcnSkeleton className={props.rounded?"rounded-full":"rounded-md"} style={{width:props.width??"100%",height:props.height??"1.3rem"}}/>,
-  Spinner: ({props})=><span role="status" className="inline-flex items-center gap-2"><ShadcnSpinner className={props.size==="lg"?"size-8":props.size==="sm"?"size-4":"size-6"}/>{props.label??"Carregando"}</span>,
-  Tooltip: ({props})=><TooltipProvider><ShadcnTooltip><TooltipTrigger render={<span className="cursor-help underline decoration-dotted" tabIndex={0}/>}>{props.text}</TooltipTrigger><TooltipContent side={props.side??"top"}>{props.content}</TooltipContent></ShadcnTooltip></TooltipProvider>,
+  Progress: ({props})=>{
+    const percentage=clamp(100*props.value/(props.max??100),0,100);
+    const tones:Record<string,string>={success:"[&_[data-slot=progress-indicator]]:bg-green-600",warning:"[&_[data-slot=progress-indicator]]:bg-amber-600",error:"[&_[data-slot=progress-indicator]]:bg-destructive",info:"[&_[data-slot=progress-indicator]]:bg-blue-600"};
+    return <div className="pg-field">{props.label&&<ShadcnLabel>{props.label}</ShadcnLabel>}<ShadcnProgress className={tones[props.tone??"default"]} aria-label={props.label??"Progresso"} value={percentage}/>{props.showValue!==false&&<span className="pg-muted">{Math.round(props.value)} / {props.max??100}</span>}</div>;
+  },
+  Skeleton: ({props})=>{const shape=props.shape??(props.rounded?"circle":"rectangle");return <div role="status" aria-label="Carregando conteúdo" className="flex flex-col gap-2">{Array.from({length:props.lines??1},(_,i)=><ShadcnSkeleton key={i} className={shape==="circle"?"rounded-full aspect-square":shape==="square"?"rounded-none":"rounded-md"} style={{width:props.width??"100%",height:props.height??"1.3rem"}}/>)}</div>;},
+  Spinner: ({props})=>{
+    const tones:Record<string,string>={success:"text-green-600",warning:"text-amber-600",error:"text-destructive",info:"text-blue-600"};
+    return <span role="status" className={`inline-flex items-center gap-2 ${tones[props.tone??"default"]??""}`}><ShadcnSpinner className={props.size==="lg"?"size-8":props.size==="sm"?"size-4":"size-6"}/><span className={props.hideLabel?"sr-only":undefined}>{props.label??"Carregando"}</span></span>;
+  },
+  Tooltip: ({props})=>{
+    const TriggerIcon=props.triggerIcon?lucideIcons[props.triggerIcon as keyof typeof lucideIcons]:null;
+    return <TooltipProvider><ShadcnTooltip><TooltipTrigger render={<span className="inline-flex cursor-help items-center gap-1 underline decoration-dotted" tabIndex={0}/>}>{TriggerIcon&&<TriggerIcon aria-hidden="true" className="size-4"/>}{props.text}</TooltipTrigger><TooltipContent side={props.side??"top"}>{props.content}{props.shortcut&&<kbd className="ml-2 rounded bg-muted px-1 font-mono text-xs text-muted-foreground">{props.shortcut}</kbd>}</TooltipContent></ShadcnTooltip></TooltipProvider>;
+  },
   Popover: ({props,bindings,emit})=>{const [open,setOpen]=useValue(props.open??props.defaultOpen??false,bindings?.open);return <ShadcnPopover open={open} onOpenChange={(v:boolean)=>{setOpen(v);notify(emit,"openChange");}}><PopoverTrigger render={<ShadcnButton variant="outline" type="button"/>}>{props.trigger}</PopoverTrigger><PopoverContent side={props.side??"bottom"} align={props.align??"center"}>{props.content}</PopoverContent></ShadcnPopover>;},
   Rating: ({props,bindings,emit})=>{
     const max=props.max??5;
     const [value,setValue]=useValue(props.value??0,bindings?.value);
-    const current=Math.max(0,Math.min(max,value));
+    const current=clamp(value,0,max);
     const formatted=new Intl.NumberFormat("pt-BR",{maximumFractionDigits:2}).format(current);
+    const select=(next:number)=>{setValue(next);notify(emit,"change");};
     return <div className="pg-rating" role="group" aria-label={props.label??"Avaliação"}>
       {props.label&&<strong>{props.label}</strong>}
       <span className="sr-only">{"Nota "+formatted+" de "+max+" estrelas"}</span>
       {Array.from({length:max},(_,i)=>{
         const fill=ratingStarFillPercent(current,i,max);
         const glyph=<span aria-hidden="true" className="pg-rating-glyph" style={{backgroundImage:"linear-gradient(90deg, var(--warning) "+fill+"%, var(--muted-foreground) "+fill+"%)"}}>★</span>;
-        return props.interactive === false
-          ? <span key={i} className="pg-rating-static">{glyph}</span>
-          : <button type="button" key={i} aria-label={(i+1)+" de "+max+" estrelas"} aria-pressed={current===i+1} onClick={()=>{setValue(i+1);notify(emit,"change");}}>{glyph}</button>;
+        if(props.interactive === false)return <span key={i} className="pg-rating-static">{glyph}</span>;
+        if(props.step===0.5)return <span key={i} className="relative inline-flex align-middle">{glyph}
+          {[0.5,1].map((part,j)=><button key={j} type="button" className={`absolute inset-y-0 ${j===0?"left-0":"right-0"} w-1/2 rounded-sm focus-visible:outline-2 focus-visible:outline-ring`}
+            aria-label={`${i+part} de ${max} estrelas`} aria-pressed={current===i+part} onClick={()=>select(i+part)}/>)}
+        </span>;
+        return <button type="button" key={i} aria-label={(i+1)+" de "+max+" estrelas"} aria-pressed={current===i+1} onClick={()=>select(i+1)}>{glyph}</button>;
       })}
+      {props.showValue&&<output aria-live="polite" className="ml-2 text-sm tabular-nums">{formatted}/{max}</output>}
     </div>;
   },
   Metric: ({props})=><article className="pg-metric"><span>{props.label}</span><strong>{props.prefix??""}{props.value}{props.suffix??""}</strong>{props.change&&<small className={`pg-metric--${props.changeType??"neutral"}`}>{props.change}</small>}</article>,
   BarGraph: ({props})=><Chart kind="bar" title={props.title} data={props.data}/>,
   LineGraph: ({props})=><Chart kind="line" title={props.title} data={props.data}/>,
-  Input: ({props,bindings,emit})=>{const id=useId();const [value,setValue]=useValue(props.value??"",bindings?.value);return <div className="pg-field"><label htmlFor={id}>{props.label}</label><ShadcnInput id={id} name={props.name} type={props.type??"text"} required={props.required??props.checks?.some((c:any)=>c.type==="required")} disabled={props.disabled} readOnly={props.readOnly} placeholder={props.placeholder??""} value={value} onChange={e=>{setValue(e.target.value);notify(emit,"change");}} onFocus={()=>notify(emit,"focus")} onBlur={()=>notify(emit,"blur")} onKeyDown={e=>{if(e.key==="Enter")notify(emit,"submit");}}/></div>;},
-  Textarea: ({props,bindings,emit})=>{const id=useId();const [value,setValue]=useValue(props.value??"",bindings?.value);return <div className="pg-field"><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel><ShadcnTextarea id={id} name={props.name} rows={props.rows??3} disabled={props.disabled} required={props.required??props.checks?.some((c:any)=>c.type==="required")} readOnly={props.readOnly} placeholder={props.placeholder??""} value={value} onChange={e=>{setValue(e.target.value);notify(emit,"change");}}/></div>;},
-  Select: ({props,bindings,emit})=>{const id=useId();const [value,setValue]=useValue(props.value??props.defaultValue??"",bindings?.value);return <div className="pg-field"><ShadcnLabel id={id}>{props.label}</ShadcnLabel><ShadcnSelect value={value} disabled={props.disabled} required={props.required} onValueChange={(v:string)=>{setValue(v);notify(emit,"change");}}><SelectTrigger aria-labelledby={id}><SelectValue placeholder={props.placeholder??"Selecione"}/></SelectTrigger><SelectContent>{props.options.map((raw:any)=>{const item=typeof raw==="string"?{label:raw,value:raw}:raw;return <SelectItem key={item.value} value={item.value} disabled={item.disabled}>{item.label}</SelectItem>})}</SelectContent></ShadcnSelect></div>;},
-  Checkbox: ({props,bindings,emit})=>{const id=useId();const [checked,setChecked]=useValue(props.checked??props.defaultChecked??false,bindings?.checked);return <div className="flex items-center gap-2"><ShadcnCheckbox id={id} name={props.name} checked={checked} disabled={props.disabled} required={props.required} onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,"change");}}/><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel></div>;},
-  Radio: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.value??props.defaultValue??"",bindings?.value);const id=useId();return <fieldset className="space-y-2"><legend className="mb-2 text-sm font-medium">{props.label}</legend><ShadcnRadioGroup value={value} disabled={props.disabled} required={props.required} className={props.orientation==="horizontal"?"flex flex-row flex-wrap gap-3":"flex flex-col gap-2"} onValueChange={(v:string)=>{setValue(v);notify(emit,"change");}}>{props.options.map((raw:any,i:number)=>{const item=typeof raw==="string"?{label:raw,value:raw}:raw;return <div key={item.value} className="flex items-center gap-2"><RadioGroupItem id={`${id}-${i}`} value={item.value} disabled={item.disabled}/><ShadcnLabel htmlFor={`${id}-${i}`}>{item.label}</ShadcnLabel></div>})}</ShadcnRadioGroup></fieldset>;},
-  Switch: ({props,bindings,emit})=>{const id=useId();const [checked,setChecked]=useValue(props.checked??props.defaultChecked??false,bindings?.checked);return <div className="flex items-center gap-2"><ShadcnSwitch id={id} name={props.name} checked={checked} disabled={props.disabled} required={props.required} onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,"change");}}/><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel></div>;},
-  Slider: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.value??props.defaultValue??props.min??0,bindings?.value);return <div className="pg-field"><label>{props.label??"Valor"}: {value}<ShadcnSlider aria-label={props.label??"Valor"} min={props.min??0} max={props.max??100} step={props.step??1} orientation={props.orientation??"horizontal"} disabled={props.disabled} value={[value]} onValueChange={(v:number | readonly number[])=>{setValue(typeof v==="number"?v:(v[0]??0));notify(emit,"change");}}/></label></div>;},
+  Input: ({props,bindings,emit})=>{const id=useId();const [value,setValue]=useValue(props.value??"",bindings?.value);return <div className="pg-field"><label htmlFor={id}>{props.label}</label>
+    <ShadcnInput id={id} name={props.name} type={props.type??"text"} required={props.required??props.checks?.some((c:any)=>c.type==="required")} disabled={props.disabled} readOnly={props.readOnly} aria-invalid={props.invalid||undefined} aria-describedby={props.description?`${id}-help`:undefined} maxLength={props.maxLength} placeholder={props.placeholder??""} value={value} onChange={e=>{setValue(e.target.value);notify(emit,"change");}} onFocus={()=>notify(emit,"focus")} onBlur={()=>notify(emit,"blur")} onKeyDown={e=>{if(e.key==="Enter")notify(emit,"submit");}}/>
+    {props.description&&<p id={`${id}-help`} className="text-xs text-muted-foreground">{props.description}</p>}
+  </div>;},
+  Textarea: ({props,bindings,emit})=>{const id=useId();const [value,setValue]=useValue(props.value??"",bindings?.value);return <div className="pg-field"><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>
+    <ShadcnTextarea id={id} name={props.name} rows={props.rows??3} disabled={props.disabled} required={props.required??props.checks?.some((c:any)=>c.type==="required")} readOnly={props.readOnly} aria-invalid={props.invalid||undefined} aria-describedby={props.description?`${id}-help`:undefined} maxLength={props.maxLength} placeholder={props.placeholder??""} value={value} onChange={e=>{setValue(e.target.value);notify(emit,"change");}}/>
+    {props.description&&<p id={`${id}-help`} className="text-xs text-muted-foreground">{props.description}</p>}
+  </div>;},
+  Select: ({props,bindings,emit})=>{const id=useId();const [value,setValue]=useValue(props.value??props.defaultValue??"",bindings?.value);
+    const item=(raw:any)=>{const option=typeof raw==="string"?{label:raw,value:raw}:raw;return <SelectItem key={option.value} value={option.value} disabled={option.disabled}>{option.label}{option.description&&<span className="ml-2 text-xs text-muted-foreground">{option.description}</span>}</SelectItem>};
+    return <div className="pg-field"><ShadcnLabel id={id}>{props.label}</ShadcnLabel><ShadcnSelect value={value} disabled={props.disabled} required={props.required} onValueChange={(v:string)=>{setValue(v);notify(emit,"change");}}><SelectTrigger aria-labelledby={id}><SelectValue placeholder={props.placeholder??"Selecione"}/></SelectTrigger>
+      <SelectContent>{props.options.map(item)}{props.groups?.map((group:any,i:number)=><SelectGroup key={group.label}><SelectLabel>{group.label}</SelectLabel>{group.options.map(item)}{i<props.groups.length-1&&<SelectSeparator/>}</SelectGroup>)}</SelectContent>
+    </ShadcnSelect></div>;
+  },
+  Checkbox: ({props,bindings,emit})=>{const id=useId();const [checked,setChecked]=useValue(props.checked??props.defaultChecked??false,bindings?.checked);return <div className="flex items-start gap-2"><ShadcnCheckbox id={id} name={props.name} checked={checked} disabled={props.disabled} required={props.required} aria-invalid={props.invalid||undefined} aria-describedby={props.description?`${id}-help`:undefined} onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,"change");}}/><div className="grid gap-1"><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>{props.description&&<p id={`${id}-help`} className="text-xs text-muted-foreground">{props.description}</p>}</div></div>;},
+  Radio: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.value??props.defaultValue??"",bindings?.value);const id=useId();return <fieldset className="space-y-2"><legend className="mb-2 text-sm font-medium">{props.label}</legend><ShadcnRadioGroup value={value} disabled={props.disabled} required={props.required} className={props.orientation==="horizontal"?"flex flex-row flex-wrap gap-3":"flex flex-col gap-2"} onValueChange={(v:string)=>{setValue(v);notify(emit,"change");}}>{props.options.map((raw:any,i:number)=>{const item=typeof raw==="string"?{label:raw,value:raw}:raw;return <div key={item.value} className="flex items-start gap-2"><RadioGroupItem id={`${id}-${i}`} value={item.value} disabled={item.disabled}/><div className="grid gap-1"><ShadcnLabel htmlFor={`${id}-${i}`}>{item.label}</ShadcnLabel>{item.description&&<span className="text-xs text-muted-foreground">{item.description}</span>}</div></div>})}</ShadcnRadioGroup></fieldset>;},
+  Switch: ({props,bindings,emit})=>{const id=useId();const [checked,setChecked]=useValue(props.checked??props.defaultChecked??false,bindings?.checked);return <div className="flex items-start gap-2"><ShadcnSwitch id={id} name={props.name} checked={checked} size={props.size??"default"} disabled={props.disabled} required={props.required} aria-describedby={props.description?`${id}-help`:undefined} onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,"change");}}/><div className="grid gap-1"><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>{props.description&&<p id={`${id}-help`} className="text-xs text-muted-foreground">{props.description}</p>}</div></div>;},
+  Slider: ({props,bindings,emit})=>{
+    const initial=props.values??props.defaultValues??(props.value??props.defaultValue??props.min??0);
+    const [value,setValue]=useValue<number|number[]>(initial,bindings?.value);
+    const current=Array.isArray(value)?value:[value];
+    return <div className="pg-field"><div className="flex items-center justify-between gap-2">
+      <ShadcnLabel>{props.label??"Valor"}</ShadcnLabel>{props.showValue!==false&&<output className="text-xs tabular-nums">{current.join(" – ")}</output>}
+    </div><ShadcnSlider aria-label={props.label??"Valor"} min={props.min??0} max={props.max??100} step={props.step??1} orientation={props.orientation??"horizontal"} disabled={props.disabled} value={current} onValueChange={(v:number|readonly number[])=>{const next=Array.isArray(v)?[...v]:[v as number];setValue(props.values||props.defaultValues?next:next[0]);notify(emit,"change");}}/></div>;
+  },
   Button: ({props,emit})=>{
     const icons={Search,Plus,Minus,Check,X,ArrowRight,ArrowLeft,Copy,Download,Upload,Bell,Heart,Star,Settings,Mail,Github,Menu,Sun,Moon,LoaderCircle,ExternalLink};
     const Icon=icons[props.icon as keyof typeof icons];
@@ -240,23 +294,16 @@ export const playgroundImplementations = {
       </DropdownMenuContent>
     </ShadcnDropdownMenu>;
   },
-  Toggle: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.pressed??props.defaultPressed??false,bindings?.pressed);return <ShadcnToggle variant={props.variant??"default"} size={props.size??"default"} disabled={props.disabled} pressed={value} onPressedChange={(v:boolean)=>{setValue(v);notify(emit,"change");}}>{props.label}</ShadcnToggle>;},
+  Toggle: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.pressed??props.defaultPressed??false,bindings?.pressed);const Icon=props.icon?lucideIcons[props.icon as keyof typeof lucideIcons]:null;return <ShadcnToggle variant={props.variant??"default"} size={props.size??"default"} disabled={props.disabled} pressed={value} onPressedChange={(v:boolean)=>{setValue(v);notify(emit,"change");}}>{Icon&&<Icon aria-hidden="true" className="size-4"/>}{props.label}</ShadcnToggle>;},
   ToggleGroup: ({props,bindings,emit})=>{
     const initial=props.value??props.defaultValue??"";
     const [value,setValue]=useValue<string|string[]>(initial,bindings?.value);
     const selected=Array.isArray(value)?value:(value?[value]:[]);
-    const parts=props.items.map((item:any)=><ToggleGroupItem key={item.value} value={item.value}>{item.label}</ToggleGroupItem>);
-    const change=(next:string[])=>{
-      setValue(props.type==="multiple"?next:(next.at(-1)??""));
-      notify(emit,"change");
-    };
-    return <ShadcnToggleGroup variant={props.variant??"default"} size={props.size??"default"}
-      value={selected} disabled={props.disabled} onValueChange={change}
-      className={props.orientation==="vertical"?"flex flex-col items-stretch":"flex flex-row flex-wrap"}>
-      {parts}
-    </ShadcnToggleGroup>;
+    const parts=props.items.map((item:any)=>{const I=item.icon?lucideIcons[item.icon as keyof typeof lucideIcons]:null;return <ToggleGroupItem key={item.value} value={item.value} disabled={item.disabled}>{I&&<I aria-hidden="true" className="size-4"/>}{item.label}</ToggleGroupItem>});
+    const change=(next:string[])=>{setValue(props.type==="multiple"?next:(next.at(-1)??""));notify(emit,"change");};
+    return <ShadcnToggleGroup variant={props.variant??"default"} size={props.size??"default"} value={selected} disabled={props.disabled} onValueChange={change} className={props.orientation==="vertical"?"flex flex-col items-stretch":"flex flex-row flex-wrap"}>{parts}</ShadcnToggleGroup>;
   },
-  ButtonGroup: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.selected??"",bindings?.selected);return <ShadcnButtonGroup orientation={props.orientation??"horizontal"}>{props.buttons.map((item:any)=><ShadcnButton key={item.value} type="button" disabled={item.disabled} variant={value===item.value?"default":"outline"} onClick={()=>{setValue(item.value);notify(emit,"change");}}>{item.label}</ShadcnButton>)}</ShadcnButtonGroup>;},
+  ButtonGroup: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.selected??"",bindings?.selected);return <ShadcnButtonGroup orientation={props.orientation??"horizontal"}>{props.buttons.map((item:any)=>{const Icon=item.icon?lucideIcons[item.icon as keyof typeof lucideIcons]:null;return <ShadcnButton key={item.value} type="button" size={props.size??"default"} disabled={item.disabled} variant={value===item.value?"default":props.variant??"outline"} onClick={()=>{setValue(item.value);notify(emit,"change");}}>{Icon&&<Icon aria-hidden="true" className="size-4"/>}{item.label}</ShadcnButton>})}</ShadcnButtonGroup>;},
   Pagination: ({props,bindings,emit})=>{
     const [page,setPage]=useValue(props.page??1,bindings?.page);
     const [size,setSize]=useState(props.pageSize??10);

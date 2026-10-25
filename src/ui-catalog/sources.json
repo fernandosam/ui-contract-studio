@@ -9,8 +9,8 @@
       "sourceUrl": null,
       "license": "Projeto base (implementação local)",
       "reviewedOn": "2026-10-16",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Stack",
@@ -39,8 +39,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Tabs",
@@ -49,8 +49,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Accordion",
@@ -109,8 +109,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Heading",
@@ -159,8 +159,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.1.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. ReUI: capacidades tipadas propostas para revisão independente; sem certificação de paridade por exemplo.",
+      "contractVersion": "2.2.0"
     },
     {
       "name": "Badge",
@@ -169,8 +169,8 @@
       "sourceUrl": null,
       "license": "Projeto base (implementação local)",
       "reviewedOn": "2026-10-16",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Alert",
@@ -179,8 +179,8 @@
       "sourceUrl": null,
       "license": "Projeto base (implementação local)",
       "reviewedOn": "2026-10-16",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.1.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. ReUI: capacidades tipadas propostas para revisão independente; sem certificação de paridade por exemplo.",
+      "contractVersion": "2.2.0"
     },
     {
       "name": "Progress",
@@ -189,8 +189,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Skeleton",
@@ -199,8 +199,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. ReUI: capacidades tipadas propostas para revisão independente; sem certificação de paridade por exemplo.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Spinner",
@@ -209,8 +209,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Tooltip",
@@ -219,8 +219,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Popover",
@@ -239,8 +239,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. ReUI: capacidades tipadas propostas para revisão independente; sem certificação de paridade por exemplo.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Metric",
@@ -279,8 +279,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Textarea",
@@ -289,8 +289,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Select",
@@ -299,8 +299,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Checkbox",
@@ -309,8 +309,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. ReUI: capacidades tipadas propostas para revisão independente; sem certificação de paridade por exemplo.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Radio",
@@ -319,8 +319,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. ReUI: capacidades tipadas propostas para revisão independente; sem certificação de paridade por exemplo.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Switch",
@@ -329,8 +329,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Slider",
@@ -339,8 +339,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Button",
@@ -379,8 +379,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. ReUI: capacidades tipadas propostas para revisão independente; sem certificação de paridade por exemplo.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "ToggleGroup",
@@ -389,8 +389,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. Ampliação ReUI tipada proposta em PR; não equivale a certificação visual/funcional.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "ButtonGroup",
@@ -399,8 +399,8 @@
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "license": "Implementação local independente; contrato baseado no Playground do json-render (MIT)",
       "reviewedOn": "2026-10-20",
-      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21.",
-      "contractVersion": "2.0.0"
+      "notes": "API serializável alinhada a shadcn/ui quando disponível; sem correspondência nativa, composição local documentada. Revisão de migração solicitada em 2026-10-21. ReUI: capacidades tipadas propostas para revisão independente; sem certificação de paridade por exemplo.",
+      "contractVersion": "2.1.0"
     },
     {
       "name": "Pagination",

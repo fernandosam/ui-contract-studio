@@ -20,7 +20,7 @@
   "contracts": [
     {
       "type": "Card",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -71,7 +71,7 @@
     },
     {
       "type": "Separator",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -88,7 +88,7 @@
     },
     {
       "type": "Tabs",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -190,7 +190,7 @@
     },
     {
       "type": "Table",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -275,7 +275,7 @@
     },
     {
       "type": "Avatar",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -292,7 +292,7 @@
     },
     {
       "type": "Badge",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -309,7 +309,7 @@
     },
     {
       "type": "Alert",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "tier": "base",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -326,7 +326,7 @@
     },
     {
       "type": "Progress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -343,7 +343,7 @@
     },
     {
       "type": "Skeleton",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -360,7 +360,7 @@
     },
     {
       "type": "Spinner",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -377,7 +377,7 @@
     },
     {
       "type": "Tooltip",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -411,7 +411,7 @@
     },
     {
       "type": "Rating",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -479,7 +479,7 @@
     },
     {
       "type": "Input",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -496,7 +496,7 @@
     },
     {
       "type": "Textarea",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -513,7 +513,7 @@
     },
     {
       "type": "Select",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -530,7 +530,7 @@
     },
     {
       "type": "Checkbox",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -547,7 +547,7 @@
     },
     {
       "type": "Radio",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -564,7 +564,7 @@
     },
     {
       "type": "Switch",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -581,7 +581,7 @@
     },
     {
       "type": "Slider",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -649,7 +649,7 @@
     },
     {
       "type": "Toggle",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -666,7 +666,7 @@
     },
     {
       "type": "ToggleGroup",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
@@ -683,7 +683,7 @@
     },
     {
       "type": "ButtonGroup",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "sourceUrl": "https://github.com/vercel-labs/json-render/blob/main/apps/web/lib/render/catalog.ts",
       "zodSource": "src/ui-catalog/catalog.ts",
