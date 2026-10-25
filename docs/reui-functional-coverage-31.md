@@ -56,7 +56,7 @@
 | ToggleGroup | 16 | **Novo:** ícones allowlisted e opção individual disabled | Itens rich e ações externas |
 | Tooltip | 16 | **Novo:** ícone de gatilho e atalho textual | Conteúdo com avatar e ações ricas |
 | Rating | 9 | **Novo:** seleção em meia estrela e valor visível; exibição fracionária | Interatividade em meia estrela, avaliação com envio, escalas de faces |
-| **Total** | **559** | **31 famílias com exemplos React versionados; 20 contratos base distintos evoluídos nesta rodada** | **Fidelidade completa ainda não certificada** |
+| **Total** | **559** | **31 famílias com exemplos React versionados; 22 contratos base distintos evoluídos nesta rodada** | **Fidelidade completa ainda não certificada** |
 
 ## Evidência existente e critérios de conclusão
 
