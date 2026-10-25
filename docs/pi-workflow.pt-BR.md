@@ -2,7 +2,7 @@
 
 # Fluxo do Pi Agent
 
-A orientação vigente está em [Agentes e Pi](agents.md) e na [skill UI Catalog](../.pi/skills/ui-catalog/SKILL.md).
+A orientação vigente está em [Agentes e Pi](agents.pt-BR.md) e na [skill UI Catalog](../.pi/skills/ui-catalog/SKILL.pt-BR.md).
 
 Fluxo resumido:
 

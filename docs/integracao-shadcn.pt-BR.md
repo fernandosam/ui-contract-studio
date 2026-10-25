@@ -34,6 +34,6 @@ O script de instalação não deve sobrescrever customizações arbitrariamente.
 
 ## Admissão e testes
 
-Para disponibilizar uma primitiva ao Pi, siga [componentes e admissão](components.md): schema Zod estrito, renderer/adapter, proveniência, lock/versionamento, fixtures, testes e revisão independente. Execute a verificação estrutural e revisão em navegador quando disponível. A [auditoria oficial](official-component-visual-audit.md) separa captura de referência de aprovação visual.
+Para disponibilizar uma primitiva ao Pi, siga [componentes e admissão](components.pt-BR.md): schema Zod estrito, renderer/adapter, proveniência, lock/versionamento, fixtures, testes e revisão independente. Execute a verificação estrutural e revisão em navegador quando disponível. A [auditoria oficial](official-component-visual-audit.pt-BR.md) separa captura de referência de aprovação visual.
 
 **Histórico:** os planos anteriores de 21, 37 e 38 componentes eram snapshots de fases anteriores; o arquivo `shadcn-plan.json` é a referência atual, não esta documentação.

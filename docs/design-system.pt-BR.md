@@ -20,10 +20,10 @@
 - O conjunto disponível é **41 tipos de base + extensões aprovadas**.
 - As extensões residem em `src/ui-catalog/extensions/`, com **schema Zod**, **componente React**, **adapter no registry**, **proveniência no manifesto** e **testes**.
 - Não é permitido construir páginas com JSX direto; todas as telas permanecem JSON `json-render`.
-- Processo completo: [admissao-componentes.md](./admissao-componentes.md).
+- Processo completo: [admissao-componentes.md](./admissao-componentes.pt-BR.md).
 
 ## Incorporação de shadcn/ui (v0.5)
 - `src/components/ui/` é o destino exclusivo do CLI shadcn; aliases foram alinhados ao Vite/TypeScript.
 - Componentes instalados herdam tema e CSS variables de `src/globals.css`; não substituir por tema padrão do CLI.
 - `src/ui-catalog/*` permanece o contrato da IA. Para uso em telas, a primitiva precisa de adapter e, quando novo tipo, schema Zod e aprovação.
-- Os 21 primitivas planejadas, instruções e status de instalação estão em `shadcn-plan.json` e [integracao-shadcn.md](integracao-shadcn.md).
+- Os 21 primitivas planejadas, instruções e status de instalação estão em `shadcn-plan.json` e [integracao-shadcn.md](integracao-shadcn.pt-BR.md).
