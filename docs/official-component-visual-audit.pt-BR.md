@@ -28,4 +28,4 @@ O Playwright captura a referência oficial e a prévia local correspondente, qua
 
 Capturas com tamanhos, fontes, conteúdos e estados diferentes geram diferenças numéricas **apenas diagnósticas**. A verificação de cobertura pode falhar por referência ausente, captura ausente ou erro de proveniência, mas **não comprova fidelidade pixel a pixel**. A aprovação visual exige fixtures equivalentes e revisão humana registrada.
 
-Consulte [desenvolvimento](development.md), [componentes](components.md) e [revisão de composições](revisao-visual-shadcn.md).
+Consulte [desenvolvimento](development.pt-BR.md), [componentes](components.pt-BR.md) e [revisão de composições](revisao-visual-shadcn.pt-BR.md).

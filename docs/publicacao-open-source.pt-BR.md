@@ -14,4 +14,4 @@ Um histórico Git independente não elimina obrigações de confidencialidade, d
 - [ ] Avaliar a necessidade de E2E manual e de screenshots para cada mudança visual significativa.
 - [ ] Confirmar no GitHub regras de proteção e revisão de PR antes de afirmar que estão ativas.
 
-Não importe histórico, credenciais, logs ou artefatos confidenciais de outro projeto. Consulte a política geral em [governança](governance.md) e o canal de relato em [SECURITY.md](../SECURITY.md).
+Não importe histórico, credenciais, logs ou artefatos confidenciais de outro projeto. Consulte a política geral em [governança](governance.pt-BR.md) e o canal de relato em [SECURITY.md](../SECURITY.pt-BR.md).
