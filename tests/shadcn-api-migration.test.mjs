@@ -10,10 +10,12 @@ const contracts=readJSON("src/ui-catalog/contracts.lock.json");
 const plan=readJSON("shadcn-plan.json");
 const specs=[...readdirSync("src/ui-screens").map(x=>"src/ui-screens/"+x),...readdirSync("src/ui-patterns").filter(x=>x.endsWith(".json")&&!x.endsWith(".meta.json")).map(x=>"src/ui-patterns/"+x)].filter(x=>x.endsWith(".json"));
 
-test("20 contratos base em 2.0.0 e 21 primitivas em 2.1.0; extensões preservadas",()=>{
+test("14 contratos base em 2.0.0, 25 em 2.1.0 e duas em 2.2.0; extensões preservadas",()=>{
  assert.equal(contracts.components.length,102);
- assert.equal(contracts.components.filter(c=>c.tier==='base'&&c.version==='2.0.0').length,20);
- for (const name of ["Accordion","Button","Carousel","Avatar","Alert","DropdownMenu","Pagination","Card","Tabs","Badge","Select","Slider","Input","Textarea","Switch","Progress","Separator","Spinner","Tooltip","ToggleGroup","Table"]) assert.equal(contracts.components.filter(c=>c.name===name&&c.version==="2.1.0").length,1,name);
+ assert.equal(contracts.components.filter(c=>c.tier==='base'&&c.version==='2.0.0').length,14);
+ for (const name of ["Avatar","Alert"]) assert.equal(contracts.components.filter(c=>c.name===name&&c.version==="2.2.0").length,1,name);
+ for (const name of ["Accordion","Button","Carousel","DropdownMenu","Pagination","Card","Tabs","Badge","Select","Slider","Input","Textarea","Switch","Progress","Separator","Spinner","Tooltip","ToggleGroup","Table","Checkbox","Radio","ButtonGroup","Skeleton","Toggle","Rating"]) assert.equal(contracts.components.filter(c=>c.name===name&&c.version==="2.1.0").length,1,name);
+ assert.equal(contracts.components.filter(c=>c.tier==="base"&&c.version==="2.1.0").length,25);
  assert.equal(contracts.components.filter(c=>c.tier==='extension').length,61);
  for (const name of ["DataTable","DatePicker","Field"]) assert.ok(contracts.components.some(c=>c.name===name));
 });
