@@ -210,6 +210,21 @@
       "O contrato Pi restringe submenus a um nível e bloqueia callbacks livres"
     ]
   },
+  "Field": {
+    "whenUse": [
+      "Agrupar um controle com rótulo, descrição e feedback de validação.",
+      "Organizar campos horizontais, verticais ou responsivos em formulários."
+    ],
+    "whenNotUse": [
+      "Para renderizar apenas texto sem campo, use Text.",
+      "Não substitua o controle real nem confunda o agrupamento visual com validação dos dados."
+    ],
+    "agentNotes": [
+      "Field utiliza label obrigatório e description opcional no contrato.",
+      "orientation aceita vertical, horizontal ou responsive; invalid comunica o estado.",
+      "Passe apenas componentes declarativos aprovados ao slot default; não injete JSX ou CSS livre."
+    ]
+  },
   "Grid": {
     "whenUse": [
       "Organizar cartões e campos em colunas responsivas",
