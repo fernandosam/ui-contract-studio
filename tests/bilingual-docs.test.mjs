@@ -1,7 +1,9 @@
 import test from "node:test"
 import assert from "node:assert/strict"
-import { existsSync, readdirSync, readFileSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync, mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs"
 import { join } from "node:path"
+import { tmpdir } from "node:os"
+import { checkLinks } from "../scripts/check-docs.mjs"
 
 const allMarkdown = (directory) =>
   readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
@@ -52,5 +54,50 @@ test("bilingual versions keep the mandatory safety and license markers", () => {
     assert.match(txt,/Copyright \(c\) 2025 Keenthemes Inc/)
     assert.match(txt,/Permission is hereby granted, free of charge/)
     assert.match(txt,/THE SOFTWARE IS PROVIDED "AS IS"/)
+  }
+})
+
+test("Portuguese documentation keeps internal links in pt-BR and the English switch functional", () => {
+  const translated = [
+    ...readdirSync(".").filter(name => name.endsWith(".pt-BR.md")),
+    ...["docs", ".pi", "sandbox"].flatMap(allMarkdown).filter(name => name.endsWith(".pt-BR.md")),
+  ]
+  assert.equal(translated.length, 36)
+  for (const path of translated) {
+    assert.deepEqual(checkLinks(process.cwd(), path), [], "Incorrect or broken link: " + path)
+  }
+  const read = path => readFileSync(path, "utf8")
+  assert.match(read("README.pt-BR.md"), /\[índice da documentação\]\(docs\/README\.pt-BR\.md\)/)
+  assert.match(read("docs/README.pt-BR.md"), /\[README\]\(\.\.\/README\.pt-BR\.md\)/)
+  assert.match(read("AGENTS.pt-BR.md"), /\[skill Pi\]\(\.pi\/skills\/ui-catalog\/SKILL\.pt-BR\.md\)/)
+  assert.match(read("README.pt-BR.md"), /\[English\]\(README\.md\)/)
+})
+
+test("documentation link checker rejects English guides only when a Portuguese counterpart exists", () => {
+  const root = mkdtempSync(join(tmpdir(), "ui-contract-docs-"))
+  try {
+    mkdirSync(join(root, "docs"))
+    writeFileSync(join(root, "docs", "guide.md"), "# English guide\n")
+    writeFileSync(join(root, "docs", "guide.pt-BR.md"), "# Guia em português\n")
+    writeFileSync(join(root, "docs", "reference.md"), "# Only English\n")
+    const page = "docs/page.pt-BR.md"
+    writeFileSync(join(root, page), [
+      "[English](page.md) | [Português](page.pt-BR.md)",
+      "[Guia](guide.md#section)",
+      "[Sem tradução](reference.md)",
+      "[Outro site](https://example.com/docs/page.md)",
+    ].join("\n"))
+    writeFileSync(join(root, "docs", "page.md"), "# English version\n")
+    assert.deepEqual(checkLinks(root, page), [
+      "docs/page.pt-BR.md: link para documento em inglês guide.md#section; use a versão .pt-BR.md",
+    ])
+    writeFileSync(join(root, page), [
+      "[English](page.md) | [Português](page.pt-BR.md)",
+      "[Guia](guide.pt-BR.md#section)",
+      "[Sem tradução](reference.md)",
+    ].join("\n"))
+    assert.deepEqual(checkLinks(root, page), [])
+  } finally {
+    rmSync(root, { recursive: true, force: true })
   }
 })
