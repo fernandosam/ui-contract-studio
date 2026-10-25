@@ -29,7 +29,7 @@ function withoutCodeFences(content) {
   }).join("\n");
 }
 
-function checkLinks(root, file) {
+export function checkLinks(root, file) {
   const errors = [];
   const md = withoutCodeFences(read(root, file));
   const link = /!?\[[^\]\n]*\]\((<[^>]+>|[^\s)]+)(?:\s+["'][^"']*["'])?\)/g;
@@ -50,6 +50,14 @@ function checkLinks(root, file) {
       errors.push(file + ": link fora do repositório " + href);
     } else if (!existsSync(absolute)) {
       errors.push(file + ": link inexistente " + href);
+    } else if (
+      file.endsWith(".pt-BR.md") &&
+      decoded.endsWith(".md") &&
+      !decoded.endsWith(".pt-BR.md") &&
+      !/^\[English\]\(/.test(match[0]) &&
+      existsSync(resolve(root, dirname(file), decoded.replace(/\.md$/, ".pt-BR.md")))
+    ) {
+      errors.push(file + ": link para documento em inglês " + href + "; use a versão .pt-BR.md");
     }
   }
   return errors;
