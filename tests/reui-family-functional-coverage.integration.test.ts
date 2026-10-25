@@ -60,3 +60,26 @@ test("matriz de 31 famílias cobre exatamente os 559 TSX versionados, sem admiti
   assert.equal(ids.size,559);
   assert.deepEqual(new Set(admission.map(x=>x.exampleId)),ids);
 });
+
+test("oito outras famílias têm extensões seguras e tipadas",()=>{
+  const cases:Record<string,Record<string,unknown>>={
+    Avatar:{src:null,name:"Ana Silva",shape:"square",status:"online",statusPosition:"top-right"},
+    Alert:{description:"Manutenção programada",tone:"warning",showIcon:false,dismissible:true},
+    Checkbox:{label:"Aceito",name:"terms",description:"Concordo com as condições",invalid:false},
+    Radio:{label:"Prioridade",name:"priority",options:[{label:"Urgente",value:"urgent",description:"Atendimento prioritário"}],value:null,defaultValue:null},
+    ButtonGroup:{buttons:[{value:"list",label:"Lista",icon:"Search"}],selected:null,variant:"outline",size:"sm"},
+    Skeleton:{width:null,height:null,shape:"circle",lines:2},
+    Toggle:{label:"Favorito",icon:"Heart",pressed:true},
+    Rating:{label:null,value:3.5,max:5,interactive:true,step:0.5,showValue:true}
+  };
+  assert.equal(Object.keys(cases).length,8);
+  for(const [name,props] of Object.entries(cases)){
+    const schema=playgroundDefinitions[name as keyof typeof playgroundDefinitions].props;
+    const good=schema.safeParse(props);
+    assert.ok(good.success,name+": "+(good.success?"":good.error.message));
+    assert.ok(!schema.safeParse({...props,onClick:"execute()",className:"bg-red-500"}).success,name);
+  }
+  assert.equal(playgroundDefinitions.Rating.props.safeParse({...cases.Rating,step:0.1}).success,false);
+  assert.equal(playgroundDefinitions.Skeleton.props.safeParse({...cases.Skeleton,lines:99}).success,false);
+  assert.equal(playgroundDefinitions.Avatar.props.safeParse({...cases.Avatar,statusPosition:"middle"}).success,false);
+});
