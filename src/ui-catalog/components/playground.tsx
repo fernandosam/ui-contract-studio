@@ -93,9 +93,6 @@ export const playgroundImplementations = {
     <CardContent className="flex flex-col gap-4">{children}</CardContent>
     {props.footer&&<CardFooter className="text-sm text-muted-foreground">{props.footer}</CardFooter>}
   </ShadcnCard>,
-    {(props.title||props.description) && <CardHeader>{props.title && <CardTitle>{props.title}</CardTitle>}{props.description && <CardDescription>{props.description}</CardDescription>}</CardHeader>}
-    <CardContent className="flex flex-col gap-4">{children}</CardContent>
-  </ShadcnCard>,
   Stack: ({props,children}) => <div className={`pg-stack pg-stack--${props.direction??"vertical"} pg-gap--${props.gap??"md"} pg-align--${props.align??"stretch"} pg-justify--${props.justify??"start"}`}>{children}</div>,
   Grid: ({props,children}) => <div className="pg-grid" style={{"--columns":clamp(props.columns??1,1,6),"--gap":props.gap==="lg"?"24px":props.gap==="sm"?"10px":"16px"} as CSSProperties}>{children}</div>,
   Separator: ({props})=>props.label&&props.orientation!=="vertical"
@@ -155,11 +152,6 @@ export const playgroundImplementations = {
     <TableBody>{props.rows.length===0?<TableRow><TableCell colSpan={Math.max(1,props.columns.length)} className="text-center text-muted-foreground">{props.emptyMessage??"Nenhum registro."}</TableCell></TableRow>:
       props.rows.map((row:string[],i:number)=><TableRow className={props.striped&&i%2===1?"bg-muted/50":undefined} key={i}>{props.columns.map((_:string,j:number)=><TableCell className={props.compact?"px-2 py-1.5":undefined} key={j}>{row[j]??""}</TableCell>)}</TableRow>)}</TableBody>
   </ShadcnTable></div>,
-    // The upstream shadcn table owns an inner horizontal scroll region. Make it
-    // keyboard-focusable without modifying the integrity-checked official component.
-    const region=node?.querySelector<HTMLElement>('[data-slot="table-container"]');
-    if(region){region.tabIndex=0;region.setAttribute('role','region');region.setAttribute('aria-label',props.caption??'Tabela com rolagem horizontal');}
-  }}><ShadcnTable>{props.caption && <caption className="sr-only">{props.caption}</caption>}<TableHeader><TableRow>{props.columns.map((c:string,i:number)=><TableHead key={i}>{c}</TableHead>)}</TableRow></TableHeader><TableBody>{props.rows.map((row:string[],i:number)=><TableRow key={i}>{props.columns.map((_:string,j:number)=><TableCell key={j}>{row[j]??""}</TableCell>)}</TableRow>)}</TableBody></ShadcnTable></div>,
   Heading: ({props})=>{const level=props.level??"h2";const className=`pg-heading pg-heading--${level}`;if(level==="h1")return <h1 className={className}>{props.text}</h1>;if(level==="h3")return <h3 className={className}>{props.text}</h3>;if(level==="h4")return <h4 className={className}>{props.text}</h4>;return <h2 className={className}>{props.text}</h2>;},
   Text: ({props})=><p className={`pg-text pg-text--${props.variant??"body"}`}>{props.text}</p>,
   Image: ({props})=><div className="pg-placeholder" role="img" aria-label={props.alt} style={{maxWidth:props.width??undefined,height:props.height??120}}><span>▧</span><small>{props.alt}</small></div>,
@@ -301,20 +293,6 @@ export const playgroundImplementations = {
     const parts=props.items.map((item:any)=>{const I=item.icon?lucideIcons[item.icon as keyof typeof lucideIcons]:null;return <ToggleGroupItem key={item.value} value={item.value} disabled={item.disabled}>{I&&<I aria-hidden="true" className="size-4"/>}{item.label}</ToggleGroupItem>});
     const change=(next:string[])=>{setValue(props.type==="multiple"?next:(next.at(-1)??""));notify(emit,"change");};
     return <ShadcnToggleGroup variant={props.variant??"default"} size={props.size??"default"} value={selected} disabled={props.disabled} onValueChange={change} className={props.orientation==="vertical"?"flex flex-col items-stretch":"flex flex-row flex-wrap"}>{parts}</ShadcnToggleGroup>;
-  },
-    const initial=props.value??props.defaultValue??"";
-    const [value,setValue]=useValue<string|string[]>(initial,bindings?.value);
-    const selected=Array.isArray(value)?value:(value?[value]:[]);
-    const parts=props.items.map((item:any)=><ToggleGroupItem key={item.value} value={item.value}>{item.label}</ToggleGroupItem>);
-    const change=(next:string[])=>{
-      setValue(props.type==="multiple"?next:(next.at(-1)??""));
-      notify(emit,"change");
-    };
-    return <ShadcnToggleGroup variant={props.variant??"default"} size={props.size??"default"}
-      value={selected} disabled={props.disabled} onValueChange={change}
-      className={props.orientation==="vertical"?"flex flex-col items-stretch":"flex flex-row flex-wrap"}>
-      {parts}
-    </ShadcnToggleGroup>;
   },
   ButtonGroup: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.selected??"",bindings?.selected);return <ShadcnButtonGroup orientation={props.orientation??"horizontal"}>{props.buttons.map((item:any)=><ShadcnButton key={item.value} type="button" disabled={item.disabled} variant={value===item.value?"default":"outline"} onClick={()=>{setValue(item.value);notify(emit,"change");}}>{item.label}</ShadcnButton>)}</ShadcnButtonGroup>;},
   Pagination: ({props,bindings,emit})=>{
