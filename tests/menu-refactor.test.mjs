@@ -52,6 +52,6 @@ test('Carousel tem controles dentro da largura disponível sem offsets absolutos
 test('README contém somente uso e CHANGELOG registra evolução',()=>{
  const pkg=data('package.json');assert.match(pkg.version,/^0\.\d+\.\d+$/);
  assert.match(text('README.md'),/CHANGELOG.md/);
- const log=text('CHANGELOG.md');assert.match(log,/Initial independent snapshot/);assert.ok(log.includes(pkg.version));
+ const log=text('CHANGELOG.md');assert.match(log,/Initial Independent Snapshot/i);assert.match(text('CHANGELOG.pt-BR.md'),/Initial independent snapshot/);assert.ok(log.includes(pkg.version));
  assert.doesNotMatch(text('README.md'),/## Histórico de versões anteriores/);
 });
