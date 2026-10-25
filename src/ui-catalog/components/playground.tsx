@@ -96,8 +96,8 @@ export const playgroundImplementations = {
   Stack: ({props,children}) => <div className={`pg-stack pg-stack--${props.direction??"vertical"} pg-gap--${props.gap??"md"} pg-align--${props.align??"stretch"} pg-justify--${props.justify??"start"}`}>{children}</div>,
   Grid: ({props,children}) => <div className="pg-grid" style={{"--columns":clamp(props.columns??1,1,6),"--gap":props.gap==="lg"?"24px":props.gap==="sm"?"10px":"16px"} as CSSProperties}>{children}</div>,
   Separator: ({props})=>props.label&&props.orientation!=="vertical"
-    ? <div className="flex items-center gap-3" role="separator" aria-label={props.label}><ShadcnSeparator decorative/><span className="whitespace-nowrap text-xs text-muted-foreground">{props.label}</span><ShadcnSeparator decorative/></div>
-    : <ShadcnSeparator orientation={props.orientation??"horizontal"} decorative={props.decorative??true}/>,
+    ? <div className="flex items-center gap-3" role="separator" aria-label={props.label}><ShadcnSeparator aria-hidden="true"/><span className="whitespace-nowrap text-xs text-muted-foreground">{props.label}</span><ShadcnSeparator aria-hidden="true"/></div>
+    : <ShadcnSeparator orientation={props.orientation??"horizontal"} aria-hidden={props.decorative!==false}/>,
   Tabs: ({props,bindings,emit})=>{const items=props.tabs??[];const [current,setCurrent]=useValue<string>(props.value??props.defaultValue??items[0]?.value??"",bindings?.value);return <ShadcnTabs value={current} orientation={props.orientation??"horizontal"} onValueChange={(v:string)=>{setCurrent(v);notify(emit,"change");}}><TabsList variant={props.listVariant??"default"} className={props.fullWidth?"w-full":undefined}>{items.map((item:any)=><TabsTrigger key={item.value} value={item.value} disabled={props.disabled||item.disabled}>{item.label}</TabsTrigger>)}</TabsList>{items.map((item:any)=><TabsContent key={item.value} value={item.value}>{item.content&&<p className="p-3 text-sm">{item.content}</p>}</TabsContent>)}</ShadcnTabs>;},
   Accordion: ({props})=>{
     const items=props.items??[];
