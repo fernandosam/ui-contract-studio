@@ -17,9 +17,9 @@ O **ui-contract-studio já é público**. As verificações desta página são r
 - [ ] Verificar alterações e histórico pertinente para segredos, dados pessoais, endpoints privados e arquivos binários.
 - [ ] Avaliar autoria, licenças e eventual autorização institucional para cada contribuição relevante.
 - [ ] Revisar dependências, imagens, fontes, exemplos, marcas e materiais de terceiros.
-- [ ] Manter [LICENSE](../LICENSE), [avisos de terceiros](../THIRD_PARTY_NOTICES.md) e [SECURITY.md](../SECURITY.md) adequados.
+- [ ] Manter [LICENSE](../LICENSE), [avisos de terceiros](../THIRD_PARTY_NOTICES.pt-BR.md) e [SECURITY.md](../SECURITY.pt-BR.md) adequados.
 - [ ] Executar `npm ci`, `npm run test:offline`, `npm run docs:check`, `npm run validate` e `npm run build` conforme o escopo.
 - [ ] Executar E2E manual e revisão visual quando necessários, documentando resultados e bloqueios.
 - [ ] Confirmar diretamente na plataforma Git a existência de proteções antes de anunciar governança efetivamente aplicada.
 
-Relatos de segurança devem seguir [SECURITY.md](../SECURITY.md), nunca issues públicas com dados exploráveis. Confira também o [checklist de publicação](publicacao-open-source.md) e a [proteção de repositório](protecao-repositorio.md).
+Relatos de segurança devem seguir [SECURITY.md](../SECURITY.pt-BR.md), nunca issues públicas com dados exploráveis. Confira também o [checklist de publicação](publicacao-open-source.pt-BR.md) e a [proteção de repositório](protecao-repositorio.pt-BR.md).

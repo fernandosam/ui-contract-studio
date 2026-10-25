@@ -2,7 +2,7 @@
 
 # UI Contract Studio — regras para agentes
 
-Este arquivo contém somente as **regras vigentes**. Fluxos detalhados estão na [skill Pi](.pi/skills/ui-catalog/SKILL.md) e nos [guias](docs/README.md); mudanças antigas ficam no [CHANGELOG.md](CHANGELOG.md).
+Este arquivo contém somente as **regras vigentes**. Fluxos detalhados estão na [skill Pi](.pi/skills/ui-catalog/SKILL.pt-BR.md) e nos [guias](docs/README.pt-BR.md); mudanças antigas ficam no [CHANGELOG.md](CHANGELOG.pt-BR.md).
 
 ## 1. Fonte de verdade e limites da interface
 
@@ -38,4 +38,4 @@ Este arquivo contém somente as **regras vigentes**. Fluxos detalhados estão na
 - Informe quais testes foram realmente executados, falhas e limitações; não declare build, Playwright, avaliação real do Pi ou homologação visual sem evidência.
 - `sources.json` e `contracts.lock.json` são registros de revisão, não prova de aprovação humana. A proteção de branch e a revisão independente devem ser impostas na plataforma Git.
 
-**Referências:** [arquitetura](docs/architecture.md) · [componentes](docs/components.md) · [integração Pi](docs/agents.md) · [qualidade](docs/development.md) · [governança](docs/governance.md).
+**Referências:** [arquitetura](docs/architecture.pt-BR.md) · [componentes](docs/components.pt-BR.md) · [integração Pi](docs/agents.pt-BR.md) · [qualidade](docs/development.pt-BR.md) · [governança](docs/governance.pt-BR.md).

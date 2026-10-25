@@ -1,6 +1,6 @@
 [English](revisao-compostos-v021.md) | [Português](revisao-compostos-v021.pt-BR.md)
 
-> **Registro histórico (v0.21):** os totais desta revisão documentam a decisão de retirada daquela versão. Consulte [componentes](components.md) e os manifestos atuais antes de reutilizar contagens.
+> **Registro histórico (v0.21):** os totais desta revisão documentam a decisão de retirada daquela versão. Consulte [componentes](components.pt-BR.md) e os manifestos atuais antes de reutilizar contagens.
 
 # Revisão dos componentes compostos — v0.21
 

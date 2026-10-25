@@ -7,7 +7,7 @@ description: Gerar telas JSON com catálogo json-render fechado, reaproveitar pa
 
 # Skill UI Catalog
 
-Siga as regras de [AGENTS.md](../../../AGENTS.md). Este documento é o procedimento operacional para o Pi; não substitui as políticas de contratos, segurança e revisão.
+Siga as regras de [AGENTS.md](../../../AGENTS.pt-BR.md). Este documento é o procedimento operacional para o Pi; não substitui as políticas de contratos, segurança e revisão.
 
 ## Criar ou alterar uma tela
 
@@ -21,7 +21,7 @@ Siga as regras de [AGENTS.md](../../../AGENTS.md). Este documento é o procedime
 
 - A inclusão exige uma lacuna funcional demonstrável e **admissão com schema Zod + componente React + registry**, provenance/licença em `sources.json`, versão e fingerprint em `contracts.lock.json`, testes e aprovação independente.
 - Para composições declarativas estáticas, edite o template/manifesto e execute `npm run composites:generate`; nunca edite `src/ui-catalog/extensions/generated/`. Para estado ou eventos próprios, use React e adapter tipado.
-- shadcn/ui e ReUI são fontes de implementação e exemplos, **não** concessões de acesso ao catálogo Pi. Consulte [componentes](../../../docs/components.md) e os inventários de origem.
+- shadcn/ui e ReUI são fontes de implementação e exemplos, **não** concessões de acesso ao catálogo Pi. Consulte [componentes](../../../docs/components.pt-BR.md) e os inventários de origem.
 - Não altere o shell, tokens ou schemas-base apenas por diferença estética.
 
 ## Dados, testes e evidências
@@ -31,4 +31,4 @@ Siga as regras de [AGENTS.md](../../../AGENTS.md). Este documento é o procedime
 - Testes visuais só são homologados com referências, screenshots locais e revisão humana. Não marque execução ou aprovação sem evidência.
 - Avaliação real do Pi é manual, com `PI_EVAL_CONFIRM=yes` e, para reparo pago, `PI_EVAL_REPAIR_CONFIRM=yes`. Não substitua resultados ausentes por dados sintéticos.
 
-Veja [fluxo do Pi](../../../docs/pi-workflow.md), [qualidade](../../../docs/development.md) e [governança](../../../docs/governance.md).
+Veja [fluxo do Pi](../../../docs/pi-workflow.pt-BR.md), [qualidade](../../../docs/development.pt-BR.md) e [governança](../../../docs/governance.pt-BR.md).

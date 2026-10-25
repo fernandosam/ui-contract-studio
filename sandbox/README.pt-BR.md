@@ -34,6 +34,6 @@ O Docker também precisa de Internet para dependências e imagens base. O uso lo
 
 ## Evidências visuais
 
-Para exemplos oficiais shadcn, utilize `npm run shadcn:official:capture` e `npm run shadcn:official:compare`, conforme [auditoria oficial](../docs/official-component-visual-audit.md). Capturas locais são diagnósticas; a aprovação visual requer correspondência de estados e revisão humana. As referências às antigas Galerias 1 e 2 correspondem a material **histórico retirado do produto**, não a uma etapa de validação vigente.
+Para exemplos oficiais shadcn, utilize `npm run shadcn:official:capture` e `npm run shadcn:official:compare`, conforme [auditoria oficial](../docs/official-component-visual-audit.pt-BR.md). Capturas locais são diagnósticas; a aprovação visual requer correspondência de estados e revisão humana. As referências às antigas Galerias 1 e 2 correspondem a material **histórico retirado do produto**, não a uma etapa de validação vigente.
 
-A [documentação de qualidade](../docs/development.md) distingue testes automáticos, E2E manual e homologação visual.
+A [documentação de qualidade](../docs/development.pt-BR.md) distingue testes automáticos, E2E manual e homologação visual.
