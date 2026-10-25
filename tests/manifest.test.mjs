@@ -16,10 +16,13 @@ test("baseline permanece 41 tipos e extensões são separadas",()=>{
 });
 test("Pi exige admissão completa antes do uso",()=>{
  const rule=read("../AGENTS.md"), skill=read("../.pi/skills/ui-catalog/SKILL.md");
- for(const word of ["schema Zod", "React", "registry", "sources.json"]){
+ for(const word of ["Zod", "React", "registry", "sources.json"]){
    assert.match(rule,new RegExp(word));
    assert.match(skill,new RegExp(word));
  }
- assert.match(read("../.pi/prompts/ui.md"),/admissão completa/);
+ assert.match(rule,/admission with a Zod schema \+ React component \+ registry/);
+ assert.match(read("../AGENTS.pt-BR.md"),/admissão com schema Zod \+ componente React \+ registry/);
+ assert.match(read("../.pi/prompts/ui.md"),/full admission/);
+ assert.match(read("../.pi/prompts/ui.pt-BR.md"),/admissão completa/);
  assert.match(read("../.pi/extensions/ui-guard.ts"),/extensions\/components/);
 });
