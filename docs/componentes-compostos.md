@@ -1,18 +1,20 @@
-# Componentes compostos ativos
+[English](componentes-compostos.md) | [Português](componentes-compostos.pt-BR.md)
 
-O projeto mantém **37 composições declarativas geradas**, incluindo `Dashboard01`, `Login01..05`, `Signup01..05`, `Sidebar01..16` e 10 composições demonstrativas do site shadcn. Outros cinco compostos interativos possuem implementação própria.
+# Active Composite Components
 
-A tela Dashboard foi removida da navegação, mas o **contrato e o template de `Dashboard01` permanecem disponíveis** em `src/ui-catalog/extensions/composites/templates/block-dashboard-01.json`, com Zod, manifesto, origem e exemplo Pi. Login, Cadastro e Sidebars continuam como blocos navegáveis.
+The project maintains **37 generated declarative compositions**, including `Dashboard01`, `Login01..05`, `Signup01..05`, `Sidebar01..16`, and 10 demonstration compositions from the shadcn site. Five additional interactive composites have their own implementations.
 
-As antigas Galerias 1 e 2 e seus 54 contratos específicos foram excluídos. A galeria **ReUI** permanece acessível em `/?screen=reui`, preservando 559 composições React e as respectivas orientações para agentes.
+The Dashboard page was removed from navigation, but the **`Dashboard01` contract and template remain available** at `src/ui-catalog/extensions/composites/templates/block-dashboard-01.json`, with Zod, manifest, provenance, and Pi example. Login, Sign-up, and Sidebars remain navigable blocks.
 
-## Manutenção e validação
+The former Galleries 1 and 2 and their 54 specific contracts were removed. The **ReUI** gallery remains available at `/?screen=reui`, preserving 559 React compositions and their agent guidance.
 
-- Esquemas: `src/ui-catalog/extensions/catalog.ts`.
-- Manifesto: `src/ui-catalog/extensions/composites/generated-manifest.json`.
-- Contratos versionados: `src/ui-catalog/contracts.lock.json`.
+## Maintenance and validation
+
+- Schemas: `src/ui-catalog/extensions/catalog.ts`.
+- Manifest: `src/ui-catalog/extensions/composites/generated-manifest.json`.
+- Versioned contracts: `src/ui-catalog/contracts.lock.json`.
 - Templates: `src/ui-catalog/extensions/composites/templates/`.
-- Composições geradas: `src/ui-catalog/extensions/generated/`.
-- Validação: `npm run check`, `npm run validate` e `npm run build`.
+- Generated compositions: `src/ui-catalog/extensions/generated/`.
+- Validation: `npm run check`, `npm run validate`, and `npm run build`.
 
-Não admita JSX, HTML, URLs, callbacks ou ações arbitrárias dentro dos JSONs. Novas composições devem passar por auditoria de origem e revisão visual independente.
+Do not admit arbitrary JSX, HTML, URLs, callbacks, or actions inside JSON. New compositions must undergo provenance auditing and independent visual review.

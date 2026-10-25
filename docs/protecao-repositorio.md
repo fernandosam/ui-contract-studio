@@ -1,7 +1,9 @@
-# Proteção do repositório
+[English](protecao-repositorio.md) | [Português](protecao-repositorio.pt-BR.md)
 
-A política vigente está em [Governança](governance.md). O arquivo [CODEOWNERS.template](CODEOWNERS.template) é apenas uma sugestão de configuração e **não significa que exista uma regra de branch ativa**.
+# Repository Protection
 
-Configure no GitHub a exigência de PR, checks de qualidade e revisão independente para alterações de contratos. O job `integration` verifica dependências, schemas, build e testes integrados, **não o Playwright completo**: o E2E é executado manualmente na `main`. Não torne o E2E um status obrigatório de PR se ele não é acionado em PRs.
+Current policy is documented in [Governance](governance.md). [CODEOWNERS.template](CODEOWNERS.template) is only a configuration suggestion and **does not indicate that any branch protection rule is active**.
 
-A ferramenta Pi não pode autoaprovar `sources.json` ou `contracts.lock.json`. `approved` nesses arquivos é metadado; proteção e identidade de revisores devem ser verificadas na plataforma.
+Configure required PRs, quality checks, and independent review for contract changes on GitHub. The `integration` job checks dependencies, schemas, build, and integration tests, **not the complete Playwright suite**: E2E runs manually on `main`. Do not make E2E a mandatory PR status check if it is not triggered by PRs.
+
+Pi cannot self-approve `sources.json` or `contracts.lock.json`. `approved` in those files is metadata; protection and reviewer identity must be verified on the platform.

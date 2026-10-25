@@ -1,27 +1,33 @@
-# Design system — ui-contract-studio (v0.4)
+[English](design-system.md) | [Português](design-system.pt-BR.md)
 
-## Tema
-- Fonte de verdade: **`src/globals.css`**, com as paletas OKLCH fornecidas para claro (`:root, .light-theme`) e escuro (`.dark-theme`).
-- Base: shadcn/ui `base-vega`, Tailwind CSS v4, ícones Lucide, raio-base 0.5rem.
-- Tipografia: **Inter** na interface, **JetBrains Mono** em dados técnicos e **Playfair Display** disponível para conteúdo editorial. As fontes são servidas localmente via Fontsource.
-- A paleta é neutra/quente com variações terrosas nos gráficos, não idêntica à paleta monocromática da Vercel.
-- `@theme inline` usa stacks de fontes explícitas em vez de `--font-sans: var(--font-sans)` para evitar referência cíclica; sombras originais são definidas por tema e consumidas pelos componentes.
-- O código antigo que referenciava Geist foi substituído pelo conjunto de fontes definido no tema.
+# Design System — ui-contract-studio (v0.4)
 
-## Regras visuais
-- O componente novo usa `--background`, `--card`, `--popover`, `--primary`, `--accent`, `--muted`, `--border`, `--ring`, `--chart-1..5`, `--sidebar-*` e `--shadow-*`.
-- A camada `src/index.css` contém CSS local do shell e dos renderizadores existentes. Novos estilos devem ser escopados ao componente, preferencialmente com Tailwind/tokens, sem introduzir paleta paralela.
-- O shell (menu, navegação, cabeçalho, tema) é infraestrutura fixa e não faz parte do catálogo gerável.
-- Priorizar contraste, teclado, responsividade, focus visible e valores tabulares em indicadores.
+## Theme
 
-## Admissão
-- O conjunto disponível é **41 tipos de base + extensões aprovadas**.
-- As extensões residem em `src/ui-catalog/extensions/`, com **schema Zod**, **componente React**, **adapter no registry**, **proveniência no manifesto** e **testes**.
-- Não é permitido construir páginas com JSX direto; todas as telas permanecem JSON `json-render`.
-- Processo completo: [admissao-componentes.md](./admissao-componentes.md).
+- Source of truth: **`src/globals.css`**, with the supplied OKLCH palettes for light (`:root, .light-theme`) and dark (`.dark-theme`) modes.
+- Base: shadcn/ui `base-vega`, Tailwind CSS v4, Lucide icons, and 0.5rem base radius.
+- Typography: **Inter** for the interface, **JetBrains Mono** for technical data, and **Playfair Display** available for editorial content. Fonts are served locally through Fontsource.
+- The palette is neutral/warm with earthy chart variations, not identical to Vercel's monochromatic palette.
+- `@theme inline` uses explicit font stacks instead of `--font-sans: var(--font-sans)` to avoid circular references; original shadows are defined by the theme and consumed by components.
+- Old code referencing Geist was replaced with the font set defined in the theme.
 
-## Incorporação de shadcn/ui (v0.5)
-- `src/components/ui/` é o destino exclusivo do CLI shadcn; aliases foram alinhados ao Vite/TypeScript.
-- Componentes instalados herdam tema e CSS variables de `src/globals.css`; não substituir por tema padrão do CLI.
-- `src/ui-catalog/*` permanece o contrato da IA. Para uso em telas, a primitiva precisa de adapter e, quando novo tipo, schema Zod e aprovação.
-- Os 21 primitivas planejadas, instruções e status de instalação estão em `shadcn-plan.json` e [integracao-shadcn.md](integracao-shadcn.md).
+## Visual rules
+
+- New components use `--background`, `--card`, `--popover`, `--primary`, `--accent`, `--muted`, `--border`, `--ring`, `--chart-1..5`, `--sidebar-*`, and `--shadow-*`.
+- `src/index.css` contains local CSS for the shell and existing renderers. New styles should be scoped to their component, preferably with Tailwind/tokens, without introducing a parallel palette.
+- The shell (menu, navigation, header, theme) is fixed infrastructure and not part of the generatable catalog.
+- Prioritize contrast, keyboard interaction, responsiveness, visible focus, and tabular numerals in metrics.
+
+## Admission
+
+- The available set is **41 base types + approved extensions**.
+- Extensions live under `src/ui-catalog/extensions/`, with a **Zod schema**, **React component**, **registry adapter**, **manifest provenance**, and **tests**.
+- Building pages with direct JSX is not permitted; all screens remain `json-render` JSON.
+- Full process: [admissao-componentes.md](./admissao-componentes.md).
+
+## Incorporating shadcn/ui (v0.5)
+
+- `src/components/ui/` is the exclusive destination for the shadcn CLI; aliases are aligned with Vite/TypeScript.
+- Installed components inherit the theme and CSS variables from `src/globals.css`; do not replace them with the CLI's default theme.
+- `src/ui-catalog/*` remains the AI contract. To use a primitive in screens, it needs an adapter and, for a new type, a Zod schema and approval.
+- The 21 primitives planned at the time, instructions, and installation status are documented in `shadcn-plan.json` and [integracao-shadcn.md](integracao-shadcn.md).
