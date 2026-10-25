@@ -53,10 +53,10 @@ O CI de qualidade roda em pull requests e pushes na `main`. O **E2E completo** �
 | `docs/` | Guias vigentes e registros de auditoria |
 | `sandbox/` | Ferramentas de validação conectada |
 
-Leia o [índice da documentação](docs/README.md), as [instruções para agentes](AGENTS.md), o [guia de contribuição](CONTRIBUTING.md) e o [CHANGELOG](CHANGELOG.md).
+Leia o [índice da documentação](docs/README.pt-BR.md), as [instruções para agentes](AGENTS.pt-BR.md), o [guia de contribuição](CONTRIBUTING.pt-BR.md) e o [CHANGELOG](CHANGELOG.pt-BR.md).
 
 ## Licença e publicação
 
-O código autoral é distribuído sob [MIT](LICENSE); direitos, marcas e licenças de terceiros continuam aplicáveis. Consulte [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+O código autoral é distribuído sob [MIT](LICENSE); direitos, marcas e licenças de terceiros continuam aplicáveis. Consulte [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.pt-BR.md).
 
-**Este repositório já é público.** A publicação não dispensa auditoria de informações confidenciais, direitos autorais e permissões: veja [governança e auditoria contínua](docs/governance.md) e [segurança](SECURITY.md). O projeto não é produto oficial de órgão público. Não inclua dados pessoais, credenciais ou recursos internos restritos.
+**Este repositório já é público.** A publicação não dispensa auditoria de informações confidenciais, direitos autorais e permissões: veja [governança e auditoria contínua](docs/governance.pt-BR.md) e [segurança](SECURITY.pt-BR.md). O projeto não é produto oficial de órgão público. Não inclua dados pessoais, credenciais ou recursos internos restritos.
