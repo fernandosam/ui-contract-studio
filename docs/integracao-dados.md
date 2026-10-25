@@ -1,19 +1,21 @@
-# Fontes de dados do DataTable
+[English](integracao-dados.md) | [Português](integracao-dados.pt-BR.md)
 
-A propriedade `sourceId` aceita apenas `demo-processos` e `processos-api` e é validada pelo catálogo Zod. A spec não aceita URLs de terceiros.
+# DataTable Data Sources
+
+The `sourceId` property accepts only `demo-processos` and `processos-api` and is validated by the Zod catalog. Specs do not accept third-party URLs.
 
 ## `demo-processos`
 
-Dataset local fictício com 57 linhas. Simula paginação e busca delegadas à fonte para testes sem servidor; não usa rede.
+A fictional local dataset with 57 rows. It simulates source-delegated pagination and search for testing without a server; no network access is used.
 
 ## `processos-api`
 
-A aplicação solicita apenas `GET /api/ui-data/processos` (mesma origem, `credentials: same-origin`), com `page` (base 0), `pageSize` (5–100), `search`, `sortKey` e `sortDesc`. Resposta JSON:
+The application requests only `GET /api/ui-data/processos` (same origin, `credentials: same-origin`), with `page` (zero-based), `pageSize` (5–100), `search`, `sortKey`, and `sortDesc`. JSON response:
 
 ```json
 {"rows":[{"id":"P1","values":{"processo":"P1","situacao":"Em análise"}}],"total":1}
 ```
 
-Backend **não fornecido** neste protótipo. Implementá-lo no servidor da aplicação, exigindo autenticação/autorização, validação de entrada, limites reais, filtros de acesso, auditoria e tratamento de erros. Não colocar endereço remoto ou segredos em um schema gerado pela IA.
+A backend is **not provided** in this prototype. Implement it on the application server with authentication/authorization, input validation, actual limits, access filters, auditing, and error handling. Do not put remote addresses or secrets in an AI-generated schema.
 
-A seleção é mantida por IDs e pode ser associada ao estado `selectedIds` em json-render. A seleção local entre páginas será preservada, mas operações em lote exigem serviço próprio e autorização. Valores mostrados em tabelas continuam texto, sem execução de HTML.
+Selection is tracked by IDs and can bind to `selectedIds` in json-render state. Local selection is preserved across pages, but bulk operations require their own authorized service. Values shown in tables remain plain text; HTML is not executed.

@@ -1,18 +1,20 @@
-# Comparação visual com exemplos oficiais shadcn/ui
+[English](official-component-visual-audit.md) | [Português](official-component-visual-audit.pt-BR.md)
 
-O workflow manual [Bootstrap oficial e auditoria visual](../.github/workflows/bootstrap-visual.yml) captura exemplos renderizados da documentação shadcn/ui e as prévias locais mapeadas no Explorador de Primitivos.
+# Visual Comparison with Official shadcn/ui Examples
 
-## Escopo e fontes
+The manual [Official Bootstrap and Visual Audit](../.github/workflows/bootstrap-visual.yml) workflow captures rendered examples from the shadcn/ui documentation and the mapped local previews in the Primitive Explorer.
 
-- O **plano de instalação** `shadcn-plan.json` contém 50 primitivas planejadas/locais.
-- O **inventário de comparação** `scripts/official-component-examples.json` define **38 exemplos oficiais** para captura. Os dois números descrevem propósitos diferentes e não devem ser tratados como divergência.
-- Nem todas as primitivas possuem contrato Pi isolado. O inventário registra quais exemplos têm par local; **não invente pares** para os componentes sem contrato.
+## Scope and sources
 
-As antigas **Galerias 1 e 2** foram removidas do produto; relatórios e métodos relacionados aos antigos 64 cards do shadcn/create são **históricos**, não critérios operacionais atuais. A ReUI é uma biblioteca separada de exemplos React.
+- The `shadcn-plan.json` **installation plan** contains 50 planned/local primitives.
+- The `scripts/official-component-examples.json` **comparison inventory** defines **38 official examples** for capture. These counts serve different purposes and must not be treated as a mismatch.
+- Not all primitives have an isolated Pi contract. The inventory records which examples have a local counterpart; **do not invent counterparts** for components without contracts.
 
-## Execução manual
+Former **Galleries 1 and 2** were removed from the product; reports and methods related to the old 64 shadcn/create cards are **historical**, not current operational criteria. ReUI is a separate library of React examples.
 
-Com dependências reais e navegador instalado:
+## Manual execution
+
+With actual dependencies and a browser installed:
 
 ~~~bash
 npm run shadcn:official:capture
@@ -20,10 +22,10 @@ python3 -m pip install Pillow==11.3.0
 npm run shadcn:official:compare -- --strict
 ~~~
 
-O Playwright captura a referência oficial e a prévia local correspondente, quando existente, em desktop/mobile. Os artefatos de inspeção são publicados em `reports/official-components/`, incluindo `index.html` e `comparison.json`.
+Playwright captures the official reference and corresponding local preview, when available, on desktop/mobile. Inspection artifacts are published in `reports/official-components/`, including `index.html` and `comparison.json`.
 
-## Critério de interpretação
+## How to interpret results
 
-Capturas com tamanhos, fontes, conteúdos e estados diferentes geram diferenças numéricas **apenas diagnósticas**. A verificação de cobertura pode falhar por referência ausente, captura ausente ou erro de proveniência, mas **não comprova fidelidade pixel a pixel**. A aprovação visual exige fixtures equivalentes e revisão humana registrada.
+Captures with different sizes, fonts, content, and states produce numerical differences that are **diagnostic only**. Coverage checks may fail because of a missing reference, capture, or provenance error, but **do not prove pixel-for-pixel fidelity**. Visual approval requires equivalent fixtures and documented human review.
 
-Consulte [desenvolvimento](development.md), [componentes](components.md) e [revisão de composições](revisao-visual-shadcn.md).
+See [development](development.md), [components](components.md), and [composition review](revisao-visual-shadcn.md).

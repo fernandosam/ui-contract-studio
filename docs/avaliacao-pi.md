@@ -1,11 +1,13 @@
-# Avaliação de geração do Pi (20 cenários)
+[English](avaliacao-pi.md) | [Português](avaliacao-pi.pt-BR.md)
 
-A lista em `tests/prompt-evals/scenarios.json` contém prompts e os contratos mínimos esperados. **Os prompts não foram executados pelo Pi na entrega**. Não tratá-los como uma nota de qualidade do modelo.
+# Pi Generation Evaluation (20 Scenarios)
 
-1. Crie a pasta `eval-results/` (ignorada no Git).
-2. Execute o Pi para cada cenário e salve **a spec JSON realmente produzida** no arquivo `eval-results/<id>.json`, sem alterar os tipos exigidos no cenário.
-3. Execute `npm run eval:pi` para diagnóstico; ele registra `pass`, `fail` ou `not-run` em `reports/pi-evaluation.json`.
-4. Execute `npm run eval:pi:strict` para exigir execução dos 20 cenários.
-5. Avalie separadamente qualidade visual, semântica, segurança e tarefas reais; o verificador não mede esses critérios subjetivos.
+The list in `tests/prompt-evals/scenarios.json` contains prompts and minimum expected contracts. **The prompts were not executed by Pi as part of this delivery**. Do not interpret them as a model quality score.
 
-O script não chama o Pi automaticamente e não tenta contornar aprovações nem fabricar specs para atingir nota máxima.
+1. Create the `eval-results/` directory (Git-ignored).
+2. Run Pi for each scenario and save **the JSON spec actually produced** to `eval-results/<id>.json` without changing the types required by the scenario.
+3. Run `npm run eval:pi` for diagnostics; it records `pass`, `fail`, or `not-run` in `reports/pi-evaluation.json`.
+4. Run `npm run eval:pi:strict` to require execution of all 20 scenarios.
+5. Evaluate visual quality, semantics, security, and real tasks separately; the checker does not measure these subjective criteria.
+
+The script does not automatically invoke Pi or attempt to bypass approvals or fabricate specs to achieve a maximum score.

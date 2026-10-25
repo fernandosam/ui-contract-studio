@@ -1,13 +1,15 @@
-# Histórico técnico e auditorias
+[English](README.md) | [Português](README.pt-BR.md)
 
-Este índice reúne **levantamentos pontuais** de versões anteriores. Os números e procedimentos podem ter mudado; para a operação corrente utilize os [guias vigentes](../README.md).
+# Technical History and Audits
 
-| Registro | Propósito histórico |
+This index collects **point-in-time findings** from previous versions. Counts and procedures may have changed; use the [current guides](../README.md) for present-day operation.
+
+| Record | Historical purpose |
 | --- | --- |
-| [Fidelidade e nodeProps v0.20](../fidelidade-v020.md) | Comparação e pendências visuais do snapshot |
-| [Revisão de compostos v0.21](../revisao-compostos-v021.md) | Motivos das retiradas e alternativas |
-| [Estilos e npm v0.23](../estilos-e-npm-v023.md) | Alterações CSS e diagnóstico de conectividade |
-| [Cobertura shadcn (23/10/2026)](../shadcn-upstream-coverage.md) | Inventário da data, não contagem vigente |
-| [CHANGELOG](../../CHANGELOG.md) | Evolução versionada do projeto |
+| [Fidelity and nodeProps v0.20](../fidelidade-v020.md) | Snapshot visual comparisons and open issues |
+| [Composite Review v0.21](../revisao-compostos-v021.md) | Reasons for removals and alternatives |
+| [Styles and npm v0.23](../estilos-e-npm-v023.md) | CSS changes and connectivity diagnosis |
+| [shadcn coverage (Oct 23, 2026)](../shadcn-upstream-coverage.md) | Inventory at that date, not a current count |
+| [Changelog](../../CHANGELOG.md) | Versioned project evolution |
 
-Os arquivos permanecem nos caminhos anteriores para **não quebrar links existentes**. Uma ausência de teste ou evidência na data da auditoria não descreve automaticamente o estado atual.
+Files remain at their original paths **to avoid breaking existing links**. Missing tests or evidence at the time of an audit do not automatically describe the current state.

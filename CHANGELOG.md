@@ -1,37 +1,36 @@
+[English](CHANGELOG.md) | [Português](CHANGELOG.pt-BR.md)
+
 # Changelog — UI Contract Studio
 
-## Ampliação funcional das famílias ReUI (PR #5) — pendente de revisão
+## ReUI Family Functional Expansion (PR #5) — Pending Review
 
-- 31 famílias / 559 exemplos versionados reavaliados sob os limites dos contratos Zod e das composições React.
-- 22 primitivas base distintas receberam capacidades adicionais (14 na primeira etapa e 8 na segunda, incluindo novas evoluções de Avatar e Alert).
-- Atualizados manifestos, fingerprints, testes de contrato e cobertura de interações representativas; testes E2E completos permanecem manuais na main.
-- Matriz rastreável em docs/reui-functional-coverage-31.md documenta expressamente os exemplos que não podem ser certificados por auditoria estática.
+- Reassessed 31 families / 559 versioned examples within the limits of Zod contracts and React compositions.
+- Added capabilities to 22 distinct base primitives (14 in the first phase and 8 in the second, including further improvements to Avatar and Alert).
+- Updated manifests, fingerprints, contract tests, and coverage of representative interactions; the full E2E suite remains manual on main.
+- The traceable matrix at docs/reui-functional-coverage-31.md explicitly identifies examples that cannot be certified by static auditing.
 
+## ReUI Shared-Property Evolution Candidates — Review Pending
 
-## Candidatos de evolução ReUI por propriedades comuns — revisão pendente
+- The audit of 559 ReUI files grouped in 31 families now includes the frequency of JSX attributes and their mapping to declared properties.
+- Evolved the base contracts for `Carousel`, `Avatar`, `Alert`, `DropdownMenu`, and `Pagination` to 2.1.0, with updated previews and Zod validation.
+- No automatic admission of external media, transactional actions, unrestricted JSX, or ReUI components. Independent review and functional/visual certification are required.
 
-- Auditoria dos 559 arquivos ReUI agrupados por 31 famílias agora inclui frequência de atributos JSX e correspondência com propriedades declaradas.
-- Contratos base de `Carousel`, `Avatar`, `Alert`, `DropdownMenu` e `Pagination` evoluídos para 2.1.0, com prévias atualizadas e validação Zod.
-- Sem admitir mídia externa, ações transacionais, JSX livre ou componentes ReUI automaticamente. Exige revisão independente e certificação funcional/visual.
+## Documentation and Consistency — 0.24.0
 
+- Reorganized current guides by purpose: architecture, components, agents, development, and governance; identified older audits as historical.
+- Consolidated README, AGENTS.md, the UI Catalog skill, and CONTRIBUTING.md, removing redundant rules and references to superseded plans.
+- Described public status, independent inventories (Pi, shadcn/ui, and ReUI), and manual E2E execution according to current manifests and workflows.
+- Added `npm run docs:check` to validate relative links and consistency across contracts, plans, and sources; integrated it with offline tests and CI.
 
-## Documentação e consistência — 0.24.0
+## Navigation and Catalog Adjustments — 0.24.0
 
-- Guias vigentes reorganizados por finalidade: arquitetura, componentes, agentes, desenvolvimento e governança; auditorias anteriores identificadas como históricas.
-- README, AGENTS.md, skill UI Catalog e CONTRIBUTING.md consolidados, removendo regras repetidas e referências a planos já substituídos.
-- Status público, inventários independentes (Pi, shadcn/ui e ReUI) e execução manual do E2E descritos conforme os manifestos e workflows atuais.
-- Novo `npm run docs:check` valida links relativos e consistência entre contratos, planos e fontes, integrado ao teste offline e CI.
+- Removed Gallery 1 and Gallery 2, along with their 54 exclusive contracts and composition examples/fixtures.
+- Renamed Gallery 3 to **ReUI** and made it the home page.
+- Removed the Dashboard page while preserving `Dashboard01` and other composite components in the block.
+- Updated registries, agent guidance, checks, and active manifests (102 contracts).
 
-
-## Ajustes de navegação e catálogo — 0.24.0
-
-- Removidas Galeria 1 e Galeria 2 com 54 contratos exclusivos e seus exemplos/fixtures de composição.
-- Galeria 3 renomeada para **ReUI** e definida como página inicial.
-- Removida a página Dashboard; preservados `Dashboard01` e os demais componentes compostos do bloco.
-- Atualizados registries, orientações para agentes, verificações e manifestos ativos (102 contratos).
-
-## Initial independent snapshot — 0.24.0
+## Initial Independent Snapshot — 0.24.0
 
 - Baseline of the declarative React / json-render / shadcn-ui component studio.
-- Component schemas, approved UI contracts, agent fixtures and automated checks.
+- Component schemas, approved UI contracts, agent fixtures, and automated checks.
 - This repository begins with an independent Git history. Third-party authorship and licensing remain attributed in THIRD_PARTY_NOTICES.md.

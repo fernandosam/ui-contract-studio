@@ -1,15 +1,17 @@
-# Integração shadcn/ui (Base UI) — procedimento vigente
+[English](integracao-shadcn.md) | [Português](integracao-shadcn.pt-BR.md)
 
-O UI Contract Studio mantém **código-fonte local** de componentes shadcn/ui em `src/components/ui/`. O plano de instalação e as versões estão em `shadcn-plan.json` e `package.json`; **não utilize contagens de planos antigos** como referência. No snapshot 0.24.0, o plano registra 50 primitivas e `integration-status.json` informa fontes presentes, mas **build não verificado** por esse inventário.
+# shadcn/ui Integration (Base UI) — Current Procedure
 
-## Princípios
+UI Contract Studio maintains **local source code** for shadcn/ui components in `src/components/ui/`. The installation plan and versions are in `shadcn-plan.json` and `package.json`; **do not use counts from older plans** as a reference. In the 0.24.0 snapshot, the plan lists 50 primitives and `integration-status.json` reports present sources, but this inventory **does not verify the build**.
 
-- O shadcn/ui oferece implementações React; **não** autoriza automaticamente contratos em json-render.
-- A API permitida ao Pi é definida pelos schemas Zod e pelo manifesto `pi-catalog/contracts.json`.
-- Não introduza implementações externas, mudanças no tema ou dependências sem auditoria de origem, licença, acessibilidade e efeitos.
-- A base escolhida é **Base UI**, com estilo registrado em `components.json`. Não misture outras bases silenciosamente.
+## Principles
 
-## Inspeção e instalação
+- shadcn/ui provides React implementations; it does **not** automatically authorize json-render contracts.
+- The API available to Pi is defined by Zod schemas and the `pi-catalog/contracts.json` manifest.
+- Do not introduce external implementations, theme changes, or dependencies without auditing provenance, licensing, accessibility, and side effects.
+- The chosen foundation is **Base UI**, with its style recorded in `components.json`. Do not silently mix different foundations.
+
+## Inspection and installation
 
 ~~~bash
 npm ci
@@ -18,7 +20,7 @@ npm run shadcn:status
 npm run shadcn:verify
 ~~~
 
-Se for necessário **adicionar ou atualizar** fontes oficiais, inspecione antes a prévia e execute o instalador somente em branch dedicada e ambiente com rede disponível:
+If you need to **add or update** official sources, inspect the preview first and run the installer only in a dedicated branch and a network-enabled environment:
 
 ~~~bash
 npm run shadcn:preview
@@ -28,10 +30,10 @@ npm run validate
 npm run build
 ~~~
 
-O script de instalação não deve sobrescrever customizações arbitrariamente. Qualquer proposta de alteração de `globals.css`, `index.css`, `components.json` ou arquivos protegidos requer reconciliação e revisão manual. Componentes instalados não devem ser anunciados como compilados ou homologados apenas pelo inventário.
+The installation script must not arbitrarily overwrite customizations. Any proposed change to `globals.css`, `index.css`, `components.json`, or protected files requires reconciliation and manual review. Installed components must not be presented as compiled or certified solely on the basis of an inventory.
 
-## Admissão e testes
+## Admission and tests
 
-Para disponibilizar uma primitiva ao Pi, siga [componentes e admissão](components.md): schema Zod estrito, renderer/adapter, proveniência, lock/versionamento, fixtures, testes e revisão independente. Execute a verificação estrutural e revisão em navegador quando disponível. A [auditoria oficial](official-component-visual-audit.md) separa captura de referência de aprovação visual.
+To make a primitive available to Pi, follow [components and admission](components.md): strict Zod schema, renderer/adapter, provenance, lock/versioning, fixtures, tests, and independent review. Run structural checks and browser review where available. The [official audit](official-component-visual-audit.md) separates reference capture from visual approval.
 
-**Histórico:** os planos anteriores de 21, 37 e 38 componentes eram snapshots de fases anteriores; o arquivo `shadcn-plan.json` é a referência atual, não esta documentação.
+**History:** previous plans of 21, 37, and 38 components were snapshots of earlier phases; `shadcn-plan.json` is the current reference, not this document.

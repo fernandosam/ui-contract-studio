@@ -1,9 +1,11 @@
-# Política de segurança
+[English](SECURITY.md) | [Português](SECURITY.pt-BR.md)
 
-Não publique credenciais, dados pessoais nem detalhes de falhas exploráveis em issues públicas.
+# Security Policy
 
-Para reportar uma vulnerabilidade, utilize o canal privado de **Security Advisories → Report a vulnerability** do GitHub, caso esteja habilitado neste repositório. Se não estiver disponível, entre em contato com os mantenedores por um canal privado previamente conhecido; não inclua detalhes sensíveis em issues ou PRs públicos.
+Do not publish credentials, personal data, or details of exploitable vulnerabilities in public issues.
 
-Informações úteis no relato: versão/commit, impacto, passos de reprodução minimizados e proposta de mitigação. Nunca inclua segredos válidos ou dados reais.
+To report a vulnerability, use GitHub's private **Security Advisories → Report a vulnerability** channel if enabled for this repository. If unavailable, contact maintainers through a previously established private channel; do not include sensitive details in public issues or pull requests.
 
-O projeto é um ambiente de demonstração de interfaces e **não deve ser tratado como backend de autenticação, autorização ou pagamento**. Segurança de integrações externas deve ser analisada separadamente.
+Useful details to include: version/commit, impact, minimal reproduction steps, and proposed mitigation. Never share valid secrets or real user data.
+
+This project is a UI demonstration environment and **must not be treated as an authentication, authorization, or payment backend**. Security of external integrations must be assessed separately.

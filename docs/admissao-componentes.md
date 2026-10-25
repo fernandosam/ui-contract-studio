@@ -1,7 +1,9 @@
-# Admissão de componentes
+[English](admissao-componentes.md) | [Português](admissao-componentes.pt-BR.md)
 
-A política vigente de admissão, incluindo critérios, diretórios, versão, segurança, testes e revisão humana, está concentrada em [Componentes e contratos](components.md).
+# Component Admission
 
-Para componentes com estado, implemente **schema Zod estrito + componente React + adapter no registry**. Para composições estáticas, prefira templates JSON aprovados e o gerador. Registre origem e licença em `src/ui-catalog/sources.json`, versionamento em `src/ui-catalog/contracts.lock.json` e teste o resultado antes da aprovação independente.
+The current admission policy, including criteria, directories, versioning, security, tests, and human review, is centralized in [Components and Contracts](components.md).
 
-O catálogo permanece **fechado** para specs de agentes. Instalar shadcn/ui ou criar uma composição ReUI não admite automaticamente um tipo Pi.
+For stateful components, implement a **strict Zod schema + React component + adapter in the registry**. For static compositions, prefer approved JSON templates and the generator. Record provenance and license in `src/ui-catalog/sources.json`, version information in `src/ui-catalog/contracts.lock.json`, and test the result before independent approval.
+
+The catalog remains **closed** to agent-generated specs. Installing shadcn/ui or creating a ReUI composition does not automatically admit a Pi type.

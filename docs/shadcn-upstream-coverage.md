@@ -1,98 +1,99 @@
-> **Levantamento pontual em 23/10/2026:** a situação de PRs, fontes locais e componentes reflete a data do relatório. Para a versão atual, consulte [componentes](components.md), [integração shadcn](integracao-shadcn.md) e os manifestos do repositório.
+[English](shadcn-upstream-coverage.md) | [Português](shadcn-upstream-coverage.pt-BR.md)
 
-# Cobertura oficial shadcn/ui — 23/10/2026
+> **Point-in-time snapshot, October 23, 2026:** PR status, local sources, and components reflect the report date. For the current version, consult [components](components.md), [shadcn integration](integracao-shadcn.md), and repository manifests.
 
-Referência: https://ui.shadcn.com/docs/components.md — 66 itens oficiais.
-Arquivos locais nesta proposta: 53. Lacunas de arquivo: 13.
+# Official shadcn/ui Coverage — October 23, 2026
 
-A fonte local não implica contrato no json-render. Doze componentes recebem fonte oficial, schema Zod estrito, adapter, amostra, registro de origem e entrada no Explorador. A revisão independente e as validações permanecem pendentes.
+Reference: https://ui.shadcn.com/docs/components.md — 66 official entries.
+Local files in this proposal: 53. Missing files: 13.
 
-| Nome | Fonte local | Situação |
+Local source code does not imply a json-render contract. Twelve components were provided with official source, a strict Zod schema, an adapter, a sample, provenance record, and Explorer entry. Independent review and checks remained pending at the time.
+
+| Name | Local source | Status |
 |---|---|---|
-| Accordion | Sim | Fonte já presente; conferir contrato |
-| Alert | Sim | Fonte já presente; conferir contrato |
-| Alert Dialog | Sim | Fonte Base UI oficial adaptada e contrato em revisão no PR #46 |
-| Aspect Ratio | Sim | Proposto nesta branch |
-| Attachment | Sim | Fonte Base UI oficial adaptada e contrato em revisão no PR #46 |
-| Avatar | Sim | Fonte já presente; conferir contrato |
-| Badge | Sim | Fonte já presente; conferir contrato |
-| Breadcrumb | Sim | Fonte já presente; conferir contrato |
-| Bubble | Sim | Fonte Base UI oficial adaptada e contrato em revisão no PR #46 |
-| Button | Sim | Fonte já presente; conferir contrato |
-| Button Group | Sim | Fonte já presente; conferir contrato |
-| Calendar | Sim | Fonte já presente; conferir contrato |
-| Card | Sim | Fonte já presente; conferir contrato |
-| Carousel | Sim | Fonte já presente; conferir contrato |
-| Chart | Não | Pendente de admissão/instalação |
-| Checkbox | Sim | Fonte já presente; conferir contrato |
-| Code Block | Não | Pendente de admissão/instalação |
-| Collapsible | Sim | Fonte já presente; conferir contrato |
-| Combobox | Sim | Fonte já presente; conferir contrato |
-| Command | Sim | Fonte já presente; conferir contrato |
-| Context Menu | Sim | Fonte Base UI oficial adaptada e contrato em revisão no PR #46 |
-| Data Table | Não | Composição existente DataTable |
-| Date Picker | Não | Composição existente DatePicker |
-| Dialog | Sim | Fonte já presente; conferir contrato |
-| Direction | Não | Pendente de admissão/instalação |
-| Drawer | Sim | Fonte já presente; conferir contrato |
-| Dropdown Menu | Sim | Fonte já presente; conferir contrato |
-| Empty | Sim | Proposto nesta branch |
-| Field | Sim | Fonte já presente; conferir contrato |
-| Hover Card | Sim | Fonte Base UI oficial adaptada e contrato em revisão no PR #46 |
-| Input | Sim | Fonte já presente; conferir contrato |
-| Input Group | Sim | Fonte já presente; conferir contrato |
-| Input OTP | Não | Pendente de admissão/instalação |
-| Item | Sim | Fonte Base UI oficial adaptada e contrato em revisão no PR #46 |
-| Kbd | Sim | Proposto nesta branch |
-| Label | Sim | Fonte já presente; conferir contrato |
-| Marker | Sim | Fonte Base UI oficial adaptada e contrato em revisão no PR #46 |
-| Menubar | Não | Pendente de admissão/instalação |
-| Message | Sim | Fonte Base UI oficial adaptada e contrato em revisão no PR #46 |
-| Message Scroller | Não | Pendente de admissão/instalação |
-| Native Select | Sim | Fonte já presente; conferir contrato |
-| Navigation Menu | Não | Pendente de admissão/instalação |
-| Pagination | Sim | Fonte já presente; conferir contrato |
-| Popover | Sim | Fonte já presente; conferir contrato |
-| Progress | Sim | Fonte já presente; conferir contrato |
-| Questionnaire | Não | Pendente de admissão/instalação |
-| Radio Group | Sim | Fonte já presente; conferir contrato |
-| Resizable | Sim | Fonte já presente; conferir contrato |
-| Scroll Area | Sim | Proposto nesta branch |
-| Select | Sim | Fonte já presente; conferir contrato |
-| Separator | Sim | Fonte já presente; conferir contrato |
-| Sheet | Sim | Fonte já presente; conferir contrato |
-| Sidebar | Sim | Fonte já presente; conferir contrato |
-| Skeleton | Sim | Fonte já presente; conferir contrato |
-| Slider | Sim | Fonte já presente; conferir contrato |
-| Spinner | Sim | Fonte já presente; conferir contrato |
-| Switch | Sim | Fonte já presente; conferir contrato |
-| Table | Sim | Fonte já presente; conferir contrato |
-| Tabs | Sim | Fonte já presente; conferir contrato |
-| Textarea | Sim | Fonte já presente; conferir contrato |
-| Toast | Não | Pendente de admissão/instalação |
-| Toggle | Sim | Fonte já presente; conferir contrato |
-| Toggle Group | Sim | Fonte já presente; conferir contrato |
-| Tooltip | Sim | Fonte já presente; conferir contrato |
-| Trace | Não | Pendente de admissão/instalação |
-| Typography | Não | Documentação Typeset, não componente instalável por padrão |
+| Accordion | Yes | Source already present; verify contract |
+| Alert | Yes | Source already present; verify contract |
+| Alert Dialog | Yes | Adapted official Base UI source and contract under review in PR #46 |
+| Aspect Ratio | Yes | Proposed on this branch |
+| Attachment | Yes | Adapted official Base UI source and contract under review in PR #46 |
+| Avatar | Yes | Source already present; verify contract |
+| Badge | Yes | Source already present; verify contract |
+| Breadcrumb | Yes | Source already present; verify contract |
+| Bubble | Yes | Adapted official Base UI source and contract under review in PR #46 |
+| Button | Yes | Source already present; verify contract |
+| Button Group | Yes | Source already present; verify contract |
+| Calendar | Yes | Source already present; verify contract |
+| Card | Yes | Source already present; verify contract |
+| Carousel | Yes | Source already present; verify contract |
+| Chart | No | Pending admission/installation |
+| Checkbox | Yes | Source already present; verify contract |
+| Code Block | No | Pending admission/installation |
+| Collapsible | Yes | Source already present; verify contract |
+| Combobox | Yes | Source already present; verify contract |
+| Command | Yes | Source already present; verify contract |
+| Context Menu | Yes | Adapted official Base UI source and contract under review in PR #46 |
+| Data Table | No | Existing DataTable composition |
+| Date Picker | No | Existing DatePicker composition |
+| Dialog | Yes | Source already present; verify contract |
+| Direction | No | Pending admission/installation |
+| Drawer | Yes | Source already present; verify contract |
+| Dropdown Menu | Yes | Source already present; verify contract |
+| Empty | Yes | Proposed on this branch |
+| Field | Yes | Source already present; verify contract |
+| Hover Card | Yes | Adapted official Base UI source and contract under review in PR #46 |
+| Input | Yes | Source already present; verify contract |
+| Input Group | Yes | Source already present; verify contract |
+| Input OTP | No | Pending admission/installation |
+| Item | Yes | Adapted official Base UI source and contract under review in PR #46 |
+| Kbd | Yes | Proposed on this branch |
+| Label | Yes | Source already present; verify contract |
+| Marker | Yes | Adapted official Base UI source and contract under review in PR #46 |
+| Menubar | No | Pending admission/installation |
+| Message | Yes | Adapted official Base UI source and contract under review in PR #46 |
+| Message Scroller | No | Pending admission/installation |
+| Native Select | Yes | Source already present; verify contract |
+| Navigation Menu | No | Pending admission/installation |
+| Pagination | Yes | Source already present; verify contract |
+| Popover | Yes | Source already present; verify contract |
+| Progress | Yes | Source already present; verify contract |
+| Questionnaire | No | Pending admission/installation |
+| Radio Group | Yes | Source already present; verify contract |
+| Resizable | Yes | Source already present; verify contract |
+| Scroll Area | Yes | Proposed on this branch |
+| Select | Yes | Source already present; verify contract |
+| Separator | Yes | Source already present; verify contract |
+| Sheet | Yes | Source already present; verify contract |
+| Sidebar | Yes | Source already present; verify contract |
+| Skeleton | Yes | Source already present; verify contract |
+| Slider | Yes | Source already present; verify contract |
+| Spinner | Yes | Source already present; verify contract |
+| Switch | Yes | Source already present; verify contract |
+| Table | Yes | Source already present; verify contract |
+| Tabs | Yes | Source already present; verify contract |
+| Textarea | Yes | Source already present; verify contract |
+| Toast | No | Pending admission/installation |
+| Toggle | Yes | Source already present; verify contract |
+| Toggle Group | Yes | Source already present; verify contract |
+| Tooltip | Yes | Source already present; verify contract |
+| Trace | No | Pending admission/installation |
+| Typography | No | Typeset documentation, not installable by default |
 
-Não marcar outros nomes como implementados apenas para inflar cobertura. Para cada ausência: inspecionar docs oficiais, classificar receita vs primitiva, usar CLI quando aplicável, criar schema/adapter/fixture/lock/testes e revisão independente.
+Do not mark additional entries as implemented just to inflate coverage. For each missing component: inspect official docs, classify recipe versus primitive, use the CLI where applicable, create schema/adapter/fixture/lock/tests, and obtain independent review.
 
+## JSON Catalog / Explorer
 
-## Catálogo JSON / Explorador
+- The Primitive Explorer contains 41 base contracts and 13 primitive-like extensions: Field, AspectRatio, Kbd, Empty, ScrollArea, AlertDialog, Attachment, Bubble, ContextMenu, HoverCard, Item, Marker, and Message (54 types).
+- There are 53 files in `src/components/ui`, but the closed catalog does not automatically register all local sources.
+- Official components with a local source but no standalone primitive contract in the Explorer: Breadcrumb, Calendar, Combobox, Command, InputGroup, Label, NativeSelect, RadioGroup, Resizable, Sheet, and Sidebar. They require admission if the base API does not cover their use.
+- DataTable and DatePicker are already approved compositions; Typography is typography guidance, not a new contract by default.
+- The twelve primitives added during this audit have guidance notes, usage limits, and official documentation in `src/ui-catalog/shadcn-guidance.json`.
 
-- O explorador de primitivas inclui 41 contratos de base e 13 extensões de natureza primitiva: Field, AspectRatio, Kbd, Empty, ScrollArea, AlertDialog, Attachment, Bubble, ContextMenu, HoverCard, Item, Marker e Message (54 tipos).
-- Existem 53 arquivos em `src/components/ui`, mas o catálogo fechado não registra automaticamente todas as fontes locais.
-- Componentes oficiais cuja fonte local existe, porém ainda não possuem contrato primitivo isolado no Explorador: Breadcrumb, Calendar, Combobox, Command, InputGroup, Label, NativeSelect, RadioGroup, Resizable, Sheet e Sidebar. Precisam ser admitidos caso a API de base não cubra o uso.
-- DataTable e DatePicker já são composições aprovadas; Typography é uma orientação de tipografia, não deve ser tratada como contrato novo sem necessidade.
-- As doze primitivas adicionadas nesta auditoria possuem notas de orientação, limites de uso e documentação oficial em `src/ui-catalog/shadcn-guidance.json`.
+## Components awaiting implementation
 
-## Componentes pendentes de implementação
+No local source file existed for: Chart, Code Block, Direction, Input OTP, Menubar, Message Scroller, Navigation Menu, Questionnaire, Toast (Sonner), Trace, and Data Table, Date Picker, and Typography. The last three must not result in empty files: DataTable and DatePicker already have compositions, while Typography is typography guidance.
 
-Permanece sem arquivo de origem local a lista: Chart, Code Block, Direction, Input OTP, Menubar, Message Scroller, Navigation Menu, Questionnaire, Toast (Sonner), Trace e os itens Data Table, Date Picker e Typography. Os três últimos não devem gerar arquivos vazios: DataTable e DatePicker já possuem composições, enquanto Typography é uma orientação de tipografia.
+For the others, assess dependencies and official Base UI patterns before admission. For example: Chart depends on Recharts; Input OTP on the input-otp package; Message Scroller and Questionnaire on @shadcn/react packages. Toast can reuse the already-integrated Sonner without duplicating the contract.
 
-Para os demais, avaliar as dependências e os padrões oficiais Base UI antes da admissão. Por exemplo: Chart depende de Recharts; Input OTP do pacote input-otp; Message Scroller e Questionnaire de pacotes @shadcn/react. Toast pode reutilizar Sonner já integrado, sem duplicação de contrato.
+### Applied integration rules
 
-### Regras de integração aplicadas
-
-Os oito componentes desta etapa foram baseados no arquivo TSX oficial de `shadcn-ui/ui/apps/v4/registry/bases/base/ui/` e possuem schema Zod estrito, adapter React e exemplo JSON. Eventos de confirmação/seleção não podem executar ações externas sem handler autorizado. Status de anexo é apenas representacional. Este inventário não declara homologação visual: CI, acessibilidade e revisão independente continuam exigidos.
+Eight components in this phase were based on official TSX from `shadcn-ui/ui/apps/v4/registry/bases/base/ui/` and have strict Zod schemas, React adapters, and JSON examples. Confirmation/selection events cannot perform external actions without authorized handlers. Attachment status is representational only. This inventory does not claim visual certification: CI, accessibility, and independent review are still required.

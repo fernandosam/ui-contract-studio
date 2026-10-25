@@ -1,5 +1,7 @@
-# Qualidade e homologação
+[English](quality.md) | [Português](quality.pt-BR.md)
 
-Este caminho permanece por compatibilidade com links existentes. O **guia vigente** é [Desenvolvimento e qualidade](development.md), que descreve os comandos reais, o CI, o E2E manual e a auditoria visual.
+# Quality and Certification
 
-Resumo: execute `npm run test:offline` e `npm run docs:check` para documentação; `npm run validate` e `npm run build` no ambiente completo. A job de qualidade valida PRs e pushes em `main`; o E2E completo possui workflow **manual na main**. Nenhum desses checks, isoladamente, comprova equivalência visual.
+This path remains for compatibility with existing links. The **current guide** is [Development and Quality](development.md), which describes actual commands, CI, manual E2E, and visual auditing.
+
+Summary: run `npm run test:offline` and `npm run docs:check` for documentation; `npm run validate` and `npm run build` in the complete environment. The quality job validates PRs and pushes to `main`; the full E2E suite has a **manual workflow on main**. None of these checks alone proves visual equivalence.

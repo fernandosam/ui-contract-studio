@@ -1,13 +1,15 @@
-# Fluxo do Pi Agent
+[English](pi-workflow.md) | [Português](pi-workflow.pt-BR.md)
 
-A orientação vigente está em [Agentes e Pi](agents.md) e na [skill UI Catalog](../.pi/skills/ui-catalog/SKILL.md).
+# Pi Agent Workflow
 
-Fluxo resumido:
+Current guidance is in [Agents and Pi](agents.md) and the [UI Catalog skill](../.pi/skills/ui-catalog/SKILL.md).
 
-1. Consulte `pi-catalog/contracts.json`, tipos aposentados e padrões aprovados.
-2. Execute `npm run pi:zod-schema` e `npm run pi:context -- --types=Card,Button` com os tipos estritamente necessários.
-3. Gere somente JSON com propriedades, eventos e ações do schema real; não utilize `--metadata-only` para geração.
-4. Valide com `npm run pi:validate -- --file=<spec.json>`; resolva `issues[].pointer`.
-5. Registre verificações reais e limitações. Nunca divulgue segredos ou trate demos de pagamento/autorização como serviços reais.
+Summary:
 
-O `semanticName` ajuda a leitura; o nome público da propriedade continua sendo a chave Zod até migração formal.
+1. Consult `pi-catalog/contracts.json`, retired types, and approved patterns.
+2. Run `npm run pi:zod-schema` and `npm run pi:context -- --types=Card,Button` with only strictly necessary types.
+3. Generate JSON only, using properties, events, and actions from the actual schema; do not use `--metadata-only` for generation.
+4. Validate with `npm run pi:validate -- --file=<spec.json>`; resolve `issues[].pointer`.
+5. Record real checks and limitations. Never disclose secrets or treat payment/authorization demos as actual services.
+
+`semanticName` helps readability; the public property name remains the Zod key until a formal migration.

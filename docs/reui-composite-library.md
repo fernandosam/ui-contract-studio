@@ -1,30 +1,32 @@
-# Biblioteca de componentes compostos ReUI — ReUI
+[English](reui-composite-library.md) | [Português](reui-composite-library.pt-BR.md)
 
-## Escopo
+# ReUI Composite Component Library — ReUI
 
-A ReUI preserva **559 exemplos TSX** de **31 famílias** ReUI. Cada exemplo possui identidade própria de **componente React reutilizável** (`ReuiAccordion01`, `ReuiButton01`, `ReuiAlert01` etc.), um contrato estrito de propriedades de apresentação e metadados completos de orientação. A implementação visual e as interações continuam no TSX original, sem duplicação de lógica.
+## Scope
 
-O Explorador de Componentes Compostos apresenta duas bibliotecas independentes: **Contratos aprovados** (catálogo fechado do json-render/Pi) e **Composições ReUI (559)** (componentes React da ReUI). Há um link **Abrir componente composto** em cada exemplo, com seleção pelo ID.
+ReUI preserves **559 TSX examples** across **31 ReUI families**. Each example has its own identity as a **reusable React component** (`ReuiAccordion01`, `ReuiButton01`, `ReuiAlert01`, etc.), a strict presentation-props contract, and complete usage metadata. Visual implementation and interactions remain in the original TSX without duplicated logic.
 
-## Fontes de verdade
+The Composite Component Explorer presents two independent libraries: **Approved Contracts** (the closed json-render/Pi catalog) and **ReUI Compositions (559)** (ReUI React components). Each example offers an **Open composite component** link with ID-based selection.
 
-- `src/ui-catalog/extensions/composites/reui-composite-definitions.ts`: manifesto derivado das duas fontes oficiais já versionadas, `reui-guidance.json` e `reui-example-guidance.pt-BR.json`, com identidade, origem, uso, contraindicações e notas de agente.
-- `src/ui-catalog/extensions/composites/reui-composite-catalog.tsx`: fábrica de um **componente React nomeado por exemplo**, usando a respectiva implementação TSX revisável. Nenhum JSX externo é aceito.
-- `src/ui-catalog/extensions/composites/reui-*.tsx`: código-fonte individual e comportamento original de cada padrão.
-- `src/ui-runtime/reui-composite-explorer.tsx`: consulta, prévia, filtros, orientação do agente, documentação do exemplo e edição em runtime de largura/alinhamento.
+## Sources of truth
 
-## Contrato seguro
+- `src/ui-catalog/extensions/composites/reui-composite-definitions.ts`: manifest derived from two already versioned official sources, `reui-guidance.json` and `reui-example-guidance.pt-BR.json`, including identity, origin, usage, contraindications, and agent notes.
+- `src/ui-catalog/extensions/composites/reui-composite-catalog.tsx`: factory for a **named React component per example**, using its corresponding reviewable TSX implementation. External JSX is not accepted.
+- `src/ui-catalog/extensions/composites/reui-*.tsx`: individual source code and original behavior of each pattern.
+- `src/ui-runtime/reui-composite-explorer.tsx`: browsing, previews, filters, agent guidance, example documentation, and runtime editing of width/alignment.
 
-O componente React possui uma API de apresentação estrita validada com Zod:
+## Safe contract
 
-| Propriedade | Valores admitidos | Padrão |
+The React component has a strict Zod-validated presentation API:
+
+| Property | Allowed values | Default |
 | --- | --- | --- |
 | `width` | `sm`, `md`, `lg`, `full` | `full` |
 | `align` | `start`, `center`, `end` | `center` |
 
-Não admite `children`, `className`, HTML, código JSX arbitrário, CSS arbitrário, callbacks, URLs livres ou configurações de efeitos externos. Cada composição é uma **instância de padrão visual com comportamento e dados de demonstração preservados**. Para expor dados de domínio editáveis em uma composição específica, é obrigatória revisão do padrão e definição de props semânticas seguras, em vez de liberar alterações indiscriminadas na árvore JSX.
+It does not accept `children`, `className`, HTML, arbitrary JSX, arbitrary CSS, callbacks, unrestricted URLs, or configuration of external side effects. Every composition is **an instance of a visual pattern with preserved demo behavior and data**. Exposing editable domain data in a specific composition requires reviewing that pattern and defining safe semantic props, rather than allowing unrestricted changes to the JSX tree.
 
-Exemplo de uso React:
+Example React usage:
 
 ~~~tsx
 import {
@@ -38,39 +40,28 @@ export function MinhaPagina() {
 }
 ~~~
 
-O componente correspondente continua exibindo as mesmas perguntas e respostas da prévia de ReUI e mantém as recomendações **Melhor para**, **Quando não usar**, **Quando usar** e **Notas do agente** associadas ao seu registro.
+The corresponding component still displays the same questions and answers as the ReUI preview and keeps the **Best for**, **When not to use**, **When to use**, and **Agent notes** recommendations linked to its record.
 
-## Separação entre componente e demonstração
+## Separating components from demos
 
-O contêiner CSS `mx-auto mb-auto w-full max-w-lg` controla somente como o
-exemplo aparece na ReUI. Ele não deve integrar o JSX do componente
-reutilizável: bloquearia a largura configurável (`width`) e imporia margens
-inesperadas ao inserir a composição em telas reais.
+The CSS container `mx-auto mb-auto w-full max-w-lg` controls only how an example appears in ReUI. It must not become part of the reusable component's JSX: doing so would block configurable width (`width`) and impose unexpected margins when the composition is embedded in real screens.
 
-Os 11 padrões Accordion e os exemplos Alert 12–20 agora retornam diretamente
-seu nó semântico raiz (`Accordion`, `Card` ou `Frame`). A aparência original
-permanece no host `ReuiPreview`, que aplica o contêiner apenas nas prévias.
+The 11 Accordion patterns and Alert examples 12–20 now return their semantic root directly (`Accordion`, `Card`, or `Frame`). Original appearance is maintained in the `ReuiPreview` host, which applies the container only to previews.
 
-- `ReuiPattern`: monta o componente real, sem margens ou largura da Galeria;
-  mantém estado, interações e carregamento sob demanda do exemplo.
-- `ReuiPreview`: encapsula o `ReuiPattern` no layout demonstrativo e fornece
-  os atributos usados pelos testes de ReUI.
-- `ReuiComposite`: utiliza `ReuiPattern` diretamente; `width` e `align`
-  declarados no contrato passam a ser a única camada externa de posicionamento.
+- `ReuiPattern`: mounts the actual component, without gallery margins or width; preserves state, interactions, and lazy example loading.
+- `ReuiPreview`: wraps `ReuiPattern` in the demo layout and provides attributes used by ReUI tests.
+- `ReuiComposite`: uses `ReuiPattern` directly; contract-defined `width` and `align` are the only outer positioning layer.
 
-Não remover contêineres estruturais internos ao componente (por exemplo,
-`Frame`, `AccordionItem` e agrupamentos necessários a interação,
-acessibilidade ou identidade visual). A extração é feita apenas após confirmar
-que a classe é puramente relativa ao *host da demonstração*.
+Do not remove internal structural containers (for example `Frame`, `AccordionItem`, or groupings required for interaction, accessibility, or visual identity). Extract a container only after confirming its classes belong exclusively to the *demo host*.
 
-## Limite de admissão ao catálogo Pi
+## Boundary for admission to the Pi catalog
 
-**A biblioteca ReUI não altera automaticamente os 102 contratos aprovados de json-render/Pi.** Isso é deliberado e segue `docs/admissao-componentes.md`: algumas entradas ReUI são apenas variantes de primitivas equivalentes (por exemplo, um botão padrão), para as quais um novo tipo Pi seria redundante. Outras são composições de verdade que podem merecer contratos próprios.
+**The ReUI library does not automatically change the 102 approved json-render/Pi contracts.** This is intentional and follows `docs/admissao-componentes.md`: some ReUI entries are merely variants of equivalent primitives (e.g., a standard button), for which a new Pi type would be redundant. Others are genuine compositions that may deserve their own contracts.
 
-Para admitir uma composição como novo tipo Pi, deve-se avaliar equivalência/semântica, modelar dados e eventos explícitos via Zod em `extensions/catalog.ts`, implementar adapter tipado e template declarativo quando viável, registrar proveniência e licença em `sources.json`, adicionar testes de acessibilidade e regressão, atualizar o lock com revisão humana e gerar fixtures/manifestos. A promoção em massa e sem revisão contraria a política do projeto.
+Admitting a composition as a new Pi type requires evaluating equivalence/semantics, modeling explicit data and events via Zod in `extensions/catalog.ts`, implementing a typed adapter and declarative template where feasible, recording provenance/license in `sources.json`, adding accessibility and regression tests, updating the lock with human review, and generating fixtures/manifests. Bulk promotion without review violates project policy.
 
-## Validações
+## Validation
 
-- `tests/reui-composite-library.integration.test.ts`: 559 IDs e nomes únicos, integridade de arquivos TSX, fidelidade das informações de exemplo, origem, Zod estrito e preservação do limite Pi.
-- `tests/e2e/reui-composite-library.spec.ts`: alternância de biblioteca, seleção via ReUI, edição segura, campos de recomendação e código-fonte.
-- `npm run validate && npm run build`; a suíte E2E permanece manual na main.
+- `tests/reui-composite-library.integration.test.ts`: 559 IDs and unique names, TSX file integrity, fidelity of example information, provenance, strict Zod, and preservation of Pi boundaries.
+- `tests/e2e/reui-composite-library.spec.ts`: library switching, ReUI selection, safe editing, recommendation fields, and source code.
+- `npm run validate && npm run build`; the E2E suite remains manual on main.

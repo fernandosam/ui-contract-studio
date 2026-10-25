@@ -1,28 +1,30 @@
-# Componentes e contratos
+[English](components.md) | [Português](components.pt-BR.md)
 
-## Inventários independentes
+# Components and Contracts
 
-| Inventário | Uso | Fonte de verdade |
+## Independent inventories
+
+| Inventory | Purpose | Source of truth |
 | --- | --- | --- |
-| **Pi/json-render** | Tipos admissíveis em specs JSON | `src/ui-catalog/contracts.lock.json` e `pi-catalog/contracts.json` |
-| **shadcn/ui (Base UI)** | Implementações locais de primitivas | `shadcn-plan.json` e `src/components/ui/` |
-| **ReUI** | Composições React e exemplos visuais | `src/ui-catalog/extensions/composites/reui-composite-definitions.ts` |
+| **Pi/json-render** | Types permitted in JSON specs | `src/ui-catalog/contracts.lock.json` and `pi-catalog/contracts.json` |
+| **shadcn/ui (Base UI)** | Local primitive implementations | `shadcn-plan.json` and `src/components/ui/` |
+| **ReUI** | React compositions and visual examples | `src/ui-catalog/extensions/composites/reui-composite-definitions.ts` |
 
-Consulte [componentes compostos](componentes-compostos.md), [biblioteca ReUI](reui-composite-library.md) e [integração shadcn](integracao-shadcn.md). Uma primitiva instalada não é automaticamente um tipo Pi.
+See [composite components](componentes-compostos.md), the [ReUI library](reui-composite-library.md), and [shadcn integration](integracao-shadcn.md). An installed primitive is not automatically a Pi type.
 
-## Admissão de um tipo Pi
+## Admitting a Pi type
 
-1. **Demonstre a lacuna.** Busque um equivalente aprovado e prefira combinar primitivas existentes.
-2. **Defina a API.** Nome PascalCase único e schema Zod `z.object(...).strict()` em `src/ui-catalog/extensions/catalog.ts`. Declare props serializáveis e eventos/slots apenas quando necessários.
-3. **Implemente.** Estado/comportamento próprios exigem componente React em `extensions/components/` e adapter tipado em `extensions/registry.tsx`. Composição estática deve usar template e gerador, sem wrappers TSX redundantes.
-4. **Versione.** Registre origem e licença em `sources.json`, versão/fingerprint no lock, exemplos Pi e fixtures derivadas da fonte. O valor `approved` não comprova revisão independente.
-5. **Teste e revise.** Cubra validação Zod positiva/negativa, acessibilidade, estados, temas, responsividade e eventuais efeitos. Execute `npm run contracts:check`, `npm run validate`, `npm run build` e revisão visual adequada. Obtenha revisão humana **antes** de liberar o tipo.
+1. **Demonstrate a gap.** Search for an approved equivalent and prefer combining existing primitives.
+2. **Define the API.** Use a unique PascalCase name and a `z.object(...).strict()` Zod schema in `src/ui-catalog/extensions/catalog.ts`. Declare serializable props and events/slots only when needed.
+3. **Implement it.** Stateful behavior requires a React component in `extensions/components/` and a typed adapter in `extensions/registry.tsx`. Static compositions should use a template and generator, not redundant TSX wrappers.
+4. **Version it.** Record provenance and license in `sources.json`, version/fingerprint in the lock, Pi examples, and source-derived fixtures. The value `approved` is not proof of independent review.
+5. **Test and review.** Cover positive/negative Zod validation, accessibility, states, themes, responsiveness, and side effects when relevant. Run `npm run contracts:check`, `npm run validate`, `npm run build`, and suitable visual reviews. Obtain **human review before** releasing the type.
 
-Proibidos JSX/HTML, callbacks, CSS arbitrário, URLs não autorizadas e permissões implícitas ao backend dentro de specs de agentes.
+Agent specs must not contain JSX/HTML, callbacks, arbitrary CSS, unauthorized URLs, or implicit backend permissions.
 
-## Manutenção de composições
+## Maintaining compositions
 
-Edite os templates e `generated-manifest.json`, sem alterar diretamente `src/ui-catalog/extensions/generated/`. Ao mudar a estrutura aprovada, regenere os arquivos afetados e revise contratos, fixtures e fingerprints:
+Edit templates and `generated-manifest.json` without directly changing `src/ui-catalog/extensions/generated/`. When approved structure changes, regenerate affected files and review contracts, fixtures, and fingerprints:
 
 ~~~bash
 npm run composites:node-props:generate
@@ -32,4 +34,4 @@ npm run composites:check
 npm run contracts:check
 ~~~
 
-Um template não permite ações/URLs arbitrárias via `nodeProps` ou `content`. Confira fontes oficiais e capturas pela [metodologia visual](revisao-visual-shadcn.md). A [cobertura shadcn de 23/10/2026](shadcn-upstream-coverage.md) é apenas um levantamento histórico.
+A template does not permit arbitrary actions/URLs through `nodeProps` or `content`. Verify official sources and captures using the [visual methodology](revisao-visual-shadcn.md). The [shadcn coverage audit of October 23, 2026](shadcn-upstream-coverage.md) is a historical snapshot only.
