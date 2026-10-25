@@ -6,7 +6,7 @@ import reuiGuidance from '@/ui-catalog/reui-guidance.json';
 import reuiExampleGuidancePtBr from '@/ui-catalog/reui-example-guidance.pt-BR.json';
 import shadcnGuidance from '@/ui-catalog/shadcn-guidance.json';
 import primitiveGuidancePtBr from '@/ui-catalog/primitive-guidance.pt-BR.json';
-import { PrimitiveSourceViewer } from './primitive-source-viewer';
+import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
 
 // Ferramenta administrativa fixa; telas geradas e composições permanecem 100% declarativas.
