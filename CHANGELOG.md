@@ -1,5 +1,13 @@
 # Changelog — UI Contract Studio
 
+## Ampliação funcional das famílias ReUI (PR #5) — pendente de revisão
+
+- 31 famílias / 559 exemplos versionados reavaliados sob os limites dos contratos Zod e das composições React.
+- 20 primitivas base distintas receberam capacidades adicionais (14 na primeira etapa e 8 na segunda, com Avatar e Alert revisitados).
+- Atualizados manifestos, fingerprints, testes de contrato e cobertura de interações representativas; testes E2E completos permanecem manuais na main.
+- Matriz rastreável em docs/reui-functional-coverage-31.md documenta expressamente os exemplos que não podem ser certificados por auditoria estática.
+
+
 ## Candidatos de evolução ReUI por propriedades comuns — revisão pendente
 
 - Auditoria dos 559 arquivos ReUI agrupados por 31 famílias agora inclui frequência de atributos JSX e correspondência com propriedades declaradas.
