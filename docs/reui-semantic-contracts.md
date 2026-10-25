@@ -1,62 +1,64 @@
-# Camada de contratos semânticos — ReUI
+[English](reui-semantic-contracts.md) | [Português](reui-semantic-contracts.pt-BR.md)
 
-## Objetivo e fronteiras
+# Semantic Contract Layer — ReUI
 
-O catálogo **aprovado** descreve intenção, dados e interações autorizadas em Zod; os **559 exemplos ReUI** permanecem referências visuais/funcionais, não 559 tipos Pi. O registro React, as prévias e os exemplos de demonstração não concedem permissão para HTML, JSX, classes livres ou efeitos externos.
+## Goals and boundaries
 
-## Classificação inicial dos 559 exemplos
+The **approved** catalog describes intent, data, and authorized interactions in Zod; the **559 ReUI examples** remain visual/functional references, not 559 Pi types. React registration, previews, and demo examples do not grant permission for HTML, JSX, unrestricted classes, or external side effects.
 
-`src/ui-catalog/reui-semantic-admissions.json` possui uma entrada rastreável por ID, categoria, contrato associado, status e justificativa. A classificação original era **conservadora e inicial**, não equivale a auditoria manual de fidelidade de todas as entradas:
+## Initial classification of 559 examples
 
-- **382** exemplos já associados na primeira rodada de famílias com contratos primitivos homônimos: `existing-primitive-variant` / `reused`. Verificar individualmente eventuais variantes ainda não contempladas pelos schemas; não criar novos tipos por mero estilo.
-- **176** exemplos inicialmente pendentes foram revisados nesta rodada, com apenas dois novos contratos aprovados.
-- **1** exemplo, `c-accordion-11`: `approved-semantic` / `approved`, associado a `OnboardingChecklist`.
+`src/ui-catalog/reui-semantic-admissions.json` includes a traceable entry per ID, category, associated contract, status, and justification. The original classification was **conservative and preliminary**, not a manual fidelity audit of every entry:
 
-Não confundir `ReuiAccordion11` (padrão React com dados fixos, disponível na biblioteca ReUI) com `OnboardingChecklist` (contrato de domínio com dados configuráveis e valores validados).
+- **382** examples already associated during the first pass with families sharing primitive contract names: `existing-primitive-variant` / `reused`. Check each variant for capabilities not covered by schemas; do not introduce new types solely for styling.
+- **176** examples initially pending were reviewed in this round, with only two newly approved contracts.
+- **1** example, `c-accordion-11`: `approved-semantic` / `approved`, associated with `OnboardingChecklist`.
 
-## Contrato aprovado: OnboardingChecklist (v1.0.0)
+Do not confuse `ReuiAccordion11` (a React pattern with fixed data available in the ReUI library) with `OnboardingChecklist` (a domain contract with configurable, validated data).
 
-Proveniência visual: https://reui.io/components/accordion/c-accordion-11. Implementação: `src/ui-catalog/extensions/components/onboarding-checklist.tsx`. Contrato: `extensionDefinitions.OnboardingChecklist` em `src/ui-catalog/extensions/catalog.ts`.
+## Approved contract: OnboardingChecklist (v1.0.0)
 
-O schema aceita entre 1 e 12 etapas, cada uma com `id` único, `title`, `description` e `status` (`completed`, `active`, `pending`). `defaultOpenId` é opcional e precisa apontar para uma etapa existente. No máximo uma etapa pode ter status `active`. Accordion usa texto e status do JSON, sem rede, persistência ou callbacks arbitrários.
+Visual provenance: https://reui.io/components/accordion/c-accordion-11. Implementation: `src/ui-catalog/extensions/components/onboarding-checklist.tsx`. Contract: `extensionDefinitions.OnboardingChecklist` in `src/ui-catalog/extensions/catalog.ts`.
 
-Exemplo JSON independente, usado também como fixture do Pi: `pi-catalog/examples/OnboardingChecklist.json`. O contrato aparece no Explorador de Compostos Aprovados. Seu contrato Zod é a fonte normativa, e o exemplo não substitui o schema.
+The schema accepts 1–12 steps, each with a unique `id`, `title`, `description`, and `status` (`completed`, `active`, `pending`). Optional `defaultOpenId` must reference an existing step. At most one step may have `active` status. Accordion uses the JSON text and status, without network access, persistence, or arbitrary callbacks.
 
-Metadados para seleção pelo agente: `src/ui-catalog/semantic-contract-guidance.json` contém **quando usar**, **quando não usar**, **notas do agente** e IDs de referências. Eles são exportados em `pi-catalog/contracts.json` (`semanticGuidance`) e disponibilizados por `npm run pi:context -- --types=OnboardingChecklist`.
+An independent JSON example, also used as a Pi fixture, lives at `pi-catalog/examples/OnboardingChecklist.json`. The contract appears in the Approved Composites Explorer. Its Zod contract is normative; the example is not a replacement for the schema.
 
-## Revisão dos 176 pendentes (24/10/2026)
+Agent selection metadata in `src/ui-catalog/semantic-contract-guidance.json` contains **when to use**, **when not to use**, **agent notes**, and reference IDs. These are exported to `pi-catalog/contracts.json` (`semanticGuidance`) and exposed through `npm run pi:context -- --types=OnboardingChecklist`.
 
-A matriz `src/ui-catalog/reui-semantic-admissions.json` foi revisada em **176 decisões individuais** e registra `reviewedOn`, `reviewBasis`, caso de uso extraído da orientação e justificativa do encaminhamento. Ela permanece rastreável aos 559 registros ReUI.
+## Review of 176 pending cases (October 24, 2026)
 
-| Encaminhamento nesta rodada | Quantidade |
+The `src/ui-catalog/reui-semantic-admissions.json` matrix was reviewed for **176 individual decisions** and records `reviewedOn`, `reviewBasis`, use cases extracted from guidance, and routing justifications. All entries remain traceable to the 559 ReUI records.
+
+| Outcome in this round | Count |
 | --- | ---: |
-| Variação de primitiva existente | 129 |
-| Composição com contratos já existentes | 22 |
-| Lacuna em contrato existente — requer evolução, não novo tipo | 15 |
-| Semântica potencial dependente de política de mídia, eventos ou autorização — não admitida | 8 |
-| Novo contrato semântico aprovado | 2 |
-| **Total revisado** | **176** |
+| Variant of an existing primitive | 129 |
+| Composition using existing contracts | 22 |
+| Gap in existing contract — evolve it, do not create a new type | 15 |
+| Potential semantics depending on media/event/authorization policy — not admitted | 8 |
+| Newly approved semantic contract | 2 |
+| **Reviewed total** | **176** |
 
-Os novos contratos são:
+The new contracts are:
 
-- **`RatingDistribution`** (ReUI `c-rating-6`): cinco contagens de 1 a 5 estrelas, com média ponderada, percentual e total derivados, sem aceitar percentual arbitrário no JSON. Não equivale a um `Rating` individual.
-- **`CharacterCountTextarea`** (ReUI `c-textarea-6`): formulário local de texto com limite configurável, aviso de proximidade, contador dinâmico e acessibilidade. Não é substituto de uma API de submissão de formulário.
+- **`RatingDistribution`** (ReUI `c-rating-6`): five counts for 1–5 stars, with derived weighted average, percentage, and total; arbitrary percentages in JSON are not accepted. This is not the same as an individual `Rating`.
+- **`CharacterCountTextarea`** (ReUI `c-textarea-6`): a local text form with configurable limit, near-limit warning, dynamic counter, and accessibility. It is not a form submission API.
 
-**Decisões adiadas explicitamente:** `c-rating-9` (submissão de revisão sem payload tipado e persistência autorizada); `c-carousel-9/10` (galeria de miniaturas depende de política segura de mídia e navegação acessível); `c-dropdown-menu-10/11/14/18` (workspaces, notificações, presença e modelos requerem fontes e ações autorizadas); `c-button-group-55` (retenção/liberação de pagamentos exige autorização transacional).
+**Explicitly deferred decisions:** `c-rating-9` (review submission without a typed payload or authorized persistence); `c-carousel-9/10` (thumbnail galleries requiring a safe media policy and accessible navigation); `c-dropdown-menu-10/11/14/18` (workspaces, notifications, presence, and models requiring approved sources and actions); `c-button-group-55` (payment capture/release requires transactional authorization).
 
-**Lacunas de contratos existentes:** autoplay e renderização avançada em `Carousel`, submenus/seleções avançadas em `DropdownMenu`, navegação direta e quantidade de linhas em `Pagination`. Evoluir schemas existentes sem duplicar tipos.
+**Gaps in existing contracts:** autoplay and advanced rendering in `Carousel`, submenus/advanced selections in `DropdownMenu`, direct navigation and row count in `Pagination`. Evolve existing schemas without duplicating types.
 
-A revisão documental de cada exemplo não certifica automaticamente a implementação de toda variação visual; somente os contratos novos possuem API semântica própria e são submetidos a testes de schema/catálogo. Os exemplos não admitidos permanecem disponíveis como referência visual.
+Documenting each example does not automatically certify the implementation of every visual variation; only the new contracts have a dedicated semantic API and are submitted to schema/catalog tests. Examples not admitted remain available as visual references.
 
-## Fluxo de promoção de outros exemplos
+## Promotion workflow for other examples
 
-1. Selecionar exemplo `review-required` ou candidato a melhoria de contrato existente e comparar sua semântica com os tipos em `contracts.lock.json`.
-2. Preferir evoluir o schema de primitiva existente para variantes sem dados ou comportamentos próprios. Um novo contrato só deve representar capacidade de domínio distinta.
-3. Criar API semântica Zod estrita, implementação React ou template JSON aprovado, exemplo independente válido e orientações para o agente; `events` apenas se necessários e suportados.
-4. Registrar licença/origem em `sources.json`, versão e fingerprints em `contracts.lock.json`; atualizar os manifestos Pi e as amostras.
-5. Testar valores válidos e inválidos, IDs, estados, acessibilidade, teclado, temas claro/escuro e visual, sem confundir a passagem do build com homologação visual.
-6. Revisar o PR e a matriz antes de alterar o status para `approved-semantic`; jamais promover em massa automaticamente.
+1. Select an example marked `review-required` or a candidate for improving an existing contract and compare its semantics with types in `contracts.lock.json`.
+2. Prefer evolving an existing primitive schema for variants without distinct data or behavior. A new contract should represent a distinct domain capability only.
+3. Create a strict semantic Zod API, React implementation or approved JSON template, valid independent example, and agent guidance; declare `events` only when necessary and supported.
+4. Record license/provenance in `sources.json`, version/fingerprints in `contracts.lock.json`; update Pi manifests and samples.
+5. Test valid/invalid values, IDs, states, accessibility, keyboard, light/dark themes, and visuals; do not equate passing a build with visual certification.
+6. Review the PR and decision matrix before changing status to `approved-semantic`; never bulk-promote automatically.
 
-## Verificações
+## Checks
 
-`npm run test:offline`, `npm run contracts:check`, `npm run pi:api:check`, `npm run pi:fixtures:check`, `npm run validate` e `npm run build`. A suíte E2E continua manual na main, mas tem casos novos para o contrato e a UI de classificação.
+`npm run test:offline`, `npm run contracts:check`, `npm run pi:api:check`, `npm run pi:fixtures:check`, `npm run validate`, and `npm run build`. E2E remains manual on main but includes new cases for the contract and classification UI.
