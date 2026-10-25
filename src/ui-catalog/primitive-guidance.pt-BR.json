@@ -1,0 +1,633 @@
+{
+  "language": "pt-BR",
+  "Accordion": {
+    "whenUse": [
+      "FAQ e seções expansíveis",
+      "Comparar detalhes de várias seções"
+    ],
+    "whenNotUse": [
+      "Para um único painel, use Collapsible",
+      "Para vistas exclusivas, use Tabs"
+    ],
+    "agentNotes": [
+      "Configure items, type e collapsible no contrato, sem JSX",
+      "Teste a expansão por teclado e evite conteúdo essencial inicialmente oculto",
+      "Use IDs estáveis e indicadores coerentes com o estado"
+    ]
+  },
+  "Alert": {
+    "whenUse": [
+      "Avisos de sucesso, informação, alerta e erro",
+      "Informações de estado com próximo passo"
+    ],
+    "whenNotUse": [
+      "Para confirmação destrutiva, use AlertDialog",
+      "Para confirmação temporária, use notificação transitória"
+    ],
+    "agentNotes": [
+      "AlertTitle resume; AlertDescription explica detalhes",
+      "Para aviso não urgente, prefira role status ao alerta assertivo",
+      "dismissible fecha localmente e não executa ações externas"
+    ]
+  },
+  "Avatar": {
+    "whenUse": [
+      "Representar pessoas por imagem, iniciais e presença",
+      "Identificar integrantes de equipes e controles de conta"
+    ],
+    "whenNotUse": [
+      "Para menu de conta, use DropdownMenu",
+      "Para diretório de membros, use tabela ou composição específica"
+    ],
+    "agentNotes": [
+      "Gere iniciais a partir do nome, não copie o exemplo",
+      "Aplique o mesmo formato à imagem e ao fallback",
+      "O contrato bloqueia fontes externas arbitrárias; status exige significado acessível"
+    ]
+  },
+  "Badge": {
+    "whenUse": [
+      "Estados, severidade e etiquetas compactas",
+      "Contagens e marcadores visuais curtos"
+    ],
+    "whenNotUse": [
+      "Para executar ações, use Button",
+      "Para ajuda contextual, use Tooltip"
+    ],
+    "agentNotes": [
+      "A variante do adaptador ReUI pode diferir do Badge oficial",
+      "Use tone, appearance e size conforme o contrato",
+      "Não apresente uma etiqueta visual como botão sem semântica"
+    ]
+  },
+  "BarGraph": {
+    "whenUse": [
+      "Comparar categorias com barras",
+      "Exibir poucos valores numéricos relativos"
+    ],
+    "whenNotUse": [
+      "Para evolução temporal, use LineGraph",
+      "Para valores isolados, use Metric"
+    ],
+    "agentNotes": [
+      "data aceita 1 a 24 pares label/value",
+      "Não injete lógica de formatação ou URLs",
+      "É um preset local de gráfico, não componente shadcn nativo"
+    ]
+  },
+  "Button": {
+    "whenUse": [
+      "Executar ações e submeter formulários",
+      "Comandos com ícone, estado de espera e diferentes níveis de ênfase"
+    ],
+    "whenNotUse": [
+      "Para estado ligado/desligado, use Toggle",
+      "Para vários botões unidos, use ButtonGroup"
+    ],
+    "agentNotes": [
+      "Defina type=submit explicitamente quando necessário",
+      "Botões apenas de ícone exigem aria-label",
+      "Ações de tema, cópia e rede exigem comportamento autorizado, não apenas estilo"
+    ]
+  },
+  "ButtonGroup": {
+    "whenUse": [
+      "Agrupar ações relacionadas com bordas compartilhadas",
+      "Formar barras de edição e comandos segmentados"
+    ],
+    "whenNotUse": [
+      "Para opções com seleção persistente, use ToggleGroup",
+      "Para botões independentes, use Button"
+    ],
+    "agentNotes": [
+      "Atribua um nome acessível ao grupo",
+      "Subcomponentes precisam respeitar as regras de data-slot da variante Base UI",
+      "O contrato Pi possui ações demonstrativas locais; menus e campos são composições"
+    ]
+  },
+  "Card": {
+    "whenUse": [
+      "Organizar título, descrição, corpo e rodapé",
+      "Exibir conteúdo de indicadores e painéis"
+    ],
+    "whenNotUse": [
+      "Para métricas complexas, use composição própria",
+      "Para prévia sobre link, use HoverCard"
+    ],
+    "agentNotes": [
+      "Dimensione maxWidth de acordo com o contêiner",
+      "Experimente size=sm antes de sobrescrever espaçamentos",
+      "O slot aceita somente nós declarativos aprovados"
+    ]
+  },
+  "Carousel": {
+    "whenUse": [
+      "Navegar por cartões ou conteúdo em slides",
+      "Exibir vários slides conforme o espaço disponível"
+    ],
+    "whenNotUse": [
+      "Para página completa de produto, use composição apropriada",
+      "Para vitrine complexa, prefira composição de catálogo"
+    ],
+    "agentNotes": [
+      "Indicadores e setas precisam manter controle de foco",
+      "Adapte largura responsiva antes de posicionar setas externamente",
+      "URLs de mídias demonstrativas não são fontes autorizadas no contrato"
+    ]
+  },
+  "Checkbox": {
+    "whenUse": [
+      "Coletar consentimento e opções múltiplas",
+      "Selecionar itens independentes em uma lista"
+    ],
+    "whenNotUse": [
+      "Para escolha exclusiva, use Radio",
+      "Para alternância de aplicação imediata, use Switch"
+    ],
+    "agentNotes": [
+      "Informe name em formulários reais",
+      "Diferencie os estados marcado, desmarcado e indeterminado",
+      "Descrição e invalid devem refletir mensagens acessíveis"
+    ]
+  },
+  "Collapsible": {
+    "whenUse": [
+      "Mostrar ou ocultar detalhes secundários de um painel",
+      "Revelar ajustes opcionais"
+    ],
+    "whenNotUse": [
+      "Para várias seções relacionadas, use Accordion",
+      "Para hierarquias extensas, use Tree"
+    ],
+    "agentNotes": [
+      "O gatilho deve comunicar aria-expanded",
+      "Conteúdo fechado pode não constar no HTML inicial",
+      "Base UI usa render; Radix usa asChild para composição de gatilho"
+    ]
+  },
+  "Dialog": {
+    "whenUse": [
+      "Apresentar formulário curto ou informação modal",
+      "Exibir detalhes que precisam de atenção do usuário"
+    ],
+    "whenNotUse": [
+      "Para confirmação destrutiva, use AlertDialog",
+      "Para painel lateral móvel, use Drawer"
+    ],
+    "agentNotes": [
+      "Inclua título, descrição e botão de fechamento acessível",
+      "Base UI compõe o gatilho com render, Radix com asChild",
+      "Não inclua lógica de salvamento fora das ações declaradas"
+    ]
+  },
+  "Drawer": {
+    "whenUse": [
+      "Criar painel móvel por gesto a partir da borda",
+      "Exibir tarefa com conteúdo rolável e rodapé"
+    ],
+    "whenNotUse": [
+      "Para modal curto centrado, use Dialog",
+      "Para painel de desktop, prefira Sheet"
+    ],
+    "agentNotes": [
+      "No Base UI, swipeDirection indica a borda e o gesto",
+      "Não suponha que um botão Enviar de demonstração persiste dados",
+      "Garanta um caminho de fechamento sem gesto"
+    ]
+  },
+  "DropdownMenu": {
+    "whenUse": [
+      "Menus de ações e opções secundárias",
+      "Preferências e menus compactos de conta"
+    ],
+    "whenNotUse": [
+      "Para menu de clique direito, use ContextMenu",
+      "Para edição completa de perfil, use página específica"
+    ],
+    "agentNotes": [
+      "No Base UI, DropdownMenuLabel deve pertencer ao grupo correto",
+      "No Base UI, ação de item usa onClick, não onSelect de Radix",
+      "O contrato Pi restringe submenus a um nível e bloqueia callbacks livres"
+    ]
+  },
+  "Field": {
+    "whenUse": [
+      "Agrupar um controle com rótulo, descrição e feedback de validação.",
+      "Organizar campos horizontais, verticais ou responsivos em formulários."
+    ],
+    "whenNotUse": [
+      "Para renderizar apenas texto sem campo, use Text.",
+      "Não substitua o controle real nem confunda o agrupamento visual com validação dos dados."
+    ],
+    "agentNotes": [
+      "Field utiliza label obrigatório e description opcional no contrato.",
+      "orientation aceita vertical, horizontal ou responsive; invalid comunica o estado.",
+      "Passe apenas componentes declarativos aprovados ao slot default; não injete JSX ou CSS livre."
+    ]
+  },
+  "Grid": {
+    "whenUse": [
+      "Organizar cartões e campos em colunas responsivas",
+      "Apresentar grupos de itens repetidos"
+    ],
+    "whenNotUse": [
+      "Para fluxo linear, use Stack",
+      "Para dados tabulares, use Table"
+    ],
+    "agentNotes": [
+      "columns admite somente 1 a 6 colunas",
+      "Use o gap tipado",
+      "Grid é composição local, não primitiva oficial shadcn"
+    ]
+  },
+  "Heading": {
+    "whenUse": [
+      "Marcar títulos de seções com hierarquia semântica",
+      "Organizar a leitura de uma página"
+    ],
+    "whenNotUse": [
+      "Para conteúdo comum, use Text",
+      "Não altere level apenas por aparência"
+    ],
+    "agentNotes": [
+      "level aceita h1, h2, h3 e h4",
+      "Evite saltos de hierarquia",
+      "O conteúdo é texto literal, não HTML"
+    ]
+  },
+  "Icon": {
+    "whenUse": [
+      "Complementar rótulos com pictogramas permitidos",
+      "Representar ações ou estados de forma compacta"
+    ],
+    "whenNotUse": [
+      "Não dependa apenas de ícone decorativo para comunicar uma ação",
+      "Não use para imagens detalhadas"
+    ],
+    "agentNotes": [
+      "name é uma enumeração fechada Lucide",
+      "size e color também são tipados",
+      "Ícones decorativos devem ser ocultados de leitores de tela"
+    ]
+  },
+  "Image": {
+    "whenUse": [
+      "Exibir placeholder acessível de imagem",
+      "Reservar dimensões de mídia em protótipos"
+    ],
+    "whenNotUse": [
+      "Não utilize para buscar mídia externa arbitrária",
+      "Não omita alt de conteúdo informativo"
+    ],
+    "agentNotes": [
+      "O contrato atual renderiza placeholder local, não URL remota",
+      "alt é obrigatório e dimensões têm limites",
+      "Fonte remota requer admissão independente"
+    ]
+  },
+  "Input": {
+    "whenUse": [
+      "Campos de texto, e-mail, senha e busca",
+      "Entradas com ajuda, estados e validação"
+    ],
+    "whenNotUse": [
+      "Para ações dentro da borda, use InputGroup",
+      "Para formulário inteiro, use padrão de formulários"
+    ],
+    "agentNotes": [
+      "Use aria-invalid para erro real e vincule a descrição ao campo",
+      "O tipo do campo e as validações devem corresponder à finalidade",
+      "Não crie atributos livres no JSON"
+    ]
+  },
+  "LineGraph": {
+    "whenUse": [
+      "Mostrar evolução ao longo de períodos ordenados",
+      "Comparar tendência de uma série curta"
+    ],
+    "whenNotUse": [
+      "Para categorias sem continuidade, use BarGraph",
+      "Para um valor isolado, use Metric"
+    ],
+    "agentNotes": [
+      "data contém 1 a 24 pares label/value",
+      "Rótulos devem manter ordem temporal",
+      "É um preset local de gráfico, não componente shadcn nativo"
+    ]
+  },
+  "Link": {
+    "whenUse": [
+      "Navegar por rota interna ou âncora aprovada",
+      "Aplicar aparência de botão a navegação real"
+    ],
+    "whenNotUse": [
+      "Para executar ação sem destino, use Button",
+      "Para URL externa arbitrária, não use este contrato"
+    ],
+    "agentNotes": [
+      "href é restrito a destinos internos aprovados",
+      "Preserve o elemento âncora com significado semântico",
+      "press não substitui a rota de destino"
+    ]
+  },
+  "Metric": {
+    "whenUse": [
+      "Resumir indicador com valor e variação",
+      "Exibir KPI com prefixo e sufixo"
+    ],
+    "whenNotUse": [
+      "Para séries temporais, use LineGraph",
+      "Para listagem, use Table"
+    ],
+    "agentNotes": [
+      "value e change são textos formatados",
+      "changeType precisa representar a semântica da variação",
+      "Metric é composição local, não API shadcn nativa"
+    ]
+  },
+  "Pagination": {
+    "whenUse": [
+      "Navegar por páginas de uma lista ou tabela",
+      "Exibir páginas, vizinhança, saltos e quantidade por página"
+    ],
+    "whenNotUse": [
+      "Para listagem com filtros e classificação, use DataTable",
+      "Para avançar e voltar sem URLs, considere ButtonGroup"
+    ],
+    "agentNotes": [
+      "URLs '#' dos exemplos são apenas demonstração",
+      "Derive a página e o total do estado ou consulta real",
+      "Eventos locais não implementam paginação no servidor"
+    ]
+  },
+  "Popover": {
+    "whenUse": [
+      "Mostrar opções rápidas sob demanda",
+      "Oferecer ajuda contextual com abertura por clique"
+    ],
+    "whenNotUse": [
+      "Para fluxos bloqueantes, use Dialog",
+      "Para formulários completos, use composição específica"
+    ],
+    "agentNotes": [
+      "Base UI utiliza render e Radix utiliza asChild no gatilho",
+      "Associe título ou aria-label ao conteúdo",
+      "A largura padrão pode precisar de ajuste de layout autorizado"
+    ]
+  },
+  "Progress": {
+    "whenUse": [
+      "Exibir percentual conhecido de conclusão",
+      "Apresentar avanço de tarefa ou configuração"
+    ],
+    "whenNotUse": [
+      "Para progresso desconhecido, use Spinner",
+      "Para escolher arquivos, use controle de upload"
+    ],
+    "agentNotes": [
+      "Nomeie a tarefa em aria-label",
+      "Valores e máximos devem refletir dados reais",
+      "O contrato não cria uma tarefa assíncrona automaticamente"
+    ]
+  },
+  "Radio": {
+    "whenUse": [
+      "Escolha única em formulários e preferências",
+      "Opções rotuladas com descrição opcional"
+    ],
+    "whenNotUse": [
+      "Para marcar várias opções, use Checkbox",
+      "Para plano de preços completo, use composição própria"
+    ],
+    "agentNotes": [
+      "Mantenha value controlado quando a escolha tiver efeito",
+      "Use name em formulários nativos e IDs únicos",
+      "Radio representa a implementação shadcn RadioGroup no contrato"
+    ]
+  },
+  "Rating": {
+    "whenUse": [
+      "Exibir notas com estrelas inteiras ou fracionárias",
+      "Receber avaliação quando houver interação acessível"
+    ],
+    "whenNotUse": [
+      "Não use estrelas como única representação de uma nota",
+      "Para opinião escrita e envio, use composição de avaliação"
+    ],
+    "agentNotes": [
+      "Informe valor, máximo e escala válidos",
+      "Para modo de leitura, não crie controles clicáveis inertes",
+      "Passos de meia estrela exigem alvos de teclado e rótulos próprios"
+    ]
+  },
+  "Select": {
+    "whenUse": [
+      "Escolher uma opção de uma lista curta",
+      "Agrupar opções e mostrar descrições"
+    ],
+    "whenNotUse": [
+      "Para lista pesquisável, use Combobox",
+      "Para hierarquia de opções, use Cascader"
+    ],
+    "agentNotes": [
+      "Use valores textuais estáveis e únicos",
+      "Base UI e Radix diferem no posicionamento e no valor de SelectValue",
+      "Não transporte objetos executáveis como valores de opções"
+    ]
+  },
+  "Separator": {
+    "whenUse": [
+      "Separar visualmente blocos ou itens em linha",
+      "Exibir divisor com legenda curta"
+    ],
+    "whenNotUse": [
+      "Para navegação hierárquica, use Breadcrumb",
+      "Para progresso em fases, use Marker"
+    ],
+    "agentNotes": [
+      "O modo decorativo difere entre Base UI e Radix",
+      "Separadores verticais precisam de altura disponível",
+      "Use label apenas quando o divisor tiver sentido textual"
+    ]
+  },
+  "Skeleton": {
+    "whenUse": [
+      "Reservar espaço para conteúdo de formato conhecido",
+      "Representar carregamento de cards, textos e avatares"
+    ],
+    "whenNotUse": [
+      "Para espera sem forma previsível, use Spinner",
+      "Para tabela com esqueleto próprio, use componente da tabela"
+    ],
+    "agentNotes": [
+      "Dimensione os placeholders conforme o resultado esperado",
+      "Indique aria-busy na região enquanto carrega",
+      "O contrato limita formatos e quantidade de linhas"
+    ]
+  },
+  "Slider": {
+    "whenUse": [
+      "Ajustar número dentro de uma escala",
+      "Selecionar faixa com múltiplos controles"
+    ],
+    "whenNotUse": [
+      "Para valor exato digitado, use Input",
+      "Para progresso somente de leitura, use Progress"
+    ],
+    "agentNotes": [
+      "No Base UI, arrays determinam a quantidade de controles",
+      "Use aria-label ou aria-labelledby nos controles",
+      "Normalize número ou lista retornada por onValueChange"
+    ]
+  },
+  "Spinner": {
+    "whenUse": [
+      "Indicar processamento sem percentual conhecido",
+      "Sinalizar busca, sincronização e espera"
+    ],
+    "whenNotUse": [
+      "Para layout de carregamento conhecido, use Skeleton",
+      "Para porcentagem de trabalho, use Progress"
+    ],
+    "agentNotes": [
+      "Controle o estado de espera a partir da operação real",
+      "Evite manter ação repetível durante processamento crítico",
+      "hideLabel oculta apenas visualmente o nome acessível"
+    ]
+  },
+  "Stack": {
+    "whenUse": [
+      "Agrupar componentes numa sequência vertical ou horizontal",
+      "Controlar espaços e alinhamento entre filhos"
+    ],
+    "whenNotUse": [
+      "Para distribuição em colunas, use Grid",
+      "Para tabela, use Table"
+    ],
+    "agentNotes": [
+      "direction, gap, align e justify são valores fechados",
+      "Filhos devem ser nós aprovados no slot default",
+      "Stack é composição local, não primitiva oficial shadcn"
+    ]
+  },
+  "Switch": {
+    "whenUse": [
+      "Ativar ou desativar preferências",
+      "Configurar notificações, privacidade e opções"
+    ],
+    "whenNotUse": [
+      "Para consentimento de formulário, use Checkbox",
+      "Para seleção dentro de grupo, use ToggleGroup"
+    ],
+    "agentNotes": [
+      "Use checked e eventos autorizados para persistir alterações",
+      "Informe name quando o valor for submetido no formulário",
+      "Descrição e tamanho são props tipadas, não estilos livres"
+    ]
+  },
+  "Table": {
+    "whenUse": [
+      "Exibir registros textuais em linhas e colunas",
+      "Mostrar tabelas compactas e estados vazios"
+    ],
+    "whenNotUse": [
+      "Para filtragem, edição e paginação, use DataTable",
+      "Para cartões de indicador, use Card"
+    ],
+    "agentNotes": [
+      "Preserve rolagem horizontal acessível por teclado",
+      "Verifique largura de células com valores longos",
+      "O contrato não aceita JSX nem ações diretamente nas células"
+    ]
+  },
+  "Tabs": {
+    "whenUse": [
+      "Separar vistas de uma mesma superfície",
+      "Criar abas horizontais ou verticais"
+    ],
+    "whenNotUse": [
+      "Para navegação geral entre páginas, use barra de navegação",
+      "Para seções expansíveis, use Accordion"
+    ],
+    "agentNotes": [
+      "Painéis inativos podem ser desmontados e perder estado local",
+      "Teste seleção e navegação por teclado na variante instalada",
+      "Formulários ricos usam composição, não campo content arbitrário"
+    ]
+  },
+  "Text": {
+    "whenUse": [
+      "Exibir parágrafos, legendas e texto auxiliar",
+      "Aplicar estilos de corpo, código e destaque"
+    ],
+    "whenNotUse": [
+      "Para cabeçalho, use Heading",
+      "Para campo editável, use Input"
+    ],
+    "agentNotes": [
+      "variant tem conjunto restrito",
+      "Nunca interprete HTML enviado na propriedade text",
+      "Preserve legibilidade e contraste"
+    ]
+  },
+  "Textarea": {
+    "whenUse": [
+      "Capturar texto livre de várias linhas",
+      "Exibir descrição, erro e limite de caracteres"
+    ],
+    "whenNotUse": [
+      "Para texto curto, use Input",
+      "Para formulário de várias etapas, use composição apropriada"
+    ],
+    "agentNotes": [
+      "aria-invalid sinaliza erro no controle",
+      "O crescimento depende do navegador e dos estilos permitidos",
+      "Contador de caracteres ao vivo exige o contrato especializado"
+    ]
+  },
+  "Toggle": {
+    "whenUse": [
+      "Representar estado pressionado de controle independente",
+      "Criar reações ou comandos persistentes"
+    ],
+    "whenNotUse": [
+      "Para ação única, use Button",
+      "Para seleção de um conjunto, use ToggleGroup"
+    ],
+    "agentNotes": [
+      "pressed precisa refletir o estado real",
+      "Mantenha o rótulo acessível sincronizado com o visível",
+      "O ícone é escolhido apenas entre os aprovados"
+    ]
+  },
+  "ToggleGroup": {
+    "whenUse": [
+      "Reunir opções de formatação ou visualização",
+      "Escolher filtros curtos ou preferências"
+    ],
+    "whenNotUse": [
+      "Para ações agrupadas sem seleção, use ButtonGroup",
+      "Para liga/desliga independente, use Switch"
+    ],
+    "agentNotes": [
+      "Base UI e Radix diferem no tipo e no formato do valor",
+      "A seleção única pode ficar vazia após desmarcar o item",
+      "No Pi, ícones e desativação por item são autorizados e tipados"
+    ]
+  },
+  "Tooltip": {
+    "whenUse": [
+      "Explicar controles com texto breve ou atalho",
+      "Exibir ajuda para ícones e estados"
+    ],
+    "whenNotUse": [
+      "Para conteúdo interativo, use Popover",
+      "Para prévia rica de pessoa, use HoverCard"
+    ],
+    "agentNotes": [
+      "TooltipProvider influencia a abertura na variante Base UI",
+      "Não aninhe botões ao compor o gatilho",
+      "Conteúdo interativo em portal pode prejudicar navegação por Tab"
+    ]
+  }
+}

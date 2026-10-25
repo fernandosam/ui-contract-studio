@@ -5,6 +5,8 @@ import contractLock from '@/ui-catalog/contracts.lock.json';
 import reuiGuidance from '@/ui-catalog/reui-guidance.json';
 import reuiExampleGuidancePtBr from '@/ui-catalog/reui-example-guidance.pt-BR.json';
 import shadcnGuidance from '@/ui-catalog/shadcn-guidance.json';
+import primitiveGuidancePtBr from '@/ui-catalog/primitive-guidance.pt-BR.json';
+import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
 
 // Ferramenta administrativa fixa; telas geradas e composições permanecem 100% declarativas.
@@ -182,14 +184,16 @@ type ReuiGuide = {whenUse:string[];whenNotUse:string[];agentNotes:string[];examp
 const reuiDocs = reuiGuidance as unknown as Record<string,ReuiGuide>;
 type ShadcnGuide = Pick<ReuiGuide,'whenUse'|'whenNotUse'|'agentNotes'> & {sourceUrl:string};
 const shadcnDocs = shadcnGuidance as Record<string,ShadcnGuide>;
+const localizedPrimitiveDocs = primitiveGuidancePtBr as unknown as Record<string,ReuiGuide>;
 function ReuiGuidance({type}:{type:string}) {
- const guide=reuiDocs[type] ?? shadcnDocs[type];
+ const guide=localizedPrimitiveDocs[type] ?? shadcnDocs[type];
  const officialUrl=shadcnDocs[type]?.sourceUrl;
  const slug=type.replace(/([a-z0-9])([A-Z])/g,'$1-$2').toLowerCase();
- return <section className="rounded-lg border border-border bg-card p-4 space-y-3" data-testid="primitive-guidance">
+ const referenceUrl=officialUrl ?? (reuiDocs[type]?`https://reui.io/components/${slug}`:null);
+ return <section lang="pt-BR" className="rounded-lg border border-border bg-card p-4 space-y-3" data-testid="primitive-guidance">
   <div className="flex flex-wrap justify-between gap-2">
    <h4 className="font-semibold">Orientações para agentes · {type}</h4>
-   <a href={officialUrl ?? `https://reui.io/components/${slug}`} target="_blank" rel="noopener noreferrer" className="text-xs underline underline-offset-4">{officialUrl?'Documentação shadcn/ui':'Documentação ReUI'} ↗</a>
+   {referenceUrl&&<a href={referenceUrl} target="_blank" rel="noopener noreferrer" className="text-xs underline underline-offset-4">{officialUrl?'Documentação shadcn/ui':'Documentação ReUI'} ↗</a>}
   </div>
   {guide ? <div className="grid gap-4 md:grid-cols-3">
    {([['Quando usar',guide.whenUse],['Quando não usar',guide.whenNotUse],['Notas do agente',guide.agentNotes]] as const).map(([heading,lines])=>
@@ -217,8 +221,8 @@ function ComponentExplorer({kind}:{kind:Kind}){
     {!filtered.length&&<p className="text-sm text-muted-foreground">Nenhum componente encontrado.</p>}
    </aside>
    <div className="min-w-0 space-y-4">
-    <div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap justify-between gap-2"><h3 className="text-lg font-semibold">{type}</h3>
-    <span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(type)?.version??'—'}</span></div>
+    <div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">{type}</h3>
+    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(type)?.version??'—'}</span>{kind==='primitive'&&<PrimitiveSourceViewer key={type} type={type} example={spec}/>}</div></div>
     <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[type as keyof typeof componentDefinitions]?.description}</p>
     <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(type).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
     {kind==='primitive' && <ReuiGuidance type={type}/>}
