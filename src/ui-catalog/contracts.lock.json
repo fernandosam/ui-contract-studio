@@ -139,12 +139,12 @@
     },
     {
       "name": "Avatar",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "9b7da684104245ea372b45e851bd762caff14c5fd0d685b4968a02892ba26df8",
-      "semanticFingerprint": "21decbd2cd215e3ad7357b4c460c191bccd28a4d4b9036805039fdd2cd8940af"
+      "fingerprint": "8f91e6d37ad0f947d100e8029be8784c7ea6f55ffaf517cab1af2bf29b307a09",
+      "semanticFingerprint": "4d16f1fbd94a3e282b147ffe36b471fea64c136f919ebec519c07f638a532e83"
     },
     {
       "name": "Badge",
@@ -157,12 +157,12 @@
     },
     {
       "name": "Alert",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "a7ce3802cfc7579634b3b332dd55dd9d035a724f73c2b73fa262a70aff5fdb7f",
-      "semanticFingerprint": "88e538514f69b9ddfc24d9bb68b55984559d2f2f372c24d75748bd912d83adf2"
+      "fingerprint": "4914f9db7ebd9e21cc2c833eb9870025af46477cc96b8797d52ef2a7f70f48ea",
+      "semanticFingerprint": "8bb63ef1009dc14c619adc8bea27fabc2c1fdcef880ca55233fff2e713a42bc6"
     },
     {
       "name": "Progress",
@@ -175,12 +175,12 @@
     },
     {
       "name": "Skeleton",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "67b97ea83361da9bc86f6fcc799c3d0e1203be8b8a150c2e4f325ca2449350ee",
-      "semanticFingerprint": "e194615e21ff0f1eda637e366d74fc4a9fe848c12a5e3945cd7eafdd28ac3f9d"
+      "fingerprint": "ec79b64cdf6853ba6db85d5f5d08ba3101d19d3f002a0f5a7b68105a8f5a4a38",
+      "semanticFingerprint": "a919fbae39b65baa026cef82d95edaf443e9e90488b685ad423efcee3a62832d"
     },
     {
       "name": "Spinner",
@@ -211,12 +211,12 @@
     },
     {
       "name": "Rating",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "edad45ebe118fdff82f85a5cdc54e7e0bd82347a809034644ebb84b73ac61333",
-      "semanticFingerprint": "343f761a112657b945061a6293289b6ac44b0828666c5fb33c74c36c59c6b27a"
+      "fingerprint": "3dc4a09afa71d5da3001642d6778476d80d3298a784cde71da7593b3cb49347e",
+      "semanticFingerprint": "595dc72d69524e10d2d6a4cb81096ba37e6cc36224929e331a1415e01dbdd187"
     },
     {
       "name": "Metric",
@@ -274,21 +274,21 @@
     },
     {
       "name": "Checkbox",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "6ba103737645a7213a8466b1cc5d075cbf0b5da728093c6b526f484b6a3200b7",
-      "semanticFingerprint": "77dc9a5358d389c06bbbfac140e5f857720bc4ff3f2e47f87ec10f0eae73ad84"
+      "fingerprint": "1a3737b6702a585b45c66303f35ad06a4da455231a8285f19a782e81da245359",
+      "semanticFingerprint": "a65d5883121e465208687851b90d119ce2fcaa42112ad7fe36b33455c2086db8"
     },
     {
       "name": "Radio",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "e4b9a24370de06c5f04b93e36b63060e574bf2e3fbb57172c24b3a9488c87883",
-      "semanticFingerprint": "24234812e0f36252222146f1abe6ea68b26a703323c84beca024b6dcbb82f9b7"
+      "fingerprint": "599a3e2619076c90302812cf1e802c0f964c0bc854d558c2217b88b5691a1590",
+      "semanticFingerprint": "127f4a6dbfa9d8eb9dd02745ad3e81edf6cc1d118c5aa92bcec9c16eadc57146"
     },
     {
       "name": "Switch",
@@ -337,12 +337,12 @@
     },
     {
       "name": "Toggle",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "d4252292fe10c43e24d36876e6b4fc6846c1ba8ec227d1344c9a6ec590763fd9",
-      "semanticFingerprint": "0cf9622ddecb56c6bfd81cbd6eafc3a21d6f4c5ed0c9e276a07d070d04ccd207"
+      "fingerprint": "a18180cd8f067bafd863d798f8143585207fc1967852ff5be1f416acc7081fab",
+      "semanticFingerprint": "2599a354f315f14decef47d3ef1a92607c0b1ccc7dc2b66a678a0415c9b29d19"
     },
     {
       "name": "ToggleGroup",
@@ -355,12 +355,12 @@
     },
     {
       "name": "ButtonGroup",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "caba8fd99bc6fea799eaa6917a13d4a337ebee0a66a5b248663b9c47b28b3152",
-      "semanticFingerprint": "e338632fb59a01b5047ea2401f1268eee668245ccdc494a18d024059f8dac0e6"
+      "fingerprint": "03cfc474375fa735ce5afe9c149eb3c39fcf188d28fcde306b1b7e09aa1dbfbd",
+      "semanticFingerprint": "858933cbfc51c7e396a4ec65bc5c25bb4cc34fdefefa8561a3e1aa43c6fef14b"
     },
     {
       "name": "Pagination",
