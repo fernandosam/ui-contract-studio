@@ -32,7 +32,8 @@ test("instalação CLI é separada de registro json-render",()=>{
   assert.match(base,/\.\.\.extensionDefinitions/);
   assert.match(ext,/export const extensionDefinitions/);
   for(const item of items) if(item.integration==="existing-contract") assert.match(base,new RegExp(`^  ${item.catalogContract}: \\{`,"m"));
-  assert.match(read("AGENTS.md"),/admissão com schema Zod \+ componente React \+ registry/);
+  assert.match(read("AGENTS.md"),/admission with a Zod schema \+ React component \+ registry/);
+  assert.match(read("AGENTS.pt-BR.md"),/admissão com schema Zod \+ componente React \+ registry/);
 });
 
 test("instalador tem prévia, não usa overwrite e protege os arquivos",()=>{
@@ -53,7 +54,8 @@ test("status funciona sem npm e informa todos pendentes ou instalados",()=>{
 
 test("políticas não permitem JSX de telas fora do catálogo",()=>{
   const rule=read("AGENTS.md"),check=read("scripts/check-boundaries.ts");
-  assert.match(rule,/Proibido escrever JSX\/HTML arbitrário nas telas/);
+  assert.match(rule,/Arbitrary JSX\/HTML is forbidden in screens/);
+  assert.match(read("AGENTS.pt-BR.md"),/Proibido escrever JSX\/HTML arbitrário nas telas/);
   assert.match(check,/components\/ui\//);
   assert.match(check,/ui-catalog\/extensions\/components\//);
 });
