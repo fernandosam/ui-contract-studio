@@ -156,13 +156,17 @@ export const playgroundImplementations = {
   Text: ({props})=><p className={`pg-text pg-text--${props.variant??"body"}`}>{props.text}</p>,
   Image: ({props})=><div className="pg-placeholder" role="img" aria-label={props.alt} style={{maxWidth:props.width??undefined,height:props.height??120}}><span>▧</span><small>{props.alt}</small></div>,
   Icon: ({props})=>{const Icon=lucideIcons[props.name as keyof typeof lucideIcons];return Icon?<Icon size={props.size==="lg"?24:props.size==="sm"?16:20} className={`pg-icon--${props.color??"default"}`} aria-hidden="true"/>:null;},
-  Avatar: ({props})=><span className="relative inline-flex shrink-0">
-    <ShadcnAvatar className={props.size==="lg"?"size-12":props.size==="sm"?"size-8":"size-10"}>
-      <AvatarFallback aria-label={props.name}>{String(props.name).split(" ").map((x:string)=>x[0]).slice(0,2).join("").toUpperCase()}</AvatarFallback>
-    </ShadcnAvatar>
-    {props.status&&<span role="img" aria-label={`Presença: ${({online:"disponível",away:"ausente",busy:"ocupado",offline:"desconectado"} as Record<string,string>)[props.status]}`}
-      className={`absolute bottom-0 right-0 size-3 rounded-full border-2 border-background ${props.status==="online"?"bg-green-600":props.status==="busy"?"bg-red-600":props.status==="away"?"bg-amber-500":"bg-muted-foreground"}`}/>}
-  </span>,
+  Avatar: ({props})=>{
+    const pos:Record<string,string>={"bottom-right":"bottom-0 right-0","bottom-left":"bottom-0 left-0","top-right":"top-0 right-0","top-left":"top-0 left-0"};
+    const square=props.shape==="square";
+    return <span className="relative inline-flex shrink-0">
+      <ShadcnAvatar className={`${props.size==="lg"?"size-12":props.size==="sm"?"size-8":"size-10"} ${square?"rounded-lg":"rounded-full"}`}>
+        <AvatarFallback className={square?"rounded-lg":undefined} aria-label={props.name}>{String(props.name).split(" ").map((x:string)=>x[0]).slice(0,2).join("").toUpperCase()}</AvatarFallback>
+      </ShadcnAvatar>
+      {props.status&&<span role="img" aria-label={`Presença: ${({online:"disponível",away:"ausente",busy:"ocupado",offline:"desconectado"} as Record<string,string>)[props.status]}`}
+        className={`absolute ${pos[props.statusPosition??"bottom-right"]} size-3 rounded-full border-2 border-background ${props.status==="online"?"bg-green-600":props.status==="busy"?"bg-red-600":props.status==="away"?"bg-amber-500":"bg-muted-foreground"}`}/>}
+    </span>;
+  },
   Badge: ({props})=>{
     const tone:Record<string,string>={
       "success:solid":"bg-green-700 text-white border-transparent","success:soft":"border-green-700/30 bg-green-700/10 text-green-800 dark:text-green-300","success:outline":"border-green-700/50 text-green-700 dark:text-green-300",
@@ -181,7 +185,7 @@ export const playgroundImplementations = {
     if(!visible)return null;
     const ToneIcon=props.tone==="success"?CheckCircle:props.tone==="warning"?AlertTriangle:props.tone==="error"?XCircle:Info;
     return <ShadcnAlert variant={props.variant==="destructive"||props.tone==="error"?"destructive":"default"} className="relative">
-      <ToneIcon className="size-4"/><AlertTitle>{props.title}</AlertTitle>
+      {props.showIcon!==false&&<ToneIcon className="size-4"/>}{props.title&&<AlertTitle>{props.title}</AlertTitle>}
       {props.description&&<AlertDescription>{props.description}</AlertDescription>}
       {props.dismissible&&<button type="button" aria-label="Fechar aviso" className="absolute right-2 top-2 rounded p-1 focus-visible:outline-2 focus-visible:outline-ring" onClick={()=>setVisible(false)}><X aria-hidden="true" className="size-4"/></button>}
     </ShadcnAlert>;
@@ -191,7 +195,7 @@ export const playgroundImplementations = {
     const tones:Record<string,string>={success:"[&_[data-slot=progress-indicator]]:bg-green-600",warning:"[&_[data-slot=progress-indicator]]:bg-amber-600",error:"[&_[data-slot=progress-indicator]]:bg-destructive",info:"[&_[data-slot=progress-indicator]]:bg-blue-600"};
     return <div className="pg-field">{props.label&&<ShadcnLabel>{props.label}</ShadcnLabel>}<ShadcnProgress className={tones[props.tone??"default"]} aria-label={props.label??"Progresso"} value={percentage}/>{props.showValue!==false&&<span className="pg-muted">{Math.round(props.value)} / {props.max??100}</span>}</div>;
   },
-  Skeleton: ({props})=><ShadcnSkeleton className={props.rounded?"rounded-full":"rounded-md"} style={{width:props.width??"100%",height:props.height??"1.3rem"}}/>,
+  Skeleton: ({props})=>{const shape=props.shape??(props.rounded?"circle":"rectangle");return <div role="status" aria-label="Carregando conteúdo" className="flex flex-col gap-2">{Array.from({length:props.lines??1},(_,i)=><ShadcnSkeleton key={i} className={shape==="circle"?"rounded-full aspect-square":shape==="square"?"rounded-none":"rounded-md"} style={{width:props.width??"100%",height:props.height??"1.3rem"}}/>)}</div>;},
   Spinner: ({props})=>{
     const tones:Record<string,string>={success:"text-green-600",warning:"text-amber-600",error:"text-destructive",info:"text-blue-600"};
     return <span role="status" className={`inline-flex items-center gap-2 ${tones[props.tone??"default"]??""}`}><ShadcnSpinner className={props.size==="lg"?"size-8":props.size==="sm"?"size-4":"size-6"}/><span className={props.hideLabel?"sr-only":undefined}>{props.label??"Carregando"}</span></span>;
@@ -204,18 +208,23 @@ export const playgroundImplementations = {
   Rating: ({props,bindings,emit})=>{
     const max=props.max??5;
     const [value,setValue]=useValue(props.value??0,bindings?.value);
-    const current=Math.max(0,Math.min(max,value));
+    const current=clamp(value,0,max);
     const formatted=new Intl.NumberFormat("pt-BR",{maximumFractionDigits:2}).format(current);
+    const select=(next:number)=>{setValue(next);notify(emit,"change");};
     return <div className="pg-rating" role="group" aria-label={props.label??"Avaliação"}>
       {props.label&&<strong>{props.label}</strong>}
       <span className="sr-only">{"Nota "+formatted+" de "+max+" estrelas"}</span>
       {Array.from({length:max},(_,i)=>{
         const fill=ratingStarFillPercent(current,i,max);
         const glyph=<span aria-hidden="true" className="pg-rating-glyph" style={{backgroundImage:"linear-gradient(90deg, var(--warning) "+fill+"%, var(--muted-foreground) "+fill+"%)"}}>★</span>;
-        return props.interactive === false
-          ? <span key={i} className="pg-rating-static">{glyph}</span>
-          : <button type="button" key={i} aria-label={(i+1)+" de "+max+" estrelas"} aria-pressed={current===i+1} onClick={()=>{setValue(i+1);notify(emit,"change");}}>{glyph}</button>;
+        if(props.interactive===false)return <span key={i} className="pg-rating-static">{glyph}</span>;
+        if(props.step===0.5)return <span key={i} className="relative inline-flex align-middle">{glyph}
+          {[0.5,1].map((part,j)=><button key={j} type="button" className={`absolute inset-y-0 ${j===0?"left-0":"right-0"} w-1/2 rounded-sm focus-visible:outline-2 focus-visible:outline-ring`}
+            aria-label={`${i+part} de ${max} estrelas`} aria-pressed={current===i+part} onClick={()=>select(i+part)}/>)}
+        </span>;
+        return <button type="button" key={i} aria-label={(i+1)+" de "+max+" estrelas"} aria-pressed={current===i+1} onClick={()=>select(i+1)}>{glyph}</button>;
       })}
+      {props.showValue&&<output aria-live="polite" className="ml-2 text-sm tabular-nums">{formatted}/{max}</output>}
     </div>;
   },
   Metric: ({props})=><article className="pg-metric"><span>{props.label}</span><strong>{props.prefix??""}{props.value}{props.suffix??""}</strong>{props.change&&<small className={`pg-metric--${props.changeType??"neutral"}`}>{props.change}</small>}</article>,
@@ -235,8 +244,8 @@ export const playgroundImplementations = {
       <SelectContent>{props.options.map(item)}{props.groups?.map((group:any,i:number)=><SelectGroup key={group.label}><SelectLabel>{group.label}</SelectLabel>{group.options.map(item)}{i<props.groups.length-1&&<SelectSeparator/>}</SelectGroup>)}</SelectContent>
     </ShadcnSelect></div>;
   },
-  Checkbox: ({props,bindings,emit})=>{const id=useId();const [checked,setChecked]=useValue(props.checked??props.defaultChecked??false,bindings?.checked);return <div className="flex items-center gap-2"><ShadcnCheckbox id={id} name={props.name} checked={checked} disabled={props.disabled} required={props.required} onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,"change");}}/><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel></div>;},
-  Radio: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.value??props.defaultValue??"",bindings?.value);const id=useId();return <fieldset className="space-y-2"><legend className="mb-2 text-sm font-medium">{props.label}</legend><ShadcnRadioGroup value={value} disabled={props.disabled} required={props.required} className={props.orientation==="horizontal"?"flex flex-row flex-wrap gap-3":"flex flex-col gap-2"} onValueChange={(v:string)=>{setValue(v);notify(emit,"change");}}>{props.options.map((raw:any,i:number)=>{const item=typeof raw==="string"?{label:raw,value:raw}:raw;return <div key={item.value} className="flex items-center gap-2"><RadioGroupItem id={`${id}-${i}`} value={item.value} disabled={item.disabled}/><ShadcnLabel htmlFor={`${id}-${i}`}>{item.label}</ShadcnLabel></div>})}</ShadcnRadioGroup></fieldset>;},
+  Checkbox: ({props,bindings,emit})=>{const id=useId();const [checked,setChecked]=useValue(props.checked??props.defaultChecked??false,bindings?.checked);return <div className="flex items-start gap-2"><ShadcnCheckbox id={id} name={props.name} checked={checked} disabled={props.disabled} required={props.required} aria-invalid={props.invalid||undefined} aria-describedby={props.description?`${id}-help`:undefined} onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,"change");}}/><div className="grid gap-1"><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>{props.description&&<p id={`${id}-help`} className="text-xs text-muted-foreground">{props.description}</p>}</div></div>;},
+  Radio: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.value??props.defaultValue??"",bindings?.value);const id=useId();return <fieldset className="space-y-2"><legend className="mb-2 text-sm font-medium">{props.label}</legend><ShadcnRadioGroup value={value} disabled={props.disabled} required={props.required} className={props.orientation==="horizontal"?"flex flex-row flex-wrap gap-3":"flex flex-col gap-2"} onValueChange={(v:string)=>{setValue(v);notify(emit,"change");}}>{props.options.map((raw:any,i:number)=>{const item=typeof raw==="string"?{label:raw,value:raw}:raw;return <div key={item.value} className="flex items-start gap-2"><RadioGroupItem id={`${id}-${i}`} value={item.value} disabled={item.disabled}/><div className="grid gap-1"><ShadcnLabel htmlFor={`${id}-${i}`}>{item.label}</ShadcnLabel>{item.description&&<span className="text-xs text-muted-foreground">{item.description}</span>}</div></div>})}</ShadcnRadioGroup></fieldset>;},
   Switch: ({props,bindings,emit})=>{const id=useId();const [checked,setChecked]=useValue(props.checked??props.defaultChecked??false,bindings?.checked);return <div className="flex items-start gap-2"><ShadcnSwitch id={id} name={props.name} checked={checked} size={props.size??"default"} disabled={props.disabled} required={props.required} aria-describedby={props.description?`${id}-help`:undefined} onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,"change");}}/><div className="grid gap-1"><ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>{props.description&&<p id={`${id}-help`} className="text-xs text-muted-foreground">{props.description}</p>}</div></div>;},
   Slider: ({props,bindings,emit})=>{
     const initial=props.values??props.defaultValues??(props.value??props.defaultValue??props.min??0);
@@ -285,7 +294,7 @@ export const playgroundImplementations = {
       </DropdownMenuContent>
     </ShadcnDropdownMenu>;
   },
-  Toggle: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.pressed??props.defaultPressed??false,bindings?.pressed);return <ShadcnToggle variant={props.variant??"default"} size={props.size??"default"} disabled={props.disabled} pressed={value} onPressedChange={(v:boolean)=>{setValue(v);notify(emit,"change");}}>{props.label}</ShadcnToggle>;},
+  Toggle: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.pressed??props.defaultPressed??false,bindings?.pressed);const Icon=props.icon?lucideIcons[props.icon as keyof typeof lucideIcons]:null;return <ShadcnToggle variant={props.variant??"default"} size={props.size??"default"} disabled={props.disabled} pressed={value} onPressedChange={(v:boolean)=>{setValue(v);notify(emit,"change");}}>{Icon&&<Icon aria-hidden="true" className="size-4"/>}{props.label}</ShadcnToggle>;},
   ToggleGroup: ({props,bindings,emit})=>{
     const initial=props.value??props.defaultValue??"";
     const [value,setValue]=useValue<string|string[]>(initial,bindings?.value);
@@ -294,7 +303,7 @@ export const playgroundImplementations = {
     const change=(next:string[])=>{setValue(props.type==="multiple"?next:(next.at(-1)??""));notify(emit,"change");};
     return <ShadcnToggleGroup variant={props.variant??"default"} size={props.size??"default"} value={selected} disabled={props.disabled} onValueChange={change} className={props.orientation==="vertical"?"flex flex-col items-stretch":"flex flex-row flex-wrap"}>{parts}</ShadcnToggleGroup>;
   },
-  ButtonGroup: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.selected??"",bindings?.selected);return <ShadcnButtonGroup orientation={props.orientation??"horizontal"}>{props.buttons.map((item:any)=><ShadcnButton key={item.value} type="button" disabled={item.disabled} variant={value===item.value?"default":"outline"} onClick={()=>{setValue(item.value);notify(emit,"change");}}>{item.label}</ShadcnButton>)}</ShadcnButtonGroup>;},
+  ButtonGroup: ({props,bindings,emit})=>{const [value,setValue]=useValue(props.selected??"",bindings?.selected);return <ShadcnButtonGroup orientation={props.orientation??"horizontal"}>{props.buttons.map((item:any)=>{const Icon=item.icon?lucideIcons[item.icon as keyof typeof lucideIcons]:null;return <ShadcnButton key={item.value} type="button" size={props.size??"default"} disabled={item.disabled} variant={value===item.value?"default":props.variant??"outline"} onClick={()=>{setValue(item.value);notify(emit,"change");}}>{Icon&&<Icon aria-hidden="true" className="size-4"/>}{item.label}</ShadcnButton>})}</ShadcnButtonGroup>;},
   Pagination: ({props,bindings,emit})=>{
     const [page,setPage]=useValue(props.page??1,bindings?.page);
     const [size,setSize]=useState(props.pageSize??10);
