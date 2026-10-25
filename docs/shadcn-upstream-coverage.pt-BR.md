@@ -1,6 +1,6 @@
 [English](shadcn-upstream-coverage.md) | [Português](shadcn-upstream-coverage.pt-BR.md)
 
-> **Levantamento pontual em 23/10/2026:** a situação de PRs, fontes locais e componentes reflete a data do relatório. Para a versão atual, consulte [componentes](components.md), [integração shadcn](integracao-shadcn.md) e os manifestos do repositório.
+> **Levantamento pontual em 23/10/2026:** a situação de PRs, fontes locais e componentes reflete a data do relatório. Para a versão atual, consulte [componentes](components.pt-BR.md), [integração shadcn](integracao-shadcn.pt-BR.md) e os manifestos do repositório.
 
 # Cobertura oficial shadcn/ui — 23/10/2026
 
