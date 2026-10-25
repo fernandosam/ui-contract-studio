@@ -10,7 +10,7 @@
 | **shadcn/ui (Base UI)** | Implementações locais de primitivas | `shadcn-plan.json` e `src/components/ui/` |
 | **ReUI** | Composições React e exemplos visuais | `src/ui-catalog/extensions/composites/reui-composite-definitions.ts` |
 
-Consulte [componentes compostos](componentes-compostos.md), [biblioteca ReUI](reui-composite-library.md) e [integração shadcn](integracao-shadcn.md). Uma primitiva instalada não é automaticamente um tipo Pi.
+Consulte [componentes compostos](componentes-compostos.pt-BR.md), [biblioteca ReUI](reui-composite-library.pt-BR.md) e [integração shadcn](integracao-shadcn.pt-BR.md). Uma primitiva instalada não é automaticamente um tipo Pi.
 
 ## Admissão de um tipo Pi
 
@@ -34,4 +34,4 @@ npm run composites:check
 npm run contracts:check
 ~~~
 
-Um template não permite ações/URLs arbitrárias via `nodeProps` ou `content`. Confira fontes oficiais e capturas pela [metodologia visual](revisao-visual-shadcn.md). A [cobertura shadcn de 23/10/2026](shadcn-upstream-coverage.md) é apenas um levantamento histórico.
+Um template não permite ações/URLs arbitrárias via `nodeProps` ou `content`. Confira fontes oficiais e capturas pela [metodologia visual](revisao-visual-shadcn.pt-BR.md). A [cobertura shadcn de 23/10/2026](shadcn-upstream-coverage.pt-BR.md) é apenas um levantamento histórico.

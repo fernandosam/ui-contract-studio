@@ -2,7 +2,7 @@
 
 # Desenvolvimento e qualidade
 
-Use Node.js **22+** e dependências verificadas pelo `package-lock.json`. O [README](../README.md) apresenta a instalação; ambientes com rede limitada devem consultar a [sandbox](../sandbox/README.md).
+Use Node.js **22+** e dependências verificadas pelo `package-lock.json`. O [README](../README.pt-BR.md) apresenta a instalação; ambientes com rede limitada devem consultar a [sandbox](../sandbox/README.pt-BR.md).
 
 ## Comandos
 
@@ -26,7 +26,7 @@ Use Node.js **22+** e dependências verificadas pelo `package-lock.json`. O [REA
 - [E2E manual (main)](../.github/workflows/e2e-manual.yml): workflow de execução **manual, apenas na main**. Não é acionado automaticamente em cada PR.
 - [Auditoria visual oficial](../.github/workflows/bootstrap-visual.yml): fluxo separado que pode registrar screenshots, comparações e evidências.
 
-Capturas só comprovam o que foi renderizado e observado. Diferenças de pixels entre demos com dados/estados distintos são diagnósticas, **não critério automático de fidelidade**. Consulte [revisão visual](revisao-visual-shadcn.md) e [auditoria oficial](official-component-visual-audit.md).
+Capturas só comprovam o que foi renderizado e observado. Diferenças de pixels entre demos com dados/estados distintos são diagnósticas, **não critério automático de fidelidade**. Consulte [revisão visual](revisao-visual-shadcn.pt-BR.md) e [auditoria oficial](official-component-visual-audit.pt-BR.md).
 
 ## Definição de pronto
 

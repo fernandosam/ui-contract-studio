@@ -31,4 +31,4 @@ No snapshot 0.24.0, lock e manifesto Pi registram **102 contratos ativos** (41 b
 
 As propriedades `content` e `nodeProps` só editam valores autorizados: não substituem tipos, árvore, URLs, handlers, ações ou identidade dos campos. Versões/fingerprints e `status: approved` documentam integridade técnica, **não aprovação humana**. Demos de login, pagamento e acesso remoto não fornecem serviços de produção.
 
-Veja [componentes](components.md), [agentes](agents.md), [desenvolvimento](development.md) e [governança](governance.md).
+Veja [componentes](components.pt-BR.md), [agentes](agents.pt-BR.md), [desenvolvimento](development.pt-BR.md) e [governança](governance.pt-BR.md).
