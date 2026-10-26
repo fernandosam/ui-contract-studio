@@ -1,7 +1,7 @@
 /** Validates generated json-render specs with the real Zod registry; produces compact, actionable, data-free diagnostics. */
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
-import {catalog,experimentalCatalog,stableComponentDefinitions,unifiedComponentDefinitions,componentEventDescriptors,experimentalComponentEventDescriptors,actionDefinitions} from '../src/ui-catalog/catalog';
+import {catalog,experimentalCatalog,stableComponentDefinitions,unifiedComponentDefinitions,stableComponentEventDescriptors,experimentalComponentEventDescriptors,actionDefinitions} from '../src/ui-catalog/catalog';
 import {graphErrors} from './lib/spec-invariants.mjs';
 
 type Finding={pointer:string;code:string;message:string;expected?:unknown;suggestion:string};
@@ -37,7 +37,7 @@ if(spec!==undefined){
   }
  }
  const structure=graphErrors(spec,Object.keys(channel==='experimental'?unifiedComponentDefinitions:stableComponentDefinitions),{
-  allowedActions:Object.keys(actionDefinitions),allowedEvents:channel==='experimental'?experimentalComponentEventDescriptors:componentEventDescriptors
+  allowedActions:Object.keys(actionDefinitions),allowedEvents:channel==='experimental'?experimentalComponentEventDescriptors:stableComponentEventDescriptors
  });
  for (const message of structure) {
   const match=message.match(/^([^:]+): (children|slots\.[a-zA-Z0-9_-]+) deve ser array\.$/);
