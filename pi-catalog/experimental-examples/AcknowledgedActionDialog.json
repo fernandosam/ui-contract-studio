@@ -1,0 +1,16 @@
+{
+  "root": "example",
+  "elements": {
+    "example": {
+      "type": "AcknowledgedActionDialog",
+      "props": {
+        "trigger": "Excluir",
+        "title": "Confirmação",
+        "description": "Excluir itens?",
+        "acknowledgmentLabel": "Estou ciente",
+        "confirmLabel": "Excluir"
+      },
+      "children": []
+    }
+  }
+}
