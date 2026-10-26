@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Browser evidence verifier for non-legacy Admission Engine candidates. No synthetic pass states. */
-import {existsSync,mkdirSync,rmSync,readFileSync,writeFileSync,statSync} from "node:fs";
+import {existsSync,mkdirSync,rmSync,readFileSync,writeFileSync} from "node:fs";
 import {join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
 import {createHash} from "node:crypto";
