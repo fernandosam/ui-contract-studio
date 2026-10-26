@@ -88,7 +88,9 @@
     "semantic:check": "node scripts/analyze-semantic-knowledge.mjs --check",
     "semantic:report": "node scripts/analyze-semantic-knowledge.mjs --write",
     "semantic:context": "node scripts/analyze-semantic-knowledge.mjs",
-    "semantic:ingest": "node scripts/ingest-reui-knowledge.mjs"
+    "semantic:ingest": "node scripts/ingest-reui-knowledge.mjs",
+    "composites:recommend:check": "tsx scripts/check-composition-recommendations.ts",
+    "composites:recommend:pilot": "tsx scripts/show-composition-recommendation.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
