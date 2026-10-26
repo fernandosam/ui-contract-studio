@@ -103,7 +103,7 @@ export function publish(root = rootDefault, revision = process.env.GITHUB_SHA) {
     const generated = json(root, join("reports/composition-proposals", id, "manifest.json"));
     if (generated.schemaVersion !== 1 || generated.scenarioId !== id ||
         generated.target !== recipe.target || generated.admission !== "review-required" ||
-        generated.exposedToPi !== false || !generated.fileSha256)
+        generated.registryChannel !== "experimental" || !generated.fileSha256)
       fail(id + ": invalid generated manifest");
     const names = Object.keys(generated.fileSha256).sort();
     const expected = [recipe.componentFile, recipe.schemaFile, recipe.target + ".schema.test.ts", "REVIEW.md"].sort();
@@ -122,7 +122,7 @@ export function publish(root = rootDefault, revision = process.env.GITHUB_SHA) {
       id, type: recipe.target, stage: "experimental", digest,
       eligibleForE2ePromotion: policy.e2eEligible.includes(id),
       contractApi: "registered-composition", piExposure: true,
-      capabilities: ["local-preview"], disabled: ["remote-actions", "arbitrary-jsx", "stable-pi-export"],
+      capabilities: ["local-preview"], disabled: ["remote-actions", "arbitrary-jsx"],
       files: generated.fileSha256
     });
   }
