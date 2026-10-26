@@ -45,7 +45,7 @@ async function copied(page:Page):Promise<string[]> {
  return page.evaluate(()=>(window as ClipboardWindow).__admissionCopies??[]);
 }
 test.afterEach(async({page},info)=>{
- const group=info.titlePath().find(value=>value.startsWith("candidate:"));
+ const group=info.titlePath.find(value=>value.startsWith("candidate:"));
  const id=group?.slice("candidate:".length) as CandidateId|undefined;
  if(!id || !selected.includes(id))return;
  const protocol=protocols.candidates[id];
