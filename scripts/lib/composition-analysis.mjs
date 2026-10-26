@@ -37,7 +37,6 @@ export function buildCompositionAnalysis(root = process.cwd()) {
   const guidance = readJson(dir("src/ui-catalog/reui-example-guidance.pt-BR.json"));
   const approved = new Set(lock.components.map(entry => entry.name));
   const extensions = new Set(lock.components.filter(entry => entry.tier !== "base").map(entry => entry.name));
-  const generatedNames = new Set(manifest.components.map(entry => entry.name));
   const listedPrimitives = policy.primitiveExtensions;
   const listedReact = policy.reactComposites;
   const entries = [...listedPrimitives, ...listedReact, ...manifest.components.map(item => item.name)];
