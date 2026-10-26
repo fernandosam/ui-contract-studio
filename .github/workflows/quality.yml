@@ -49,8 +49,8 @@ jobs:
       - name: Validate Pi generator negative and positive cases
         run: npm run pi:validate -- --file=pi-catalog/examples/Dashboard01.json --out=reports/pi-validation/ci.json
 
-  typed-confirmation-preview:
-    name: Typed confirmation focused browser review (not full E2E)
+  admission-browser:
+    name: Admission browser review (not full E2E)
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
     timeout-minutes: 25
@@ -71,22 +71,20 @@ jobs:
           else
             npx playwright install --with-deps chromium
           fi
-      - run: npm run composition:pilot:reset && npm run admission:evidence:reset
-      - name: Exercise unapproved TypedConfirmationDialog on desktop and mobile
+      - run: npm run admission:evidence:reset
+      - name: Exercise TypedConfirmationDialog official experimental contract on desktop/mobile
         run: npm run test:composition:pilot
       - name: Exercise all three additional experimental contracts on desktop/mobile
         run: npm run test:admission:candidates
       - name: Verify opt-in official Pi catalog on desktop and mobile
         run: npx playwright test tests/e2e/admission-catalog.spec.ts --project=desktop --project=mobile
-      - name: Verify browser evidence and pending manual gates
-        run: npm run composition:pilot:report
       - name: Verify evidence reports for all four candidates
         run: npm run admission:evidence:report
       - name: Save isolated proposal evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: typed-confirmation-preview-evidence
+          name: admission-browser-evidence
           path: |
             reports/composition-validation/typed-confirmation/
             reports/composition-validation/admission/
