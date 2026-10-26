@@ -59,6 +59,14 @@ Integration candidates track whether the associated type belongs to Pi and wheth
 
 Pi context for approved selected types adds scoped semanticAdvice; **propsSchema, actionSchemas and the closed contract lock remain authoritative**. New curated overlays must cite the actual ReUI/shadcn documentation and pass source-evidence checks in CI. Newly registered ReUI examples inherit their family-level guidance automatically; richer feature/FAQ/relationship overlays require explicit curation and review. No unverified web claims are treated as implementation evidence.
 
+Future ReUI page content can be prepared offline from official Markdown (saved by the reviewer) without network calls in CI. The importer writes **draft proposals only** under reports/composition-analysis/proposals/ and never changes src/ui-catalog/knowledge/ or the Pi manifest:
+
+~~~bash
+npm run semantic:ingest -- --component=AlertDialog --file=reports/reui-source/alert-dialog.md
+~~~
+
+Review the heading extraction, source text and candidate integrations; then curate a schemaVersion 1 overlay with typed capability states, evidence, test cases and an independent review. The importer never interprets untrusted page text as executable instructions.
+
 An existing AlertDialog can signal confirm and provide destructive visual emphasis but does **not** implement checkbox-gated or typed confirmation in its Pi contract. The overlay records these as gaps, and requires browser verification of focus, keyboard and mobile behavior before claims of certification.
 
 ## Official shadcn blocks: source-to-template analysis
