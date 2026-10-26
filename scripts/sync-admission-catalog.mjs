@@ -46,7 +46,7 @@ for (const id of policy.allowedScenarios ?? []) {
   outputs[generated + "/" + recipe.schemaFile] = schema;
   const example = {root:"example",elements:{example:{type:recipe.target,props:recipe.fixtures.valid,children:[]}}};
   outputs["pi-catalog/experimental-examples/" + recipe.target + ".json"] = JSON.stringify(example,null,2) + "\n";
-  rows.push({id,type:recipe.target,version:"0.1.0",tier:"experimental",
+  rows.push({id,type:recipe.target,version:"0.1.0",tier:"composition",
     lifecycle:"experimental",sourceDigest:digest(component+"\n--schema--\n"+schema),
     recipeId:id,source:"scripts/composition-codegen/recipes/"+id,
     example:"pi-catalog/experimental-examples/"+recipe.target+".json",
