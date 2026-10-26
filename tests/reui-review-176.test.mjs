@@ -51,7 +51,7 @@ test("Novos contratos são tipados, rastreados e com fingerprints consistentes",
   assert.equal(item.fingerprint,sig.fingerprint)
   assert.equal(item.version,"1.0.0")
   assert.equal(item.tier,"extension")
-  const contract=read("pi-catalog/contracts.json").contracts.find(e=>e.type===name)
+  const contract=read("pi-catalog/contracts.json").components.find(e=>e.type===name)
   assert.equal(contract.hasSemanticAPI,true)
   assert.deepEqual(contract.semanticGuidance,semantics[name])
   assert.equal(read(contract.example).elements[read(contract.example).root].type,name)
