@@ -127,9 +127,9 @@ npx tsx --test reports/composition-proposals/alert-typed/TypedConfirmationDialog
 
 Cada pacote é criado somente em reports/composition-proposals/<id>/ (ignorados pelo Git), com componente TSX, schema Zod, teste de fixtures válido/inválido, REVIEW.md e manifest.json com hashes SHA-256 e testes comportamentais **ainda não executados**. Saídas modificadas manualmente não são sobrescritas. O gerador só aceita IDs cadastrados e importa componentes de uma allowlist; não executa Markdown, exemplos externos, respostas de agentes ou texto arbitrário.
 
-No explorador, selecione AlertDialog, Accordion ou Button e uma situação de **proposta React**. A opção "Código proposto" mostra as receitas TSX/Zod e permite copiá-las para revisão. Essa prévia não executa nem publica código.
+No explorador, selecione AlertDialog, Accordion ou Button e uma situação de **proposta React**. A opção "Código proposto" mostra as receitas TSX/Zod e permite copiá-las para revisão. O painel de código proposto não executa nem publica código por si só; receitas revisadas podem ingressar no canal Pi experimental por meio do Admission Engine e da política de admissão.
 
-**Definição de pronto para publicação:** revisão humana em PR separado, validação do schema e do comportamento com navegador/teclado/responsividade, revisão de acessibilidade e segurança, versionamento da API, registro explícito no registry/lock e testes de integração. *Gerar uma proposta não equivale a aprová-la*; o gate atual só atesta sintaxe, allowlists, proveniência e testes de schema. Uma edição dos arquivos gerados não altera o código-fonte ou a API Pi.
+**Definição de pronto para promoção estável:** evidência E2E completa vinculada ao fingerprint, revisão de API e segurança, e atualização do manifesto oficial. A admissão experimental tem gate estático e não espera o E2E completo. *Gerar uma proposta não equivale a aprová-la*; o gate atual só atesta sintaxe, allowlists, proveniência e testes de schema. Uma edição dos arquivos gerados não altera o código-fonte ou a API Pi.
 
 
 
