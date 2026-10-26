@@ -23,7 +23,7 @@ export function AdmissionExplorer() {
    <header className="rounded-xl border bg-card p-5">
     <h2 className="text-lg font-semibold">Catálogo oficial · maturidade dos contratos</h2>
     <p className="mt-1 text-sm text-muted-foreground">
-     {entries.filter(entry=>entry.tier!=="experimental").length} contratos base/extensão e {entries.filter(entry=>entry.tier==="experimental").length} composições adicionais no mesmo catálogo.
+     {entries.filter(entry=>entry.tier!=="composition").length} contratos base/extensão e {entries.filter(entry=>entry.tier==="composition").length} composições adicionais no mesmo catálogo.
      Componentes pendentes exigem habilitação explícita para testes locais.
     </p>
    </header>
