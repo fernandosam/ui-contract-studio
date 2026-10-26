@@ -23,7 +23,7 @@ let spec:unknown;
 try{ spec=JSON.parse(readFileSync(resolve(file),'utf8')); }
 catch {findings.push({pointer:'',code:'invalid_json',message:'Sintaxe JSON inválida ou arquivo indisponível.',suggestion:'Retorne um objeto JSON válido, sem markdown.'});}
 if(spec!==undefined){
- const actual=(channel==='experimental'?experimentalCatalog:catalog).validate(spec);
+ const actual=channel==='experimental'?experimentalCatalog.validate(spec):catalog.validate(spec);
  if(!actual.success){
   for(const issue of actual.error?.issues ?? []){
    const pointer='/'+issue.path.map(x=>escapePointer(String(x))).join('/');
