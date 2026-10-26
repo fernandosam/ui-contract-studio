@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 1,
+  "policy": "Advisory only. Never create approved Pi types, props, events, backend permissions or change contracts.lock.json.",
+  "scenarios": [
+    {
+      "id": "alert-simple",
+      "family": "AlertDialog",
+      "title": "Confirmar uma ação sensível",
+      "need": "Mostrar uma confirmação com cancelar e confirmar antes de uma operação sensível.",
+      "keywords": [
+        "confirmar ação",
+        "confirmação simples",
+        "ação sensível"
+      ],
+      "strategy": "reuse-contract",
+      "target": "AlertDialog",
+      "dependencies": [
+        "AlertDialog",
+        "Button"
+      ],
+      "requiredCapabilities": [
+        "controlled-open",
+        "confirm-signal",
+        "focus-and-keyboard"
+      ],
+      "reason": "O contrato AlertDialog aprovado já oferece rótulos, título, descrição e evento confirm; a operação real continua fora do diálogo.",
+      "risks": [
+        "Evento confirm não autoriza exclusão ou chamada ao backend.",
+        "Gerenciamento de foco exige validação em navegador."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Abrir, cancelar, confirmar uma vez e verificar que só o evento autorizado é emitido."
+        ],
+        [
+          "manual-a11y",
+          "Validar Escape, Tab, foco inicial e retorno ao gatilho."
+        ]
+      ]
+    },
+    {
+      "id": "alert-checkbox",
+      "family": "AlertDialog",
+      "title": "Exigir ciência por checkbox",
+      "need": "Exigir que o usuário marque uma confirmação antes de habilitar a ação destrutiva.",
+      "keywords": [
+        "marcar checkbox",
+        "aceito consequências",
+        "caixa de confirmação"
+      ],
+      "strategy": "react-candidate",
+      "target": "AcknowledgedActionDialog",
+      "dependencies": [
+        "AlertDialog",
+        "Checkbox",
+        "Button"
+      ],
+      "requiredCapabilities": [
+        "checkbox-gating",
+        "focus-and-keyboard"
+      ],
+      "reason": "O AlertDialog aprovado não expõe um controle de confirmação por checkbox; o estado e a trava de confirmação exigem composição React com contrato Zod próprio.",
+      "risks": [
+        "Não habilitar a confirmação antes da marcação.",
+        "Não incorporar operação destrutiva implícita.",
+        "Contrato candidato precisa de aprovação humana."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Bloquear confirmação inicialmente; liberar após marcar; voltar a bloquear ao desmarcar."
+        ],
+        [
+          "manual-a11y",
+          "Garantir fluxo de foco e anúncio acessível do checkbox."
+        ]
+      ]
+    },
+    {
+      "id": "alert-typed",
+      "family": "AlertDialog",
+      "title": "Exigir confirmação digitada",
+      "need": "Solicitar a digitação de uma palavra ou identificador para confirmar uma exclusão.",
+      "keywords": [
+        "digitar confirmação",
+        "digitar excluir",
+        "confirmação por texto"
+      ],
+      "strategy": "react-candidate",
+      "target": "TypedConfirmationDialog",
+      "dependencies": [
+        "AlertDialog",
+        "Input",
+        "Button"
+      ],
+      "requiredCapabilities": [
+        "typed-confirmation",
+        "focus-and-keyboard"
+      ],
+      "reason": "Digitação exata e habilitação condicional não fazem parte do contrato AlertDialog atual; requerem estado e validação em um composto React.",
+      "risks": [
+        "Tratar espaços e comparação conforme regra aprovada.",
+        "Impedir submissão por Enter quando o valor divergir.",
+        "Não executar exclusão real sem ação autorizada."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Texto incorreto e vazio mantêm o confirmar desabilitado; texto esperado libera a ação."
+        ],
+        [
+          "manual-a11y",
+          "Verificar navegação por teclado, erros e gerenciamento de foco."
+        ]
+      ]
+    },
+    {
+      "id": "alert-remote",
+      "family": "AlertDialog",
+      "title": "Executar exclusão remota",
+      "need": "Excluir dados do servidor automaticamente quando o usuário confirmar.",
+      "keywords": [
+        "excluir no servidor",
+        "exclusão remota",
+        "apagar no backend"
+      ],
+      "strategy": "review-required",
+      "target": null,
+      "dependencies": [
+        "AlertDialog"
+      ],
+      "requiredCapabilities": [
+        "confirm-signal"
+      ],
+      "reason": "AlertDialog somente sinaliza a decisão; execução remota precisa de ação/backend autorizado e revisão independente.",
+      "risks": [
+        "Nenhuma exclusão de dados pode ser concedida pela recomendação.",
+        "Avaliar autorização, idempotência, auditoria e efeitos colaterais."
+      ],
+      "tests": [
+        [
+          "security-review",
+          "Validar autorização servidor, escopo da ação e confirmação explícita antes de qualquer integração."
+        ]
+      ]
+    },
+    {
+      "id": "accordion-faq",
+      "family": "Accordion",
+      "title": "Perguntas e respostas expansíveis",
+      "need": "Apresentar perguntas frequentes com respostas expansíveis.",
+      "keywords": [
+        "perguntas frequentes",
+        "faq expansível",
+        "acordeão de perguntas"
+      ],
+      "strategy": "reuse-contract",
+      "target": "Accordion",
+      "dependencies": [
+        "Accordion"
+      ],
+      "requiredCapabilities": [],
+      "reason": "O contrato Accordion aprovado representa itens textuais expansíveis; não é necessário introduzir outro composto para uma FAQ simples.",
+      "risks": [
+        "Não ocultar informações críticas apenas em painéis fechados.",
+        "Verificar identificadores estáveis e navegação por teclado."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Expandir e recolher itens, incluindo item desabilitado."
+        ],
+        [
+          "manual-a11y",
+          "Validar tecla Enter/Espaço, foco, títulos e estados."
+        ]
+      ]
+    },
+    {
+      "id": "accordion-onboarding",
+      "family": "Accordion",
+      "title": "Etapas de integração com progresso",
+      "need": "Mostrar onboarding com etapas pendentes, ativas e concluídas em painéis expansíveis.",
+      "keywords": [
+        "etapas onboarding",
+        "progresso de integração",
+        "etapas concluídas"
+      ],
+      "strategy": "reuse-contract",
+      "target": "OnboardingChecklist",
+      "dependencies": [
+        "OnboardingChecklist",
+        "Accordion",
+        "Badge"
+      ],
+      "requiredCapabilities": [],
+      "reason": "OnboardingChecklist já é um composto semântico aprovado que encapsula Accordion e Badge com etapas e estados Zod estritos.",
+      "risks": [
+        "Não inferir persistência de progresso ou autorização de ações.",
+        "Usar IDs únicos e no máximo uma etapa ativa."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Validar esquema com IDs duplicados, etapa inicial inválida e duas etapas ativas."
+        ],
+        [
+          "manual-a11y",
+          "Abrir etapas por teclado e verificar significado dos estados."
+        ]
+      ]
+    },
+    {
+      "id": "accordion-single",
+      "family": "Accordion",
+      "title": "Mostrar um único painel recolhível",
+      "need": "Permitir mostrar ou esconder o conteúdo de uma seção isolada.",
+      "keywords": [
+        "painel único",
+        "seção recolhível",
+        "mostrar esconder painel"
+      ],
+      "strategy": "reuse-contract",
+      "target": "Collapsible",
+      "dependencies": [
+        "Collapsible"
+      ],
+      "requiredCapabilities": [],
+      "reason": "A orientação ReUI recomenda Collapsible, não Accordion, quando há um único painel sem modelo de itens.",
+      "risks": [
+        "Definir gatilho acessível e não esconder conteúdo essencial."
+      ],
+      "tests": [
+        [
+          "manual-a11y",
+          "Expandir e recolher via teclado; anunciar estado ao leitor de telas."
+        ]
+      ]
+    },
+    {
+      "id": "accordion-members",
+      "family": "Accordion",
+      "title": "Membros com avatar e detalhes",
+      "need": "Exibir membros da equipe com avatar, cargo e detalhes expansíveis.",
+      "keywords": [
+        "membros com avatar",
+        "equipe expansível",
+        "usuários com avatares"
+      ],
+      "strategy": "react-candidate",
+      "target": "TeamMemberAccordion",
+      "dependencies": [
+        "Accordion",
+        "Avatar",
+        "Badge"
+      ],
+      "requiredCapabilities": [],
+      "reason": "O Accordion JSON aprova itens textuais; avatar e crachá por item precisam de API semântica e implementação específica, sem JSX arbitrário.",
+      "risks": [
+        "Evitar callback e URL de imagem livres.",
+        "Avaliar se o uso recorrente justifica um contrato novo."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Renderizar membros de tamanhos variados e estados abertos/desabilitados."
+        ],
+        [
+          "manual-a11y",
+          "Validar nomes acessíveis dos gatilhos e navegação."
+        ]
+      ]
+    },
+    {
+      "id": "button-action",
+      "family": "Button",
+      "title": "Executar ação local simples",
+      "need": "Exibir um botão comum para uma ação aprovada.",
+      "keywords": [
+        "botão comum",
+        "ação local",
+        "botão simples"
+      ],
+      "strategy": "reuse-contract",
+      "target": "Button",
+      "dependencies": [
+        "Button"
+      ],
+      "requiredCapabilities": [],
+      "reason": "Button já permite label, variantes, tamanhos e evento press; nenhuma composição adicional é necessária.",
+      "risks": [
+        "Evento press não concede execução de operação externa.",
+        "Distinguir botão de Link para navegação."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Verificar emissão de press, disabled e nome acessível."
+        ]
+      ]
+    },
+    {
+      "id": "button-loading",
+      "family": "Button",
+      "title": "Exibir botão em carregamento",
+      "need": "Mostrar um botão desabilitado com indicador de carregamento enquanto a ação está pendente.",
+      "keywords": [
+        "botão loading",
+        "botão carregando",
+        "indicador carregamento"
+      ],
+      "strategy": "reuse-contract",
+      "target": "Button",
+      "dependencies": [
+        "Button"
+      ],
+      "requiredCapabilities": [],
+      "reason": "O contrato Button já inclui loading e o renderizador desabilita o botão quando ocupado; orquestração assíncrona não é implícita.",
+      "risks": [
+        "O próprio Button não inicia requisições remotas.",
+        "Não confundir indicador de loading com integração efetiva ao backend."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Quando loading é true, exibir indicador e impedir cliques repetidos."
+        ]
+      ]
+    },
+    {
+      "id": "button-copy",
+      "family": "Button",
+      "title": "Copiar com feedback acessível",
+      "need": "Copiar um texto e indicar sucesso ou erro temporariamente.",
+      "keywords": [
+        "copiar com feedback",
+        "botão copiar",
+        "copiar texto"
+      ],
+      "strategy": "react-candidate",
+      "target": "CopyFeedbackButton",
+      "dependencies": [
+        "Button",
+        "Tooltip"
+      ],
+      "requiredCapabilities": [],
+      "reason": "O Button atual fornece press, mas não controla clipboard, confirmação temporária nem tratamento de falha; é comportamento composto.",
+      "risks": [
+        "Clipboard depende de permissão do navegador e gesto de usuário.",
+        "Evitar efeito colateral fora de ação explícita."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Simular permissão negada, sucesso, limpeza de temporizador e cliques repetidos."
+        ],
+        [
+          "manual-a11y",
+          "Anunciar resultado para leitores de tela."
+        ]
+      ]
+    },
+    {
+      "id": "button-group",
+      "family": "Button",
+      "title": "Agrupar ações relacionadas",
+      "need": "Mostrar um conjunto de botões relacionados, com espaçamento consistente.",
+      "keywords": [
+        "botões agrupados",
+        "grupo de botões",
+        "ações relacionadas"
+      ],
+      "strategy": "reuse-contract",
+      "target": "ButtonGroup",
+      "dependencies": [
+        "ButtonGroup"
+      ],
+      "requiredCapabilities": [],
+      "reason": "Existe ButtonGroup aprovado; não replicar agrupamento com um novo composto só por diferenças visuais.",
+      "risks": [
+        "Se precisar de ações complexas, revisar capacidades reais do ButtonGroup."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Confirmar grupos, estados desabilitados e acionamento de itens autorizados."
+        ]
+      ]
+    },
+    {
+      "id": "button-toggle",
+      "family": "Button",
+      "title": "Alternar estado pressionado",
+      "need": "Criar controle que alterna entre ligado e desligado ao clicar.",
+      "keywords": [
+        "botão alternância",
+        "estado pressionado",
+        "botão liga desliga"
+      ],
+      "strategy": "reuse-contract",
+      "target": "Toggle",
+      "dependencies": [
+        "Toggle"
+      ],
+      "requiredCapabilities": [],
+      "reason": "Toggle já modela alternância; Button é uma ação pontual, não um estado pressionado persistente.",
+      "risks": [
+        "Estado visual deve refletir o estado real da interação."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Verificar alternância e anúncio de pressed pelo teclado."
+        ]
+      ]
+    }
+  ]
+}

@@ -90,3 +90,19 @@ npm run blocks:check
 The upstream snapshots are analysis inputs, **not bundled runtime code**. The existing 27 decisions are labeled existing-approved to preserve prior locked approvals; they do not imply a new visual or human audit. New candidate sources are blocked by missing evidence or missing decisions, and promotion to Pi is blocked while review is pending.
 
 Examples to follow: DatePicker (Calendar + Popover + Button with state), OnboardingChecklist (semantic Accordion + Badge), and Login01 (generated JSON template). See [components](components.md) and [ReUI semantic contracts](reui-semantic-contracts.md).
+
+
+## First delivery of the deterministic composition recommender
+
+In the **shadcn primitives** explorer, choose AlertDialog, Accordion or Button under "Analisar composição". A 13-scenario pilot accepts an explicit functional requirement selection, or a phrase matching reviewed examples. Unknown or ambiguous phrases never trigger a guessed implementation; users must select a scenario.
+
+The engine distinguishes reuse of an approved contract, a React composite proposal, and a review-required remote/security integration. Each recommendation includes rationale, locked approved dependencies, unimplemented/runtime evidence gaps, risks, and **planned—not executed—tests**. No JSX, backend operation, new Pi type or contract permission is granted.
+
+Covered: simple/checkbox/typed confirmation and remote deletion; FAQ/onboarding/single panel/rich member rows; simple/loading/copy feedback/grouped/toggled actions. Existing Button.loading is reused, while copy feedback and typed confirmation remain proposals.
+
+~~~bash
+npm run composites:recommend:check
+~~~
+
+See [reviewed scenarios](../src/ui-catalog/recommendations/scenarios.json) and [deterministic engine](../src/ui-catalog/recommendations/engine.ts). Extending the pilot requires semantic review, checking approved type dependencies against the contract lock, and tests. Browser-level certification remains a separate manual process.
+

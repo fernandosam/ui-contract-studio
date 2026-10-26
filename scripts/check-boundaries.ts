@@ -4,7 +4,7 @@ import ts from "typescript";
 
 /** Detecta uso indevido de JSX fora da camada autorizada. Segurança completa requer CI + code review. */
 const root = resolve(process.cwd(), "src");
-const allowed = new Set(["main.tsx", "ui-runtime/app.tsx", "ui-runtime/layout.tsx", "ui-runtime/spec-screen.tsx", "ui-runtime/catalog-explorer.tsx", "ui-runtime/reui-composite-explorer.tsx", "ui-catalog/registry.tsx"]);
+const allowed = new Set(["main.tsx", "ui-runtime/app.tsx", "ui-runtime/layout.tsx", "ui-runtime/spec-screen.tsx", "ui-runtime/catalog-explorer.tsx", "ui-runtime/composition-recommendations.tsx", "ui-runtime/reui-composite-explorer.tsx", "ui-catalog/registry.tsx"]);
 const errors: string[] = [];
 function walk(path: string) {
   for (const entry of readdirSync(path, { withFileTypes:true })) {

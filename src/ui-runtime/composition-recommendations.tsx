@@ -1,0 +1,118 @@
+import {useState} from "react";
+import {
+  getCompositionRecommendation,
+  pilotFamilies,
+  recommendationScenarios,
+  recommendFromRequirement,
+  type PilotFamily,
+  type Strategy,
+} from "@/ui-catalog/recommendations/engine";
+
+const strategyLabels:Record<Strategy,string>={
+  "reuse-contract":"Reutilizar contrato aprovado",
+  "react-candidate":"Propor componente React composto",
+  "review-required":"Revisão de autorização necessária",
+};
+const evidenceLabels:Record<string,string>={
+  "implemented-static-evidence":"Presente no código (evidência estática)",
+  "documented-not-implemented":"Documentado, mas ainda não implementado",
+  "runtime-review-required":"Validação em navegador pendente",
+};
+const modeLabels:Record<string,string>={
+  integration:"Teste de integração",
+  "manual-a11y":"Acessibilidade manual",
+  "security-review":"Revisão de segurança",
+  visual:"Teste visual",
+};
+
+/** Standalone recommendation tool: no code generation, execution, or Pi admission. */
+export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
+  const options=recommendationScenarios.filter(item=>item.family===family);
+  const [selected,setSelected]=useState(options[0]?.id??"");
+  const [query,setQuery]=useState("");
+  const found=query.trim() ? recommendFromRequirement(query,family) : null;
+  const result=found?.status==="matched" ? found.recommendation :
+    found ? null : getCompositionRecommendation(selected);
+  return <section className="min-w-0 space-y-3 rounded-lg border border-border bg-card p-4"
+    aria-label={"Recomendação de composição para "+family} data-testid="composition-recommendations">
+    <div className="flex flex-wrap items-start justify-between gap-2">
+      <div className="space-y-1">
+        <h4 className="font-semibold">Recomendação de composição · {family}</h4>
+        <p className="text-xs text-muted-foreground">Motor determinístico, consultivo e limitado a cenários revisados. Nenhum contrato Pi é criado.</p>
+      </div>
+      <span className="rounded-md bg-secondary px-2 py-1 text-xs">{options.length} situações</span>
+    </div>
+    <div className="grid min-w-0 gap-3 sm:grid-cols-2">
+      <label className="grid min-w-0 gap-1 text-xs font-medium">Situação funcional
+        <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          aria-label="Situação funcional" value={selected}
+          onChange={event=>{setSelected(event.target.value);setQuery("");}}>
+          {options.map(item=><option key={item.id} value={item.id}>{item.title}</option>)}
+        </select>
+      </label>
+      <label className="grid min-w-0 gap-1 text-xs font-medium">Descrever necessidade (opcional)
+        <input className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          type="search" maxLength={500} value={query}
+          onChange={event=>setQuery(event.target.value)}
+          placeholder="Ex.: confirmação por texto"
+          aria-label="Descrever necessidade funcional"/>
+      </label>
+    </div>
+    {found && found.status!=="matched" && <div role="status" className="rounded-md border border-dashed p-3 text-sm">
+      <p className="font-medium">{found.status==="ambiguous"?
+        "A descrição corresponde a mais de um cenário.":
+        "Não há correspondência segura para a descrição."}</p>
+      <p className="mt-1 text-xs text-muted-foreground">Escolha explicitamente uma situação abaixo. Não será inferida uma implementação sem correspondência.</p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {found.candidates.map(item=><button key={item.id} type="button"
+          className="rounded-md border px-2 py-1 text-xs hover:bg-muted"
+          onClick={()=>{setSelected(item.id);setQuery("");}}>{item.title}</button>)}
+      </div>
+    </div>}
+    {result&&<>
+      <div className="space-y-2 rounded-md bg-muted/40 p-3" data-testid="recommendation-decision">
+        <p className="text-xs text-muted-foreground">Necessidade: {result.scenario.need}</p>
+        <p className="text-sm font-semibold">{strategyLabels[result.decision]}
+          {result.target&&<span className="ml-1 font-mono">· {result.target}</span>}</p>
+        <p className="text-sm">{result.scenario.reason}</p>
+        <p className="text-xs text-muted-foreground">
+          {result.targetApproved?"O alvo já é um contrato Pi aprovado.":
+            "O alvo ainda não é um contrato Pi aprovado para esta finalidade."}
+        </p>
+      </div>
+      <div className="grid gap-3 lg:grid-cols-2">
+        <div className="space-y-2 rounded-md border p-3">
+          <h5 className="text-sm font-medium">Dependências e lacunas</h5>
+          <ul className="space-y-1.5 text-xs">
+            {result.dependencies.map(dep=><li key={dep.name}>
+              <span className="font-mono">{dep.name}</span>
+              <span className="text-muted-foreground"> · {dep.piApproved?"Tipo aprovado":"Não aprovado"}</span>
+            </li>)}
+          </ul>
+          {result.evidence.map(item=><p key={item.capability} className="text-xs">
+            <strong>{item.capability}:</strong> <span className="text-muted-foreground">{evidenceLabels[item.state]??item.state}</span>
+          </p>)}
+          {result.gaps.length===0&&<p className="text-xs text-muted-foreground">Nenhuma lacuna de capacidade foi declarada para este cenário. Isso não certifica a execução.</p>}
+        </div>
+        <div className="space-y-2 rounded-md border p-3">
+          <h5 className="text-sm font-medium">Riscos e limites</h5>
+          <ul className="list-disc space-y-1 pl-4 text-xs text-muted-foreground">
+            {result.scenario.risks.map(risk=><li key={risk}>{risk}</li>)}
+          </ul>
+        </div>
+      </div>
+      <div className="space-y-2 rounded-md border p-3">
+        <h5 className="text-sm font-medium">Plano de testes sugerido</h5>
+        <p className="text-xs text-muted-foreground">Critérios de validação planejados; não executados automaticamente.</p>
+        <ol className="list-decimal space-y-2 pl-4 text-xs">
+          {result.tests.map((item,index)=><li key={index}>
+            <strong>{modeLabels[item.mode]??item.mode}:</strong> {item.description}
+          </li>)}
+        </ol>
+      </div>
+      <p className="text-xs text-muted-foreground">Evidências consultadas: {result.provenance.join(" · ")}</p>
+      <p className="text-xs font-medium">A recomendação não habilita JSX arbitrário, propriedades, eventos, rede ou operações destrutivas; novos compostos exigem contrato Zod, implementação e revisão.</p>
+    </>}
+  </section>;
+}
+export {pilotFamilies};
