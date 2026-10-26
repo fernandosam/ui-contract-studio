@@ -7,7 +7,7 @@ test.describe("shadcn: orientação pt-BR e código em gaveta lateral", () => {
     await page.getByRole("button",{name:"Alert",exact:true}).click()
     const guidance=page.getByTestId("primitive-guidance")
     await expect(guidance).toHaveAttribute("lang","pt-BR")
-    await expect(guidance).toContainText("Mensagens de estado")
+    await expect(guidance).toContainText("Avisos de sucesso, informação, alerta e erro")
     await expect(guidance).toContainText("AlertTitle resume")
     const toggle=page.getByTestId("primitive-code-toggle-Alert")
     await expect(toggle).toContainText("Ver código")

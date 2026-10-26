@@ -3,6 +3,7 @@ import {test,expect} from "@playwright/test"
 test.describe("Revisão semântica de 176 exemplos ReUI",()=>{
  test("explorador separa aprovação, lacunas e candidatos adiados",async({page})=>{
   await page.goto("/?screen=explorador-compostos&reui=c-rating-6")
+  await page.getByRole("tab",{name:"Composições ReUI (559)"}).click()
   await expect(page.getByTestId("reui-semantic-admission")).toContainText("RatingDistribution")
   await page.getByLabel("Filtrar classificação semântica").selectOption("approved-semantic")
   await expect(page.getByTestId("reui-composite-option-c-rating-6")).toBeVisible()

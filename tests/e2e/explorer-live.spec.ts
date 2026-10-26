@@ -3,9 +3,13 @@ test('propriedade alterada gera nova prévia validada',async({page})=>{
  await page.goto('/?screen=explorador-primitivos');
  await page.getByLabel('Buscar componente').fill('Carousel');
  await page.getByRole('button',{name:'Carousel',exact:true}).click();
- await expect(page.getByTestId('safe-carousel')).toBeVisible();
- const next=page.getByRole('button',{name:/next|próxim/i}).last();
- const prev=page.getByRole('button',{name:/previous|anterior/i}).last();
+ const preview=page.getByTestId('catalog-live-preview');
+ await expect(preview).toBeVisible();
+ await expect(preview.getByText('Descoberta',{exact:true})).toBeVisible();
+ const controls=preview.getByRole('group',{name:'Controles do carrossel'});
+ await expect(controls).toBeVisible();
+ const next=controls.getByRole('button',{name:/next|próxim/i});
+ const prev=controls.getByRole('button',{name:/previous|anterior/i});
  for(const button of [next,prev]){
   const rect=await button.boundingBox();
   const viewport=page.viewportSize();

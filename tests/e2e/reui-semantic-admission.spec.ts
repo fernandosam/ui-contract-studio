@@ -3,6 +3,7 @@ import {test,expect} from "@playwright/test"
 test.describe("Admissão semântica ReUI",()=>{
  test("matriz de admissão aparece no explorador de composições",async({page})=>{
   await page.goto("/?screen=explorador-compostos&reui=c-accordion-11")
+  await page.getByRole("tab",{name:"Composições ReUI (559)"}).click()
   await expect(page.getByTestId("reui-semantic-admission")).toContainText("OnboardingChecklist")
   await expect(page.getByTestId("reui-semantic-admission")).toContainText("Contrato semântico aprovado")
   await page.getByLabel("Filtrar classificação semântica").selectOption("approved-semantic")
@@ -16,8 +17,8 @@ test.describe("Admissão semântica ReUI",()=>{
   const search=page.getByLabel("Buscar componente")
   await search.fill("OnboardingChecklist")
   await page.getByRole("button",{name:"OnboardingChecklist",exact:true}).click()
-  await expect(page.getByText("Criar conta")).toBeVisible()
-  await expect(page.getByText("Configurar perfil")).toBeVisible()
-  await expect(page.getByText("Ativar segurança")).toBeVisible()
+  await expect(page.locator('[data-composite="OnboardingChecklist"]').getByRole("button",{name:/Criar conta/})).toBeVisible()
+  await expect(page.locator('[data-composite="OnboardingChecklist"]').getByRole("button",{name:/Configurar perfil/})).toBeVisible()
+  await expect(page.locator('[data-composite="OnboardingChecklist"]').getByRole("button",{name:/Ativar segurança/})).toBeVisible()
  })
 })

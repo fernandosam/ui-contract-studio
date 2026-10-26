@@ -12,7 +12,13 @@ for (const [name, label] of [
     await page.getByLabel('Buscar componente').fill(name);
     await page.getByRole('button',{name,exact:true}).click();
     await expect(page.getByTestId('catalog-live-preview')).toBeVisible();
-    await expect(page.getByTestId('catalog-live-preview').getByText(label === 'Radius' ? /^Radius:/ : label,{exact:label!=='Radius'}).first()).toBeVisible();
+    const preview=page.getByTestId('catalog-live-preview');
+    if (name==='SiteThemeCustomizer') {
+      await expect(preview.getByRole('slider')).toBeVisible();
+      await expect(preview).toContainText('Radius');
+    } else {
+      await expect(preview.getByText(label,{exact:true}).first()).toBeVisible();
+    }
     await expect(page.getByText('Componente indisponível: contrato inválido.')).toHaveCount(0);
   });
 }

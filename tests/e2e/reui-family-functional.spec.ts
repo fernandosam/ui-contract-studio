@@ -1,4 +1,5 @@
 import {test,expect,type Page} from "@playwright/test";
+import { previewText } from "./reui-preview-locale";
 
 /** Execução manual na main. Exercita comportamentos, além de apenas montar JSX. */
 async function example(page:Page,family:string,id:string){
@@ -26,32 +27,32 @@ test.describe("ReUI — cenários de interação representativos por família",(
   });
   test("Collapsible: exibe e recolhe detalhes",async({page})=>{
     const area=await example(page,"Collapsible","c-collapsible-1");
-    await area.getByRole("button",{name:"Toggle details"}).click();
-    await expect(area.getByText("Shipping address")).toBeVisible();
-    await area.getByRole("button",{name:"Toggle details"}).click();
-    await expect(area.getByText("Shipping address")).not.toBeVisible();
+    await area.getByRole("button",{name:previewText("Toggle details")}).click();
+    await expect(area.getByText(previewText("Shipping address"))).toBeVisible();
+    await area.getByRole("button",{name:previewText("Toggle details")}).click();
+    await expect(area.getByText(previewText("Shipping address"))).not.toBeVisible();
   });
   test("Dialog: abre, mantém foco disponível e fecha sem submissão",async({page})=>{
     const area=await example(page,"Dialog","c-dialog-1");
-    await area.getByRole("button",{name:"Basic Dialog"}).click();
+    await area.getByRole("button",{name:previewText("Basic Dialog")}).click();
     await expect(page.getByRole("dialog")).toBeVisible();
-    await expect(page.getByRole("dialog").getByText("Edit profile")).toBeVisible();
-    await page.getByRole("dialog").getByRole("button",{name:"Cancel"}).click();
+    await expect(page.getByRole("dialog").getByText(previewText("Edit profile"))).toBeVisible();
+    await page.getByRole("dialog").getByRole("button",{name:previewText("Cancel")}).click();
     await expect(page.getByRole("dialog")).toHaveCount(0);
   });
   test("Drawer: abertura e fechamento por ação local",async({page})=>{
     const area=await example(page,"Drawer","c-drawer-1");
-    await area.getByRole("button",{name:"Open Drawer"}).click();
-    await expect(page.getByText("Move Goal")).toBeVisible();
-    await page.getByRole("button",{name:"Cancel"}).click();
-    await expect(page.getByText("Move Goal")).not.toBeVisible();
+    await area.getByRole("button",{name:previewText("Open Drawer")}).click();
+    await expect(page.getByText(previewText("Move Goal"))).toBeVisible();
+    await page.getByRole("button",{name:previewText("Cancel")}).click();
+    await expect(page.getByText(previewText("Move Goal"))).not.toBeVisible();
   });
   test("DropdownMenu: itens só aparecem quando aberto",async({page})=>{
     const area=await example(page,"DropdownMenu","c-dropdown-menu-1");
-    await area.getByRole("button",{name:"Open"}).click();
-    await expect(page.getByRole("menuitem",{name:"Profile"})).toBeVisible();
+    await area.getByRole("button",{name:previewText("Open")}).click();
+    await expect(page.getByRole("menuitem",{name:previewText("Profile")})).toBeVisible();
     await page.keyboard.press("Escape");
-    await expect(page.getByRole("menuitem",{name:"Profile"})).toHaveCount(0);
+    await expect(page.getByRole("menuitem",{name:previewText("Profile")})).toHaveCount(0);
   });
   test("Input: permite entrada de texto",async({page})=>{
     const area=await example(page,"Input","c-input-1");
@@ -60,10 +61,10 @@ test.describe("ReUI — cenários de interação representativos por família",(
   });
   test("Popover: abre conteúdo e fecha com Escape",async({page})=>{
     const area=await example(page,"Popover","c-popover-1");
-    await area.getByRole("button",{name:"Open Popover"}).click();
-    await expect(page.getByText("Dimensions",{exact:true})).toBeVisible();
+    await area.getByRole("button",{name:previewText("Open Popover")}).click();
+    await expect(page.getByText(previewText("Dimensions"),{exact:true})).toBeVisible();
     await page.keyboard.press("Escape");
-    await expect(page.getByText("Dimensions",{exact:true})).not.toBeVisible();
+    await expect(page.getByText(previewText("Dimensions"),{exact:true})).not.toBeVisible();
   });
   test("RadioGroup: seleção mutuamente exclusiva",async({page})=>{
     const area=await example(page,"RadioGroup","c-radio-group-1");
@@ -76,8 +77,8 @@ test.describe("ReUI — cenários de interação representativos por família",(
     const area=await example(page,"Select","c-select-1");
     const trigger=area.locator('[data-slot="select-trigger"]').first();
     await trigger.click();
-    await page.getByRole("option",{name:"Apple"}).click();
-    await expect(trigger).toContainText("Apple");
+    await page.getByRole("option",{name:previewText("Apple")}).click();
+    await expect(trigger).toContainText(previewText("Apple"));
   });
   test("Slider: teclado altera o valor",async({page})=>{
     const area=await example(page,"Slider","c-slider-1");
@@ -98,7 +99,7 @@ test.describe("ReUI — cenários de interação representativos por família",(
     const tabs=area.getByRole("tab");
     await tabs.nth(1).click();
     await expect(tabs.nth(1)).toHaveAttribute("aria-selected","true");
-    await expect(area.getByText("Change your password here.")).toBeVisible();
+    await expect(area.getByText(previewText("Change your password here."))).toBeVisible();
   });
   test("Textarea: permite digitação",async({page})=>{
     const area=await example(page,"Textarea","c-textarea-1");
@@ -108,19 +109,19 @@ test.describe("ReUI — cenários de interação representativos por família",(
   });
   test("Toggle: altera aria-pressed",async({page})=>{
     const area=await example(page,"Toggle","c-toggle-1");
-    const control=area.getByRole("button",{name:"Toggle bold"});
+    const control=area.getByRole("button",{name:previewText("Toggle bold")});
     await control.click();
     await expect(control).toHaveAttribute("aria-pressed","false");
   });
   test("ToggleGroup: atualiza estado de seleção",async({page})=>{
     const area=await example(page,"ToggleGroup","c-toggle-group-1");
-    const control=area.getByRole("button",{name:"Toggle bold"});
+    const control=area.getByRole("button",{name:previewText("Toggle bold")});
     await control.click();
     await expect(control).toHaveAttribute("aria-pressed","true");
   });
   test("Tooltip: aparece ao passar o ponteiro",async({page})=>{
     const area=await example(page,"Tooltip","c-tooltip-1");
-    await area.getByRole("button",{name:"Show Tooltip"}).hover();
-    await expect(page.getByRole("tooltip")).toContainText("Add to library");
+    await area.getByRole("button",{name:previewText("Show Tooltip")}).hover();
+    await expect(page.getByRole("tooltip")).toContainText(previewText("Add to library"));
   });
 });

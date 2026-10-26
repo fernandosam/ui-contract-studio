@@ -21,7 +21,7 @@ export function App() {
   const query = new URLSearchParams(window.location.search).get('screen');
   const requested = query === 'galeria-3' ? 'reui' : (query ?? 'reui');
   const tool=explorerEntries.find(x=>x.slug===requested);
-  const entry = tool ?? (screens[requested] ?? explorerEntries[0] ?? navigation[0]);
+  const entry = tool ?? (screens[requested] ?? explorerEntries.find(item=>item.slug==='reui') ?? navigation[0]);
   if (!entry) return <main role="alert">Nenhuma tela cadastrada.</main>;
   return <PageShell title={entry.title} subtitle={entry.subtitle} section={entry.section} navigation={[...navigation,...explorerEntries]} current={entry.slug}>
     {tool ? <Suspense fallback={<p role="status">Carregando explorador…</p>}>{tool.slug==='catalogo-pi'?<AdmissionExplorer/>:tool.slug==='explorador-primitivos'?<PrimitiveExplorer/>:tool.slug==='explorador-compostos'?<CompositeExplorer/>:tool.slug==='reui'?<ReuiGallery/>:<ExamplesExplorer/>}</Suspense> : <SpecScreen spec={entry.spec} />}

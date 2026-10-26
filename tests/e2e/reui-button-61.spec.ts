@@ -21,7 +21,7 @@ test('ReUI apresenta os 61 exemplos oficiais de Button com paginação',async({p
 });
 test('Button fornece estados primitivos e orientações em português',async({page})=>{
  await page.goto('/?screen=explorador-primitivos');
- await page.getByRole('button',{name:'Button',exact:true}).click();
+ await page.locator('[aria-label="Componentes registrados"]').getByRole('button',{name:'Button',exact:true}).click();
  const guide=page.getByTestId('primitive-guidance');
  await expect(guide.getByText('Quando usar')).toBeVisible();
  await expect(guide.getByText('Quando não usar')).toBeVisible();

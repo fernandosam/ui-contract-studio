@@ -95,7 +95,11 @@ test.describe("ReUI — código-fonte em gaveta lateral", () => {
     const viewport = page.viewportSize()
     expect(bounds).not.toBeNull()
     expect(viewport).not.toBeNull()
-    expect(Math.abs((bounds?.x ?? 0) + (bounds?.width ?? 0) - (viewport?.width ?? 0))).toBeLessThan(5)
+    // The sheet slides in via CSS transition; check settled geometry.
+    await expect.poll(async () => {
+      const current = await panel.boundingBox()
+      return Math.abs((current?.x ?? 0) + (current?.width ?? 0) - viewport!.width)
+    }, { timeout: 5_000 }).toBeLessThan(5)
     await expect(panel.getByTestId("reui-code-block")).toBeVisible()
   })
 })
