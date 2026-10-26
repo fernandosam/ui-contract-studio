@@ -8,7 +8,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "b65e0994cf0eca756639f37e627ec26fc5a782fef91bfe1340f05bc67b70fba4",
       "semanticFingerprint": "39f3c4ebea8e3e937f9b64d3fda3dd0c5c9422e153f419a3b403c5e7cda0c0d8"
     },
     {
@@ -17,7 +16,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "efb68d0a4f60dd7627935cb92f2a4922c3c6bc2eff0f24e46a5ef403011fd8de",
       "semanticFingerprint": "f7ace5856e6390e8627d3120f7f34a838dd2bda1218b88ede0734cac7f686216"
     },
     {
@@ -26,7 +24,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "b38b430fedac8cbd25d18bba94ed911b84c995da5fd798a50e51867ca8e503c6",
       "semanticFingerprint": "5a7292faf727b54b6ce84580795ca2179143f3ee6f253053945a7cc71a1fc88d"
     },
     {
@@ -35,7 +32,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "1782c1f15548a1876e213a1f95cea177cf3e3427a6c09cb6dc87658f13cf2fad",
       "semanticFingerprint": "0488d3683ade9e6887b109424cc8d023796f692e05cf55768e04a410879a1358"
     },
     {
@@ -44,7 +40,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "667a89d2cf04a97f1c58015f67ebaf4e34501257795d45351fc0d38b93bc3a52",
       "semanticFingerprint": "824f2d2863d53d1fced877dbcee2e57bb23054afdab1dbaefa39bfb7a8a8fa92"
     },
     {
@@ -53,7 +48,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "752942f605f4aecd614ec56d9868a338f3ae40cebdc3b6e84ea64a5e8b281377",
       "semanticFingerprint": "fa794010d1dfbef79a87d9ec491ddd7aa2782b6116453e16373c9dac73db8c98"
     },
     {
@@ -62,7 +56,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "5f98b8f5e59bef3fa818a1492c5653740d0c6520cb8c71e6d93b57d688cd94a5",
       "semanticFingerprint": "10b7279d39d639cd5654fdc391b06732c4e9c7b546cb0310a09258f7a7a470e6"
     },
     {
@@ -71,7 +64,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "239ba6c1a3f1dfcb58bbd29aedc26864a4cd254e4340dcdef82d4307bef2cc17",
       "semanticFingerprint": "e13c46d6a682ae288a5a29610843ad66e7163d090201725ce64e432fff3fdcf0"
     },
     {
@@ -80,7 +72,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "6fd06ca236f97655af84447bb037bef0f1631b59943d4fdbeabb2e6a5d11c2df",
       "semanticFingerprint": "240df2528bd6108ecec05eeca5b1bfdb25da84f0491c79c4c0c02f2ef582ac33"
     },
     {
@@ -89,7 +80,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "eaf17d654b7af7cf782ec4c353bc10f62fcbda27364027deb85cd0cda397be16",
       "semanticFingerprint": "8527a2b1dcd02969a490ea11d705efe4a1ddbff0525ef381aa3878cddc432d3b"
     },
     {
@@ -98,7 +88,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "8991cc1e448458e40a52647dd29db2f00d0e9501b06205e326363e63f1a8b277",
       "semanticFingerprint": "4d5eb3579a8928b8b39b3c2091f74db784e95e2ace2c1bd2dee72d52d207fcd4"
     },
     {
@@ -107,7 +96,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "130987537ae854f2aedd3a22f92fa7d5336291ab90edda3f569eef4b9141d398",
       "semanticFingerprint": "8733d76294f56e476fab0c80598005684afaf8d5deecfe0e5531a483dedfbd6d"
     },
     {
@@ -116,7 +104,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "8a4ac438770bf46c20aa87f3430cf115da981c96a48526cc63c72b60b40fc053",
       "semanticFingerprint": "00e031077d467658b280b722947a2635a23b778aefbd09377342197bd7e672c8"
     },
     {
@@ -125,7 +112,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "253c4fbb1130608458d67eab44049923e747b6f3d465ef308326588aa76ff8e4",
       "semanticFingerprint": "42230acc32e9914b6782698d697ebe81619bea362926da871fa717f5b43de42f"
     },
     {
@@ -134,7 +120,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "05fdedaa9a183371989f1ffefb78ede55ff2bced732d0f7f0b872ccab162fdd5",
       "semanticFingerprint": "eed0391b1124877325d355aa7dde48c5e64d2edff36f837f8cb95592370eee97"
     },
     {
@@ -143,7 +128,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "8f91e6d37ad0f947d100e8029be8784c7ea6f55ffaf517cab1af2bf29b307a09",
       "semanticFingerprint": "4d16f1fbd94a3e282b147ffe36b471fea64c136f919ebec519c07f638a532e83"
     },
     {
@@ -152,7 +136,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "9fea07e01fb690726461df48edaa5e0ca0ff0cf0cf03be0e6d6b8e61feb7e1b9",
       "semanticFingerprint": "0704a31c2cf0790237c9ca915e2e9a7a5c20c6dee69454b3f77d3acb862dd1ba"
     },
     {
@@ -161,7 +144,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "4914f9db7ebd9e21cc2c833eb9870025af46477cc96b8797d52ef2a7f70f48ea",
       "semanticFingerprint": "8bb63ef1009dc14c619adc8bea27fabc2c1fdcef880ca55233fff2e713a42bc6"
     },
     {
@@ -170,7 +152,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "48522e5c0bff7bb1f66b14a8fda8421dd20fdb91b22bf14ddcaeaff5c47728e6",
       "semanticFingerprint": "d7934260aba18e0705ccd353d7289281273db64c041ff8382d7495337155ab34"
     },
     {
@@ -179,7 +160,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "ec79b64cdf6853ba6db85d5f5d08ba3101d19d3f002a0f5a7b68105a8f5a4a38",
       "semanticFingerprint": "a919fbae39b65baa026cef82d95edaf443e9e90488b685ad423efcee3a62832d"
     },
     {
@@ -188,7 +168,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "2a4c066e031ce0d1ea3b518c2efa4919a23fac2058901ac0a4420a9eefe69d03",
       "semanticFingerprint": "4824bc939a23b3efaf48a145da3ec552759294d8126956568991c89c23acadda"
     },
     {
@@ -197,7 +176,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "844a808f92efe6129247f5dccb67b355eac8f3ae764ff118d96c5ffc4a600846",
       "semanticFingerprint": "590b3d62250d7ffe476cbc74138f1fb7ef4b58619333a5b4305dd21c31c006bd"
     },
     {
@@ -206,7 +184,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "38c7394e766a308f9ed0cce88602cd113105365459fa3e7261031d689fde1bdb",
       "semanticFingerprint": "c3cec89ea8ace734f4d6abc86ca8539531e4635989221b9f2618b68598b4c3dc"
     },
     {
@@ -215,7 +192,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "3dc4a09afa71d5da3001642d6778476d80d3298a784cde71da7593b3cb49347e",
       "semanticFingerprint": "595dc72d69524e10d2d6a4cb81096ba37e6cc36224929e331a1415e01dbdd187"
     },
     {
@@ -224,7 +200,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "a1cc83c54130c702f430ed3729cf45325693452d04f953091f401ef3275cd35c",
       "semanticFingerprint": "70335fffb5813e4f47432989d59886315259bbdbc79d050d26e74780af411a8e"
     },
     {
@@ -233,7 +208,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "39f90240fb6d4eb74c2ef6d4555d6bd78889775430e0cccae716e085b18fffdf",
       "semanticFingerprint": "dad7103530b94c0e49409d22b491a69d51f41bfa595528483037b0c698457cb8"
     },
     {
@@ -242,7 +216,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "a0dde8d64b3c060144789896d36bf6842e8727a3b888c793a23184ac75cbec66",
       "semanticFingerprint": "f485774f0bf2502fc020ac25bf26002ef6bb20cf79c81e70b759640c62bdb19c"
     },
     {
@@ -251,7 +224,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "a273b5b444732dcd7b97ef229bbc3af72ace2ae310486aab4c14f56076a87a34",
       "semanticFingerprint": "d8a18e5a6c807eaa5bb09cc7c741fe4ebd7351edc00e0338309eee57e352a958"
     },
     {
@@ -260,7 +232,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "50bf99bc00d3e0737997fbbe8530d88720ce0ddd6e59b31518a84e59315a6011",
       "semanticFingerprint": "c8973ddd47c89f0aacc6a62a57d932633cb75f3c359ea324afb170e59bb33ab2"
     },
     {
@@ -269,7 +240,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "37619824bc514caa71923b2d8dda50cac796c08502c39fe7a9eea80c7c776c9c",
       "semanticFingerprint": "7712c7b6f2bf7da901799c56c26837fcab2d154e6f559a19a40c3889f71923e1"
     },
     {
@@ -278,7 +248,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "1a3737b6702a585b45c66303f35ad06a4da455231a8285f19a782e81da245359",
       "semanticFingerprint": "a65d5883121e465208687851b90d119ce2fcaa42112ad7fe36b33455c2086db8"
     },
     {
@@ -287,7 +256,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "599a3e2619076c90302812cf1e802c0f964c0bc854d558c2217b88b5691a1590",
       "semanticFingerprint": "127f4a6dbfa9d8eb9dd02745ad3e81edf6cc1d118c5aa92bcec9c16eadc57146"
     },
     {
@@ -296,7 +264,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "b29d5c663f9de2d6114319243ff04dfac0ae5a46b621b80c6a433291382aa8c0",
       "semanticFingerprint": "fb837fdb1a678e8205459da16cf79150087c54f5b2fc1add292e3d829d26511e"
     },
     {
@@ -305,7 +272,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "e7cbb80e8b44e3458715f0af3a5a89e9468aa300a2a9aac6e78544dfe1d34ff6",
       "semanticFingerprint": "f0045b2853dff0f6de0ba5847d7d598853e0a7b16f37f24061f9ae5de29fad4b"
     },
     {
@@ -314,7 +280,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "5f87306b8d1fd46c1ee1dc29d9d3e995bd738e25e96dd324cda99f65dff6d39e",
       "semanticFingerprint": "9a8db5b1f66321cdc68e47aaf728018f5538f3eacf2440a253bcf83f82f0f672"
     },
     {
@@ -323,7 +288,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "99b77f08b27b3ec3ca03e6f188cfa78de4c89bc615c2092589416d3e62c69554",
       "semanticFingerprint": "f7922764457ccc4a6946ec1461cfd834904b3fe9ee434acc08054cb35b730603"
     },
     {
@@ -332,7 +296,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "699c6e81c1c856628b59485f94c3fa6a33662270894d3c1396d79af6c305a734",
       "semanticFingerprint": "96fef6fb3095602f832ae3d7a2c01ba908b1b250c8260fc19eda5ee0b483883c"
     },
     {
@@ -341,7 +304,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "a18180cd8f067bafd863d798f8143585207fc1967852ff5be1f416acc7081fab",
       "semanticFingerprint": "2599a354f315f14decef47d3ef1a92607c0b1ccc7dc2b66a678a0415c9b29d19"
     },
     {
@@ -350,7 +312,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "729c070d8fa0cf16f8c6fce4f54a20c22384d2b55308cc056c30d5ef256efa88",
       "semanticFingerprint": "8b4be74c592157052abc2aeba4b032b7d3af62da7944daa13145da54b22db20e"
     },
     {
@@ -359,7 +320,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "03cfc474375fa735ce5afe9c149eb3c39fcf188d28fcde306b1b7e09aa1dbfbd",
       "semanticFingerprint": "858933cbfc51c7e396a4ec65bc5c25bb4cc34fdefefa8561a3e1aa43c6fef14b"
     },
     {
@@ -368,7 +328,6 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "3419436afcdae5036c7edfcaac668d7981fb1774ce71ab90a8b7cf3e480a131c",
       "semanticFingerprint": "0786e24b4dc3bdb06264d9829a6fb2417a4b61ac822dbf72ad494f41620150a1"
     },
     {
@@ -385,7 +344,6 @@
         "data-source",
         "column-types"
       ],
-      "fingerprint": "943309b1573cf55882b1a5b5591942084e7ce75345ac94413ba4b8ee017cff9e",
       "semanticFingerprint": "1874535edc36998b2ce8448e6f7034177fe31be66b409c376e16537497c5d559"
     },
     {
@@ -398,7 +356,6 @@
         "required",
         "date-range-validation"
       ],
-      "fingerprint": "fb553421304780d68af6db60092a3347a853e129ea6c81648829ecc704940c52",
       "semanticFingerprint": "badc9fced2cc9c57241674894c7a556432196edcc075998ed9c096a8164fb839"
     },
     {
@@ -411,7 +368,6 @@
         "orientation",
         "helper-text"
       ],
-      "fingerprint": "7dba0bf1844a8261d565a6cee923e3a553d4f7d9406809c97a9da98a84537177",
       "semanticFingerprint": "3849e395d90dd387f617e6c073f1778908b7a3761dcf837c9d4965ad9d5e4a9c"
     },
     {
@@ -420,7 +376,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "94666fe0cd1e00fadf2c02f515e522304c1438896affcd55e863a8bc9deb4601",
       "semanticFingerprint": "9a311dcd14620b48ed682d84dee15e4eb5863b64d73bc9cf71eee9bf404c060b"
     },
     {
@@ -429,7 +384,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "864f2a9d827359f986c3ba6cb76680175e453067ad9611cd0ee84e7e7bdecedf",
       "compositionHash": "c235a8de7d6ab3fe06196a57ec93251e410c4d76f1fccaa27baf815401aa632e",
       "semanticFingerprint": "f60a93adb79eb0362cfd2e431cac84a5fce79e54d5e6ba0759630ef5dd83abf8"
     },
@@ -439,7 +393,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "6a204d997256988fe51ed7a96abbbd5aa74dde1bdce71c8e8d6eeb62ffa3649f",
       "compositionHash": "824972e114c68a7840102c20f738809e03a60d7eabb37564371d10eb4852ab57",
       "semanticFingerprint": "f1ecc00c30a1f44e4bf878c2572635eff1984b70470182db6d8fefd086ce161a"
     },
@@ -449,7 +402,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "f347dce66e3b4e1bdd734b175adb9cfe217dbf4037e0271ff92c18469c407007",
       "compositionHash": "59664de83240da49b82a3e9e2845da9fc12dfa38c3031885e35616cf2af05057",
       "semanticFingerprint": "23a34a0aee5b6ad860bda8332f08f52f5068e8c5ae2eef8ecb4572f1380002da"
     },
@@ -459,7 +411,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "ac6219f524f5b9aef14353ee409e39bb09e87f6691c1fca51994078e9c031f18",
       "compositionHash": "b1cdc0d099099aabba2a5e34795f986af4acb6fdac82a92922229ec53d26b6a5",
       "semanticFingerprint": "489bace1799f30befc231681dc5f0432c2c8dd1321b583ecf4b52354bc336bd8"
     },
@@ -469,7 +420,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "fb78981cf821b77a57c9733c07ed5a3e80f5d4ebf642d990cfa337bd2f5f4fe5",
       "compositionHash": "25c9fde71f609ffe524a79c846db9015d221351bbfde6565fd727306d7cfd892",
       "semanticFingerprint": "82a9ff66e767d4a9bb135c5ff53442f35f9964098c184e0e6a994a9ef1abd816"
     },
@@ -479,7 +429,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "4ebbf50f6930abf89b271f5665f802a4bf1b1e28321524b384883b7dcf28842a",
       "compositionHash": "ae124395e859fe462bd39f5497924904a5e4b4791ad310bf5e0aea501f937a0c",
       "semanticFingerprint": "3285cf60f5ed28f9196a8f66b6747fb38d74fb1a1af386690ab7dd418b4e9b5d"
     },
@@ -489,7 +438,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "4ba9c440f896ee699fd45b776787e137c8a346eba7a6d4e9de2de39c8e908746",
       "compositionHash": "3dc337ffd0b9443318b01f9bb223012f1f41df6b6093cdc669aeaec44ae0a69c",
       "semanticFingerprint": "c3705369b5f72c3260ab04be4629a28559943f5bca4b03947b1e40dd96d01ef4"
     },
@@ -499,7 +447,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "15809f62f00fe0de4734c1f1a73d9f8efc4a345ac48db42a31253bdc46bae64a",
       "compositionHash": "cd3ddae8bcbce5d29f3e03eb93e3c3a736ab17d845e937520db9d65609cfe663",
       "semanticFingerprint": "b4a3122003677804737e2e4644702f9c990b8260342efbb11f305702f8e3c613"
     },
@@ -509,7 +456,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "2edb3bf0e5dab12d6797320e67d1c6d1191f965f8344836b83b34648da29e714",
       "compositionHash": "049ad288406864f013e16a1e03db8b579f1ece2a4029d17e089f7e5cd6bda226",
       "semanticFingerprint": "f282a65fb12d2151be00db203a4df303cb0327adb82610b4f2f1e8f7a54a1d71"
     },
@@ -519,7 +465,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "ce080be1fd66df2e658b9f761c3ba55df617e4bdc65f296bfbebd53235d4628b",
       "compositionHash": "53e88f00754e224bd8d32ca24f383df6caaaa399b4db5fbdd8f899ce90d6a654",
       "semanticFingerprint": "74ed31c7f6b979f9201e43a08173abdc4ded344ec4bf64944967db44230bb36b"
     },
@@ -529,7 +474,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "74059a19d5561a5a60fa8eb6b1d93580637a8dd7b94026665de20128c14cf193",
       "compositionHash": "1f0cd609a926f1d695ed7c0dda26d96bbf6058c608cc05fe31c86040427b113d",
       "semanticFingerprint": "af9cd1946da8470c43a4307c6322aca6cb049979a0118d0dc4fc8f486ae77e5e"
     },
@@ -539,7 +483,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "d52c78b1584d4d0af727247303aac862af8f7498aeb5205151b1bbf4299da796",
       "compositionHash": "7ae74ae0cffb536082a082506432f1ea0782eb1382c9448462c4505867bd94f3",
       "semanticFingerprint": "44e0994657da9a3352e428b42a40773fedf0ae766fe9f3d551adc598aa8db80d"
     },
@@ -549,7 +492,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "989ef1aa411b0f9349c71b9ffab1d1ddd3e271524e5aca6a3364a00d7610fa70",
       "compositionHash": "0cbe215e5d9ffa8afaee03cb0111e948ef2d40466837028404709a8767abe966",
       "semanticFingerprint": "a34913426b6c4e22468431b34fa62f73953ce31016da3495dc8945038182aced"
     },
@@ -559,7 +501,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "6a2e487a7822a125ddd1e0320c345bb745655bc332cd05944aa65a305c304eee",
       "compositionHash": "b643ae3e6ed76c64ec5ebb525ae76826a7a1f26b447f44ebbca7570e1b6c9c3e",
       "semanticFingerprint": "9857b624aed6ac89fd561e73fa83af37349edbb57960d6a1b5b8b9376fccce97"
     },
@@ -569,7 +510,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "4e6c91e02264bf0c0b3dc1a947a923720085126099dc1e39e1d75ce0b257c5c4",
       "compositionHash": "1eab0f25585e84ae62865f82dd026dab34288af01903020ad6bfe0d4c278bca9",
       "semanticFingerprint": "e0e51b24a5ba3a94d961bbdb5bc74674fc31bdc2bcbc4061d83be78b07f2eb54"
     },
@@ -579,7 +519,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "a6494331db7528e7122e8b3ecee39a7eec0f9b1418cbdc6f38d7a5335572dba1",
       "compositionHash": "0fcb93b2a0e4ad1960797babe77e5df5b96809da02c84d7fa1bc79d4359058f4",
       "semanticFingerprint": "3740b7fbeb785678bd948575fab3ed897b4f7fb1304e4e8bcfe1df09109694e2"
     },
@@ -589,7 +528,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "510e64bd721aae1941459877773f93569234fd0f3083d27f70f290c6f9b75db3",
       "compositionHash": "6027485f3155622951a625c4848eada996c56e09be311816d476514a19edc3d4",
       "semanticFingerprint": "e72201595a353689da5538b15a29ee240aa77ce420f770a17834fbfecd49626a"
     },
@@ -599,7 +537,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "e1dea63d24b89d4e50b11f5e22e38be493c16091934a4319ffb1c26e55885569",
       "compositionHash": "89f27c82c8fad267e109e35d4eaddcc934a12ad53547b30a50ea4edd70a1504a",
       "semanticFingerprint": "f90fc623fe01322b83cd4ed02808cea7db56cb9a29386b1589fcec6a38d8878d"
     },
@@ -609,7 +546,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "1afd7ea8c14e20895db0f6a311dadac829437b4aeb2f417588093501073d4802",
       "compositionHash": "14de7cb404a684d7c91c614a031abcbcdec44055cf6f9352ccc78c5ead22c03d",
       "semanticFingerprint": "49a8f9021526e29a5eaba87b466cffe4d3c5771a2f34fb9ed78627db1fe90685"
     },
@@ -619,7 +555,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "01e487cd9ddd500e5779b8c8796be4a6240badafa46bde55b9c04e2c6336879d",
       "compositionHash": "42d2b000670434fcfac1d975b8ce8e857144a763e43778d7bf137e581b1eb562",
       "semanticFingerprint": "40e88dd7f1eca13e037e265a9dbb475d1dc36f75cbb7ceebcfd5f17acb6c0d1c"
     },
@@ -629,7 +564,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "8c4b41e52d47f0bf31613888e850cda72a2085611f09c36f67dd34177826c4eb",
       "compositionHash": "8fdf624515fa21d33bb3e98aac619743db1b7c1263bb107f928266f79b2e7e76",
       "semanticFingerprint": "d118d5453ef7850b453e9dd0bbdae0d821cff0b7127eecb59c9e67c332e8b908"
     },
@@ -639,7 +573,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "4b1a5f54743a7af7b4b0ce188edb99c3c7de2f003b0f4c8fcc6c876c392074af",
       "compositionHash": "3099a7b9f1b4a885678e49d67e46bc4422e70543ce7428c8a05a0110b289eae0",
       "semanticFingerprint": "0a3b92a528db0d2ba44b808b94587e65f312c3fba175bbc3e0a46a4926fe81c9"
     },
@@ -649,7 +582,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "d1fead91bbab6eb70911d116b96d80eece545c5883c7910f1bbf89820bab4a9c",
       "compositionHash": "4f62cae4ad2124dcdeb9e7691fc5b6d4f745db0c77255d49ab676d9bcaee1029",
       "semanticFingerprint": "9110da6e8aaa2ba807fd52159eb4112c6742bff6090d2c2acb1722ae0a3db982"
     },
@@ -659,7 +591,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "872609e76424fa78d6d95e49f3a6d9670d7376c8e541e3c1e40d666bf915c6fd",
       "compositionHash": "52658db900415dd0ffd31261da45d7e0f78112a97c031a368097f3ab5abb2636",
       "semanticFingerprint": "493ab5013538cc7e90202d301fb3ff895fc697f9b7bf67402d8f4d45c4df6393"
     },
@@ -669,7 +600,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "e87c08c1c19ca5710b7e49cf6a884bebb0f2ade4631529e9174f43c6a1e285ac",
       "compositionHash": "51668d167c1a7a916767d014c2e2bb7c53ad370ecbb0a8df01136253055507de",
       "semanticFingerprint": "c62a725b5ac85198f470c5f86783ab933c363bb9d050bbf41cbc3f8aa63a9d31"
     },
@@ -679,7 +609,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "9c10f553285c3aa77b29c0fc1e251aafbe3f51c33ae9740d09960ba4310492dc",
       "compositionHash": "ee421d61717a358635fe2b36ab4f72381ba774d0807dc163e5c98ac987a98e0e",
       "semanticFingerprint": "105914f2e77b76436dcb2d151d4d5f64aa3d70ad72b67c1d68a17b1305e81f54"
     },
@@ -689,7 +618,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "524114d6b1f864b6f26225b0a12922e7bc19a5067b67d11f9ecf77bf8a88cc80",
       "compositionHash": "5716d3cbed8efe5e0329a7826cee453b80e3f36c059c991bea2aa4953e778e27",
       "semanticFingerprint": "e4bd9a5514b5625dce4343b03a0406274b234041ee47081290dbdb7719a97be5"
     },
@@ -702,7 +630,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "c65e2db96ceb5e23089fc61445ef9acbf44c6052ff992ad19d2489b7677b3ffb",
       "compositionHash": "63bed340e0c7514f1c94d19ee4aac1445d995e36a13b344eeaab3475c10f2f2f",
       "semanticFingerprint": "68794ae3db28a8aca78893cdd4b2e5fe7775dff6d944b068d5be0f0cf12ac91a"
     },
@@ -715,7 +642,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "c69de15e1c1e372bf5c131a8c951cf52a53dba1e06412bda410ba0d0d33044fd",
       "compositionHash": "78ea9ce832c32c16d8d9602f9a3393e658e62b9e44b1ea91f223da39ac293c45",
       "semanticFingerprint": "99524711102204bdfc960df151fa947a53529444017bd52e13fb0aeb9ecac494"
     },
@@ -728,7 +654,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "1789bc900cfc588272ba7d7f85bb439b54e489bf4ed5734affc617b9a0452d3d",
       "compositionHash": "ee1647ecc5ecdd8d5a51a6fe46afbab4fddda3d6aa0624548e45e4b2c1744298",
       "semanticFingerprint": "ff01bae70e30dd6882e95446da09a8d89d3fcdd72a315597288e9c4b09d4a390"
     },
@@ -741,7 +666,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "028fa8aca0c75c5da4a26b17501b0ce009dc434461a06e1301ed81916525be6c",
       "compositionHash": "15da136a472dc20ea240be70de518a6ed236c86d93c93f9fde6b35fe828e72c6",
       "semanticFingerprint": "62531c314d80291b2b669fb3b6d5f8b007979b9dd17f9eea95cdc9a7afa251c7"
     },
@@ -754,7 +678,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "1cafeeb918cc1b1149c018de2a34e960789d9afaf2e4c6742d395eebfa48a916",
       "compositionHash": "8461c79c64e285878a111be2e72c32088aea73d29a3a85ded6c5a5b9c3055c51",
       "semanticFingerprint": "8cf87de3813bbf05881965899aec68322461f7e5097dd8b9500d7840cc117ab4"
     },
@@ -767,7 +690,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "7dd5ac94b02391fa27505414e7808f69c91dd7bf340d8845d70c660d169847d2",
       "compositionHash": "1520705b0c8558634b7a7eba9231436c5e9099b823a1b5d05097f8574da104ab",
       "semanticFingerprint": "8528791337928a7ecdd6d8f2fe3d44be580dd2ab875a5d2ba94484b77ca9e70d"
     },
@@ -780,7 +702,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "2f54f42b24597e1868d6afa51676e90d76943ce84bd4770c2ecf81af9e1b9c67",
       "compositionHash": "3eb2834679dcf0a7c1b7aed88132c6f27e32a093b71a7f0996e0fa90cec1de79",
       "semanticFingerprint": "483b66d44e1876e359dc70ca6d66f73bd0b174172ec3231abcac876710008031"
     },
@@ -793,7 +714,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "3f32ab9d5fad814276f674878501fbafbb68c658518081a85364742799b407cb",
       "compositionHash": "da9ae88c2f1977df3f88833742990bcdaf97e9cafb723ccba86d6f36fe050e2a",
       "semanticFingerprint": "82987bf7c906e2556219d9d2675702650f872a3ce00c2dd0bd41fc255c69ec43"
     },
@@ -806,7 +726,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "07de9d0fd26b2d4233d40dd2a1ce28541e128d21dfcb7dca12dda03c2beb93c4",
       "compositionHash": "3154553a83f81f44044b97daa70ce842fd301142fd5783da54f18c73ced73738",
       "semanticFingerprint": "59c0f30fa34c03eed9f9398444d4c7bf4f9235be3ed065082e5ae632bdd1dd3c"
     },
@@ -819,7 +738,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "b44efc5d2b8e5f9d359af006b6d02135650ee62fc2c4f19cdfb9df1979ce1a6f",
       "compositionHash": "b32096ce491d7cad62d824ab0c8281096a307e078fccc0d0f33a81fded390fb1",
       "semanticFingerprint": "4124409753b6f6ec12b0cc78251406cd1d2495eed3df1e0cae05eccb34dda9d6"
     },
@@ -832,7 +750,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "2a27675bdca63dfb2330c1d82cb88d299ad1d429de82128440d352392c59b6f3",
       "compositionHash": "4729f8e6262392133a3cbed47d05cbb457e69cb6956ed0f032dfd958bc94286d",
       "semanticFingerprint": "577693d40f37f1234783bc565faef38240cb7d26b2e78f10fbd414bea66c7a2e"
     },
@@ -845,7 +762,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "ce242998a25b658a43be405e1f461d332567ccd5df04bb8df59275caec5de73f",
       "compositionHash": "75467c3efb3be459e6f4fd20c898503614137219b666c35fddd8f75304cc7902",
       "semanticFingerprint": "3a3641f99d6155cdc9eccb9706455e64ab9300d64bc198a27584a524bf1bb910"
     },
@@ -858,7 +774,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "2130d4ad8270a6ccc09f360d233dcf17b3821e51db2a93f4c9ee016224afc0f6",
       "compositionHash": "84f86a7b16359ec3c78d1120e50c3ec459a2586d2f23a3de532d63f4da7b356b",
       "semanticFingerprint": "2a37f49dc0eff870bb874b9fef7b8dcf774e94e295bbabb5e5549449efd231da"
     },
@@ -871,7 +786,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "70b792dea8fe4f65fa539f5d1fbedc4dd11463c99b489cd20d258b9f961d7c86",
       "compositionHash": "c9950592036c4ba64c8be0ab83bd4aa631911f81dc0729b8bc87e6f3f8dea236",
       "semanticFingerprint": "b4e34c9aff502a2d4ccc213dbaea6bed5e94c37ec946e2f6e8ab9063fd35f49e"
     },
@@ -884,7 +798,6 @@
         "site-v4-composite",
         "safe-demonstration"
       ],
-      "fingerprint": "f7351fba7cc6ebf94a1b40557b3b705af5d697352595a130164b00180b6876f8",
       "compositionHash": "d4d70aead2093a2a48c8f8212d1555d90060384f20ac95b091694e12a35d48e9",
       "semanticFingerprint": "6b0afc9d4d51dbec6b0612890fab52b8f043f6c96402e15877d4499d6625b557"
     },
@@ -894,7 +807,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "c95bbe6eb6ca501c13c67e12063d34d85a146b558d6f34d936f9491287f7b5dc",
       "semanticFingerprint": "18b320a2b6b8124b61238d440f0aa8316ae5a3597a9ae2733ae1f4cf29fa8205"
     },
     {
@@ -903,7 +815,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "dab23985260fce01c5279c74098bde1bf281c0b1f8b71017cbdbbf623a011fcc",
       "semanticFingerprint": "422664caa07c33c278edcf584b2b0cad9d64b89449e7dbc762f34e73fc2ba812"
     },
     {
@@ -912,7 +823,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "bcb039036bf0e3aaf618993f69005cb60f4bba895d0264823daa88ae587ecc64",
       "semanticFingerprint": "3b9527108d8806fddba137061522996beaf94cd50883a3eae626ed7547bf7882"
     },
     {
@@ -921,7 +831,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "128db85dc940c881ed4af84119d6f46b69c8061fca5c76c95b629af33a85c5be",
       "semanticFingerprint": "67881520aacbb3fa92680454f3d5551107806dac59dfd8fe518f9df10b053416"
     },
     {
@@ -930,7 +839,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "be19205a891e7c0a2b62b68912b8f325e5a9131ed58aadd04a79ea5bcc082ef7",
       "semanticFingerprint": "4dfd49201c25d8ae956519ea6acb7d6729cc68d42a0db7dae1ae5016e9bbaa06"
     },
     {
@@ -939,7 +847,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "cec42f8cb775fa9cfa6125fe3b1bc540e26a9ffbf4f85044e7b150f039a5a83f",
       "semanticFingerprint": "8fc378fb75acf0fd46a26909fe06a49aaa02207f03cdd92a43f110719d0e2d35"
     },
     {
@@ -948,7 +855,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "4f3b2b137a23d792f5db08aa8da63ec460bac097d1ba64c7695641b75410a47e",
       "semanticFingerprint": "840c7ede8d5d6ddda8349cb01ad2946f934247b7868a4f1c4692b0f74f036a28"
     },
     {
@@ -957,7 +863,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "c728e0c1b33c7444921e1b4e41130a8427bed5aa341bd8e55db473d427209992",
       "semanticFingerprint": "6d1ae4311dcfff5a30567954394cf0414c206c32107989f16f8e665db2052b61"
     },
     {
@@ -966,7 +871,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "06096e7b48df2d323a159fd71a9bd384f2bdde04d53b814f15bc716a6c197d19",
       "semanticFingerprint": "fe623412110a8a2359114cb99b9f05d22d3a997d0580ecc251cc46eb9515c34a"
     },
     {
@@ -975,7 +879,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "e81d1b74381d58c073ed5f67dc2ee4854f8892e380ba3ec99079ae9d39c61513",
       "semanticFingerprint": "1f4324e2c60e569895a47373c2af91217560a5bf4bd46e0e21507c205f62e5cb"
     },
     {
@@ -984,7 +887,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "57b05af35a8d531fee32a5d1607dc7e1fabb639f1cc9a30031fe4802333a4fbe",
       "semanticFingerprint": "8555e2f42d84750b07b4985dd12af10d481c6502065f4fcfa40e628b2d315f18"
     },
     {
@@ -993,7 +895,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "ec8a4138c8d440c6790d902be0b0d51a3b6772c5c76357ed4588c614d08f00c9",
       "semanticFingerprint": "d52019fc0cec20afc14377840898ec58078d89779a3d29a3b5c5270aae23c854"
     },
     {
@@ -1002,7 +903,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "2241f9a6301c67b4de9df517cd9f981213391fdd683d721909de06bdc263832b",
       "semanticFingerprint": "89755cb47b8e5c0ffd82ab72f8d9df5067659bcc0f29a4dd81077c4777afd376"
     },
     {
@@ -1011,7 +911,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "2f42c25235ed8ee1c2d6ca38277231f07afad87388c128feb55511f280ff7559",
       "semanticFingerprint": "725a30650e02fff1df9ab054af1ba4f4e1970a48db372d6f8b2165590080d5c3"
     },
     {
@@ -1020,7 +919,6 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "fingerprint": "c08931b2222ba2bae67e59959ced7243a8d781e82838d2c0cc83f6e8bcac2f89",
       "semanticFingerprint": "413efe84adc391b6499af66033bf40d40860b6ebce7a871051a82b1a29079a96"
     }
   ],
