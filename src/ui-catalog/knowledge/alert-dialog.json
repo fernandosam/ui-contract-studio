@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "component": "AlertDialog",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/alert-dialog",
+    "reviewedOn": "2026-10-26",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Alert Dialog?",
+      "Why Use Shadcn Alert Dialog?",
+      "Shadcn Alert Dialog Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Obter confirmação explícita para decisões críticas, com conteúdo de impacto e ações de confirmar/cancelar.",
+  "rationale": [
+    "Evitar operações irreversíveis acidentais.",
+    "Exigir atenção ao contexto antes de uma ação sensível; não usar para avisos sem decisão."
+  ],
+  "whenUse": [
+    "Confirmações críticas e potencialmente irreversíveis, quando a decisão precisa ser explícita.",
+    "Fluxos em que fechar o overlay clicando fora não deve equivaler a cancelar a decisão."
+  ],
+  "whenNotUse": [
+    "Exibir aviso apenas informativo: preferir Alert.",
+    "Editar dados ou preencher formulários comuns em uma janela: preferir Dialog.",
+    "Executar exclusões reais sem uma ação backend explicitamente autorizada."
+  ],
+  "agentNotes": [
+    "No shadcn Base UI, Trigger compõe botão via render; variantes Radix usam asChild.",
+    "Na variante Base UI, AlertDialogAction não deve ser presumido como fechamento automático: coordenar estado e fechamento explicitamente.",
+    "A opção size='sm' pede atenção ao rodapé de duas ações.",
+    "As regras documentadas são orientação, não adição de props, efeitos colaterais ou permissões ao contrato Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "controlled-open",
+      "description": "Controle local de abertura e fechamento.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/alert-dialog.tsx",
+          "contains": "const [open,setOpen]=useState(false)"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/alert-dialog.tsx",
+          "contains": "onOpenChange={setOpen}"
+        }
+      ],
+      "testRequirements": [
+        "Abrir e cancelar restaurando o estado fechado."
+      ]
+    },
+    {
+      "id": "confirm-signal",
+      "description": "Emite sinal de confirmação local sem autorização implícita de operação remota.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/alert-dialog.tsx",
+          "contains": "emit?.(\"confirm\")"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar uma vez e garantir ausência de operação destrutiva implícita."
+      ]
+    },
+    {
+      "id": "destructive-variant",
+      "description": "Permite variante visual destrutiva na ação de confirmação.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "confirmVariant:z.enum([\"default\",\"destructive\"])"
+        }
+      ],
+      "testRequirements": [
+        "Verificar contraste e hierarquia com variante destrutiva."
+      ]
+    },
+    {
+      "id": "checkbox-gating",
+      "description": "Exigir marcação consciente antes de liberar confirmação.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Não permitir confirmação antes da seleção; reabilitar depois da seleção."
+      ]
+    },
+    {
+      "id": "typed-confirmation",
+      "description": "Exigir texto exato para confirmação de alto impacto.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Validar texto esperado; confirmação bloqueada em caso de divergência."
+      ]
+    },
+    {
+      "id": "focus-and-keyboard",
+      "description": "Manter navegação de teclado e foco acessível, inclusive retorno ao gatilho após fechamento.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar gerenciamento do foco, Escape, Tab, Enter e acessibilidade com tecnologia assistiva."
+      ]
+    },
+    {
+      "id": "mobile-dialog",
+      "description": "Exibir conteúdo e ações legíveis em telas menores sem perda de controle.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar viewport móvel, rolagem e alvos de toque adequados."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "trigger-and-actions",
+      "reason": "Abrir e confirmar/cancelar com hierarquia clara."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "optional-confirmation-gate",
+      "reason": "Reduzir erros em operações pouco frequentes de alto impacto."
+    },
+    {
+      "component": "Input",
+      "relationship": "optional-text-gate",
+      "reason": "Digitar um identificador ou palavra de confirmação antes de habilitar a ação."
+    },
+    {
+      "component": "Badge",
+      "relationship": "optional-context",
+      "reason": "Indicar quantidade de itens afetados, como arquivos selecionados."
+    },
+    {
+      "component": "Alert",
+      "relationship": "post-action-feedback",
+      "reason": "Exibir resultado fora do diálogo; integração exige estado explícito."
+    },
+    {
+      "component": "Popover",
+      "relationship": "optional-help",
+      "reason": "Apresentar ajuda contextual quando necessário."
+    },
+    {
+      "component": "Sonner",
+      "relationship": "async-feedback-candidate",
+      "reason": "Notificar progresso/resultado assíncrono somente com integração autorizada."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando usar Alert Dialog em vez de Dialog?",
+      "guidance": "Preferir AlertDialog para confirmação crítica; usar Dialog em edição comum."
+    },
+    {
+      "question": "Quando exigir checkbox ou digitação?",
+      "guidance": "Usar fricção adicional apenas conforme impacto e frequência da ação."
+    },
+    {
+      "question": "A ação destrutiva é executada pelo componente?",
+      "guidance": "Não; o contrato atual apenas emite o evento confirm. Autorizações e persistência exigem handler autorizado."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "keyboard-focus",
+      "kind": "manual-a11y",
+      "description": "Validar foco inicial, ciclo de Tab, Escape, retorno ao disparador e anúncio de rótulo/descrição.",
+      "capabilities": [
+        "focus-and-keyboard"
+      ]
+    },
+    {
+      "id": "confirmation-behavior",
+      "kind": "integration",
+      "description": "Abrir, cancelar, confirmar e verificar disparo de evento e fechamento sem operação remota.",
+      "capabilities": [
+        "controlled-open",
+        "confirm-signal"
+      ]
+    },
+    {
+      "id": "responsive-actions",
+      "kind": "visual",
+      "description": "Verificar duas ações na variante pequena e largura móvel.",
+      "capabilities": [
+        "mobile-dialog"
+      ]
+    },
+    {
+      "id": "gated-confirmation",
+      "kind": "candidate-not-executable",
+      "description": "Se aprovado novo composto com Checkbox/Input, impedir confirmação até validação bem-sucedida.",
+      "capabilities": [
+        "checkbox-gating",
+        "typed-confirmation"
+      ]
+    }
+  ]
+}
