@@ -7,18 +7,19 @@ const text=path=>readFileSync(path,"utf8");
 const json=path=>JSON.parse(text(path));
 test("typed confirmation preview exactly matches pinned React and strict Zod proposals",()=>{
  const policy=json("src/ui-catalog/composition-admission/typed-confirmation.json");
- assert.equal(policy.stage,"preview-only");
- assert.equal(policy.piAdmission,"not-approved");
+ assert.equal(policy.stage,"experimental");
+ assert.equal(policy.piAdmission,"experimental-only");
  assert.equal(policy.reviewer,null);
  assert.equal(text(policy.previewFile),text(policy.sourceRecipe));
  assert.equal(text(policy.schemaFile),text(policy.schemaRecipe));
  assert.match(text(policy.schemaFile),/\.strict\(\)/);
  assert.match(text(policy.previewFile),/PROPOSAL ONLY/);
 });
-test("typed confirmation remains outside Pi lock, export and registry",()=>{
+test("typed confirmation stays outside stable Pi lock but enters official experimental entries",()=>{
  const target="TypedConfirmationDialog";
  assert.ok(!json("src/ui-catalog/contracts.lock.json").components.some(x=>x.name===target));
  assert.ok(!json("pi-catalog/contracts.json").contracts.some(x=>x.type===target));
+ assert.ok(json("pi-catalog/contracts.json").experimentalContracts.some(x=>x.type===target));
  for(const file of ["src/ui-catalog/registry.tsx","src/ui-catalog/extensions/registry.tsx",
   "src/ui-catalog/extensions/catalog.ts"]){
   assert.ok(!text(file).includes(target),file+" must never register candidate code");
@@ -27,7 +28,7 @@ test("typed confirmation remains outside Pi lock, export and registry",()=>{
   encoding:"utf8",
  });
  assert.equal(command.status,0,command.stderr);
- assert.match(command.stdout,/preview-only/);
+ assert.match(command.stdout,/admitted experimentally/);
 });
 test("acceptance evidence cannot replace pending independent review",()=>{
  const policy=json("src/ui-catalog/composition-admission/typed-confirmation.json");
