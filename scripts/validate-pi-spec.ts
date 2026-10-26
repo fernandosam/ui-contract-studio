@@ -1,7 +1,7 @@
 /** Validates generated json-render specs with the real Zod registry; produces compact, actionable, data-free diagnostics. */
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
-import {catalog,experimentalCatalog,componentDefinitions,unifiedComponentDefinitions,componentEventDescriptors,experimentalComponentEventDescriptors,actionDefinitions} from '../src/ui-catalog/catalog';
+import {catalog,experimentalCatalog,stableComponentDefinitions,unifiedComponentDefinitions,componentEventDescriptors,experimentalComponentEventDescriptors,actionDefinitions} from '../src/ui-catalog/catalog';
 import {graphErrors} from './lib/spec-invariants.mjs';
 
 type Finding={pointer:string;code:string;message:string;expected?:unknown;suggestion:string};
@@ -36,7 +36,7 @@ if(spec!==undefined){
    findings.push({pointer,code,message:issue.message,...(expected?{expected}:{}),suggestion});
   }
  }
- const structure=graphErrors(spec,Object.keys(channel==='experimental'?unifiedComponentDefinitions:componentDefinitions),{
+ const structure=graphErrors(spec,Object.keys(channel==='experimental'?unifiedComponentDefinitions:stableComponentDefinitions),{
   allowedActions:Object.keys(actionDefinitions),allowedEvents:channel==='experimental'?experimentalComponentEventDescriptors:componentEventDescriptors
  });
  for (const message of structure) {
