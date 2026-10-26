@@ -19,7 +19,7 @@ UI Contract Studio combines React with a **closed** catalog of JSON-renderable e
 | shadcn/ui source plan | `shadcn-plan.json` |
 | ReUI examples | `src/ui-catalog/extensions/composites/reui-composite-definitions.ts` |
 
-In snapshot 0.24.0, the lock and Pi manifest list **102 active contracts** (41 base and 61 extensions). The shadcn/ui plan includes **50 planned/local primitives**, and ReUI contains **559 React examples**. These inventories are independent: installing a primitive or creating an example does not add a Pi contract. In future releases, consult the underlying files instead of assuming these counts still apply.
+In snapshot 0.24.0, the lock contains **102 reviewed baseline/extension contracts**, while the official Pi v3 manifest's single `components` collection also includes admitted experimental compositions (41 base and 61 extensions). The shadcn/ui plan includes **50 planned/local primitives**, and ReUI contains **559 React examples**. These inventories are independent: installing a primitive or creating an example does not add a Pi contract. In future releases, consult the underlying files instead of assuming these counts still apply.
 
 ## Responsibilities
 
