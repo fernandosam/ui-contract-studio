@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { resolve, relative, sep } from "node:path";
+import { resolve, sep } from "node:path";
 
 const readJson = file => JSON.parse(readFileSync(file, "utf8"));
 const uniq = values => [...new Set(values)].sort((a,b) => a.localeCompare(b));
@@ -8,7 +8,6 @@ const safeName = value => typeof value === "string" && /^[A-Z][A-Za-z0-9]+$/.tes
 const flags = new Set(["implemented-static-evidence","documented-not-implemented","runtime-review-required"]);
 const testKinds = new Set(["integration","manual-a11y","visual","candidate-not-executable"]);
 const slugify = name => name.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase();
-const sorted = array => [...array].sort((a,b)=>a.localeCompare(b));
 const knowledgeRoot = "src/ui-catalog/knowledge/";
 
 function readOptional(root,path,fallback) {
@@ -144,7 +143,7 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
       const dependencies=byContract.get(profile.component)?.dependencies??[];
       const sourceRecommendations=(profile.integrations??[]).map(x=>({
         ...x,
-        implementedDependency:dependencies.includes(x.component),
+        implementedDependency:byContract.has(profile.component) ? dependencies.includes(x.component) : null,
         approvedPiType:approved.has(x.component),
         admission:"advisory-only",
       }));
