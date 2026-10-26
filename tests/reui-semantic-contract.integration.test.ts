@@ -43,7 +43,7 @@ test("OnboardingChecklist: rejects duplicate IDs, bogus initial ID, and multiple
 
 test("OnboardingChecklist: Pi provides semantic recommendations separately from executable props",()=>{
  const api=read("pi-catalog/contracts.json")
- const entry=api.contracts.find((v:{type:string})=>v.type==="OnboardingChecklist")
+ const entry=api.components.find((v:{type:string})=>v.type==="OnboardingChecklist")
  assert.equal(entry.semanticGuidance.referenceExamples[0],"c-accordion-11")
  assert.ok(entry.semanticGuidance.whenUse.length>0)
  assert.ok(entry.semanticGuidance.whenNotUse.length>0)

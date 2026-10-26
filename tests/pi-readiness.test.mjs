@@ -11,10 +11,10 @@ const known=lock.components.map(c=>c.name);
 const generatedComposites=new Set(JSON.parse(readFileSync('src/ui-catalog/extensions/composites/generated-manifest.json','utf8')).components.map(x=>x.name));
 
 test('Pi possui 102 exemplos válidos estruturalmente e contratos sem duplicidade',()=>{
- assert.equal(manifest.catalogSize,102);
- assert.equal(manifest.contracts.length,102);
- assert.equal(new Set(manifest.contracts.map(c=>c.type)).size,102);
- for(const c of manifest.contracts){
+ assert.equal(manifest.components.length,106);
+ assert.equal(manifest.components.filter(x=>x.tier!=='experimental').length,102);
+ assert.equal(new Set(manifest.components.map(c=>c.type)).size,106);
+ for(const c of manifest.components.filter(x=>x.tier!=='experimental')){
    assert.ok(existsSync(c.example),c.type);
    const spec=read(c.example);
    assert.equal(spec.elements[spec.root].type,c.type,c.type);
@@ -28,7 +28,7 @@ test('42 compostos expõem content com estrita lista de  chaves editáveis',()=>
  const fields=Object.values(content).flatMap(c=>c.fields);
  assert.ok(fields.length>300);
  for(const [name,config] of Object.entries(content)){
-   const info=manifest.contracts.find(x=>x.type===name);
+   const info=manifest.components.find(x=>x.type===name);
    assert.equal(info?.contentProperty,'content');
    assert.deepEqual(info?.configuredContentFields.map(field=>Object.fromEntries(Object.entries(field).filter(([key])=>key!=='semanticName'))),config.fields);
    const aliases=info?.configuredContentFields.map(f=>f.semanticName);
@@ -56,7 +56,7 @@ test('três demos anteriormente inertes agora têm estado e eventos autorizados'
   const start=catalog.indexOf(`  ${name}: {`),end=catalog.indexOf('\n  },',start);
   const part=catalog.slice(start,end);
   for(const event of events) assert.ok(part.includes(`"${event}"`),`${name}.${event}`);
-  assert.equal(manifest.contracts.find(c=>c.type===name)?.capability,'local-interactive');
+  assert.equal(manifest.components.find(c=>c.type===name)?.capability,'local-interactive');
  }
  const goal=readFileSync('src/ui-catalog/extensions/components/site-cards-activity-goal.tsx','utf8');
  assert.match(goal,/setGoal\(/);assert.match(goal,/disabled=\{goal<=min\}/);

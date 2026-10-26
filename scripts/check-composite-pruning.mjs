@@ -8,9 +8,9 @@ const manifest=read('src/ui-catalog/extensions/composites/generated-manifest.jso
 const active=new Set(lock.components.map(x=>x.name));
 const names=new Set(manifest.map(x=>x.name));
 const errors=[];
-if(active.size!==102||retired.length!==22||pi.contracts.length!==102||manifest.length!==37)errors.push('Inconsistência dos totais ativos (102 contratos, 22 históricos aposentados, 37 composições estáticas)');
+if(active.size!==102||retired.length!==22||pi.components.filter(x=>x.tier!=='experimental').length!==102||manifest.length!==37)errors.push('Inconsistência dos totais ativos (102 contratos, 22 históricos aposentados, 37 composições estáticas)');
 for(const {name} of retired){
- if(active.has(name)||names.has(name)||pi.contracts.some(x=>x.type===name))errors.push(`${name}: contrato aposentado reapareceu`);
+ if(active.has(name)||names.has(name)||pi.components.some(x=>x.type===name))errors.push(`${name}: contrato aposentado reapareceu`);
  if(readdirSync('pi-catalog/examples').includes(name+'.json'))errors.push(`${name}: amostra Pi órfã`);
 }
 for(const {name} of manifest)if(!active.has(name))errors.push(`${name}: composição sem contrato ativo`);

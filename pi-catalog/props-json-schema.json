@@ -1,7 +1,6 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "projectVersion": "0.24.0",
-  "catalogSize": 102,
   "types": {
     "Card": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -13363,6 +13362,159 @@
         "maxLength"
       ],
       "additionalProperties": false
+    },
+    "AcknowledgedActionDialog": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "trigger": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "acknowledgmentLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "confirmLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        }
+      },
+      "required": [
+        "trigger",
+        "title",
+        "description",
+        "acknowledgmentLabel",
+        "confirmLabel"
+      ],
+      "additionalProperties": false
+    },
+    "TypedConfirmationDialog": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "trigger": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "expectedText": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "confirmLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        }
+      },
+      "required": [
+        "trigger",
+        "title",
+        "description",
+        "expectedText",
+        "confirmLabel"
+      ],
+      "additionalProperties": false
+    },
+    "TeamMemberAccordion": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]{1,40}$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 90
+              },
+              "status": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "description": {
+                "type": "string",
+                "maxLength": 600
+              },
+              "disabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "role",
+              "description"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "members"
+      ],
+      "additionalProperties": false
+    },
+    "CopyFeedbackButton": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 90
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "label",
+        "text"
+      ],
+      "additionalProperties": false
     }
   },
   "actions": {
@@ -13641,6 +13793,14 @@
     "Marker": [],
     "Message": [],
     "RatingDistribution": [],
-    "CharacterCountTextarea": []
+    "CharacterCountTextarea": [],
+    "AcknowledgedActionDialog": [
+      "confirm"
+    ],
+    "TypedConfirmationDialog": [
+      "confirm"
+    ],
+    "TeamMemberAccordion": [],
+    "CopyFeedbackButton": []
   }
 }

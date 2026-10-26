@@ -5,7 +5,7 @@ import {SpecScreen} from "./spec-screen";
 const stableExamples=import.meta.glob("../../pi-catalog/examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
 const experimentalExamples=import.meta.glob("../../pi-catalog/experimental-examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
 const examples={...stableExamples,...experimentalExamples};
-const entries=official.entries;
+const entries=official.components;
 
 export function AdmissionExplorer() {
  const [query,setQuery]=useState("");
@@ -18,12 +18,12 @@ export function AdmissionExplorer() {
  }),[query,filter]);
  const current=visible.find(entry=>entry.type===selected)??visible[0];
  const sample=current?examples["../../"+current.example]:undefined;
- const canPreview=Boolean(current && (current.availability.piStable||channel==="experimental"));
+ const canPreview=Boolean(current && (current.lifecycle==='stable'||channel==="experimental"));
  return <section aria-label="Catálogo oficial de contratos Pi" className="space-y-4" data-testid="admission-catalog">
    <header className="rounded-xl border bg-card p-5">
     <h2 className="text-lg font-semibold">Catálogo oficial · maturidade dos contratos</h2>
     <p className="mt-1 text-sm text-muted-foreground">
-     {official.catalogSize} contratos legados e {official.experimentalCatalogSize} composições adicionais no mesmo manifesto.
+     {entries.filter(entry=>entry.tier!=="experimental").length} contratos base/extensão e {entries.filter(entry=>entry.tier==="experimental").length} composições adicionais no mesmo catálogo.
      Componentes pendentes exigem habilitação explícita para testes locais.
     </p>
    </header>
@@ -60,7 +60,7 @@ export function AdmissionExplorer() {
         <h3 className="text-base font-semibold">{current.type}</h3>
         <span className="rounded-full border px-2 py-0.5 text-xs">{current.lifecycle==="experimental"?"E2E pendente":current.validation.e2e==="passed"?"E2E aprovado":"Legado: E2E não registrado"}</span>
        </div>
-       <p className="text-xs text-muted-foreground">Versão: {current.version} · Disponível no Pi experimental: sim · Pi estável: {current.availability.piStable?"sim":"não"}</p>
+       <p className="text-xs text-muted-foreground">Versão: {current.version} · Disponível no Pi experimental: sim · Pi estável: {current.lifecycle==='stable'?"sim":"não"}</p>
        {"sourceDigest" in current&&typeof current.sourceDigest==="string"&&
         <p className="break-all font-mono text-[11px] text-muted-foreground">Fingerprint SHA-256: {current.sourceDigest}</p>}
        <label className="grid max-w-sm gap-1 text-xs font-medium">Canal de prévia

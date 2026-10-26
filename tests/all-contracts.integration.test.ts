@@ -5,7 +5,7 @@ import {catalog,componentDefinitions} from '../src/ui-catalog/catalog';
 import {registry} from '../src/ui-catalog/registry';
 const read=(path:string)=>JSON.parse(readFileSync(path,'utf8'));
 const manifest=read('pi-catalog/contracts.json');
-for(const entry of manifest.contracts){
+for(const entry of manifest.components.filter((item:{tier:string})=>item.tier!=='experimental')){
  test(`${entry.type}: schema Zod real aceita exemplo e registry contém renderer`,()=>{
   const spec=read(entry.example);
   const result=catalog.validate(spec);

@@ -26,7 +26,7 @@ const fingerprint = existsSync(lockPath)
   ? createHash('sha256').update(readFileSync(lockPath)).digest('hex') : null;
 const result = {
   schemaVersion: 1,
-  catalogContracts: read('pi-catalog/contracts.json').catalogSize,
+  catalogContracts: read('pi-catalog/contracts.json').components.length,
   expectedCardsPerViewport: cards.length,
   expectedScreenshotCount: required.length,
   actualScreenshotCount: required.length - missingLocal.length,

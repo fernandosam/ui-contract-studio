@@ -36,7 +36,7 @@ test("Contrato aprovado possui provenance, versão, fingerprint, schema e exempl
  assert.equal(item.tier,"extension")
  assert.equal(item.status,"approved")
  assert.match(item.semanticFingerprint,/^[a-f0-9]{64}$/)
- const api=pi.contracts.find(c=>c.type==="OnboardingChecklist")
+ const api=pi.components.find(c=>c.type==="OnboardingChecklist")
  assert.ok(api)
  assert.equal(api.hasSemanticAPI,true)
  assert.equal(api.capability,"local-interactive")

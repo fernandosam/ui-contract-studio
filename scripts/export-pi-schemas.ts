@@ -11,11 +11,11 @@ for(const [name,action] of Object.entries(actionDefinitions)){
   actions[name]=z.toJSONSchema(action.params,{target:'draft-2020-12',unrepresentable:'any'});
 }
 const pkg=JSON.parse(readFileSync('package.json','utf8'));
-const lock=JSON.parse(readFileSync('src/ui-catalog/contracts.lock.json','utf8'));
-const experiments=JSON.parse(readFileSync('src/ui-catalog/admission-engine/entries.json','utf8')).entries;
-if(Object.keys(types).length!==lock.components.length+experiments.length)throw new Error('Schemas não cobrem todo o catálogo unificado');
-for(const item of lock.components)if(!types[item.name])throw new Error('Schema ausente: '+item.name);
+const manifest=JSON.parse(readFileSync('pi-catalog/contracts.json','utf8'));
+if(manifest.schemaVersion!==3||!Array.isArray(manifest.components))throw new Error('Manifesto Pi v3 inválido');
+if(Object.keys(types).length!==manifest.components.length)throw new Error('Schemas não cobrem catálogo unificado');
+for(const item of manifest.components)if(!types[item.type])throw new Error('Schema ausente: '+item.type);
 const events=Object.fromEntries(Object.entries(unifiedComponentDefinitions).map(([name,item])=>[name,'events' in item?item.events:[]]));
 mkdirSync('pi-catalog',{recursive:true});
-writeFileSync('pi-catalog/props-json-schema.json',JSON.stringify({schemaVersion:2,projectVersion:pkg.version,catalogSize:lock.components.length,experimentalCatalogSize:experiments.length,types,actions,events},null,2)+'\n');
+writeFileSync('pi-catalog/props-json-schema.json',JSON.stringify({schemaVersion:3,projectVersion:pkg.version,types,actions,events},null,2)+'\n');
 console.log(`JSON Schemas reais exportados para ${Object.keys(types).length} componentes e ${Object.keys(actions).length} ações.`);

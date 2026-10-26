@@ -31,7 +31,7 @@ test('Pi context carrega schemas por seleção, com actions e sem extravasar tip
   cpSync('pi-catalog/contracts.json',join(cwd,'pi-catalog/contracts.json'));
   const desired=['Card','SiteCardsPaymentMethod'];
   for(const name of desired)cpSync(`pi-catalog/examples/${name}.json`,join(cwd,`pi-catalog/examples/${name}.json`));
-  const schemas={schemaVersion:2,projectVersion:manifest.projectVersion,catalogSize:102,types:{},actions:{buttonClick:{type:'object',additionalProperties:false}},events:{}};
+  const schemas={schemaVersion:3,projectVersion:manifest.projectVersion,types:{},actions:{buttonClick:{type:'object',additionalProperties:false}},events:{}};
   for(const type of desired){schemas.types[type]={type:'object',additionalProperties:false,properties:{title:{type:'string'}}};schemas.events[type]=type==='Card'?[]:['planChange','select']}
   writeFileSync(join(cwd,'pi-catalog/props-json-schema.json'),JSON.stringify(schemas));
   const result=spawnSync(process.execPath,[packScript,'--types=Card,SiteCardsPaymentMethod','--stdout'],{cwd,encoding:'utf8'});

@@ -2,7 +2,7 @@
 
 # Admission Engine — unified catalog and maturity
 
-The **official Pi manifest** `pi-catalog/contracts.json` contains `entries`, a unified discoverable inventory combining the original locked contracts and reviewed experimental compositions. Backward-compatible `contracts` remains the original approved/stable set; `experimentalContracts` contains opt-in compositions. Every experimental entry carries a reproducible SHA-256 fingerprint of its React+strict Zod source and explicit permissions.
+The **official Pi manifest** `pi-catalog/contracts.json` uses `schemaVersion: 3` and exactly one `components` collection for all 106 contracts (102 base/extensions and four generated compositions). Every contract declares a `lifecycle` (`stable` or `experimental`), and validation details. Experimental entries include source SHA-256 fingerprints and individual E2E protocols. The previous `contracts`, `experimentalContracts` and `entries` arrays are intentionally **removed**, with no legacy manifest fallback.
 
 ## Lifecycle and access
 
@@ -14,7 +14,7 @@ The **official Pi manifest** `pi-catalog/contracts.json` contains `entries`, a u
 
 The stable channel is **default**; experimental is opt-in. The experimental registry includes executable React adapters from reviewed sources, not merely documentation. No arbitrary JSX, remote operations, open URLs or new action types are admitted.
 
-The official `entries` list provides one discovery surface, while the two compatible arrays preserve existing consumers. The original 102 stable types and `contracts.lock.json` keep their established review process and are not silently rewritten. Their maturity metadata explicitly says `validation.e2e: not-recorded`: inherited stable access does **not** imply an E2E certification run.
+`components` is the **only** published Pi component inventory; consumers, UI, context selector and tests read it directly. The existing 102 reviewed types and `contracts.lock.json` retain their source-review rules, but not any backward-compatible Pi manifest shape. Their maturity metadata explicitly says `validation.e2e: not-recorded`: inherited stable access does **not** imply an E2E certification run.
 
 ## Commands
 

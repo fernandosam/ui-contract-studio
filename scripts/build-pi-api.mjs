@@ -54,22 +54,24 @@ const experimentalContracts=experimentalEntries.map(entry=>{
     example:entry.example,capability:'local-interactive',
     sourceDigest:entry.sourceDigest,e2eProtocol:entry.e2eProtocol,
     validation:{static:'passed',e2e:verified?'passed':'pending'},
-    availability:{piExperimental:true,piStable:verified},
     interactionBoundary:'Somente UI local: sem chamadas remotas nem permissões adicionais'};
 });
-const allEntries=[
-  ...contracts.map(({type,version,tier,example})=>({type,version,tier,example,lifecycle:'stable',
-    validation:{static:'legacy-approved',e2e:'not-recorded'},
-    availability:{piExperimental:true,piStable:true}})),
+// A single authoritative collection: maturity is a property of each contract,
+// never an implication of which array happens to contain it.
+const components=[
+  ...contracts.map(contract=>({...contract,lifecycle:'stable',
+    validation:{static:'legacy-approved',e2e:'not-recorded'}})),
   ...experimentalContracts,
 ];
-const manifest={schemaVersion:1,projectVersion:read('package.json').version,catalogSize:contracts.length,
+const names=components.map(c=>c.type);
+if(new Set(names).size!==names.length)throw Error('Duplicated Pi component type');
+const manifest={schemaVersion:3,projectVersion:read('package.json').version,
   policy:'O Pi pode criar APENAS specs JSON, usando Zod, exemplos e actionDefinitions. Content e nodeProps só podem editar chaves autorizadas do template; não alteram eventos, estilos arbitrários, URLs ou tipos de componentes.',
   defaultRoute:'/?screen=reui',
-  sourceOfTruth:['src/ui-catalog/catalog.ts','src/ui-catalog/extensions/catalog.ts','src/ui-catalog/registry.tsx'],
+  sourceOfTruth:['src/ui-catalog/catalog.ts','src/ui-catalog/extensions/catalog.ts','src/ui-catalog/admission-engine/generated/definitions.ts','src/ui-catalog/registry.tsx'],
   actions:['setState','pushState','removeState','buttonClick','formSubmit','linkClick'],
-  contracts,experimentalCatalogSize:experimentalContracts.length,experimentalContracts,entries:allEntries};
+  components};
 const file='pi-catalog/contracts.json';const value=JSON.stringify(manifest,null,2)+'\n';
 if(process.argv.includes('--write')){mkdirSync('pi-catalog',{recursive:true});writeFileSync(file,value)}
 else if(!existsSync(file)||readFileSync(file,'utf8')!==value){console.error('Manifesto Pi ausente/desatualizado: npm run pi:api');process.exit(1)}
-console.log(`✓ manifesto Pi: ${contracts.length} contratos, ${Object.keys(configs).length} composições configuráveis`);
+console.log(`✓ manifesto Pi v3: ${components.length} contratos, ${Object.keys(configs).length} composições configuráveis`);

@@ -11,13 +11,13 @@ test('catálogo unificado exporta schemas reais para estáveis e experimentais',
  const path='pi-catalog/props-json-schema.json';
  assert.ok(existsSync(path),'Execute npm run pi:zod-schema antes do teste integrado');
  const schemas=read(path);
- assert.equal(schemas.schemaVersion,2);
+ assert.equal(schemas.schemaVersion,3);
  assert.equal(schemas.projectVersion,project.version);
- assert.equal(schemas.catalogSize,102);
- assert.equal(schemas.experimentalCatalogSize,all.experimentalCatalogSize);
+ assert.equal(all.schemaVersion,3);
+ assert.equal(all.components.length,106);
  assert.deepEqual(Object.keys(schemas.types).sort(),Object.keys(unifiedComponentDefinitions).sort());
- assert.deepEqual(all.contracts.map((x:{type:string})=>x.type).sort(),Object.keys(componentDefinitions).sort());
- for(const contract of all.entries){
+ assert.deepEqual(all.components.filter((x:{tier:string})=>x.tier!=="experimental").map((x:{type:string})=>x.type).sort(),Object.keys(componentDefinitions).sort());
+ for(const contract of all.components){
   const prop=schemas.types[contract.type];
   assert.ok(prop,contract.type);
   assert.ok(typeof prop==='object',contract.type);
@@ -25,7 +25,7 @@ test('catálogo unificado exporta schemas reais para estáveis e experimentais',
  }
 });
 test('exemplos estáveis e experimentais respeitam seus canais de catálogo',()=>{
- for(const entry of all.entries){
+ for(const entry of all.components){
   const spec=read(entry.example);
   const validation=entry.lifecycle==='experimental'?experimentalCatalog.validate(spec):catalog.validate(spec);
   assert.ok(validation.success,`${entry.type}: ${validation.success?'':validation.error.message}`);

@@ -15,7 +15,7 @@ function inputs() {
     scenarios: { scenarios: [{ id: "alert-typed", target: "TypedConfirmationDialog",
       strategy: "react-candidate", dependencies: ["Button", "Input"] }] },
     lock: { components: [{ name: "Button", status: "approved" }, { name: "Input", status: "approved" }] },
-    pi: { contracts: [{ type: "Button" }] }, sources: { components: [] }
+    pi: { components: [{ type: "Button",tier:"base" }] }, sources: { components: [] }
   };
 }
 test("only explicit reviewed, safe, non-Pi recipes can enter the experimental lane", () => {
@@ -24,7 +24,7 @@ test("only explicit reviewed, safe, non-Pi recipes can enter the experimental la
   data.scenarios.scenarios[0].dependencies.push("UnknownPrimitive");
   assert.match(evaluatePolicy(data).join(" "), /unapproved primitive/);
   data.scenarios.scenarios[0].dependencies.pop();
-  data.pi.contracts.push({ type: "TypedConfirmationDialog" });
+  data.pi.components.push({ type: "TypedConfirmationDialog",tier:"base" });
   assert.match(evaluatePolicy(data).join(" "), /already present/);
 });
 test("unknown E2E protocol cannot auto-promote candidates", () => {
