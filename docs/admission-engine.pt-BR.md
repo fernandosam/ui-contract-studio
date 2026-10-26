@@ -14,7 +14,7 @@ O **manifesto oficial Pi** `pi-catalog/contracts.json` disponibiliza `entries`, 
 
 Por padrão, o Pi usa **somente componentes estáveis**. O uso experimental exige opção explícita; os adapters React realmente executam os componentes permitidos, não são apenas exemplos de documentação. O catálogo experimental não concede chamadas remotas, URLs livres, JSX arbitrário nem novos tipos de ação.
 
-O inventário `entries` unifica descoberta, mantendo as duas listas compatíveis. Os 102 contratos estáveis anteriores e o `contracts.lock.json` preservam suas regras de revisão.
+O inventário `entries` unifica descoberta, mantendo as duas listas compatíveis. Os 102 contratos estáveis anteriores e o `contracts.lock.json` preservam suas regras de revisão. Eles registram explicitamente `validation.e2e: not-recorded`: o acesso estável herdado **não significa** E2E comprovado.
 
 ## Comandos
 
