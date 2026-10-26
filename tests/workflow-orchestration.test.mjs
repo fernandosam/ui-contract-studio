@@ -35,7 +35,7 @@ test('quality avoids repeating the complete offline suite in npm-based integrati
 });
 test('full E2E is exclusively manual on main, and certification has isolated write privilege',()=>{
  assert.match(manual,/workflow_dispatch:/);
- assert.doesNotMatch(manual,/pull_request:|\n  push:/);
+ assert.doesNotMatch(manual,/pull_request:|\n {2}push:/);
  const first=manual.split('  certify:\n')[0],second=manual.split('  certify:\n')[1];
  assert.match(first,/permissions:\s*\n\s*contents: read/);
  assert.match(first,/npm run test:e2e/);
