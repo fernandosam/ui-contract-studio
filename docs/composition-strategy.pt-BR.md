@@ -35,4 +35,25 @@ O inventário gera reports/composition-analysis/manifest.json com dependências 
 
 A ausência de TSX, orientação ou decisão bloqueia o CI. Novos exemplos Accordion, Button e Separator podem carregar pelo fallback do glob Vite, sem alteração das listas especializadas anteriores.
 
+
+## Blocos shadcn oficiais: comparação do código-fonte com o template
+
+O inventário também cobre todos os blocos oficiais cadastrados em [block-source-inventory.json](../src/ui-catalog/block-source-inventory.json). Os 27 blocos aprovados anteriormente têm 103 arquivos originais registrados em src/ui-catalog/upstream/shadcn-blocks/. Cada arquivo é validado contra seu hash Git blob e commit imutável definidos nos [pinos de origem](../src/ui-catalog/shadcn-block-source-pins.json). O analisador percorre imports de **todos os TSX oficiais versionados**, identifica estado/eventos/dependências externas e compara as primitivas originais com as utilizadas nos templates JSON locais. Diferenças aparecem em absentFromAdaptation e additionalInAdaptation; elas não são tratadas automaticamente como equivalência funcional.
+
+O processo para novo bloco passa a ser:
+
+1. Registre arquivos e links da fonte oficial em block-source-inventory.json e no inventário upstream. Não copie código de URLs arbitrárias.
+2. Execute a sincronização com um commit imutável do repositório oficial. O comando registra snapshots originais, pinos e hashes Git. Não modifique manualmente o código original versionado.
+3. Acrescente uma [decisão do bloco](../src/ui-catalog/shadcn-block-decisions.json) com implementation (declarative, react, reuse-primitive, defer) e reviewStatus (review-required ou reviewed). Novos blocos não podem alegar existing-approved. A admissão exige reviewer, reviewedOn e reviewReference. Candidatos pendentes não entram no lock ou registry do Pi.
+4. Revise diferenças de dependências e a recomendação de implementação. Publique apenas após revisão expressa, contratos Zod/registry/origem/licença/versões/fixtures e testes visuais/de acessibilidade pertinentes. Identificar o revisor no JSON não substitui revisão humana do PR.
+
+~~~bash
+npm run shadcn:blocks:sources:sync -- --block=login-01 --ref=<SHA-oficial-de-40-caracteres>
+npm run composites:inventory:check
+npm run composites:impact -- --primitive=Button
+npm run blocks:check
+~~~
+
+Os snapshots originais são **insumos de análise, não código incorporado ao runtime**. As 27 decisões legadas estão classificadas como existing-approved apenas para preservar os contratos anteriormente aprovados; isso não representa nova homologação humana ou visual. Falta de evidências e decisões bloqueia novos blocos, e candidatos pendentes não podem ser promovidos ao Pi.
+
 Referências: DatePicker (Calendar + Popover + Button com estado), OnboardingChecklist (Accordion + Badge semântico) e Login01 (template JSON gerado). Consulte [componentes](components.pt-BR.md) e [contratos semânticos ReUI](reui-semantic-contracts.pt-BR.md).
