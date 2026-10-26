@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { extractImports, suggestCompositeImplementation } from "./composition-analysis.mjs";
 
 const sha256 = content => createHash("sha256").update(content).digest("hex");
+export const gitBlobSha = content => createHash("sha1").update("blob " + Buffer.byteLength(content, "utf8") + "\0").update(content).digest("hex");
 const unique = xs => [...new Set(xs)].sort((a,b) => a.localeCompare(b));
 const uiModule = path => path.match(/(?:^|\/)(?:ui|components\/ui)\/([a-z0-9-]+)(?:\.[cm]?[jt]sx?)?$/)?.[1];
 const pascal = value => value.split("-").map(part => part.slice(0,1).toUpperCase() + part.slice(1)).join("");
