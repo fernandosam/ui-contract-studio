@@ -118,7 +118,7 @@ export function createProposal(id){
  };
  const hashes=Object.fromEntries(Object.entries(files).map(([k,v])=>[k,sha(v)]));
  files["manifest.json"]=JSON.stringify({
-  schemaVersion:1,scenarioId:id,target:recipe.target,admission:"review-required",exposedToPi:false,
+  schemaVersion:1,scenarioId:id,target:recipe.target,admission:"review-required",registryChannel:"experimental",
   approvedDependencies:scenario.dependencies,fileSha256:hashes,
   tests:scenario.tests.map(([mode,description])=>({mode,description,status:"planned-not-executed"})),
  },null,2)+"\n";
