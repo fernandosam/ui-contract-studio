@@ -37,7 +37,7 @@ export function createReuiComposite(descriptor: ReuiCompositeDescriptor): Compon
     const parsed = schema.safeParse(props)
     if (!parsed.success) throw new Error("Propriedades inválidas para " + descriptor.name)
     const { width = "full", align = "center" } = parsed.data
-    const data = "data" in parsed.data ? parsed.data.data : undefined
+    const data = "data" in parsed.data ? parsed.data.data as ReuiCompositeProps["data"] : undefined
     return (
       <div data-composite={descriptor.name} data-reui-composite={descriptor.id}
         className={"flex min-w-0 w-full " + alignments[align]}>
