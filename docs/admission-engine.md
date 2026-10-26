@@ -48,3 +48,11 @@ Reviewed recipes: `AcknowledgedActionDialog`, `TypedConfirmationDialog`, `TeamMe
 The existing TypedConfirmationDialog pilot retains its 5 desktop/mobile cases (10 executions). The other candidates now have 3 cases on each platform (18 additional executions): acknowledgment gate/reset/keyboard, local team-member content/keyboard/responsiveness, and clipboard success/denial/keyboard. Evidence reports are separated by candidate under `reports/composition-validation/admission/`.
 
 PR CI runs the browser checks and reports but **does not certify** the stable catalog. Only the manual `E2E manual (main)` workflow may clear old reports, run the full suite on the checked-out commit, verify the required evidence and record source-bound certificates in `main`. The manual workflow has not been triggered by this implementation.
+
+## No legacy admission paths
+
+- `tier` identifies component **origin** (`base`, `extension`, `composition`), whereas `lifecycle` exclusively gates stable versus experimental use.
+- The runtime reads Pi v3 maturity; both channel-specific views use one strict Zod validator implementation.
+- All four protocols—including TypedConfirmationDialog—share `scripts/admission-evidence.mjs` and require source- and revision-bound proof. Obsolete preview-only approval and promotion aliases were removed.
+- Reviewed contracts retain **semantic** fingerprints only. Retired contract inventories can remain as historical records but no longer provide a generation compatibility fallback.
+- `content` (semantic field configuration) and `nodeProps` (structured node props) remain distinct, actively used APIs. Removing either would require a dedicated reviewed migration of templates, fixtures and consumers.
