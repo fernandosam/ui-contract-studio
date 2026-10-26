@@ -48,7 +48,7 @@ const experimentalContracts=experimentalEntries.map(entry=>{
   const cert=certificates[entry.type];
   const verified=Boolean(entry.e2eProtocol && cert?.status==='passed' &&
     cert?.sourceDigest===entry.sourceDigest && cert?.protocol===entry.e2eProtocol);
-  return {type:entry.type,version:entry.version,tier:'experimental',
+  return {type:entry.type,version:entry.version,tier:'composition',
     lifecycle:verified?'stable':'experimental',
     sourceUrl:null,zodSource:'src/ui-catalog/admission-engine/generated/'+entry.type+'.schema.ts',
     example:entry.example,capability:'local-interactive',
@@ -60,7 +60,7 @@ const experimentalContracts=experimentalEntries.map(entry=>{
 // never an implication of which array happens to contain it.
 const components=[
   ...contracts.map(contract=>({...contract,lifecycle:'stable',
-    validation:{static:'legacy-approved',e2e:'not-recorded'}})),
+    validation:{static:'approved',e2e:'not-recorded'}})),
   ...experimentalContracts,
 ];
 const names=components.map(c=>c.type);
