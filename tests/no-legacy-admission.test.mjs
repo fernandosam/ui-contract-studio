@@ -57,5 +57,8 @@ test("Playwright official reference collection uses the authoritative Pi v3 mani
  assert.match(spec,/pi\.schemaVersion !== 3/);
  assert.match(spec,/Array\.isArray\(pi\.components\)/);
  assert.match(spec,/pi\.components\.map\(item => item\.type\)/);
- assert.doesNotMatch(spec,/\}\.contracts\.map/);
+ assert.doesNotMatch(spec,/\\}\\.contracts\\.map/);
+ assert.match(spec,/test\\.beforeAll\\(\\(\\) => \\{/);
+ assert.ok(spec.indexOf("test.beforeAll") < spec.indexOf("if (manifest.examples.length"),
+   "Official-docs coverage guard must not run at Playwright module import");
 });
