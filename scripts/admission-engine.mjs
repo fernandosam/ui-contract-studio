@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
  * Admission Engine — deterministic publication of reviewed composition recipes.
- * This is an opt-in distribution lane, never the authoritative Pi/json-render registry.
+ * Reviewed recipes are registered in Pi v3 as compositions; only E2E changes maturity.
  */
 import { createHash } from "node:crypto";
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -14,14 +14,9 @@ const rootDefault = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const hash = value => createHash("sha256").update(value).digest("hex");
 const json = (root, path) => JSON.parse(readFileSync(join(root, path), "utf8"));
 const revisionPattern = /^[0-9a-f]{40}$/;
-const caseIds = ["invalid-and-exact-match", "cancel-and-reopen", "keyboard-focus", "responsive-layout", "schema-and-no-network"];
-const projects = ["desktop", "mobile"];
 const fail = message => { throw new Error("Admission Engine: " + message); };
 
-export function evaluatePolicy({ policy, recipes, scenarios, lock, pi, sources, protocols={candidates:{
-  "alert-typed":{target:"TypedConfirmationDialog",protocol:"typed-confirmation-desktop-mobile",
-    cases:["invalid-and-exact-match","cancel-and-reopen","keyboard-focus","responsive-layout","schema-and-no-network"]}
-}} }) {
+export function evaluatePolicy({ policy, recipes, scenarios, lock, pi, sources, protocols }) {
   const errors = [];
   if (policy.schemaVersion !== 1 || policy.mode !== "opt-in-experimental" ||
       !Array.isArray(policy.allowedScenarios) || !Array.isArray(policy.e2eEligible))
@@ -64,38 +59,14 @@ export function evaluatePolicy({ policy, recipes, scenarios, lock, pi, sources, 
   return errors;
 }
 
-export function verifyE2eEvidence(root, candidate, evidenceRoot = "reports/composition-validation/typed-confirmation") {
-  if (candidate.id !== "alert-typed") {
-    const path=join(root,"src/ui-catalog/admission-engine/protocols.json");
-    if(!existsSync(path))fail("No E2E protocol for "+candidate.id);
-    const protocol=json(root,"src/ui-catalog/admission-engine/protocols.json").candidates?.[candidate.id];
-    const entry=json(root,"src/ui-catalog/admission-engine/entries.json").entries.find(x=>x.id===candidate.id);
-    if(!protocol || protocol.target!==candidate.target || !entry || entry.e2eProtocol!==protocol.protocol)
-      fail("No E2E protocol for "+candidate.id);
-    return inspectEvidence(root,candidate.id,entry,protocol,candidate.revision??process.env.GITHUB_SHA??null).screenshots;
-  }
-  const summary = json(root, join(evidenceRoot, "summary.json"));
-  if (summary.schemaVersion !== 1 || summary.target !== candidate.target ||
-      summary.admission !== "not-approved" || summary.piExposure !== false ||
-      summary.browserChecks?.status !== "passed" || summary.browserChecks?.executions !== 10 ||
-      JSON.stringify(summary.browserChecks.projects) !== JSON.stringify(projects) ||
-      JSON.stringify(summary.browserChecks.cases?.map(entry => entry.id)) !== JSON.stringify(caseIds))
-    fail("Incomplete or incompatible Playwright summary");
-  const screenshots = [];
-  for (const project of projects) for (const caseId of caseIds) {
-    const file = join(evidenceRoot, project, caseId);
-    const record = json(root, file + ".json");
-    const pngPath = join(root, file + ".png");
-    if (record.schemaVersion !== 1 || record.scenarioId !== candidate.id ||
-        record.project !== project || record.caseId !== caseId ||
-        record.status !== "passed" || record.expectedStatus !== "passed" ||
-        record.screenshotStatus !== "captured" || !Number.isInteger(record.retry) ||
-        record.retry < 0 || record.retry > 1 || !Array.isArray(record.errors) ||
-        record.errors.length || !existsSync(pngPath) || statSync(pngPath).size === 0)
-      fail(project + "/" + caseId + ": missing or failing browser evidence");
-    screenshots.push({ project, caseId, sha256: hash(readFileSync(pngPath)) });
-  }
-  return screenshots;
+export function verifyE2eEvidence(root,candidate) {
+  const protocol=json(root,"src/ui-catalog/admission-engine/protocols.json").candidates?.[candidate.id];
+  const entry=json(root,"src/ui-catalog/admission-engine/entries.json").entries.find(x=>x.id===candidate.id);
+  if(!protocol||!entry||protocol.target!==candidate.target||
+     entry.type!==candidate.target||entry.e2eProtocol!==protocol.protocol)
+    fail("No E2E protocol for "+candidate.id);
+  return inspectEvidence(root,candidate.id,entry,protocol,
+    candidate.revision??process.env.GITHUB_SHA??null).screenshots;
 }
 
 function input(root) {
@@ -150,15 +121,14 @@ export function publish(root = rootDefault, revision = process.env.GITHUB_SHA) {
     candidates.push({
       id, type: recipe.target, stage: "experimental", digest,
       eligibleForE2ePromotion: policy.e2eEligible.includes(id),
-      contractApi: "proposal-only", piExposure: false,
+      contractApi: "registered-composition", piExposure: true,
       capabilities: ["local-preview"], disabled: ["remote-actions", "arbitrary-jsx", "stable-pi-export"],
       files: generated.fileSha256
     });
   }
   const catalog = {
     schemaVersion: 1, channel: "experimental", sourceRevision: revision,
-    policy: "opt-in / no automatic Pi registry mutation",
-    stablePiCatalogUnchanged: true, candidates
+    policy: "official Pi v3 experimental lane; stable channel blocked until certified", candidates
   };
   writeFileSync(join(target, "catalog.json"), JSON.stringify(catalog, null, 2) + "\n");
   return catalog;
@@ -198,10 +168,6 @@ export function promoteAll(root = rootDefault,revision = process.env.GITHUB_SHA)
  };
  writeFileSync(join(dir,"catalog.json"),JSON.stringify(stable,null,2)+"\n");
  return stable;
-}
-/** Kept for import compatibility; promotes the complete verified set, not just one candidate. */
-export function promote(root=rootDefault,revision=process.env.GITHUB_SHA){
- return promoteAll(root,revision);
 }
 
 /** Write an auditable certificate only after a genuine, trusted main-branch E2E run. */
@@ -249,7 +215,7 @@ function main() {
     console.log("✓ Admission policy and " + data.policy.allowedScenarios.length + " reviewed recipes validated");
   } else if (mode === "--publish") {
     const manifest = publish(rootDefault, revision);
-    console.log("✓ Experimental admission artifact: " + manifest.candidates.length + " candidates, Pi unchanged");
+    console.log("✓ Experimental admission artifact: " + manifest.candidates.length + " official Pi candidates");
   } else {
     if(mode==="--certify"){
       const certificates=certify(rootDefault,revision);
