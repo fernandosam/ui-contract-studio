@@ -16,7 +16,7 @@ if(review.schemaVersion!==1||review.version!=='0.24.0'||allowedRetired.size!==54
 for(const entry of next.components){
  const prior=old[entry.name];
  if(!prior){if(entry.tier!=='extension')errors.push(`${entry.name}: contratos base não podem ser adicionados.`);continue;}
- if((prior.semanticFingerprint && entry.semanticFingerprint ? entry.semanticFingerprint!==prior.semanticFingerprint : entry.fingerprint!==prior.fingerprint)&&!newer(entry.version,prior.version))errors.push(`${entry.name}: contrato alterado sem incremento de versão.`);
+ if(entry.semanticFingerprint!==prior.semanticFingerprint&&!newer(entry.version,prior.version))errors.push(`${entry.name}: contrato alterado sem incremento de versão.`);
  if(entry.tier!==prior.tier)errors.push(`${entry.name}: migração de camada proibida.`);
  delete old[entry.name];
 }
