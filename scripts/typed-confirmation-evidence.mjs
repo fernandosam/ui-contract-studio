@@ -45,7 +45,7 @@ if(errors.length){
 const summary={
  schemaVersion:1,target:"TypedConfirmationDialog",scope:"isolated-runtime-proposal",
  admission:"not-approved",piExposure:false,
- browserChecks:{status:"passed",projects,cases:cases.length,executions:records.length,
+ browserChecks:{status:"passed",projects,caseCount:cases.length,executions:records.length,
   cases:cases.map(id=>({id,status:"passed",platforms:projects}))},
  manualChecks:{screenReader:"pending",crossBrowser:"pending",securityReview:"pending",
   independentCodeReview:"pending",piAdmission:"pending"},
