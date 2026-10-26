@@ -36,6 +36,31 @@ O inventário gera reports/composition-analysis/manifest.json com dependências 
 A ausência de TSX, orientação ou decisão bloqueia o CI. Novos exemplos Accordion, Button e Separator podem carregar pelo fallback do glob Vite, sem alteração das listas especializadas anteriores.
 
 
+
+## Enriquecimento semântico: orientações, capacidades e recomendações
+
+O relatório agora inclui semanticKnowledge. **Cada família ReUI já inventariada** herda as orientações da família, enquanto extensões shadcn e contratos semânticos já aprovados reutilizam suas orientações atuais. O enriquecimento específico fica em src/ui-catalog/knowledge/; AlertDialog é o primeiro exemplo detalhado. Documentação não é permissão de API.
+
+~~~bash
+npm run semantic:check
+npm run semantic:context -- --component=AlertDialog
+npm run semantic:report
+npm run composites:inventory
+npm run pi:context -- --types=AlertDialog --metadata-only --stdout
+~~~
+
+Cada registro inclui URL da fonte, seções consultadas e data; finalidade, quando usar/evitar, notas do agente, integrações candidatas, capacidades, decisões de FAQ e casos de teste. Cada capacidade tem estado de evidência distinto:
+
+- implemented-static-evidence: exige caminho de arquivo e trecho verificável de código próprio. Comprova **presença no código**, não qualidade de execução ou acessibilidade.
+- documented-not-implemented: capacidade prospectiva, ainda não exposta no contrato; pode gerar proposta de composição revisável, nunca propriedade automática.
+- runtime-review-required: comportamento que exige teste real em navegador, teclado, tecnologia assistiva, responsividade ou funcionalidade.
+
+Uma integração candidata informa se o tipo pertence ao Pi e se a implementação analisada realmente o importa. Checkbox, Input, Alert ou Sonner sugeridos **não significam que já estejam no componente** nem concedem operações remotas, exclusões, props adicionais ou permissões. Dependências ainda não analisadas ficam como desconhecidas, não como ausentes.
+
+O contexto Pi de tipos aprovados passa a incluir semanticAdvice delimitado à seleção; **propsSchema, actionSchemas e lock fechado continuam normativos**. Novos registros ricos devem citar documentação ReUI/shadcn e passar por validação de evidências no CI. Exemplos ReUI novos herdam orientações da família automaticamente; seções adicionais de funcionalidades, FAQ e integrações exigem curadoria e revisão. Informações da web nunca são tratadas automaticamente como evidência de implementação.
+
+O AlertDialog atual sinaliza confirm e expõe variante visual destrutiva, mas **não implementa** confirmação condicionada por Checkbox ou digitação no contrato Pi. A camada registra essas lacunas e exige testes reais para validar foco, teclado e dispositivos móveis.
+
 ## Blocos shadcn oficiais: comparação do código-fonte com o template
 
 O inventário também cobre todos os blocos oficiais cadastrados em [block-source-inventory.json](../src/ui-catalog/block-source-inventory.json). Os 27 blocos aprovados anteriormente têm 103 arquivos originais registrados em audits/upstream/shadcn-blocks/. Cada arquivo é validado contra seu hash Git blob e commit imutável definidos nos [pinos de origem](../src/ui-catalog/shadcn-block-source-pins.json). O analisador percorre imports de **todos os TSX oficiais versionados**, identifica estado/eventos/dependências externas e compara as primitivas originais com as utilizadas nos templates JSON locais. Diferenças aparecem em absentFromAdaptation e additionalInAdaptation; elas não são tratadas automaticamente como equivalência funcional.
