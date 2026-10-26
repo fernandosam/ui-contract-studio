@@ -5,17 +5,34 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { reuiSemanticDefaults, type ReuiSemanticDataFor } from "./reui-semantic-config"
 
-export function AccordionPattern1({ data = reuiSemanticDefaults["c-accordion-1"] }: {
-  data?: ReuiSemanticDataFor<"c-accordion-1">
-}) {
+const items = [
+  {
+    value: "item-1",
+    trigger: "Is it accessible ?",
+    content: "Yes. It adheres to the WAI-ARIA design pattern.",
+  },
+  {
+    value: "item-2",
+    trigger: "Is it styled?",
+    content:
+      "Yes. It comes with default styles that matches the other components' aesthetic.",
+  },
+  {
+    value: "item-3",
+    trigger: "Is it animated?",
+    content:
+      "Yes. It's animated by default, but you can disable it if you prefer.",
+  },
+]
+
+export function AccordionPattern1() {
   return (
-    <Accordion multiple={false} defaultValue={[data.items[0].id]}>
-      {data.items.map((item) => (
-        <AccordionItem key={item.id} value={item.id}>
-          <AccordionTrigger>{item.title}</AccordionTrigger>
-          <AccordionContent>{item.description}</AccordionContent>
+    <Accordion multiple={false} defaultValue={["item-1"]}>
+      {items.map((item) => (
+        <AccordionItem key={item.value} value={item.value}>
+          <AccordionTrigger>{item.trigger}</AccordionTrigger>
+          <AccordionContent>{item.content}</AccordionContent>
         </AccordionItem>
       ))}
     </Accordion>

@@ -16,16 +16,13 @@ import {
 } from "@/components/ui/dialog"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { reuiSemanticDefaults, type ReuiSemanticDataFor } from "./reui-semantic-config"
 
-export default function Pattern({ data = reuiSemanticDefaults["c-dialog-1"] }: {
-  data?: ReuiSemanticDataFor<"c-dialog-1">
-}) {
+export default function Pattern() {
   const id = useId()
   const [open, setOpen] = useState(false)
   const [profile, setProfile] = useState({
-    name: data.initialName,
-    username: data.initialUsername,
+    name: "Pedro Duarte",
+    username: "@peduarte",
   })
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -42,20 +39,21 @@ export default function Pattern({ data = reuiSemanticDefaults["c-dialog-1"] }: {
     <div className="flex items-center justify-center">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger render={<Button variant="outline" />}>
-          {data.triggerLabel}
+          Basic Dialog
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{data.title}</DialogTitle>
+            <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>
-              {data.description}
+              Make changes to your profile here. Click save when you&apos;re
+              done. Your profile will be updated immediately.
             </DialogDescription>
           </DialogHeader>
           {/* The form sits inside the portaled content so Save can submit it. */}
           <form onSubmit={handleSubmit} className="contents">
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor={`${id}-name`}>{data.nameLabel}</FieldLabel>
+                <FieldLabel htmlFor={`${id}-name`}>Name</FieldLabel>
                 <Input
                   id={`${id}-name`}
                   name="name"
@@ -63,7 +61,7 @@ export default function Pattern({ data = reuiSemanticDefaults["c-dialog-1"] }: {
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor={`${id}-username`}>{data.usernameLabel}</FieldLabel>
+                <FieldLabel htmlFor={`${id}-username`}>Username</FieldLabel>
                 <Input
                   id={`${id}-username`}
                   name="username"
@@ -73,9 +71,9 @@ export default function Pattern({ data = reuiSemanticDefaults["c-dialog-1"] }: {
             </FieldGroup>
             <DialogFooter>
               <DialogClose render={<Button variant="outline" />}>
-                {data.cancelLabel}
+                Cancel
               </DialogClose>
-              <Button type="submit">{data.saveLabel}</Button>
+              <Button type="submit">Save changes</Button>
             </DialogFooter>
           </form>
         </DialogContent>

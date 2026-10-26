@@ -1,14 +1,17 @@
 /** ReUI c-alert-1 (Base UI), composição estática e auditável. */
-import { Alert, AlertDescription, AlertTitle } from "./reui-alert-adapter"
-import { reuiSemanticDefaults, type ReuiSemanticDataFor } from "./reui-semantic-config"
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/ui-catalog/extensions/composites/reui-alert-adapter"
 
-export default function Pattern({ data = reuiSemanticDefaults["c-alert-1"] }: {
-  data?: ReuiSemanticDataFor<"c-alert-1">
-}) {
+export default function Pattern() {
   return (
     <Alert>
-      <AlertTitle>{data.title}</AlertTitle>
-      <AlertDescription>{data.description}</AlertDescription>
+      <AlertTitle>Alert!</AlertTitle>
+      <AlertDescription>
+        This is an alert with a title and description.
+      </AlertDescription>
     </Alert>
   )
 }
