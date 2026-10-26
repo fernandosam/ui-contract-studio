@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 import {readFileSync,existsSync,mkdirSync,writeFileSync} from "node:fs";
-import {resolve,dirname} from "node:path";
-import {createHash} from "node:crypto";
 
 const read=path=>readFileSync(path,"utf8");
 const json=path=>JSON.parse(read(path));
