@@ -7,10 +7,7 @@ const hasContent = value => typeof value === "string" && value.trim().length > 0
 const safeName = value => typeof value === "string" && /^[A-Z][A-Za-z0-9]+$/.test(value);
 const flags = new Set(["implemented-static-evidence","documented-not-implemented","runtime-review-required"]);
 const testKinds = new Set(["integration","manual-a11y","visual","candidate-not-executable"]);
-const validSourceSections = new Set([
-  "For AI Agents","What is Shadcn Alert Dialog?","Why Use Shadcn Alert Dialog?",
-  "Shadcn Alert Dialog Features","Integrating with Other Components","Frequently Asked Questions",
-]);
+const slugify = name => name.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase();
 const sorted = array => [...array].sort((a,b)=>a.localeCompare(b));
 const knowledgeRoot = "src/ui-catalog/knowledge/";
 
@@ -24,11 +21,15 @@ export function validateSemanticOverlay(record, root = process.cwd()) {
   if(record.schemaVersion!==1 || !safeName(record.component))err("schemaVersion or component invalid");
   if(record.language!=="pt-BR" || !["reviewed-documentation","draft"].includes(record.status))
     err("localized review status is mandatory; documentation never approves Pi capabilities");
-  if(!record.source || record.source.provider!=="ReUI" ||
-    record.source.url!=="https://reui.io/components/alert-dialog" ||
+  const reuiUrl="https://reui.io/components/"+slugify(component);
+  const shadcnPrefix="https://ui.shadcn.com/docs/components/";
+  if(!record.source ||
+    !(record.source.provider==="ReUI" && record.source.url===reuiUrl ||
+      record.source.provider==="shadcn" && record.source.url?.startsWith(shadcnPrefix)) ||
     !/^\d{4}-\d\d-\d\d$/.test(record.source.reviewedOn??"") ||
-    !Array.isArray(record.source.sections) || record.source.sections.some(x=>!validSourceSections.has(x)))
-    err("invalid/unknown curated source section or provenance");
+    !Array.isArray(record.source.sections) || record.source.sections.length===0 ||
+    record.source.sections.some(x=>!hasContent(x)))
+    err("invalid curated official source or section provenance");
   for(const key of ["purpose"])if(!hasContent(record[key]))err(key+" must be nonempty");
   for(const key of ["rationale","whenUse","whenNotUse","agentNotes"]) {
     if(!Array.isArray(record[key]) || !record[key].length || record[key].some(x=>!hasContent(x)))
