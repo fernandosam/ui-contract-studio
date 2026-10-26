@@ -132,3 +132,14 @@ test("ReUI Markdown ingestion produces review-only proposals, never public contr
   assert.equal(proposal.faqQuestions.length,1);
   assert.throws(()=>extractReuiMarkdown(source,"AlertDialog","https://evil.example/docs"),/exact official/);
 });
+
+test("UI explorer renders curated semantics as advisory capability/test panels",()=>{
+  const shell=readFileSync("src/ui-runtime/catalog-explorer.tsx","utf8");
+  assert.match(shell,/SemanticKnowledgePanel/);
+  assert.match(shell,/data-testid="semantic-knowledge"/);
+  assert.match(shell,/Capacidades e lacunas/);
+  assert.match(shell,/Integrações sugeridas/);
+  assert.match(shell,/Regras de decisão e dúvidas frequentes/);
+  assert.match(shell,/Testes recomendados/);
+  assert.match(shell,/não novas permissões/);
+});
