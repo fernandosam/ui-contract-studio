@@ -2,7 +2,7 @@
 
 # Admission Engine — catálogo unificado por maturidade
 
-O **manifesto oficial Pi** `pi-catalog/contracts.json` disponibiliza `entries`, inventário único que combina contratos já homologados e composições experimentais revisadas. A lista `contracts` mantém compatibilidade com consumidores estáveis; `experimentalContracts` contém as composições habilitáveis por opção explícita. Cada entrada experimental tem SHA-256 da implementação React + schema Zod estrito e permissões limitadas.
+O **manifesto oficial Pi** `pi-catalog/contracts.json` utiliza `schemaVersion: 3` e uma única coleção `components` para os 106 contratos (102 de base/extensão e quatro composições geradas). Cada componente declara seu `lifecycle` (`stable` ou `experimental`) e suas evidências. Os experimentais incluem SHA-256 da implementação React/Zod e protocolo E2E próprio. Os arrays antigos `contracts`, `experimentalContracts` e `entries` foram **removidos**, sem fallback de compatibilidade.
 
 ## Ciclo de vida
 
@@ -14,7 +14,7 @@ O **manifesto oficial Pi** `pi-catalog/contracts.json` disponibiliza `entries`, 
 
 Por padrão, o Pi usa **somente componentes estáveis**. O uso experimental exige opção explícita; os adapters React realmente executam os componentes permitidos, não são apenas exemplos de documentação. O catálogo experimental não concede chamadas remotas, URLs livres, JSX arbitrário nem novos tipos de ação.
 
-O inventário `entries` unifica descoberta, mantendo as duas listas compatíveis. Os 102 contratos estáveis anteriores e o `contracts.lock.json` preservam suas regras de revisão. Eles registram explicitamente `validation.e2e: not-recorded`: o acesso estável herdado **não significa** E2E comprovado.
+`components` é o **único** inventário publicado para o Pi: interface, seletor de contexto, validadores e testes consultam essa lista. Os 102 contratos anteriormente aprovados e o `contracts.lock.json` mantêm suas regras de revisão de origem, mas não uma API de manifesto legado. Eles registram explicitamente `validation.e2e: not-recorded`: o acesso estável herdado **não significa** E2E comprovado.
 
 ## Comandos
 
