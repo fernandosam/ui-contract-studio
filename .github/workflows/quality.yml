@@ -1,92 +1,112 @@
 name: UI Contract Studio quality
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
 concurrency:
   group: quality-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+
 jobs:
-  offline-policy:
+  changes:
+    name: Classify browser impact (PR only)
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      browser: ${{ steps.impact.outputs.browser }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
+      - name: Classify changes (fail closed)
+        id: impact
+        env:
+          CHANGE_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: node scripts/ci-change-impact.mjs
+
+  offline-policy:
+    name: Source, docs and offline tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify offline invariants
-        run: npm run docs:check && npm run test:offline && npm run composites:generated:check && npm run contracts:check && npm run patterns:check && npm run integration:check
-      - name: Compare contracts with PR base
+      - name: Verify docs and offline invariants
+        run: npm run docs:check && npm run test:offline
+      - name: Check reviewed API changes against PR base
         env:
           CONTRACT_BASE_REF: ${{ github.event.pull_request.base.sha }}
-        run: node scripts/check-contract-diff.mjs
+        run: npm run contracts:diff
+
   integration:
+    name: Source checks, schemas and production build
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-      - name: Require reviewed npm lockfile before restore
-        run: |
-          test -f package-lock.json || (echo 'Lockfile missing: generate it locally with npm + shadcn CLI, review and commit; CI must fail closed.' && exit 1)
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: package-lock.json
-      - run: npm ci --no-audit --no-fund
+          persist-credentials: false
+      - uses: ./.github/actions/setup-deps
       - name: Export authoritative schemas for Pi
         run: npm run pi:zod-schema
-      - name: Verify checkout provenance and primitives
-        run: npm run doctor:strict
-      - run: npm run shadcn:verify && npm run shadcn:integrity -- --strict
-      - run: npm run validate && npm run build
-      - name: Dry-run complete experimental artifact publication on PR
+      - name: Verify source provenance and upstream primitives
+        run: npm run doctor:strict && npm run shadcn:verify && npm run shadcn:integrity -- --strict
+      - name: Verify generators, contracts and boundaries
+        run: npm run check
+      - name: Lint sources
+        run: npm run lint
+      - name: Run integration tests (offline tests run in their own job)
+        run: npx tsx --test tests/*.integration.test.ts
+      - name: Typecheck and production build
+        run: npm run build
+      - name: Verify experimental distribution artifacts
         run: npm run admission:publish
-      - name: Validate Pi generator negative and positive cases
+      - name: Verify actual Pi spec validation
         run: npm run pi:validate -- --file=pi-catalog/examples/Dashboard01.json --out=reports/pi-validation/ci.json
 
   admission-browser:
-    name: Admission browser review (not full E2E)
-    if: github.event_name == 'pull_request'
+    name: Focused admission browser review (PR only)
+    needs: changes
+    if: github.event_name == 'pull_request' && needs.changes.outputs.browser == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: package-lock.json
-      - run: npm ci --no-audit --no-fund
-      - name: Set up browser for focused tests
+          persist-credentials: false
+      - uses: ./.github/actions/setup-deps
+      - uses: ./.github/actions/setup-chromium
+      - name: Clear evidence from earlier runs
+        run: npm run admission:evidence:reset
+      - name: Verify all 4 compositions and official Pi explorer on desktop/mobile
         run: |
-          browser="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
-          if [ -n "$browser" ]; then
-            echo "UI_CONTRACT_STUDIO_CHROMIUM_EXECUTABLE=$browser" >> "$GITHUB_ENV"
-            "$browser" --version
-          else
-            npx playwright install --with-deps chromium
-          fi
-      - run: npm run admission:evidence:reset
-      - name: Exercise TypedConfirmationDialog official experimental contract on desktop/mobile
-        run: npm run test:composition:pilot
-      - name: Exercise all three additional experimental contracts on desktop/mobile
-        run: npm run test:admission:candidates
-      - name: Verify opt-in official Pi catalog on desktop and mobile
-        run: npx playwright test tests/e2e/admission-catalog.spec.ts --project=desktop --project=mobile
-      - name: Verify evidence reports for all four candidates
+          npx playwright test \
+            tests/e2e/typed-confirmation-pilot.spec.ts \
+            tests/e2e/admission-candidates.spec.ts \
+            tests/e2e/admission-catalog.spec.ts \
+            --project=desktop --project=mobile
+      - name: Check all four fingerprint-bound browser evidence reports
         run: npm run admission:evidence:report
-      - name: Save isolated proposal evidence
+      - name: Preserve browser evidence for review
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: admission-browser-evidence
           path: |
-            reports/composition-validation/typed-confirmation/
-            reports/composition-validation/admission/
+            reports/composition-validation/
             test-results/
           if-no-files-found: warn
+          retention-days: 14
