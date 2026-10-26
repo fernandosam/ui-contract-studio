@@ -58,7 +58,7 @@ const experimentalContracts=experimentalEntries.map(entry=>{
     interactionBoundary:'Somente UI local: sem chamadas remotas nem permissões adicionais'};
 });
 const allEntries=[
-  ...contracts.map(contract=>({...contract,lifecycle:'stable',
+  ...contracts.map(({type,version,tier,example})=>({type,version,tier,example,lifecycle:'stable',
     availability:{piExperimental:true,piStable:true}})),
   ...experimentalContracts,
 ];
