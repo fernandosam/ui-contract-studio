@@ -99,7 +99,10 @@
     "composition:pilot:report": "node scripts/typed-confirmation-evidence.mjs --report",
     "admission:check": "node scripts/admission-engine.mjs --check",
     "admission:publish": "node scripts/admission-engine.mjs --publish",
-    "admission:promote": "node scripts/admission-engine.mjs --promote"
+    "admission:promote": "node scripts/admission-engine.mjs --promote",
+    "admission:sync": "node scripts/sync-admission-catalog.mjs --write && node scripts/build-pi-api.mjs --write",
+    "admission:sync:check": "node scripts/sync-admission-catalog.mjs --check",
+    "admission:certify": "node scripts/admission-engine.mjs --certify"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

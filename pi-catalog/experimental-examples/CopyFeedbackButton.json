@@ -1,0 +1,13 @@
+{
+  "root": "example",
+  "elements": {
+    "example": {
+      "type": "CopyFeedbackButton",
+      "props": {
+        "label": "Copiar",
+        "text": "texto seguro"
+      },
+      "children": []
+    }
+  }
+}

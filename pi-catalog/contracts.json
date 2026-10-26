@@ -12026,5 +12026,1300 @@
       "hasSemanticAPI": true,
       "visualStatus": "not-certified"
     }
+  ],
+  "experimentalCatalogSize": 4,
+  "experimentalContracts": [
+    {
+      "type": "AcknowledgedActionDialog",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/AcknowledgedActionDialog.schema.ts",
+      "example": "pi-catalog/experimental-examples/AcknowledgedActionDialog.json",
+      "capability": "local-interactive",
+      "sourceDigest": "b825a220acf4568a0d48b83cd406529921da7151f3f2b4b100505dbf52ea64b6",
+      "e2eProtocol": null,
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": false
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    },
+    {
+      "type": "TypedConfirmationDialog",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/TypedConfirmationDialog.schema.ts",
+      "example": "pi-catalog/experimental-examples/TypedConfirmationDialog.json",
+      "capability": "local-interactive",
+      "sourceDigest": "86f640487463ddf9eaccaf863ac2772863dd64ce129d72e0049fae951d8b46da",
+      "e2eProtocol": "typed-confirmation-desktop-mobile",
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": false
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    },
+    {
+      "type": "TeamMemberAccordion",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/TeamMemberAccordion.schema.ts",
+      "example": "pi-catalog/experimental-examples/TeamMemberAccordion.json",
+      "capability": "local-interactive",
+      "sourceDigest": "0c8d0b7aceac11f56611c9aa4408c773a6202483eb87c1b6d7a9d2ad2200e8ec",
+      "e2eProtocol": null,
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": false
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    },
+    {
+      "type": "CopyFeedbackButton",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/CopyFeedbackButton.schema.ts",
+      "example": "pi-catalog/experimental-examples/CopyFeedbackButton.json",
+      "capability": "local-interactive",
+      "sourceDigest": "adae00ffca5ac5a9fe298a06dd2dd9f2f6b6943277dd7085487ce5e6153cf188",
+      "e2eProtocol": null,
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": false
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    }
+  ],
+  "entries": [
+    {
+      "type": "Card",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Card.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Stack",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Stack.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Grid",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Grid.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Separator",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Separator.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Tabs",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Tabs.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Accordion",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Accordion.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Collapsible",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Collapsible.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Dialog",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Dialog.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Drawer",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Drawer.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Carousel",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Carousel.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Table",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Table.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Heading",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Heading.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Text",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Text.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Image",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Image.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Icon",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Icon.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Avatar",
+      "version": "2.2.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Avatar.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Badge",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Badge.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Alert",
+      "version": "2.2.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Alert.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Progress",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Progress.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Skeleton",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Skeleton.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Spinner",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Spinner.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Tooltip",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Tooltip.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Popover",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Popover.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Rating",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Rating.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Metric",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Metric.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "BarGraph",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/BarGraph.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "LineGraph",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/LineGraph.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Input",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Input.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Textarea",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Textarea.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Select",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Select.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Checkbox",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Checkbox.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Radio",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Radio.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Switch",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Switch.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Slider",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Slider.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Button",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Button.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Link",
+      "version": "2.0.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Link.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "DropdownMenu",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/DropdownMenu.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Toggle",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Toggle.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "ToggleGroup",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/ToggleGroup.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "ButtonGroup",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/ButtonGroup.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Pagination",
+      "version": "2.1.0",
+      "tier": "base",
+      "example": "pi-catalog/examples/Pagination.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "DataTable",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/DataTable.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "DatePicker",
+      "version": "1.1.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/DatePicker.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Field",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Field.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "BlockSidebar",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/BlockSidebar.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Dashboard01",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Dashboard01.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Login01",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Login01.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Login02",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Login02.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Login03",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Login03.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Login04",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Login04.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Login05",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Login05.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Signup01",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Signup01.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Signup02",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Signup02.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Signup03",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Signup03.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Signup04",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Signup04.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Signup05",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Signup05.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar01",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar01.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar02",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar02.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar03",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar03.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar04",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar04.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar05",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar05.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar06",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar06.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar07",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar07.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar08",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar08.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar09",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar09.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar10",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar10.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar11",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar11.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar12",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar12.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar13",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar13.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar14",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar14.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar15",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar15.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Sidebar16",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Sidebar16.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteColorPalette",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteColorPalette.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCommandMenu",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCommandMenu.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteDirectoryList",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteDirectoryList.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteNavUser",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteNavUser.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteThemeCustomizer",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteThemeCustomizer.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsActivityGoal",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsActivityGoal.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsChat",
+      "version": "1.1.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsChat.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsCookieSettings",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsCookieSettings.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsCreateAccount",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsCreateAccount.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsForms",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsForms.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsPaymentMethod",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsPaymentMethod.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsReportIssue",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsReportIssue.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsShare",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsShare.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsStats",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsStats.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "SiteCardsTeamMembers",
+      "version": "1.2.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/SiteCardsTeamMembers.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "AspectRatio",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/AspectRatio.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Kbd",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Kbd.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Empty",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Empty.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "ScrollArea",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/ScrollArea.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "AlertDialog",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/AlertDialog.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Attachment",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Attachment.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Bubble",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Bubble.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "ContextMenu",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/ContextMenu.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "HoverCard",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/HoverCard.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Item",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Item.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Marker",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Marker.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "Message",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/Message.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "OnboardingChecklist",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/OnboardingChecklist.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "RatingDistribution",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/RatingDistribution.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "CharacterCountTextarea",
+      "version": "1.0.0",
+      "tier": "extension",
+      "example": "pi-catalog/examples/CharacterCountTextarea.json",
+      "lifecycle": "stable",
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
+      }
+    },
+    {
+      "type": "AcknowledgedActionDialog",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/AcknowledgedActionDialog.schema.ts",
+      "example": "pi-catalog/experimental-examples/AcknowledgedActionDialog.json",
+      "capability": "local-interactive",
+      "sourceDigest": "b825a220acf4568a0d48b83cd406529921da7151f3f2b4b100505dbf52ea64b6",
+      "e2eProtocol": null,
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": false
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    },
+    {
+      "type": "TypedConfirmationDialog",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/TypedConfirmationDialog.schema.ts",
+      "example": "pi-catalog/experimental-examples/TypedConfirmationDialog.json",
+      "capability": "local-interactive",
+      "sourceDigest": "86f640487463ddf9eaccaf863ac2772863dd64ce129d72e0049fae951d8b46da",
+      "e2eProtocol": "typed-confirmation-desktop-mobile",
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": false
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    },
+    {
+      "type": "TeamMemberAccordion",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/TeamMemberAccordion.schema.ts",
+      "example": "pi-catalog/experimental-examples/TeamMemberAccordion.json",
+      "capability": "local-interactive",
+      "sourceDigest": "0c8d0b7aceac11f56611c9aa4408c773a6202483eb87c1b6d7a9d2ad2200e8ec",
+      "e2eProtocol": null,
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": false
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    },
+    {
+      "type": "CopyFeedbackButton",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/CopyFeedbackButton.schema.ts",
+      "example": "pi-catalog/experimental-examples/CopyFeedbackButton.json",
+      "capability": "local-interactive",
+      "sourceDigest": "adae00ffca5ac5a9fe298a06dd2dd9f2f6b6943277dd7085487ce5e6153cf188",
+      "e2eProtocol": null,
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": false
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    }
   ]
 }

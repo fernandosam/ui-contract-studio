@@ -170,11 +170,39 @@ export function promote(root = rootDefault, revision = process.env.GITHUB_SHA, i
   return stable;
 }
 
+/** Write an auditable certificate only after a genuine, trusted main-branch E2E run. */
+export function certify(root = rootDefault, revision = process.env.GITHUB_SHA) {
+  if (process.env.GITHUB_ACTIONS !== "true" ||
+      process.env.GITHUB_EVENT_NAME !== "workflow_dispatch" ||
+      process.env.GITHUB_REF !== "refs/heads/main" ||
+      process.env.ADMISSION_CERTIFY_CONFIRM !== "yes" ||
+      !/^\d+$/.test(process.env.GITHUB_RUN_ID ?? ""))
+    fail("Certificate recording requires a trusted, explicit manual main-branch GitHub Actions run");
+  const stable = promote(root, revision);
+  const file = join(root,"src/ui-catalog/admission-engine/certifications.json");
+  const doc = JSON.parse(readFileSync(file,"utf8"));
+  if(doc.schemaVersion!==1 || !doc.components || Array.isArray(doc.components))fail("Invalid certificates");
+  const type=stable.candidate.type;
+  const entry=json(root,"src/ui-catalog/admission-engine/entries.json").entries.find(x=>x.type===type);
+  if(!entry || !entry.sourceDigest || entry.e2eProtocol!==stable.evidence.protocol)
+    fail("Official entry has no matching E2E protocol or source digest");
+  doc.components[type] = {
+    status:"passed",protocol:stable.evidence.protocol,
+    sourceDigest:entry.sourceDigest,sourceRevision:stable.sourceRevision,
+    githubRunId:process.env.GITHUB_RUN_ID,
+    evidenceDigest:hash(JSON.stringify(stable.evidence))
+  };
+  writeFileSync(file,JSON.stringify(doc,null,2)+"\n");
+  const result=spawnSync(process.execPath,["scripts/build-pi-api.mjs","--write"],
+    {cwd:root,encoding:"utf8"});
+  if(result.status!==0)fail("Unable to regenerate the official Pi manifest: "+(result.stderr||result.stdout));
+  return doc.components[type];
+}
 function main() {
   const args = process.argv.slice(2);
   const mode = args[0];
   const revision = args.find(entry => entry.startsWith("--revision="))?.slice(11) ?? process.env.GITHUB_SHA;
-  if (!["--check", "--publish", "--promote"].includes(mode) ||
+  if (!["--check", "--publish", "--promote", "--certify"].includes(mode) ||
       args.slice(1).some(entry => !/^--revision=[0-9a-f]{40}$/.test(entry)))
     fail("Use --check, --publish or --promote [--revision=<40-char SHA>]");
   if (mode === "--check") {
@@ -185,8 +213,13 @@ function main() {
     const manifest = publish(rootDefault, revision);
     console.log("✓ Experimental admission artifact: " + manifest.candidates.length + " candidates, Pi unchanged");
   } else {
-    const manifest = promote(rootDefault, revision);
-    console.log("✓ Post-E2E stable artifact: " + manifest.candidate.type + ", commit " + manifest.sourceRevision);
+    if(mode==="--certify"){
+      const cert=certify(rootDefault,revision);
+      console.log("✓ Official Pi catalog certificate: "+cert.sourceDigest);
+    }else{
+      const manifest=promote(rootDefault,revision);
+      console.log("✓ Post-E2E stable artifact: "+manifest.candidate.type+", commit "+manifest.sourceRevision);
+    }
   }
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

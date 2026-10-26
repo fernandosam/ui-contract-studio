@@ -1,0 +1,16 @@
+{
+  "root": "example",
+  "elements": {
+    "example": {
+      "type": "TypedConfirmationDialog",
+      "props": {
+        "trigger": "Excluir",
+        "title": "Confirmação",
+        "description": "Digite código",
+        "expectedText": "EXCLUIR",
+        "confirmLabel": "Excluir"
+      },
+      "children": []
+    }
+  }
+}

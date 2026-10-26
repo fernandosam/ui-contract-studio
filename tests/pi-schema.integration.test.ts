@@ -2,30 +2,32 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
-import {catalog,componentDefinitions} from '../src/ui-catalog/catalog';
+import {catalog,componentDefinitions,unifiedComponentDefinitions,experimentalCatalog} from '../src/ui-catalog/catalog';
 const read=(p:string)=>JSON.parse(readFileSync(p,'utf8'));
 const project=read('package.json');
 const all=read('pi-catalog/contracts.json');
 
-test('todos os 102 contratos expõem JSON Schema real e sem extravasamento de tipos',()=>{
+test('catálogo unificado exporta schemas reais para estáveis e experimentais',()=>{
  const path='pi-catalog/props-json-schema.json';
  assert.ok(existsSync(path),'Execute npm run pi:zod-schema antes do teste integrado');
  const schemas=read(path);
  assert.equal(schemas.schemaVersion,2);
  assert.equal(schemas.projectVersion,project.version);
  assert.equal(schemas.catalogSize,102);
- assert.deepEqual(Object.keys(schemas.types).sort(),Object.keys(componentDefinitions).sort());
- for(const contract of all.contracts){
+ assert.equal(schemas.experimentalCatalogSize,all.experimentalCatalogSize);
+ assert.deepEqual(Object.keys(schemas.types).sort(),Object.keys(unifiedComponentDefinitions).sort());
+ assert.deepEqual(all.contracts.map((x:{type:string})=>x.type).sort(),Object.keys(componentDefinitions).sort());
+ for(const contract of all.entries){
   const prop=schemas.types[contract.type];
   assert.ok(prop,contract.type);
   assert.ok(typeof prop==='object',contract.type);
   assert.ok(Array.isArray(schemas.events[contract.type]),contract.type);
  }
 });
-test('todos os exemplos de Pi são aceitos pelo schema real do catálogo',()=>{
- for(const entry of all.contracts){
+test('exemplos estáveis e experimentais respeitam seus canais de catálogo',()=>{
+ for(const entry of all.entries){
   const spec=read(entry.example);
-  const validation=catalog.validate(spec);
+  const validation=entry.lifecycle==='experimental'?experimentalCatalog.validate(spec):catalog.validate(spec);
   assert.ok(validation.success,`${entry.type}: ${validation.success?'':validation.error.message}`);
  }
 });

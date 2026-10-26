@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "scenarioId": "alert-typed",
   "target": "TypedConfirmationDialog",
-  "stage": "preview-only",
-  "piAdmission": "not-approved",
+  "stage": "experimental",
+  "piAdmission": "experimental-only",
   "previewFile": "src/ui-catalog/extensions/composites/proposals/TypedConfirmationDialog.tsx",
   "schemaFile": "src/ui-catalog/extensions/composites/proposals/TypedConfirmationDialog.schema.ts",
   "sourceRecipe": "scripts/composition-codegen/recipes/alert-typed.component.tsx.txt",
@@ -57,5 +57,5 @@
       "status": "pending"
     }
   ],
-  "admissionPolicy": "A preview is not a published contract. Never modify the Pi lock, export, registry or action allowlist from a generated proposal without independent approved PR review."
+  "admissionPolicy": "Registered only in the official experimental Pi channel. Stable access requires fingerprint-matching E2E certification; no remote actions or implicit permissions."
 }

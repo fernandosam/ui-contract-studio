@@ -1,40 +1,41 @@
 [English](admission-engine.md) | [Português](admission-engine.pt-BR.md)
 
-# Admission Engine
+# Admission Engine — unified catalog and maturity
 
-An opt-in distribution pipeline for reviewed React+strict-Zod composition recipes. It does **not** grant a new type, event, action or permission in the authoritative Pi/json-render registry.
+The **official Pi manifest** `pi-catalog/contracts.json` contains `entries`, a unified discoverable inventory combining the original locked contracts and reviewed experimental compositions. Backward-compatible `contracts` remains the original approved/stable set; `experimentalContracts` contains opt-in compositions. Every experimental entry carries a reproducible SHA-256 fingerprint of its React+strict Zod source and explicit permissions.
 
-## Channels
+## Lifecycle and access
 
-| Channel | Trigger | Gate | Output |
-| --- | --- | --- | --- |
-| Experimental | Push to `main` (or manual rerun) | `npm ci`, reviewed recipe/allowlist checks, `npm run validate`, `npm run build` | GitHub Actions artifact `admission-experimental-<commit SHA>` |
-| Stable distribution (post-E2E) | Manual **E2E manual (main)** | All full E2E tests pass, plus complete desktop/mobile evidence for the eligible candidate on the same checked-out commit | GitHub Actions artifact `admission-stable-<commit SHA>` |
-| Native Pi catalog | Separate integration process | Strict Zod/registry/lock/source/license review; all existing Pi gates | `pi-catalog/contracts.json` (unchanged by this engine) |
+| State | Meaning | Pi use |
+| --- | --- | --- |
+| Experimental | Strict schema, codegen integrity, catalog policy, CI tests/build; E2E pending | `--channel=experimental` |
+| E2E validated / stable for local-only demos | Complete browser evidence on main and a persisted certificate matching the source fingerprint | Both channels |
+| Blocked/stale | Failed gates or no longer matching certificate | Not promoted; mismatched certificate reverts to experimental |
 
-The isolated **stable distribution** artifact means *E2E-homologated code snapshot*, not an automatically installed Pi contract or an indefinite hosted service. Artifacts expire under retention settings (experimental 30 days, stable 90 days). They contain the original React+Zod proposal files and a manifest. Consuming them requires an explicit integration step. Do not treat a `stable` channel label as evidence of WCAG compliance, screen-reader approval, security review, or production approval.
+The stable channel is **default**; experimental is opt-in. The experimental registry includes executable React adapters from reviewed sources, not merely documentation. No arbitrary JSX, remote operations, open URLs or new action types are admitted.
 
-## Admission policy
+The official `entries` list provides one discovery surface, while the two compatible arrays preserve existing consumers. The original 102 stable types and `contracts.lock.json` keep their established review process and are not silently rewritten.
 
-The [policy](../src/ui-catalog/admission-engine/policy.json) explicitly allows four reviewed recipes: `alert-checkbox`, `alert-typed`, `accordion-members`, and `button-copy`. The generator validates TypeScript syntax, strict Zod fixture coverage, imports, dependencies and blocked side effects. Generated artifacts carry file SHA-256 hashes, a candidate digest and the source commit SHA. A candidate already in the Pi catalog is rejected.
-
-Only `alert-typed` has a verified browser-evidence protocol, and thus is the only candidate initially eligible for stable distribution. Other proposals cannot be promoted by merely adding a metadata flag. Introduce an explicit browser protocol, tests and expected evidence for each new candidate before extending the engine.
-
-## Local commands
+## Commands
 
 ~~~bash
+npm run admission:sync          # regenerate experimental adapters, schemas, fixtures and official Pi manifest
+npm run admission:sync:check    # CI drift guard
+npm run pi:zod-schema           # export real JSON Schemas for both channels
+npm run pi:context -- --types=TypedConfirmationDialog --channel=experimental --stdout
+npm run pi:validate -- --file=pi-catalog/experimental-examples/TypedConfirmationDialog.json --channel=experimental
 npm run admission:check
 npm run validate && npm run build
-npm run admission:publish -- --revision=<full-Git-commit-SHA>
-# Run Playwright in a browser-equipped environment on the same revision:
-npm run composition:pilot:reset
-npm run test:composition:pilot
-npm run composition:pilot:report
-npm run admission:promote -- --revision=<same-full-Git-commit-SHA>
 ~~~
 
-The experimental manifest is written to `dist/admission/experimental/catalog.json`. After E2E, `dist/admission/stable/catalog.json` contains the admitted candidate, SHA-256 evidence digests, source digest and revision. The workflow executes `npm run test:e2e` instead of the focused browser command, and then checks the ten focused cases it produced. Stale evidence is cleared first. Promotion fails if the summary, any record, any screenshot, project, case, status or revision-scoped publication is missing or invalid.
+Without `--channel=experimental`, pending contracts are refused by both the context exporter and the Zod spec validator. An existing app can continue to use `catalog` and `registry`; opt-in integrations use `experimentalCatalog` and `experimentalRegistry`.
 
-**Trust boundary:** evidence files are *not cryptographically signed*. The trusted GitHub Actions workflow binds them to the checked-out source by regenerating the code and running Playwright in the same main-branch job, with read-only repository permissions. Do not accept arbitrary uploaded JSON/screenshots as certification. Artifact provenance is tied to the Actions run and Git commit. Local promotion is a development dry run, not independent certification.
+## Automatic E2E certification
 
-The engine never writes to `contracts.lock.json`, `sources.json`, `pi-catalog/contracts.json`, approved registries or action allowlists; this is enforced by separation of output paths and existing checks. Importing the standalone artifact into the actual Pi runtime remains a **separate, reviewed integration**, not silently implied by E2E success.
+The main-branch `E2E manual (main)` workflow clears prior browser evidence, runs the full E2E suite, checks all ten required TypedConfirmationDialog desktop/mobile cases, and publishes the post-E2E artifact. On success it runs `npm run admission:certify`, restricted to manual main-branch GitHub Actions with an explicit environment confirmation. The certificate records the source fingerprint, tested commit, evidence digest and GitHub Actions run ID.
+
+The workflow updates `src/ui-catalog/admission-engine/certifications.json` and regenerates `pi-catalog/contracts.json`, then commits those records to `main` using the workflow token. If repository protection forbids the bot push, the certification commit will fail closed and must be integrated using the repository's protected review process. No successful certification should be claimed when the commit did not land.
+
+The certificate is invalidated whenever the React or schema source digest changes. It cannot be transferred to a different candidate, and browser files from an unrelated run are not accepted by the trusted workflow. A certificate is evidence of the tested *local-only UI behavior*, not manual accessibility certification or authority to perform payments, deletion or external requests.
+
+Currently reviewed admission recipes: `AcknowledgedActionDialog`, `TypedConfirmationDialog`, `TeamMemberAccordion`, and `CopyFeedbackButton`. Only TypedConfirmationDialog has a complete promotion protocol; the others remain experimental until added to focused E2E protocols and the engine's allowlist. Fail-closed checks remain mandatory for any new recipe.
