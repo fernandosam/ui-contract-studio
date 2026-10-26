@@ -1,7 +1,7 @@
 /** Requires npm-installed Zod 4. Produces actual, full JSON Schemas from the authoritative contract definitions. */
 import { mkdirSync,writeFileSync,readFileSync } from 'node:fs';
 import { z } from 'zod';
-import { componentDefinitions,unifiedComponentDefinitions,actionDefinitions } from '../src/ui-catalog/catalog';
+import { unifiedComponentDefinitions,actionDefinitions } from '../src/ui-catalog/catalog';
 const types:Record<string,unknown>={};
 for(const [name,component] of Object.entries(unifiedComponentDefinitions)){
   types[name]=z.toJSONSchema(component.props,{target:'draft-2020-12',io:'input',unrepresentable:'any'});
