@@ -21,8 +21,9 @@ for(const [actual,recipe] of [[policy.previewFile,policy.sourceRecipe],[policy.s
   assert(read(actual)===read(recipe),actual+": preview diverged from reviewed recipe");
 }
 assert(!lock.components.some(x=>x.name===preview),"Pilot is present in approved Pi lock");
-assert(!pi.contracts.some(x=>x.type===preview),"Pilot must not enter stable Pi contracts");
-assert(pi.experimentalContracts?.some(x=>x.type===preview),"Pilot missing in official experimental Pi contracts");
+assert(pi.schemaVersion===3,"Official Pi catalog must use schemaVersion 3");
+assert(!pi.components.some(x=>x.type===preview&&x.tier!=='experimental'),"Pilot must not enter locked base/extension contracts");
+assert(pi.components.some(x=>x.type===preview&&x.tier==='experimental'),"Pilot missing from official unified Pi components");
 assert(!sources.components.some(x=>x.name===preview),"Pilot is present in approved provenance");
 assert(!compositions.reactComposites.includes(preview)&&!compositions.primitiveExtensions.includes(preview),
   "Pilot was prematurely registered in composition policy");
