@@ -3,7 +3,7 @@ import tseslint from "typescript-eslint";
 import globals from "globals";
 
 export default [
-  { ignores: ["dist/**", "node_modules/**", "coverage/**"] },
+  { ignores: ["dist/**", "node_modules/**", "coverage/**", "audits/upstream/shadcn-blocks/**"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
