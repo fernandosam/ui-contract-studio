@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: e2e-manual-${{ github.ref }}
@@ -50,6 +50,23 @@ jobs:
           path: dist/admission/stable/
           if-no-files-found: error
           retention-days: 90
+      - name: Verify main head has not changed since E2E began
+        run: |
+          git fetch origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ||
+            (echo 'Main advanced during E2E; refusing stale certification.' && exit 1)
+      - name: Record source-bound E2E certificate in official Pi manifest
+        env:
+          ADMISSION_CERTIFY_CONFIRM: 'yes'
+        run: npm run admission:certify
+      - name: Commit verified certification and generated Pi catalog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/ui-catalog/admission-engine/certifications.json pi-catalog/contracts.json
+          git diff --cached --quiet && exit 0
+          git commit -m "chore(admission): certify E2E fingerprint [skip ci]"
+          git push origin HEAD:main
       - name: Evidências E2E
         if: always()
         uses: actions/upload-artifact@v4
