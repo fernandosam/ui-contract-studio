@@ -84,7 +84,11 @@
     "composites:inventory": "node scripts/analyze-compositions.mjs --write",
     "composites:inventory:check": "node scripts/analyze-compositions.mjs",
     "composites:impact": "node scripts/analyze-compositions.mjs",
-    "shadcn:blocks:sources:sync": "node scripts/sync-shadcn-block-sources.mjs"
+    "shadcn:blocks:sources:sync": "node scripts/sync-shadcn-block-sources.mjs",
+    "semantic:check": "node scripts/analyze-semantic-knowledge.mjs --check",
+    "semantic:report": "node scripts/analyze-semantic-knowledge.mjs --write",
+    "semantic:context": "node scripts/analyze-semantic-knowledge.mjs",
+    "semantic:ingest": "node scripts/ingest-reui-knowledge.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

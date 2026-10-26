@@ -36,6 +36,39 @@ The inventory command generates a report in reports/composition-analysis/manifes
 A missing TSX, guidance, or semantic decision blocks CI. A new Accordion, Button, or Separator example can load via the fallback Vite module glob rather than requiring edits to the specialized preview arrays.
 
 
+
+## Semantic enrichment: guidance, capabilities and composition recommendations
+
+The report now includes semanticKnowledge. **Every existing ReUI family** is covered by its family guidance, and official shadcn extensions and already-approved semantic contracts reuse their existing guides. Rich per-component overlays live in src/ui-catalog/knowledge/; AlertDialog is the first audited example. Guidance is not an API contract.
+
+~~~bash
+npm run semantic:check
+npm run semantic:context -- --component=AlertDialog
+npm run semantic:report
+npm run composites:inventory
+npm run pi:context -- --types=AlertDialog --metadata-only --stdout
+~~~
+
+The overlay has source URL, referenced page sections and date; purpose, when-to-use/avoid, agent notes, optional integrations, capabilities, FAQ decisions and test cases. Each capability has one of three explicit evidence states:
+
+- implemented-static-evidence: requires a first-party file path plus a code token that the checker verifies still exists. It confirms **source presence**, not accessibility or correct runtime behavior.
+- documented-not-implemented: a prospective capability that is not exposed by the current contract. It may become a reviewed composition candidate, not an automatic property.
+- runtime-review-required: behavior requiring an actual browser, keyboard, assistive-technology, responsive or functional test.
+
+Integration candidates track whether the associated type belongs to Pi and whether the analyzed implementation actually imports it. A suggested Checkbox, Input, Alert or Sonner **does not mean it is in the component** or grants networking, deletion, extra props or action permissions. Unknown implementation dependencies remain unknown, not falsely described as absent.
+
+Pi context for approved selected types adds scoped semanticAdvice; **propsSchema, actionSchemas and the closed contract lock remain authoritative**. New curated overlays must cite the actual ReUI/shadcn documentation and pass source-evidence checks in CI. Newly registered ReUI examples inherit their family-level guidance automatically; richer feature/FAQ/relationship overlays require explicit curation and review. No unverified web claims are treated as implementation evidence.
+
+Future ReUI page content can be prepared offline from official Markdown (saved by the reviewer) without network calls in CI. The importer writes **draft proposals only** under reports/composition-analysis/proposals/ and never changes src/ui-catalog/knowledge/ or the Pi manifest:
+
+~~~bash
+npm run semantic:ingest -- --component=AlertDialog --file=reports/reui-source/alert-dialog.md
+~~~
+
+Review the heading extraction, source text and candidate integrations; then curate a schemaVersion 1 overlay with typed capability states, evidence, test cases and an independent review. The importer never interprets untrusted page text as executable instructions.
+
+An existing AlertDialog can signal confirm and provide destructive visual emphasis but does **not** implement checkbox-gated or typed confirmation in its Pi contract. The overlay records these as gaps, and requires browser verification of focus, keyboard and mobile behavior before claims of certification.
+
 ## Official shadcn blocks: source-to-template analysis
 
 The same inventory now covers every official block registered in [block-source-inventory.json](../src/ui-catalog/block-source-inventory.json). The 27 existing approved blocks have 103 original source files snapshotted in audits/upstream/shadcn-blocks/. Each file is checked against a pinned upstream Git blob SHA and an immutable commit in [source pins](../src/ui-catalog/shadcn-block-source-pins.json). The analyzer follows imports from **all reviewed upstream TSX files**, reports state/handlers/external package signals, and compares upstream shadcn primitives against the local JSON template dependencies. Differences are visible in absentFromAdaptation and additionalInAdaptation; they are not silently treated as implementation parity.

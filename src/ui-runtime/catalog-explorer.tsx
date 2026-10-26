@@ -203,6 +203,67 @@ function ReuiGuidance({type}:{type:string}) {
  </section>;
 }
 
+type SemanticOverlay = {
+ component:string; purpose:string; rationale:string[];
+ source:{url:string;reviewedOn:string;provider:string};
+ capabilities:{id:string;description:string;state:string;testRequirements:string[]}[];
+ integrations:{component:string;relationship:string;reason:string}[];
+ faqDecisions:{question:string;guidance:string}[];
+ derivedTestCases:{id:string;kind:string;description:string}[];
+};
+const semanticFiles=import.meta.glob<SemanticOverlay>('../ui-catalog/knowledge/*.json',{
+ eager:true,import:'default',
+});
+const curatedSemanticByType=Object.fromEntries(Object.values(semanticFiles).map(doc=>[doc.component,doc]));
+const capabilityLabels:Record<string,string>={
+ 'implemented-static-evidence':'Evidência no código',
+ 'documented-not-implemented':'Documentado; ainda não implementado',
+ 'runtime-review-required':'Requer testes em execução',
+};
+function SemanticKnowledgePanel({type}:{type:string}){
+ const doc=curatedSemanticByType[type] as SemanticOverlay|undefined;
+ if(!doc)return null;
+ return <section className="min-w-0 rounded-lg border border-border bg-card p-4 space-y-3" data-testid="semantic-knowledge">
+  <div className="flex flex-wrap items-center justify-between gap-2">
+   <h4 className="font-semibold">Conhecimento semântico · {type}</h4>
+   <a href={doc.source.url} target="_blank" rel="noopener noreferrer" className="text-xs underline underline-offset-4">Fonte: {doc.source.provider} ↗</a>
+  </div>
+  <p className="text-sm text-muted-foreground">{doc.purpose}</p>
+  <p className="text-xs text-muted-foreground">Orientações verificáveis, não novas permissões. Evidência estática não equivale a homologação funcional ou de acessibilidade.</p>
+  <details className="rounded-md border p-3" open>
+   <summary className="cursor-pointer text-sm font-medium">Capacidades e lacunas ({doc.capabilities.length})</summary>
+   <ul className="mt-3 grid gap-2 md:grid-cols-2">
+    {doc.capabilities.map(c=><li key={c.id} className="rounded-md bg-muted/40 p-3 text-xs">
+     <p className="font-medium">{c.description}</p>
+     <p className="mt-1 text-muted-foreground">{capabilityLabels[c.state]??'Pendente de revisão'}</p>
+    </li>)}
+   </ul>
+  </details>
+  <details className="rounded-md border p-3">
+   <summary className="cursor-pointer text-sm font-medium">Integrações sugeridas ({doc.integrations.length})</summary>
+   <p className="mt-2 text-xs text-muted-foreground">Candidatas da documentação. Não são dependências verificadas nem ampliam os contratos Pi.</p>
+   <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+    {doc.integrations.map(item=><li key={item.component} className="rounded-md bg-muted/40 p-3 text-xs">
+     <strong>{item.component}</strong> <span className="text-muted-foreground">· {Object.hasOwn(componentDefinitions,item.component)?'Tipo aprovado no catálogo':'Sem tipo Pi aprovado'}</span>
+     <p className="mt-1 text-muted-foreground">{item.reason}</p>
+    </li>)}
+   </ul>
+  </details>
+  <details className="rounded-md border p-3">
+   <summary className="cursor-pointer text-sm font-medium">Regras de decisão e dúvidas frequentes ({doc.faqDecisions.length})</summary>
+   <dl className="mt-3 space-y-2">{doc.faqDecisions.map(item=><div key={item.question} className="text-xs">
+     <dt className="font-medium">{item.question}</dt><dd className="mt-1 text-muted-foreground">{item.guidance}</dd>
+   </div>)}</dl>
+  </details>
+  <details className="rounded-md border p-3">
+   <summary className="cursor-pointer text-sm font-medium">Testes recomendados ({doc.derivedTestCases.length})</summary>
+   <ul className="mt-2 list-disc space-y-2 pl-5 text-xs text-muted-foreground">
+    {doc.derivedTestCases.map(item=><li key={item.id}>{item.description} <span>({item.kind})</span></li>)}
+   </ul>
+  </details>
+ </section>;
+}
+
 type Kind='primitive'|'composite';
 function ComponentExplorer({kind}:{kind:Kind}){
  const available=kind==='primitive'?primitiveList:compositeList;
@@ -227,6 +288,7 @@ function ComponentExplorer({kind}:{kind:Kind}){
     <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[type as keyof typeof componentDefinitions]?.description}</p>
     <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(type).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
     {kind==='primitive' && <ReuiGuidance type={type}/>}
+    <SemanticKnowledgePanel type={type}/>
     {spec&&<LivePropsEditor key={`${kind}:${type}`} type={type} original={spec} source={sample?.source??''}/>}
    </div>
   </div>
