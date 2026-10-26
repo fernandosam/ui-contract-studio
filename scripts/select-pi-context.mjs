@@ -20,25 +20,24 @@ if(!metadataOnly&&!existsSync(schemaPath)){
  process.exit(2);
 }
 const schema=metadataOnly?null:read(schemaPath);
-if(schema&&(schema.schemaVersion!==2||schema.projectVersion!==all.projectVersion||schema.catalogSize!==all.catalogSize||!schema.types||!schema.actions||!schema.events)){
+if(schema&&(schema.schemaVersion!==3||schema.projectVersion!==all.projectVersion||!schema.types||!schema.actions||!schema.events)){
  console.error('Arquivo de schemas incompatível; regenere com npm run pi:zod-schema.');process.exit(1);
 }
 const selected=[];
 for(const name of names){
- const candidate=all.experimentalContracts?.find(x=>x.type===name);
- const contract=all.contracts.find(x=>x.type===name) ??
-   (candidate && (channel==='experimental'||candidate.availability?.piStable)?candidate:null);
+ const entry=all.components.find(x=>x.type===name);
+ const contract=entry && (channel==='experimental'||entry.lifecycle==='stable')?entry:null;
  if(!contract){const retired=read('pi-catalog/retired-contracts.json').retired.find(c=>c.name===name);console.error(retired?`Tipo removido na v0.21: ${name}. ${retired.reason} Use ${retired.replacement}.`:`Tipo não aprovado: ${name}. Consulte pi-catalog/contracts.json.`);process.exit(1)}
  const shape=schema?.types[name];
  if(schema&&!shape){console.error(`${name}: schema ausente/desatualizado. Execute npm run pi:zod-schema.`);process.exit(1)}
  selected.push({contract, ...(shape?{propsSchema:shape,events:schema.events[name]??[]}:{}),example:read(contract.example)});
 }
-const semantic=buildSemanticKnowledge({approvedNames:new Set(all.contracts.map(x=>x.type))});
+const semantic=buildSemanticKnowledge({approvedNames:new Set(all.components.filter(x=>x.tier!=='experimental').map(x=>x.type))});
 if(semantic.errors.length){
  semantic.errors.forEach(e=>console.error('✗ '+e));process.exit(1);
 }
-const semanticAdvice=selectAgentSemanticAdvice(semantic.report,names.filter(x=>all.contracts.some(c=>c.type===x)));
-const pack={schemaVersion:2,catalogVersion:all.projectVersion,channel,metadataOnly,rules:[
+const semanticAdvice=selectAgentSemanticAdvice(semantic.report,names.filter(x=>all.components.some(c=>c.type===x&&c.tier!=='experimental')));
+const pack={schemaVersion:3,catalogVersion:all.projectVersion,channel,metadataOnly,rules:[
  channel==='experimental'?'EXPERIMENTAL: tipos experimentais somente para preview/sandbox local; não conceda operações externas.':'ESTÁVEL: não utilize tipos experimentais pendentes de E2E.',
  'Retorne somente JSON com root e elements; todos os nós DEVEM conter children como array, mesmo sem filhos.',
  'Use APENAS os tipos selecionados e propriedades do propsSchema; additionalProperties false é obrigatório.',
