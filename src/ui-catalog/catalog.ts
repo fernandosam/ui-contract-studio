@@ -129,7 +129,9 @@ export const experimentalComponentEventDescriptors = descriptors(unifiedComponen
 function withStrictValidation<C extends ReturnType<typeof defineCatalog>>(
   result:C, definitions:Record<string,StrictDefinition>
 ) {
-  const validateStructure=result.validate.bind(result);
+  const validateStructure=(result as {validate:(input:unknown)=>{
+    success:boolean;data?:unknown;error?:{issues?:z.core.$ZodIssue[]}
+  }}).validate.bind(result);
   Object.defineProperty(result,"validate",{
     value(input:unknown) {
       const checked=validateStructure(input);
