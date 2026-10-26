@@ -25,6 +25,9 @@ npm run pi:zod-schema           # export real JSON Schemas for both channels
 npm run pi:context -- --types=TypedConfirmationDialog --channel=experimental --stdout
 npm run pi:validate -- --file=pi-catalog/experimental-examples/TypedConfirmationDialog.json --channel=experimental
 npm run admission:check
+npm run admission:evidence:reset
+npm run test:admission:candidates
+npm run admission:evidence:report
 npm run validate && npm run build
 ~~~
 
@@ -38,4 +41,10 @@ The workflow updates `src/ui-catalog/admission-engine/certifications.json` and r
 
 The certificate is invalidated whenever the React or schema source digest changes. It cannot be transferred to a different candidate, and browser files from an unrelated run are not accepted by the trusted workflow. A certificate is evidence of the tested *local-only UI behavior*, not manual accessibility certification or authority to perform payments, deletion or external requests.
 
-Currently reviewed admission recipes: `AcknowledgedActionDialog`, `TypedConfirmationDialog`, `TeamMemberAccordion`, and `CopyFeedbackButton`. Only TypedConfirmationDialog has a complete promotion protocol; the others remain experimental until added to focused E2E protocols and the engine's allowlist. Fail-closed checks remain mandatory for any new recipe.
+Reviewed recipes: `AcknowledgedActionDialog`, `TypedConfirmationDialog`, `TeamMemberAccordion`, and `CopyFeedbackButton`. All four now have dedicated browser protocols, but **remain experimental until the manual main workflow records matching certificates**. Any failing required browser case blocks that run's promotion; PR test success never means certification.
+
+## Four independent E2E protocols
+
+The existing TypedConfirmationDialog pilot retains its 5 desktop/mobile cases (10 executions). The other candidates now have 3 cases on each platform (18 additional executions): acknowledgment gate/reset/keyboard, local team-member content/keyboard/responsiveness, and clipboard success/denial/keyboard. Evidence reports are separated by candidate under `reports/composition-validation/admission/`.
+
+PR CI runs the browser checks and reports but **does not certify** the stable catalog. Only the manual `E2E manual (main)` workflow may clear old reports, run the full suite on the checked-out commit, verify the required evidence and record source-bound certificates in `main`. The manual workflow has not been triggered by this implementation.
