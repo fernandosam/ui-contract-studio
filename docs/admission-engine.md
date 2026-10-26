@@ -14,7 +14,7 @@ The **official Pi manifest** `pi-catalog/contracts.json` contains `entries`, a u
 
 The stable channel is **default**; experimental is opt-in. The experimental registry includes executable React adapters from reviewed sources, not merely documentation. No arbitrary JSX, remote operations, open URLs or new action types are admitted.
 
-The official `entries` list provides one discovery surface, while the two compatible arrays preserve existing consumers. The original 102 stable types and `contracts.lock.json` keep their established review process and are not silently rewritten.
+The official `entries` list provides one discovery surface, while the two compatible arrays preserve existing consumers. The original 102 stable types and `contracts.lock.json` keep their established review process and are not silently rewritten. Their maturity metadata explicitly says `validation.e2e: not-recorded`: inherited stable access does **not** imply an E2E certification run.
 
 ## Commands
 

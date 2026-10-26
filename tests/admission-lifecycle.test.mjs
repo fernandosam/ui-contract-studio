@@ -15,6 +15,10 @@ test("official manifest lists stable and experimental contracts without changing
  assert.equal(official.experimentalCatalogSize,entries.length);
  assert.equal(all.length,stable.length+entries.length);
  assert.equal(new Set(all).size,all.length);
+ for(const legacy of official.entries.filter(x=>x.tier!=="experimental")){
+  assert.equal(legacy.validation.e2e,"not-recorded",legacy.type+": never fabricate historical E2E evidence");
+  assert.equal(legacy.availability.piStable,true,"compatibility for existing approved contracts");
+ }
  for(const entry of entries){
   const item=official.experimentalContracts.find(x=>x.type===entry.type);
   assert.ok(item,entry.type);

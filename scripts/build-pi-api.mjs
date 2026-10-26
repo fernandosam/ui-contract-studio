@@ -59,6 +59,7 @@ const experimentalContracts=experimentalEntries.map(entry=>{
 });
 const allEntries=[
   ...contracts.map(({type,version,tier,example})=>({type,version,tier,example,lifecycle:'stable',
+    validation:{static:'legacy-approved',e2e:'not-recorded'},
     availability:{piExperimental:true,piStable:true}})),
   ...experimentalContracts,
 ];
