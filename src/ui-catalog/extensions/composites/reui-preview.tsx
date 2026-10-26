@@ -36,18 +36,12 @@ const accordions=[AccordionPattern1,AccordionPattern2,AccordionPattern3,Accordio
 export function ReuiPattern({kind,id}:{kind:string;id:string}){
  const index=Number(id.split('-').at(-1));
  if(!Number.isInteger(index)||index<1) return null;
- if(kind==='Accordion'){
-  const Pattern=accordions[index-1];
-  return Pattern ? <Pattern/> : null;
- }
- if(kind==='Separator'){
-  const Pattern=separators[index-1];
-  return Pattern ? <Pattern/> : null;
- }
- if(kind==='Button'){
-  const Pattern=reuiButtonPatterns[index-1];
-  return Pattern ? <Pattern/> : null;
- }
+ // Preserve the existing reviewed adapters, but allow newly registered ReUI
+ // patterns in these families to load through the same static Vite glob.
+ const Specialized=kind==='Accordion' ? accordions[index-1]
+  : kind==='Separator' ? separators[index-1]
+    : kind==='Button' ? reuiButtonPatterns[index-1] : undefined;
+ if(Specialized)return <Specialized/>;
  const slug=kind.replace(/([a-z0-9])([A-Z])/g,'$1-$2').toLowerCase();
  const Pattern=additionalPatterns['./reui-'+slug+'-'+index+'.tsx'];
  return Pattern ? <Suspense fallback={<span className="text-xs text-muted-foreground">Carregando exemplo…</span>}><Pattern/></Suspense> : null;

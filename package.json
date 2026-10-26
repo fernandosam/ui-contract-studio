@@ -80,7 +80,10 @@
     "shadcn:official:capture": "playwright test tests/e2e/official-components.spec.ts --workers=4 --retries=0 --max-failures=8",
     "shadcn:official:compare": "python3 sandbox/compare_official_components.py",
     "reui:audit": "node scripts/audit-reui-primitives.mjs",
-    "reui:audit:check": "node scripts/audit-reui-primitives.mjs --check"
+    "reui:audit:check": "node scripts/audit-reui-primitives.mjs --check",
+    "composites:inventory": "node scripts/analyze-compositions.mjs --write",
+    "composites:inventory:check": "node scripts/analyze-compositions.mjs",
+    "composites:impact": "node scripts/analyze-compositions.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -6,6 +6,7 @@ import reuiGuidance from '@/ui-catalog/reui-guidance.json';
 import reuiExampleGuidancePtBr from '@/ui-catalog/reui-example-guidance.pt-BR.json';
 import shadcnGuidance from '@/ui-catalog/shadcn-guidance.json';
 import primitiveGuidancePtBr from '@/ui-catalog/primitive-guidance.pt-BR.json';
+import compositionPolicy from '@/ui-catalog/composition-policy.json';
 import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
 
@@ -37,7 +38,7 @@ function extractBranch(spec: UiSpec, root: string): UiSpec {
 
 const types = Object.keys(componentDefinitions).sort((a,b)=>a.localeCompare(b));
 // Field is a shadcn primitive; DataTable/DatePicker/BlockSidebar compose several primitives.
-const primitiveTypes = new Set(contractLock.components.filter(c=>c.tier==='base').map(c=>c.name).concat(['Field', 'AspectRatio', 'Kbd', 'Empty', 'ScrollArea', 'AlertDialog', 'Attachment', 'Bubble', 'ContextMenu', 'HoverCard', 'Item', 'Marker', 'Message']));
+const primitiveTypes = new Set(contractLock.components.filter(c=>c.tier==='base').map(c=>c.name).concat(compositionPolicy.primitiveExtensions));
 const primitiveList=types.filter(name=>primitiveTypes.has(name));
 const compositeList=types.filter(name=>!primitiveTypes.has(name));
 const screenOptions=Object.entries(screenFiles).map(([path,spec])=>{
