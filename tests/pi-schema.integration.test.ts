@@ -25,7 +25,7 @@ test('catálogo unificado exporta schemas reais para estáveis e experimentais',
  }
 });
 test('exemplos estáveis e experimentais respeitam seus canais de catálogo',()=>{
- for(const entry of all.entries){
+ for(const entry of all.components){
   const spec=read(entry.example);
   const validation=entry.lifecycle==='experimental'?experimentalCatalog.validate(spec):catalog.validate(spec);
   assert.ok(validation.success,`${entry.type}: ${validation.success?'':validation.error.message}`);
