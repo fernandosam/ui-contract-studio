@@ -3,6 +3,7 @@ import {readFileSync,existsSync} from "node:fs";
 import {createHash} from "node:crypto";
 import {graphErrors} from "./lib/spec-invariants.mjs";
 import {signatures} from "./lib/contract-lock.mjs";
+import {analyzeShadcnBlocks} from "./lib/analyze-shadcn-blocks.mjs";
 const read=p=>JSON.parse(readFileSync(p,"utf8"));
 const audit=read("src/ui-catalog/block-source-inventory.json"), lock=read("src/ui-catalog/contracts.lock.json"), sources=read("src/ui-catalog/sources.json");
 const reviews=read("src/ui-catalog/shadcn-block-decisions.json");
@@ -41,5 +42,20 @@ if(process.argv.includes("--strict"))for(const block of audit.blocks){
  const proof=block.visualEvidence;
  if(!proof || !proof.reviewer || !proof.date || !proof.official || !proof.local || !existsSync(proof.official) || !existsSync(proof.local))errors.push(`${block.name}: evidências reais e identificação do revisor obrigatórias`);
 }
+// The standalone blocks:check command must enforce the same source/review gate as
+// the unified compositions inventory, not just legacy template hashes.
+const generated=read("src/ui-catalog/extensions/composites/generated-manifest.json");
+const templateContracts=generated.components.map(entry=>({
+ name:entry.name,
+ dependencies:[...new Set(Object.values(read("src/ui-catalog/extensions/composites/templates/"+entry.template).elements)
+   .map(node=>node.type))].sort(),
+}));
+const audited=analyzeShadcnBlocks({
+ root:process.cwd(),inventory:audit,
+ pins:read("src/ui-catalog/shadcn-block-source-pins.json"),
+ reviews,manifest:generated,contracts:templateContracts,
+ approved:new Set(lock.components.map(entry=>entry.name)),
+});
+errors.push(...audited.errors);
 if(errors.length){errors.forEach(x=>console.error("✗ "+x));process.exit(1)}
 console.log(`✓ ${audit.blocks.length} blocos novos, ${files} arquivos oficiais inspecionados e ${lock.components.length} contratos íntegros; screenshots ainda pendentes.`);
