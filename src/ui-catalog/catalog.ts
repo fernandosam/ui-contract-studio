@@ -126,8 +126,9 @@ export const experimentalComponentEventDescriptors = descriptors(unifiedComponen
 /** One strict Zod/graph validator for both lifecycle-filtered catalog views.
  * Structural errors must not hide malicious or unknown props on any other node.
  */
-function defineValidatedCatalog(definitions:typeof unifiedComponentDefinitions) {
-  const result=defineCatalog(schema,{components:definitions,actions:actionDefinitions});
+function withStrictValidation<C extends ReturnType<typeof defineCatalog>>(
+  result:C, definitions:Record<string,StrictDefinition>
+) {
   const validateStructure=result.validate.bind(result);
   Object.defineProperty(result,"validate",{
     value(input:unknown) {
@@ -154,5 +155,11 @@ function defineValidatedCatalog(definitions:typeof unifiedComponentDefinitions) 
   });
   return result;
 }
-export const catalog=defineValidatedCatalog(stableComponentDefinitions);
-export const experimentalCatalog=defineValidatedCatalog(unifiedComponentDefinitions);
+export const catalog=withStrictValidation(
+  defineCatalog(schema,{components:stableComponentDefinitions,actions:actionDefinitions}),
+  stableComponentDefinitions
+);
+export const experimentalCatalog=withStrictValidation(
+  defineCatalog(schema,{components:unifiedComponentDefinitions,actions:actionDefinitions}),
+  unifiedComponentDefinitions
+);
