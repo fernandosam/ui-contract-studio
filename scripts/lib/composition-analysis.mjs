@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { resolve, relative, dirname, join, extname, sep } from "node:path";
 import { createHash } from "node:crypto";
+import { analyzeShadcnBlocks } from "./analyze-shadcn-blocks.mjs";
 
 const readJson = path => JSON.parse(readFileSync(path, "utf8"));
 const unique = values => [...new Set(values)].sort((a, b) => a.localeCompare(b));
@@ -135,6 +136,15 @@ export function buildCompositionAnalysis(root = process.cwd()) {
   }
   contracts.sort((a, b) => a.name.localeCompare(b.name));
 
+  const shadcn = analyzeShadcnBlocks({
+    root, inventory: readJson(dir("src/ui-catalog/block-source-inventory.json")),
+    pins: readJson(dir("src/ui-catalog/shadcn-block-source-pins.json")),
+    reviews: readJson(dir("src/ui-catalog/shadcn-block-decisions.json")),
+    manifest, contracts, approved,
+  });
+  errors.push(...shadcn.errors);
+  const shadcnBlocks = shadcn.blocks;
+
   const decisionById = new Map();
   for (const decision of decisions) {
     if (decisionById.has(decision.exampleId)) errors.push("Duplicate ReUI decision: " + decision.exampleId);
@@ -195,14 +205,21 @@ export function buildCompositionAnalysis(root = process.cwd()) {
   const usage = {};
   for (const record of [...contracts, ...examples]) {
     for (const component of record.dependencies) {
-      const bucket = usage[component] ??= {contracts: [], reuiExamples: []};
+      const bucket = usage[component] ??= {contracts: [], reuiExamples: [], shadcnBlocks: []};
       bucket[record.kind === "reui-example" ? "reuiExamples" : "contracts"].push(
         record.kind === "reui-example" ? record.id : record.name);
+    }
+  }
+  for (const record of shadcnBlocks) {
+    for (const primitive of record.upstreamDependencies) {
+      const bucket = usage[primitive] ??= {contracts: [], reuiExamples: [], shadcnBlocks: []};
+      bucket.shadcnBlocks.push(record.name);
     }
   }
   for (const bucket of Object.values(usage)) {
     bucket.contracts = unique(bucket.contracts);
     bucket.reuiExamples = unique(bucket.reuiExamples);
+    bucket.shadcnBlocks = unique(bucket.shadcnBlocks);
   }
   return {
     report: {
@@ -212,8 +229,9 @@ export function buildCompositionAnalysis(root = process.cwd()) {
         approvedContracts: lock.components.length, declarativeComposites: manifest.components.length,
         reactComposites: listedReact.length, primitiveAdapters: listedPrimitives.length,
         reuiExamples: examples.length, reuiFamilies: Object.keys(families).length,
+        shadcnBlocks: shadcnBlocks.length, upstreamSourceFiles: shadcn.sourceFiles,
       },
-      contracts, reuiExamples: examples, primitiveImpact: Object.fromEntries(
+      contracts, reuiExamples: examples, shadcnBlocks, primitiveImpact: Object.fromEntries(
         Object.entries(usage).sort(([a], [b]) => a.localeCompare(b))),
     }, errors: unique(errors),
   };
