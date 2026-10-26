@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
-import { buildCompositionAnalysis, classifyReuiDecision, extractImports, templatePrimitives } from "../scripts/lib/composition-analysis.mjs";
+import { buildCompositionAnalysis, classifyReuiDecision, suggestCompositeImplementation, extractImports, templatePrimitives } from "../scripts/lib/composition-analysis.mjs";
 
 const write = (root, path, contents) => {
   const full = join(root, path);
@@ -98,10 +98,18 @@ test("new ReUI patterns require a reviewed semantic decision and are never admit
     assert.equal(output.report.totals.reuiExamples,2);
     assert.deepEqual(output.report.reuiExamples[1].dependencies, ["Badge"]);
     assert.equal(output.report.reuiExamples[1].recommendation,"reuse-approved-composition");
+    assert.equal(output.report.reuiExamples[1].suggestedImplementation,"primitive-variation-candidate");
     assert.equal(output.report.reuiExamples[1].exposedToPi,false);
   } finally {
     rmSync(root, {recursive:true,force:true});
   }
+});
+
+test("candidate suggestions are advisory and derived from primitive composition, state and integration risk", () => {
+  assert.equal(suggestCompositeImplementation(["Button"], {localState:false,handlers:false,remoteMedia:false}),"primitive-variation-candidate");
+  assert.equal(suggestCompositeImplementation(["Button","Badge"], {localState:false,handlers:false,remoteMedia:false}),"declarative-composite-candidate");
+  assert.equal(suggestCompositeImplementation(["Button","Badge"], {localState:true,handlers:true,remoteMedia:false}),"react-composite-candidate");
+  assert.equal(suggestCompositeImplementation(["Button"], {localState:true,handlers:true,remoteMedia:true}),"integration-review");
 });
 
 test("unknown classifications never enable access to Pi contracts", () => {
