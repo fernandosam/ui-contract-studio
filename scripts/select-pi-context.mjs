@@ -27,7 +27,7 @@ const selected=[];
 for(const name of names){
  const entry=all.components.find(x=>x.type===name);
  const contract=entry && (channel==='experimental'||entry.lifecycle==='stable')?entry:null;
- if(!contract){const retired=read('pi-catalog/retired-contracts.json').retired.find(c=>c.name===name);console.error(retired?`Tipo removido na v0.21: ${name}. ${retired.reason} Use ${retired.replacement}.`:`Tipo não aprovado: ${name}. Consulte pi-catalog/contracts.json.`);process.exit(1)}
+ if(!contract){console.error(`Tipo indisponível no canal ${channel}: ${name}. Consulte pi-catalog/contracts.json.`);process.exit(1)}
  const shape=schema?.types[name];
  if(schema&&!shape){console.error(`${name}: schema ausente/desatualizado. Execute npm run pi:zod-schema.`);process.exit(1)}
  selected.push({contract, ...(shape?{propsSchema:shape,events:schema.events[name]??[]}:{}),example:read(contract.example)});
