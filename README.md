@@ -17,7 +17,7 @@ UI Contract Studio is an independent React project for exploring shadcn/ui (Base
 
 The Pi catalog is **closed by default (allowlisted)**: ReUI components and shadcn/ui files do not automatically become approved contracts. Agent-generated screens are **JSON**, without arbitrary JSX/HTML, callbacks, external URLs, or actions. Authentication, payments, and remote data shown in demos are not production integrations.
 
-**Admission lifecycle:** the [official catalog](pi-catalog/contracts.json) now provides a unified `entries` inventory of stable and experimental contracts. Reviewed candidates are executable only via the opt-in `--channel=experimental` API and the [Catalog Pi explorer](docs/admission-engine.md) (`/?screen=catalogo-pi`). An E2E certificate tied to the same fingerprint promotes local-only components to stable access; the original stable `contracts` list remains backward compatible.
+**Admission lifecycle:** the [official catalog](pi-catalog/contracts.json) now publishes a single v3 `components` inventory with maturity metadata for all contracts. Reviewed candidates are executable only via the opt-in `--channel=experimental` API and the [Catalog Pi explorer](docs/admission-engine.md) (`/?screen=catalogo-pi`). An E2E certificate tied to the same fingerprint promotes local-only components to stable access; no legacy Pi manifest arrays are retained.
 
 **Stack:** React 19 · TypeScript · Vite · Tailwind CSS 4 · shadcn/ui Base UI · Zod 4 · json-render · Playwright.
 
