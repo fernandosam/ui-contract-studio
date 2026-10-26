@@ -54,7 +54,6 @@ const experimentalContracts=experimentalEntries.map(entry=>{
     example:entry.example,capability:'local-interactive',
     sourceDigest:entry.sourceDigest,e2eProtocol:entry.e2eProtocol,
     validation:{static:'passed',e2e:verified?'passed':'pending'},
-    availability:{piExperimental:true,piStable:verified},
     interactionBoundary:'Somente UI local: sem chamadas remotas nem permissões adicionais'};
 });
 // A single authoritative collection: maturity is a property of each contract,
@@ -62,7 +61,7 @@ const experimentalContracts=experimentalEntries.map(entry=>{
 const components=[
   ...contracts.map(contract=>({...contract,lifecycle:'stable',
     validation:{static:'legacy-approved',e2e:'not-recorded'}})),
-  ...experimentalContracts.map(({availability,...component})=>component),
+  ...experimentalContracts,
 ];
 const names=components.map(c=>c.type);
 if(new Set(names).size!==names.length)throw Error('Duplicated Pi component type');
