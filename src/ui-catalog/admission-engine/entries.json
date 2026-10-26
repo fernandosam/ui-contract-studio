@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "alert-checkbox",
+      "type": "AcknowledgedActionDialog",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceDigest": "000000000000000000000000000000006f7e4088719dc7ce77e207ddde3e4d61",
+      "recipeId": "alert-checkbox",
+      "source": "scripts/composition-codegen/recipes/alert-checkbox",
+      "example": "pi-catalog/experimental-examples/AcknowledgedActionDialog.json",
+      "events": [
+        "confirm"
+      ],
+      "sourceLicense": "MIT (local composition)",
+      "e2eProtocol": null,
+      "exposedToPiExperimental": true
+    },
+    {
+      "id": "alert-typed",
+      "type": "TypedConfirmationDialog",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceDigest": "0000000000000000000000000000000035ab85cecc80a67fd236ec38b52f7fe7",
+      "recipeId": "alert-typed",
+      "source": "scripts/composition-codegen/recipes/alert-typed",
+      "example": "pi-catalog/experimental-examples/TypedConfirmationDialog.json",
+      "events": [
+        "confirm"
+      ],
+      "sourceLicense": "MIT (local composition)",
+      "e2eProtocol": "typed-confirmation-desktop-mobile",
+      "exposedToPiExperimental": true
+    },
+    {
+      "id": "accordion-members",
+      "type": "TeamMemberAccordion",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceDigest": "000000000000000000000000000000007a389281dceb61f0c59dc60e4686661d",
+      "recipeId": "accordion-members",
+      "source": "scripts/composition-codegen/recipes/accordion-members",
+      "example": "pi-catalog/experimental-examples/TeamMemberAccordion.json",
+      "events": [],
+      "sourceLicense": "MIT (local composition)",
+      "e2eProtocol": null,
+      "exposedToPiExperimental": true
+    },
+    {
+      "id": "button-copy",
+      "type": "CopyFeedbackButton",
+      "version": "0.1.0",
+      "tier": "experimental",
+      "lifecycle": "experimental",
+      "sourceDigest": "700000005000000020000000a0000000b4ff71f6eb9cbaf1812f2be4f2695991",
+      "recipeId": "button-copy",
+      "source": "scripts/composition-codegen/recipes/button-copy",
+      "example": "pi-catalog/experimental-examples/CopyFeedbackButton.json",
+      "events": [],
+      "sourceLicense": "MIT (local composition)",
+      "e2eProtocol": null,
+      "exposedToPiExperimental": true
+    }
+  ]
+}
