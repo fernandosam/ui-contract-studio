@@ -1,4 +1,5 @@
 import test from "node:test"
+import { isConfigurableReuiId, reuiSemanticSchemas, reuiSemanticDefaults } from "../src/ui-catalog/extensions/composites/reui-semantic-config"
 import assert from "node:assert/strict"
 import { existsSync, readFileSync } from "node:fs"
 import {
@@ -29,6 +30,7 @@ test("Cada um dos 559 exemplos ReUI tem identidade de componente único, arquivo
     identifiers.add(entry.id)
     names.add(entry.name)
     assert.equal(entry.status, "react-composite")
+    assert.equal(entry.configurable, isConfigurableReuiId(entry.id))
     assert.deepEqual(entry.exampleProps, {})
     assert.ok(existsSync(entry.sourcePath), entry.sourcePath)
     assert.equal(reuiCompositeById[entry.id], entry)
@@ -84,4 +86,25 @@ test("React implementa os 559 compostos sem contornar o catálogo de 102 contrat
   assert.match(shell,/Composições ReUI \(559\)/)
   assert.match(shell,/Abrir componente composto/)
   assert.equal(approved.components.length,102,"A admissão de novos contratos Pi não pode ser automática")
+})
+
+test("Piloto ReUI: cinco APIs semânticas estritas sem criar novos tipos Pi", () => {
+  assert.deepEqual(Object.keys(reuiSemanticSchemas).sort(), [
+    "c-accordion-1", "c-alert-1", "c-checkbox-1", "c-dialog-1", "c-input-1",
+  ])
+  for (const id of Object.keys(reuiSemanticSchemas) as Array<keyof typeof reuiSemanticSchemas>) {
+    const schema = reuiSemanticSchemas[id]
+    assert.equal(schema.safeParse(reuiSemanticDefaults[id]).success, true, id)
+    assert.equal(schema.safeParse({ ...reuiSemanticDefaults[id], className: "text-red-500" }).success, false, id)
+    assert.equal(schema.safeParse({ ...reuiSemanticDefaults[id], onClick: "eval()" }).success, false, id)
+  }
+  assert.equal(reuiSemanticSchemas["c-accordion-1"].safeParse({ items: [
+    { id: "duplicate", title: "Um", description: "A" },
+    { id: "duplicate", title: "Dois", description: "B" },
+  ] }).success, false)
+  assert.equal(reuiSemanticSchemas["c-accordion-1"].safeParse({ items: [] }).success, false)
+  assert.equal(reuiSemanticSchemas["c-checkbox-1"].safeParse({ label: "Aceito", checkedInitially: "true" }).success, false)
+  assert.equal(reuiSemanticSchemas["c-alert-1"].safeParse({ title: "Aviso", description: "" }).success, false)
+  assert.equal(reuiCompositePropsSchema.safeParse({ data: reuiSemanticDefaults["c-alert-1"] }).success, false,
+    "O schema geral não pode autorizar data indiscriminadamente")
 })

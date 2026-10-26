@@ -76,3 +76,9 @@ Para admitir uma composição como novo tipo Pi, deve-se avaliar equivalência/s
 - `tests/reui-composite-library.integration.test.ts`: 559 IDs e nomes únicos, integridade de arquivos TSX, fidelidade das informações de exemplo, origem, Zod estrito e preservação do limite Pi.
 - `tests/e2e/reui-composite-library.spec.ts`: alternância de biblioteca, seleção via ReUI, edição segura, campos de recomendação e código-fonte.
 - `npm run validate && npm run build`; a suíte E2E permanece manual na main.
+
+## Piloto de configuração semântica (5 padrões)
+
+Cinco exemplos React aceitam agora **dados semânticos locais validados individualmente**: `c-accordion-1` (perguntas e respostas limitadas), `c-alert-1` (título e mensagem), `c-checkbox-1` (rótulo e estado inicial), `c-input-1` (placeholder e nome acessível) e `c-dialog-1` (rótulos e valores iniciais do formulário de perfil). Os outros 554 continuam aceitando apenas largura e alinhamento. No Explorador de Compostos ReUI é possível editar o JSON e visualizar o resultado; JSON inválido ou propriedades desconhecidas bloqueiam a prévia.
+
+Os schemas Zod estritos e valores de demonstração residem em `src/ui-catalog/extensions/composites/reui-semantic-config.ts`. O adapter React rejeita `data` para IDs não contemplados. Não são permitidos JSX, CSS, callbacks ou efeitos remotos arbitrários. **Os cinco exemplos ainda não são novos tipos Pi nem estão automaticamente admitidos pelo Admission Engine**; exigem revisão individual antes de uma eventual publicação experimental. A Galeria ReUI mantém os exemplos originais. Os testes de integração verificam schemas; as interações no navegador dependem do E2E manual.

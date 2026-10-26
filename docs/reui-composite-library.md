@@ -65,3 +65,9 @@ Admitting a composition as a new Pi type requires evaluating equivalence/semanti
 - `tests/reui-composite-library.integration.test.ts`: 559 IDs and unique names, TSX file integrity, fidelity of example information, provenance, strict Zod, and preservation of Pi boundaries.
 - `tests/e2e/reui-composite-library.spec.ts`: library switching, ReUI selection, safe editing, recommendation fields, and source code.
 - `npm run validate && npm run build`; the E2E suite remains manual on main.
+
+## Semantic configuration pilot (5 patterns)
+
+Five reviewed React examples now accept independently validated **local-only semantic data**, while the other 554 remain layout-only: `c-accordion-1` (bounded FAQ items), `c-alert-1` (text), `c-checkbox-1` (label and initial state), `c-input-1` (placeholder and accessible name) and `c-dialog-1` (profile-form labels and initial data). Edit the JSON in the ReUI composite explorer; invalid JSON or unknown properties prevent preview rendering.
+
+The per-example strict Zod schemas and source-controlled defaults live in `src/ui-catalog/extensions/composites/reui-semantic-config.ts`. The React factory rejects `data` for all other IDs. No arbitrary JSX, CSS, callbacks or remote effects are accepted. These examples **are not added to the Pi catalog or auto-admitted by the Admission Engine**: they remain explicit candidates for subsequent individual review. ReUI Gallery 3 keeps the upstream demo defaults unchanged. CI integration tests cover schema acceptance/rejection; browser interaction requires the manual E2E workflow.

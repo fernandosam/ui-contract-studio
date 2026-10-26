@@ -10,6 +10,11 @@ const additionalPatterns: Record<string, ComponentType> = Object.fromEntries(
 );
 
 import { reuiButtonPatterns } from './reui-button-index';
+import AlertPattern1 from './reui-alert-1';
+import CheckboxPattern1 from './reui-checkbox-1';
+import InputPattern1 from './reui-input-1';
+import DialogPattern1 from './reui-dialog-1';
+import { parseReuiSemanticData, type ReuiSemanticData } from './reui-semantic-config';
 import {AccordionPattern1} from './reui-accordion-1';
 import {AccordionPattern2} from './reui-accordion-2';
 import {AccordionPattern3} from './reui-accordion-3';
@@ -33,7 +38,12 @@ const accordions=[AccordionPattern1,AccordionPattern2,AccordionPattern3,Accordio
  * Renderização pura da composição, sem largura/margens da demonstração.
  * Os componentes mantêm suas interações e imports estáticos/lazy originais.
  */
-export function ReuiPattern({kind,id}:{kind:string;id:string}){
+export function ReuiPattern({kind,id,data}:{kind:string;id:string;data?:ReuiSemanticData}){
+ if(id==='c-accordion-1') return <AccordionPattern1 data={parseReuiSemanticData(id,data)}/>;
+ if(id==='c-alert-1') return <AlertPattern1 data={parseReuiSemanticData(id,data)}/>;
+ if(id==='c-checkbox-1') return <CheckboxPattern1 data={parseReuiSemanticData(id,data)}/>;
+ if(id==='c-input-1') return <InputPattern1 data={parseReuiSemanticData(id,data)}/>;
+ if(id==='c-dialog-1') return <DialogPattern1 data={parseReuiSemanticData(id,data)}/>;
  const index=Number(id.split('-').at(-1));
  if(!Number.isInteger(index)||index<1) return null;
  // Preserve the existing reviewed adapters, but allow newly registered ReUI

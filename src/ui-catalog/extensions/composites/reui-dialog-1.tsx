@@ -16,13 +16,16 @@ import {
 } from "@/components/ui/dialog"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { reuiSemanticDefaults, type ReuiSemanticDataFor } from "./reui-semantic-config"
 
-export default function Pattern() {
+export default function Pattern({ data = reuiSemanticDefaults["c-dialog-1"] }: {
+  data?: ReuiSemanticDataFor<"c-dialog-1">
+}) {
   const id = useId()
   const [open, setOpen] = useState(false)
   const [profile, setProfile] = useState({
-    name: "Pedro Duarte",
-    username: "@peduarte",
+    name: data.initialName,
+    username: data.initialUsername,
   })
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -39,21 +42,20 @@ export default function Pattern() {
     <div className="flex items-center justify-center">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger render={<Button variant="outline" />}>
-          Basic Dialog
+          {data.triggerLabel}
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>{data.title}</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done. Your profile will be updated immediately.
+              {data.description}
             </DialogDescription>
           </DialogHeader>
           {/* The form sits inside the portaled content so Save can submit it. */}
           <form onSubmit={handleSubmit} className="contents">
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor={`${id}-name`}>Name</FieldLabel>
+                <FieldLabel htmlFor={`${id}-name`}>{data.nameLabel}</FieldLabel>
                 <Input
                   id={`${id}-name`}
                   name="name"
@@ -61,7 +63,7 @@ export default function Pattern() {
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor={`${id}-username`}>Username</FieldLabel>
+                <FieldLabel htmlFor={`${id}-username`}>{data.usernameLabel}</FieldLabel>
                 <Input
                   id={`${id}-username`}
                   name="username"
@@ -71,9 +73,9 @@ export default function Pattern() {
             </FieldGroup>
             <DialogFooter>
               <DialogClose render={<Button variant="outline" />}>
-                Cancel
+                {data.cancelLabel}
               </DialogClose>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit">{data.saveLabel}</Button>
             </DialogFooter>
           </form>
         </DialogContent>

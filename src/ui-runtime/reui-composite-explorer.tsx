@@ -6,6 +6,12 @@ import {
   type ReuiCompositeProps,
 } from "@/ui-catalog/extensions/composites/reui-composite-catalog"
 import { ReuiSourceViewer } from "@/ui-catalog/extensions/composites/reui-source-viewer"
+import {
+  isConfigurableReuiId,
+  reuiSemanticDefaults,
+  reuiSemanticSchemas,
+  type ReuiSemanticData,
+} from "@/ui-catalog/extensions/composites/reui-semantic-config"
 import semanticAdmissions from "@/ui-catalog/reui-semantic-admissions.json"
 import { normalizeReuiSearch } from "./reui-search"
 
@@ -40,6 +46,7 @@ export function ReuiCompositeExplorer() {
   const [limit, setLimit] = useState(12)
   const [width, setWidth] = useState<NonNullable<ReuiCompositeProps["width"]>>("full")
   const [align, setAlign] = useState<NonNullable<ReuiCompositeProps["align"]>>("center")
+  const [semanticEditor, setSemanticEditor] = useState<{ id: string; json: string } | null>(null)
 
   const filtered = useMemo(() => {
     const terms = normalizeReuiSearch(search).split(" ").filter(Boolean)
@@ -57,6 +64,24 @@ export function ReuiCompositeExplorer() {
   }, [family, search, classification])
   const visible = filtered.slice(0, limit)
   const selected = filtered.find(entry => entry.id === selectedId) ?? filtered[0]
+  const configurableId = selected && isConfigurableReuiId(selected.id) ? selected.id : null
+  const semanticDraft = configurableId
+    ? semanticEditor?.id === configurableId
+      ? semanticEditor.json
+      : JSON.stringify(reuiSemanticDefaults[configurableId], null, 2)
+    : ""
+  const semanticValidation: { data?: ReuiSemanticData; error?: string } | null = configurableId
+    ? (() => {
+        try {
+          const parsed = reuiSemanticSchemas[configurableId].safeParse(JSON.parse(semanticDraft))
+          if (parsed.success) return { data: parsed.data as ReuiSemanticData }
+          return { error: parsed.error.issues.slice(0, 3)
+            .map(issue => `${issue.path.join(".")}: ${issue.message}`).join("; ") }
+        } catch {
+          return { error: "JSON inválido. Informe um objeto JSON válido." }
+        }
+      })()
+    : null
 
   return (
     <section aria-label="Compostos ReUI" className="min-w-0 space-y-4">
@@ -168,9 +193,30 @@ export function ReuiCompositeExplorer() {
                     </select>
                   </label>
                 </div>
+                {configurableId && <div className="space-y-2 rounded-lg border p-3">
+                  <label htmlFor="reui-semantic-data" className="block text-sm font-medium">
+                    Dados semânticos da composição (JSON)
+                  </label>
+                  <p className="text-xs text-muted-foreground">
+                    API segura deste exemplo; não concede admissão automática ao catálogo Pi.
+                  </p>
+                  <textarea id="reui-semantic-data" aria-label="Dados semânticos da composição ReUI"
+                    spellCheck={false} rows={9} value={semanticDraft}
+                    onChange={event => setSemanticEditor({ id: configurableId, json: event.target.value })}
+                    className="w-full rounded-md border bg-background p-2 font-mono text-xs" />
+                  <button type="button" className="rounded-md border px-3 py-1.5 text-sm hover:bg-muted"
+                    onClick={() => setSemanticEditor({ id: configurableId, json: JSON.stringify(reuiSemanticDefaults[configurableId], null, 2) })}>
+                    Restaurar dados de exemplo
+                  </button>
+                  {semanticValidation?.error && <p role="alert" className="text-sm text-destructive">{semanticValidation.error}</p>}
+                </div>}
                 <div data-testid={"reui-composite-preview-" + selected.id}
                   className="flex min-h-48 min-w-0 items-center overflow-hidden rounded-lg border bg-muted/20 p-4">
-                  <ReuiComposite key={selected.id} id={selected.id} width={width} align={align}/>
+                  {semanticValidation?.error
+                    ? <p className="text-sm text-muted-foreground">Corrija os dados para visualizar esta composição.</p>
+                    : <div key={selected.id + semanticDraft} className="w-full">
+                        <ReuiComposite key={selected.id} id={selected.id} width={width} align={align} data={semanticValidation?.data}/>
+                      </div>}
                 </div>
                 <ReuiSourceViewer id={selected.id}/>
               </section>

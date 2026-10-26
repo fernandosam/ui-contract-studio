@@ -1,6 +1,7 @@
 import { z } from "zod"
 import reuiGuidance from "@/ui-catalog/reui-guidance.json"
 import reuiExampleGuidance from "@/ui-catalog/reui-example-guidance.pt-BR.json"
+import { isConfigurableReuiId, type ReuiSemanticData } from "./reui-semantic-config"
 
 /**
  * Manifesto revisável de componentes React ReUI: preserva exemplo, proveniência,
@@ -11,7 +12,7 @@ export const reuiCompositePropsSchema = z.object({
   align: z.enum(["start", "center", "end"]).optional(),
 }).strict()
 
-export type ReuiCompositeProps = z.infer<typeof reuiCompositePropsSchema>
+export type ReuiCompositeProps = z.infer<typeof reuiCompositePropsSchema> & { data?: ReuiSemanticData }
 
 export type ReuiCompositeDescriptor = Readonly<{
   id: string
@@ -26,6 +27,7 @@ export type ReuiCompositeDescriptor = Readonly<{
   familyWhenNotUse: readonly string[]
   agentNotes: readonly string[]
   exampleProps: Readonly<ReuiCompositeProps>
+  configurable: boolean
   status: "react-composite"
 }>
 
@@ -64,6 +66,7 @@ export const reuiCompositeCatalog: readonly ReuiCompositeDescriptor[] = Object.f
         familyWhenNotUse: Object.freeze([...family.whenNotUse]),
         agentNotes: Object.freeze([...family.agentNotes]),
         exampleProps: Object.freeze({}),
+        configurable: isConfigurableReuiId(id),
         status: "react-composite" as const,
       })
     }),
