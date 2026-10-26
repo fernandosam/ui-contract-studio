@@ -16,7 +16,7 @@ test('context pack contém somente tipos solicitados e exemplos íntegros',()=>{
 test('tipo não aprovado e lotes grandes são bloqueados',()=>{
  const invalid=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types=ArbitraryWidget','--stdout','--metadata-only'],{encoding:'utf8'});
  assert.notEqual(invalid.status,0);
- assert.match(invalid.stderr,/não aprovado/);
+ assert.match(invalid.stderr,/indisponível no canal stable/);
  const tooMany=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types='+api.components.slice(0,26).map(x=>x.type).join(',')],{encoding:'utf8'});
  assert.notEqual(tooMany.status,0);
 });
