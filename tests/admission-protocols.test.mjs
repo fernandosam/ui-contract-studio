@@ -68,6 +68,19 @@ test("candidate evidence is fail-closed on screenshot loss, wrong digest, wrong 
  rmSync(join(root,protocol.evidenceRoot,"mobile",protocol.cases[0]+".png"));
  assert.throws(()=>inspectEvidence(root,id,entry,protocol,revision),/missing evidence/);
 });
+test("typed confirmation uses the same source-bound proof protocol as every composition",t=>{
+ const root=mkdtempSync(join(tmpdir(),"typed-composition-"));
+ t.after(()=>rmSync(root,{recursive:true,force:true}));
+ const id="alert-typed",entry=entries.find(x=>x.id===id),protocol=protocolCatalog.candidates[id];
+ const revision="c".repeat(40);
+ createEvidence(root,id,entry,protocol,revision);
+ const evidence=inspectEvidence(root,id,entry,protocol,revision);
+ assert.equal(evidence.executions,10);
+ const recordPath=join(root,protocol.evidenceRoot,"desktop",protocol.cases[0]+".json");
+ const original=JSON.parse(readFileSync(recordPath,"utf8"));
+ writeFileSync(recordPath,JSON.stringify({...original,sourceDigest:"0".repeat(64)}));
+ assert.throws(()=>inspectEvidence(root,id,entry,protocol,revision),/failed\/incompatible/);
+});
 test("unknown E2E protocol remains ineligible even when recipe allowlisted",()=>{
  const clone=structuredClone(protocolCatalog);
  delete clone.candidates["button-copy"];
