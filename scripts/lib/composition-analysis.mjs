@@ -26,6 +26,14 @@ export function classifyReuiDecision(decision, policy) {
   return policy.reuiDecisionActions[decision?.classification] ?? "review-required";
 }
 
+export function suggestCompositeImplementation(dependencies, signals) {
+  // Heuristics generate review candidates, never an approved catalog contract.
+  if (signals.remoteMedia) return "integration-review";
+  if (signals.localState && signals.handlers) return "react-composite-candidate";
+  if (dependencies.length > 1) return "declarative-composite-candidate";
+  return "primitive-variation-candidate";
+}
+
 export function buildCompositionAnalysis(root = process.cwd()) {
   const dir = path => resolve(root, path);
   const errors = [];
@@ -160,10 +168,12 @@ export function buildCompositionAnalysis(root = process.cwd()) {
       if (decision?.classification === "approved-semantic" &&
         (!approved.has(decision.contractName) || decision.reviewStatus !== "approved"))
         errors.push(id + ": semantic approval needs an existing approved Pi contract");
+      const dependencies = inspectReact(path), signals = sourceSignals(path);
       examples.push({
         id, family, name: "Reui" + family + String(index + 1).padStart(2, "0"),
         title, sourcePath: path, implementation: "react-example", kind: "reui-example",
-        dependencies: inspectReact(path), signals: sourceSignals(path),
+        dependencies, signals,
+        suggestedImplementation: suggestCompositeImplementation(dependencies, signals),
         decision: decision?.classification ?? "review-required",
         recommendation: classifyReuiDecision(decision, policy),
         relatedContract: decision?.contractName ?? null,
