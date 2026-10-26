@@ -6,7 +6,7 @@ import {experimentalComponentImplementations} from "../src/ui-catalog/registry";
 
 const read=(path:string)=>JSON.parse(readFileSync(path,"utf8"));
 const manifest=read("pi-catalog/contracts.json");
-const examples=manifest.components.filter((entry:{tier:string})=>entry.tier==="experimental") as Array<{type:string;example:string;sourceDigest:string;lifecycle:string}>;
+const examples=manifest.components.filter((entry:{tier:string})=>entry.tier==="composition") as Array<{type:string;example:string;sourceDigest:string;lifecycle:string}>;
 
 test("experimental contracts have real strict Zod schemas and executable registry adapters",()=>{
  for(const item of examples){
