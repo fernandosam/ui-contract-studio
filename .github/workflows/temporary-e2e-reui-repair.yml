@@ -17,7 +17,7 @@ jobs:
         run: npm run build
       - name: Run repaired scenarios in both browser profiles
         run: |
-          npx playwright test tests/e2e/diagnostic-reui-deep-link.spec.ts --workers=2
+          npx playwright test tests/e2e/diagnostic-reui-deep-link.spec.ts tests/e2e/reui-review-176.spec.ts tests/e2e/reui-semantic-admission.spec.ts tests/e2e/reui-family-functional.spec.ts --grep "deep link|ReUI slider|explorador separa|matriz de admissão|Slider: teclado" --workers=2
       - if: always()
         uses: actions/upload-artifact@v4
         with:
