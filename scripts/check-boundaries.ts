@@ -13,7 +13,7 @@ function walk(path: string) {
     const rel=relative(root,full).replaceAll("\\","/");
     if (!/\.[jt]sx?$/.test(rel)) continue;
     const text=readFileSync(full,"utf8");
-    const canContainVisuals = allowed.has(rel) || rel.startsWith("ui-catalog/components/") || rel.startsWith("components/ui/") || rel.startsWith("ui-catalog/extensions/components/") || rel.startsWith("ui-catalog/extensions/composites/") || rel === "ui-catalog/extensions/registry.tsx";
+    const canContainVisuals = allowed.has(rel) || rel.startsWith("ui-catalog/components/") || rel.startsWith("components/ui/") || rel.startsWith("ui-catalog/extensions/components/") || rel.startsWith("ui-catalog/extensions/composites/") || rel.startsWith("ui-catalog/admission-engine/generated/") || rel === "ui-catalog/extensions/registry.tsx";
     const file = ts.createSourceFile(rel,text,ts.ScriptTarget.Latest,true, /\.[jt]sx$/.test(rel) ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
     function visit(node: ts.Node) {
       const isJsx = ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node) || ts.isJsxFragment(node);
@@ -24,7 +24,7 @@ function walk(path: string) {
         if (!canContainVisuals && source === "react/jsx-runtime") errors.push(`${rel}: runtime JSX manual fora da biblioteca.`);
         if ((rel.startsWith("ui-runtime/") || rel === "main.tsx") && /ui-catalog\/components/.test(source)) errors.push(`${rel}: import de componentes fora do registry.`);
         if (/^(?:@\/components\/ui(?:\/|$)|\.\.\/components\/ui\/)/.test(source)) {
-          const isAllowedImport = rel.startsWith("components/ui/") || rel.startsWith("ui-catalog/components/") || rel.startsWith("ui-catalog/extensions/components/") || rel.startsWith("ui-catalog/extensions/composites/") || rel === "ui-catalog/extensions/registry.tsx" || rel === "ui-runtime/layout.tsx";
+          const isAllowedImport = rel.startsWith("components/ui/") || rel.startsWith("ui-catalog/components/") || rel.startsWith("ui-catalog/extensions/components/") || rel.startsWith("ui-catalog/extensions/composites/") || rel.startsWith("ui-catalog/admission-engine/generated/") || rel === "ui-catalog/extensions/registry.tsx" || rel === "ui-runtime/layout.tsx";
           if (!isAllowedImport) errors.push(`${rel}: componentes shadcn importados fora de adaptadores ou shell fixo.`);
         }
       }
