@@ -5,6 +5,7 @@ const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const lock=read('src/ui-catalog/contracts.lock.json');const manifest=read('pi-catalog/contracts.json');
 const details=read('src/ui-catalog/composite-content-fields.json').components;
 const names=new Set(lock.components.map(c=>c.name)),issues=[];
+if(manifest.schemaVersion!==3 || manifest.components.length!==names.size+read('src/ui-catalog/admission-engine/entries.json').entries.length)issues.push('Invalid unified Pi v3 manifest');
 for(const item of lock.components){
  const file=`pi-catalog/examples/${item.name}.json`;
  if(!existsSync(file)){issues.push(`${item.name}: example missing`);continue;}
@@ -18,7 +19,7 @@ for(const item of lock.components){
   for(const field of details[item.name].fields){const [key,prop]=field.path.split('.');if(typeof comp.elements[key]?.props?.[prop]!=='string')issues.push(`${item.name}: content key ${field.path} invalid`);}
  }
 }
-if(names.size!==lock.components.length||manifest.catalogSize!==lock.components.length)issues.push('Catalog size differs from approved lock');
+if(names.size!==lock.components.length||manifest.components.filter(x=>x.tier!=='experimental').length!==lock.components.length)issues.push('Catalog size differs from approved lock');
 const expected=read('src/ui-catalog/extensions/composites/generated-manifest.json').components.length+5;
 if(Object.keys(details).length!==expected)issues.push('Configurable compositions mismatch manifest');
 if(issues.length){issues.slice(0,70).forEach(e=>console.error('✗ '+e));process.exit(1)}
