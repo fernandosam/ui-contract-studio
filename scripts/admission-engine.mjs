@@ -183,9 +183,12 @@ export function certify(root = rootDefault, revision = process.env.GITHUB_SHA) {
   const doc = JSON.parse(readFileSync(file,"utf8"));
   if(doc.schemaVersion!==1 || !doc.components || Array.isArray(doc.components))fail("Invalid certificates");
   const type=stable.candidate.type;
+  const entry=json(root,"src/ui-catalog/admission-engine/entries.json").entries.find(x=>x.type===type);
+  if(!entry || !entry.sourceDigest || entry.e2eProtocol!==stable.evidence.protocol)
+    fail("Official entry has no matching E2E protocol or source digest");
   doc.components[type] = {
     status:"passed",protocol:stable.evidence.protocol,
-    sourceDigest:stable.sourceDigest,sourceRevision:stable.sourceRevision,
+    sourceDigest:entry.sourceDigest,sourceRevision:stable.sourceRevision,
     githubRunId:process.env.GITHUB_RUN_ID,
     evidenceDigest:hash(JSON.stringify(stable.evidence))
   };
