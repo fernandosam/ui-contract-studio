@@ -126,21 +126,18 @@ Promotion requires a separate reviewed PR with browser/a11y/security evidence, c
 
 
 
-## Executable TypedConfirmationDialog validation pilot
+## Experimental composition validation
 
-An **isolated executable preview** of the generated React/Zod TypedConfirmationDialog is available in the shadcn primitive explorer under AlertDialog → "Exigir confirmação digitada". The demo uses the exact pinned source recipe and strict schema, validates the expected text, and only increments a local confirmation counter. It never contacts a backend or grants a Pi capability.
+Four reviewed compositions are registered in the official Pi v3 manifest as soon as static admission succeeds. `lifecycle` is computed from fingerprint-bound browser certificates, not from an obsolete preview-only gate. The isolated TypedConfirmationDialog playground remains a useful local demo but shares the same admission and evidence verifier as every other candidate.
 
 ~~~bash
-npm run composition:admission:check
-npm run composition:admission:prepare
-npm run composition:pilot:reset
+npm run admission:check
+npm run admission:sync:check
+npm run admission:evidence:reset
 npm run test:composition:pilot
-npm run composition:pilot:report
+npm run test:admission:candidates
+npm run admission:evidence:report
 ~~~
 
-The admission checker verifies byte-for-byte identity between the preview and reviewed React/Zod recipes and ensures the proposal remains absent from all authoritative Pi registries/locks/exports. The preparation command writes an explicit manual promotion checklist under reports/composition-admission/. It does **not** approve or publish the candidate.
-
-Five Playwright cases run on both Desktop Chrome and Pixel 7: exact-match gating, cancellation/reset, focus/Escape, responsive layout, invalid schema/no XHR or fetch. The browser report requires all **10 passing project/case pairs** plus screenshots; evidence is uploaded by a focused PR job while the **full E2E suite remains manual on main**.
-
-Passing browser tests alone cannot certify WCAG, assistive technology, cross-browser behavior, security review, or acceptance into Pi. Those gates remain pending, and promotion requires a separately reviewed PR with versioned contract/schema, registry/lock and fixtures.
+The unified verifier checks all 28 desktop/mobile cases (10 typed confirmation plus 18 other cases), screenshot integrity, tested revision and source digest. Focused PR CI is **not** stable certification. Only a complete manual E2E on main can record approved certificates. Remote actions remain forbidden; browser automation does not imply manual accessibility or security certification.
 
