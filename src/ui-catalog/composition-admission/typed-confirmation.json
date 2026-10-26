@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "scenarioId": "alert-typed",
+  "target": "TypedConfirmationDialog",
+  "stage": "preview-only",
+  "piAdmission": "not-approved",
+  "previewFile": "src/ui-catalog/extensions/composites/proposals/TypedConfirmationDialog.tsx",
+  "schemaFile": "src/ui-catalog/extensions/composites/proposals/TypedConfirmationDialog.schema.ts",
+  "sourceRecipe": "scripts/composition-codegen/recipes/alert-typed.component.tsx.txt",
+  "schemaRecipe": "scripts/composition-codegen/recipes/alert-typed.schema.ts.txt",
+  "reviewer": null,
+  "reviewReference": null,
+  "gates": [
+    {
+      "id": "generated-code-integrity",
+      "type": "static-check",
+      "status": "required"
+    },
+    {
+      "id": "strict-zod-schema",
+      "type": "automated",
+      "status": "required"
+    },
+    {
+      "id": "browser-behavior",
+      "type": "playwright-desktop-mobile",
+      "status": "required"
+    },
+    {
+      "id": "keyboard-focus",
+      "type": "playwright-desktop-mobile",
+      "status": "required"
+    },
+    {
+      "id": "responsive-layout",
+      "type": "playwright-desktop-mobile",
+      "status": "required"
+    },
+    {
+      "id": "manual-screen-reader",
+      "type": "human-review",
+      "status": "pending"
+    },
+    {
+      "id": "security-review",
+      "type": "human-review",
+      "status": "pending"
+    },
+    {
+      "id": "independent-code-review",
+      "type": "human-review",
+      "status": "pending"
+    },
+    {
+      "id": "contract-version-and-lock",
+      "type": "separate-reviewed-pr",
+      "status": "pending"
+    }
+  ],
+  "admissionPolicy": "A preview is not a published contract. Never modify the Pi lock, export, registry or action allowlist from a generated proposal without independent approved PR review."
+}
