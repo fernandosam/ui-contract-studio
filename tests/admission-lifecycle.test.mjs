@@ -15,8 +15,8 @@ test("official Pi v3 exposes one authoritative collection with lifecycle gates",
  assert.equal(all.length,106);
  assert.equal(new Set(all).size,106);
  const locked=read("src/ui-catalog/contracts.lock.json").components;
- assert.deepEqual(official.components.filter(x=>x.tier!=="experimental").map(x=>x.type).sort(),locked.map(x=>x.name).sort());
- for(const legacy of official.components.filter(x=>x.tier!=="experimental")){
+ assert.deepEqual(official.components.filter(x=>x.tier!=="composition").map(x=>x.type).sort(),locked.map(x=>x.name).sort());
+ for(const legacy of official.components.filter(x=>x.tier!=="composition")){
   assert.equal(legacy.lifecycle,"stable");
   assert.equal(legacy.validation.e2e,"not-recorded",legacy.type+": historic E2E evidence is not fabricated");
  }
