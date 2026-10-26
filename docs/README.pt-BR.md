@@ -11,6 +11,7 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 | [README](../README.pt-BR.md) | Apresentação e instalação |
 | [Arquitetura](architecture.pt-BR.md) | Fontes de verdade e camadas |
 | [Componentes e contratos](components.pt-BR.md) | shadcn/ui, ReUI, composições e admissão |
+| [Admission Engine](admission-engine.pt-BR.md) | Publicação experimental e distribuição pós-E2E |
 | [Estratégia de composições](composition-strategy.pt-BR.md) | Dependências, classificação semântica e novos exemplos ReUI |
 | [Agentes e Pi](agents.pt-BR.md) | Geração segura e validação de specs |
 | [Desenvolvimento](development.pt-BR.md) | Ambiente, testes, CI e E2E |
