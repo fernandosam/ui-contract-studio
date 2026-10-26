@@ -132,7 +132,7 @@ Object.defineProperty(catalog, 'validate', {
     const candidate = checked.success ? checked.data : input;
     const elements = candidate && typeof candidate === 'object' && 'elements' in candidate
       ? (candidate as {elements?: unknown}).elements : undefined;
-    const definitions = componentDefinitions as Record<string,{props:z.ZodType}>;
+    const definitions = stableComponentDefinitions as Record<string,{props:z.ZodType}>;
     if (elements && typeof elements === 'object' && !Array.isArray(elements)) {
       for (const [id, raw] of Object.entries(elements)) {
         if (!raw || typeof raw !== 'object' || Array.isArray(raw)) continue;
