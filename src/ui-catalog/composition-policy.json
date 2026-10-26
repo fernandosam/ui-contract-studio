@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "description": "Curated contract grouping; no file, dependency, or ReUI example is admitted into the Pi catalog by this metadata.",
+  "primitiveExtensions": [
+    "AlertDialog",
+    "AspectRatio",
+    "Attachment",
+    "Bubble",
+    "ContextMenu",
+    "Empty",
+    "Field",
+    "HoverCard",
+    "Item",
+    "Kbd",
+    "Marker",
+    "Message",
+    "ScrollArea"
+  ],
+  "reactComposites": [
+    "BlockSidebar",
+    "CharacterCountTextarea",
+    "DataTable",
+    "DatePicker",
+    "OnboardingChecklist",
+    "RatingDistribution",
+    "SiteCardsActivityGoal",
+    "SiteCardsChat",
+    "SiteCardsCookieSettings",
+    "SiteCardsPaymentMethod",
+    "SiteCardsTeamMembers"
+  ],
+  "implementationPolicy": {
+    "declarative": "Use reviewed JSON templates and generated-manifest.json when the pattern has no independent React state or custom handlers.",
+    "react": "Use a reviewed React adapter with a strict semantic Zod API for coordinated state, behavior, or domain-specific meaning.",
+    "primitive": "Extend the existing primitive schema for safe reusable variations, without creating duplicate Pi types.",
+    "reui": "Keep examples gallery-only. A reviewed semantic decision is required for every example; React preview exposure never implies Pi admission."
+  },
+  "reuiDecisionActions": {
+    "existing-primitive-variant": "reuse-primitive",
+    "existing-composition": "reuse-approved-composition",
+    "existing-contract-gap": "evolve-existing-contract",
+    "approved-semantic": "reuse-semantic-contract",
+    "deferred-semantic": "defer-security-or-integration"
+  }
+}
