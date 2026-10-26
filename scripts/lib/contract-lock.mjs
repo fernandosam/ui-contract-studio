@@ -24,7 +24,7 @@ export function catalogSegments(){
 
 /** Token-based semantic normalization. Whitespace/comments are insignificant outside
  * exact string/regexp literals; string contents and operators remain significant.
- * Historical byte fingerprints are retained for backward-compatible PR diffs.
+ * Versioning relies solely on semantic fingerprints, not historical byte hashes.
  */
 export function normalizedTokens(source){
   const tokens=[];let i=0, previous='';
@@ -64,7 +64,6 @@ export function normalizedTokens(source){
 export function signatures(){
  return catalogSegments().map(({name,tier,segment})=>({
    name,tier,
-   fingerprint:createHash('sha256').update(segment).digest('hex'),
    semanticFingerprint:createHash('sha256').update(JSON.stringify(normalizedTokens(segment))).digest('hex'),
  }));
 }

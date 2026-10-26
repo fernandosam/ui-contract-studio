@@ -6,7 +6,7 @@ const read=path=>readFileSync(path,'utf8');
 test('102 contratos estão versionados e fingerprints coerentes',()=>{
  const lock=JSON.parse(read('src/ui-catalog/contracts.lock.json'));
  assert.equal(lock.components.length,102);
- for(const sig of signatures()) assert.equal(lock.components.find(x=>x.name===sig.name)?.fingerprint,sig.fingerprint,sig.name);
+ for(const sig of signatures()) assert.equal(lock.components.find(x=>x.name===sig.name)?.semanticFingerprint,sig.semanticFingerprint,sig.name);
  assert.equal(lock.components.find(x=>x.name==='DataTable')?.version,'1.2.0');
 });
 test('todas as telas têm metadados; nenhuma depende de um import manual',()=>{

@@ -7,7 +7,7 @@ test("quatro novas primitivas têm fonte, contratos, adapters e amostras",()=>{
  const lock=read("src/ui-catalog/contracts.lock.json").components;
  for(const [name,slug] of [["AspectRatio","aspect-ratio"],["Kbd","kbd"],["Empty","empty"],["ScrollArea","scroll-area"]]){
   assert.ok(sources.some(x=>x.name===name&&x.sourceUrl?.endsWith("/"+slug)));
-  assert.ok(lock.some(x=>x.name===name&&x.tier==="extension"&&x.fingerprint));
+  assert.ok(lock.some(x=>x.name===name&&x.tier==="extension"&&x.semanticFingerprint));
   for(const path of ["src/components/ui/"+slug+".tsx","src/ui-catalog/extensions/components/"+slug+".tsx","pi-catalog/examples/"+name+".json","src/ui-explorer-samples/"+name+".json"])assert.ok(existsSync(path),path);
  }
 });

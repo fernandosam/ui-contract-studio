@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Browser evidence verifier for non-legacy Admission Engine candidates. No synthetic pass states. */
+/** Single fail-closed browser evidence verifier for every admitted composition. */
 import {existsSync,mkdirSync,rmSync,readFileSync,writeFileSync} from "node:fs";
 import {join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
@@ -10,15 +10,15 @@ const hash=bytes=>createHash("sha256").update(bytes).digest("hex");
 const fail=text=>{throw new Error("Admission evidence: "+text);};
 const load=(root,path)=>JSON.parse(readFileSync(join(root,path),"utf8"));
 const safeId=id=>/^[a-z]+(?:-[a-z]+)*$/.test(id);
-const candidateIds=["alert-checkbox","accordion-members","button-copy"];
+
 const pngSignature=Buffer.from([137,80,78,71,13,10,26,10]);
 
 export function inspectEvidence(root,id,entry,protocol,revision=null){
- if(!safeId(id) || !candidateIds.includes(id) || !protocol ||
+ if(!safeId(id) || !protocol ||
    entry?.id!==id || entry?.type!==protocol.target || !entry?.sourceDigest ||
    !Array.isArray(protocol.cases) || !protocol.cases.length ||
    new Set(protocol.cases).size!==protocol.cases.length ||
-   !/^reports\/composition-validation\/admission\/[a-z-]+$/.test(protocol.evidenceRoot))
+   !/^reports\/composition-validation\/(?:admission\/[a-z-]+|typed-confirmation)$/.test(protocol.evidenceRoot))
    fail(id+": invalid or missing protocol");
  const projects=["desktop","mobile"],screenshots=[];
  for(const project of projects)for(const caseId of protocol.cases){
@@ -59,6 +59,7 @@ function main(){
  if(!["--reset","--report"].includes(mode)||process.argv.length!==3)fail("Use --reset or --report");
  const root=rootDefault;
  const protocols=load(root,"src/ui-catalog/admission-engine/protocols.json").candidates;
+ const candidateIds=Object.keys(protocols);
  if(mode==="--reset"){
   for(const id of candidateIds){
    const dir=join(root,protocols[id].evidenceRoot);

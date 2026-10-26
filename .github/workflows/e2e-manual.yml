@@ -36,11 +36,11 @@ jobs:
       - name: Static checks before the E2E promotion gate
         run: npm run validate && npm run build
       - name: Clear stale candidate browser evidence
-        run: npm run composition:pilot:reset && npm run admission:evidence:reset
+        run: npm run admission:evidence:reset
       - name: Testes E2E funcionais e de layout
         run: npm run test:e2e
       - name: Verify fresh desktop/mobile candidate evidence
-        run: npm run composition:pilot:report && npm run admission:evidence:report
+        run: npm run admission:evidence:report
       - name: Promote all four independently verified candidates into stable distribution
         run: npm run admission:promote
       - name: Publish post-E2E stable artifact bound to this commit

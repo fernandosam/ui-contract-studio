@@ -127,36 +127,24 @@ npx tsx --test reports/composition-proposals/alert-typed/TypedConfirmationDialog
 
 Cada pacote é criado somente em reports/composition-proposals/<id>/ (ignorados pelo Git), com componente TSX, schema Zod, teste de fixtures válido/inválido, REVIEW.md e manifest.json com hashes SHA-256 e testes comportamentais **ainda não executados**. Saídas modificadas manualmente não são sobrescritas. O gerador só aceita IDs cadastrados e importa componentes de uma allowlist; não executa Markdown, exemplos externos, respostas de agentes ou texto arbitrário.
 
-No explorador, selecione AlertDialog, Accordion ou Button e uma situação de **proposta React**. A opção "Código proposto" mostra as receitas TSX/Zod e permite copiá-las para revisão. Essa prévia não executa nem publica código.
+No explorador, selecione AlertDialog, Accordion ou Button e uma situação de **proposta React**. A opção "Código proposto" mostra as receitas TSX/Zod e permite copiá-las para revisão. O painel de código proposto não executa nem publica código por si só; receitas revisadas podem ingressar no canal Pi experimental por meio do Admission Engine e da política de admissão.
 
-**Definição de pronto para publicação:** revisão humana em PR separado, validação do schema e do comportamento com navegador/teclado/responsividade, revisão de acessibilidade e segurança, versionamento da API, registro explícito no registry/lock e testes de integração. *Gerar uma proposta não equivale a aprová-la*; o gate atual só atesta sintaxe, allowlists, proveniência e testes de schema. Uma edição dos arquivos gerados não altera o código-fonte ou a API Pi.
+**Definição de pronto para promoção estável:** evidência E2E completa vinculada ao fingerprint, revisão de API e segurança, e atualização do manifesto oficial. A admissão experimental tem gate estático e não espera o E2E completo. *Gerar uma proposta não equivale a aprová-la*; o gate atual só atesta sintaxe, allowlists, proveniência e testes de schema. Uma edição dos arquivos gerados não altera o código-fonte ou a API Pi.
 
 
 
-## Piloto de validação executável: TypedConfirmationDialog
+## Validação experimental de composições
 
-O gerador de propostas ganhou um **piloto de execução isolada**. No explorador de primitivas, selecione **AlertDialog** e a situação **Exigir confirmação digitada**. O painel executa exatamente a receita React/Zod revisável de TypedConfirmationDialog, com título e palavra esperada configurados em estado local; a confirmação apenas incrementa um contador, nunca apaga dados ou acessa serviços. A prévia não consta do registro de componentes publicados no Pi.
-
-O arquivo TSX e o schema Zod da prévia permanecem idênticos às receitas geradas. O gate de admissão confere a igualdade e impede inclusão no lock, nas exportações Pi ou no registry sem um processo posterior e independente:
+As quatro composições revisadas são registradas no catálogo oficial Pi v3 desde a admissão estática. O ciclo de vida (`experimental` ou `stable`) é calculado a partir de certificados E2E vinculados ao fingerprint React/Zod. A prévia isolada de TypedConfirmationDialog permanece disponível para explorar o comportamento local sem backend, mas não possui mais um fluxo de homologação separado.
 
 ~~~bash
-npm run composition:admission:check
-npm run composition:admission:prepare
-~~~
-
-A opção prepare cria reports/composition-admission/typed-confirmation-review.md, com os itens de aprovação humana pendentes. A promoção não é executada automaticamente.
-
-### Playwright e relatório de evidências
-
-Há **cinco cenários focados**, rodados separadamente no projeto Desktop Chrome e em dispositivo móvel Pixel 7: texto incorreto/correto e evento único; cancelamento e reabertura; foco/teclado/Escape; layout responsivo; schema inválido e ausência de chamadas XHR/fetch após confirmação.
-
-~~~bash
-npm run composition:pilot:reset
+npm run admission:check
+npm run admission:sync:check
+npm run admission:evidence:reset
 npm run test:composition:pilot
-npm run composition:pilot:report
+npm run test:admission:candidates
+npm run admission:evidence:report
 ~~~
 
-O relatório em reports/composition-validation/typed-confirmation/summary.json e summary.md só é emitido quando todos os **10 testes de navegador** estão aprovados e possuem capturas. A CI da pull request executa somente esse conjunto focado, publica as evidências como artefato e mantém o **E2E completo exclusivamente manual na main**. Falhas em teste, ausência de captura ou evidência incompleta bloqueiam o relatório.
-
-As validações de leitor de telas e acessibilidade manual, revisão de segurança e aprovação humana **permanecem pendentes** mesmo com CI verde. Publicação de TypedConfirmationDialog no Pi requer **outra PR**, versionamento do schema, novos fixtures e aprovação explícita de registry/lock; executar a prévia não concede permissões.
+O mesmo verificador confere 28 execuções desktop/mobile dos quatro protocolos (10 do TypedConfirmationDialog e 18 dos demais), resultados e capturas, origem da implementação e revisão testada. A CI da PR valida os cenários focados, mas **não certifica** contratos para o canal estável. Somente o E2E manual completo na main pode gerar certificados. A ausência de chamada remota e as demais restrições de segurança permanecem obrigatórias. Revisão manual de acessibilidade não é inferida dos testes.
 

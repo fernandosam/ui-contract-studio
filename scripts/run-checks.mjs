@@ -4,13 +4,13 @@ import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 /** Single process orchestration; original focused scripts remain independently runnable.
- * --core runs the inexpensive catalog/policy checks, default runs every historical gate.
+ * --core runs inexpensive catalog/policy checks; full mode runs all current gates.
  */
 const core=[
   'check-dependency-compat.mjs','check-contract-versions.mjs',
   'build-pi-api.mjs --check','build-pi-fixtures.mjs --check',
   'check-readiness.mjs','check-composite-pruning.mjs','check-screen-discovery.mjs',
-  'check-ui-catalog.ts','sync-admission-catalog.mjs --check','admission-engine.mjs --check','check-typed-confirmation-admission.mjs --check','check-composition-recommendations.ts','generate-composition-proposals.mjs --check','analyze-semantic-knowledge.mjs --check','analyze-compositions.mjs','generate-composite-registry.mjs --check','generate-composite-node-props.mjs --check',
+  'check-ui-catalog.ts','sync-admission-catalog.mjs --check','admission-engine.mjs --check','check-composition-recommendations.ts','generate-composition-proposals.mjs --check','analyze-semantic-knowledge.mjs --check','analyze-compositions.mjs','generate-composite-registry.mjs --check','generate-composite-node-props.mjs --check',
   'check-boundaries.ts',
 ];
 const extended=[

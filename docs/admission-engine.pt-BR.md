@@ -14,7 +14,7 @@ O **manifesto oficial Pi** `pi-catalog/contracts.json` utiliza `schemaVersion: 3
 
 Por padrão, o Pi usa **somente componentes estáveis**. O uso experimental exige opção explícita; os adapters React realmente executam os componentes permitidos, não são apenas exemplos de documentação. O catálogo experimental não concede chamadas remotas, URLs livres, JSX arbitrário nem novos tipos de ação.
 
-`components` é o **único** inventário publicado para o Pi: interface, seletor de contexto, validadores e testes consultam essa lista. Os 102 contratos anteriormente aprovados e o `contracts.lock.json` mantêm suas regras de revisão de origem, mas não uma API de manifesto legado. Eles registram explicitamente `validation.e2e: not-recorded`: o acesso estável herdado **não significa** E2E comprovado.
+`components` é o **único** inventário publicado para o Pi: interface, seletor de contexto, validadores e testes consultam essa lista. Os 102 contratos de base/extensão e o `contracts.lock.json` mantêm as regras de revisão de origem, sem formatos de manifesto alternativos. Eles registram explicitamente `validation.e2e: not-recorded`: o acesso estável herdado **não significa** E2E comprovado.
 
 ## Comandos
 
@@ -41,10 +41,18 @@ O workflow grava `src/ui-catalog/admission-engine/certifications.json` e regener
 
 Modificar código React ou schema invalida automaticamente o vínculo com a certificação anterior, retornando à condição experimental. A certificação cobre comportamento local testado; não equivale a revisão manual de acessibilidade nem autoriza transações, exclusão de dados ou requisições externas.
 
-Inicialmente o catálogo experimental contempla `AcknowledgedActionDialog`, `TypedConfirmationDialog`, `TeamMemberAccordion` e `CopyFeedbackButton`. Os quatro candidatos possuem agora protocolos individuais de E2E (desktop/mobile), mas permanecem **experimentais até que o workflow manual na main produza certificados válidos**. A promoção é vinculada ao fingerprint de cada contrato. Falha de qualquer cenário no E2E completo impede a certificação daquela execução; nenhuma aprovação é inferida da CI da PR.
+Inicialmente o catálogo experimental contempla `AcknowledgedActionDialog`, `TypedConfirmationDialog`, `TeamMemberAccordion` e `CopyFeedbackButton`. As quatro composições possuem agora protocolos individuais de E2E (desktop/mobile), mas permanecem **experimentais até que o workflow manual na main produza certificados válidos**. A promoção é vinculada ao fingerprint de cada contrato. Falha de qualquer cenário no E2E completo impede a certificação daquela execução; nenhuma aprovação é inferida da CI da PR.
 
 ## Protocolos de navegador dos quatro candidatos
 
 O protocolo anterior de `TypedConfirmationDialog` preserva seus 5 casos desktop/mobile (10 execuções). Os novos protocolos independentes contêm 3 cenários por candidato e plataforma (18 execuções adicionais): `AcknowledgedActionDialog` (marcação obrigatória, cancelamento/reset e teclado), `TeamMemberAccordion` (conteúdo local, teclado e responsividade) e `CopyFeedbackButton` (cópia explícita, permissão negada e teclado). As evidências ficam separadas por candidato em `reports/composition-validation/admission/`.
 
 A CI da PR executa os novos testes e relatórios, mas **não certifica** o catálogo estável. Somente `E2E manual (main)`, após recomeçar os diretórios de evidência, executar a suíte completa e validar os resultados da versão atual, pode gravar certificados na `main`. Se a política de proteção impedir o push do bot, a gravação deverá ser aprovada pelo fluxo do repositório. A execução manual não foi iniciada nesta implementação.
+
+## Simplificação sem compatibilidade retroativa
+
+- `tier` classifica **origem** (`base`, `extension` ou `composition`); somente `lifecycle` determina uso estável ou experimental. Uma composição homologada mantém seu tier.
+- O runtime lê o manifesto oficial v3 para selecionar os contratos autorizados, e os dois canais compartilham uma única rotina de validação Zod estrita.
+- Todos os quatro protocolos, inclusive TypedConfirmationDialog, utilizam `scripts/admission-evidence.mjs`, com evidência de código, projeto, caso e revisão testada. Não existem mais gates de piloto ou aliases de promoção.
+- O lock de contratos utiliza apenas fingerprints **semânticos**. O histórico de contratos retirados pode continuar documentado, mas não funciona como compatibilidade de geração.
+- `content` e `nodeProps` permanecem válidos enquanto forem APIs documentadas e utilizadas: `content` configura campos semânticos e `nodeProps` configura propriedades estruturadas de nós. Sua retirada requer uma migração de API própria e testes de todas as composições.

@@ -1,5 +1,7 @@
 import {test,expect} from "@playwright/test";
-import {mkdirSync,writeFileSync} from "node:fs";
+import {mkdirSync,writeFileSync,readFileSync} from "node:fs";
+const typedEntry=JSON.parse(readFileSync("src/ui-catalog/admission-engine/entries.json","utf8")).entries.find((entry:{id:string})=>entry.id==="alert-typed");
+const typedProtocol=JSON.parse(readFileSync("src/ui-catalog/admission-engine/protocols.json","utf8")).candidates["alert-typed"];
 import {join} from "node:path";
 
 const ids=["invalid-and-exact-match","cancel-and-reopen","keyboard-focus","responsive-layout","schema-and-no-network"];
@@ -38,6 +40,7 @@ test.afterEach(async({page},info)=>{
  }
  writeFileSync(join(dir,id+".json"),JSON.stringify({
   schemaVersion:1,scenarioId:"alert-typed",caseId:id,
+  target:typedEntry.type,sourceDigest:typedEntry.sourceDigest,protocol:typedProtocol.protocol,
   project:info.project.name,status:info.status,
   expectedStatus:info.expectedStatus,retry:info.retry,
   durationMs:info.duration,screenshotStatus,

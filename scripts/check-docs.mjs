@@ -97,9 +97,9 @@ export function checkDocumentation(root = projectRoot) {
 
   const names = lock.components.map(c => c.name);
   compareNames("sources.json", names, sources.components.map(c => c.name), errors);
-  compareNames("pi-catalog/contracts.json (base/extension)", names, pi.components.filter(c=>c.tier!=='experimental').map(c=>c.type), errors);
+  compareNames("pi-catalog/contracts.json (base/extension)", names, pi.components.filter(c=>c.tier!=='composition').map(c=>c.type), errors);
   const experimental=readJson(root,"src/ui-catalog/admission-engine/entries.json").entries;
-  compareNames("pi-catalog/contracts.json (admission)",experimental.map(c=>c.type),pi.components.filter(c=>c.tier==='experimental').map(c=>c.type),errors);
+  compareNames("pi-catalog/contracts.json (admission)",experimental.map(c=>c.type),pi.components.filter(c=>c.tier==='composition').map(c=>c.type),errors);
   if (pi.schemaVersion!==3 || pi.components.length!==names.length+experimental.length || integration.totalContracts !== names.length) {
     errors.push("Contagem de contratos incompatível entre lock, Pi e integração");
   }

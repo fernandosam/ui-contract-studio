@@ -46,13 +46,12 @@ for (const id of policy.allowedScenarios ?? []) {
   outputs[generated + "/" + recipe.schemaFile] = schema;
   const example = {root:"example",elements:{example:{type:recipe.target,props:recipe.fixtures.valid,children:[]}}};
   outputs["pi-catalog/experimental-examples/" + recipe.target + ".json"] = JSON.stringify(example,null,2) + "\n";
-  rows.push({id,type:recipe.target,version:"0.1.0",tier:"experimental",
-    lifecycle:"experimental",sourceDigest:digest(component+"\n--schema--\n"+schema),
+  rows.push({id,type:recipe.target,version:"0.1.0",tier:"composition",
+    sourceDigest:digest(component+"\n--schema--\n"+schema),
     recipeId:id,source:"scripts/composition-codegen/recipes/"+id,
     example:"pi-catalog/experimental-examples/"+recipe.target+".json",
     events:id.startsWith("alert-")?["confirm"]:[],sourceLicense:"MIT (local composition)",
-    e2eProtocol:policy.e2eEligible.includes(id)?protocols[id]?.protocol??null:null,
-    exposedToPiExperimental:true});
+    e2eProtocol:policy.e2eEligible.includes(id)?protocols[id]?.protocol??null:null});
 }
 if (errors.length) { errors.forEach(x => console.error("✗ "+x)); process.exit(1); }
 const defs = [

@@ -6,7 +6,7 @@ const lockFile='src/ui-catalog/contracts.lock.json';
 const lock=read(lockFile), entry=lock.components.find(c=>c.name==='Button');
 if(!entry||!['2.0.0','2.1.0'].includes(entry.version))throw new Error('Unexpected Button version');
 const sig=signatures().find(c=>c.name==='Button');if(!sig)throw new Error('Missing Button signature');
-entry.version='2.1.0';entry.fingerprint=sig.fingerprint;entry.semanticFingerprint=sig.semanticFingerprint;write(lockFile,lock);
+entry.version='2.1.0';entry.semanticFingerprint=sig.semanticFingerprint;write(lockFile,lock);
 const sourcesFile='src/ui-catalog/sources.json';const sources=read(sourcesFile);
 const source=sources.components.find(c=>c.name==='Button');if(!source)throw new Error('Missing Button source');
 source.contractVersion='2.1.0';write(sourcesFile,sources);
