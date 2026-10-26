@@ -23,7 +23,7 @@ npm run composites:inventory
 npm run composites:impact -- --primitive=Button
 ~~~
 
-The inventory command generates a report in reports/composition-analysis/manifest.json. It includes per-contract and per-ReUI primitive dependencies, local implementation signals, semantic classifications, and reverse impact maps. Analysis follows imports and JSON node types; it is **static evidence, not functional/visual certification**.
+The inventory command generates a report in reports/composition-analysis/manifest.json. It includes per-contract and per-ReUI primitive dependencies, local implementation signals, semantic classifications, and reverse impact maps. Analysis follows imports and JSON node types; it is **static evidence, not functional/visual certification**. It also suggests primitive evolution, declarative composition, React composition, or integration review from detected dependencies/behavior; suggestions never override reviewed semantic decisions.
 
 ## Every newly added ReUI example
 
