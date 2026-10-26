@@ -17,15 +17,15 @@ if (primitiveArg && !primitive) {
   process.exit(1);
 }
 if (primitive) {
-  const impact = report.primitiveImpact[primitive] ?? { contracts: [], reuiExamples: [] };
+  const impact = report.primitiveImpact[primitive] ?? { contracts: [], reuiExamples: [], shadcnBlocks: [] };
   console.log(JSON.stringify({ primitive, ...impact, counts: {
-    contracts: impact.contracts.length, reuiExamples: impact.reuiExamples.length,
+    contracts: impact.contracts.length, reuiExamples: impact.reuiExamples.length, shadcnBlocks: impact.shadcnBlocks.length,
   } }, null, 2));
 } else {
   console.log("✓ Composition inventory checked: " + JSON.stringify(report.totals));
   console.log("  Static dependencies discovered for " +
     Object.keys(report.primitiveImpact).length + " primitive types.");
-  console.log("  ReUI is gallery-only: every example requires a documented semantic decision.");
+  console.log("  ReUI is gallery-only; new shadcn blocks require pinned original sources and reviewed decisions.");
 }
 if (write) {
   const file = "reports/composition-analysis/manifest.json";

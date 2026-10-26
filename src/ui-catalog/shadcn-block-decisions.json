@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "notes": "Historical decisions reuse the already-approved lock and existing block-source-inventory; they are not a new human visual certification. All new blocks require an explicit reviewed decision before publication to Pi.",
+  "baselineBlockIds": [
+    "Dashboard01",
+    "Login01",
+    "Login02",
+    "Login03",
+    "Login04",
+    "Login05",
+    "Sidebar01",
+    "Sidebar02",
+    "Sidebar03",
+    "Sidebar04",
+    "Sidebar05",
+    "Sidebar06",
+    "Sidebar07",
+    "Sidebar08",
+    "Sidebar09",
+    "Sidebar10",
+    "Sidebar11",
+    "Sidebar12",
+    "Sidebar13",
+    "Sidebar14",
+    "Sidebar15",
+    "Sidebar16",
+    "Signup01",
+    "Signup02",
+    "Signup03",
+    "Signup04",
+    "Signup05"
+  ],
+  "entries": [
+    {
+      "blockId": "Dashboard01",
+      "blockSlug": "dashboard-01",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Login01",
+      "blockSlug": "login-01",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Login02",
+      "blockSlug": "login-02",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Login03",
+      "blockSlug": "login-03",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Login04",
+      "blockSlug": "login-04",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Login05",
+      "blockSlug": "login-05",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Signup01",
+      "blockSlug": "signup-01",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Signup02",
+      "blockSlug": "signup-02",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Signup03",
+      "blockSlug": "signup-03",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Signup04",
+      "blockSlug": "signup-04",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Signup05",
+      "blockSlug": "signup-05",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar01",
+      "blockSlug": "sidebar-01",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar02",
+      "blockSlug": "sidebar-02",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar03",
+      "blockSlug": "sidebar-03",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar04",
+      "blockSlug": "sidebar-04",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar05",
+      "blockSlug": "sidebar-05",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar06",
+      "blockSlug": "sidebar-06",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar07",
+      "blockSlug": "sidebar-07",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar08",
+      "blockSlug": "sidebar-08",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar09",
+      "blockSlug": "sidebar-09",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar10",
+      "blockSlug": "sidebar-10",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar11",
+      "blockSlug": "sidebar-11",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar12",
+      "blockSlug": "sidebar-12",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar13",
+      "blockSlug": "sidebar-13",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar14",
+      "blockSlug": "sidebar-14",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar15",
+      "blockSlug": "sidebar-15",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    },
+    {
+      "blockId": "Sidebar16",
+      "blockSlug": "sidebar-16",
+      "implementation": "declarative",
+      "reviewStatus": "existing-approved",
+      "basis": "legacy-contract-lock",
+      "reason": "Template JSON already approved and fingerprinted in the existing source inventory; upstream import evidence is audited separately."
+    }
+  ]
+}

@@ -83,7 +83,8 @@
     "reui:audit:check": "node scripts/audit-reui-primitives.mjs --check",
     "composites:inventory": "node scripts/analyze-compositions.mjs --write",
     "composites:inventory:check": "node scripts/analyze-compositions.mjs",
-    "composites:impact": "node scripts/analyze-compositions.mjs"
+    "composites:impact": "node scripts/analyze-compositions.mjs",
+    "shadcn:blocks:sources:sync": "node scripts/sync-shadcn-block-sources.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

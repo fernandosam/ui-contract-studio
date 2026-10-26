@@ -30,6 +30,11 @@ test("repo-wide inventory distinguishes approved contracts from all ReUI example
   assert.equal(report.totals.primitiveAdapters, 13);
   assert.equal(report.totals.reuiExamples, 559);
   assert.equal(report.totals.reuiFamilies, 31);
+  assert.equal(report.totals.shadcnBlocks, 27);
+  assert.equal(report.totals.upstreamSourceFiles, 103);
+  assert.ok(report.primitiveImpact.Button.shadcnBlocks.length > 0);
+  assert.equal(report.shadcnBlocks.length, 27);
+  assert.equal(report.shadcnBlocks.find(x=>x.name==="login-01")?.exposedToPi,true);
   assert.equal(report.contracts.length, 61);
   assert.equal(new Set(report.reuiExamples.map(x => x.id)).size, 559);
   assert.ok(report.primitiveImpact.Button.contracts.length > 0);
@@ -55,6 +60,10 @@ test("new ReUI patterns require a reviewed semantic decision and are never admit
       reuiDecisionActions:{"existing-primitive-variant":"reuse-primitive","existing-composition":"reuse-approved-composition"},
     };
     write(root, "src/ui-catalog/composition-policy.json", policy);
+    write(root, "src/ui-catalog/block-source-inventory.json", {schemaVersion:1,blocks:[]});
+    write(root, "src/ui-catalog/shadcn-block-source-pins.json", {schemaVersion:2,pins:{},sourceBlobs:{}});
+    write(root, "src/ui-catalog/shadcn-block-decisions.json", {schemaVersion:1,baselineBlockIds:[],entries:[]});
+    mkdirSync(join(root, "audits/upstream/shadcn-blocks"),{recursive:true});
     write(root, "src/ui-catalog/contracts.lock.json", {components:[{name:"ExampleCard",tier:"extension"}]});
     write(root, "src/ui-catalog/extensions/composites/generated-manifest.json", {components:[]});
     write(root, "src/ui-catalog/reui-guidance.json", {Button:{examples:[["Original","c-button-1"]]}});
