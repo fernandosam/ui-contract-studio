@@ -1,0 +1,23 @@
+name: One-time dispatch of manual E2E on main
+on:
+  push:
+    branches:
+      - ci/dispatch-e2e-main-20261026
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    if: github.repository == 'fernandosam/ui-contract-studio'
+    steps:
+      - name: Request the repository's official manual E2E on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh workflow run e2e-manual.yml --ref main --repo "$GITHUB_REPOSITORY"
+          echo "Manual workflow dispatch submitted for main"
