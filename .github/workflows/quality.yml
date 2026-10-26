@@ -44,6 +44,8 @@ jobs:
         run: npm run doctor:strict
       - run: npm run shadcn:verify && npm run shadcn:integrity -- --strict
       - run: npm run validate && npm run build
+      - name: Dry-run complete experimental artifact publication on PR
+        run: npm run admission:publish
       - name: Validate Pi generator negative and positive cases
         run: npm run pi:validate -- --file=pi-catalog/examples/Dashboard01.json --out=reports/pi-validation/ci.json
 
