@@ -17,7 +17,7 @@ const write=(root,path,content)=>{
 };
 const newFixture=()=>{
   const root=mkdtempSync(join(tmpdir(),"shadcn-block-audit-"));
-  const path="src/ui-catalog/upstream/shadcn-blocks/example-01/page.tsx";
+  const path="audits/upstream/shadcn-blocks/example-01/page.tsx";
   write(root,path,source);
   const inputs={
     root,inventory:{schemaVersion:1,blocks:[block]},

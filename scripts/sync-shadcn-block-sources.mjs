@@ -39,7 +39,7 @@ for(const block of selected){
   }
   const evidence=summarizeShadcnBlockSources(block,sources,revision);
   for(const {path,content} of sources){
-    const file="src/ui-catalog/upstream/shadcn-blocks/"+path.slice(prefix.length);
+    const file="audits/upstream/shadcn-blocks/"+path.slice(prefix.length);
     mkdirSync(dirname(file),{recursive:true});
     writeFileSync(file,content);
     pins.sourceBlobs[path]=gitBlobSha(content);

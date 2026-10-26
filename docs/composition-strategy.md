@@ -38,7 +38,7 @@ A missing TSX, guidance, or semantic decision blocks CI. A new Accordion, Button
 
 ## Official shadcn blocks: source-to-template analysis
 
-The same inventory now covers every official block registered in [block-source-inventory.json](../src/ui-catalog/block-source-inventory.json). The 27 existing approved blocks have 103 original source files snapshotted in src/ui-catalog/upstream/shadcn-blocks/. Each file is checked against a pinned upstream Git blob SHA and an immutable commit in [source pins](../src/ui-catalog/shadcn-block-source-pins.json). The analyzer follows imports from **all reviewed upstream TSX files**, reports state/handlers/external package signals, and compares upstream shadcn primitives against the local JSON template dependencies. Differences are visible in absentFromAdaptation and additionalInAdaptation; they are not silently treated as implementation parity.
+The same inventory now covers every official block registered in [block-source-inventory.json](../src/ui-catalog/block-source-inventory.json). The 27 existing approved blocks have 103 original source files snapshotted in audits/upstream/shadcn-blocks/. Each file is checked against a pinned upstream Git blob SHA and an immutable commit in [source pins](../src/ui-catalog/shadcn-block-source-pins.json). The analyzer follows imports from **all reviewed upstream TSX files**, reports state/handlers/external package signals, and compares upstream shadcn primitives against the local JSON template dependencies. Differences are visible in absentFromAdaptation and additionalInAdaptation; they are not silently treated as implementation parity.
 
 Adding a new block follows a review-first process:
 

@@ -63,7 +63,7 @@ test("new ReUI patterns require a reviewed semantic decision and are never admit
     write(root, "src/ui-catalog/block-source-inventory.json", {schemaVersion:1,blocks:[]});
     write(root, "src/ui-catalog/shadcn-block-source-pins.json", {schemaVersion:2,pins:{},sourceBlobs:{}});
     write(root, "src/ui-catalog/shadcn-block-decisions.json", {schemaVersion:1,baselineBlockIds:[],entries:[]});
-    mkdirSync(join(root, "src/ui-catalog/upstream/shadcn-blocks"),{recursive:true});
+    mkdirSync(join(root, "audits/upstream/shadcn-blocks"),{recursive:true});
     write(root, "src/ui-catalog/contracts.lock.json", {components:[{name:"ExampleCard",tier:"extension"}]});
     write(root, "src/ui-catalog/extensions/composites/generated-manifest.json", {components:[]});
     write(root, "src/ui-catalog/reui-guidance.json", {Button:{examples:[["Original","c-button-1"]]}});

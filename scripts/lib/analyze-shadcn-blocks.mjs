@@ -4,7 +4,7 @@ import { summarizeShadcnBlockSources, validateShadcnSourceEvidence, gitBlobSha }
 
 const unique = xs => [...new Set(xs)].sort();
 const origin = "apps/v4/registry/bases/base/blocks/";
-const snapshots = "src/ui-catalog/upstream/shadcn-blocks/";
+const snapshots = "audits/upstream/shadcn-blocks/";
 
 export function analyzeShadcnBlocks({root, inventory, pins, reviews, manifest, contracts, approved}) {
   const file = path => resolve(root,path);
