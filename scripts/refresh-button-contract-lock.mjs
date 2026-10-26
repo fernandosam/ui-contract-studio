@@ -11,6 +11,6 @@ const sourcesFile='src/ui-catalog/sources.json';const sources=read(sourcesFile);
 const source=sources.components.find(c=>c.name==='Button');if(!source)throw new Error('Missing Button source');
 source.contractVersion='2.1.0';write(sourcesFile,sources);
 const piFile='pi-catalog/contracts.json';const pi=read(piFile);
-const contract=pi.contracts.find(c=>c.type==='Button');if(!contract)throw new Error('Missing Pi Button contract');
+const contract=pi.components.find(c=>c.type==='Button');if(!contract)throw new Error('Missing Pi Button contract');
 contract.version='2.1.0';write(piFile,pi);
 console.log('Button 2.1.0 fingerprints, sources and Pi manifest updated');
