@@ -12121,13 +12121,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Card.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12136,13 +12136,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Stack.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12151,13 +12151,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Grid.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12166,13 +12166,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Separator.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12181,13 +12181,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Tabs.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12196,13 +12196,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Accordion.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12211,13 +12211,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Collapsible.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12226,13 +12226,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Dialog.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12241,13 +12241,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Drawer.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12256,13 +12256,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Carousel.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12271,13 +12271,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Table.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12286,13 +12286,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Heading.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12301,13 +12301,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Text.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12316,13 +12316,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Image.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12331,13 +12331,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Icon.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12346,13 +12346,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Avatar.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12361,13 +12361,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Badge.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12376,13 +12376,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Alert.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12391,13 +12391,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Progress.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12406,13 +12406,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Skeleton.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12421,13 +12421,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Spinner.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12436,13 +12436,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Tooltip.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12451,13 +12451,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Popover.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12466,13 +12466,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Rating.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12481,13 +12481,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Metric.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12496,13 +12496,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/BarGraph.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12511,13 +12511,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/LineGraph.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12526,13 +12526,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Input.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12541,13 +12541,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Textarea.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12556,13 +12556,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Select.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12571,13 +12571,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Checkbox.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12586,13 +12586,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Radio.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12601,13 +12601,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Switch.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12616,13 +12616,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Slider.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12631,13 +12631,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Button.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12646,13 +12646,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Link.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12661,13 +12661,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/DropdownMenu.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12676,13 +12676,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Toggle.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12691,13 +12691,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/ToggleGroup.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12706,13 +12706,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/ButtonGroup.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12721,13 +12721,13 @@
       "tier": "base",
       "example": "pi-catalog/examples/Pagination.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12736,13 +12736,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/DataTable.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12751,13 +12751,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/DatePicker.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12766,13 +12766,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Field.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12781,13 +12781,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/BlockSidebar.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12796,13 +12796,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Dashboard01.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12811,13 +12811,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Login01.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12826,13 +12826,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Login02.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12841,13 +12841,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Login03.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12856,13 +12856,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Login04.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12871,13 +12871,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Login05.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12886,13 +12886,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Signup01.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12901,13 +12901,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Signup02.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12916,13 +12916,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Signup03.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12931,13 +12931,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Signup04.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12946,13 +12946,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Signup05.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12961,13 +12961,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar01.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12976,13 +12976,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar02.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -12991,13 +12991,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar03.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13006,13 +13006,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar04.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13021,13 +13021,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar05.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13036,13 +13036,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar06.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13051,13 +13051,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar07.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13066,13 +13066,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar08.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13081,13 +13081,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar09.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13096,13 +13096,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar10.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13111,13 +13111,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar11.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13126,13 +13126,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar12.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13141,13 +13141,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar13.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13156,13 +13156,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar14.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13171,13 +13171,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar15.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13186,13 +13186,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Sidebar16.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13201,13 +13201,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteColorPalette.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13216,13 +13216,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCommandMenu.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13231,13 +13231,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteDirectoryList.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13246,13 +13246,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteNavUser.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13261,13 +13261,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteThemeCustomizer.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13276,13 +13276,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsActivityGoal.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13291,13 +13291,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsChat.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13306,13 +13306,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsCookieSettings.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13321,13 +13321,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsCreateAccount.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13336,13 +13336,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsForms.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13351,13 +13351,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsPaymentMethod.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13366,13 +13366,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsReportIssue.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13381,13 +13381,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsShare.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13396,13 +13396,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsStats.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13411,13 +13411,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/SiteCardsTeamMembers.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13426,13 +13426,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/AspectRatio.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13441,13 +13441,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Kbd.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13456,13 +13456,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Empty.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13471,13 +13471,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/ScrollArea.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13486,13 +13486,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/AlertDialog.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13501,13 +13501,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Attachment.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13516,13 +13516,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Bubble.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13531,13 +13531,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/ContextMenu.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13546,13 +13546,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/HoverCard.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13561,13 +13561,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Item.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13576,13 +13576,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Marker.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13591,13 +13591,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/Message.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13606,13 +13606,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/OnboardingChecklist.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13621,13 +13621,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/RatingDistribution.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
@@ -13636,13 +13636,13 @@
       "tier": "extension",
       "example": "pi-catalog/examples/CharacterCountTextarea.json",
       "lifecycle": "stable",
-      "availability": {
-        "piExperimental": true,
-        "piStable": true
-      },
       "validation": {
         "static": "legacy-approved",
         "e2e": "not-recorded"
+      },
+      "availability": {
+        "piExperimental": true,
+        "piStable": true
       }
     },
     {
