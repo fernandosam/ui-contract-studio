@@ -32,11 +32,11 @@ for(const name of names){
  if(schema&&!shape){console.error(`${name}: schema ausente/desatualizado. Execute npm run pi:zod-schema.`);process.exit(1)}
  selected.push({contract, ...(shape?{propsSchema:shape,events:schema.events[name]??[]}:{}),example:read(contract.example)});
 }
-const semantic=buildSemanticKnowledge({approvedNames:new Set(all.components.filter(x=>x.tier!=='experimental').map(x=>x.type))});
+const semantic=buildSemanticKnowledge({approvedNames:new Set(all.components.filter(x=>x.tier!=='composition').map(x=>x.type))});
 if(semantic.errors.length){
  semantic.errors.forEach(e=>console.error('✗ '+e));process.exit(1);
 }
-const semanticAdvice=selectAgentSemanticAdvice(semantic.report,names.filter(x=>all.components.some(c=>c.type===x&&c.tier!=='experimental')));
+const semanticAdvice=selectAgentSemanticAdvice(semantic.report,names.filter(x=>all.components.some(c=>c.type===x&&c.tier!=='composition')));
 const pack={schemaVersion:3,catalogVersion:all.projectVersion,channel,metadataOnly,rules:[
  channel==='experimental'?'EXPERIMENTAL: tipos experimentais somente para preview/sandbox local; não conceda operações externas.':'ESTÁVEL: não utilize tipos experimentais pendentes de E2E.',
  'Retorne somente JSON com root e elements; todos os nós DEVEM conter children como array, mesmo sem filhos.',
