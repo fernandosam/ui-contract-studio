@@ -3,8 +3,7 @@ import { schema } from "@json-render/react/schema";
 import { z } from "zod";
 import { extensionDefinitions } from "./extensions/catalog";
 import { experimentalDefinitions } from "./admission-engine/generated/definitions";
-import admissionEntries from "./admission-engine/entries.json";
-import admissionCertificates from "./admission-engine/certifications.json";
+import officialCatalog from "../../pi-catalog/contracts.json";
 
 /**
  * Versioned shadcn-aligned JSON-safe API for 41 baseline types.
@@ -99,87 +98,61 @@ export const actionDefinitions = {
   linkClick: { params: obj({href:internalHref}),description:"Feedback de navegação interna." },
 };
 
-/** Certificates are valid only for the exact generated React+Zod source fingerprint. */
+/** The published v3 manifest is the sole source for component lifecycle. */
 export const certifiedExperimentalNames = new Set(
-  admissionEntries.entries.filter(entry => {
-    const cert = (admissionCertificates.components as Record<string,{sourceDigest:string;status:string;protocol:string}>)[entry.type];
-    return cert?.status === "passed" && cert?.sourceDigest === entry.sourceDigest &&
-      cert?.protocol === entry.e2eProtocol && Boolean(entry.e2eProtocol);
-  }).map(entry => entry.type)
+  officialCatalog.components.filter(entry => entry.tier === "composition" &&
+    entry.lifecycle === "stable").map(entry => entry.type)
 );
 export const unifiedComponentDefinitions = {...componentDefinitions, ...experimentalDefinitions};
 export const stableComponentDefinitions = {
   ...componentDefinitions,
-  ...Object.fromEntries(Object.entries(experimentalDefinitions).filter(([name]) => certifiedExperimentalNames.has(name))),
+  ...Object.fromEntries(Object.entries(experimentalDefinitions)
+    .filter(([name]) => certifiedExperimentalNames.has(name))),
 };
-export const stableComponentEventDescriptors: Record<string,{events?:string[];slots?:string[]}> =
-  Object.fromEntries(Object.entries(stableComponentDefinitions).map(([name,def])=>[name,{
-    ...('events' in def && Array.isArray(def.events) ? {events:[...def.events]} : {}),
-    ...('slots' in def && Array.isArray(def.slots) ? {slots:[...def.slots]} : {}),
-  }]));
-export const experimentalComponentEventDescriptors: Record<string,{events?:string[];slots?:string[]}> =
-  Object.fromEntries(Object.entries(unifiedComponentDefinitions).map(([name,def])=>[name,{
-    ...('events' in def && Array.isArray(def.events) ? {events:[...def.events]} : {}),
-    ...('slots' in def && Array.isArray(def.slots) ? {slots:[...def.slots]} : {}),
-  }]));
-const baseCatalog = defineCatalog(schema, { components: stableComponentDefinitions, actions: actionDefinitions });
-/** The json-render structural validator does not enforce every component's Zod props.
- * Enforce closed component contracts before rendering or accepting Pi output.
- */
-const validateStructure = baseCatalog.validate.bind(baseCatalog);
-export const catalog = baseCatalog;
-Object.defineProperty(catalog, 'validate', {
-  value(input: unknown) {
-    const checked = validateStructure(input);
-    const issues: z.core.$ZodIssue[] = checked.success ? [] : (checked.error?.issues?.length ? [...checked.error.issues] : [{code:'custom',path:[],message:'Especificação estrutural inválida'}]);
-    // Inspect existing nodes even when the structural schema rejects the document.
-    // Otherwise a missing children array could mask malicious or unknown props.
-    const candidate = checked.success ? checked.data : input;
-    const elements = candidate && typeof candidate === 'object' && 'elements' in candidate
-      ? (candidate as {elements?: unknown}).elements : undefined;
-    const definitions = stableComponentDefinitions as Record<string,{props:z.ZodType}>;
-    if (elements && typeof elements === 'object' && !Array.isArray(elements)) {
-      for (const [id, raw] of Object.entries(elements)) {
-        if (!raw || typeof raw !== 'object' || Array.isArray(raw)) continue;
-        const element = raw as {type?:string;props?:unknown};
-        const definition = element.type ? definitions[element.type] : undefined;
-        if (!definition) continue; // Unknown components are rejected structurally.
-        const props = definition.props.safeParse(element.props ?? {});
-        if (!props.success) for (const issue of props.error.issues) {
-          issues.push({...issue,path:['elements',id,'props',...issue.path]});
-        }
-      }
-    }
-    return issues.length ? {success:false as const,error:new z.ZodError(issues)} : checked;
-  },
-});
 
-/** Explicit opt-in: runtime and validation include unhomologated, local-only components. */
-export const experimentalCatalog = defineCatalog(schema, {
-  components: unifiedComponentDefinitions, actions: actionDefinitions,
-});
-const experimentalStructure = experimentalCatalog.validate.bind(experimentalCatalog);
-Object.defineProperty(experimentalCatalog, 'validate', {
-  value(input: unknown) {
-    const checked = experimentalStructure(input);
-    const issues: z.core.$ZodIssue[] = checked.success ? [] :
-      (checked.error?.issues?.length ? [...checked.error.issues] : [{code:'custom',path:[],message:'Especificação estrutural inválida'}]);
-    const candidate = checked.success ? checked.data : input;
-    const elements = candidate && typeof candidate==='object' && 'elements' in candidate
-      ? (candidate as {elements?:unknown}).elements : undefined;
-    const definitions = unifiedComponentDefinitions as Record<string,{props:z.ZodType}>;
-    if(elements && typeof elements==='object' && !Array.isArray(elements)) {
-      for(const [id,raw] of Object.entries(elements)) {
-        if(!raw || typeof raw!=='object' || Array.isArray(raw))continue;
-        const elem = raw as {type?:string;props?:unknown};
-        const def = elem.type?definitions[elem.type]:undefined;
-        if(!def)continue;
-        const result=def.props.safeParse(elem.props??{});
-        if(!result.success)for(const issue of result.error.issues) {
-          issues.push({...issue,path:['elements',id,'props',...issue.path]});
+type StrictDefinition = {props:z.ZodType;events?:readonly string[];slots?:readonly string[]};
+function descriptors(definitions:Record<string,StrictDefinition>):
+ Record<string,{events?:string[];slots?:string[]}> {
+  return Object.fromEntries(Object.entries(definitions).map(([name,definition]) => [
+    name,{
+      ...(definition.events ? {events:[...definition.events]} : {}),
+      ...(definition.slots ? {slots:[...definition.slots]} : {}),
+    },
+  ]));
+}
+export const stableComponentEventDescriptors = descriptors(stableComponentDefinitions);
+export const experimentalComponentEventDescriptors = descriptors(unifiedComponentDefinitions);
+
+/** One strict Zod/graph validator for both lifecycle-filtered catalog views.
+ * Structural errors must not hide malicious or unknown props on any other node.
+ */
+function defineValidatedCatalog(definitions:typeof unifiedComponentDefinitions) {
+  const result=defineCatalog(schema,{components:definitions,actions:actionDefinitions});
+  const validateStructure=result.validate.bind(result);
+  Object.defineProperty(result,"validate",{
+    value(input:unknown) {
+      const checked=validateStructure(input);
+      const issues:z.core.$ZodIssue[]=checked.success?[]:
+        (checked.error?.issues?.length?[...checked.error.issues]:
+          [{code:"custom",path:[],message:"Especificação estrutural inválida"}]);
+      const candidate=checked.success?checked.data:input;
+      const elements=candidate && typeof candidate==="object" && "elements" in candidate
+        ? (candidate as {elements?:unknown}).elements:undefined;
+      if(elements && typeof elements==="object" && !Array.isArray(elements)) {
+        for(const [id,raw] of Object.entries(elements)) {
+          if(!raw || typeof raw!=="object" || Array.isArray(raw))continue;
+          const element=raw as {type?:string;props?:unknown};
+          const definition=element.type?(definitions as Record<string,StrictDefinition>)[element.type]:undefined;
+          if(!definition)continue; // Unknown types remain structural errors.
+          const parsed=definition.props.safeParse(element.props??{});
+          if(!parsed.success)for(const issue of parsed.error.issues)
+            issues.push({...issue,path:["elements",id,"props",...issue.path]});
         }
       }
-    }
-    return issues.length?{success:false as const,error:new z.ZodError(issues)}:checked;
-  }
-});
+      return issues.length?{success:false as const,error:new z.ZodError(issues)}:checked;
+    },
+  });
+  return result;
+}
+export const catalog=defineValidatedCatalog(stableComponentDefinitions);
+export const experimentalCatalog=defineValidatedCatalog(unifiedComponentDefinitions);
