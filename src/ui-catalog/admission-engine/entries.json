@@ -15,7 +15,7 @@
         "confirm"
       ],
       "sourceLicense": "MIT (local composition)",
-      "e2eProtocol": null,
+      "e2eProtocol": "acknowledged-action-desktop-mobile",
       "exposedToPiExperimental": true
     },
     {
@@ -47,7 +47,7 @@
       "example": "pi-catalog/experimental-examples/TeamMemberAccordion.json",
       "events": [],
       "sourceLicense": "MIT (local composition)",
-      "e2eProtocol": null,
+      "e2eProtocol": "team-members-desktop-mobile",
       "exposedToPiExperimental": true
     },
     {
@@ -62,7 +62,7 @@
       "example": "pi-catalog/experimental-examples/CopyFeedbackButton.json",
       "events": [],
       "sourceLicense": "MIT (local composition)",
-      "e2eProtocol": null,
+      "e2eProtocol": "copy-feedback-desktop-mobile",
       "exposedToPiExperimental": true
     }
   ]
