@@ -39,11 +39,11 @@ test("acceptance evidence cannot replace pending independent review",()=>{
  const code=text("src/ui-runtime/typed-confirmation-pilot.tsx");
  assert.match(code,/typedConfirmationDialogSchema\.safeParse/);
  assert.match(code,/Nenhuma operação externa executada/);
- const runner=text("scripts/typed-confirmation-evidence.mjs");
+ const runner=text("scripts/admission-evidence.mjs");
  assert.match(runner,/manualChecks/);
  assert.match(runner,/status:"passed"/);
  const workflow=text(".github/workflows/quality.yml");
- assert.match(workflow,/typed-confirmation-preview/);
+ assert.match(workflow,/admission-browser/);
  assert.match(workflow,/test:composition:pilot/);
  assert.match(workflow,/upload-artifact@v4/);
 });
