@@ -4,7 +4,7 @@ import {typedConfirmationDialogSchema} from "@/ui-catalog/extensions/composites/
 
 /**
  * Fixed administrative fixture. The candidate runs locally inside the explorer,
- * but is not registered in the Pi catalog, registry or JSON renderer.
+ * and is available through the explicit experimental Pi registry only.
  */
 export function TypedConfirmationPilot(){
  const [expected,setExpected]=useState("EXCLUIR");
@@ -19,7 +19,7 @@ export function TypedConfirmationPilot(){
    data-testid="typed-confirmation-pilot">
   <div className="space-y-1">
    <h4 className="font-semibold">Prévia executável · TypedConfirmationDialog</h4>
-   <p className="text-xs text-muted-foreground">Executa a receita React local no explorador administrativo. Sem ações remotas, sem registro no Pi e sem operações destrutivas.</p>
+   <p className="text-xs text-muted-foreground">Executa a receita React local no explorador administrativo. Sem ações remotas e sem operações destrutivas; catálogo Pi experimental.</p>
   </div>
   <label className="grid gap-1 text-xs font-medium" htmlFor="pilot-expected">
    Texto exigido na demonstração
@@ -37,6 +37,6 @@ export function TypedConfirmationPilot(){
     data-testid="typed-confirmation-confirmations">
    Confirmações locais: {count}. Nenhuma operação externa executada.
   </p>
-  <p className="text-xs font-medium">A implementação continua candidata. Esta prévia não equivale à revisão de acessibilidade ou à aprovação de contrato.</p>
+  <p className="text-xs font-medium">Contrato experimental: E2E completo e revisão de acessibilidade continuam distintos desta prévia.</p>
  </section>;
 }
