@@ -8,6 +8,7 @@ const read = path => readFileSync(path, "utf8");
 const json = path => JSON.parse(read(path));
 const digest = contents => createHash("sha256").update(contents).digest("hex");
 const policy = json("src/ui-catalog/admission-engine/policy.json");
+const protocols = json("src/ui-catalog/admission-engine/protocols.json").candidates;
 const recipes = json("scripts/composition-codegen/recipes.json");
 const scenarios = json("src/ui-catalog/recommendations/scenarios.json");
 const approved = new Set(json("src/ui-catalog/contracts.lock.json").components.map(c => c.name));
@@ -50,7 +51,7 @@ for (const id of policy.allowedScenarios ?? []) {
     recipeId:id,source:"scripts/composition-codegen/recipes/"+id,
     example:"pi-catalog/experimental-examples/"+recipe.target+".json",
     events:id.startsWith("alert-")?["confirm"]:[],sourceLicense:"MIT (local composition)",
-    e2eProtocol:policy.e2eEligible.includes(id)?"typed-confirmation-desktop-mobile":null,
+    e2eProtocol:policy.e2eEligible.includes(id)?protocols[id]?.protocol??null:null,
     exposedToPiExperimental:true});
 }
 if (errors.length) { errors.forEach(x => console.error("✗ "+x)); process.exit(1); }

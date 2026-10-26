@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    "desktop",
+    "mobile"
+  ],
+  "candidates": {
+    "alert-checkbox": {
+      "target": "AcknowledgedActionDialog",
+      "protocol": "acknowledged-action-desktop-mobile",
+      "cases": [
+        "confirmation-gate",
+        "cancel-reset",
+        "keyboard-local-only"
+      ],
+      "evidenceRoot": "reports/composition-validation/admission/alert-checkbox"
+    },
+    "alert-typed": {
+      "target": "TypedConfirmationDialog",
+      "protocol": "typed-confirmation-desktop-mobile",
+      "cases": [
+        "invalid-and-exact-match",
+        "cancel-and-reopen",
+        "keyboard-focus",
+        "responsive-layout",
+        "schema-and-no-network"
+      ],
+      "evidenceRoot": "reports/composition-validation/typed-confirmation"
+    },
+    "accordion-members": {
+      "target": "TeamMemberAccordion",
+      "protocol": "team-members-desktop-mobile",
+      "cases": [
+        "members-content",
+        "keyboard-toggle",
+        "responsive-local-only"
+      ],
+      "evidenceRoot": "reports/composition-validation/admission/accordion-members"
+    },
+    "button-copy": {
+      "target": "CopyFeedbackButton",
+      "protocol": "copy-feedback-desktop-mobile",
+      "cases": [
+        "copy-success",
+        "clipboard-denied",
+        "keyboard-local-only"
+      ],
+      "evidenceRoot": "reports/composition-validation/admission/button-copy"
+    }
+  }
+}

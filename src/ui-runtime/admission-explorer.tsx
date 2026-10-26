@@ -23,7 +23,7 @@ export function AdmissionExplorer() {
    <header className="rounded-xl border bg-card p-5">
     <h2 className="text-lg font-semibold">Catálogo oficial · maturidade dos contratos</h2>
     <p className="mt-1 text-sm text-muted-foreground">
-     {official.catalogSize} contratos estáveis e {official.experimentalCatalogSize} contratos experimentais no mesmo manifesto.
+     {official.catalogSize} contratos legados e {official.experimentalCatalogSize} composições adicionais no mesmo manifesto.
      Componentes pendentes exigem habilitação explícita para testes locais.
     </p>
    </header>

@@ -102,7 +102,10 @@
     "admission:promote": "node scripts/admission-engine.mjs --promote",
     "admission:sync": "node scripts/sync-admission-catalog.mjs --write && node scripts/build-pi-api.mjs --write",
     "admission:sync:check": "node scripts/sync-admission-catalog.mjs --check",
-    "admission:certify": "node scripts/admission-engine.mjs --certify"
+    "admission:certify": "node scripts/admission-engine.mjs --certify",
+    "test:admission:candidates": "playwright test tests/e2e/admission-candidates.spec.ts --project=desktop --project=mobile",
+    "admission:evidence:reset": "node scripts/admission-evidence.mjs --reset",
+    "admission:evidence:report": "node scripts/admission-evidence.mjs --report"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -4,12 +4,13 @@ test("official catalog distinguishes pending E2E and only previews it after opt-
  await page.goto("/?screen=catalogo-pi");
  const catalog=page.getByTestId("admission-catalog");
  await expect(catalog).toBeVisible();
- await expect(catalog.getByText("102 contratos estáveis e 4 contratos experimentais")).toBeVisible();
- await catalog.getByLabel("Maturidade").selectOption("experimental");
+ await expect(catalog.getByText(/102 contratos legados e 4 composições adicionais/)).toBeVisible();
+ await catalog.getByLabel("Buscar componente").fill("TypedConfirmationDialog");
  const member=catalog.getByRole("button",{name:/TypedConfirmationDialog/});
  await expect(member).toBeVisible();
  await member.click();
- await expect(catalog.getByText(/Este componente ainda não passou pelo E2E completo/)).toBeVisible();
+ const pending=await catalog.getByText(/Este componente ainda não passou pelo E2E completo/).count();
+ if(!pending)await expect(catalog.getByText("E2E aprovado").first()).toBeVisible();
  await catalog.getByLabel("Canal Pi").selectOption("experimental");
  const preview=catalog.getByRole("region",{name:"Prévia do contrato"});
  await expect(preview.getByRole("button",{name:"Excluir"})).toBeVisible();

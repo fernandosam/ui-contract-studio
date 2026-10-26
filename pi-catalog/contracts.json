@@ -12039,7 +12039,7 @@
       "example": "pi-catalog/experimental-examples/AcknowledgedActionDialog.json",
       "capability": "local-interactive",
       "sourceDigest": "b825a220acf4568a0d48b83cd406529921da7151f3f2b4b100505dbf52ea64b6",
-      "e2eProtocol": null,
+      "e2eProtocol": "acknowledged-action-desktop-mobile",
       "validation": {
         "static": "passed",
         "e2e": "pending"
@@ -12081,7 +12081,7 @@
       "example": "pi-catalog/experimental-examples/TeamMemberAccordion.json",
       "capability": "local-interactive",
       "sourceDigest": "0c8d0b7aceac11f56611c9aa4408c773a6202483eb87c1b6d7a9d2ad2200e8ec",
-      "e2eProtocol": null,
+      "e2eProtocol": "team-members-desktop-mobile",
       "validation": {
         "static": "passed",
         "e2e": "pending"
@@ -12102,7 +12102,7 @@
       "example": "pi-catalog/experimental-examples/CopyFeedbackButton.json",
       "capability": "local-interactive",
       "sourceDigest": "adae00ffca5ac5a9fe298a06dd2dd9f2f6b6943277dd7085487ce5e6153cf188",
-      "e2eProtocol": null,
+      "e2eProtocol": "copy-feedback-desktop-mobile",
       "validation": {
         "static": "passed",
         "e2e": "pending"
@@ -13655,7 +13655,7 @@
       "example": "pi-catalog/experimental-examples/AcknowledgedActionDialog.json",
       "capability": "local-interactive",
       "sourceDigest": "b825a220acf4568a0d48b83cd406529921da7151f3f2b4b100505dbf52ea64b6",
-      "e2eProtocol": null,
+      "e2eProtocol": "acknowledged-action-desktop-mobile",
       "validation": {
         "static": "passed",
         "e2e": "pending"
@@ -13697,7 +13697,7 @@
       "example": "pi-catalog/experimental-examples/TeamMemberAccordion.json",
       "capability": "local-interactive",
       "sourceDigest": "0c8d0b7aceac11f56611c9aa4408c773a6202483eb87c1b6d7a9d2ad2200e8ec",
-      "e2eProtocol": null,
+      "e2eProtocol": "team-members-desktop-mobile",
       "validation": {
         "static": "passed",
         "e2e": "pending"
@@ -13718,7 +13718,7 @@
       "example": "pi-catalog/experimental-examples/CopyFeedbackButton.json",
       "capability": "local-interactive",
       "sourceDigest": "adae00ffca5ac5a9fe298a06dd2dd9f2f6b6943277dd7085487ce5e6153cf188",
-      "e2eProtocol": null,
+      "e2eProtocol": "copy-feedback-desktop-mobile",
       "validation": {
         "static": "passed",
         "e2e": "pending"

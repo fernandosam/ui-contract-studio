@@ -25,6 +25,9 @@ npm run pi:zod-schema
 npm run pi:context -- --types=TypedConfirmationDialog --channel=experimental --stdout
 npm run pi:validate -- --file=pi-catalog/experimental-examples/TypedConfirmationDialog.json --channel=experimental
 npm run admission:check
+npm run admission:evidence:reset
+npm run test:admission:candidates
+npm run admission:evidence:report
 npm run validate && npm run build
 ~~~
 
@@ -38,4 +41,10 @@ O workflow grava `src/ui-catalog/admission-engine/certifications.json` e regener
 
 Modificar código React ou schema invalida automaticamente o vínculo com a certificação anterior, retornando à condição experimental. A certificação cobre comportamento local testado; não equivale a revisão manual de acessibilidade nem autoriza transações, exclusão de dados ou requisições externas.
 
-Inicialmente o catálogo experimental contempla `AcknowledgedActionDialog`, `TypedConfirmationDialog`, `TeamMemberAccordion` e `CopyFeedbackButton`. Somente TypedConfirmationDialog possui protocolo de promoção completo. Os demais continuam experimentais até haver testes E2E específicos, com checagem negativa obrigatória.
+Inicialmente o catálogo experimental contempla `AcknowledgedActionDialog`, `TypedConfirmationDialog`, `TeamMemberAccordion` e `CopyFeedbackButton`. Os quatro candidatos possuem agora protocolos individuais de E2E (desktop/mobile), mas permanecem **experimentais até que o workflow manual na main produza certificados válidos**. A promoção é vinculada ao fingerprint de cada contrato. Falha de qualquer cenário no E2E completo impede a certificação daquela execução; nenhuma aprovação é inferida da CI da PR.
+
+## Protocolos de navegador dos quatro candidatos
+
+O protocolo anterior de `TypedConfirmationDialog` preserva seus 5 casos desktop/mobile (10 execuções). Os novos protocolos independentes contêm 3 cenários por candidato e plataforma (18 execuções adicionais): `AcknowledgedActionDialog` (marcação obrigatória, cancelamento/reset e teclado), `TeamMemberAccordion` (conteúdo local, teclado e responsividade) e `CopyFeedbackButton` (cópia explícita, permissão negada e teclado). As evidências ficam separadas por candidato em `reports/composition-validation/admission/`.
+
+A CI da PR executa os novos testes e relatórios, mas **não certifica** o catálogo estável. Somente `E2E manual (main)`, após recomeçar os diretórios de evidência, executar a suíte completa e validar os resultados da versão atual, pode gravar certificados na `main`. Se a política de proteção impedir o push do bot, a gravação deverá ser aprovada pelo fluxo do repositório. A execução manual não foi iniciada nesta implementação.
