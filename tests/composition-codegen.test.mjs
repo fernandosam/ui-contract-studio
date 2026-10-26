@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {readFileSync,existsSync,rmSync,writeFileSync} from "node:fs";
+import {readFileSync,existsSync,writeFileSync} from "node:fs";
 import {spawnSync} from "node:child_process";
 import {join} from "node:path";
 import {createHash} from "node:crypto";
