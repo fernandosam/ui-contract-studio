@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "mode": "opt-in-experimental",
+  "allowedScenarios": [
+    "alert-checkbox",
+    "alert-typed",
+    "accordion-members",
+    "button-copy"
+  ],
+  "e2eEligible": [
+    "alert-typed"
+  ],
+  "explanation": "Reviewed recipes may be automatically published as isolated experimental artifacts following CI. E2E-based stable artifact promotion is available only for candidates with an explicit verified browser protocol. Native Pi exposure is never implied."
+}

@@ -15,7 +15,7 @@ jobs:
     name: Testes funcionais e layout
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,8 +33,23 @@ jobs:
           else
             npx playwright install --with-deps chromium
           fi
+      - name: Static checks before the E2E promotion gate
+        run: npm run validate && npm run build
+      - name: Clear stale candidate browser evidence
+        run: npm run composition:pilot:reset
       - name: Testes E2E funcionais e de layout
         run: npm run test:e2e
+      - name: Verify fresh desktop/mobile candidate evidence
+        run: npm run composition:pilot:report
+      - name: Promote only the E2E-covered candidate into separate stable distribution
+        run: npm run admission:promote
+      - name: Publish post-E2E stable artifact bound to this commit
+        uses: actions/upload-artifact@v4
+        with:
+          name: admission-stable-${{ github.sha }}
+          path: dist/admission/stable/
+          if-no-files-found: error
+          retention-days: 90
       - name: Evidências E2E
         if: always()
         uses: actions/upload-artifact@v4

@@ -24,6 +24,8 @@ Este arquivo contém somente as **regras vigentes**. Fluxos detalhados estão na
 - Para composições estáticas, edite templates e `generated-manifest.json`, execute `npm run composites:generate` e nunca edite manualmente `src/ui-catalog/extensions/generated/`. Composições com estado próprio exigem implementação React explícita e adapter tipado.
 - Gerar ou instalar código shadcn/ui não altera o catálogo automaticamente; valide a origem em `shadcn-plan.json` e use `npm run shadcn:verify`. Alterações de schema, props ou eventos exigem migração de telas, padrões, manifestos e testes.
 
+A publicação automática experimental e a distribuição isolada pós-E2E são regidas pelo [Admission Engine](docs/admission-engine.pt-BR.md). Nenhum desses artefatos altera a API do Pi ou substitui revisão de admissão no registry/lock.
+
 ## 4. Geração e validação com Pi
 
 1. Gere schemas reais com `npm run pi:zod-schema`; selecione **somente os tipos necessários** usando `npm run pi:context -- --types=Card,Button` (até 25 por lote). Não gere com `--metadata-only`.

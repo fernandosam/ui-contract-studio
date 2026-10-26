@@ -11,6 +11,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [README](../README.md) | Introduction and installation |
 | [Architecture](architecture.md) | Sources of truth and layers |
 | [Components and contracts](components.md) | shadcn/ui, ReUI, compositions, and admission |
+| [Admission Engine](admission-engine.md) | Experimental publication and post-E2E distribution |
 | [Composition strategy](composition-strategy.md) | Dependency map, semantic classification and new ReUI examples |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Development](development.md) | Environment, tests, CI, and E2E |

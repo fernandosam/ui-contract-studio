@@ -39,7 +39,7 @@ npm run validate       # catalog checks, lint, and tests
 npm run build          # TypeScript and Vite
 ~~~
 
-The quality CI runs on pull requests and pushes to `main`. The **full E2E suite** runs manually on `main` under **Actions → E2E manual (main)**; visual auditing follows a separate workflow. The presence of components, structural tests, or pixel differences alone does not constitute visual approval.
+The quality CI runs on pull requests and pushes to `main`. The [Admission Engine](docs/admission-engine.md) publishes reviewed composition proposals as separate experimental artifacts after automated checks; manual main-branch E2E can promote a covered proposal to a standalone stable distribution artifact. **Neither channel adds a type to the native Pi registry.** The **full E2E suite** runs manually on `main` under **Actions → E2E manual (main)**; visual auditing follows a separate workflow. The presence of components, structural tests, or pixel differences alone does not constitute visual approval.
 
 ## Repository structure
 

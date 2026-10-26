@@ -20,7 +20,7 @@ This file contains only the **current rules**. Detailed procedures are documente
 
 ## 3. Changing or admitting components
 
-- First check for an approved equivalent. A genuine gap requires **admission with a Zod schema + React component + registry**, provenance and license in `sources.json`, version/fingerprint in `contracts.lock.json`, examples, tests, and independent review. An agent **must not self-approve** its own change.
+- First check for an approved equivalent. A genuine gap requires **admission with a Zod schema + React component + registry**, provenance and license in `sources.json`, version/fingerprint in `contracts.lock.json`, examples, tests, and independent review. An agent **must not self-approve** its own change. The Admission Engine may publish explicitly allowlisted proposals to an **isolated experimental artifact**, with a separate E2E-homologated distribution artifact; neither modifies the authoritative Pi API. See [Admission Engine](docs/admission-engine.md).
 - For static compositions, edit templates and `generated-manifest.json`, run `npm run composites:generate`, and never manually edit `src/ui-catalog/extensions/generated/`. Compositions with their own state need an explicit React implementation and typed adapter.
 - Generating or installing shadcn/ui code does not automatically change the catalog; verify provenance in `shadcn-plan.json` and run `npm run shadcn:verify`. Schema, prop, or event changes require migration of screens, patterns, manifests, and tests.
 

@@ -1,0 +1,43 @@
+name: Admission experimental (main)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: admission-experimental-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  experimental:
+    name: Validate and publish isolated composition candidates
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Validate admission allowlist and reviewed recipes
+        run: npm run admission:check
+      - name: Run static gates, tests and build (no browser E2E)
+        run: npm run validate && npm run build
+      - name: Publish immutable experimental artifact for this commit
+        run: npm run admission:publish
+      - name: Upload opt-in experimental React and Zod proposals
+        uses: actions/upload-artifact@v4
+        with:
+          name: admission-experimental-${{ github.sha }}
+          path: dist/admission/experimental/
+          if-no-files-found: error
+          retention-days: 30
