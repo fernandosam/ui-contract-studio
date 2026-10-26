@@ -33,7 +33,7 @@ test("generator emits audited, reproducible React + strict Zod schemas and execu
     for(const name of files)assert.ok(existsSync(join(root,name)));
     const manifest=JSON.parse(readFileSync(join(root,"manifest.json"),"utf8"));
     assert.equal(manifest.admission,"review-required");
-    assert.equal(manifest.exposedToPi,false);
+    assert.equal(manifest.registryChannel,"experimental");
     assert.equal(manifest.target,recipe.target);
     assert.ok(manifest.tests.every(x=>x.status==="planned-not-executed"));
     for(const [name,digest] of Object.entries(manifest.fileSha256))
