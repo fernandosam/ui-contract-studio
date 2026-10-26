@@ -9,6 +9,7 @@ import primitiveGuidancePtBr from '@/ui-catalog/primitive-guidance.pt-BR.json';
 import compositionPolicy from '@/ui-catalog/composition-policy.json';
 import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
+import {CompositionRecommendationPanel, pilotFamilies} from './composition-recommendations';
 
 // Ferramenta administrativa fixa; telas geradas e composições permanecem 100% declarativas.
 type UiNode = { type: string; props: Record<string, unknown>; children: string[]; slots?: Record<string,string[]> };
@@ -275,6 +276,15 @@ function ComponentExplorer({kind}:{kind:Kind}){
  return <section className="min-w-0 space-y-5" aria-label={kind==='primitive'?'Explorador de primitivos shadcn':'Explorador de componentes compostos'}>
   <header><h2 className="text-lg font-semibold">{kind==='primitive'?'Primitivos shadcn':'Componentes compostos'}</h2>
    <p className="text-sm text-muted-foreground">{available.length} contratos {kind==='primitive'?'de base e adaptadores oficiais':'com funcionalidades ou padrões reutilizáveis'} · edição local validada pelo Zod.</p></header>
+  {kind==='primitive' && <nav aria-label="Pilotos de recomendação semântica" className="flex flex-wrap items-center gap-2">
+   <span className="text-xs text-muted-foreground">Analisar composição:</span>
+   {pilotFamilies.map(family=><button type="button" key={family}
+    aria-current={type===family?'true':undefined}
+    onClick={()=>{setType(family);setSearch('');}}
+    className={`rounded-md border px-3 py-1.5 text-xs ${type===family?'bg-secondary font-semibold':'hover:bg-muted'}`}>
+    {family}
+   </button>)}
+  </nav>}
   <div className="grid min-w-0 gap-4 lg:grid-cols-[245px_minmax(0,1fr)]">
    <aside className="min-w-0 rounded-lg border border-border bg-card p-3 lg:max-h-[720px] lg:overflow-y-auto">
     <label htmlFor="catalog-search" className="mb-2 block text-xs font-medium">Buscar componente</label>
@@ -289,6 +299,8 @@ function ComponentExplorer({kind}:{kind:Kind}){
     <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(type).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
     {kind==='primitive' && <ReuiGuidance type={type}/>}
     <SemanticKnowledgePanel type={type}/>
+    {kind==='primitive' && pilotFamilies.some(family=>family===type) &&
+      <CompositionRecommendationPanel key={type} family={type as (typeof pilotFamilies)[number]}/>}
     {spec&&<LivePropsEditor key={`${kind}:${type}`} type={type} original={spec} source={sample?.source??''}/>}
    </div>
   </div>
