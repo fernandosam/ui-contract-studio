@@ -5,7 +5,10 @@ import {spawnSync} from 'node:child_process';
 const read=p=>readFileSync(p,'utf8');
 test('CI exige npm ci, primitivas versionadas, Zod schema real e Playwright',()=>{
  const quality=read('.github/workflows/quality.yml');
- for(const flag of ['package-lock.json','npm ci','npm run pi:zod-schema','npm run doctor:strict','npm run validate && npm run build'])assert.ok(quality.includes(flag),flag);
+ for(const flag of ['npm run pi:zod-schema','npm run doctor:strict','npm run check','npm run lint','npx tsx --test tests/*.integration.test.ts','npm run build'])assert.ok(quality.includes(flag),flag);
+ const deps=read('.github/actions/setup-deps/action.yml');
+ assert.ok(deps.includes('package-lock.json')&&deps.includes('npm ci --no-audit --no-fund'));
+ assert.ok(quality.includes('./.github/actions/setup-deps'));
  const e2e=read('.github/workflows/e2e-manual.yml');
  assert.ok(e2e.includes('workflow_dispatch')&&e2e.includes('npm run test:e2e'),'Playwright deve ser executável manualmente em workflow dedicado');
 });
