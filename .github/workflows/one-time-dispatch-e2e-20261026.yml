@@ -25,3 +25,5 @@ jobs:
 # Authorized second dispatch after merging the Pi v3 collector fix (PR #25).
 
 # Third authorized dispatch after visual reference checks were isolated (PR #26).
+
+# Official main E2E after merge PR #27 (ReUI corrections, Slider accessibility).
