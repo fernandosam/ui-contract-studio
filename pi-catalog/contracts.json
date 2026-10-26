@@ -12540,7 +12540,7 @@
       "type": "AcknowledgedActionDialog",
       "version": "0.1.0",
       "tier": "composition",
-      "lifecycle": "experimental",
+      "lifecycle": "stable",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/admission-engine/generated/AcknowledgedActionDialog.schema.ts",
       "example": "pi-catalog/experimental-examples/AcknowledgedActionDialog.json",
@@ -12549,7 +12549,7 @@
       "e2eProtocol": "acknowledged-action-desktop-mobile",
       "validation": {
         "static": "passed",
-        "e2e": "pending"
+        "e2e": "passed"
       },
       "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
     },
@@ -12557,7 +12557,7 @@
       "type": "TypedConfirmationDialog",
       "version": "0.1.0",
       "tier": "composition",
-      "lifecycle": "experimental",
+      "lifecycle": "stable",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/admission-engine/generated/TypedConfirmationDialog.schema.ts",
       "example": "pi-catalog/experimental-examples/TypedConfirmationDialog.json",
@@ -12566,7 +12566,7 @@
       "e2eProtocol": "typed-confirmation-desktop-mobile",
       "validation": {
         "static": "passed",
-        "e2e": "pending"
+        "e2e": "passed"
       },
       "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
     },
@@ -12574,7 +12574,7 @@
       "type": "TeamMemberAccordion",
       "version": "0.1.0",
       "tier": "composition",
-      "lifecycle": "experimental",
+      "lifecycle": "stable",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/admission-engine/generated/TeamMemberAccordion.schema.ts",
       "example": "pi-catalog/experimental-examples/TeamMemberAccordion.json",
@@ -12583,7 +12583,7 @@
       "e2eProtocol": "team-members-desktop-mobile",
       "validation": {
         "static": "passed",
-        "e2e": "pending"
+        "e2e": "passed"
       },
       "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
     },
@@ -12591,7 +12591,7 @@
       "type": "CopyFeedbackButton",
       "version": "0.1.0",
       "tier": "composition",
-      "lifecycle": "experimental",
+      "lifecycle": "stable",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/admission-engine/generated/CopyFeedbackButton.schema.ts",
       "example": "pi-catalog/experimental-examples/CopyFeedbackButton.json",
@@ -12600,7 +12600,7 @@
       "e2eProtocol": "copy-feedback-desktop-mobile",
       "validation": {
         "static": "passed",
-        "e2e": "pending"
+        "e2e": "passed"
       },
       "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
     }

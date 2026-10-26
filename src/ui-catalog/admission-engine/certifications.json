@@ -1,4 +1,37 @@
 {
   "schemaVersion": 1,
-  "components": {}
+  "components": {
+    "AcknowledgedActionDialog": {
+      "status": "passed",
+      "protocol": "acknowledged-action-desktop-mobile",
+      "sourceDigest": "b825a220acf4568a0d48b83cd406529921da7151f3f2b4b100505dbf52ea64b6",
+      "sourceRevision": "f65be9d815563ef57d8d7a8ec46909ab9c055c7e",
+      "githubRunId": "40421030566",
+      "evidenceDigest": "92aa3100f459a49db33c75565a8f11008207fb5d20a64af5c9f8ac10ee35a4e3"
+    },
+    "TypedConfirmationDialog": {
+      "status": "passed",
+      "protocol": "typed-confirmation-desktop-mobile",
+      "sourceDigest": "86f640487463ddf9eaccaf863ac2772863dd64ce129d72e0049fae951d8b46da",
+      "sourceRevision": "f65be9d815563ef57d8d7a8ec46909ab9c055c7e",
+      "githubRunId": "40421030566",
+      "evidenceDigest": "c6717280189fa777259e2279e3fcdfd43aa48f634ed60fec1d74e5ca2c36f00a"
+    },
+    "TeamMemberAccordion": {
+      "status": "passed",
+      "protocol": "team-members-desktop-mobile",
+      "sourceDigest": "0c8d0b7aceac11f56611c9aa4408c773a6202483eb87c1b6d7a9d2ad2200e8ec",
+      "sourceRevision": "f65be9d815563ef57d8d7a8ec46909ab9c055c7e",
+      "githubRunId": "40421030566",
+      "evidenceDigest": "33391d2c5b17d32d9d6726bf057b725ad697b6f71da58f3c5861293946a01d11"
+    },
+    "CopyFeedbackButton": {
+      "status": "passed",
+      "protocol": "copy-feedback-desktop-mobile",
+      "sourceDigest": "adae00ffca5ac5a9fe298a06dd2dd9f2f6b6943277dd7085487ce5e6153cf188",
+      "sourceRevision": "f65be9d815563ef57d8d7a8ec46909ab9c055c7e",
+      "githubRunId": "40421030566",
+      "evidenceDigest": "1e7c060470b0447271dfa4336731c878ca4b9f8083e6a56173b8da4a1188de93"
+    }
+  }
 }
