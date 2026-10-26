@@ -96,7 +96,10 @@
     "composition:admission:prepare": "node scripts/check-typed-confirmation-admission.mjs --prepare",
     "composition:pilot:reset": "node scripts/typed-confirmation-evidence.mjs --reset",
     "test:composition:pilot": "playwright test tests/e2e/typed-confirmation-pilot.spec.ts --project=desktop --project=mobile",
-    "composition:pilot:report": "node scripts/typed-confirmation-evidence.mjs --report"
+    "composition:pilot:report": "node scripts/typed-confirmation-evidence.mjs --report",
+    "admission:check": "node scripts/admission-engine.mjs --check",
+    "admission:publish": "node scripts/admission-engine.mjs --publish",
+    "admission:promote": "node scripts/admission-engine.mjs --promote"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
