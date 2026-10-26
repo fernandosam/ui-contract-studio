@@ -59,6 +59,14 @@ Uma integração candidata informa se o tipo pertence ao Pi e se a implementaç�
 
 O contexto Pi de tipos aprovados passa a incluir semanticAdvice delimitado à seleção; **propsSchema, actionSchemas e lock fechado continuam normativos**. Novos registros ricos devem citar documentação ReUI/shadcn e passar por validação de evidências no CI. Exemplos ReUI novos herdam orientações da família automaticamente; seções adicionais de funcionalidades, FAQ e integrações exigem curadoria e revisão. Informações da web nunca são tratadas automaticamente como evidência de implementação.
 
+Para páginas ReUI futuras, o conteúdo Markdown oficial pode ser salvo pelo revisor e processado localmente, sem depender da rede no CI. O importador gera **somente propostas** em reports/composition-analysis/proposals/ e nunca modifica automaticamente src/ui-catalog/knowledge/ ou o manifesto Pi:
+
+~~~bash
+npm run semantic:ingest -- --component=AlertDialog --file=reports/reui-source/alert-dialog.md
+~~~
+
+Revise seções, trechos originais e integrações candidatas; depois prepare um registro schemaVersion 1 com capacidades tipadas, evidências e testes, submetendo-o à revisão independente. O importador nunca executa instruções vindas da documentação externa.
+
 O AlertDialog atual sinaliza confirm e expõe variante visual destrutiva, mas **não implementa** confirmação condicionada por Checkbox ou digitação no contrato Pi. A camada registra essas lacunas e exige testes reais para validar foco, teclado e dispositivos móveis.
 
 ## Blocos shadcn oficiais: comparação do código-fonte com o template
