@@ -215,7 +215,8 @@ export function ReuiCompositeExplorer() {
                   {semanticValidation?.error
                     ? <p className="text-sm text-muted-foreground">Corrija os dados para visualizar esta composição.</p>
                     : <div key={selected.id + semanticDraft} className="w-full">
-                        <ReuiComposite key={selected.id} id={selected.id} width={width} align={align} data={semanticValidation?.data}/>
+                        <ReuiComposite key={selected.id} id={selected.id} width={width} align={align}
+                          {...(semanticValidation?.data === undefined ? {} : { data: semanticValidation.data })}/>
                       </div>}
                 </div>
                 <ReuiSourceViewer id={selected.id}/>

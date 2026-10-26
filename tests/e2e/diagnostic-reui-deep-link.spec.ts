@@ -22,6 +22,7 @@ test("deep link diagnostic: ReUI slider exposes a keyboard-operable thumb",async
   await page.getByLabel("Filtrar componente").selectOption("Slider")
   const host=page.getByTestId("reui-preview-c-slider-1")
   await expect(host).toBeVisible()
+  await expect(host).not.toContainText("Carregando exemplo…", {timeout: 20_000})
   console.log("[slider HTML]",(await host.innerHTML()).slice(0,6500))
   await expect(host.getByRole("slider")).toBeVisible()
 })
