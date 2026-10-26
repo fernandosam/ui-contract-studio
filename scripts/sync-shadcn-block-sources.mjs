@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
-import { join, dirname, resolve } from "node:path";
-import { summarizeShadcnBlockSources } from "./lib/shadcn-block-sources.mjs";
+import { dirname, resolve, sep } from "node:path";
+import { summarizeShadcnBlockSources, gitBlobSha } from "./lib/shadcn-block-sources.mjs";
 
 const args = process.argv.slice(2);
 const arg = key => args.find(x=>x.startsWith(key+"="))?.slice(key.length+1);
@@ -16,6 +16,9 @@ if ((Boolean(slug) === Boolean(all)) || !/^[0-9a-f]{40}$/.test(revision??"")) {
 const selected=all?inventory.blocks:inventory.blocks.filter(x=>x.name===slug);
 if(!selected.length)throw new Error("Unregistered block: "+slug);
 const prefix="apps/v4/registry/bases/base/blocks/";
+const pinFile="src/ui-catalog/shadcn-block-source-pins.json";
+const pins=JSON.parse(readFileSync(pinFile,"utf8"));
+if(pins.schemaVersion!==2)throw new Error("Unsupported source pin schema");
 for(const block of selected){
   const sources=[];
   for(const path of block.sourceFiles){
@@ -24,7 +27,7 @@ for(const block of selected){
     let content;
     if(local){
       const full=resolve(local,path);
-      if(!full.startsWith(resolve(local)+"/"))throw new Error("Source path escapes checkout");
+      if(!full.startsWith(resolve(local)+sep))throw new Error("Source path escapes checkout");
       content=readFileSync(full,"utf8");
     }else{
       const url="https://raw.githubusercontent.com/shadcn-ui/ui/"+revision+"/"+path;
@@ -35,10 +38,15 @@ for(const block of selected){
     sources.push({path,content});
   }
   const evidence=summarizeShadcnBlockSources(block,sources,revision);
-  const file="src/ui-catalog/shadcn-block-source-evidence/"+block.name+".json";
-  mkdirSync(dirname(file),{recursive:true});
-  writeFileSync(file,JSON.stringify(evidence,null,2)+"\n");
-  console.log("✓ "+block.name+": "+sources.length+" upstream files, "+evidence.dependencies.length+
-    " primitive dependencies, source revision "+revision.slice(0,12));
+  for(const {path,content} of sources){
+    const file="src/ui-catalog/upstream/shadcn-blocks/"+path.slice(prefix.length);
+    mkdirSync(dirname(file),{recursive:true});
+    writeFileSync(file,content);
+    pins.sourceBlobs[path]=gitBlobSha(content);
+  }
+  pins.pins[block.name]=revision;
+  console.log("✓ "+block.name+": "+sources.length+" official files, "+evidence.dependencies.length+
+    " primitive dependencies, pinned revision "+revision.slice(0,12));
 }
-console.log("Source evidence generated. Review and commit the evidence, source inventory and semantic decision together.");
+writeFileSync(pinFile,JSON.stringify(pins,null,2)+"\n");
+console.log("Pinned source snapshots updated. Review the source diff and the block decision before publishing any new Pi contract.");
