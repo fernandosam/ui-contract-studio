@@ -63,7 +63,7 @@
     "ci:verify": "npm ci --no-audit --no-fund && npm run shadcn:verify && npm run pi:zod-schema && npm run validate && npm run build",
     "bootstrap:reviewed": "npm install --include=dev --no-audit --no-fund && npm run shadcn:install && npm run shadcn:verify && npm install --package-lock-only --no-audit --no-fund && npm run integration:update && npm run ci:verify",
     "check:core": "node scripts/run-checks.mjs --core",
-    "composites:generate": "node scripts/generate-composite-registry.mjs",
+    "composites:generate": "node scripts/generate-composition-proposals.mjs",
     "composites:generated:check": "node scripts/generate-composite-registry.mjs --check",
     "verify": "npm run validate && npm run build && npm run test:e2e",
     "composites:node-props:generate": "node scripts/generate-composite-node-props.mjs",
@@ -90,7 +90,8 @@
     "semantic:context": "node scripts/analyze-semantic-knowledge.mjs",
     "semantic:ingest": "node scripts/ingest-reui-knowledge.mjs",
     "composites:recommend:check": "tsx scripts/check-composition-recommendations.ts",
-    "composites:recommend:pilot": "tsx scripts/show-composition-recommendation.ts"
+    "composites:recommend:pilot": "tsx scripts/show-composition-recommendation.ts",
+    "composites:generate:check": "node scripts/generate-composition-proposals.mjs --check"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -106,3 +106,28 @@ npm run composites:recommend:check
 
 As regras do piloto são versionadas em [scenarios.json](../src/ui-catalog/recommendations/scenarios.json) e executadas por [engine.ts](../src/ui-catalog/recommendations/engine.ts). Novos cenários exigem revisão da adequação semântica, validação dos alvos no lock de contratos e testes. O painel não substitui revisão humana ou testes E2E.
 
+
+## Geração automática de propostas de código (etapa posterior)
+
+O motor de recomendações pode **gerar código React funcional e schemas Zod estritos em uma área isolada para revisão**, sem alterar o catálogo Pi. Somente os cenários classificados como react-candidate, com receitas explícitas em [recipes.json](../scripts/composition-codegen/recipes.json), são elegíveis. Atualmente são quatro: alert-checkbox (AcknowledgedActionDialog), alert-typed (TypedConfirmationDialog), accordion-members (TeamMemberAccordion) e button-copy (CopyFeedbackButton). Cenários de reutilização ou integrações remotas proibidas não são gerados.
+
+~~~bash
+# Validar todas as receitas, imports, schemas e sintaxe sem criar arquivos
+npm run composites:generate:check
+
+# Gerar somente um candidato
+npm run composites:generate -- --id=alert-typed
+
+# Gerar os quatro pacotes de propostas
+npm run composites:generate -- --all
+
+# Executar os testes Zod do pacote gerado
+npx tsx --test reports/composition-proposals/alert-typed/TypedConfirmationDialog.schema.test.ts
+~~~
+
+Cada pacote é criado somente em reports/composition-proposals/<id>/ (ignorados pelo Git), com componente TSX, schema Zod, teste de fixtures válido/inválido, REVIEW.md e manifest.json com hashes SHA-256 e testes comportamentais **ainda não executados**. Saídas modificadas manualmente não são sobrescritas. O gerador só aceita IDs cadastrados e importa componentes de uma allowlist; não executa Markdown, exemplos externos, respostas de agentes ou texto arbitrário.
+
+No explorador, selecione AlertDialog, Accordion ou Button e uma situação de **proposta React**. A opção "Código proposto" mostra as receitas TSX/Zod e permite copiá-las para revisão. Essa prévia não executa nem publica código.
+
+**Definição de pronto para publicação:** revisão humana em PR separado, validação do schema e do comportamento com navegador/teclado/responsividade, revisão de acessibilidade e segurança, versionamento da API, registro explícito no registry/lock e testes de integração. *Gerar uma proposta não equivale a aprová-la*; o gate atual só atesta sintaxe, allowlists, proveniência e testes de schema. Uma edição dos arquivos gerados não altera o código-fonte ou a API Pi.
+

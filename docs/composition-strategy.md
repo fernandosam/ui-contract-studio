@@ -106,3 +106,21 @@ npm run composites:recommend:check
 
 See [reviewed scenarios](../src/ui-catalog/recommendations/scenarios.json) and [deterministic engine](../src/ui-catalog/recommendations/engine.ts). Extending the pilot requires semantic review, checking approved type dependencies against the contract lock, and tests. Browser-level certification remains a separate manual process.
 
+
+## Review-gated React composition code generation
+
+The recommendation engine can now **generate isolated React component and strict Zod schema proposals** without modifying Pi. Only reviewed react-candidate scenarios with explicit templates in [recipes.json](../scripts/composition-codegen/recipes.json) can be generated: alert-checkbox (AcknowledgedActionDialog), alert-typed (TypedConfirmationDialog), accordion-members (TeamMemberAccordion), button-copy (CopyFeedbackButton). Existing-contract reuse and remote-operation review scenarios are denied.
+
+~~~bash
+npm run composites:generate:check
+npm run composites:generate -- --id=alert-typed
+npm run composites:generate -- --all
+npx tsx --test reports/composition-proposals/alert-typed/TypedConfirmationDialog.schema.test.ts
+~~~
+
+Each proposal is written only to gitignored reports/composition-proposals/<id>/, containing a TSX component, a strict Zod schema, runnable valid/invalid schema fixtures, REVIEW.md, and a manifest with file SHA-256 hashes and explicitly **unexecuted** browser/security checks. Generated artifacts are deterministic; the generator refuses to overwrite locally changed proposals. Only pinned source recipes and allowlisted component imports are used; user prompts and scraped page instructions cannot be converted to executable code.
+
+In the primitive explorer, select AlertDialog/Accordion/Button and a React candidate to preview/copy the component and schema. The preview is **display-only**, not a Pi implementation.
+
+Promotion requires a separate reviewed PR with browser/a11y/security evidence, complete Zod contract versioning and explicit registry/lock admission. Source syntax and schema fixtures do not certify behavior. Generation itself grants no Pi type, event, new permission or backend capability.
+

@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "base": "review-only",
+  "recipes": [
+    {
+      "id": "alert-checkbox",
+      "target": "AcknowledgedActionDialog",
+      "componentFile": "AcknowledgedActionDialog.tsx",
+      "schemaFile": "AcknowledgedActionDialog.schema.ts",
+      "schemaExport": "acknowledgedActionDialogSchema",
+      "review": "required",
+      "fixtures": {
+        "valid": {
+          "trigger": "Excluir",
+          "title": "Confirmação",
+          "description": "Excluir itens?",
+          "acknowledgmentLabel": "Estou ciente",
+          "confirmLabel": "Excluir"
+        },
+        "invalid": [
+          {
+            "trigger": "Excluir",
+            "title": "Confirmar",
+            "description": "D",
+            "acknowledgmentLabel": "Aceito",
+            "confirmLabel": "Excluir",
+            "unsafeHtml": "<script/>"
+          },
+          {
+            "trigger": "",
+            "title": "Confirmação",
+            "description": "D",
+            "acknowledgmentLabel": "Aceito",
+            "confirmLabel": "Excluir"
+          }
+        ]
+      }
+    },
+    {
+      "id": "alert-typed",
+      "target": "TypedConfirmationDialog",
+      "componentFile": "TypedConfirmationDialog.tsx",
+      "schemaFile": "TypedConfirmationDialog.schema.ts",
+      "schemaExport": "typedConfirmationDialogSchema",
+      "review": "required",
+      "fixtures": {
+        "valid": {
+          "trigger": "Excluir",
+          "title": "Confirmação",
+          "description": "Digite código",
+          "expectedText": "EXCLUIR",
+          "confirmLabel": "Excluir"
+        },
+        "invalid": [
+          {
+            "trigger": "Excluir",
+            "title": "Confirmação",
+            "description": "Digite código",
+            "expectedText": "",
+            "confirmLabel": "Excluir"
+          },
+          {
+            "trigger": "Excluir",
+            "title": "Confirmação",
+            "description": "Digite código",
+            "expectedText": "EXCLUIR",
+            "confirmLabel": "Excluir",
+            "onConfirm": "eval"
+          }
+        ]
+      }
+    },
+    {
+      "id": "accordion-members",
+      "target": "TeamMemberAccordion",
+      "componentFile": "TeamMemberAccordion.tsx",
+      "schemaFile": "TeamMemberAccordion.schema.ts",
+      "schemaExport": "teamMemberAccordionSchema",
+      "review": "required",
+      "fixtures": {
+        "valid": {
+          "members": [
+            {
+              "id": "m1",
+              "name": "Ana",
+              "role": "Engenheira",
+              "description": "Membro"
+            }
+          ]
+        },
+        "invalid": [
+          {
+            "members": []
+          },
+          {
+            "members": [
+              {
+                "id": "m1",
+                "name": "Ana",
+                "role": "Engenheira",
+                "description": "",
+                "unsafe": "extra"
+              }
+            ]
+          },
+          {
+            "members": [
+              {
+                "id": "m1",
+                "name": "Ana",
+                "role": "Engenheira",
+                "description": ""
+              },
+              {
+                "id": "m1",
+                "name": "Beto",
+                "role": "Desenvolvedor",
+                "description": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "button-copy",
+      "target": "CopyFeedbackButton",
+      "componentFile": "CopyFeedbackButton.tsx",
+      "schemaFile": "CopyFeedbackButton.schema.ts",
+      "schemaExport": "copyFeedbackButtonSchema",
+      "review": "required",
+      "fixtures": {
+        "valid": {
+          "label": "Copiar",
+          "text": "texto seguro"
+        },
+        "invalid": [
+          {
+            "label": "Copiar",
+            "text": "",
+            "html": "foo"
+          },
+          {
+            "label": "",
+            "text": "texto seguro"
+          }
+        ]
+      }
+    }
+  ]
+}
