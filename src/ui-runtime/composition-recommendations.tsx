@@ -8,6 +8,12 @@ import {
   type Strategy,
 } from "@/ui-catalog/recommendations/engine";
 
+// Fixed, reviewed recipe sources: display only, never evaluated as JSX or imported as Pi code.
+const recipeSources=import.meta.glob("../../scripts/composition-codegen/recipes/*.txt",{
+  eager:true,query:"?raw",import:"default",
+}) as Record<string,string>;
+const recipeSource=(id:string,kind:"component.tsx"|"schema.ts")=>
+  recipeSources["../../scripts/composition-codegen/recipes/"+id+"."+kind+".txt"]??"";
 const strategyLabels:Record<Strategy,string>={
   "reuse-contract":"Reutilizar contrato aprovado",
   "react-candidate":"Propor componente React composto",
@@ -30,6 +36,11 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
   const options=recommendationScenarios.filter(item=>item.family===family);
   const [selected,setSelected]=useState(options[0]?.id??"");
   const [query,setQuery]=useState("");
+  const [copied,setCopied]=useState("");
+  const copyRecipe=(value:string,kind:string)=>{
+    if(!navigator.clipboard?.writeText)return;
+    void navigator.clipboard.writeText(value).then(()=>setCopied(kind)).catch(()=>setCopied("failed"));
+  };
   const found=query.trim() ? recommendFromRequirement(query,family) : null;
   const result=found?.status==="matched" ? found.recommendation :
     found ? null : getCompositionRecommendation(selected);
@@ -110,6 +121,26 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
           </li>)}
         </ol>
       </div>
+      {result.decision==="react-candidate" && recipeSource(result.scenario.id,"component.tsx") && <details className="rounded-md border p-3" data-testid="generated-code-proposal">
+        <summary className="cursor-pointer text-sm font-medium">Código proposto: React + Zod (revisão obrigatória)</summary>
+        <p className="mt-2 text-xs text-muted-foreground">Prévia de receitas estáticas revisáveis. Copiar não admite nem executa o componente. Para produzir o pacote completo com testes e manifesto, use o gerador CLI.</p>
+        {(["component.tsx","schema.ts"] as const).map(kind=>{
+          const text=recipeSource(result.scenario.id,kind);
+          return <div key={kind} className="mt-3 space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <h5 className="text-xs font-semibold">{kind==="component.tsx"?"Componente React":"Schema Zod proposto"}</h5>
+              <button type="button" className="rounded-md border px-3 py-1.5 text-xs hover:bg-muted"
+                onClick={()=>copyRecipe(text,kind)} aria-label={"Copiar fonte "+kind}>Copiar</button>
+            </div>
+            <pre className="max-h-64 overflow-auto rounded-md bg-muted p-3 text-xs"><code>{text}</code></pre>
+          </div>;
+        })}
+        <p role="status" className="text-xs text-muted-foreground">
+          {copied==="failed"?"Não foi possível copiar automaticamente; selecione o código acima.":
+           copied?"Fonte copiada: "+copied:""}
+        </p>
+        <p className="font-mono text-xs">npm run composites:generate -- --id={result.scenario.id}</p>
+      </details>}
       <p className="text-xs text-muted-foreground">Evidências consultadas: {result.provenance.join(" · ")}</p>
       <p className="text-xs font-medium">A recomendação não habilita JSX arbitrário, propriedades, eventos, rede ou operações destrutivas; novos compostos exigem contrato Zod, implementação e revisão.</p>
     </>}
