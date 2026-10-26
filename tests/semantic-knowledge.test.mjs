@@ -8,6 +8,7 @@ import {
   buildSemanticKnowledge, validateSemanticOverlay, selectAgentSemanticAdvice,
 } from "../scripts/lib/semantic-knowledge.mjs";
 import {buildCompositionAnalysis} from "../scripts/lib/composition-analysis.mjs";
+import {extractReuiMarkdown} from "../scripts/lib/extract-reui-markdown.mjs";
 
 const read=path=>JSON.parse(readFileSync(path,"utf8"));
 const seed=read("src/ui-catalog/knowledge/alert-dialog.json");
@@ -100,4 +101,34 @@ test("Pi context exports semantic suggestions but grants no extra props, type or
   assert.ok(pack.semanticAdvice[0].implementationGaps.some(x=>x.id==="typed-confirmation"));
   assert.match(pack.semanticAdvicePolicy,/Advisory only/);
   assert.ok(pack.semanticAdvice[0].integrationCandidates.every(x=>x.admission==="not-granted"));
+});
+
+
+test("ReUI Markdown ingestion produces review-only proposals, never public contract authority",()=>{
+  const source=[
+    "## For AI Agents",
+    "**When to use**",
+    "- Confirm critical decisions",
+    "**When not to use**",
+    "- Ordinary notification",
+    "**Agent notes**",
+    "- Do not infer backend authorization",
+    "### What is Shadcn Alert Dialog?",
+    "This modal is for confirmations.",
+    "### Shadcn Alert Dialog Features",
+    "- Keyboard and focus behavior require testing",
+    "## Integrating with Other Components",
+    "Use Shadcn Button, Shadcn Checkbox and Shadcn Input.",
+    "## Frequently Asked Questions",
+    "### When should I use a checkbox?",
+    "For high impact actions."
+  ].join("\n");
+  const proposal=extractReuiMarkdown(source,"AlertDialog","https://reui.io/components/alert-dialog");
+  assert.equal(proposal.proposalStatus,"review-required");
+  assert.equal(proposal.piAdmission,"not-authorized");
+  assert.deepEqual(proposal.guidance.whenUse,["Confirm critical decisions"]);
+  assert.deepEqual(proposal.guidance.whenNotUse,["Ordinary notification"]);
+  assert.deepEqual(proposal.integrationCandidates.map(x=>x.component),["Button","Checkbox","Input"]);
+  assert.equal(proposal.faqQuestions.length,1);
+  assert.throws(()=>extractReuiMarkdown(source,"AlertDialog","https://evil.example/docs"),/exact official/);
 });
