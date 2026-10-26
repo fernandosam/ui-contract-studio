@@ -16,7 +16,7 @@ test('catálogo unificado exporta schemas reais para estáveis e experimentais',
  assert.equal(all.schemaVersion,3);
  assert.equal(all.components.length,106);
  assert.deepEqual(Object.keys(schemas.types).sort(),Object.keys(unifiedComponentDefinitions).sort());
- assert.deepEqual(all.components.filter((x:{tier:string})=>x.tier!=="experimental").map((x:{type:string})=>x.type).sort(),Object.keys(componentDefinitions).sort());
+ assert.deepEqual(all.components.filter((x:{tier:string})=>x.tier!=="composition").map((x:{type:string})=>x.type).sort(),Object.keys(componentDefinitions).sort());
  for(const contract of all.components){
   const prop=schemas.types[contract.type];
   assert.ok(prop,contract.type);
