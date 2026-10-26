@@ -67,7 +67,7 @@ if(process.argv.includes("--prepare")){
  writeFileSync(path,body);
  console.log("✓ Dossiê preparado: "+path);
 }
-if(process.argv.some(x=>!["--check","--prepare"].includes(x))){
+if(process.argv.slice(2).some(x=>!["--check","--prepare"].includes(x))){
  console.error("Use --check or --prepare. Automatic Pi promotion is deliberately unsupported.");
  process.exit(2);
 }
