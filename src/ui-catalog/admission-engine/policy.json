@@ -8,7 +8,10 @@
     "button-copy"
   ],
   "e2eEligible": [
-    "alert-typed"
+    "alert-checkbox",
+    "alert-typed",
+    "accordion-members",
+    "button-copy"
   ],
-  "explanation": "Reviewed recipes may be automatically published as isolated experimental artifacts following CI. E2E-based stable artifact promotion is available only for candidates with an explicit verified browser protocol. Native Pi exposure is never implied."
+  "explanation": "All four allowlisted local-only React/Zod candidates have independent desktop/mobile E2E protocols. Static gates allow experimental access; only the trusted main workflow can publish fingerprint-bound E2E certificates into the stable Pi channel."
 }
