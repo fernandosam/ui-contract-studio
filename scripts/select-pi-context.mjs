@@ -10,6 +10,10 @@ if(!option){console.error('Uso: npm run pi:context -- --types=Card,Button,Dashbo
 const names=[...new Set(option.slice('--types='.length).split(',').map(s=>s.trim()).filter(Boolean))];
 if(!names.length||names.length>25){console.error('Selecione entre 1 e 25 tipos por lote.');process.exit(2)}
 const metadataOnly=process.argv.includes('--metadata-only');
+const channel=process.argv.includes('--channel=experimental')?'experimental':'stable';
+if(process.argv.some(x=>x.startsWith('--channel=')&&!['--channel=experimental','--channel=stable'].includes(x))){
+ console.error('Canal inválido: use --channel=stable ou --channel=experimental');process.exit(2);
+}
 const schemaPath='pi-catalog/props-json-schema.json';
 if(!metadataOnly&&!existsSync(schemaPath)){
  console.error('JSON Schema real ausente. Execute npm install --include=dev && npm run pi:zod-schema. Use --metadata-only somente para inspeção, não geração.');
@@ -21,7 +25,9 @@ if(schema&&(schema.schemaVersion!==2||schema.projectVersion!==all.projectVersion
 }
 const selected=[];
 for(const name of names){
- const contract=all.contracts.find(x=>x.type===name);
+ const candidate=all.experimentalContracts?.find(x=>x.type===name);
+ const contract=all.contracts.find(x=>x.type===name) ??
+   (candidate && (channel==='experimental'||candidate.availability?.piStable)?candidate:null);
  if(!contract){const retired=read('pi-catalog/retired-contracts.json').retired.find(c=>c.name===name);console.error(retired?`Tipo removido na v0.21: ${name}. ${retired.reason} Use ${retired.replacement}.`:`Tipo não aprovado: ${name}. Consulte pi-catalog/contracts.json.`);process.exit(1)}
  const shape=schema?.types[name];
  if(schema&&!shape){console.error(`${name}: schema ausente/desatualizado. Execute npm run pi:zod-schema.`);process.exit(1)}
@@ -31,8 +37,9 @@ const semantic=buildSemanticKnowledge({approvedNames:new Set(all.contracts.map(x
 if(semantic.errors.length){
  semantic.errors.forEach(e=>console.error('✗ '+e));process.exit(1);
 }
-const semanticAdvice=selectAgentSemanticAdvice(semantic.report,names);
-const pack={schemaVersion:2,catalogVersion:all.projectVersion,metadataOnly,rules:[
+const semanticAdvice=selectAgentSemanticAdvice(semantic.report,names.filter(x=>all.contracts.some(c=>c.type===x)));
+const pack={schemaVersion:2,catalogVersion:all.projectVersion,channel,metadataOnly,rules:[
+ channel==='experimental'?'EXPERIMENTAL: tipos experimentais somente para preview/sandbox local; não conceda operações externas.':'ESTÁVEL: não utilize tipos experimentais pendentes de E2E.',
  'Retorne somente JSON com root e elements; todos os nós DEVEM conter children como array, mesmo sem filhos.',
  'Use APENAS os tipos selecionados e propriedades do propsSchema; additionalProperties false é obrigatório.',
  'Use APENAS os eventos previstos para os tipos selecionados e as ações declaradas em actions.',
