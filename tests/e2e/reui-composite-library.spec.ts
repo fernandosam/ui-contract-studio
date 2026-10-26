@@ -49,3 +49,37 @@ test.describe("Explorador de composições ReUI (559)", () => {
     await expect(page.getByTestId("reui-source-panel-c-accordion-1").getByTestId("reui-code-block")).toContainText("AccordionTrigger")
   })
 })
+
+test("edita dados semânticos ReUI, valida Zod e preserva exemplo não configurável", async ({ page }) => {
+  await page.goto("/?screen=explorador-compostos&reui=c-alert-1")
+  const editor = page.getByLabel("Dados semânticos da composição ReUI")
+  await expect(editor).toBeVisible()
+  await editor.fill(JSON.stringify({ title: "Aviso personalizado", description: "Conteúdo configurável sem JSX" }))
+  await expect(page.getByTestId("reui-composite-preview-c-alert-1")).toContainText("Aviso personalizado")
+  await editor.fill(JSON.stringify({ title: "Inseguro", description: "Alerta", className: "p-4" }))
+  await expect(page.getByRole("alert")).toBeVisible()
+  await expect(page.getByTestId("reui-composite-preview-c-alert-1")).toContainText("Corrija os dados")
+  await page.getByRole("button", { name: "Restaurar dados de exemplo" }).click()
+  await expect(page.getByRole("alert")).toHaveCount(0)
+  await expect(page.getByTestId("reui-composite-preview-c-alert-1")).toContainText("Alert!")
+  await page.getByLabel("Filtrar família de compostos ReUI").selectOption("Button")
+  await expect(page.getByLabel("Dados semânticos da composição ReUI")).toHaveCount(0)
+})
+
+test("Accordion parametrizado mantém interações locais e bloqueia IDs duplicados", async ({ page }) => {
+  await page.goto("/?screen=explorador-compostos&reui=c-accordion-1")
+  const editor = page.getByLabel("Dados semânticos da composição ReUI")
+  await editor.fill(JSON.stringify({ items: [
+    { id: "primeiro", title: "Pergunta nova", description: "Resposta personalizada" },
+    { id: "segundo", title: "Outra pergunta", description: "Outra resposta" },
+  ] }))
+  const preview = page.getByTestId("reui-composite-preview-c-accordion-1")
+  await expect(preview).toContainText("Pergunta nova")
+  await preview.getByText("Outra pergunta").click()
+  await expect(preview).toContainText("Outra resposta")
+  await editor.fill(JSON.stringify({ items: [
+    { id: "mesmo", title: "A", description: "Um" },
+    { id: "mesmo", title: "B", description: "Dois" },
+  ] }))
+  await expect(page.getByRole("alert")).toBeVisible()
+})

@@ -7,6 +7,7 @@ import {
   type ReuiCompositeDescriptor,
 } from "./reui-composite-definitions"
 import { ReuiPattern } from "./reui-preview"
+import { isConfigurableReuiId, reuiSemanticSchemas } from "./reui-semantic-config"
 
 export { reuiCompositeCatalog, reuiCompositeById, reuiCompositePropsSchema }
 export type { ReuiCompositeProps, ReuiCompositeDescriptor }
@@ -30,14 +31,18 @@ const alignments: Record<NonNullable<ReuiCompositeProps["align"]>, string> = {
  */
 export function createReuiComposite(descriptor: ReuiCompositeDescriptor): ComponentType<ReuiCompositeProps> {
   function Composite(props: ReuiCompositeProps) {
-    const parsed = reuiCompositePropsSchema.safeParse(props)
+    const schema = isConfigurableReuiId(descriptor.id)
+      ? reuiCompositePropsSchema.extend({ data: reuiSemanticSchemas[descriptor.id].optional() })
+      : reuiCompositePropsSchema
+    const parsed = schema.safeParse(props)
     if (!parsed.success) throw new Error("Propriedades inválidas para " + descriptor.name)
     const { width = "full", align = "center" } = parsed.data
+    const data = "data" in parsed.data ? parsed.data.data as ReuiCompositeProps["data"] : undefined
     return (
       <div data-composite={descriptor.name} data-reui-composite={descriptor.id}
         className={"flex min-w-0 w-full " + alignments[align]}>
         <div className={"min-w-0 w-full " + sizes[width]}>
-          <ReuiPattern kind={descriptor.kind} id={descriptor.id} />
+          <ReuiPattern kind={descriptor.kind} id={descriptor.id} data={data} />
         </div>
       </div>
     )

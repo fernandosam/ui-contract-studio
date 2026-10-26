@@ -10,6 +10,8 @@ const additionalPatterns: Record<string, ComponentType> = Object.fromEntries(
 );
 
 import { reuiButtonPatterns } from './reui-button-index';
+import { isConfigurableReuiId, type ReuiSemanticData } from './reui-semantic-config';
+import { ReuiSemanticPattern } from './semantic-reui-patterns';
 import {AccordionPattern1} from './reui-accordion-1';
 import {AccordionPattern2} from './reui-accordion-2';
 import {AccordionPattern3} from './reui-accordion-3';
@@ -33,7 +35,9 @@ const accordions=[AccordionPattern1,AccordionPattern2,AccordionPattern3,Accordio
  * Renderização pura da composição, sem largura/margens da demonstração.
  * Os componentes mantêm suas interações e imports estáticos/lazy originais.
  */
-export function ReuiPattern({kind,id}:{kind:string;id:string}){
+export function ReuiPattern({kind,id,data}:{kind:string;id:string;data?:ReuiSemanticData}){
+ // Gallery examples remain bit-for-bit identical to the audited upstream snapshots.
+ if(data !== undefined && isConfigurableReuiId(id)) return <ReuiSemanticPattern id={id} data={data}/>;
  const index=Number(id.split('-').at(-1));
  if(!Number.isInteger(index)||index<1) return null;
  // Preserve the existing reviewed adapters, but allow newly registered ReUI
