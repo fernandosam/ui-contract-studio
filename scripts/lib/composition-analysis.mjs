@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { resolve, relative, dirname, join, extname, sep } from "node:path";
 import { createHash } from "node:crypto";
 import { analyzeShadcnBlocks } from "./analyze-shadcn-blocks.mjs";
+import {buildSemanticKnowledge} from "./semantic-knowledge.mjs";
 
 const readJson = path => JSON.parse(readFileSync(path, "utf8"));
 const unique = values => [...new Set(values)].sort((a, b) => a.localeCompare(b));
@@ -221,6 +222,8 @@ export function buildCompositionAnalysis(root = process.cwd()) {
     bucket.reuiExamples = unique(bucket.reuiExamples);
     bucket.shadcnBlocks = unique(bucket.shadcnBlocks);
   }
+  const semantic=buildSemanticKnowledge({root,contracts,reuiExamples:examples,approvedNames:approved});
+  errors.push(...semantic.errors);
   return {
     report: {
       schemaVersion: 1, policySource: "src/ui-catalog/composition-policy.json",
@@ -230,8 +233,9 @@ export function buildCompositionAnalysis(root = process.cwd()) {
         reactComposites: listedReact.length, primitiveAdapters: listedPrimitives.length,
         reuiExamples: examples.length, reuiFamilies: Object.keys(families).length,
         shadcnBlocks: shadcnBlocks.length, upstreamSourceFiles: shadcn.sourceFiles,
+        semanticProfiles: semantic.report.profiles.length, curatedSemanticProfiles: semantic.report.coverage.curatedOverlays,
       },
-      contracts, reuiExamples: examples, shadcnBlocks, primitiveImpact: Object.fromEntries(
+      contracts, reuiExamples: examples, shadcnBlocks, semanticKnowledge: semantic.report, primitiveImpact: Object.fromEntries(
         Object.entries(usage).sort(([a], [b]) => a.localeCompare(b))),
     }, errors: unique(errors),
   };
