@@ -131,3 +131,32 @@ No explorador, selecione AlertDialog, Accordion ou Button e uma situação de **
 
 **Definição de pronto para publicação:** revisão humana em PR separado, validação do schema e do comportamento com navegador/teclado/responsividade, revisão de acessibilidade e segurança, versionamento da API, registro explícito no registry/lock e testes de integração. *Gerar uma proposta não equivale a aprová-la*; o gate atual só atesta sintaxe, allowlists, proveniência e testes de schema. Uma edição dos arquivos gerados não altera o código-fonte ou a API Pi.
 
+
+
+## Piloto de validação executável: TypedConfirmationDialog
+
+O gerador de propostas ganhou um **piloto de execução isolada**. No explorador de primitivas, selecione **AlertDialog** e a situação **Exigir confirmação digitada**. O painel executa exatamente a receita React/Zod revisável de TypedConfirmationDialog, com título e palavra esperada configurados em estado local; a confirmação apenas incrementa um contador, nunca apaga dados ou acessa serviços. A prévia não consta do registro de componentes publicados no Pi.
+
+O arquivo TSX e o schema Zod da prévia permanecem idênticos às receitas geradas. O gate de admissão confere a igualdade e impede inclusão no lock, nas exportações Pi ou no registry sem um processo posterior e independente:
+
+~~~bash
+npm run composition:admission:check
+npm run composition:admission:prepare
+~~~
+
+A opção prepare cria reports/composition-admission/typed-confirmation-review.md, com os itens de aprovação humana pendentes. A promoção não é executada automaticamente.
+
+### Playwright e relatório de evidências
+
+Há **cinco cenários focados**, rodados separadamente no projeto Desktop Chrome e em dispositivo móvel Pixel 7: texto incorreto/correto e evento único; cancelamento e reabertura; foco/teclado/Escape; layout responsivo; schema inválido e ausência de chamadas XHR/fetch após confirmação.
+
+~~~bash
+npm run composition:pilot:reset
+npm run test:composition:pilot
+npm run composition:pilot:report
+~~~
+
+O relatório em reports/composition-validation/typed-confirmation/summary.json e summary.md só é emitido quando todos os **10 testes de navegador** estão aprovados e possuem capturas. A CI da pull request executa somente esse conjunto focado, publica as evidências como artefato e mantém o **E2E completo exclusivamente manual na main**. Falhas em teste, ausência de captura ou evidência incompleta bloqueiam o relatório.
+
+As validações de leitor de telas e acessibilidade manual, revisão de segurança e aprovação humana **permanecem pendentes** mesmo com CI verde. Publicação de TypedConfirmationDialog no Pi requer **outra PR**, versionamento do schema, novos fixtures e aprovação explícita de registry/lock; executar a prévia não concede permissões.
+
