@@ -8,27 +8,26 @@ const entries=read("src/ui-catalog/admission-engine/entries.json").entries;
 const certifications=read("src/ui-catalog/admission-engine/certifications.json").components;
 const official=read("pi-catalog/contracts.json");
 
-test("official manifest lists stable and experimental contracts without changing the stable allowlist",()=>{
- const stable=official.contracts.map(x=>x.type);
- const all=official.entries.map(x=>x.type);
- assert.equal(official.catalogSize,stable.length);
- assert.equal(official.experimentalCatalogSize,entries.length);
- assert.equal(all.length,stable.length+entries.length);
- assert.equal(new Set(all).size,all.length);
- for(const legacy of official.entries.filter(x=>x.tier!=="experimental")){
-  assert.equal(legacy.validation.e2e,"not-recorded",legacy.type+": never fabricate historical E2E evidence");
-  assert.equal(legacy.availability.piStable,true,"compatibility for existing approved contracts");
+test("official Pi v3 exposes one authoritative collection with lifecycle gates",()=>{
+ assert.equal(official.schemaVersion,3);
+ assert.deepEqual(Object.keys(official).filter(key=>["contracts","entries","experimentalContracts","catalogSize","experimentalCatalogSize"].includes(key)),[]);
+ const all=official.components.map(x=>x.type);
+ assert.equal(all.length,106);
+ assert.equal(new Set(all).size,106);
+ const locked=read("src/ui-catalog/contracts.lock.json").components;
+ assert.deepEqual(official.components.filter(x=>x.tier!=="experimental").map(x=>x.type).sort(),locked.map(x=>x.name).sort());
+ for(const legacy of official.components.filter(x=>x.tier!=="experimental")){
+  assert.equal(legacy.lifecycle,"stable");
+  assert.equal(legacy.validation.e2e,"not-recorded",legacy.type+": historic E2E evidence is not fabricated");
  }
  for(const entry of entries){
-  const item=official.experimentalContracts.find(x=>x.type===entry.type);
+  const item=official.components.find(x=>x.type===entry.type);
   assert.ok(item,entry.type);
   assert.equal(item.sourceDigest,entry.sourceDigest);
   assert.equal(item.validation.static,"passed");
-  assert.equal(item.availability.piExperimental,true);
   const cert=certifications[entry.type];
   const valid=Boolean(cert && cert.status==="passed" && cert.sourceDigest===entry.sourceDigest &&
     cert.protocol===entry.e2eProtocol && entry.e2eProtocol);
-  assert.equal(item.availability.piStable,valid);
   assert.equal(item.lifecycle,valid?"stable":"experimental");
   assert.equal(item.validation.e2e,valid?"passed":"pending");
  }
