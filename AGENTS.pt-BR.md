@@ -26,6 +26,8 @@ Este arquivo contém somente as **regras vigentes**. Fluxos detalhados estão na
 
 A publicação automática experimental e a distribuição isolada pós-E2E são regidas pelo [Admission Engine](docs/admission-engine.pt-BR.md). Nenhum desses artefatos altera a API do Pi ou substitui revisão de admissão no registry/lock.
 
+A camada oficial experimental permite receitas autorizadas após validações estáticas, mas seu uso no Pi exige `--channel=experimental`. Certificação estável ocorre após E2E completo com fingerprint coincidente. Consulte [Admission Engine](docs/admission-engine.pt-BR.md).
+
 ## 4. Geração e validação com Pi
 
 1. Gere schemas reais com `npm run pi:zod-schema`; selecione **somente os tipos necessários** usando `npm run pi:context -- --types=Card,Button` (até 25 por lote). Não gere com `--metadata-only`.
