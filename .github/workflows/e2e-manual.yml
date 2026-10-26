@@ -4,70 +4,45 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: e2e-manual-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   e2e:
-    name: Testes funcionais e layout
+    name: Complete E2E (read-only)
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: package-lock.json
-      - run: npm ci --no-audit --no-fund
-      - name: Preparar Chromium
-        run: |
-          browser="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
-          if [ -n "$browser" ]; then
-            echo "UI_CONTRACT_STUDIO_CHROMIUM_EXECUTABLE=$browser" >> "$GITHUB_ENV"
-            "$browser" --version
-          else
-            npx playwright install --with-deps chromium
-          fi
-      - name: Static checks before the E2E promotion gate
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup-deps
+      - uses: ./.github/actions/setup-chromium
+      - name: Verify source before running full E2E
         run: npm run validate && npm run build
-      - name: Clear stale candidate browser evidence
+      - name: Clear stale candidate evidence
         run: npm run admission:evidence:reset
-      - name: Testes E2E funcionais e de layout
+      - name: Execute complete E2E suite
         run: npm run test:e2e
-      - name: Verify fresh desktop/mobile candidate evidence
+      - name: Verify all desktop/mobile admission evidence
         run: npm run admission:evidence:report
-      - name: Promote all four independently verified candidates into stable distribution
-        run: npm run admission:promote
-      - name: Publish post-E2E stable artifact bound to this commit
+      - name: Bundle immutable proof for the separate certification job
+        run: |
+          test -d reports/composition-validation
+          tar -czf "$RUNNER_TEMP/admission-evidence.tar.gz" -C reports composition-validation
+      - name: Upload evidence required for certification
         uses: actions/upload-artifact@v4
         with:
-          name: admission-stable-${{ github.sha }}
-          path: dist/admission/stable/
+          name: admission-proof-${{ github.run_id }}
+          path: ${{ runner.temp }}/admission-evidence.tar.gz
           if-no-files-found: error
-          retention-days: 90
-      - name: Verify main head has not changed since E2E began
-        run: |
-          git fetch origin main
-          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ||
-            (echo 'Main advanced during E2E; refusing stale certification.' && exit 1)
-      - name: Record all fingerprint-bound E2E certificates in official Pi manifest
-        env:
-          ADMISSION_CERTIFY_CONFIRM: 'yes'
-        run: npm run admission:certify
-      - name: Commit verified certification and generated Pi catalog
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/ui-catalog/admission-engine/certifications.json pi-catalog/contracts.json
-          git diff --cached --quiet && exit 0
-          git commit -m "chore(admission): certify E2E fingerprint"
-          git push origin HEAD:main
-      - name: Evidências E2E
+          retention-days: 7
+      - name: Preserve full E2E diagnostics (including failures)
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -77,6 +52,70 @@ jobs:
             test-results/
             reports/auth-layout/
             reports/structure-fidelity/
-            reports/composition-validation/typed-confirmation/
-            reports/composition-validation/admission/
-          if-no-files-found: ignore
+            reports/composition-validation/
+          if-no-files-found: warn
+          retention-days: 14
+
+  certify:
+    name: Source-bound promotion (write isolated)
+    needs: e2e
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      actions: read
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup-deps
+      - name: Reject certification if main advanced during the E2E
+        run: |
+          git fetch --quiet origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" || {
+            echo "::error::Main advanced during E2E; no stale certification";
+            exit 1;
+          }
+      - name: Download the exact prior job's browser evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: admission-proof-${{ github.run_id }}
+          path: ${{ runner.temp }}/admission-proof
+      - name: Restore evidence under the expected canonical paths
+        run: |
+          mkdir -p reports
+          tar -xzf "$RUNNER_TEMP/admission-proof/admission-evidence.tar.gz" -C reports
+      - name: Verify all proof again and build stable distribution
+        run: |
+          npm run admission:evidence:report
+          npm run admission:promote
+      - name: Record E2E certificates for this source revision
+        env:
+          ADMISSION_CERTIFY_CONFIRM: 'yes'
+        run: npm run admission:certify
+      - name: Publish the post-E2E stable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: admission-stable-${{ github.sha }}
+          path: dist/admission/stable/
+          if-no-files-found: error
+          retention-days: 90
+      - name: Recheck main head and push only the certified manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git fetch --quiet origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" || {
+            echo "::error::Main changed during certification; refusing push";
+            exit 1;
+          }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/ui-catalog/admission-engine/certifications.json pi-catalog/contracts.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "chore(admission): certify E2E fingerprint"
+          basic="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $basic" push origin HEAD:main

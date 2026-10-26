@@ -8,7 +8,7 @@ permissions:
 
 concurrency:
   group: bootstrap-visual-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   policy-offline:
@@ -77,19 +77,7 @@ jobs:
         run: npm run validate
       - name: Typecheck e build de produção
         run: npm run build
-      - name: Preparar Chromium para Playwright
-        run: |
-          browser="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
-          if [ -n "$browser" ]; then
-            echo "UI_CONTRACT_STUDIO_CHROMIUM_EXECUTABLE=$browser" >> "$GITHUB_ENV"
-            "$browser" --version
-          else
-            npx playwright install --with-deps chromium
-          fi
-      - name: Testes E2E funcionais (desktop e mobile)
-        id: e2e
-        continue-on-error: true
-        run: npm run test:e2e
+      - uses: ./.github/actions/setup-chromium
       # Captura referências reais: demos documentados em /docs/components/base/*.
       # Não são os mesmos 64 cards do shadcn/create; evidências separadas.
       - name: Capturar 38 exemplos oficiais e amostras locais mapeadas (desktop e mobile)
@@ -162,22 +150,17 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-      # Um workflow sem screenshots ou testes funcionais válidos não é homologado.
+      # Auditoria visual dedicada: testes E2E funcionais pertencem ao workflow manual exclusivo.
       - name: Gate final de execução e revisão de CSS
         if: always()
         env:
           SHADCN_OUTCOME: ${{ steps.shadcn.outcome }}
-          E2E_OUTCOME: ${{ steps.e2e.outcome }}
           OFFICIAL_DOCS_CAPTURE_OUTCOME: ${{ steps.docs_capture.outcome }}
           OFFICIAL_DOCS_COMPARISON_OUTCOME: ${{ steps.docs_comparison.outcome }}
         run: |
           node scripts/build-ci-visual-evidence.mjs --strict
           if [ "$SHADCN_OUTCOME" != success ]; then
             echo '::error::Instalação shadcn incompleta ou alterações propostas em CSS protegido. Revise docs/shadcn-cli-review no artefato.'
-            exit 1
-          fi
-          if [ "$E2E_OUTCOME" != success ]; then
-            echo '::error::Falha de E2E; veja test-results e screenshots no artefato.'
             exit 1
           fi
           if [ "$OFFICIAL_DOCS_CAPTURE_OUTCOME" != success ] || [ "$OFFICIAL_DOCS_COMPARISON_OUTCOME" != success ]; then

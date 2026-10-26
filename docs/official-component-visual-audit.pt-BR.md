@@ -2,7 +2,7 @@
 
 # Comparação visual com exemplos oficiais shadcn/ui
 
-O workflow manual [Bootstrap oficial e auditoria visual](../.github/workflows/bootstrap-visual.yml) captura exemplos renderizados da documentação shadcn/ui e as prévias locais mapeadas no Explorador de Primitivos.
+O workflow manual [Bootstrap oficial e auditoria visual](../.github/workflows/bootstrap-visual.yml) é dedicado à auditoria visual (sem duplicar os testes funcionais E2E de [E2E manual](../.github/workflows/e2e-manual.yml)) e captura exemplos renderizados da documentação shadcn/ui e as prévias locais mapeadas no Explorador de Primitivos.
 
 ## Escopo e fontes
 

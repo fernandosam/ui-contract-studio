@@ -1,0 +1,16 @@
+name: Setup Chromium for Playwright
+description: Reuse the system Chrome/Chromium when present; install Playwright Chromium only as fallback
+runs:
+  using: composite
+  steps:
+    - name: Find or install browser
+      shell: bash
+      run: |
+        set -euo pipefail
+        browser="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+        if [ -n "$browser" ]; then
+          echo "UI_CONTRACT_STUDIO_CHROMIUM_EXECUTABLE=$browser" >> "$GITHUB_ENV"
+          "$browser" --version
+        else
+          npx playwright install --with-deps chromium
+        fi

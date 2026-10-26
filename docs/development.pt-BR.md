@@ -22,12 +22,14 @@ Use Node.js **22+** e dependências verificadas pelo `package-lock.json`. O [REA
 
 ## CI e navegador
 
-- [Quality](../.github/workflows/quality.yml): executa em PRs e pushes para `main` e inclui checks offline, `npm ci`, schemas Pi, verificações da instalação, `validate` e `build`.
-- [E2E manual (main)](../.github/workflows/e2e-manual.yml): workflow de execução **manual, apenas na main**. Não é acionado automaticamente em cada PR.
-- [Auditoria visual oficial](../.github/workflows/bootstrap-visual.yml): fluxo separado que pode registrar screenshots, comparações e evidências.
+- [Quality](../.github/workflows/quality.yml): executa em PRs e pushes para `main`, separando testes offline (sem instalação), checks de código com `npm ci` imutável, schemas Pi, lint, testes integrados e build. Em PRs exclusivamente documentais, os testes Playwright focados são omitidos; qualquer mudança de código, configuração, dependência ou workflow executa esses testes.
+- [E2E manual (main)](../.github/workflows/e2e-manual.yml): execução **manual, apenas na main**. Primeiro roda o E2E completo sem permissão de escrita; somente um job separado, após baixar evidências da mesma execução, pode certificar e gravar resultados vinculados ao commit. Se a `main` avançar, a certificação é bloqueada.
+- [Auditoria visual oficial](../.github/workflows/bootstrap-visual.yml): execução manual exclusiva para bootstrap e comparações de screenshots oficiais; não repete a suíte E2E funcional.
 
 Capturas só comprovam o que foi renderizado e observado. Diferenças de pixels entre demos com dados/estados distintos são diagnósticas, **não critério automático de fidelidade**. Consulte [revisão visual](revisao-visual-shadcn.pt-BR.md) e [auditoria oficial](official-component-visual-audit.pt-BR.md).
 
 ## Definição de pronto
 
 Registre escopo, arquivos alterados, testes executados e limitações. Mudanças no schema requerem versão/lock, origem, exemplos e revisão independente; alterações visuais exigem validação proporcional ao risco. Não declare build, E2E, avaliação real do Pi ou revisão humana como concluídos sem evidência.
+
+Os workflows reutilizam `.github/actions/setup-deps` (Node 22, cache npm e `npm ci`) e `.github/actions/setup-chromium` (reaproveita navegador instalado e baixa Chromium apenas quando necessário). O workflow pago de [avaliação Pi](../.github/workflows/pi-evaluation.yml) é manual e limitado à `main`; nenhuma chamada paga faz parte da CI de PR.

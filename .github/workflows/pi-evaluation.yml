@@ -11,23 +11,30 @@ on:
         type: boolean
         required: false
         default: false
+permissions:
+  contents: read
+
+concurrency:
+  group: pi-evaluation-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   real-pi-evaluation:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 95
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - run: npm ci --no-audit --no-fund
+          persist-credentials: false
+      - uses: ./.github/actions/setup-deps
       - run: npm run pi:zod-schema
       - name: Configure real Pi CLI (model provider billed through explicit secret)
         env:
           API_KEY: ${{ secrets.PI_EVAL_API_KEY }}
         run: |
           test -n "$API_KEY" || (echo 'PI_EVAL_API_KEY secret must be configured before running the benchmark.' && exit 1)
-          npm install -g @mariozechner/pi-coding-agent
+          npm install -g --no-audit --no-fund @mariozechner/pi-coding-agent
       - name: Run 20 prompts with actual Pi model
         env:
           PI_EVAL_CONFIRM: 'yes'
