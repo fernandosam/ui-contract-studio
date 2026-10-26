@@ -90,3 +90,19 @@ npm run blocks:check
 Os snapshots originais são **insumos de análise, não código incorporado ao runtime**. As 27 decisões legadas estão classificadas como existing-approved apenas para preservar os contratos anteriormente aprovados; isso não representa nova homologação humana ou visual. Falta de evidências e decisões bloqueia novos blocos, e candidatos pendentes não podem ser promovidos ao Pi.
 
 Referências: DatePicker (Calendar + Popover + Button com estado), OnboardingChecklist (Accordion + Badge semântico) e Login01 (template JSON gerado). Consulte [componentes](components.pt-BR.md) e [contratos semânticos ReUI](reui-semantic-contracts.pt-BR.md).
+
+
+## Primeiro piloto do motor de recomendações
+
+No explorador **Primitivos shadcn**, utilize os atalhos **AlertDialog**, **Accordion** ou **Button** em "Analisar composição". O novo painel permite selecionar uma das 13 necessidades funcionais revisadas ou descrever a necessidade com uma frase conhecida. O motor é determinístico: só recomenda quando corresponde sem ambiguidades a uma expressão cadastrada; se a descrição for desconhecida ou combinar vários cenários, oferece seleção explícita.
+
+A recomendação diferencia **reuso de contrato aprovado**, **candidato de componente React** e **revisão de autorização obrigatória**. Exibe justificativa, dependências permitidas, lacunas com evidência, riscos e plano de testes não executado. Não gera JSX, novos contratos Pi, ações de backend nem migrações automáticas.
+
+Os pilotos avaliam confirmação simples/por checkbox/digitação e exclusão remota (AlertDialog), FAQ/onboarding/painel único/membros com avatar (Accordion) e ação simples/loading/cópia/grupos/toggle (Button). O indicador loading existente é reutilizado; copiar com feedback e confirmação digitada são candidatos, não funcionalidades já homologadas.
+
+~~~bash
+npm run composites:recommend:check
+~~~
+
+As regras do piloto são versionadas em [scenarios.json](../src/ui-catalog/recommendations/scenarios.json) e executadas por [engine.ts](../src/ui-catalog/recommendations/engine.ts). Novos cenários exigem revisão da adequação semântica, validação dos alvos no lock de contratos e testes. O painel não substitui revisão humana ou testes E2E.
+
