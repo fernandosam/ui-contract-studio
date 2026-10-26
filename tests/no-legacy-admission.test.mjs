@@ -51,3 +51,11 @@ test("only semantic fingerprints gate reviewed contract changes",()=>{
  assert.doesNotMatch(text("scripts/check-contract-diff.mjs"),/allowedRetired|prior\.fingerprint/);
  assert.doesNotMatch(text("scripts/lib/contract-lock.mjs"),/fingerprint:createHash/);
 });
+
+test("Playwright official reference collection uses the authoritative Pi v3 manifest",()=>{
+ const spec=text("tests/e2e/official-components.spec.ts");
+ assert.match(spec,/pi\.schemaVersion !== 3/);
+ assert.match(spec,/Array\.isArray\(pi\.components\)/);
+ assert.match(spec,/pi\.components\.map\(item => item\.type\)/);
+ assert.doesNotMatch(spec,/\}\.contracts\.map/);
+});

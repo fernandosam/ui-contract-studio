@@ -10,9 +10,13 @@ const manifest = JSON.parse(readFileSync('scripts/official-component-examples.js
 };
 const plan = JSON.parse(readFileSync('shadcn-plan.json', 'utf8')) as { groups: Array<{ items: Array<{ name: string }> }> };
 const installed = plan.groups.flatMap(group => group.items.map(item => item.name));
-const types = new Set((JSON.parse(readFileSync('pi-catalog/contracts.json', 'utf8')) as {
-  contracts: Array<{type:string}>
-}).contracts.map(item => item.type));
+const pi = JSON.parse(readFileSync('pi-catalog/contracts.json', 'utf8')) as {
+  schemaVersion: number; components?: Array<{type: string}>;
+};
+if (pi.schemaVersion !== 3 || !Array.isArray(pi.components)) {
+  throw new Error('O catálogo Pi precisa publicar o manifesto v3 com components');
+}
+const types = new Set(pi.components.map(item => item.type));
 if (manifest.examples.length !== installed.length ||
   manifest.examples.some(item => !installed.includes(item.component)) ||
   new Set(manifest.examples.map(item => item.component)).size !== installed.length) {
