@@ -17,19 +17,23 @@ if (pi.schemaVersion !== 3 || !Array.isArray(pi.components)) {
   throw new Error('O catálogo Pi precisa publicar o manifesto v3 com components');
 }
 const types = new Set(pi.components.map(item => item.type));
-if (manifest.examples.length !== installed.length ||
-  manifest.examples.some(item => !installed.includes(item.component)) ||
-  new Set(manifest.examples.map(item => item.component)).size !== installed.length) {
-  throw new Error('O manifesto oficial precisa cobrir exatamente as primitivas aprovadas em shadcn-plan.json');
-}
-for (const example of manifest.examples) {
-  const expected = example.component.split('-').map(part => part[0].toUpperCase() + part.slice(1)).join('');
-  if (example.localType !== (types.has(expected) ? expected : null)) {
-    throw new Error(`Mapeamento local incorreto de ${example.component}: ${example.localType}`);
-  }
-}
 const dest = 'reports/official-components';
 test.describe('@official-docs referência pública versus Explorer local', () => {
+  // This visual audit is excluded from functional E2E by @official-docs.
+  // Keep validation in a hook: Playwright imports even grep-excluded specs during collection.
+  test.beforeAll(() => {
+    if (manifest.examples.length !== installed.length ||
+      manifest.examples.some(item => !installed.includes(item.component)) ||
+      new Set(manifest.examples.map(item => item.component)).size !== installed.length) {
+      throw new Error('O manifesto oficial precisa cobrir exatamente as primitivas aprovadas em shadcn-plan.json');
+    }
+    for (const example of manifest.examples) {
+      const expected = example.component.split('-').map(part => part[0].toUpperCase() + part.slice(1)).join('');
+      if (example.localType !== (types.has(expected) ? expected : null)) {
+        throw new Error(`Mapeamento local incorreto de ${example.component}: ${example.localType}`);
+      }
+    }
+  });
   for (const example of manifest.examples) {
     test(`@official-docs ${example.component}: captura oficial e local`, async ({ page }, testInfo) => {
       test.setTimeout(120_000);
