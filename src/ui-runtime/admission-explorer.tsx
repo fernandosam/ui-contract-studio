@@ -5,7 +5,7 @@ import {SpecScreen} from "./spec-screen";
 const stableExamples=import.meta.glob("../../pi-catalog/examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
 const experimentalExamples=import.meta.glob("../../pi-catalog/experimental-examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
 const examples={...stableExamples,...experimentalExamples};
-const entries=official.entries;
+const entries=official.components;
 
 export function AdmissionExplorer() {
  const [query,setQuery]=useState("");
@@ -23,7 +23,7 @@ export function AdmissionExplorer() {
    <header className="rounded-xl border bg-card p-5">
     <h2 className="text-lg font-semibold">Catálogo oficial · maturidade dos contratos</h2>
     <p className="mt-1 text-sm text-muted-foreground">
-     {official.catalogSize} contratos legados e {official.experimentalCatalogSize} composições adicionais no mesmo manifesto.
+     {entries.filter(entry=>entry.tier!=="experimental").length} contratos base/extensão e {entries.filter(entry=>entry.tier==="experimental").length} composições adicionais no mesmo catálogo.
      Componentes pendentes exigem habilitação explícita para testes locais.
     </p>
    </header>
