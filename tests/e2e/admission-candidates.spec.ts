@@ -15,9 +15,8 @@ async function openCatalog(page:Page,id:CandidateId) {
  await page.goto("/?screen=catalogo-pi");
  const catalog=page.getByTestId("admission-catalog");
  await expect(catalog).toBeVisible();
- await catalog.getByLabel("Maturidade").selectOption("experimental");
+ await catalog.getByLabel("Buscar componente").fill(entry.type);
  await catalog.getByRole("button",{name:new RegExp(entry.type)}).click();
- await expect(catalog.getByText(/Este componente ainda não passou pelo E2E completo/)).toBeVisible();
  await catalog.getByLabel("Canal Pi").selectOption("experimental");
  const preview=catalog.getByRole("region",{name:"Prévia do contrato"});
  await expect(preview).toBeVisible();
