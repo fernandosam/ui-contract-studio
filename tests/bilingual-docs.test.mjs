@@ -18,7 +18,7 @@ test("every Markdown guide has an English original and a Portuguese copy with a 
   ]
   const canonical = files.filter(name => !name.endsWith(".pt-BR.md"))
   const translations = files.filter(name => name.endsWith(".pt-BR.md"))
-  assert.equal(canonical.length, 37, "review the inventory when adding Markdown docs")
+  assert.equal(canonical.length, 38, "review the inventory when adding Markdown docs")
   assert.equal(translations.length, canonical.length)
   for(const english of canonical) {
     const portuguese = english.replace(/\.md$/, ".pt-BR.md")
@@ -62,7 +62,7 @@ test("Portuguese documentation keeps internal links in pt-BR and the English swi
     ...readdirSync(".").filter(name => name.endsWith(".pt-BR.md")),
     ...["docs", ".pi", "sandbox"].flatMap(allMarkdown).filter(name => name.endsWith(".pt-BR.md")),
   ]
-  assert.equal(translated.length, 37)
+  assert.equal(translated.length, 38)
   for (const path of translated) {
     assert.deepEqual(checkLinks(process.cwd(), path), [], "Incorrect or broken link: " + path)
   }
