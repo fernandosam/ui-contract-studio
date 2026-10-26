@@ -12,9 +12,9 @@ const generatedComposites=new Set(JSON.parse(readFileSync('src/ui-catalog/extens
 
 test('Pi possui 102 exemplos válidos estruturalmente e contratos sem duplicidade',()=>{
  assert.equal(manifest.components.length,106);
- assert.equal(manifest.components.filter(x=>x.tier!=='experimental').length,102);
+ assert.equal(manifest.components.filter(x=>x.tier!=='composition').length,102);
  assert.equal(new Set(manifest.components.map(c=>c.type)).size,106);
- for(const c of manifest.components.filter(x=>x.tier!=='experimental')){
+ for(const c of manifest.components.filter(x=>x.tier!=='composition')){
    assert.ok(existsSync(c.example),c.type);
    const spec=read(c.example);
    assert.equal(spec.elements[spec.root].type,c.type,c.type);
