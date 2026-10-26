@@ -23,7 +23,7 @@ npm run composites:inventory
 npm run composites:impact -- --primitive=Button
 ~~~
 
-O inventário gera reports/composition-analysis/manifest.json com dependências de primitivas por contrato e exemplo ReUI, sinais de implementação, classificação semântica e mapa reverso de impacto. A análise percorre imports e tipos de nós JSON: fornece **evidência estática, não homologação funcional/visual**.
+O inventário gera reports/composition-analysis/manifest.json com dependências de primitivas por contrato e exemplo ReUI, sinais de implementação, classificação semântica e mapa reverso de impacto. A análise percorre imports e tipos de nós JSON: fornece **evidência estática, não homologação funcional/visual**. Também sugere evolução de primitiva, composição declarativa, composição React ou revisão de integração conforme dependências e comportamento identificados; sugestões não substituem decisões semânticas revisadas.
 
 ## A cada novo exemplo ReUI
 
