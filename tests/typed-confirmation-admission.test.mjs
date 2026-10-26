@@ -18,8 +18,9 @@ test("typed confirmation preview exactly matches pinned React and strict Zod pro
 test("typed confirmation stays outside stable Pi lock but enters official experimental entries",()=>{
  const target="TypedConfirmationDialog";
  assert.ok(!json("src/ui-catalog/contracts.lock.json").components.some(x=>x.name===target));
- assert.ok(!json("pi-catalog/contracts.json").contracts.some(x=>x.type===target));
- assert.ok(json("pi-catalog/contracts.json").experimentalContracts.some(x=>x.type===target));
+ assert.equal(json("pi-catalog/contracts.json").schemaVersion,3);
+ assert.equal(json("pi-catalog/contracts.json").components.filter(x=>x.type===target).length,1);
+ assert.equal(json("pi-catalog/contracts.json").components.find(x=>x.type===target)?.tier,"experimental");
  for(const file of ["src/ui-catalog/registry.tsx","src/ui-catalog/extensions/registry.tsx",
   "src/ui-catalog/extensions/catalog.ts"]){
   assert.ok(!text(file).includes(target),file+" must never register candidate code");
