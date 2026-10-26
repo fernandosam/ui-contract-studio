@@ -16,7 +16,7 @@ test('ReUI filtra componentes e limita renderizacao inicial',async({page})=>{
 });
 test('Explorador primitivo mostra guias verificadas sem inventar outros',async({page})=>{
  await page.goto('/?screen=explorador-primitivos');
- await page.getByRole('button',{name:'Button',exact:true}).click();
+ await page.locator('[aria-label="Componentes registrados"]').getByRole('button',{name:'Button',exact:true}).click();
  await expect(page.getByTestId('primitive-guidance').getByText('Quando usar')).toBeVisible();
  await expect(page.getByTestId('primitive-guidance').getByText('Notas do agente')).toBeVisible();
  await expect(page.getByTestId('primitive-guidance').getByRole('link',{name:/Documentação ReUI/})).toHaveAttribute('href','https://reui.io/components/button');

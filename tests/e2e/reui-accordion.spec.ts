@@ -26,10 +26,10 @@ test('Accordion 5 disables unavailable item',async({page})=>{
 });
 test('Accordion guidance is Portuguese and describes usage and restrictions',async({page})=>{
  await page.goto('/?screen=explorador-primitivos');
- await page.getByRole('button',{name:'Accordion',exact:true}).click();
+ await page.locator('[aria-label="Componentes registrados"]').getByRole('button',{name:'Accordion',exact:true}).click();
  const info=page.getByTestId('primitive-guidance');
  await expect(info.getByRole('heading',{name:'Quando usar',exact:true})).toBeVisible();
  await expect(info.getByRole('heading',{name:'Quando não usar',exact:true})).toBeVisible();
  await expect(info.getByRole('heading',{name:'Notas do agente',exact:true})).toBeVisible();
- await expect(info.getByText(/Perguntas frequentes em que cada questão/)).toBeVisible();
+ await expect(info.getByText(/FAQ e seções expansíveis/)).toBeVisible();
 });
