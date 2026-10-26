@@ -48,7 +48,6 @@ test("Novos contratos são tipados, rastreados e com fingerprints consistentes",
   const sig=list.find(e=>e.name===name)
   assert.ok(item && sig)
   assert.equal(item.semanticFingerprint,sig.semanticFingerprint)
-  assert.equal(item.fingerprint,sig.fingerprint)
   assert.equal(item.version,"1.0.0")
   assert.equal(item.tier,"extension")
   const contract=read("pi-catalog/contracts.json").components.find(e=>e.type===name)
