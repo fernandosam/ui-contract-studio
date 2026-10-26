@@ -11,13 +11,13 @@ test('context pack contém somente tipos solicitados e exemplos íntegros',()=>{
  assert.ok(pack.selected.every(x=>x.example.elements[x.example.root].type===x.contract.type));
  assert.equal(pack.selected[1].contract.contentProperty,'content');
  assert.ok(pack.selected[1].contract.configuredContentFields.length>0);
- assert.equal(api.catalogSize,102);
+ assert.equal(api.components.length,106);
 });
 test('tipo não aprovado e lotes grandes são bloqueados',()=>{
  const invalid=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types=ArbitraryWidget','--stdout','--metadata-only'],{encoding:'utf8'});
  assert.notEqual(invalid.status,0);
  assert.match(invalid.stderr,/não aprovado/);
- const tooMany=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types='+api.contracts.slice(0,26).map(x=>x.type).join(',')],{encoding:'utf8'});
+ const tooMany=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types='+api.components.slice(0,26).map(x=>x.type).join(',')],{encoding:'utf8'});
  assert.notEqual(tooMany.status,0);
 });
 
