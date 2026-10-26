@@ -17,7 +17,7 @@ O UI Contract Studio é um projeto independente em React para explorar component
 
 O catálogo do Pi é **fechado por padrão**: componentes ReUI e arquivos shadcn/ui não se tornam contratos automaticamente. Telas geradas por agentes são **JSON**, sem JSX/HTML, callbacks, URLs externas ou ações arbitrárias. Autenticação, pagamentos e dados remotos apresentados nas demos não representam integrações de produção.
 
-**Ciclo de admissão:** o [catálogo oficial](pi-catalog/contracts.json) agora possui inventário unificado `entries` com contratos estáveis e experimentais. Novos candidatos revisados tornam-se executáveis somente com `--channel=experimental` ou na [tela Catálogo Pi](docs/admission-engine.pt-BR.md) (`/?screen=catalogo-pi`). A certificação E2E vinculada ao fingerprint promove componentes locais para uso estável, sem quebrar a lista `contracts` preexistente.
+**Ciclo de admissão:** o [catálogo oficial](pi-catalog/contracts.json) agora publica apenas a coleção `components` (schema v3), com estado de maturidade para todos os contratos. Novos candidatos revisados tornam-se executáveis somente com `--channel=experimental` ou na [tela Catálogo Pi](docs/admission-engine.pt-BR.md) (`/?screen=catalogo-pi`). A certificação E2E vinculada ao fingerprint promove componentes locais para uso estável, sem manter arrays legados no manifesto oficial.
 
 **Stack:** React 19 · TypeScript · Vite · Tailwind CSS 4 · shadcn/ui Base UI · Zod 4 · json-render · Playwright.
 
@@ -41,7 +41,7 @@ npm run validate       # verificações de catálogo, lint e testes
 npm run build          # TypeScript e Vite
 ~~~
 
-O CI de qualidade roda em pull requests e pushes na `main`. O [Admission Engine](docs/admission-engine.pt-BR.md) publica propostas revisadas em artefatos experimentais após os testes automáticos; o E2E manual na main pode promover uma proposta coberta a um artefato isolado de distribuição estável. **Nenhum dos canais registra novos tipos no catálogo Pi oficial.** O **E2E completo** é executado manualmente na `main` em **Actions → E2E manual (main)**; a auditoria visual tem fluxo separado. A presença de componentes, testes estruturais ou diferenças de pixels não equivale a homologação visual.
+O CI de qualidade roda em pull requests e pushes na `main`. O [Admission Engine](docs/admission-engine.pt-BR.md) publica propostas revisadas em artefatos experimentais após os testes automáticos; o E2E manual na main pode homologar cada composição coberta por protocolo, registrar o certificado vinculado ao fingerprint e atualizar automaticamente o catálogo Pi v3, sujeito às proteções da branch. O **E2E completo** é executado manualmente na `main` em **Actions → E2E manual (main)**; a auditoria visual tem fluxo separado. A presença de componentes, testes estruturais ou diferenças de pixels não equivale a homologação visual.
 
 ## Onde encontrar
 
