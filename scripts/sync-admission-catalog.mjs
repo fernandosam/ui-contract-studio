@@ -3,7 +3,6 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname } from "node:path";
 import { createHash } from "node:crypto";
-import { spawnSync } from "node:child_process";
 
 const read = path => readFileSync(path, "utf8");
 const json = path => JSON.parse(read(path));
