@@ -1,8 +1,8 @@
 import {test,expect, type Page} from "@playwright/test";
-import {mkdirSync,writeFileSync} from "node:fs";
+import {mkdirSync,writeFileSync,readFileSync} from "node:fs";
 import {join} from "node:path";
-import entries from "../../src/ui-catalog/admission-engine/entries.json";
-import protocols from "../../src/ui-catalog/admission-engine/protocols.json";
+const entries=JSON.parse(readFileSync("src/ui-catalog/admission-engine/entries.json","utf8"));
+const protocols=JSON.parse(readFileSync("src/ui-catalog/admission-engine/protocols.json","utf8"));
 
 type CandidateId="alert-checkbox"|"accordion-members"|"button-copy";
 type ClipboardWindow=Window&{__admissionCopies?:string[]};
