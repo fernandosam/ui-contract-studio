@@ -30,7 +30,7 @@ export function evaluatePolicy({ policy, recipes, scenarios, lock, pi, sources, 
   const recipeById = new Map(recipes.recipes.map(entry => [entry.id, entry]));
   const scenarioById = new Map(scenarios.scenarios.map(entry => [entry.id, entry]));
   const approved = new Set(lock.components.filter(entry => entry.status === "approved").map(entry => entry.name));
-  const exported = new Set(pi.components.filter(entry => entry.tier!=='experimental').map(entry => entry.type));
+  const exported = new Set(pi.components.filter(entry => entry.tier!=='composition').map(entry => entry.type));
   const sourced = new Set(sources.components.map(entry => entry.name));
   if (new Set(allowed).size !== allowed.length) errors.push("Duplicate allowlisted scenario");
   if (new Set(policy.e2eEligible ?? []).size !== (policy.e2eEligible ?? []).length)
