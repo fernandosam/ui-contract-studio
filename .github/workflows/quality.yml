@@ -46,3 +46,40 @@ jobs:
       - run: npm run validate && npm run build
       - name: Validate Pi generator negative and positive cases
         run: npm run pi:validate -- --file=pi-catalog/examples/Dashboard01.json --out=reports/pi-validation/ci.json
+
+  typed-confirmation-preview:
+    name: Typed confirmation focused browser review (not full E2E)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Set up browser for focused tests
+        run: |
+          browser="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser" ]; then
+            echo "UI_CONTRACT_STUDIO_CHROMIUM_EXECUTABLE=$browser" >> "$GITHUB_ENV"
+            "$browser" --version
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - run: npm run composition:pilot:reset
+      - name: Exercise unapproved TypedConfirmationDialog on desktop and mobile
+        run: npm run test:composition:pilot
+      - name: Verify browser evidence and pending manual gates
+        run: npm run composition:pilot:report
+      - name: Save isolated proposal evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: typed-confirmation-preview-evidence
+          path: |
+            reports/composition-validation/typed-confirmation/
+            test-results/
+          if-no-files-found: warn

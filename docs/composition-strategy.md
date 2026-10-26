@@ -124,3 +124,23 @@ In the primitive explorer, select AlertDialog/Accordion/Button and a React candi
 
 Promotion requires a separate reviewed PR with browser/a11y/security evidence, complete Zod contract versioning and explicit registry/lock admission. Source syntax and schema fixtures do not certify behavior. Generation itself grants no Pi type, event, new permission or backend capability.
 
+
+
+## Executable TypedConfirmationDialog validation pilot
+
+An **isolated executable preview** of the generated React/Zod TypedConfirmationDialog is available in the shadcn primitive explorer under AlertDialog → "Exigir confirmação digitada". The demo uses the exact pinned source recipe and strict schema, validates the expected text, and only increments a local confirmation counter. It never contacts a backend or grants a Pi capability.
+
+~~~bash
+npm run composition:admission:check
+npm run composition:admission:prepare
+npm run composition:pilot:reset
+npm run test:composition:pilot
+npm run composition:pilot:report
+~~~
+
+The admission checker verifies byte-for-byte identity between the preview and reviewed React/Zod recipes and ensures the proposal remains absent from all authoritative Pi registries/locks/exports. The preparation command writes an explicit manual promotion checklist under reports/composition-admission/. It does **not** approve or publish the candidate.
+
+Five Playwright cases run on both Desktop Chrome and Pixel 7: exact-match gating, cancellation/reset, focus/Escape, responsive layout, invalid schema/no XHR or fetch. The browser report requires all **10 passing project/case pairs** plus screenshots; evidence is uploaded by a focused PR job while the **full E2E suite remains manual on main**.
+
+Passing browser tests alone cannot certify WCAG, assistive technology, cross-browser behavior, security review, or acceptance into Pi. Those gates remain pending, and promotion requires a separately reviewed PR with versioned contract/schema, registry/lock and fixtures.
+

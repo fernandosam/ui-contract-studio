@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {TypedConfirmationPilot} from "./typed-confirmation-pilot";
 import {
   getCompositionRecommendation,
   pilotFamilies,
@@ -141,6 +142,7 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
         </p>
         <p className="font-mono text-xs">npm run composites:generate -- --id={result.scenario.id}</p>
       </details>}
+      {result.scenario.id==="alert-typed" && <TypedConfirmationPilot/>}
       <p className="text-xs text-muted-foreground">Evidências consultadas: {result.provenance.join(" · ")}</p>
       <p className="text-xs font-medium">A recomendação não habilita JSX arbitrário, propriedades, eventos, rede ou operações destrutivas; novos compostos exigem contrato Zod, implementação e revisão.</p>
     </>}
