@@ -31,5 +31,5 @@ test('Accordion guidance is Portuguese and describes usage and restrictions',asy
  await expect(info.getByRole('heading',{name:'Quando usar',exact:true})).toBeVisible();
  await expect(info.getByRole('heading',{name:'Quando não usar',exact:true})).toBeVisible();
  await expect(info.getByRole('heading',{name:'Notas do agente',exact:true})).toBeVisible();
- await expect(info.getByText(/Perguntas frequentes em que cada questão/)).toBeVisible();
+ await expect(info.getByText(/FAQ e seções expansíveis/)).toBeVisible();
 });

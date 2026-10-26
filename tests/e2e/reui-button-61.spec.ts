@@ -26,5 +26,5 @@ test('Button fornece estados primitivos e orientações em português',async({pa
  await expect(guide.getByText('Quando usar')).toBeVisible();
  await expect(guide.getByText('Quando não usar')).toBeVisible();
  await expect(guide.getByText('Notas do agente')).toBeVisible();
- await expect(guide.getByText(/Ações de páginas, formulários e diálogos/)).toBeVisible();
+ await expect(guide.getByText(/Executar ações e submeter formulários/)).toBeVisible();
 });

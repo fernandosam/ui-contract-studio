@@ -2,8 +2,10 @@ import {test,expect} from "@playwright/test"
 
 test.describe("Admissão semântica ReUI",()=>{
  test("matriz de admissão aparece no explorador de composições",async({page})=>{
-  await page.goto("/?screen=explorador-compostos&reui=c-accordion-11")
+  await page.goto("/?screen=explorador-compostos")
   await page.getByRole("tab",{name:"Composições ReUI (559)"}).click()
+  await page.getByLabel("Filtrar família de compostos ReUI").selectOption("Accordion")
+  await page.getByTestId("reui-composite-option-c-accordion-11").click()
   await expect(page.getByTestId("reui-semantic-admission")).toContainText("OnboardingChecklist")
   await expect(page.getByTestId("reui-semantic-admission")).toContainText("Contrato semântico aprovado")
   await page.getByLabel("Filtrar classificação semântica").selectOption("approved-semantic")

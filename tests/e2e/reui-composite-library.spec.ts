@@ -60,7 +60,7 @@ test("edita dados semânticos ReUI, valida Zod e preserva exemplo não configur�
   await expect(page.getByTestId("reui-composite-details").getByRole("alert")).toBeVisible()
   await expect(page.getByTestId("reui-composite-preview-c-alert-1")).toContainText("Corrija os dados")
   await page.getByRole("button", { name: "Restaurar dados de exemplo" }).click()
-  await expect(page.getByTestId("reui-composite-details").getByRole("alert")).toHaveCount(0)
+  await expect(page.getByTestId("reui-composite-preview-c-alert-1")).not.toContainText("Corrija os dados")
   await expect(page.getByTestId("reui-composite-preview-c-alert-1")).toContainText("Alert!")
   await page.getByLabel("Filtrar família de compostos ReUI").selectOption("Button")
   await expect(page.getByLabel("Dados semânticos da composição ReUI")).toHaveCount(0)

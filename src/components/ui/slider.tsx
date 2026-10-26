@@ -9,18 +9,18 @@ function Slider({
   max = 100,
   ...props
 }: SliderPrimitive.Root.Props) {
-  const _values = Array.isArray(value)
-    ? value
-    : Array.isArray(defaultValue)
-      ? defaultValue
-      : [min, max]
+  // Base UI expects an array for both controlled and uncontrolled thumb values.
+  // ReUI examples and primitive contracts may provide a scalar for a single thumb.
+  const normalizedValue = value === undefined ? undefined : Array.isArray(value) ? value : [value]
+  const normalizedDefaultValue = defaultValue === undefined ? undefined : Array.isArray(defaultValue) ? defaultValue : [defaultValue]
+  const _values = normalizedValue ?? normalizedDefaultValue ?? [min]
 
   return (
     <SliderPrimitive.Root
       className={cn("data-horizontal:w-full data-vertical:h-full", className)}
       data-slot="slider"
-      defaultValue={defaultValue}
-      value={value}
+      defaultValue={normalizedDefaultValue}
+      value={normalizedValue}
       min={min}
       max={max}
       thumbAlignment="edge"
