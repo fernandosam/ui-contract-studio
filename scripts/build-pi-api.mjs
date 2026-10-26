@@ -42,12 +42,32 @@ const contracts=lock.components.map(c=>{
   visualStatus:source?.notes?.includes('homologad')?'require-human-review':'not-certified',
  };
 });
+const experimentalEntries=read('src/ui-catalog/admission-engine/entries.json').entries;
+const certificates=read('src/ui-catalog/admission-engine/certifications.json').components;
+const experimentalContracts=experimentalEntries.map(entry=>{
+  const cert=certificates[entry.type];
+  const verified=Boolean(entry.e2eProtocol && cert?.status==='passed' &&
+    cert?.sourceDigest===entry.sourceDigest && cert?.protocol===entry.e2eProtocol);
+  return {type:entry.type,version:entry.version,tier:'experimental',
+    lifecycle:verified?'stable':'experimental',
+    sourceUrl:null,zodSource:'src/ui-catalog/admission-engine/generated/'+entry.type+'.schema.ts',
+    example:entry.example,capability:'local-interactive',
+    sourceDigest:entry.sourceDigest,e2eProtocol:entry.e2eProtocol,
+    validation:{static:'passed',e2e:verified?'passed':'pending'},
+    availability:{piExperimental:true,piStable:verified},
+    interactionBoundary:'Somente UI local: sem chamadas remotas nem permissões adicionais'};
+});
+const allEntries=[
+  ...contracts.map(contract=>({...contract,lifecycle:'stable',
+    availability:{piExperimental:true,piStable:true}})),
+  ...experimentalContracts,
+];
 const manifest={schemaVersion:1,projectVersion:read('package.json').version,catalogSize:contracts.length,
   policy:'O Pi pode criar APENAS specs JSON, usando Zod, exemplos e actionDefinitions. Content e nodeProps só podem editar chaves autorizadas do template; não alteram eventos, estilos arbitrários, URLs ou tipos de componentes.',
   defaultRoute:'/?screen=reui',
   sourceOfTruth:['src/ui-catalog/catalog.ts','src/ui-catalog/extensions/catalog.ts','src/ui-catalog/registry.tsx'],
   actions:['setState','pushState','removeState','buttonClick','formSubmit','linkClick'],
-  contracts};
+  contracts,experimentalCatalogSize:experimentalContracts.length,experimentalContracts,entries:allEntries};
 const file='pi-catalog/contracts.json';const value=JSON.stringify(manifest,null,2)+'\n';
 if(process.argv.includes('--write')){mkdirSync('pi-catalog',{recursive:true});writeFileSync(file,value)}
 else if(!existsSync(file)||readFileSync(file,'utf8')!==value){console.error('Manifesto Pi ausente/desatualizado: npm run pi:api');process.exit(1)}
