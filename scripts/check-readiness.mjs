@@ -19,7 +19,7 @@ for(const item of lock.components){
   for(const field of details[item.name].fields){const [key,prop]=field.path.split('.');if(typeof comp.elements[key]?.props?.[prop]!=='string')issues.push(`${item.name}: content key ${field.path} invalid`);}
  }
 }
-if(names.size!==lock.components.length||manifest.components.filter(x=>x.tier!=='experimental').length!==lock.components.length)issues.push('Catalog size differs from approved lock');
+if(names.size!==lock.components.length||manifest.components.filter(x=>x.tier!=='composition').length!==lock.components.length)issues.push('Catalog size differs from approved lock');
 const expected=read('src/ui-catalog/extensions/composites/generated-manifest.json').components.length+5;
 if(Object.keys(details).length!==expected)issues.push('Configurable compositions mismatch manifest');
 if(issues.length){issues.slice(0,70).forEach(e=>console.error('✗ '+e));process.exit(1)}
