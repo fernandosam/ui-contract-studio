@@ -112,6 +112,11 @@ export const stableComponentDefinitions = {
   ...componentDefinitions,
   ...Object.fromEntries(Object.entries(experimentalDefinitions).filter(([name]) => certifiedExperimentalNames.has(name))),
 };
+export const stableComponentEventDescriptors: Record<string,{events?:string[];slots?:string[]}> =
+  Object.fromEntries(Object.entries(stableComponentDefinitions).map(([name,def])=>[name,{
+    ...('events' in def && Array.isArray(def.events) ? {events:[...def.events]} : {}),
+    ...('slots' in def && Array.isArray(def.slots) ? {slots:[...def.slots]} : {}),
+  }]));
 export const experimentalComponentEventDescriptors: Record<string,{events?:string[];slots?:string[]}> =
   Object.fromEntries(Object.entries(unifiedComponentDefinitions).map(([name,def])=>[name,{
     ...('events' in def && Array.isArray(def.events) ? {events:[...def.events]} : {}),
