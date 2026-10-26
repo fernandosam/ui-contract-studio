@@ -39,7 +39,7 @@ npm run validate       # verificações de catálogo, lint e testes
 npm run build          # TypeScript e Vite
 ~~~
 
-O CI de qualidade roda em pull requests e pushes na `main`. O **E2E completo** é executado manualmente na `main` em **Actions → E2E manual (main)**; a auditoria visual tem fluxo separado. A presença de componentes, testes estruturais ou diferenças de pixels não equivale a homologação visual.
+O CI de qualidade roda em pull requests e pushes na `main`. O [Admission Engine](docs/admission-engine.pt-BR.md) publica propostas revisadas em artefatos experimentais após os testes automáticos; o E2E manual na main pode promover uma proposta coberta a um artefato isolado de distribuição estável. **Nenhum dos canais registra novos tipos no catálogo Pi oficial.** O **E2E completo** é executado manualmente na `main` em **Actions → E2E manual (main)**; a auditoria visual tem fluxo separado. A presença de componentes, testes estruturais ou diferenças de pixels não equivale a homologação visual.
 
 ## Onde encontrar
 
