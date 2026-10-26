@@ -1,0 +1,19 @@
+{
+  "root": "example",
+  "elements": {
+    "example": {
+      "type": "TeamMemberAccordion",
+      "props": {
+        "members": [
+          {
+            "id": "m1",
+            "name": "Ana",
+            "role": "Engenheira",
+            "description": "Membro"
+          }
+        ]
+      },
+      "children": []
+    }
+  }
+}
