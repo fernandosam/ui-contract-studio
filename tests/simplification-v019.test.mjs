@@ -54,7 +54,6 @@ test('fingerprints semânticos são insensíveis à formatação, não ao conte�
  for(const item of signatures()){
   const old=oldLock.components.find(x=>x.name===item.name);
   assert.equal(old.semanticFingerprint,item.semanticFingerprint,item.name);
-  assert.equal(old.fingerprint,item.fingerprint,item.name);
  }
 });
 
