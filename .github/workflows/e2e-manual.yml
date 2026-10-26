@@ -36,12 +36,12 @@ jobs:
       - name: Static checks before the E2E promotion gate
         run: npm run validate && npm run build
       - name: Clear stale candidate browser evidence
-        run: npm run composition:pilot:reset
+        run: npm run composition:pilot:reset && npm run admission:evidence:reset
       - name: Testes E2E funcionais e de layout
         run: npm run test:e2e
       - name: Verify fresh desktop/mobile candidate evidence
-        run: npm run composition:pilot:report
-      - name: Promote only the E2E-covered candidate into separate stable distribution
+        run: npm run composition:pilot:report && npm run admission:evidence:report
+      - name: Promote all four independently verified candidates into stable distribution
         run: npm run admission:promote
       - name: Publish post-E2E stable artifact bound to this commit
         uses: actions/upload-artifact@v4
@@ -55,7 +55,7 @@ jobs:
           git fetch origin main
           test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ||
             (echo 'Main advanced during E2E; refusing stale certification.' && exit 1)
-      - name: Record source-bound E2E certificate in official Pi manifest
+      - name: Record all fingerprint-bound E2E certificates in official Pi manifest
         env:
           ADMISSION_CERTIFY_CONFIRM: 'yes'
         run: npm run admission:certify
@@ -77,4 +77,6 @@ jobs:
             test-results/
             reports/auth-layout/
             reports/structure-fidelity/
+            reports/composition-validation/typed-confirmation/
+            reports/composition-validation/admission/
           if-no-files-found: ignore
