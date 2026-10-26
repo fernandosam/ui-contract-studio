@@ -4,12 +4,14 @@ import { navigation, screens } from './screen-registry';
 import { lazy, Suspense } from 'react';
 
 // Tools are lazy-loaded: active catalog examples are loaded only in explorer routes.
+const AdmissionExplorer=lazy(()=>import('./admission-explorer').then(m=>({default:m.AdmissionExplorer})));
 const PrimitiveExplorer=lazy(()=>import('./catalog-explorer').then(m=>({default:m.PrimitiveExplorer})));
 const CompositeExplorer=lazy(()=>import('./catalog-explorer').then(m=>({default:m.CompositeExplorer})));
 const ReuiGallery=lazy(()=>import('./catalog-explorer').then(m=>({default:m.ReuiGallery})));
 const ExamplesExplorer=lazy(()=>import('./catalog-explorer').then(m=>({default:m.ExamplesExplorer})));
 
 const explorerEntries=[
+ {slug:'catalogo-pi',title:'Catálogo Pi',subtitle:'Contratos oficiais com maturidade experimental, E2E e estável.',section:'Ferramentas',order:989,icon:'layers',spec:null},
  {slug:'reui',title:'ReUI',subtitle:'Exemplos ReUI agrupados por componente, com filtro e carregamento progressivo.',section:'Exemplos',order:202,icon:'layers',spec:null},
  {slug:'explorador-primitivos',title:'Primitivos shadcn',subtitle:'Componentes base, propriedades e comportamento isolado.',section:'Ferramentas',order:990,icon:'layers',spec:null},
  {slug:'explorador-compostos',title:'Componentes compostos',subtitle:'Padrões com identidade e comportamento próprios.',section:'Ferramentas',order:991,icon:'layers',spec:null},
@@ -22,6 +24,6 @@ export function App() {
   const entry = tool ?? (screens[requested] ?? explorerEntries[0] ?? navigation[0]);
   if (!entry) return <main role="alert">Nenhuma tela cadastrada.</main>;
   return <PageShell title={entry.title} subtitle={entry.subtitle} section={entry.section} navigation={[...navigation,...explorerEntries]} current={entry.slug}>
-    {tool ? <Suspense fallback={<p role="status">Carregando explorador…</p>}>{tool.slug==='explorador-primitivos'?<PrimitiveExplorer/>:tool.slug==='explorador-compostos'?<CompositeExplorer/>:tool.slug==='reui'?<ReuiGallery/>:<ExamplesExplorer/>}</Suspense> : <SpecScreen spec={entry.spec} />}
+    {tool ? <Suspense fallback={<p role="status">Carregando explorador…</p>}>{tool.slug==='catalogo-pi'?<AdmissionExplorer/>:tool.slug==='explorador-primitivos'?<PrimitiveExplorer/>:tool.slug==='explorador-compostos'?<CompositeExplorer/>:tool.slug==='reui'?<ReuiGallery/>:<ExamplesExplorer/>}</Suspense> : <SpecScreen spec={entry.spec} />}
   </PageShell>;
 }
