@@ -107,6 +107,7 @@ jobs:
             tests/e2e/requirements-coverage-evidence.spec.ts \
             tests/e2e/requirements-intent.spec.ts \
             tests/e2e/declarative-form-pi.spec.ts \
+            tests/e2e/submission-controlled-http.spec.ts \
             tests/e2e/declarative-form-certification.spec.ts \
             --project=desktop --project=mobile
       - name: Verify T34 requirement-to-browser evidence (fail closed)
