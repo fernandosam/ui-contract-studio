@@ -5,7 +5,7 @@ export type RequirementCoverage={id:string;status:"covered-static"|"review-requi
 export type CompositionPlan={components:string[];pattern:string;coverage:RequirementCoverage[];blockers:string[];warnings:string[];tests:{id:string;kind:"integration"|"visual"|"manual-a11y";status:"not-executed"}[]};
 export function planInterface(spec:RequirementSpec):CompositionPlan {
   const requested=spec.answers;
-  const components=["Card",requested.layout==="two-columns"?"Grid":"Stack","Input",requested.confirmation===true?"AlertDialog":"Button"];
+  const components=["Card",requested.layout==="two-columns"?"Grid":"Stack","Input",requested.confirmation===true?"AlertDialog":"Text"];
   const blockers=[...spec.missing.map(id=>"Resposta obrigatória: "+id)];
   const coverage:RequirementCoverage[]=[];
   const add=(id:string,status:RequirementCoverage["status"],detail:string)=>coverage.push({id,status,detail});

@@ -81,3 +81,19 @@ test("T26/T27: native validation is flagged for runtime review; backend cannot b
   screen.elements.field_0.type="FakeUnapprovedComponent";
   assert.equal(verifyInterface(resolveAnswers({persistence:"local-demo"}),screen).valid,false);
 });
+
+test("T29 plan and generated types match; altered field properties fail conformity",()=>{
+  const req=resolveAnswers({persistence:"local-demo",fields:["name","email","company"]});
+  const screen=generateRegistrationScreen(req);
+  assert.deepEqual([...new Set(Object.values(screen.elements).map(x=>x.type))].sort(),planInterface(req).components.slice().sort());
+  const edited=structuredClone(screen);
+  edited.elements.field_1.props.label="Outro campo";
+  assert.equal(verifyInterface(req,edited).valid,false);
+  const reordered=structuredClone(screen);
+  reordered.elements.form_fields.children.reverse();
+  assert.equal(verifyInterface(req,reordered).valid,false);
+});
+test("T29 extra field limit and duplicates are not silently ignored",()=>{
+  assert.throws(()=>resolveAnswers({persistence:"local-demo",extraFields:Array.from({length:11},(_,i)=>"extra "+i).join("\n")}),/Limite de 10/);
+  assert.throws(()=>resolveAnswers({persistence:"local-demo",extraFields:"Cargo\ncargo"}),/duplicados/);
+});

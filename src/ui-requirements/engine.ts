@@ -40,7 +40,9 @@ export function resolveAnswers(provided:Answers={},intent="Criar cadastro de usu
   )).map(q=>q.id);
   const provenance=Object.fromEntries(Object.keys(answers).map(id=>[id,Object.hasOwn(provided,id)?"explicit":"default"])) as RequirementSpec["provenance"];
   const fields=(answers.fields as string[]||[]).map(id=>({...fieldTypes[id]}));
-  const extras=String(answers.extraFields||"").split(/[\r\n]+/).map(x=>x.trim()).filter(Boolean).slice(0,10);
+  const extras=String(answers.extraFields||"").split(/[\r\n]+/).map(x=>x.trim()).filter(Boolean);
+  if(extras.length>10)throw Error("Limite de 10 campos extras excedido");
+  if(new Set(extras.map(x=>x.toLocaleLowerCase("pt-BR"))).size!==extras.length)throw Error("Rótulos de campos extras duplicados");
   for(const [i,label] of extras.entries()){
     if(label.length>80)throw Error("Nome de campo muito longo");
     const name="extra"+(i+1);
