@@ -11,7 +11,7 @@ export function proposeFormFlow(spec:RequirementSpec):DeclarativeFormFlowProps{
  if(spec.answers.validation==="business")
   throw Error("Proposta bloqueada: regras de negócio não implementadas");
  const proposed={
-  title:"Cadastro de usuários",
+  title:"Prévia funcional do formulário",
   description:"Prévia local sem gravação ou envio de dados.",
   fields:spec.fields.map(field=>({
    name:field.name,label:field.label,type:field.type,required:field.required
