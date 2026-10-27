@@ -3,11 +3,11 @@ import searchTemplate from "../ui-patterns/search-and-filters.json";
 import dashboardKpis from "../ui-patterns/dashboard-kpis.json";
 import dashboardGraphs from "../ui-patterns/dashboard-analytics.json";
 import listTemplate from "../ui-patterns/crud-list.json";
-import {flowSchema,validAnswer,type Answers} from "./schema";
+import {validateFlow,validAnswer,type Answers} from "./schema";
 
-const flows=flowDocument.flows.map(flow=>flowSchema.parse({schemaVersion:1,...flow}));
+const flows=flowDocument.flows.map(flow=>validateFlow({schemaVersion:1,...flow}));
 export const supportedPatterns=flows.map(f=>({id:f.id,title:f.title}));
-export type PatternRequirements={flow:string;intent:string;answers:Answers;provenance:Record<string,"explicit"|"default">;missing:string[]};
+export type PatternRequirements={flow:string;intent:string;answers:Answers;provenance:Record<string,"explicit"|"inferred"|"default">;missing:string[]};
 type Node={type:string;props:Record<string,unknown>;children:string[]};
 export type PatternScreen={root:string;elements:Record<string,Node>};
 
@@ -22,6 +22,29 @@ export function activePatternQuestions(id:string,answers:Answers){
  if(!flow)return [];
  return flow.questions.filter(q=>!q.visibleWhen||answers[q.visibleWhen.question]===q.visibleWhen.equals);
 }
+/** Conservative PT-BR cues: prefilling is not authorization or implementation. */
+export function inferPatternAnswers(flowId:string,intent:string):Answers{
+ const words=intent.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR").slice(0,500);
+ const found:Answers={};
+ if(flowId==="login"){
+  if(/\b(usuario|username)\b/.test(words)&&!/\bemail\b/.test(words))found.identifier="username";
+  if(/\blembra(r)?-?me\b|\blembra(r)? acesso\b/.test(words))
+   found.remember=!/\b(nao|sem)\s+lembra/.test(words);
+ }else if(flowId==="search"){
+  if(/\bfiltro(s)? (de )?data(s)?\b/.test(words))
+   found.dateFilter=!/\bsem filtro(s)? (de )?data(s)?\b/.test(words);
+  if(/\bselecao de linhas\b/.test(words))
+   found.selection=!/\bsem selecao de linhas\b/.test(words);
+  if(/\b10\s+(itens|registros|linhas)\b/.test(words))found.pageSize="10";
+ }else if(flowId==="list"){
+  if(/\bcompact(a|o)\b/.test(words))found.compact=!/\bnao compact/.test(words);
+ }else if(flowId==="dashboard"){
+  if(/\bgraficos?\b/.test(words)&&!/\bkpis?\b/.test(words))found.view="graphs";
+  if(/\bkpis?\b/.test(words)&&!/\bgraficos?\b/.test(words))found.view="kpis";
+  if(/\b(2|dois) indicadores\b/.test(words))found.density="2";
+ }
+ return found;
+}
 export function resolvePattern(id:string,provided:Answers={},intent=""):PatternRequirements{
  const flow=getPatternFlow(id);
  if(!flow)throw Error("Padrão não cadastrado");
@@ -29,9 +52,11 @@ export function resolvePattern(id:string,provided:Answers={},intent=""):PatternR
   const question=flow.questions.find(q=>q.id===key);
   if(!question||!validAnswer(question,value))throw Error("Resposta inválida: "+key);
  }
+ const inferred=inferPatternAnswers(id,intent);
  const answers:Answers={},provenance:PatternRequirements["provenance"]={};
  for(const q of flow.questions){
   if(Object.hasOwn(provided,q.id)){answers[q.id]=provided[q.id];provenance[q.id]="explicit";}
+  else if(inferred[q.id]!==undefined&&validAnswer(q,inferred[q.id])){answers[q.id]=inferred[q.id];provenance[q.id]="inferred";}
   else if(q.default!==undefined){answers[q.id]=q.default;provenance[q.id]="default";}
  }
  const visible=new Set(activePatternQuestions(id,answers).map(q=>q.id));

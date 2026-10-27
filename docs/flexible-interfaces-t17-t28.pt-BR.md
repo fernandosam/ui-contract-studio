@@ -96,3 +96,9 @@ Não interpretar evidência sintética de testes de unidade como prova de navega
 O gateway verifica entradas, evita duplicação concorrente e reutilização conflitante de chaves de idempotência, usa timeout com \`AbortSignal\` e devolve erros sanitizados. **Idempotência em memória e cancelamento não oferecem garantia transacional durável.** Produção exige backend aprovado à parte, idempotência persistente, autenticação, logs e revisão de segurança.
 
 Nenhuma URL/SQL/JS, permissão Pi, rota de browser ou operação remota foi acrescentada. Os testes cobrem sucesso, conflitos, isolamento, timeout, tentativa posterior e falhas. E2E de persistência real permanece fora do escopo sem serviço autorizado.
+
+## T33 — Reutilização de decisões da solicitação (2026-10-27)
+
+O assistente aceita uma descrição curta, reconhece um padrão não ambíguo e sugere apenas opções já declaradas em \`pattern-flows.json\`. Prioridade: **resposta explícita > inferência conservadora > padrão documental**. Relatórios registram origem \`explicit\`, \`inferred\` ou \`default\`; intenção ambígua exige escolha manual. Perguntas condicionais ocultas não entram na especificação. \`validateFlow\` rejeita duplicatas e dependências inválidas.
+
+Nenhum handler, API, autenticação remota ou componente Pi adicional é autorizado. Testes de integração e Playwright desktop/mobile cobrem as escolhas.

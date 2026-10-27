@@ -102,6 +102,7 @@ jobs:
             tests/e2e/requirements-wizard.spec.ts \
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
+            tests/e2e/requirements-intent.spec.ts \
             tests/e2e/declarative-form-pi.spec.ts \
             tests/e2e/declarative-form-certification.spec.ts \
             --project=desktop --project=mobile
