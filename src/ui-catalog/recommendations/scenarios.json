@@ -376,6 +376,42 @@
       ]
     },
     {
+      "id": "button-actions-layout",
+      "family": "Button",
+      "title": "Duas ações independentes em um layout declarativo",
+      "need": "Organizar duas ações locais independentes lado a lado, sem seleção, coordenação de estado ou efeitos externos.",
+      "keywords": [
+        "duas ações independentes",
+        "barra simples de ações",
+        "botões lado a lado"
+      ],
+      "strategy": "declarative-composition",
+      "target": null,
+      "dependencies": [
+        "Stack",
+        "Button"
+      ],
+      "requiredCapabilities": [
+        "local-press-event"
+      ],
+      "reason": "Stack com slot default pode organizar nós Button admitidos em uma árvore JSON sem lógica adicional; o evento press é somente um sinal local e não concede ações de negócio.",
+      "risks": [
+        "Não confundir layout de botões com ButtonGroup que gerencia seleção interna.",
+        "Cada press precisa de ação permitida pelo catálogo; a composição não cria handlers, callbacks ou efeitos de rede.",
+        "Árvore declarativa proposta ainda exige validação pelo schema Pi atual."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Validar uma árvore Pi com Stack e dois Button em seus slots e rejeitar props, ações e tipos não permitidos."
+        ],
+        [
+          "manual-a11y",
+          "Verificar navegação por Tab, ordem dos botões e nomes acessíveis, inclusive layout estreito."
+        ]
+      ]
+    },
+    {
       "id": "button-group",
       "family": "Button",
       "title": "Agrupar ações relacionadas",
