@@ -1,0 +1,328 @@
+{
+  "schemaVersion": 1,
+  "component": "Command",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "admission": "candidate-not-admitted",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/command",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Command?",
+      "Why Use Shadcn Command?",
+      "Shadcn Command Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Apresentar busca por comandos e ações contextualizadas, com grupos e atalhos indicativos; uma escolha só produz efeito quando conectada a handler autorizado.",
+  "rationale": [
+    "Reduzir etapas para localizar comandos e páginas sem poluir navegação primária.",
+    "Agrupar ações para uso por teclado, mantendo busca, apresentação e execução de negócio separadas.",
+    "Evitar confundir a biblioteca cmdk presente no código com aprovação de uma nova API pública Pi."
+  ],
+  "whenUse": [
+    "Paleta de busca por comandos em contexto de trabalho ou navegação interna.",
+    "Menu pesquisável em painel/card para ações frequentes, com categorias e mensagens de vazio.",
+    "Listas de ações com indicadores visuais de atalhos, quando o atalho real tem implementação explícita."
+  ],
+  "whenNotUse": [
+    "Campo para escolher e armazenar país, responsável ou rótulo: preferir Select ou Combobox (candidato).",
+    "Navegação principal com múltiplas seções e rotas persistentes: usar estrutura de menu/rotas autorizada.",
+    "Executar operações críticas a partir de itens sem confirmação, checagem de autorização e feedback de resultado.",
+    "Presumir que exibir CommandShortcut registra teclado global ou que clicar CommandItem executa algo."
+  ],
+  "agentNotes": [
+    "STATUS TRIPLO: documentação ReUI revisada, primitiva React src/components/ui/command.tsx com cmdk, mas nenhum contrato Command aprovado no Pi. SiteCommandMenu composto existente não admite a API primitiva Command.",
+    "A implementação local usa cmdk e não é um wrapper Base UI/Radix para seleção de dados; CommandItem sem callback de seleção é apenas item visual.",
+    "CommandDialog usa Dialog do projeto e título/descrição ocultos visualmente; showCloseButton é false por padrão na versão instalada. Criar acionamento e fechamento é responsabilidade da composição.",
+    "CommandShortcut é span de dica visual: não inscreve Cmd/Ctrl+K, não evita conflito de atalhos do navegador nem invoca ações.",
+    "As classes de CommandList incluem max-h-72 e rolagem interna, mas não provam foco, acessibilidade, seleção ou performance em execução.",
+    "Todos os comandos com efeitos precisam de handler e permissão independentes, mesmo que apareçam na lista; não usar resultado de busca como autorização.",
+    "Integrações com Dialog, Badge, Button, rotas e atalhos são candidatas. Nenhum exemplo ReUI habilita automaticamente eventos ou mutations Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "cmdk-root",
+      "description": "Há wrapper React em cima de cmdk com container estilizado, não um tipo Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "import { Command as CommandPrimitive } from \"cmdk\""
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "data-slot=\"command\""
+        }
+      ],
+      "testRequirements": [
+        "Montar a primitiva isolada e conferir markup, sem esperar efeitos de ações."
+      ]
+    },
+    {
+      "id": "input-list-empty",
+      "description": "Existem wrappers CommandInput, CommandList rolável e CommandEmpty para apresentar pesquisa e vazio.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "<CommandPrimitive.Input"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "max-h-72 scroll-py-1"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "<CommandPrimitive.Empty"
+        }
+      ],
+      "testRequirements": [
+        "Preencher consulta com e sem correspondências; conferir rolagem e estado vazio."
+      ]
+    },
+    {
+      "id": "groups-items-separator",
+      "description": "Suporta estrutura visual com grupos, itens e separadores via cmdk no React.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "<CommandPrimitive.Group"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "<CommandPrimitive.Item"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "<CommandPrimitive.Separator"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar grupos/itens desabilitados e alternar filtro; conferir estados visuais sem invocar ações."
+      ]
+    },
+    {
+      "id": "command-dialog-wrapper",
+      "description": "CommandDialog envolve Dialog com título/descrição e botão fechar oculto por padrão.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "function CommandDialog({"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "showCloseButton = false"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "<DialogHeader className=\"sr-only\">"
+        }
+      ],
+      "testRequirements": [
+        "Abrir e fechar Dialog por estado externo; confirmar rótulos acessíveis do título e descrição."
+      ]
+    },
+    {
+      "id": "shortcut-hint-only",
+      "description": "Exibe CommandShortcut como texto de dica, sem registrar atalho global.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "function CommandShortcut({"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "contains": "data-slot=\"command-shortcut\""
+        }
+      ],
+      "testRequirements": [
+        "Exibir dica Cmd+K e verificar que só a dica não dispara atalho."
+      ]
+    },
+    {
+      "id": "pi-command-contract",
+      "description": "Não há contrato Pi Command, propriedades de itens nem evento de seleção autorizado.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em revisão de admissão posterior, definir lista de ações, ACL e payload controlado antes de publicar."
+      ]
+    },
+    {
+      "id": "keyboard-shortcut-registration",
+      "description": "A primitiva Command/CommandDialog não registra Cmd/Ctrl+K globalmente por si só.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Composição futura deve testar Cmd/Ctrl+K, conflito, preventDefault, fechamento e desmontagem de listener."
+      ]
+    },
+    {
+      "id": "command-execution-and-routes",
+      "description": "Execução de callbacks, navegação remota, mutações e subcomandos precisam de implementação e autorização explícitas.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Testar ação proibida, erro, loading, confirmação e navegação apenas no composto aprovado."
+      ]
+    },
+    {
+      "id": "keyboard-focus-and-aria",
+      "description": "Setas, Enter, Escape, navegação de foco e leitura de grupos dependem da integração cmdk + Dialog em runtime.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar leitor de tela, Tab, setas, Enter, Escape e foco após fechar."
+      ]
+    },
+    {
+      "id": "mobile-density-and-search",
+      "description": "Usabilidade com teclado virtual, lista longa e densidade de ações exige validação em viewport móvel.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar 320px, zoom, scroll da lista e alvos de toque sem atalhos físicos."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Dialog",
+      "relationship": "modal-command-palette",
+      "reason": "Abrir paleta modal; CommandDialog usa Dialog na primitiva."
+    },
+    {
+      "component": "Button",
+      "relationship": "explicit-trigger",
+      "reason": "Botão abre paleta e dispara ação somente após handler permitido."
+    },
+    {
+      "component": "Badge",
+      "relationship": "shortcut-or-context",
+      "reason": "Representar atalhos, status e agrupamentos visuais."
+    },
+    {
+      "component": "Popover",
+      "relationship": "inline-command-actions",
+      "reason": "Mostrar ações contextuais não modais quando apropriado."
+    },
+    {
+      "component": "Drawer",
+      "relationship": "mobile-command-alternative",
+      "reason": "Disponibilizar comandos acionáveis com toque em mobile."
+    },
+    {
+      "component": "Combobox",
+      "relationship": "value-picker-alternative",
+      "reason": "Combobox pesquisa e confirma seleção, Command procura ações."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "critical-command-confirmation",
+      "reason": "Exigir decisão explícita antes de efeitos de alto impacto."
+    },
+    {
+      "component": "Sonner",
+      "relationship": "feedback-after-action",
+      "reason": "Notificação candidata de resultado de ação realmente autorizada."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "CommandItem executa ação ao selecionar?",
+      "guidance": "Não. O wrapper apresenta item cmdk; handler onSelect e permissões são composição explícita, e Pi não admite Command."
+    },
+    {
+      "question": "Mostrar Cmd+K cria atalho?",
+      "guidance": "Não. CommandShortcut somente exibe texto; listener e prevenção de conflitos exigem implementação separada."
+    },
+    {
+      "question": "Command substitui Combobox?",
+      "guidance": "Não: Command invoca ações, Combobox seleciona valores de dados, sem serem admitidos Pi nesta etapa."
+    },
+    {
+      "question": "É modal automaticamente?",
+      "guidance": "Command isolado é uma lista; CommandDialog envolve Dialog, cuja abertura/fechamento são controlados pelo consumidor."
+    },
+    {
+      "question": "O composto SiteCommandMenu aprova Command como primitiva Pi?",
+      "guidance": "Não. Um composto com contrato próprio não eleva os tipos/props de suas primitivas internas."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "cmdk-filter-and-empty",
+      "kind": "integration",
+      "description": "Testar consulta que encontra itens e consulta sem resultados na primitiva React isolada.",
+      "capabilities": [
+        "cmdk-root",
+        "input-list-empty"
+      ]
+    },
+    {
+      "id": "group-and-disabled",
+      "kind": "visual",
+      "description": "Renderizar grupos, separadores, itens disabled e estilos de seleção.",
+      "capabilities": [
+        "groups-items-separator"
+      ]
+    },
+    {
+      "id": "dialog-title-close",
+      "kind": "integration",
+      "description": "Abrir/fechar CommandDialog com título e descrição, confirmar close button opcional.",
+      "capabilities": [
+        "command-dialog-wrapper"
+      ]
+    },
+    {
+      "id": "shortcut-does-not-register",
+      "kind": "integration",
+      "description": "Montar CommandShortcut e constatar ausência de registro automático de Cmd+K.",
+      "capabilities": [
+        "shortcut-hint-only"
+      ]
+    },
+    {
+      "id": "keyboard-screen-reader",
+      "kind": "manual-a11y",
+      "description": "Validar setas, Enter, Escape, ordem de foco e anúncio de grupos e atalhos.",
+      "capabilities": [
+        "keyboard-focus-and-aria"
+      ]
+    },
+    {
+      "id": "mobile-commands",
+      "kind": "visual",
+      "description": "Inspecionar lista extensa com scroll, teclado virtual e 320px.",
+      "capabilities": [
+        "mobile-density-and-search"
+      ]
+    },
+    {
+      "id": "pi-action-negative",
+      "kind": "candidate-not-executable",
+      "description": "Impedir novos tipos Command no Pi; em admissão posterior validar schema, ACL e handlers.",
+      "capabilities": [
+        "pi-command-contract",
+        "command-execution-and-routes"
+      ]
+    },
+    {
+      "id": "hotkeys-and-side-effects",
+      "kind": "candidate-not-executable",
+      "description": "Em composição aprovada, testar registro de atalhos, conflitos, autorização, confirmação e feedback.",
+      "capabilities": [
+        "keyboard-shortcut-registration",
+        "command-execution-and-routes"
+      ]
+    }
+  ]
+}
