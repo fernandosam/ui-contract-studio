@@ -20,6 +20,8 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 
 ## Referências especializadas
 
+- [Revisão semântica T17 (Alert, Card, Textarea, Progress)](semantic-knowledge-t17.pt-BR.md)
+
 - [Validação semântica integrada T14 (formulários e candidatos)](semantic-knowledge-integration-t14.pt-BR.md)
 - [Integração semântica anterior T08](semantic-knowledge-integration-t08.pt-BR.md)
 - [Fontes de dados e DataTable](integracao-dados.pt-BR.md)
