@@ -1,0 +1,573 @@
+{
+  "schemaVersion": 1,
+  "component": "Select",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/select",
+    "reviewedOn": "2026-10-26",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Select?",
+      "Why Use Shadcn Select?",
+      "Shadcn Select Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Permitir ao usuário escolher exatamente um valor dentre alternativas predefinidas em formulários, configurações ou filtros, com rótulo de campo e estado de seleção explícitos.",
+  "rationale": [
+    "Reduzir escolhas ambíguas e entradas livres onde há um conjunto pequeno e conhecido de valores; usar RadioGroup quando todas as alternativas precisam ficar visíveis.",
+    "Organizar listas moderadas com grupos e textos explicativos, distinguindo apresentação local da persistência de filtros ou dados.",
+    "Separar a API do Select serializável do catálogo Pi da primitiva Base UI e dos exemplos React ReUI, sem prometer busca, submissão nativa, multisseleção ou autorização por documentação."
+  ],
+  "whenUse": [
+    "Escolher um único valor dentre opções fixas, como situação, prioridade, categoria pequena ou configuração de exibição.",
+    "Exibir opções textuais agrupadas por assunto ou com descrição curta, preservando rótulos de fácil compreensão.",
+    "Oferecer filtro local de um valor quando a tela controla explicitamente a reação ao evento change, sem presumir consulta ao servidor."
+  ],
+  "whenNotUse": [
+    "Lista extensa ou que precise de pesquisa, autocompletar, criação de opções ou busca remota: preferir Combobox ou composição contratual específica.",
+    "Duas a quatro escolhas que devem estar simultaneamente visíveis: avaliar RadioGroup; controles binários: Checkbox ou Switch.",
+    "Priorizar seletor nativo do sistema operacional, especialmente em dispositivos móveis: preferir NativeSelect.",
+    "Selecionar vários valores simultaneamente, apresentar hierarquia de níveis ou cartões multimídia: não presumir suporte do Select Pi básico.",
+    "Presumir que o campo já faz submissão nativa, integra React Hook Form, aplica checks de negócio ou exibe erros apenas porque name/required/checks constam da spec."
+  ],
+  "agentNotes": [
+    "A primitiva instalada é @base-ui/react/select, não Radix: não transferir asChild, position='popper' nem semântica de SelectValue da variante Radix. O renderer do Select Pi trabalha com valores string, embora Base UI React possa aceitar valores objeto com outras condições.",
+    "No catálogo Pi, options é obrigatório e aceita strings ou objetos {label,value,disabled?,description?}; groups é opcional (até 12 grupos) com opções objeto. Uma lista sem alternativas não garante um campo utilizável.",
+    "O renderer utiliza useValue(props.value??props.defaultValue??'', bindings?.value), onValueChange, setValue e notify(emit,'change'); o sinal é local e não persiste, não submete nem autoriza ações remotas.",
+    "O campo name aparece no schema, mas não é passado ao ShadcnSelect no renderer atual. Portanto não afirmar integração com FormData ou envio de campo por nome. checks também existe no schema, mas não é aplicado pelo renderer do Select.",
+    "required e disabled são repassados ao ShadcnSelect; isso não demonstra validação de formulário, exibição de erros, bloqueio de submit ou anúncio acessível em todos os navegadores.",
+    "O renderer associa ShadcnLabel id={id} ao SelectTrigger aria-labelledby={id}; conferir rotulagem real e vínculo de erro com leitor de tela. Não há FieldError nem aria-invalid serializado para Select Pi.",
+    "SelectValue recebe placeholder, mas o renderer não passa items ao Root. Na Base UI, conferir se, quando label difere de value, o gatilho exibe o rótulo esperado e não apenas a string do valor.",
+    "SelectItem suporta descrição textual curta e disabled no adaptador, mas não ícones, Badge, Avatar, bandeiras, render callbacks ou JSX arbitrário como conteúdo de opções via contrato Pi.",
+    "O SelectContent instala Portal/Positioner e define alignItemWithTrigger=true por padrão na primitiva, além de side='bottom'; não expor alignItemWithTrigger, offset, tamanho sm ou estilos customizados como props Pi inexistentes.",
+    "Grupos renderizam SelectGroup/SelectLabel e separadores entre grupos; validar separação visual quando opções soltas e grupos coexistem, opções desabilitadas, valores duplicados e lista sem opções.",
+    "O conteúdo usa rolagem e setas na primitiva; navegação por teclado, Escape, typeahead, foco, leitura do valor, clipping e viewport móvel continuam sujeitos a verificação de runtime, mesmo quando citados como recursos do fornecedor.",
+    "O guia ReUI reúne exemplos de multi-select, mas seu FAQ recomenda componente/Checkbox próprio para multisseleção. Seleção múltipla, busca remota e validação de formulário são candidatas a composição separada, não extensões documentais do Select Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "single-select-text-options",
+      "description": "O contrato permite seleção de um valor textual em lista options formada por strings ou objetos rotulados, e o renderer cria itens individuais.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Select: { props: obj({label:z.string(),name:z.string(),options:z.array(z.union([z.string(),obj({label:z.string(),value:z.string()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const option=typeof raw===\"string\"?{label:raw,value:raw}:raw;return <SelectItem"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<SelectContent>{props.options.map(item)}"
+        }
+      ],
+      "testRequirements": [
+        "Exercitar opções string e objeto, verificar valor selecionado e um único item marcado, sem assumir persistência."
+      ]
+    },
+    {
+      "id": "grouped-text-options",
+      "description": "Aceita até 12 grupos rotulados com opções textuais e separadores visuais entre grupos.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "groups:z.array(obj({label:z.string(),options:z.array(obj({label:z.string(),value:z.string()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<SelectGroup key={group.label}><SelectLabel>{group.label}</SelectLabel>{group.options.map(item)}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "i<props.groups.length-1&&<SelectSeparator/>"
+        }
+      ],
+      "testRequirements": [
+        "Validar grupos com e sem opções avulsas, rótulos, separadores, limites de grupos e valores repetidos."
+      ]
+    },
+    {
+      "id": "option-description-text",
+      "description": "Renderiza texto descritivo ao lado de cada opção objeto, limitado pelo contrato a 150 caracteres.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "description:z.string().max(150).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "option.description&&<span className=\"ml-2 text-xs text-muted-foreground\">{option.description}</span>"
+        }
+      ],
+      "testRequirements": [
+        "Comparar legibilidade, truncamento e anúncio do texto explicativo no menu e após seleção."
+      ]
+    },
+    {
+      "id": "disabled-field-and-options",
+      "description": "Encaminha o estado disabled para o campo inteiro e para opções individuais.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "disabled:z.boolean().optional(),required:z.boolean().optional(),checks:fields.optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<SelectItem key={option.value} value={option.value} disabled={option.disabled}>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnSelect value={value} disabled={props.disabled} required={props.required}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar que controle desabilitado não abre nem altera o valor; testar opções desabilitadas com mouse e teclado."
+      ]
+    },
+    {
+      "id": "value-defaultvalue-and-change",
+      "description": "O adaptador inicializa estado a partir de value/defaultValue ou binding e sinaliza alterações pelo evento local change.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "value:optionalText,defaultValue:optionalText"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"change\"],description:\"Select ReUI: lista simples ou grupos rotulados"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.value??props.defaultValue??\"\",bindings?.value)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onValueChange={(v:string)=>{setValue(v);notify(emit,\"change\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Validar valores iniciais, atualização com binding, alteração por usuário e emissão de change sem ação remota."
+      ]
+    },
+    {
+      "id": "placeholder-value-slot",
+      "description": "Exibe SelectValue com placeholder configurável e texto padrão quando nenhuma escolha está definida.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "placeholder:optionalText,value:optionalText,defaultValue:optionalText"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<SelectValue placeholder={props.placeholder??\"Selecione\"}/>"
+        },
+        {
+          "path": "src/components/ui/select.tsx",
+          "contains": "<SelectPrimitive.Value"
+        }
+      ],
+      "testRequirements": [
+        "Diferenciar placeholder de valor já selecionado e verificar o gatilho vazio e preenchido."
+      ]
+    },
+    {
+      "id": "field-label-reference",
+      "description": "O adaptador cria um identificador para rótulo e o referencia a partir do gatilho por aria-labelledby.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const id=useId();const [value,setValue]=useValue("
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnLabel id={id}>{props.label}</ShadcnLabel>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<SelectTrigger aria-labelledby={id}>"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar nome acessível do gatilho e garantir ausência de rótulos vazios ou duplicados."
+      ]
+    },
+    {
+      "id": "required-forwarding",
+      "description": "O contrato aceita required e o encaminha à raiz Base UI, sem comprovação de validação de formulário.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "disabled:z.boolean().optional(),required:z.boolean().optional(),checks:fields.optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnSelect value={value} disabled={props.disabled} required={props.required}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar comportamento required em formulário real, distinguindo atributo aceito de bloqueio efetivo de submit."
+      ]
+    },
+    {
+      "id": "baseui-popup-scroll-structure",
+      "description": "O wrapper instalado usa Portal/Positioner, Popup/List e controles visuais de rolagem, com alinhamento de item por padrão.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/select.tsx",
+          "contains": "import { Select as SelectPrimitive } from \"@base-ui/react/select\""
+        },
+        {
+          "path": "src/components/ui/select.tsx",
+          "contains": "alignItemWithTrigger = true,"
+        },
+        {
+          "path": "src/components/ui/select.tsx",
+          "contains": "<SelectPrimitive.Portal>"
+        },
+        {
+          "path": "src/components/ui/select.tsx",
+          "contains": "<SelectPrimitive.Positioner"
+        },
+        {
+          "path": "src/components/ui/select.tsx",
+          "contains": "<SelectPrimitive.List>{children}</SelectPrimitive.List>"
+        },
+        {
+          "path": "src/components/ui/select.tsx",
+          "contains": "<SelectScrollDownButton />"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar popup e rolagem em listas extensas; não declarar navegação de teclado validada apenas pela estrutura."
+      ]
+    },
+    {
+      "id": "named-native-form-serialization",
+      "description": "Associar o nome do campo a uma submissão HTML/FormData; name é aceito no schema, mas não é encaminhado para o Select da prévia.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura: enviar name de forma explícita, submeter formulário real e conferir presença/valor em FormData."
+      ]
+    },
+    {
+      "id": "business-checks-and-errors",
+      "description": "Executar checks definidos no contrato e exibir erro, descrição/ajuda e aria-invalid; o adaptador do Select não aplica checks, FieldError ou estado inválido.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura: aplicar validação autorizada e conferir aria-invalid, aria-describedby, mensagens de erro e submit bloqueado."
+      ]
+    },
+    {
+      "id": "rich-media-options",
+      "description": "Usar ícones, avatares, bandeiras, Badges ou cartões arbitrários dentro de opções: exemplos ReUI React não são aceitos pelo formato Pi textual.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura: definir composição tipada e permitir somente elementos aprovados, com validação de acessibilidade."
+      ]
+    },
+    {
+      "id": "multi-select",
+      "description": "Permitir múltiplos valores ou caixas de seleção na mesma lista; o contrato Select tem value textual singular, sem modo multiple.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura: usar CheckboxGroup/composição tipada com coleção de valores e estados independentes."
+      ]
+    },
+    {
+      "id": "search-and-async-options",
+      "description": "Filtrar ou buscar opções por texto e carregar sugestões remotas; o Select Pi não expõe busca nem uma ação de consulta.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura: preferir Combobox tipado, estados loading/empty/error e integração remota expressamente autorizada."
+      ]
+    },
+    {
+      "id": "custom-size-and-position",
+      "description": "Configurar tamanho sm, offset, alinhamento de item ou rich styling a partir do contrato serializável; apenas a primitiva React oferece esses controles.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura: se houver necessidade, versionar props com schema e testes em contrato próprio antes de publicar."
+      ]
+    },
+    {
+      "id": "selected-label-fidelity",
+      "description": "Verificar se o SelectValue Base UI anuncia/exibe label amigável quando value difere de label, pois o renderer não fornece items à raiz.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Em navegador, selecionar objeto {label:'Em análise', value:'pending'} e confirmar texto do gatilho, leitor de tela e valor emitido."
+      ]
+    },
+    {
+      "id": "keyboard-focus-typeahead",
+      "description": "Confirmar navegação por setas, Home/End, Enter/Espaço, Escape, typeahead, foco inicial e retorno ao gatilho na variante Base UI.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Teste manual/E2E com teclado, leitor de tela e valores/itens desabilitados, registrando foco e seleção efetivos."
+      ]
+    },
+    {
+      "id": "screen-reader-and-invalid",
+      "description": "Confirmar anúncio de rótulo, opções agrupadas, descrições, disabled/required e mensagens de erro quando usados em composição de formulário.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Auditar árvore de acessibilidade, contraste e leitor de tela; checar associação label/trigger e ausência de descrição/erro no contrato básico."
+      ]
+    },
+    {
+      "id": "mobile-scroll-viewport",
+      "description": "Confirmar comportamento do portal, alinhamento, scroll, zoom e usabilidade em telas pequenas e com lista maior.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Teste visual e E2E com mouse, toque, teclado e viewport móvel; verificar overflow e possibilidade de escolher última opção."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Field",
+      "relationship": "form-field-wrapper-candidate",
+      "reason": "Rótulo, ajuda e erro consistentes em composição React de formulário; o renderer Select Pi ainda não cria Field nem FieldError."
+    },
+    {
+      "component": "Form",
+      "relationship": "validated-form-candidate",
+      "reason": "Submissão, validação, erros e estado de formulário exigem contrato/composição própria; name/checks não são aplicados pelo Select Pi."
+    },
+    {
+      "component": "Label",
+      "relationship": "field-name",
+      "reason": "Já há referência de rótulo por aria-labelledby; revisar anúncio acessível para associação efetiva."
+    },
+    {
+      "component": "Radio",
+      "relationship": "alternative-for-few-options",
+      "reason": "RadioGroup mantém poucas alternativas sempre visíveis, facilitando comparação."
+    },
+    {
+      "component": "Combobox",
+      "relationship": "alternative-for-search",
+      "reason": "Busca textual e listas grandes requerem filtragem, que não pertence ao contrato Select básico."
+    },
+    {
+      "component": "NativeSelect",
+      "relationship": "mobile-native-alternative",
+      "reason": "Se a prioridade for seletor do sistema operacional e desempenho, considerar controle nativo."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "multi-choice-alternative",
+      "reason": "Seleção simultânea de várias opções deve ser explicitamente modelada como grupo ou composto independente."
+    },
+    {
+      "component": "Input",
+      "relationship": "adjacent-search-or-validation",
+      "reason": "Entrada textual auxiliar pode filtrar opções somente em composição autorizada; não adicionar handlers ao Select."
+    },
+    {
+      "component": "Popover",
+      "relationship": "help-candidate",
+      "reason": "Explicar escolhas complexas fora do menu sem presumir conteúdo JSX/ações no contrato textual."
+    },
+    {
+      "component": "Button",
+      "relationship": "form-submit-candidate",
+      "reason": "Enviar formulário só após validação e ação backend explicitamente admitidas; change local não é submit."
+    },
+    {
+      "component": "Badge",
+      "relationship": "rich-option-candidate",
+      "reason": "Status visual nas opções depende de composição React aprovada, não da spec textual Select."
+    },
+    {
+      "component": "Alert",
+      "relationship": "validation-feedback-candidate",
+      "reason": "Exibir retorno de validação ou resultado fora do seletor quando houver estado e ação autorizados."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando usar Select em vez de RadioGroup?",
+      "guidance": "Usar Select para escolha única entre lista curta/moderada que não precisa ficar toda visível. Se poucas opções exigem comparação imediata, preferir RadioGroup."
+    },
+    {
+      "question": "Quando preferir NativeSelect ou Combobox?",
+      "guidance": "NativeSelect para seletor de SO e mobile; Combobox para grande volume, filtragem e busca. Select básico não implementa pesquisa."
+    },
+    {
+      "question": "O Select permite multisseleção?",
+      "guidance": "Não no contrato Pi atual: value é string, há somente evento change. Criar grupo de Checkbox ou componente composto com contrato independente."
+    },
+    {
+      "question": "Posso enviar name e receber a seleção em FormData?",
+      "guidance": "Não presumir: name consta no schema mas não é passado ao ShadcnSelect no renderer atual. Validar integração de formulário antes de prometer submissão."
+    },
+    {
+      "question": "required e checks tornam o formulário validado?",
+      "guidance": "Não: required é encaminhado; checks não é utilizado pelo renderer do Select. Falta renderização de erro/aria-invalid e validação de submissão do fluxo."
+    },
+    {
+      "question": "Como representar opção desabilitada, agrupada ou com descrição?",
+      "guidance": "Usar opções objeto com value/label/disabled/description e groups rotulados (máximo 12); testar repetição de valores e anúncio acessível. Não incluir HTML arbitrário na spec."
+    },
+    {
+      "question": "Como alinhar o menu abaixo do gatilho ou diminuir o seletor?",
+      "guidance": "A primitiva Base UI oferece alignItemWithTrigger e size='sm' no trigger, mas o Select Pi não expõe tais props. Solicitar composição/alteração contratual separada."
+    },
+    {
+      "question": "Por que o valor escolhido aparece como código em vez de rótulo?",
+      "guidance": "Na Base UI, SelectValue pode mostrar value textual quando Root não recebe items; o renderer atual não passa items. Abrir validação E2E para label distinto do value em vez de afirmar suporte completo."
+    },
+    {
+      "question": "O evento change atualiza banco, filtros externos ou salva configurações?",
+      "guidance": "Não; notify(emit,'change') é um sinal local. Persistência, busca e permissões exigem ação backend/contrato autorizados."
+    },
+    {
+      "question": "O Select já é acessível por ser baseado em Base UI?",
+      "guidance": "A estrutura fornece label referenciado e primitivas, mas teclado, typeahead, anúncios, required, mensagens de erro e leitura do valor precisam de testes em runtime. Não certificá-lo por evidência textual."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "simple-and-object-values",
+      "kind": "integration",
+      "description": "Renderizar options como strings e objetos; selecionar, conferir value, placeholder e exclusividade da seleção.",
+      "capabilities": [
+        "single-select-text-options",
+        "placeholder-value-slot",
+        "value-defaultvalue-and-change"
+      ]
+    },
+    {
+      "id": "grouping-and-bounds",
+      "kind": "integration",
+      "description": "Validar grupos, até 12 conforme schema, separadores, opções avulsas e valores duplicados; verificar integridade visual.",
+      "capabilities": [
+        "grouped-text-options",
+        "single-select-text-options"
+      ]
+    },
+    {
+      "id": "disabled-selection",
+      "kind": "integration",
+      "description": "Tentar selecionar item desabilitado e abrir campo desabilitado por mouse e teclado; value deve permanecer estável.",
+      "capabilities": [
+        "disabled-field-and-options",
+        "value-defaultvalue-and-change"
+      ]
+    },
+    {
+      "id": "change-binding-and-event",
+      "kind": "integration",
+      "description": "Alternar value/defaultValue/binding e confirmar evento change sem permissão ou chamada remota implícita.",
+      "capabilities": [
+        "value-defaultvalue-and-change"
+      ]
+    },
+    {
+      "id": "option-text-and-long-labels",
+      "kind": "visual",
+      "description": "Testar descrições de 150 caracteres, rótulos longos, truncamento e contraste em itens selecionados.",
+      "capabilities": [
+        "option-description-text",
+        "placeholder-value-slot"
+      ]
+    },
+    {
+      "id": "baseui-popup-viewport",
+      "kind": "visual",
+      "description": "Exercitar portal, setas, rolagem, popup em cantos, zoom e viewport móvel, registrando clipping.",
+      "capabilities": [
+        "baseui-popup-scroll-structure",
+        "mobile-scroll-viewport"
+      ]
+    },
+    {
+      "id": "keyboard-screen-reader",
+      "kind": "manual-a11y",
+      "description": "Inspecionar nome acessível, grupos, descrição, required, foco, setas, Home/End, typeahead e retorno por Escape com leitor de tela.",
+      "capabilities": [
+        "field-label-reference",
+        "keyboard-focus-typeahead",
+        "screen-reader-and-invalid",
+        "required-forwarding"
+      ]
+    },
+    {
+      "id": "display-label-vs-value",
+      "kind": "integration",
+      "description": "Usar value='pending' e label='Em análise' sem items no Root; registrar rótulo exibido/anunciado após selecionar.",
+      "capabilities": [
+        "single-select-text-options",
+        "selected-label-fidelity"
+      ]
+    },
+    {
+      "id": "native-form-and-validation-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se implementação futura autorizada, validar name em FormData, checks, aria-invalid, erro e bloqueio de submissão.",
+      "capabilities": [
+        "named-native-form-serialization",
+        "business-checks-and-errors"
+      ]
+    },
+    {
+      "id": "rich-and-multiselect-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Somente em composição aprovada, testar multisseleção e mídia permitida nas opções sem JSX arbitrário no Pi.",
+      "capabilities": [
+        "rich-media-options",
+        "multi-select"
+      ]
+    },
+    {
+      "id": "combobox-search-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se busca for aprovada, testar filtragem, loading, empty/error e autorização de fonte externa em contrato Combobox próprio.",
+      "capabilities": [
+        "search-and-async-options"
+      ]
+    },
+    {
+      "id": "custom-position-size-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se novas props forem versionadas, testar size, offset, alinhamento com o gatilho, acessibilidade e responsividade.",
+      "capabilities": [
+        "custom-size-and-position"
+      ]
+    },
+    {
+      "id": "empty-options-and-reset",
+      "kind": "integration",
+      "description": "Verificar placeholder, lista vazia, grupos opcionais, reset local e obrigatoriedade sem afirmar submissão nativa.",
+      "capabilities": [
+        "single-select-text-options",
+        "placeholder-value-slot",
+        "required-forwarding"
+      ]
+    }
+  ]
+}
