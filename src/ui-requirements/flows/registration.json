@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "id": "registration",
+  "title": "Cadastro de usuários",
+  "intentKeywords": [
+    "cadastro",
+    "cadastrar",
+    "registro",
+    "registrar",
+    "formulário"
+  ],
+  "questions": [
+    {
+      "id": "fields",
+      "label": "Quais dados serão solicitados?",
+      "type": "multi-select",
+      "required": true,
+      "default": [
+        "name",
+        "email",
+        "password"
+      ],
+      "options": [
+        {
+          "value": "name",
+          "label": "Nome"
+        },
+        {
+          "value": "email",
+          "label": "E-mail"
+        },
+        {
+          "value": "password",
+          "label": "Senha"
+        },
+        {
+          "value": "phone",
+          "label": "Telefone"
+        },
+        {
+          "value": "company",
+          "label": "Empresa"
+        },
+        {
+          "value": "city",
+          "label": "Cidade"
+        },
+        {
+          "value": "document",
+          "label": "Documento"
+        }
+      ]
+    },
+    {
+      "id": "extraFields",
+      "label": "Outros campos (um rótulo por linha)",
+      "type": "text",
+      "required": false,
+      "default": ""
+    },
+    {
+      "id": "validation",
+      "label": "Qual nível de validação?",
+      "type": "select",
+      "required": true,
+      "default": "native",
+      "options": [
+        {
+          "value": "native",
+          "label": "Campos obrigatórios e formatos nativos"
+        },
+        {
+          "value": "business",
+          "label": "Regras de negócio e erros personalizados (requer nova capacidade)"
+        },
+        {
+          "value": "none",
+          "label": "Apenas apresentação, sem validação"
+        }
+      ]
+    },
+    {
+      "id": "confirmation",
+      "label": "Mostrar confirmação antes de salvar?",
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    {
+      "id": "confirmationMessage",
+      "label": "Qual mensagem de confirmação?",
+      "type": "text",
+      "required": true,
+      "default": "Confirma os dados informados?",
+      "visibleWhen": {
+        "question": "confirmation",
+        "equals": true
+      }
+    },
+    {
+      "id": "layout",
+      "label": "Como organizar os campos?",
+      "type": "select",
+      "required": true,
+      "default": "single",
+      "options": [
+        {
+          "value": "single",
+          "label": "Uma coluna"
+        },
+        {
+          "value": "two-columns",
+          "label": "Duas colunas responsivas"
+        }
+      ]
+    },
+    {
+      "id": "persistence",
+      "label": "O cadastro será demonstrativo ou salvará no servidor?",
+      "type": "select",
+      "required": true,
+      "explicit": true,
+      "options": [
+        {
+          "value": "local-demo",
+          "label": "Apenas prévia local, sem persistência"
+        },
+        {
+          "value": "backend",
+          "label": "Salvar em backend autorizado (requer integração)"
+        }
+      ]
+    }
+  ]
+}

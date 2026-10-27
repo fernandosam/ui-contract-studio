@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "policy": "Referências às capacidades documentadas; não amplia API Zod ou Pi.",
+  "relations": [
+    {
+      "component": "Input",
+      "capability": "label-name-and-help",
+      "role": "field",
+      "requires": []
+    },
+    {
+      "component": "Input",
+      "capability": "native-state-and-length",
+      "role": "field-state",
+      "requires": [
+        "field"
+      ]
+    },
+    {
+      "component": "Button",
+      "capability": "local-press-event",
+      "role": "local-action",
+      "requires": []
+    },
+    {
+      "component": "AlertDialog",
+      "capability": "confirm-signal",
+      "role": "local-confirmation",
+      "requires": []
+    },
+    {
+      "component": "DataTable",
+      "capability": "page-navigation",
+      "role": "tabular-pagination",
+      "requires": []
+    },
+    {
+      "component": "Select",
+      "capability": "single-select-text-options",
+      "role": "option-input",
+      "requires": []
+    }
+  ]
+}
