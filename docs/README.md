@@ -13,6 +13,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Components and contracts](components.md) | shadcn/ui, ReUI, compositions, and admission |
 | [Admission Engine](admission-engine.md) | Experimental publication and post-E2E distribution |
 | [Composition strategy](composition-strategy.md) | Dependency map, semantic classification and new ReUI examples |
+| [Component semantic checklist](semantic-knowledge-checklist.md) | Per-component knowledge review, code evidence, gaps, and validation |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Development](development.md) | Environment, tests, CI, and E2E |
 | [Governance](governance.md) | Review and ongoing audits of the public repository |
