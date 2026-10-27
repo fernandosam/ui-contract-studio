@@ -21,8 +21,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Testes estruturais
-        run: npm run test:offline
+      - name: Testes estruturais e seleção oficial
+        run: |
+          npm run test:offline
+          npm run shadcn:official:inventory:check
       - name: Regras de geração e contratos
         run: |
           npm run composites:generated:check

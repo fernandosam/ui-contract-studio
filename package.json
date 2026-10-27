@@ -101,7 +101,8 @@
     "admission:certify": "node scripts/admission-engine.mjs --certify",
     "test:admission:candidates": "playwright test tests/e2e/admission-candidates.spec.ts --project=desktop --project=mobile",
     "admission:evidence:reset": "node scripts/admission-evidence.mjs --reset",
-    "admission:evidence:report": "node scripts/admission-evidence.mjs --report"
+    "admission:evidence:report": "node scripts/admission-evidence.mjs --report",
+    "shadcn:official:inventory:check": "node scripts/check-official-visual-inventory.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -1,0 +1,82 @@
+name: Official shadcn visual audit (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: official-visual-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-deps
+      - name: Validate curated references and explicit pending-review set
+        run: |
+          npm run shadcn:official:inventory:check
+          npm run test:offline
+          npm run shadcn:integrity -- --strict
+      - name: Check production build (read-only)
+        run: npm run build
+      - uses: ./.github/actions/setup-chromium
+      - name: Capture selected official sources and available local pairs
+        id: capture
+        continue-on-error: true
+        run: npm run shadcn:official:capture -- --workers=2 --retries=0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install isolated image comparator
+        run: python -m pip install Pillow==11.3.0
+      - name: Compare real evidence and provenance without pixel-fidelity claims
+        id: compare
+        continue-on-error: true
+        run: npm run shadcn:official:compare -- --strict
+      - name: Publish inventory and coverage summary
+        if: always()
+        run: |
+          node scripts/build-ci-visual-evidence.mjs
+          node --input-type=module <<'NODE'
+          import {existsSync, readFileSync, appendFileSync} from 'node:fs';
+          const file='reports/official-components/comparison.json';
+          const report=existsSync(file)?JSON.parse(readFileSync(file,'utf8')):null;
+          const lines=[
+            '### shadcn/ui · auditoria visual independente',
+            '- 50 primitivas instaladas: 38 referências selecionadas e 12 aguardando revisão.',
+            report?`- Casos com screenshot e proveniência: ${report.expectedCases-report.missingCases}/${report.expectedCases}; pares comparados: ${report.comparedCases}/${report.expectedComparableCases}.`:'- Relatório de capturas indisponível.',
+            '- Diferenças visuais são somente diagnósticas. A aprovação exige revisão humana.',
+          ];
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY,lines.join('\n')+'\n');
+          NODE
+      - name: Upload screenshots, comparisons, Playwright failures and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-visual-audit-${{ github.run_id }}
+          path: |
+            reports/official-components/
+            reports/github-actions/visual-evidence.json
+            test-results/
+            playwright-report/
+          if-no-files-found: warn
+          retention-days: 21
+      - name: Enforce complete evidence collection
+        if: always()
+        env:
+          CAPTURE: ${{ steps.capture.outcome }}
+          COMPARE: ${{ steps.compare.outcome }}
+        run: |
+          if [ "$CAPTURE" != success ] || [ "$COMPARE" != success ]; then
+            echo '::error::Captura/comparação incompleta: veja official-visual-audit e provenance.'
+            exit 1
+          fi
+          echo 'Evidências completas; comparação visual ainda requer revisão humana.'
