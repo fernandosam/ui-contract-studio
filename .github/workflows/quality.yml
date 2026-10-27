@@ -95,7 +95,7 @@ jobs:
         run: npm run admission:evidence:reset
       - name: Verify admission compositions and requirements wizard on desktop/mobile
         run: |
-          npx playwright test \
+          NODE_OPTIONS="--import tsx" npx playwright test \
             tests/e2e/typed-confirmation-pilot.spec.ts \
             tests/e2e/admission-candidates.spec.ts \
             tests/e2e/admission-catalog.spec.ts \
