@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 1,
+  "component": "RadioGroup",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/radio-group",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "Shadcn Radio Group: Single-Select Form Fields",
+      "What is Shadcn Radio Group?",
+      "Why Use Shadcn Radio Group?",
+      "Shadcn Radio Group Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Apresentar um grupo React de opções mutuamente exclusivas para escolha explícita; no catálogo Pi a implementação correspondente existe sob o tipo Radio, e não RadioGroup.",
+  "rationale": [
+    "Manter todas as alternativas visíveis quando uma única escolha é necessária, reduzindo erros em decisões comparativas.",
+    "Distinguir o componente de apresentação React (RadioGroup) do nome serializável aprovado (Radio) para não autorizar tipos Pi inexistentes.",
+    "Planejar acessibilidade, serialização e validação de formulários como obrigações verificáveis, não como propriedades inferidas de exemplos."
+  ],
+  "whenUse": [
+    "Um pequeno conjunto de opções exclusivas como canal de contato, densidade ou preferência de exibição em código React.",
+    "Uma escolha única em formulário em que o usuário precisa comparar as alternativas antes de decidir.",
+    "Composição React revisada com RadioGroup/RadioGroupItem; para JSON Pi aprovado, usar Radio conforme o schema."
+  ],
+  "whenNotUse": [
+    "JSON Pi com type RadioGroup: esse tipo não existe no catálogo aprovado; use Radio sem alterar schema.",
+    "Seleção simultânea de vários itens: usar Checkbox ou composição de múltiplos Checkbox.",
+    "Lista extensa ou pouco relevante para comparação imediata: preferir Select.",
+    "Cartões de pagamento, preços e efeitos remotos dos exemplos ReUI sem contrato de composição aprovado.",
+    "Validação/submit de formulário presumidos pela presença de RadioGroup: precisam de integração funcional explícita."
+  ],
+  "agentNotes": [
+    "CRÍTICO: RadioGroup é a família ReUI e o wrapper React real, mas NÃO é tipo aprovado no Pi. O tipo serializável do playground é Radio. Não criar alias Pi automaticamente.",
+    "A implementação src/components/ui/radio-group.tsx usa @base-ui/react/radio-group e @base-ui/react/radio. Não importar APIs Radix de exemplos externos sem revisar a variante.",
+    "O adaptador Radio em playground compõe ShadcnRadioGroup, Fieldset/legend e RadioGroupItem com ids derivados de useId, diferentemente dos IDs fixos de exemplos ReUI.",
+    "Radio no Pi aceita opções string ou {label,value,disabled,description}, required, disabled, value/defaultValue e orientação horizontal/vertical; event change é local.",
+    "Pi Radio exige name no schema, mas o renderer NÃO encaminha props.name ao ShadcnRadioGroup; portanto não afirmar serialização nativa de Radio/RadioGroup no FormData.",
+    "O valor apresentado provém do estado local e do onValueChange, sem handler de submit, persistência ou mudança de permissões.",
+    "RadioGroup React pode receber props diferentes do Radio Pi; consulta de capacidade React não autoriza prop adicional, value/aria-invalid ou action no contrato Pi.",
+    "ReUI mostra cards e formas alternativas de layout. A origem dessas amostras não prova suporte a JSX arbitrário no contrato JSON.",
+    "Verificar em navegador escolha única, rótulo/descrição de opções, setas/teclado, foco, required, seleção disabled e correspondência entre label/value.",
+    "A curadoria é consultiva e nunca estende permissões Pi, catálogo estável, schema Zod ou certificação E2E."
+  ],
+  "capabilities": [
+    {
+      "id": "baseui-react-wrapper",
+      "description": "Os componentes React RadioGroup/RadioGroupItem instalados encapsulam primitivas Base UI.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "contains": "import { Radio as RadioPrimitive } from \"@base-ui/react/radio\""
+        },
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "contains": "import { RadioGroup as RadioGroupPrimitive } from \"@base-ui/react/radio-group\""
+        },
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "contains": "<RadioGroupPrimitive"
+        },
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "contains": "<RadioPrimitive.Root"
+        }
+      ],
+      "testRequirements": [
+        "Montar grupo React e inspecionar props/DOM reais, sem converter o wrapper em tipo Pi."
+      ]
+    },
+    {
+      "id": "radio-pi-counterpart",
+      "description": "O renderer Pi sob a chave Radio compõe o RadioGroup React e não um componente Pi denominado RadioGroup.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Radio: { props: obj({label:z.string(),name:z.string(),options:"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "Radio: ({props,bindings,emit})=>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnRadioGroup value={value}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar que Radio é o tipo aprovado e que RadioGroup não passa no schema Pi."
+      ]
+    },
+    {
+      "id": "radio-option-model",
+      "description": "O adaptador Radio aceita opções string/objeto e constrói um RadioGroupItem por valor.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "description:z.string().max(200).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<RadioGroupItem id={`${id}-${i}`} value={item.value} disabled={item.disabled}/>"
+        }
+      ],
+      "testRequirements": [
+        "Escolher opções textuais/objetos e conferir rótulos, descrição e opção desabilitada."
+      ]
+    },
+    {
+      "id": "radio-local-selection",
+      "description": "O adaptador Radio mantém value/defaultValue ou binding e emite change local ao mudar opção.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.value??props.defaultValue??\"\",bindings?.value)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onValueChange={(v:string)=>{setValue(v);notify(emit,\"change\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Alternar opções e validar que o evento não aciona backend nem salva seleção."
+      ]
+    },
+    {
+      "id": "radio-fieldset-and-labels",
+      "description": "A composição Radio usa fieldset, legend, Label com htmlFor e ids únicos por grupo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<fieldset className=\"space-y-2\"><legend"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnLabel htmlFor={`${id}-${i}`}>{item.label}</ShadcnLabel>"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar rótulo de grupo/itens, ids e associações com múltiplos grupos."
+      ]
+    },
+    {
+      "id": "radio-orientation-and-disabled",
+      "description": "O renderer aceita orientação horizontal/vertical, required, disabled global e disabled por item via Radio Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "orientation:z.enum([\"horizontal\",\"vertical\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={props.disabled} required={props.required} className={props.orientation"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar layout em duas orientações; testar estado de item/grupo disabled e required real."
+      ]
+    },
+    {
+      "id": "radio-group-pi-type",
+      "description": "Um tipo serializável Pi chamado RadioGroup é ausente; só o contrato Radio é aprovado.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Não criar alias nem aceitar RadioGroup em specs Pi; eventual migração requer revisão contratual independente."
+      ]
+    },
+    {
+      "id": "radio-native-formdata",
+      "description": "O renderer Radio não encaminha name ao ShadcnRadioGroup; não comprova submissão em FormData.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta: encaminhar name em mudança funcional aprovada e testar escolha serializada em form real."
+      ]
+    },
+    {
+      "id": "rich-card-radio-proposal",
+      "description": "Cartões precificados, ícones, ações e formulários completos de exemplos ReUI não são formato serializável do Radio Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta: definir composição tipada com contrato próprio, layout, dados e ações autorizadas."
+      ]
+    },
+    {
+      "id": "keyboard-and-roving-focus",
+      "description": "Comprovar seleção única, setas, Tab, Space, rótulos e retorno de foco no Base UI instalado.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Executar E2E de teclado e leitor de tela com itens disabled, descrição e required."
+      ]
+    },
+    {
+      "id": "form-label-value-runtime",
+      "description": "Confirmar label/value, mensagens de erro, campo obrigatório e viewport móvel em formulário real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Executar fluxo responsivo com leitores de tela, required, reset e feedback de erro."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Radio",
+      "relationship": "approved-pi-counterpart",
+      "reason": "Contrato Pi aprovado sob Radio, renderizado com a primitiva React RadioGroup."
+    },
+    {
+      "component": "Field",
+      "relationship": "form-semantic-wrapper-candidate",
+      "reason": "Rótulo, ajuda, required e FieldError exigem composição validada."
+    },
+    {
+      "component": "Label",
+      "relationship": "option-label",
+      "reason": "O renderer Radio vincula texto de cada alternativa ao id correspondente."
+    },
+    {
+      "component": "Form",
+      "relationship": "serialization-candidate",
+      "reason": "name não é repassado ao RadioGroup pelo renderer Pi; submit precisa revisão."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "multiselect-alternative",
+      "reason": "Várias escolhas simultâneas não devem ser modeladas por rádio."
+    },
+    {
+      "component": "Select",
+      "relationship": "compact-choice-alternative",
+      "reason": "Quando muitas opções tornam rádio extenso, usar Select e revisar acessibilidade."
+    },
+    {
+      "component": "Card",
+      "relationship": "option-card-candidate",
+      "reason": "Itens visuais ricos requerem composição autorizada e interação única."
+    },
+    {
+      "component": "Button",
+      "relationship": "explicit-form-submit-candidate",
+      "reason": "Escolher opção não é confirmar/salvar; submit é ação separada."
+    },
+    {
+      "component": "Alert",
+      "relationship": "validation-feedback-candidate",
+      "reason": "Mostrar erros globais e estado do formulário após validação."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "RadioGroup é tipo Pi disponível?",
+      "guidance": "Não. O tipo aprovado chama-se Radio. RadioGroup é wrapper React e família da documentação ReUI."
+    },
+    {
+      "question": "Qual a diferença entre Radio, Checkbox e Select?",
+      "guidance": "Radio/RadioGroup permitem escolher uma opção visível, Checkbox escolhas independentes e Select uma lista mais compacta."
+    },
+    {
+      "question": "O grupo precisa de name em FormData?",
+      "guidance": "Sim para formulário nativo, mas o renderer Pi Radio atual não repassa name ao RadioGroup. Não afirmar serialização."
+    },
+    {
+      "question": "O evento change executa uma ação?",
+      "guidance": "Não; indica alteração de seleção local. Persistência depende de fluxo explicitamente permitido."
+    },
+    {
+      "question": "É possível montar cartões de pagamento com RadioGroup?",
+      "guidance": "Como composição React, sim, sob revisão específica; o schema Pi Radio não permite JSX arbitrário ou cobrança."
+    },
+    {
+      "question": "A seleção por teclado já foi certificada?",
+      "guidance": "Não. A presença de Base UI e fieldset é evidência estrutural, não prova de navegação e anúncio efetivo."
+    },
+    {
+      "question": "Como evitar ids duplicados nas opções?",
+      "guidance": "O renderer gera useId e índices por grupo; exemplos externos com r1 fixo devem ser adaptados ao compor múltiplos grupos."
+    },
+    {
+      "question": "required bloqueia envio automaticamente?",
+      "guidance": "O renderer repassa required, mas sem Form e name não há fluxo de submissão validado. Testar comportamento real."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "react-and-pi-name-boundary",
+      "kind": "integration",
+      "description": "Confirmar presença do wrapper React e aceitação de Radio no Pi, rejeitando type RadioGroup.",
+      "capabilities": [
+        "baseui-react-wrapper",
+        "radio-pi-counterpart",
+        "radio-group-pi-type"
+      ]
+    },
+    {
+      "id": "options-labels-description",
+      "kind": "integration",
+      "description": "Renderizar opções string/objeto com label/value distintos, descrição e disabled.",
+      "capabilities": [
+        "radio-option-model",
+        "radio-fieldset-and-labels"
+      ]
+    },
+    {
+      "id": "orientation-and-state",
+      "kind": "integration",
+      "description": "Alternar orientação e valor/binding; verificar change local, required e disabled.",
+      "capabilities": [
+        "radio-local-selection",
+        "radio-orientation-and-disabled"
+      ]
+    },
+    {
+      "id": "keyboard-exclusive-choice",
+      "kind": "manual-a11y",
+      "description": "Executar Tab, setas, Space, disabled e anúncios group/legend em Base UI.",
+      "capabilities": [
+        "keyboard-and-roving-focus",
+        "radio-fieldset-and-labels"
+      ]
+    },
+    {
+      "id": "mobile-choice-layout",
+      "kind": "visual",
+      "description": "Inspecionar longos rótulos, várias opções e horizontal/vertical com viewport móvel.",
+      "capabilities": [
+        "radio-orientation-and-disabled",
+        "form-label-value-runtime"
+      ]
+    },
+    {
+      "id": "form-required-runtime",
+      "kind": "integration",
+      "description": "Verificar seleção e required em form real sem alegar integração native name.",
+      "capabilities": [
+        "form-label-value-runtime"
+      ]
+    },
+    {
+      "id": "future-native-radio-submit",
+      "kind": "candidate-not-executable",
+      "description": "Após contrato alterado, validar name e FormData do grupo e reset do form.",
+      "capabilities": [
+        "radio-native-formdata"
+      ]
+    },
+    {
+      "id": "future-rich-cards",
+      "kind": "candidate-not-executable",
+      "description": "Após aprovação de composição, testar cards, pricing e ações autorizadas.",
+      "capabilities": [
+        "rich-card-radio-proposal"
+      ]
+    }
+  ]
+}
