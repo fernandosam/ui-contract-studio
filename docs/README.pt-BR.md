@@ -20,6 +20,7 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 
 ## Referências especializadas
 
+- [Auditoria T19 da cobertura semântica das 31 famílias ReUI](semantic-knowledge-coverage-t19.pt-BR.md) — matriz 31/559/39 e checklist T01
 - [Revisão semântica T17 (Alert, Card, Textarea, Progress)](semantic-knowledge-t17.pt-BR.md)
 
 - [Validação semântica integrada T14 (formulários e candidatos)](semantic-knowledge-integration-t14.pt-BR.md)
