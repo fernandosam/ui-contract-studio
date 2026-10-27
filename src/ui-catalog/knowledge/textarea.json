@@ -1,0 +1,383 @@
+{
+  "schemaVersion": 1,
+  "component": "Textarea",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/textarea",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Textarea?",
+      "Why Use Shadcn Textarea?",
+      "Shadcn Textarea Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Coletar texto livre de várias linhas com rótulo acessível, estado, orientação contextual e limite de caracteres quando definido.",
+  "rationale": [
+    "Oferecer espaço apropriado a comentários, descrição, justificativa e observações que não cabem em Input.",
+    "Explicitar identificação do campo, ajuda e invalidação para reduzir erros e dificuldade de preenchimento.",
+    "Distinguir valor e evento de edição local de validação completa, submissão e persistência no servidor."
+  ],
+  "whenUse": [
+    "Editar comentários, mensagens, descrições e respostas longas que podem conter quebras de linha.",
+    "Solicitar justificativa com rótulo, ajuda, limite maxLength e estado readOnly/disabled quando necessário.",
+    "Compor formulários aprovados com mudanças locais observáveis pelo evento change."
+  ],
+  "whenNotUse": [
+    "Solicitar nomes, e-mails, buscas ou outros valores curtos de linha única: usar Input.",
+    "Usar contador visível de caracteres, preview Markdown ou editor rico sem composição específica.",
+    "Executar envio automático, upload de anexo ou persistência por conta da prop required ou do evento change.",
+    "Alegar validação assíncrona/autoresize via JS só porque uma demonstração do fornecedor possui comportamento rico."
+  ],
+  "agentNotes": [
+    "Contrato Pi admite label e name obrigatórios, placeholder?, rows 2..15, value?, disabled?, required?, readOnly?, description?, invalid?, maxLength 1..10000 e checks?; emite somente change.",
+    "O renderizador usa useValue(props.value, bindings?.value) e onChange para atualizar estado local + notify(emit,'change'); não existe evento submit, blur, validação remota nem payload de change por si só.",
+    "A prop checks é aceita no schema e o adaptador inspeciona se existe check.type='required' para marcar required. Não pressupor que outros tipos de checks sejam executados automaticamente pelo elemento.",
+    "A primitiva é textarea HTML, com field-sizing-content e min-h-16; a regra CSS permite crescimento intrínseco, mas não corresponde a contador ao vivo, cálculo de scrollHeight, limite dinâmico de altura ou controle explícito de autoResize no Pi.",
+    "rows é repassado ao elemento nativo (padrão 3), maxLength limita entrada no navegador e não apresenta progresso 0/N ou mensagem de tamanho excedido.",
+    "aria-invalid segue props.invalid e aria-describedby aponta para ajuda textual se houver description; erros associados, mensagens vivas e aria-errormessage exigem composição e revisão.",
+    "readOnly preserva possibilidade de leitura/cópia e é distinto de disabled; nunca bloquear dados do backend somente por propriedade visual.",
+    "CharacterCountTextarea é uma extensão React distinta; sua existência não habilita contador, envio por Enter nem variações dessa API para Textarea Pi.",
+    "ReUI apresenta integração com React Hook Form e preview Markdown apenas como sugestões documentais; não inferir bibliotecas, JSX livre ou permissões novas."
+  ],
+  "capabilities": [
+    {
+      "id": "native-multiline-with-rows",
+      "description": "Renderiza textarea nativo com rows 2..15 e valor inicial/limite estrutural declarados.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Textarea: { props: obj({label:z.string(),name:z.string()"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "rows:z.number().int().min(2).max(15)"
+        },
+        {
+          "path": "src/components/ui/textarea.tsx",
+          "contains": "<textarea"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "rows={props.rows??3}"
+        }
+      ],
+      "testRequirements": [
+        "Testar rows mínimo, padrão e máximo com múltiplas linhas; recusar valor fora do schema."
+      ]
+    },
+    {
+      "id": "label-name-and-help",
+      "description": "Associa label/name e texto de ajuda a um ID de textarea, com aria-describedby.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "name={props.name} rows={props.rows??3}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-describedby={props.description?`${id}-help`:undefined}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.description&&<p id={`${id}-help`}"
+        }
+      ],
+      "testRequirements": [
+        "Conferir vínculo label-control e descrição por leitor de tela quando preenchida."
+      ]
+    },
+    {
+      "id": "local-controlled-value-and-change",
+      "description": "Permite edição local e vinculação de valor, emitindo sinal change sem salvar dados.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"change\"],description:\"Textarea ReUI:"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const [value,setValue]=useValue(props.value??\"\",bindings?.value)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onChange={e=>{setValue(e.target.value);notify(emit,\"change\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Digitar, apagar, colar e verificar atualização de value/binding e evento change sem submissão."
+      ]
+    },
+    {
+      "id": "disabled-required-readonly",
+      "description": "Encaminha disabled, required/check required e readOnly ao textarea nativo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "disabled:z.boolean().optional(),required:z.boolean().optional(),readOnly:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "required={props.required??props.checks?.some((c:any)=>c.type===\"required\")}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={props.disabled}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "readOnly={props.readOnly}"
+        }
+      ],
+      "testRequirements": [
+        "Testar cada estado e required via checks, inclusive combinação e diferença de disabled/readOnly."
+      ]
+    },
+    {
+      "id": "invalid-and-focus-styles",
+      "description": "Encaminha aria-invalid e fornece foco/erro visual na primitiva local.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-invalid={props.invalid||undefined}"
+        },
+        {
+          "path": "src/components/ui/textarea.tsx",
+          "contains": "focus-visible:border-ring"
+        },
+        {
+          "path": "src/components/ui/textarea.tsx",
+          "contains": "aria-invalid:border-destructive"
+        }
+      ],
+      "testRequirements": [
+        "Verificar borda de erro, foco visível, contraste e role de controle inválido."
+      ]
+    },
+    {
+      "id": "native-maxlength",
+      "description": "Propaga maxLength 1..10000 para o atributo nativo de entrada.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "maxLength:z.number().int().min(1).max(10000).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "maxLength={props.maxLength}"
+        }
+      ],
+      "testRequirements": [
+        "Colar texto maior que maxLength e checar limitação nativa sem contador apresentado."
+      ]
+    },
+    {
+      "id": "character-count-pi",
+      "description": "Exibir contador visível, remanescente e aria-live de caracteres como parte da API Textarea Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após proposta aprovada, verificar contagem Unicode, limite, descrição acessível e atualização ao digitar."
+      ]
+    },
+    {
+      "id": "markdown-preview-and-rich-text",
+      "description": "Exibir prévia de Markdown ou editor rico, inclusive sanitização de conteúdo.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Só executar se aprovado um composto dedicado e sanitização segura, sem interpretar texto como JSX/HTML livre."
+      ]
+    },
+    {
+      "id": "submit-and-async-validation",
+      "description": "Enviar, validar remotamente ou salvar o campo automaticamente com eventos além de change.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor fluxo autorizado de formulário com erros de campo, loading, confirmação e persistência."
+      ]
+    },
+    {
+      "id": "accessible-validation-runtime",
+      "description": "Confirmar anúncios de erros, rótulo, ajuda, estado required/invalid no leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar teclado e leitor de tela com erro apresentado próximo ao campo e campos obrigatórios."
+      ]
+    },
+    {
+      "id": "long-text-resizing-runtime",
+      "description": "Conferir crescimento por CSS field-sizing-content, scroll, zoom e desempenho em textos extensos.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar 320 px, zoom 200%, várias linhas, conteúdo colado e resize em navegadores suportados."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Field",
+      "relationship": "form-validation-context",
+      "reason": "Organizar ajuda, erro e informação de obrigatoriedade no formulário."
+    },
+    {
+      "component": "Label",
+      "relationship": "accessible-label",
+      "reason": "Relacionar descrição do campo com seu controle HTML."
+    },
+    {
+      "component": "Button",
+      "relationship": "explicit-submit-composition",
+      "reason": "Submissão precisa de ação externa tipada e validada."
+    },
+    {
+      "component": "Input",
+      "relationship": "single-line-alternative",
+      "reason": "Preferir controle de uma linha para dados curtos/estruturados."
+    },
+    {
+      "component": "Card",
+      "relationship": "feedback-panel",
+      "reason": "Agrupar campo longo e informações relacionadas."
+    },
+    {
+      "component": "Alert",
+      "relationship": "validation-summary",
+      "reason": "Exibir resultado da validação ou do envio perto do formulário."
+    },
+    {
+      "component": "CharacterCountTextarea",
+      "relationship": "separate-extension-candidate",
+      "reason": "Contador ao vivo pertence a extensão própria, não à API do Textarea primitivo."
+    },
+    {
+      "component": "Dialog",
+      "relationship": "short-form-composition",
+      "reason": "Conter tarefa de edição breve sem assumir submit ao fechar o modal."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Textarea ou Input?",
+      "guidance": "Textarea aceita quebras de linha para comentários/descrições; Input é mais adequado a resposta curta e estruturada."
+    },
+    {
+      "question": "rows produz redimensionamento automático?",
+      "guidance": "rows define altura inicial; a primitiva usa CSS field-sizing-content, mas não há API Pi para JS autoResize ou altura máxima."
+    },
+    {
+      "question": "maxLength mostra contador?",
+      "guidance": "Não. Limita caracteres pelo elemento HTML, sem contador ou aviso ativo. CharacterCountTextarea é componente distinto."
+    },
+    {
+      "question": "Como funciona required e checks?",
+      "guidance": "O adapter aplica required quando prop required está presente ou checks inclui type=required; não presumir a execução de todas as regras checks nem validação de backend."
+    },
+    {
+      "question": "O evento change envia a mensagem?",
+      "guidance": "Não; atualiza estado local e notifica mudança. Persistência depende de contrato/handler autorizado."
+    },
+    {
+      "question": "Como informar erro ao usuário?",
+      "guidance": "invalid configura aria-invalid e estilo, description cria ajuda referenciada; mensagem específica e anúncio de erro requerem composição/teste."
+    },
+    {
+      "question": "Posso renderizar prévia Markdown?",
+      "guidance": "Não pelo contrato Textarea Pi; requer visualizador seguro e composição aprovada, sem HTML não sanitizado."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "rows-and-native-multiline",
+      "kind": "integration",
+      "description": "Validar rows 2/3/15, quebras de linha, recusa de rows fora do schema e edição de texto.",
+      "capabilities": [
+        "native-multiline-with-rows"
+      ]
+    },
+    {
+      "id": "label-description-link",
+      "kind": "integration",
+      "description": "Verificar label/htmlFor, name, aria-describedby e ausência da referência quando descrição não existe.",
+      "capabilities": [
+        "label-name-and-help"
+      ]
+    },
+    {
+      "id": "change-without-submit",
+      "kind": "integration",
+      "description": "Digitar e colar; verificar binding e change sem enviar dados nem emitir submit.",
+      "capabilities": [
+        "local-controlled-value-and-change"
+      ]
+    },
+    {
+      "id": "state-and-native-limit",
+      "kind": "integration",
+      "description": "Testar disabled/readonly/required/invalid/maxLength com as combinações permitidas.",
+      "capabilities": [
+        "disabled-required-readonly",
+        "native-maxlength",
+        "invalid-and-focus-styles"
+      ]
+    },
+    {
+      "id": "textarea-a11y-runtime",
+      "kind": "manual-a11y",
+      "description": "Inspecionar rótulo, ajuda, erro, anúncios required e foco via teclado e leitor de tela.",
+      "capabilities": [
+        "accessible-validation-runtime",
+        "label-name-and-help"
+      ]
+    },
+    {
+      "id": "responsive-growing-text",
+      "kind": "visual",
+      "description": "Testar colagem de texto longo, crescimento intrínseco CSS, quebra de linha e zoom em telas estreitas.",
+      "capabilities": [
+        "long-text-resizing-runtime"
+      ]
+    },
+    {
+      "id": "character-count-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Quando admitida extensão no Pi, avaliar contador 0/N, limite e anúncios de atualização.",
+      "capabilities": [
+        "character-count-pi"
+      ]
+    },
+    {
+      "id": "markdown-preview-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Quando houver contrato aprovado, testar preview seguro e conteúdo com scripts/HTML inválidos.",
+      "capabilities": [
+        "markdown-preview-and-rich-text"
+      ]
+    },
+    {
+      "id": "async-submit-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão de fluxo de formulário, validar falha, sucesso, requisição autorizada e carregamento.",
+      "capabilities": [
+        "submit-and-async-validation"
+      ]
+    }
+  ]
+}
