@@ -54,3 +54,13 @@ npm run requirements:patterns:audit
 ```
 
 The CLI emits static evidence only. Playwright evidence requires a separate actual browser run tied to a commit. Authentication, backend persistence, business-rule validation and complete accessibility certification remain outside this change.
+
+## T35 — Declarative form candidate (review: 2026-10-27)
+
+The next phase adds `DeclarativeFormFlow` as a **standalone reviewed React/Zod proposal, not a registered Pi component**. It supports typed unique fields, `required`, `minLength`, `maxLength`, submit/blur validation, single/two-column layout and optional local confirmation. It does not expose remote URLs, callbacks, JSX or persistence.
+
+The registration authoring wizard previews the candidate interactively. The canonical Pi JSON spec still uses only approved contracts. This candidate is **neither an experimental nor a stable admitted Pi contract**, and its local completion does not persist data.
+
+Contract tests and Playwright must precede independent API/admission review. Only a separate approved admission step may change the Pi manifest. T35 still requires that admission and independent accessibility evidence.
+
+Future acceptance: three distinct form variants with the same candidate, strict Zod, browser desktop/mobile, focus/keyboard validation and zero remote actions.

@@ -60,3 +60,13 @@ npm run requirements:patterns:audit
 ```
 
 A CLI produz somente informações estáticas e permanece independente dos relatórios Playwright, que devem ser consultados com execução e commit correspondentes. A implementação não conclui autenticação, persistência, validação de negócio ou certificação acessível completa.
+
+## T35 — Candidato declarativo de formulário (revisão: 2026-10-27)
+
+Como próximo estágio, `DeclarativeFormFlow` é uma **proposta React/Zod independente, ainda não registrada nos contratos Pi**. O candidato aceita campos tipados e únicos, `required`, `minLength`, `maxLength`, validação em envio ou saída de campo, layout simples ou em duas colunas e confirmação local opcional. Não aceita URLs, callbacks, JSX arbitrário ou operações de persistência.
+
+O assistente de cadastro utiliza a proposta como prévia executável. A spec JSON do Pi continua usando apenas os contratos aprovados; a prévia **não equivale a uma admissão experimental ou estável**. O candidato não envia dados e emite apenas uma conclusão local; o fluxo demonstrativo não tem backend.
+
+Testes de contrato, estados e navegador devem passar antes da revisão humana de API e da entrada eventual no Admission Engine. Somente um passo independente pode ampliar o manifesto Pi. A T35 ainda requer essa admissão e avaliação acessível independente.
+
+Critério futuro: pelo menos três cenários reutilizando o mesmo componente, contrato Zod estrito, Playwright desktop/mobile, verificação de foco e teclado, e ausência de chamadas remotas.
