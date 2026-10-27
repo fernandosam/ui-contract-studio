@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync,readdirSync,existsSync} from "node:fs";
+import {spawnSync} from "node:child_process";
 import {buildSemanticKnowledge,validateSemanticOverlay,selectAgentSemanticAdvice} from "../scripts/lib/semantic-knowledge.mjs";
 
 const readJson=path=>JSON.parse(readFileSync(path,"utf8"));
@@ -131,4 +132,12 @@ test("T19: bilingual coverage matrices are traceable to versioned source counts"
   }
   assert.equal(records.reduce((n,x)=>n+x.record.capabilities.length,0),444);
   assert.equal(records.reduce((n,x)=>n+x.record.derivedTestCases.length,0),315);
+});
+
+test("T19: the semantic CLI reports 559 inventory examples, not zero",()=>{
+  const result=spawnSync(process.execPath,["scripts/analyze-semantic-knowledge.mjs","--check"],{encoding:"utf8"});
+  assert.equal(result.status,0,result.stderr);
+  assert.match(result.stdout,/"reuiFamilies":31/);
+  assert.match(result.stdout,/"curatedOverlays":39/);
+  assert.match(result.stdout,/"coveredExamples":559/);
 });
