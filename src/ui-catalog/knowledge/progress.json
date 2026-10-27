@@ -1,0 +1,386 @@
+{
+  "schemaVersion": 1,
+  "component": "Progress",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/progress",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Progress?",
+      "Why Use Shadcn Progress?",
+      "Shadcn Progress Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Mostrar avanço mensurável de uma tarefa ou operação com barra determinística e identificação textual, sem controlar a operação.",
+  "rationale": [
+    "Dar contexto à espera quando existe uma quantidade total conhecida, evitando sensação de travamento.",
+    "Diferenciar estado quantificável de carregamento de duração desconhecida, que pede Spinner/Skeleton.",
+    "Não converter apresentação de avanço em garantia de upload real, temporização, sucesso ou cancelamento."
+  ],
+  "whenUse": [
+    "Indicar fração concluída de upload, processamento ou checklist quando progresso confiável é fornecido pelo fluxo responsável.",
+    "Apresentar progresso junto a um label claro e, opcionalmente, contagem atual/total.",
+    "Exibir várias tarefas com informação de status por linha em cartões ou listas aprovadas."
+  ],
+  "whenNotUse": [
+    "Tarefa de duração desconhecida sem estimativa verificável: usar Spinner ou feedback indeterminado após implementação apropriada.",
+    "Substituir seleção de arquivos, upload e cancelamento por uma barra sem efeitos remotos: usar fluxo de File Upload aprovado.",
+    "Representar navegação entre passos clicáveis de um assistente: usar Stepper/Wizard com contrato próprio.",
+    "Mostrar percentual falso usando timer local ou assumir progresso real por simples alteração visual de value."
+  ],
+  "agentNotes": [
+    "Contrato Pi Progress exige value entre 0 e 100, aceita max positivo, label?, tone default|success|info|warning|error e showValue?; não possui children, eventos, controle remoto, cancel/pause ou modo indeterminate.",
+    "O adaptador calcula percentage = clamp(100*props.value/(props.max??100),0,100) e passa esse percentual para a primitiva Base UI. O texto default mostra Math.round(props.value) / (props.max??100), NÃO o percentual normalizado.",
+    "O schema limita value a 100, mas max aceita qualquer número positivo: value>max mostra texto inconsistente com barra saturada. Tratar como limitação atual e testar fronteiras; não inventar validação adicional.",
+    "A instalação real é @base-ui/react/progress e expõe ProgressLabel/ProgressValue no React primitive, mas o adaptador Pi monta ShadcnLabel externo e não usa essas partes na renderização Pi.",
+    "O adaptador passa aria-label={props.label??'Progresso'} ao Progress. O rótulo visual por ShadcnLabel não usa htmlFor; avaliar associação acessível no browser.",
+    "Os tons são classes Tailwind no descendant data-slot=progress-indicator, sem evento de estado ou significado semântico automático para leitores de tela.",
+    "showValue=false oculta apenas a contagem textual: o valor continua comunicado por progressbar Base UI; verificar resultado real de aria-valuenow/aria-valuemin/aria-valuemax.",
+    "Documentação ReUI inclui modo indeterminado, animações, etapas, upload, ETA e pausa, mas isso não é prop nem integração automática do contrato Pi existente.",
+    "Composição com Spinner, Button, Alert ou File Upload depende de contrato e fonte autorizados; documentação não admite APIs Zod/Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "bounded-determinate-value",
+      "description": "Recebe value 0..100 e max positivo opcional no contrato e calcula percentual normalizado limitado a 0..100.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Progress: { props: obj({value:z.number().min(0).max(100),max:z.number().positive().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const percentage=clamp(100*props.value/(props.max??100),0,100);"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "value={percentage}"
+        }
+      ],
+      "testRequirements": [
+        "Testar 0, intermediário, 100, max customizado, value>max e validação schema."
+      ]
+    },
+    {
+      "id": "base-ui-track-and-indicator",
+      "description": "Usa primitiva Base UI que monta Root, Track e Indicator, com controle nativo do valor recebido.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "import { Progress as ProgressPrimitive } from \"@base-ui/react/progress\""
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "<ProgressPrimitive.Root"
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "<ProgressTrack>"
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "<ProgressIndicator />"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar DOM e valor, track/indicator visíveis e estado zero/completo."
+      ]
+    },
+    {
+      "id": "label-and-value-text",
+      "description": "Mostra rótulo visual opcional e contagem atual/total por padrão, com possibilidade de ocultar a contagem.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "label:optionalText,tone:z.enum([\"default\",\"success\",\"info\",\"warning\",\"error\"]).optional(),showValue:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.label&&<ShadcnLabel>{props.label}</ShadcnLabel>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.showValue!==false&&<span className=\"pg-muted\">{Math.round(props.value)} / {props.max??100}</span>"
+        }
+      ],
+      "testRequirements": [
+        "Verificar sem label, label longo, showValue true/false e valor textual para max customizado."
+      ]
+    },
+    {
+      "id": "tone-color-mapping",
+      "description": "Aplicar cores de indicador locais por tom success/info/warning/error ou padrão.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const tones:Record<string,string>={success:\"[&_[data-slot=progress-indicator]]:bg-green-600\""
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "className={tones[props.tone??\"default\"]}"
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "data-slot=\"progress-indicator\""
+        }
+      ],
+      "testRequirements": [
+        "Comparar os cinco tons, contraste e tema claro/escuro sem inferir significado apenas pela cor."
+      ]
+    },
+    {
+      "id": "accessible-name-fallback",
+      "description": "Fornece aria-label com label quando disponível ou fallback textual Progresso.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-label={props.label??\"Progresso\"}"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar nome acessível no navegador com label e fallback."
+      ]
+    },
+    {
+      "id": "react-progress-label-and-value",
+      "description": "A primitiva React exporta ProgressLabel e ProgressValue, mas são peças adicionais não expostas como subpartes Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "function ProgressLabel("
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "function ProgressValue("
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "  ProgressLabel,"
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "contains": "  ProgressValue,"
+        }
+      ],
+      "testRequirements": [
+        "Conferir export React e que a API Pi não aceita slots ProgressLabel/ProgressValue."
+      ]
+    },
+    {
+      "id": "indeterminate-mode-pi",
+      "description": "Permitir valor ausente/nulo e estado indeterminado como API Pi explícita.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após admissão separada, testar sinalização sem aria-valuenow enganoso e preferências de movimento."
+      ]
+    },
+    {
+      "id": "upload-timer-and-eta",
+      "description": "Controlar upload/download real, ETA, temporizador e atualização assíncrona a partir de eventos.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor canal confiável de progresso real, erro/cancelamento, latência e regras de backend."
+      ]
+    },
+    {
+      "id": "cancel-pause-and-stepped-workflow",
+      "description": "Oferecer pausa/cancelamento, retry ou navegação de Stepper via Progress.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Validar contrato e handler externos autorizados antes de apresentar ações executáveis."
+      ]
+    },
+    {
+      "id": "aria-values-and-motion",
+      "description": "Validar progressbar, valores ARIA, anúncio acessível e motion reduced em execução.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar NVDA/VoiceOver, 0/50/100, atualizações frequentes, prefers-reduced-motion."
+      ]
+    },
+    {
+      "id": "mobile-overflow-and-clamping",
+      "description": "Avaliar layout, clipping e consistência de texto/percentual para valores limite ou max divergente.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Capturar 320px, zoom 200%, max menor que value, textos longos e contraste de tons."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Label",
+      "relationship": "task-name",
+      "reason": "Dar nome textual ao progresso quando não houver descrição suficiente."
+    },
+    {
+      "component": "Card",
+      "relationship": "summary-or-file-row",
+      "reason": "Exibir barras de progresso junto aos detalhes de cada tarefa."
+    },
+    {
+      "component": "Alert",
+      "relationship": "completion-feedback",
+      "reason": "Trocar barra por resultado final confiável (sucesso/falha)."
+    },
+    {
+      "component": "Spinner",
+      "relationship": "unknown-duration-alternative",
+      "reason": "Indicar trabalho sem duração mensurável, até surgir progresso real."
+    },
+    {
+      "component": "Button",
+      "relationship": "cancel-pause-candidate",
+      "reason": "Controles requerem evento e autorização próprios; barra não executa ação."
+    },
+    {
+      "component": "Badge",
+      "relationship": "task-status-candidate",
+      "reason": "Resumo do status sem confundir progresso com estado terminal."
+    },
+    {
+      "component": "Skeleton",
+      "relationship": "content-loading-alternative",
+      "reason": "Apresentar placeholder de conteúdo enquanto os dados não chegam."
+    },
+    {
+      "component": "Field",
+      "relationship": "form-context",
+      "reason": "Apresentar label/descrição do avanço em fluxos de formulário."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Progress ou Spinner?",
+      "guidance": "Usar Progress com valor total confiável; Spinner quando a duração é desconhecida. O Pi atual não suporta modo indeterminado."
+    },
+    {
+      "question": "Posso passar value maior que max?",
+      "guidance": "O schema permite value até 100 e max positivo arbitrário; a barra satura em 100% enquanto texto mostra value/max. Evitar dados incompatíveis e testar limite."
+    },
+    {
+      "question": "showValue apresenta percentagem?",
+      "guidance": "Não. O adaptador mostra contagem atual/total arredondada, e a barra usa percentual normalizado."
+    },
+    {
+      "question": "A barra atualiza upload automaticamente?",
+      "guidance": "Não. Só renderiza props fornecidas, sem acesso a progresso de API ou conexão de upload."
+    },
+    {
+      "question": "Como definir etiqueta acessível?",
+      "guidance": "Fornecer label descritivo. O adaptador repassa para aria-label, com fallback Progresso; testar progressbar nativo em browser."
+    },
+    {
+      "question": "Posso pausar/cancelar?",
+      "guidance": "Não no Progress Pi. Botões externos precisam de ações e autorização separadas."
+    },
+    {
+      "question": "Suporta indeterminado?",
+      "guidance": "A documentação do fornecedor aborda isso, mas value é obrigatório no Pi e não aceita null; usar alternativa ou admitir contrato próprio."
+    },
+    {
+      "question": "O label React da primitiva é parte do JSON?",
+      "guidance": "Não: o adaptador usa ShadcnLabel adjacente; ProgressLabel e ProgressValue existem apenas na implementação React não exposta pelo contrato Pi."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "value-percent-and-max",
+      "kind": "integration",
+      "description": "Testar 0, metade, completo, max diferente de 100 e normalização sem overflow.",
+      "capabilities": [
+        "bounded-determinate-value"
+      ]
+    },
+    {
+      "id": "base-track-dom",
+      "kind": "integration",
+      "description": "Inspecionar Root/Track/Indicator e valor efetivo na primitiva Base UI.",
+      "capabilities": [
+        "base-ui-track-and-indicator"
+      ]
+    },
+    {
+      "id": "label-and-counter",
+      "kind": "integration",
+      "description": "Testar label, aria-label, texto value/max e showValue false.",
+      "capabilities": [
+        "label-and-value-text",
+        "accessible-name-fallback"
+      ]
+    },
+    {
+      "id": "tone-contrast",
+      "kind": "visual",
+      "description": "Comparar tons default/success/info/warning/error, tema, contraste e texto legível.",
+      "capabilities": [
+        "tone-color-mapping"
+      ]
+    },
+    {
+      "id": "react-only-parts",
+      "kind": "integration",
+      "description": "Verificar export das subpartes React sem permitir slots novos no contrato Pi.",
+      "capabilities": [
+        "react-progress-label-and-value"
+      ]
+    },
+    {
+      "id": "max-mismatch-mobile",
+      "kind": "visual",
+      "description": "Examinar max menor que value, texto divergente, label longo, 320px e zoom 200%.",
+      "capabilities": [
+        "mobile-overflow-and-clamping",
+        "bounded-determinate-value"
+      ]
+    },
+    {
+      "id": "a11y-progress-updates",
+      "kind": "manual-a11y",
+      "description": "Verificar progressbar/aria-valuenow e atualizações sem anúncio excessivo, inclusive movimento reduzido.",
+      "capabilities": [
+        "aria-values-and-motion"
+      ]
+    },
+    {
+      "id": "indeterminate-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Quando admitido, testar value null/ausente e acessibilidade do estado indeterminado.",
+      "capabilities": [
+        "indeterminate-mode-pi"
+      ]
+    },
+    {
+      "id": "real-progress-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão de integração real, testar ETA, atraso, desconexão, concorrência e resultado terminal.",
+      "capabilities": [
+        "upload-timer-and-eta"
+      ]
+    },
+    {
+      "id": "cancel-pause-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Quando existirem ações autorizadas, verificar cancelamento, pausa/retry e prevenção de duplo clique.",
+      "capabilities": [
+        "cancel-pause-and-stepped-workflow"
+      ]
+    }
+  ]
+}
