@@ -44,6 +44,13 @@ test('full E2E is exclusively manual on main, and certification has isolated wri
  assert.ok(first.indexOf('npm run validate')<first.indexOf('npm run test:e2e'),
   'Must validate before executing the complete E2E suite');
  assert.match(first,/npm run admission:evidence:reset/);
+ assert.match(first,/npm run requirements:browser:prepare/);
+ assert.match(first,/npm run requirements:browser:report/);
+ assert.ok(first.indexOf('npm run requirements:browser:prepare')<first.indexOf('npm run test:e2e'),
+  'Fail closed: prepare source-bound fingerprints before complete browser E2E');
+ assert.ok(first.indexOf('npm run test:e2e')<first.indexOf('npm run requirements:browser:report'),
+  'Fail closed: only attest real browser evidence after complete test execution');
+ assert.match(first,/reports\/requirements-browser\//);
  assert.match(first,/npm run test:e2e/);
  assert.match(first,/npm run admission:evidence:report/);
  assert.doesNotMatch(first,/contents: write|GH_TOKEN/);
