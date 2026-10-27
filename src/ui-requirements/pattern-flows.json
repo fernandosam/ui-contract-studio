@@ -33,6 +33,13 @@
           "type": "boolean",
           "required": true,
           "default": false
+        },
+        {
+          "id": "showHelp",
+          "label": "Exibir orientações de acesso?",
+          "type": "boolean",
+          "required": true,
+          "default": false
         }
       ]
     },
@@ -100,6 +107,13 @@
           "type": "text",
           "required": true,
           "default": "Lista de usuários"
+        },
+        {
+          "id": "showSummary",
+          "label": "Exibir resumo da listagem?",
+          "type": "boolean",
+          "required": true,
+          "default": false
         }
       ]
     },
@@ -150,6 +164,13 @@
             "question": "view",
             "equals": "kpis"
           }
+        },
+        {
+          "id": "showFootnote",
+          "label": "Mostrar nota sobre os dados?",
+          "type": "boolean",
+          "required": true,
+          "default": false
         }
       ]
     }

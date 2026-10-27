@@ -123,6 +123,8 @@ export function tracePattern(spec:PatternRequirements,generated:unknown):Traceab
   emit("remember",answer.remember===true?["remember"]:[],
    answer.remember===true?nodes.remember?.type==="Checkbox":!nodes.remember,
    "Opção de lembrar-me sem sessão persistida",answer.remember===true);
+  emit("showHelp",answer.showHelp===true?["help"]:[],answer.showHelp===true?nodes.help?.type==="Text"&&nodes.root?.children?.includes("help"):!nodes.help,
+   "Texto opcional de orientação, sem autenticação real");
  }else if(spec.flow==="search"){
   const table=nodes.table,root=nodes.root;
   const dateIds=["dates","required-date"];
@@ -141,6 +143,8 @@ export function tracePattern(spec:PatternRequirements,generated:unknown):Traceab
   emit("compact",["users-table"],table?.type==="Table"&&Array.isArray(table.props.rows)&&
    table.props.rows.length===(answer.compact===true?3:7),
    "Quantidade de linhas demonstrativas, sem operações CRUD remotas");
+  emit("showSummary",answer.showSummary===true?["summary"]:[],answer.showSummary===true?nodes.summary?.type==="Text":!nodes.summary,
+   "Resumo demonstrativo sem ligação a API externa");
  }else if(spec.flow==="dashboard"){
   const isGraph=answer.view==="graphs";
   const n=Object.values(nodes);
@@ -148,6 +152,8 @@ export function tracePattern(spec:PatternRequirements,generated:unknown):Traceab
    isGraph?n.some(x=>x.type==="BarGraph")&&n.some(x=>x.type==="LineGraph")&&!n.some(x=>x.type==="Metric"):
    n.some(x=>x.type==="Metric")&&!n.some(x=>x.type==="BarGraph"),
    "Visualização com dados de demonstração; legibilidade e responsividade exigem revisão",true);
+  emit("showFootnote",answer.showFootnote===true?["footnote"]:[],answer.showFootnote===true?nodes.footnote?.type==="Text":!nodes.footnote,
+   "Nota explícita sobre a natureza fictícia dos dados");
   if(!isGraph){
    emit("density",["stats"],nodes.stats?.type==="Grid"&&
     nodes.stats.children.length===Number(answer.density)&&nodes.stats.props.columns===Number(answer.density),
