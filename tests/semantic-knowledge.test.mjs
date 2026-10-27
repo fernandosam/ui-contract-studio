@@ -25,7 +25,7 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   const knowledge=analysis.report.semanticKnowledge;
   assert.equal(knowledge.coverage.reuiFamilies,31);
   assert.equal(knowledge.coverage.shadcnGuides,12);
-  assert.equal(knowledge.coverage.curatedOverlays,1);
+  assert.ok(knowledge.coverage.curatedOverlays >= 2, "AlertDialog e Popover precisam ser curados");
   assert.equal(knowledge.coverage.coveredExamples,559);
   assert.equal(knowledge.reuiExampleProfiles.length,559);
   assert.ok(knowledge.reuiExampleProfiles.every(x=>!x.approvedPiType&&x.hasFamilyGuidance));
@@ -40,7 +40,31 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Button").implementedDependency,true);
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Checkbox").implementedDependency,false);
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Sonner").approvedPiType,false);
+  const popover=knowledge.profiles.find(x=>x.component==="Popover");
+  assert.equal(popover.curatedSource,"src/ui-catalog/knowledge/popover.json");
+  assert.equal(popover.documentationReview,"reviewed-documentation");
+  assert.equal(popover.approvedPiType,true);
+  assert.ok(popover.capabilities.some(x=>x.id==="side-and-align"&&x.state==="implemented-static-evidence"));
+  assert.ok(popover.capabilities.some(x=>x.id==="controlled-open-change"&&x.state==="implemented-static-evidence"));
+  assert.ok(popover.implementationGaps.some(x=>x.id==="rich-interactive-content"));
+  assert.ok(popover.implementationGaps.some(x=>x.id==="focus-keyboard-dismiss"));
+  assert.ok(popover.integrationCandidates.every(x=>x.admission==="advisory-only"));
   assert.equal(knowledge.profiles.find(x=>x.component==="Button")?.approvedPiType,true);
+});
+
+test("Popover overlay separa capacidades do contrato Pi, exemplos ReUI e verificações de runtime",()=>{
+  const popover=read("src/ui-catalog/knowledge/popover.json");
+  assert.deepEqual(validateSemanticOverlay(popover),[]);
+  assert.equal(popover.status,"reviewed-documentation");
+  assert.equal(popover.source.provider,"ReUI");
+  assert.equal(popover.source.url,"https://reui.io/components/popover");
+  assert.equal(popover.source.reviewedOn,"2026-10-26");
+  assert.ok(popover.capabilities.some(x=>x.id==="portal-and-positioner"&&x.state==="implemented-static-evidence"));
+  assert.ok(popover.capabilities.some(x=>x.id==="offset-and-width-customization"&&x.state==="documented-not-implemented"));
+  assert.ok(popover.capabilities.some(x=>x.id==="screen-reader-semantics"&&x.state==="runtime-review-required"));
+  assert.ok(popover.derivedTestCases.some(x=>x.id==="position-matrix"&&x.kind==="visual"));
+  assert.ok(popover.derivedTestCases.some(x=>x.id==="keyboard-and-dismiss"&&x.kind==="manual-a11y"));
+  assert.ok(popover.derivedTestCases.some(x=>x.id==="future-rich-editing"&&x.kind==="candidate-not-executable"));
 });
 
 test("enriched guidance remains advisory and is scoped to explicitly approved Pi types",()=>{
