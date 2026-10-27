@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "component": "Sheet",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "admission": "candidate-not-admitted",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/sheet",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Sheet?",
+      "Why Use Shadcn Sheet?",
+      "Shadcn Sheet Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Apresentar navegação, filtros, detalhes ou edição contextual em painel sobreposto que surge de uma borda, sem perder o contexto da página.",
+  "rationale": [
+    "Preservar referência visual à tela principal enquanto se realizam tarefas secundárias.",
+    "Permitir estrutura com título, descrição, conteúdo e ações de rodapé de forma consistente.",
+    "Separar a primitiva React baseada em Dialog de um contrato Pi ainda inexistente e de salvamento/autorização de dados."
+  ],
+  "whenUse": [
+    "Painel lateral de filtros, detalhes ou edição contextual com gatilho e fechamento explícitos.",
+    "Navegação complementar em viewport estreito com cabeçalho e saída acessível.",
+    "Conteúdo com hierarquia própria no topo/rodapé, desde que rolagem e dimensões sejam tratadas."
+  ],
+  "whenNotUse": [
+    "Diálogo central curto, formulário simples ou escolha crítica: preferir Dialog; confirmação destrutiva: AlertDialog.",
+    "Interação mobile que depende de gesto de arrastar/deslizar para fechar: preferir Drawer.",
+    "Navegação principal permanente: não substitui Sidebar/rotas só por apresentação deslizante.",
+    "Formulário com mudanças não salvas sem política de fechamento, validação e persistência explícitas."
+  ],
+  "agentNotes": [
+    "STATUS TRIPLO: ReUI revisado; src/components/ui/sheet.tsx implementa primitiva visual Base UI Dialog, mas nenhum Sheet consta nos contratos Pi. Não exportar props do SheetContent para Zod sem processo de admissão.",
+    "O componente local importa Dialog de @base-ui/react/dialog; a descrição ReUI menciona Radix e Vaul, mas isso não prova a implementação instalada.",
+    "A prop side do SheetContent React aceita top/right/bottom/left e padrão right; não há prop side no catálogo Pi.",
+    "showCloseButton é true por padrão e cria um Close via render de Button; configurar false só quando houver outra forma acessível de fechar, por exemplo SheetClose no rodapé.",
+    "SheetHeader/SheetFooter/SheetTitle/SheetDescription são primitivas; não associar submit, save, cancel ou operações remotas automaticamente.",
+    "No código, SheetContent tem largura w-3/4 e sm:max-w-sm nas bordas laterais; painéis top/bottom têm h-auto sem limite próprio. Envolver listas longas em área de rolagem e verificar overflow real.",
+    "Fechamento por Escape, clique fora, foco devolvido ao gatilho, bloqueio de scroll e responsividade não foram verificados só por presença de Base UI; testar no navegador.",
+    "Integrações candidatas com Button, Field, Input, ScrollArea, Drawer e Dialog não geram dependências contratuais nem habilitam ações Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "base-ui-dialog-root-and-trigger",
+      "description": "Sheet React compõe Root, Trigger e Close a partir do Dialog da Base UI.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "import { Dialog as SheetPrimitive } from \"@base-ui/react/dialog\""
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "<SheetPrimitive.Root data-slot=\"sheet\""
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "<SheetPrimitive.Trigger data-slot=\"sheet-trigger\""
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "<SheetPrimitive.Close data-slot=\"sheet-close\""
+        }
+      ],
+      "testRequirements": [
+        "Montar React e abrir/fechar pelo gatilho/controle explícito."
+      ]
+    },
+    {
+      "id": "four-edge-positions",
+      "description": "SheetContent implementa side top/right/bottom/left, com right como padrão e estilos por data-side.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "side = \"right\""
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "side?: \"top\" | \"right\" | \"bottom\" | \"left\""
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "data-side={side}"
+        }
+      ],
+      "testRequirements": [
+        "Exercitar os quatro lados com viewport estreito e verificar deslocamentos."
+      ]
+    },
+    {
+      "id": "backdrop-and-portal",
+      "description": "Conteúdo é apresentado em Portal com Backdrop próprio.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "<SheetPortal>"
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "<SheetOverlay />"
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "<SheetPrimitive.Backdrop"
+        }
+      ],
+      "testRequirements": [
+        "Verificar backdrop em temas e sobreposição com outro overlay."
+      ]
+    },
+    {
+      "id": "close-button-option",
+      "description": "A primitiva React oferece showCloseButton=true e usa Close com Button de ícone.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "showCloseButton = true"
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "{showCloseButton && ("
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "<SheetPrimitive.Close"
+        }
+      ],
+      "testRequirements": [
+        "Validar botão de fechar com showCloseButton true/false e alternativa acessível."
+      ]
+    },
+    {
+      "id": "header-footer-titles",
+      "description": "Há wrappers Header, Footer, Title e Description sem persistência embutida.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "data-slot=\"sheet-header\""
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "data-slot=\"sheet-footer\""
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "data-slot=\"sheet-title\""
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "contains": "data-slot=\"sheet-description\""
+        }
+      ],
+      "testRequirements": [
+        "Validar conteúdo longo, rodapé com duas ações e título/descrição claros."
+      ]
+    },
+    {
+      "id": "pi-sheet-contract",
+      "description": "Não há contrato Sheet admitido no Pi com open/onOpenChange, side, callbacks ou children.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Futura admissão deve especificar schema estrito, eventos, composição de conteúdo e testes de contrato."
+      ]
+    },
+    {
+      "id": "save-close-and-unsaved-guard",
+      "description": "Persistência, validação de formulário e bloqueio de fechamento por mudanças não salvas não integram o contrato Pi Sheet.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em futura composição, testar salvar/cancelar, erro de servidor, Escape e descarte confirmado."
+      ]
+    },
+    {
+      "id": "focus-dismiss-scroll-lock",
+      "description": "Foco inicial, retorno ao gatilho, Escape, clique fora e bloqueio de scroll exigem E2E Base UI.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar Tab, Shift+Tab, Escape, clique fora, leitor de tela e scroll do body."
+      ]
+    },
+    {
+      "id": "scroll-and-responsive-runtime",
+      "description": "A primitiva não define max-height para topo/rodapé nem overflow-y-auto generalizado em SheetContent: rolagem de conteúdo exige revisão real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar conteúdo longo top/bottom e left/right em 320px/zoom, sem corte das ações."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "trigger-and-actions",
+      "reason": "Abrir/fechar e aplicar filtros via handlers locais/externos autorizados."
+    },
+    {
+      "component": "Field",
+      "relationship": "form-field-semantics",
+      "reason": "Agrupar campos e mensagens de validação em edição contextual."
+    },
+    {
+      "component": "Input",
+      "relationship": "filter-or-edit-control",
+      "reason": "Entrada em filtro ou formulário com lógica explícita."
+    },
+    {
+      "component": "ScrollArea",
+      "relationship": "overflow-container",
+      "reason": "Rolagem interna para painéis longos, especialmente top/bottom."
+    },
+    {
+      "component": "Dialog",
+      "relationship": "centered-overlay-alternative",
+      "reason": "Preferir caixa central para edição curta ou decisão focada."
+    },
+    {
+      "component": "Drawer",
+      "relationship": "gesture-first-alternative",
+      "reason": "Preferir interação com arraste em contexto mobile."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "unsaved-change-confirmation",
+      "reason": "Confirmar descarte ou operações sensíveis quando existir fluxo revisado."
+    },
+    {
+      "component": "Badge",
+      "relationship": "active-filters-summary",
+      "reason": "Indicar quantos filtros foram aplicados sem inferir persistência."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Sheet e Drawer são equivalentes?",
+      "guidance": "Não. Sheet instalado usa Base UI Dialog em borda; Drawer é alternativa quando gesto e UX móvel são centrais."
+    },
+    {
+      "question": "Qual lado e fechamento usar?",
+      "guidance": "A primitiva React padrão é right e possui showCloseButton=true. Oculte o X somente se houver outra saída acessível."
+    },
+    {
+      "question": "SheetContent gerencia scroll de formulários longos?",
+      "guidance": "Não presuma. Top/bottom usam h-auto sem teto fixo; usar contêiner/ScrollArea e testar viewport e zoom."
+    },
+    {
+      "question": "Fechar automaticamente salva alterações?",
+      "guidance": "Não. Estado de formulário, persistência, validação e confirmação de descarte pertencem à composição autorizada."
+    },
+    {
+      "question": "Sheet está disponível no Pi porque usa Dialog?",
+      "guidance": "Não. Reutilizar Dialog da Base UI não implica schema, evento ou admissão do tipo Sheet."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "sheet-edges",
+      "kind": "visual",
+      "description": "Validar side top/right/bottom/left e tamanhos de tela, verificando posição e layout.",
+      "capabilities": [
+        "four-edge-positions"
+      ]
+    },
+    {
+      "id": "trigger-and-close",
+      "kind": "integration",
+      "description": "Testar SheetTrigger e SheetClose, com e sem X e botão alternativo.",
+      "capabilities": [
+        "base-ui-dialog-root-and-trigger",
+        "close-button-option"
+      ]
+    },
+    {
+      "id": "backdrop-and-title",
+      "kind": "visual",
+      "description": "Verificar backdrop, hierarquia visual, Header/Footer/Title/Description e contraste.",
+      "capabilities": [
+        "backdrop-and-portal",
+        "header-footer-titles"
+      ]
+    },
+    {
+      "id": "focus-dismiss",
+      "kind": "manual-a11y",
+      "description": "Revisar gerenciamento de foco, Escape, clique externo, bloqueio de scroll e leitor de tela.",
+      "capabilities": [
+        "focus-dismiss-scroll-lock"
+      ]
+    },
+    {
+      "id": "long-content-mobile",
+      "kind": "visual",
+      "description": "Revisar top/bottom com conteúdo longo e 320px/200% zoom, sem perder rodapé.",
+      "capabilities": [
+        "scroll-and-responsive-runtime"
+      ]
+    },
+    {
+      "id": "pi-schema-negative",
+      "kind": "candidate-not-executable",
+      "description": "Não emitir Sheet em Pi; caso aprovado futuramente, testar evento/state/children admitidos.",
+      "capabilities": [
+        "pi-sheet-contract"
+      ]
+    },
+    {
+      "id": "unsaved-form-flow",
+      "kind": "candidate-not-executable",
+      "description": "Em composto aprovado, simular dirty state, erro ao salvar, cancelar e confirmação ao fechar.",
+      "capabilities": [
+        "save-close-and-unsaved-guard"
+      ]
+    }
+  ]
+}
