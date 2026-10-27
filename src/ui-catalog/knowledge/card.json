@@ -138,18 +138,9 @@
     },
     {
       "id": "react-card-action-part",
-      "description": "A primitiva local possui subparte CardAction em React, sem admissão como propriedade do Card Pi.",
-      "state": "implemented-static-evidence",
-      "evidence": [
-        {
-          "path": "src/components/ui/card.tsx",
-          "contains": "function CardAction({ className, ...props }"
-        },
-        {
-          "path": "src/components/ui/card.tsx",
-          "contains": "data-slot=\"card-action\""
-        }
-      ],
+      "description": "Disponibilizar CardAction como subparte do contrato Pi. A peça existe apenas na primitiva React, não no adaptador serializado.",
+      "state": "documented-not-implemented",
+      "evidence": [],
       "testRequirements": [
         "Confirmar export React e ausência da propriedade de ação no schema Card Pi."
       ]
@@ -307,7 +298,7 @@
     },
     {
       "id": "react-only-card-action",
-      "kind": "integration",
+      "kind": "candidate-not-executable",
       "description": "Conferir CardAction export React e rejeição como propriedade Card Pi.",
       "capabilities": [
         "react-card-action-part"
