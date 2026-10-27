@@ -220,9 +220,16 @@ test("T21 fails closed when an apparent reusable contract loses admission or cap
   assert.ok(button&&declarative);
   const noEvidence=button.evidence.map(e=>({...e,availability:"missing-evidence" as const}));
   assert.equal(selectCompositionApproach(button.scenario,noEvidence).kind,"authorization-review");
+  assert.equal(selectCompositionApproach(button.scenario,[]).status,"blocked-review");
+  assert.equal(selectCompositionApproach(button.scenario,
+    button.evidence.map(e=>({...e,capability:"unrelated-capability"}))).status,"blocked-review");
   const notImplemented=button.evidence.map(e=>({...e,availability:"not-implemented" as const}));
   assert.equal(selectCompositionApproach(button.scenario,notImplemented).status,"blocked-review");
   assert.equal(selectCompositionApproach({...button.scenario,target:"UnknownUnapproved"},button.evidence).kind,"authorization-review");
+  const reactCandidate=getCompositionRecommendation("alert-typed");
+  assert.ok(reactCandidate);
+  assert.equal(selectCompositionApproach({...reactCandidate.scenario,target:"AlertDialog"},
+    reactCandidate.evidence).status,"blocked-review");
   assert.equal(selectCompositionApproach({...button.scenario,dependencies:["UnapprovedWidget"]},button.evidence).status,"blocked-review");
   assert.equal(selectCompositionApproach(declarative.scenario,
     declarative.evidence.map(e=>({...e,availability:"runtime-review-required" as const}))).status,"blocked-review");
