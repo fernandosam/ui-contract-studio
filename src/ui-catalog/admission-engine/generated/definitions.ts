@@ -3,10 +3,12 @@ import {acknowledgedActionDialogSchema} from "./AcknowledgedActionDialog.schema"
 import {typedConfirmationDialogSchema} from "./TypedConfirmationDialog.schema";
 import {teamMemberAccordionSchema} from "./TeamMemberAccordion.schema";
 import {copyFeedbackButtonSchema} from "./CopyFeedbackButton.schema";
+import {declarativeFormFlowSchema} from "./DeclarativeFormFlow.schema";
 
 export const experimentalDefinitions = {
   AcknowledgedActionDialog: {props:acknowledgedActionDialogSchema,description:"Composição local experimental AcknowledgedActionDialog; sem integração remota ou JSX dinâmico.",events:["confirm"] as ["confirm"]},
   TypedConfirmationDialog: {props:typedConfirmationDialogSchema,description:"Composição local experimental TypedConfirmationDialog; sem integração remota ou JSX dinâmico.",events:["confirm"] as ["confirm"]},
   TeamMemberAccordion: {props:teamMemberAccordionSchema,description:"Composição local experimental TeamMemberAccordion; sem integração remota ou JSX dinâmico."},
   CopyFeedbackButton: {props:copyFeedbackButtonSchema,description:"Composição local experimental CopyFeedbackButton; sem integração remota ou JSX dinâmico."},
-};
+  DeclarativeFormFlow: {props:declarativeFormFlowSchema,description:"Composição local experimental DeclarativeFormFlow; sem integração remota ou JSX dinâmico."},
+}

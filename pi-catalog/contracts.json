@@ -12603,6 +12603,23 @@
         "e2e": "passed"
       },
       "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
+    },
+    {
+      "type": "DeclarativeFormFlow",
+      "version": "0.1.0",
+      "tier": "composition",
+      "lifecycle": "experimental",
+      "sourceUrl": null,
+      "zodSource": "src/ui-catalog/admission-engine/generated/DeclarativeFormFlow.schema.ts",
+      "example": "pi-catalog/experimental-examples/DeclarativeFormFlow.json",
+      "capability": "local-interactive",
+      "sourceDigest": "e1915c4a98271a982d01fff2251174f1c036e06c660ca3a6c1f1694118f8b066",
+      "e2eProtocol": null,
+      "validation": {
+        "static": "passed",
+        "e2e": "pending"
+      },
+      "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
     }
   ]
 }

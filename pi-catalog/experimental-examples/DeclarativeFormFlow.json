@@ -1,0 +1,37 @@
+{
+  "root": "example",
+  "elements": {
+    "example": {
+      "type": "DeclarativeFormFlow",
+      "props": {
+        "title": "Cadastro demonstrativo",
+        "description": "Sem persistência remota.",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Nome",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "email",
+            "label": "E-mail",
+            "type": "email",
+            "required": true
+          },
+          {
+            "name": "password",
+            "label": "Senha",
+            "type": "password",
+            "required": true
+          }
+        ],
+        "layout": "single",
+        "validation": "on-submit",
+        "submitLabel": "Concluir demonstração",
+        "confirmation": null
+      },
+      "children": []
+    }
+  }
+}

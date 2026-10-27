@@ -7,10 +7,13 @@ import {TeamMemberAccordion} from "./TeamMemberAccordion";
 import type {TeamMemberAccordionProps} from "./TeamMemberAccordion.schema";
 import {CopyFeedbackButton} from "./CopyFeedbackButton";
 import type {CopyFeedbackButtonProps} from "./CopyFeedbackButton.schema";
+import {DeclarativeFormFlow} from "./DeclarativeFormFlow";
+import type {DeclarativeFormFlowProps} from "./DeclarativeFormFlow.schema";
 
 export const experimentalImplementations = {
   AcknowledgedActionDialog: ({props,emit}:{props:AcknowledgedActionDialogProps;emit?:(event:"confirm")=>void}) => <AcknowledgedActionDialog props={props} emit={emit}/>,
   TypedConfirmationDialog: ({props,emit}:{props:TypedConfirmationDialogProps;emit?:(event:"confirm")=>void}) => <TypedConfirmationDialog props={props} emit={emit}/>,
   TeamMemberAccordion: ({props}:{props:TeamMemberAccordionProps}) => <TeamMemberAccordion props={props}/>,
   CopyFeedbackButton: ({props}:{props:CopyFeedbackButtonProps}) => <CopyFeedbackButton props={props}/>,
-};
+  DeclarativeFormFlow: ({props}:{props:DeclarativeFormFlowProps}) => <DeclarativeFormFlow props={props}/>,
+}
