@@ -11,6 +11,11 @@ test("requirements wizard asks for persistence before generating a preview",asyn
   await expect(wizard.getByTestId("generated-preview")).toBeVisible();
   await expect(wizard.getByRole("alert",{name:/interface foi bloqueada/i})).toHaveCount(0);
   await expect(wizard.getByTestId("generated-preview").getByText("Cadastro de usuários")).toBeVisible();
+  const trace=wizard.getByTestId("requirements-traceability");
+  await expect(trace).toBeVisible();
+  await trace.locator("summary").click();
+  await expect(trace.getByText(/runtime-review-required/)).toBeVisible();
+  await expect(trace.getByText(/não comprovados por este relatório/)).toBeVisible();
 });
 test("conditional confirmation and blocked backend are explicit",async({page})=>{
   await page.goto("/?screen=criador-interfaces");

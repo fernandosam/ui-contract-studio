@@ -38,3 +38,19 @@ npm run contracts:check
 npm run validate
 npm run build
 ```
+
+## Continuation — T34: requirement traceability (2026-10-27)
+
+`src/ui-requirements/traceability.ts` independently checks links between user answers, component selection, and generated JSON trees for registration, demo login, search, lists and dashboards. Each requirement records an ID, origin (`explicit`/`default`/`derived`), related node IDs, status, and static-only evidence.
+
+`covered-static` means the declared properties/composition were checked; `runtime-review-required` is not browser evidence; `blocked` indicates an unsupported capability or mismatch. Browser test completion is never inferred from static validation.
+
+Dashboard indicator density is now asked only for KPIs, not graphs. No Pi contract or action is added. Both wizards show an expandable traceability section following preview generation.
+
+```bash
+npm run requirements:test
+npm run requirements:audit
+npm run requirements:patterns:audit
+```
+
+The CLI emits static evidence only. Playwright evidence requires a separate actual browser run tied to a commit. Authentication, backend persistence, business-rule validation and complete accessibility certification remain outside this change.
