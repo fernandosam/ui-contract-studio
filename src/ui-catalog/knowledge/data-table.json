@@ -1,0 +1,483 @@
+{
+  "schemaVersion": 1,
+  "component": "DataTable",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "shadcn",
+    "url": "https://ui.shadcn.com/docs/components/base/data-table",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "Introduction",
+      "Basic Table",
+      "Pagination",
+      "Sorting",
+      "Filtering",
+      "Visibility",
+      "Row Selection",
+      "Reusable Components"
+    ]
+  },
+  "purpose": "Exibir e explorar registros estruturados com pesquisa, ordenação, paginação e seleção opcionais, a partir de linhas locais ou fontes de dados identificadas e autorizadas pelo código.",
+  "rationale": [
+    "Entrega operações comuns de consulta em uma tabela consistente, com separação entre apresentação e obtenção de dados.",
+    "Permite fontes remotas apenas por IDs codificados, em vez de URLs, queries SQL ou handlers fornecidos pelo agente.",
+    "Preserva identidade estável de linhas e seleção vinculável; não equivale a autorização para ler, editar, excluir ou exportar registros."
+  ],
+  "whenUse": [
+    "Listar registros com colunas nomeadas e linhas identificadas por id quando pesquisar, ordenar ou paginar melhora a descoberta.",
+    "Precisar de seleção de linhas com ids vinculados ao estado de uma composição aprovada.",
+    "Consumir demo-processos ou processos-api por sourceId aprovado, quando o backend e autenticação necessários estiverem disponíveis."
+  ],
+  "whenNotUse": [
+    "Apresentar poucos pares chave-valor, conteúdo editorial ou layout estático: preferir Table, Card ou Description List conforme contrato disponível.",
+    "Precisar de edição inline, ações de linha, drag-and-drop, filtros por coluna ou ocultação de colunas: recursos do guia upstream não compõem esta API JSON.",
+    "Solicitar URL arbitrária, fetch para endpoint do agente, SQL ou operação de negócio ao clicar/selecionar.",
+    "Supor seleção global entre todas as páginas ou ordenação numérica natural para toda coluna type='number' sem testes específicos."
+  ],
+  "agentNotes": [
+    "Contrato aprovado 1.2.0: caption nullable, columns (1..16; key/label/sortable/type opcional), rows (até 2000; id/values string), pageSize nullable (5..100), searchable/selectable nullable, sourceId opcional de dois IDs e selectedIds opcional; eventos selectionChange/pageChange/sortChange.",
+    "Sem sourceId, usa rows passadas pelo contrato e modelos locais de filtro, sort e paginação; sourceId ativa paginação, ordenação e filtro manuais com loadDataPage.",
+    "searchable exibe Input com pesquisa global; para fonte remota usa debouncedQuery de 300 ms e cancelamento de solicitação anterior; campos não admitem buscas SQL arbitrárias.",
+    "sourceId='demo-processos' usa consulta de demonstração; sourceId='processos-api' consulta caminho interno fixo com same-origin credentials e requer backend autenticado. IDs são restritos em Zod.",
+    "Seleccionar linhas usa checkbox por página e getRowId baseado em row.id. selectedIds pode usar binding aprovado; eventos indicam mudanças locais, não uma ação de negócio.",
+    "column.type controla apresentação tabular e escolha da sortingFn; type='number' usa sortingFn='alphanumeric' nesta implementação, não prometer comparação numérica pura ou formatação de moeda.",
+    "caption fica sr-only quando informado; erro remoto recebe role=alert e loading marca aria-busy. Verificar acessibilidade real, principalmente checkbox de página e ações de cabeçalho.",
+    "O exemplo oficial TanStack inclui visibilidade de colunas, ações de linha e outros recursos; documentação não altera o contrato estrito ou autoriza novos filtros/handlers."
+  ],
+  "capabilities": [
+    {
+      "id": "strict-rows-and-columns",
+      "description": "Contrato limita número, tipos e nomes de colunas, linhas e tamanho de página em dados JSON.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "columns: z.array(strict({ key: z.string().regex(/^[a-zA-Z][a-zA-Z0-9_]*$/)"
+        },
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "rows: z.array(strict({ id: z.string().min(1), values: z.record(z.string(), z.string()) })).max(2000)"
+        }
+      ],
+      "testRequirements": [
+        "Rejeitar 17 colunas, mais de 2000 linhas, chaves inválidas e células não string."
+      ]
+    },
+    {
+      "id": "local-search-and-remote-debounce",
+      "description": "Pesquisa global local imediata e consulta remota com debounce de 300 ms.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "setTimeout(()=>setDebouncedQuery(query),300)"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "getFilteredRowModel:getFilteredRowModel()"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "<Input aria-label=\"Pesquisar linhas\""
+        }
+      ],
+      "testRequirements": [
+        "Testar query local imediata, remota após debounce e atualização de estado sem pedidos repetidos."
+      ]
+    },
+    {
+      "id": "column-sort",
+      "description": "Cabeçalhos sortable acionam ordenação e evento sortChange; modo remoto delega ordenação ao provedor.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "enableSorting:column.sortable"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "onSortChange?.();"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "manualSorting:true"
+        }
+      ],
+      "testRequirements": [
+        "Ordenar asc/desc, reiniciar paginação e confirmar sortChange sem alterar registros no servidor."
+      ]
+    },
+    {
+      "id": "page-navigation",
+      "description": "Paginação com botões Anterior/Próxima e mudança de página notificada por pageChange.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "onPageChange?.();"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "table.previousPage()"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "table.nextPage()"
+        }
+      ],
+      "testRequirements": [
+        "Verificar páginas inicial/final, desabilitação de ações e emissão de pageChange."
+      ]
+    },
+    {
+      "id": "row-selection",
+      "description": "Checkbox de cabeçalho seleciona linhas da página e checkbox individual altera seleção por id.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "toggleAllPageRowsSelected(e.target.checked)"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "row.toggleSelected(e.target.checked)"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "getRowId:row=>row.id"
+        }
+      ],
+      "testRequirements": [
+        "Selecionar/desmarcar página e linha, mantendo id estável e sem ação remota."
+      ]
+    },
+    {
+      "id": "bound-selected-ids",
+      "description": "Quando selectionPath é aprovado, usa binding para selectedIds; caso contrário mantém seleção local.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "useBoundProp<string[]>(props.selectedIds??[],selectionPath)"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "if(selectionPath)setBoundIds(Object.keys(next).filter(id=>next[id]));else setLocalSelection(next);"
+        },
+        {
+          "path": "src/ui-catalog/extensions/registry.tsx",
+          "contains": "onSelectionChange={()=>emit?.('selectionChange')}"
+        }
+      ],
+      "testRequirements": [
+        "Comparar seleção bound/local e conferir evento único por alteração."
+      ]
+    },
+    {
+      "id": "approved-provider-ids",
+      "description": "Fontes remotas são identificadas pelos IDs estritos demo-processos/processos-api, sem URL de usuário.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "sourceId: z.enum([\"demo-processos\",\"processos-api\"]).nullable().optional()"
+        },
+        {
+          "path": "src/ui-data/providers.ts",
+          "contains": "if(sourceId!=='processos-api') throw new Error('Fonte de dados não aprovada');"
+        },
+        {
+          "path": "src/ui-data/providers.ts",
+          "contains": "fetch(`/api/ui-data/processos?${params.toString()}`,"
+        }
+      ],
+      "testRequirements": [
+        "Rejeitar sourceId desconhecido e garantir destino fixo e credenciais same-origin."
+      ]
+    },
+    {
+      "id": "remote-pending-error-abort",
+      "description": "Consulta assíncrona sinaliza carregamento/erro e cancela resposta anterior com AbortController.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "const controller=new AbortController();"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "if(!controller.signal.aborted)setFetchError("
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "aria-busy={pending}"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "{fetchError&&<p role=\"alert\""
+        }
+      ],
+      "testRequirements": [
+        "Simular latência, erro HTTP e troca de busca/página, evitando resposta obsoleta."
+      ]
+    },
+    {
+      "id": "column-types-and-plain-content",
+      "description": "As células vêm de values e são exibidas como string, com apresentação tabular opcional e sem HTML arbitrário.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "sortingFn:column.type==='number'?'alphanumeric':'auto'"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "{String(getValue()??'')}"
+        },
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "type: z.enum([\"text\",\"number\",\"date\",\"status\"]).optional()"
+        }
+      ],
+      "testRequirements": [
+        "Testar dados longos, numbers em formato string, status e ordenação alfanumérica; não presumir formato numérico ou datas."
+      ]
+    },
+    {
+      "id": "caption-empty-and-count",
+      "description": "Exibe caption oculto visualmente quando fornecido, estado vazio e quantidade de registros.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "<caption className=\"sr-only\">{caption}</caption>"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "Nenhum registro encontrado."
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/data-table.tsx",
+          "contains": "{count} registro(s)"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar caption no DOM e ausência de linhas, com quantidade correta na busca local/remota."
+      ]
+    },
+    {
+      "id": "inline-edit-and-row-actions",
+      "description": "Edição inline, menu de ações, exclusão e exportação não fazem parte do DataTable aprovado.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Futuras operações exigem novos contratos, autorização backend e testes de segurança."
+      ]
+    },
+    {
+      "id": "column-visibility-and-custom-filters",
+      "description": "Ocultação/reordenação de colunas e filtros personalizados por coluna do guia TanStack não estão expostos.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se aprovados, testar configuração autorizada e persistência explícita de visibilidade/filtro."
+      ]
+    },
+    {
+      "id": "arbitrary-remote-source",
+      "description": "URL externa, consulta arbitrária e fonte dinâmica fornecida por agente não são permitidas.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Uma nova origem requer backend/provedor revisado, allowlist e mudança controlada de contrato."
+      ]
+    },
+    {
+      "id": "cross-page-select-all",
+      "description": "Não há API para selecionar automaticamente todas as linhas remotas de todas as páginas.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Uma proposta de seleção global exige semântica clara de conjunto e autorização da operação em servidor."
+      ]
+    },
+    {
+      "id": "screenreader-keyboard-table-runtime",
+      "description": "Conferir leitura de cabeçalhos, ordenação, checkboxes, foco e mudanças de página com teclado e leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar Tab, Espaço, cabeçalhos, anúncios de ordenação, seleção e paginação com tecnologias assistivas."
+      ]
+    },
+    {
+      "id": "responsive-overflow-and-loading-runtime",
+      "description": "Garantir uso sob rolagem horizontal, loading, erro e viewport móvel em execução real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar 320 px, zoom 200%, 16 colunas, rolagem, estado vazio/erro, sem corte de controles."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Table",
+      "relationship": "table-primitives",
+      "reason": "Estrutura Table, TableHead, TableBody, TableRow e TableCell usada no adaptador."
+    },
+    {
+      "component": "Input",
+      "relationship": "global-search",
+      "reason": "Entrada de pesquisa global quando searchable=true."
+    },
+    {
+      "component": "Button",
+      "relationship": "sorting-and-pagination",
+      "reason": "Aciona cabeçalhos ordenáveis e botões de navegação, sem persistência."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "selection-semantics-candidate",
+      "reason": "A interface usa input checkbox nativo; futura troca por Checkbox aprovada exigiria teste e revisão."
+    },
+    {
+      "component": "Badge",
+      "relationship": "status-presentation-candidate",
+      "reason": "Representação rica de status seria nova composição; type=status atualmente apenas mostra string."
+    },
+    {
+      "component": "Alert",
+      "relationship": "remote-error-summary",
+      "reason": "Candidato para mensagens de erro persistentes; atualmente existe p role=alert local."
+    },
+    {
+      "component": "DropdownMenu",
+      "relationship": "row-actions-future-candidate",
+      "reason": "Menu por registro requer extensão e autorização explícita, não existe neste contrato."
+    },
+    {
+      "component": "Pagination",
+      "relationship": "navigation-future-candidate",
+      "reason": "Uma paginação composta é apenas candidata; atualmente há dois botões."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando DataTable é preferível a Table?",
+      "guidance": "Quando há pesquisa, ordenação, paginação, seleção ou fonte de dados; Table atende exibição simples sem assumir estas operações."
+    },
+    {
+      "question": "Posso informar uma URL ou consulta SQL como fonte?",
+      "guidance": "Não. sourceId aceita somente demo-processos/processos-api; o provedor resolve destinos e política de acesso no código."
+    },
+    {
+      "question": "sourceId=processos-api garante acesso aos dados?",
+      "guidance": "Não. O frontend usa caminho interno e credenciais same-origin; o servidor deve autenticar, autorizar por tenant e tratar erros."
+    },
+    {
+      "question": "Selecionar uma linha altera ou exclui algo?",
+      "guidance": "Não. selectionChange apenas sinaliza estado local/bound. Operações de negócio dependem de ação separada autorizada."
+    },
+    {
+      "question": "Selecionar todas abrange toda a base remota?",
+      "guidance": "Não. O checkbox de cabeçalho chama toggleAllPageRowsSelected; não prometer seleção global entre páginas."
+    },
+    {
+      "question": "type='number' ordena e formata como número?",
+      "guidance": "Não presumir isso: sortingFn='alphanumeric' e as células são convertidas para string. Testar a ordenação dos dados reais."
+    },
+    {
+      "question": "Há ação por linha, visibilidade de colunas ou exportação?",
+      "guidance": "Não neste contrato JSON. São exemplos do guia upstream e precisariam de extensão controlada."
+    },
+    {
+      "question": "Como tratar latência e erros em fonte remota?",
+      "guidance": "Há debounce, AbortController, loading e role=alert, mas experiências de foco, retry e leitura assistiva dependem de testes reais."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "strict-structure-and-provider-ids",
+      "kind": "integration",
+      "description": "Rejeitar propriedades desconhecidas, URL arbitrária, 17 colunas, excesso de linhas e tipos incompatíveis.",
+      "capabilities": [
+        "strict-rows-and-columns",
+        "approved-provider-ids"
+      ]
+    },
+    {
+      "id": "local-search-sort-pagination",
+      "kind": "integration",
+      "description": "Conferir pesquisa, ordenação asc/desc, reset da página, navegação e eventos locais com rows fornecidas.",
+      "capabilities": [
+        "local-search-and-remote-debounce",
+        "column-sort",
+        "page-navigation"
+      ]
+    },
+    {
+      "id": "remote-search-pending-error",
+      "kind": "integration",
+      "description": "Simular fonte aprovada com debounce 300ms, consulta abortada, erro HTTP e aria-busy/role=alert.",
+      "capabilities": [
+        "approved-provider-ids",
+        "local-search-and-remote-debounce",
+        "remote-pending-error-abort"
+      ]
+    },
+    {
+      "id": "selection-page-and-binding",
+      "kind": "integration",
+      "description": "Selecionar linha e página, sincronizar selectedIds aprovado, preservar IDs e confirmar ausência de ação remota.",
+      "capabilities": [
+        "row-selection",
+        "bound-selected-ids"
+      ]
+    },
+    {
+      "id": "caption-types-empty-state",
+      "kind": "visual",
+      "description": "Verificar caption sr-only, células string, contagem, type number/status e mensagens vazias no tema claro/escuro.",
+      "capabilities": [
+        "caption-empty-and-count",
+        "column-types-and-plain-content"
+      ]
+    },
+    {
+      "id": "table-a11y-keyboard",
+      "kind": "manual-a11y",
+      "description": "Auditar cabeçalhos, sortable, seleção, foco e anúncio de troca de página/erro com leitor de tela.",
+      "capabilities": [
+        "screenreader-keyboard-table-runtime"
+      ]
+    },
+    {
+      "id": "mobile-overflow-stress",
+      "kind": "visual",
+      "description": "Exercitar até 16 colunas, 320px, zoom 200%, erro/loading e rolagem horizontal sem clipping de botões.",
+      "capabilities": [
+        "responsive-overflow-and-loading-runtime"
+      ]
+    },
+    {
+      "id": "future-grid-features",
+      "kind": "candidate-not-executable",
+      "description": "Após revisão contratual, ensaiar edição/ações/export, visibilidade de coluna e filtros personalizados com autorização.",
+      "capabilities": [
+        "inline-edit-and-row-actions",
+        "column-visibility-and-custom-filters"
+      ]
+    },
+    {
+      "id": "future-arbitrary-source-and-global-selection",
+      "kind": "candidate-not-executable",
+      "description": "Antes de qualquer admissão futura, exigir revisão de segurança de origem e semântica de seleção entre páginas.",
+      "capabilities": [
+        "arbitrary-remote-source",
+        "cross-page-select-all"
+      ]
+    }
+  ]
+}
