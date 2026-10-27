@@ -20,6 +20,8 @@ export function validateSemanticOverlay(record, root = process.cwd()) {
   if(record.schemaVersion!==1 || !safeName(record.component))err("schemaVersion or component invalid");
   if(record.language!=="pt-BR" || !["reviewed-documentation","draft"].includes(record.status))
     err("localized review status is mandatory; documentation never approves Pi capabilities");
+  if(record.admission!==undefined && record.admission!=="candidate-not-admitted")
+    err("invalid documentation-only admission marker");
   const reuiUrl="https://reui.io/components/"+slugify(component);
   const shadcnPrefix="https://ui.shadcn.com/docs/components/";
   if(!record.source ||
@@ -120,8 +122,10 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
     errors.push(...validateSemanticOverlay(doc,root));
     if(filename!==doc.component.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase()+".json")
       errors.push(path+": filename/component mismatch");
-    if(!approved.has(doc.component) && !profiles.has(doc.component))
-      errors.push(path+": unknown component, cannot attach curated semantics");
+    if(!approved.has(doc.component) && !profiles.has(doc.component) && doc.admission!=="candidate-not-admitted")
+      errors.push(path+": unknown component, cannot attach curated semantics without explicit candidate marker");
+    if(approved.has(doc.component) && doc.admission==="candidate-not-admitted")
+      errors.push(path+": candidate marker conflicts with approved Pi type; explicit promotion review required");
     const profile=ensure(doc.component);
     if(profile.curatedSource)errors.push(doc.component+": duplicate curated overlay");
     profile.curatedSource=path;
@@ -129,6 +133,7 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
     profile.purpose=doc.purpose;
     profile.rationale=doc.rationale;
     profile.documentationReview=doc.status;
+    profile.knowledgeAdmission=doc.admission??"existing-catalog-guidance";
     for(const key of ["whenUse","whenNotUse","agentNotes"])
       profile[key]=uniq(profile[key].concat(doc[key]??[]));
     profile.capabilities=doc.capabilities;
