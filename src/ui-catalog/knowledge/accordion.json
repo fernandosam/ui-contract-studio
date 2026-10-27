@@ -1,0 +1,415 @@
+{
+  "schemaVersion": 1,
+  "component": "Accordion",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/accordion",
+    "reviewedOn": "2026-10-26",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Accordion?",
+      "Why Use Shadcn Accordion?",
+      "Shadcn Accordion Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Organizar perguntas, instruções e detalhes opcionais em itens expansíveis na mesma página, permitindo leitura progressiva sem navegação ou bloqueio modal.",
+  "rationale": [
+    "Reduzir a densidade de informações e facilitar a varredura visual de tópicos mantendo a decisão de expandir com o usuário.",
+    "Permitir comparar respostas com múltiplos painéis ou acompanhar uma sequência em modo de expansão única.",
+    "Distinguir divulgação de conteúdo de execução: expandir um painel não equivale a concluir etapas, alterar permissões ou persistir dados."
+  ],
+  "whenUse": [
+    "FAQ curta ou ajuda contextual com várias perguntas e respostas textuais e títulos autoexplicativos.",
+    "Conjuntos de configurações ou especificações opcionais em que o usuário precisa revelar detalhes no mesmo contexto.",
+    "Orientações de onboarding com seções expansíveis; se houver status completed/active/pending, reutilizar o contrato independente OnboardingChecklist.",
+    "Listas de registros com detalhes textuais opcionais; para Avatar, Badge e layout rico, avaliar uma composição aprovada."
+  ],
+  "whenNotUse": [
+    "Um único trecho que abre e fecha sem coleção de itens: preferir Collapsible.",
+    "Alternar visões paralelas em que uma permanece selecionada: preferir Tabs.",
+    "Fluxo com confirmação crítica, foco modal ou decisão bloqueante: preferir Dialog ou AlertDialog conforme o risco.",
+    "Seção completa de FAQ de marketing com introdução, suporte e SEO próprio: avaliar bloco FAQ; não inferir que o Accordion básico inclui esse bloco.",
+    "Conteúdo essencial, instrução de segurança ou erro que precisa aparecer imediatamente: não ocultar apenas em um painel fechado.",
+    "Progresso persistido, envio de formulário, atualização de permissão ou ação remota: o Accordion não implementa essas operações."
+  ],
+  "agentNotes": [
+    "A implementação instalada é shadcn Base UI (@base-ui/react/accordion): Root usa multiple:boolean e value/defaultValue como arrays de IDs. Não copiar diretamente a API Radix (type='single'|'multiple' e defaultValue:string no modo single).",
+    "No contrato JSON aprovado (v2.1), type='single'|'multiple' é convertido pelo adaptador local em multiple:boolean; defaultValue:string ou defaultValues:string[] inicializam estado interno. O contrato não expõe value controlado, evento de mudança, callbacks, JSX ou className arbitrários.",
+    "Items aceitam title e content textuais, value opcional e disabled opcional. Fornecer value único e estável; o adaptador usa índice como fallback, que não é estável após reordenação.",
+    "No modo single, collapsible=false impede fechar o último item já aberto pelo usuário quando value contém um item; não presume abertura automática quando não há default.",
+    "Indicadores disponíveis: chevron, plus-minus e arrow-left. O adaptador esconde o ícone padrão nos modos personalizados para evitar ícones duplicados. Aparências: plain, bordered e highlighted.",
+    "Usar título curto e descritivo em cada gatilho; manter AccordionItem > AccordionTrigger + AccordionContent. Validar foco, semântica WAI-ARIA, Enter/Espaço, estados disabled e ordem dos headings em navegador e leitor de telas.",
+    "FAQ textual simples reutiliza Accordion. Para onboarding com estados semânticos, usar OnboardingChecklist já aprovado em contrato próprio (Accordion + Badge), sem adicionar status ao Accordion primitivo.",
+    "Exemplos ReUI c-accordion-8/9/11 ilustram aninhamento, Avatar/Badge e onboarding em composições React; não autorizam children ricos no contrato JSON básico. TeamMemberAccordion é candidato isolado à revisão, não tipo Pi aprovado.",
+    "Conteúdo fechado pode não constar do HTML inicial quando não está montado; indexação e disponibilidade sem JavaScript precisam de verificação específica. O contrato JSON não oferece prop keepMounted.",
+    "Estados expandidos são locais e não concedem conclusão de onboarding, persistência, autorização, acesso a dados ou execução remota. Orientação semântica não modifica schemas Zod nem permissões Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "textual-items",
+      "description": "Renderiza itens com títulos e respostas textuais aprovados pelo contrato Accordion.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Accordion: { props: obj({ items: z.array(obj({title:z.string(),content:z.string()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<AccordionContent>{item.content}</AccordionContent>"
+        }
+      ],
+      "testRequirements": [
+        "Validar dois ou mais itens com títulos e respostas distintas; impedir interpretação de content como JSX ou ação."
+      ]
+    },
+    {
+      "id": "single-multiple-expansion",
+      "description": "Alterna expansão exclusiva e múltipla em estado local; não emite evento Pi de mudança.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const isMultiple=props.type===\"multiple\";"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "return <ShadcnAccordion multiple={isMultiple} value={value} onValueChange={(next:string[])=>{"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "setValue(isMultiple?next:next.slice(-1));"
+        }
+      ],
+      "testRequirements": [
+        "Em single, expandir B após A fecha A; em multiple, A e B podem permanecer abertos; não disparar ação externa."
+      ]
+    },
+    {
+      "id": "initial-expanded-items",
+      "description": "Inicializa a seleção por defaultValues ou defaultValue, sem controlar depois o estado via bindings.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.defaultValues?.length ? props.defaultValues : props.defaultValue ? [props.defaultValue] : []"
+        }
+      ],
+      "testRequirements": [
+        "Recarregar estado inicial com defaultValue e defaultValues válidos; inspecionar casos ausentes e IDs inexistentes."
+      ]
+    },
+    {
+      "id": "single-noncollapsible-guard",
+      "description": "Quando o modo é single e há item aberto, collapsible=false bloqueia o fechamento que deixaria a lista vazia.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "if(props.collapsible===false && !isMultiple && next.length===0 && value.length>0)return;"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar que não se fecha o último item já aberto em single; sem default, não presumir item aberto por padrão."
+      ]
+    },
+    {
+      "id": "disabled-items",
+      "description": "Propaga disabled por item ao AccordionItem sem tornar toda a coleção indisponível.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "disabled:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<AccordionItem value={id} key={id} disabled={item.disabled}"
+        }
+      ],
+      "testRequirements": [
+        "Item desabilitado não pode ser expandido por clique ou teclado; outros continuam funcionais."
+      ]
+    },
+    {
+      "id": "indicators-and-appearance",
+      "description": "Oferece chevron, plus-minus e arrow-left, além de plain, bordered e highlighted.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "indicator:z.enum([\"chevron\",\"plus-minus\",\"arrow-left\"])"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "appearance:z.enum([\"plain\",\"bordered\",\"highlighted\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "indicator===\"chevron\"?\"\":\"[&_[data-slot=accordion-trigger-icon]]:hidden\""
+        }
+      ],
+      "testRequirements": [
+        "Renderizar três indicadores nas três aparências e verificar que só há um indicador visível, inclusive com expansão e contraste."
+      ]
+    },
+    {
+      "id": "base-ui-disclosure-anatomy",
+      "description": "A primitiva local compõe Header/Trigger/Panel Base UI e estilos para estados aberto e fechado.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/accordion.tsx",
+          "contains": "<AccordionPrimitive.Header className=\"flex\">"
+        },
+        {
+          "path": "src/components/ui/accordion.tsx",
+          "contains": "<AccordionPrimitive.Trigger"
+        },
+        {
+          "path": "src/components/ui/accordion.tsx",
+          "contains": "<AccordionPrimitive.Panel"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar marcação e relações gatilho/painel geradas, sem concluir que o comportamento assistivo já foi homologado."
+      ]
+    },
+    {
+      "id": "rich-structured-content",
+      "description": "Conteúdo arbitrário, links de ação, campos, Avatar, Badge e Accordions aninhados dentro de items do contrato básico.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Qualquer evolução de children ricos requer contrato/composição própria com revisão Zod/Pi, não apenas JSON."
+      ]
+    },
+    {
+      "id": "onboarding-status-in-basic-contract",
+      "description": "Estados completed/active/pending, validação de passos e progressão dentro da API Accordion básica.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Reutilizar OnboardingChecklist separado para status existentes; não atribuir progressão ou persistência ao Accordion básico."
+      ]
+    },
+    {
+      "id": "keep-mounted-ssr",
+      "description": "Garantia de respostas em HTML inicial para crawler/ambiente sem JavaScript e opção keepMounted pelo contrato Accordion JSON.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Antes de depender de indexação/SSR, projetar e revisar estratégia de montagem/renderização com fonte HTML real."
+      ]
+    },
+    {
+      "id": "keyboard-and-aria",
+      "description": "Operação correta em teclado e leitores de tela com rótulo, foco e anúncio de estados expandido/desabilitado.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar Enter, Espaço, Tab, foco visível e aria-expanded/aria-controls com leitor de tela e item disabled."
+      ]
+    },
+    {
+      "id": "responsive-and-motion",
+      "description": "Legibilidade dos gatilhos, áreas de toque, animação/altura de painéis e preferência de movimento reduzido em diferentes viewports.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar textos longos, zoom 200%, viewport móvel, movimento reduzido e ausência de corte após abertura."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Collapsible",
+      "relationship": "alternative-single-disclosure",
+      "reason": "Um único painel sem coleção de perguntas dispensa Accordion."
+    },
+    {
+      "component": "Tabs",
+      "relationship": "alternative-parallel-navigation",
+      "reason": "Alternar visões concorrentes e mutuamente exclusivas é navegação, não divulgação opcional."
+    },
+    {
+      "component": "Card",
+      "relationship": "optional-visual-container",
+      "reason": "Delimita uma FAQ ou grupo de ajustes dentro de uma página com outras regiões; envoltório não vira prop do contrato."
+    },
+    {
+      "component": "Badge",
+      "relationship": "optional-status-and-count",
+      "reason": "Crachás e contagens nos gatilhos exigem composição revisada; exemplos ReUI não os tornam filhos JSON válidos."
+    },
+    {
+      "component": "Avatar",
+      "relationship": "optional-member-metadata",
+      "reason": "Usar em padrão rico de membros com revisão de composição, não no items[].title textual do Accordion."
+    },
+    {
+      "component": "Button",
+      "relationship": "optional-panel-action",
+      "reason": "Ação secundária em painel rico requer handler autorizado; expandir por si só não executa operação."
+    },
+    {
+      "component": "Field",
+      "relationship": "optional-form-sections",
+      "reason": "Agrupar campos extensos pode auxiliar leitura, mas validação, persistência e foco de erro exigem fluxo próprio."
+    },
+    {
+      "component": "Popover",
+      "relationship": "optional-contextual-edit",
+      "reason": "Ajuda ou edição pontual pode ficar fora do painel; não duplicar interação nem prometer suporte nativo."
+    },
+    {
+      "component": "OnboardingChecklist",
+      "relationship": "approved-separate-semantic-contract",
+      "reason": "Quando há etapas e estados completed/active/pending, reutilizar contrato próprio já aprovado, não estender Accordion só por documentação."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando reutilizar Accordion para uma FAQ?",
+      "guidance": "Quando há várias perguntas com respostas textuais opcionais no mesmo contexto. Use IDs estáveis e conteúdo claro; para seção de marketing completa, avalie um bloco FAQ próprio."
+    },
+    {
+      "question": "Escolher abertura única ou múltipla?",
+      "guidance": "Single reduz altura quando a leitura é sequencial; multiple favorece comparação. No contrato JSON use type e defaults compatíveis; não confundir com props da Base UI."
+    },
+    {
+      "question": "Como impedir que todos os itens sejam fechados?",
+      "guidance": "Use collapsible=false com type='single' e defaultValue válido, sabendo que a implementação só bloqueia o fechamento do último item já aberto e não seleciona um item automaticamente."
+    },
+    {
+      "question": "Accordion ou Collapsible/Tabs?",
+      "guidance": "Collapsible para um único bloco; Tabs para visões paralelas com seleção; Accordion para vários itens independentes de divulgação."
+    },
+    {
+      "question": "Accordion pode gerenciar progresso de onboarding?",
+      "guidance": "Não no contrato básico. OnboardingChecklist aprovado compõe Accordion + Badge e aceita statuses tipados; persistir progresso ou completar etapa exige integração explícita."
+    },
+    {
+      "question": "Como mostrar avatar, badges, formulários e painéis aninhados?",
+      "guidance": "Não inserir JSX no contrato Accordion. Usar composição TSX revisada ou contrato semântico especializado; exemplos ReUI demonstram visual, não autorização Pi. TeamMemberAccordion permanece candidato."
+    },
+    {
+      "question": "Há evento de mudança ou atualização de backend?",
+      "guidance": "Não; o adaptador guarda o estado de expansão localmente e o contrato Accordion não declara events. Integrações remotas, autorização e escrita não são implícitas."
+    },
+    {
+      "question": "Resposta recolhida é indexável por buscadores?",
+      "guidance": "Não garantir. O conteúdo fechado pode faltar ao HTML entregue pelo servidor; validar SSR/HTML real e necessidade de manter conteúdo montado antes de usar FAQ como única fonte indexável."
+    },
+    {
+      "question": "Acessibilidade já está certificada?",
+      "guidance": "Não. A primitiva Base UI fornece estrutura, mas verificar interação real, ordem dos títulos, foco, leitor de tela e apresentação responsiva antes de homologar."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "faq-textual-basic",
+      "kind": "integration",
+      "description": "Renderizar FAQ textual com IDs distintos e verificar pergunta/resposta ao expandir e recolher, sem ações remotas.",
+      "capabilities": [
+        "textual-items",
+        "single-multiple-expansion"
+      ]
+    },
+    {
+      "id": "single-versus-multiple",
+      "kind": "integration",
+      "description": "Abrir A e depois B: somente B em single, A+B em multiple; conferir estado local após interação.",
+      "capabilities": [
+        "single-multiple-expansion"
+      ]
+    },
+    {
+      "id": "initial-open-precedence",
+      "kind": "integration",
+      "description": "Cobrir inicialização vazia, defaultValue, defaultValues e precedência sem supor binding controlado.",
+      "capabilities": [
+        "initial-expanded-items"
+      ]
+    },
+    {
+      "id": "prevent-empty-single",
+      "kind": "integration",
+      "description": "Com collapsible=false e item já aberto, tentar recolher; com lista vazia inicial, verificar que não abre sozinho.",
+      "capabilities": [
+        "single-noncollapsible-guard",
+        "initial-expanded-items"
+      ]
+    },
+    {
+      "id": "disabled-while-others-open",
+      "kind": "integration",
+      "description": "Tentar ativar item disabled e verificar que itens habilitados ainda expandem normalmente.",
+      "capabilities": [
+        "disabled-items"
+      ]
+    },
+    {
+      "id": "visual-indicator-grid",
+      "kind": "visual",
+      "description": "Conferir 3 indicadores x 3 aparências, estados aberto/fechado, contraste e ausência de ícones duplos.",
+      "capabilities": [
+        "indicators-and-appearance",
+        "responsive-and-motion"
+      ]
+    },
+    {
+      "id": "anatomy-dom-inspection",
+      "kind": "integration",
+      "description": "Inspecionar presença de gatilho e painel por item, sem inferir conformidade assistiva sem revisão real.",
+      "capabilities": [
+        "base-ui-disclosure-anatomy"
+      ]
+    },
+    {
+      "id": "keyboard-disclosure",
+      "kind": "manual-a11y",
+      "description": "Validar foco visível, Tab, Enter/Espaço, aria-expanded, painel associado e desabilitação em leitor de tela.",
+      "capabilities": [
+        "keyboard-and-aria",
+        "disabled-items"
+      ]
+    },
+    {
+      "id": "mobile-long-faq",
+      "kind": "visual",
+      "description": "Em smartphone e zoom 200%, testar títulos/respostas longos, toque, animações e prefers-reduced-motion.",
+      "capabilities": [
+        "responsive-and-motion"
+      ]
+    },
+    {
+      "id": "nested-or-rich-children-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Em eventual composto revisado, testar controles internos, foco, expansão aninhada e ausência de JSX arbitrário no JSON primitivo.",
+      "capabilities": [
+        "rich-structured-content"
+      ]
+    },
+    {
+      "id": "onboarding-contract-boundary",
+      "kind": "candidate-not-executable",
+      "description": "Se proposta de estados for dirigida ao Accordion básico, rejeitar e avaliar contrato independente OnboardingChecklist; não testar como prop Accordion existente.",
+      "capabilities": [
+        "onboarding-status-in-basic-contract"
+      ]
+    },
+    {
+      "id": "ssr-indexability-review",
+      "kind": "candidate-not-executable",
+      "description": "Se SSR/indexação for requisito, verificar HTML inicial e eventual proposta keepMounted em revisão funcional separada.",
+      "capabilities": [
+        "keep-mounted-ssr"
+      ]
+    }
+  ]
+}
