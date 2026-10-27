@@ -62,6 +62,8 @@ test("curated ReUI behavioral assertions require traceable first-party evidence"
   const folder=mkdtempSync(join(tmpdir(),"ui-semantic-evidence-"));
   try{
     write(folder,path,old);
+    write(folder,"src/components/ui/alert-dialog.tsx",
+      readFileSync("src/components/ui/alert-dialog.tsx","utf8"));
     write(folder,"src/ui-catalog/extensions/catalog.ts",
       readFileSync("src/ui-catalog/extensions/catalog.ts","utf8"));
     assert.deepEqual(validateSemanticOverlay(seed,folder),[]);
