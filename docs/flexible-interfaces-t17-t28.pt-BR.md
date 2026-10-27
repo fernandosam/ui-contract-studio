@@ -102,3 +102,9 @@ Nenhuma URL/SQL/JS, permissão Pi, rota de browser ou operação remota foi acre
 O assistente aceita uma descrição curta, reconhece um padrão não ambíguo e sugere apenas opções já declaradas em \`pattern-flows.json\`. Prioridade: **resposta explícita > inferência conservadora > padrão documental**. Relatórios registram origem \`explicit\`, \`inferred\` ou \`default\`; intenção ambígua exige escolha manual. Perguntas condicionais ocultas não entram na especificação. \`validateFlow\` rejeita duplicatas e dependências inválidas.
 
 Nenhum handler, API, autenticação remota ou componente Pi adicional é autorizado. Testes de integração e Playwright desktop/mobile cobrem as escolhas.
+
+## T34 — Análise de impacto e métricas estáticas reproduzíveis (2026-10-27)
+
+\`npm run requirements:impact -- --changed=src/ui-catalog/knowledge/input.json\` gera matriz de impacto vinculada à revisão Git para cadastro, login, busca, listas e dashboards, com verificações de migração sugeridas para contratos, padrões e documentos semânticos referenciados. Caminhos desconhecidos são informados **explicitamente**, nunca tratados automaticamente como seguros. O resultado é consultivo; revisão de API, aprovação e testes de navegador independentes continuam necessários.
+
+A auditoria mede a aprovação inicial de 12 variantes de cadastro e 12 variantes de padrões: bloqueios esperados são separados, tipos novos de contrato não são inferidos, e cada spec estática aceita recebe uma impressão SHA-256 determinística. A revisão Git aparece no relatório e as evidências em execução permanecem \`not-imported\`. São métricas estáticas, **não certificação funcional nem prova de teste visual real**. Verificar com \`npm run requirements:impact\` e \`npx tsx --test tests/requirements-impact.integration.test.ts\`.

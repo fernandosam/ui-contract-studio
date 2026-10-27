@@ -96,3 +96,9 @@ No URL/SQL/JS, new Pi permission, browser submission route or remote data operat
 The pattern wizard accepts a short description, detects an unambiguous pattern and only pre-fills choices already declared in \`pattern-flows.json\`. Priority: **explicit selection > conservative inference > documented default**. Requirement reports keep \`explicit\`, \`inferred\` or \`default\` provenance; ambiguous intent requires a manual choice. Hidden conditional questions do not enter the generated spec. \`validateFlow\` rejects duplicates and invalid dependencies.
 
 No model-generated handler, API, remote authentication or additional Pi component is granted. Integration and desktop/mobile browser tests cover these choices.
+
+## T34 — Impact analysis and reproducible static metrics (2026-10-27)
+
+\`npm run requirements:impact -- --changed=src/ui-catalog/knowledge/input.json\` prints a revision-bound impact matrix for registration, login, search, list and dashboard and proposes targeted migration checks for contracts, patterns and referenced semantic documentation. Unknown paths are **explicitly reported** rather than silently interpreted as safe. This mapping is advisory: approval, code review and independent browser tests still govern change admission.
+
+The audit also measures first-pass acceptance on 12 registration and 12 pattern variants: expected blockers remain separate, no new contract types may be inferred, and each accepted static spec has a deterministic SHA-256 fingerprint. The report includes the local Git revision and explicitly marks runtime evidence \`not-imported\`. These are static metrics, **not measured production functionality or proof of live UX testing**. Validation: \`npm run requirements:impact\` and \`npx tsx --test tests/requirements-impact.integration.test.ts\`.
