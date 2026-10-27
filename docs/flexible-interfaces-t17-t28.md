@@ -106,3 +106,11 @@ The audit also measures first-pass acceptance on 12 registration and 12 pattern 
 ## T33 — Three choices in each pattern (2026-10-27)
 
 Each pattern now declares three bounded UI decisions: login optionally shows access help, lists can show a fictional-data summary, and dashboards can display a data disclaimer. The search flow already has three questions. All variants use existing Text/Card/Table/Metric/Grid contracts. Answers are tracked with provenance and checked against generated nodes. These presentation decisions never enable authentication, remote search, mutations or persistence.
+
+## T34 — Per-requirement browser evidence, bound to the spec and commit (2026-10-27)
+
+The PR browser job independently runs eight representative pattern variants on both desktop and mobile, checking actual rendered fields, labels, optional elements and visible rows. Each real Playwright attempt emits a PNG and JSON bound to the source SHA, exact generated Pi-spec fingerprint, test case, asserted requirement IDs and browser project. The fail-closed report command \`npm run requirements:browser:report\` verifies all 16 records before writing \`reports/requirements-browser/summary.json\` to the CI artifact.
+
+The report marks only those **specific render assertions** as \`tested-render\`; other requirements retain \`covered-static\` or \`runtime-review-required\`. This is not automatic proof of functional filtering, authentication, CRUD, form submission, screen-reader compatibility, or visual fidelity. A report from another SHA/spec, a failed/retried test, missing screenshot, absent requirement or mismatched browser project is rejected. Synthetic verifier unit tests do not themselves count as browser evidence.
+
+PR evidence is a code-review artifact, not independent production certification. No Pi admission or permissions are changed.

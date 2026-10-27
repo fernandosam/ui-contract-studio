@@ -93,6 +93,8 @@ jobs:
       - uses: ./.github/actions/setup-chromium
       - name: Clear evidence from earlier runs
         run: npm run admission:evidence:reset
+      - name: Prepare fingerprint manifest for actual browser tests
+        run: npm run requirements:browser:prepare
       - name: Verify admission compositions and requirements wizard on desktop/mobile
         run: |
           npx playwright test \
@@ -102,10 +104,13 @@ jobs:
             tests/e2e/requirements-wizard.spec.ts \
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
+            tests/e2e/requirements-coverage-evidence.spec.ts \
             tests/e2e/requirements-intent.spec.ts \
             tests/e2e/declarative-form-pi.spec.ts \
             tests/e2e/declarative-form-certification.spec.ts \
             --project=desktop --project=mobile
+      - name: Verify T34 requirement-to-browser evidence (fail closed)
+        run: npm run requirements:browser:report
       - name: Check all five fingerprint-bound browser evidence reports
         run: npm run admission:evidence:report
       - name: Preserve browser evidence for review
@@ -115,6 +120,7 @@ jobs:
           name: admission-browser-evidence
           path: |
             reports/composition-validation/
+            reports/requirements-browser/
             test-results/
           if-no-files-found: warn
           retention-days: 14
