@@ -89,6 +89,7 @@ export function generatePatternPreview(spec:PatternRequirements):PatternScreen{
    notice:{type:"Text",props:{text:"Exemplo visual; autenticação requer backend autorizado.",variant:"muted"},children:[]}
   };
   if(a.remember===true){elements.remember={type:"Checkbox",props:{label:"Lembrar-me (local)",name:"remember",checked:false},children:[]};children.push("remember");}
+  if(a.showHelp===true){elements.help={type:"Text",props:{text:"Use credenciais de demonstração. Nenhuma autenticação será realizada.",variant:"muted"},children:[]};elements.root.children.push("help");}
   return {root:"root",elements};
  }
  if(spec.flow==="search"){
@@ -101,6 +102,7 @@ export function generatePatternPreview(spec:PatternRequirements):PatternScreen{
  if(spec.flow==="list"){
   const view=copy(listTemplate);
   view.elements[view.root].props.title=a.title;
+  if(a.showSummary===true){view.elements.summary={type:"Text",props:{text:"Dados fictícios apresentados somente para avaliação visual.",variant:"muted"},children:[]};view.elements[view.root].children.push("summary");}
   if(a.compact===true){
    const table=view.elements["users-table"];
    const rows=table.props.rows as unknown[][];
@@ -116,6 +118,11 @@ export function generatePatternPreview(spec:PatternRequirements):PatternScreen{
   }
   if(a.view==="graphs"&&a.density==="2"){
    view.elements.graph_grid.props.columns=2;
+  }
+  if(a.showFootnote===true){
+   view.elements.footnote={type:"Text",props:{text:"Valores fictícios, sem atualização automática.",variant:"muted"},children:[]};
+   if(a.view==="graphs")view.elements[view.root].children.push("footnote");
+   else view.elements["m1-card"].children.push("footnote");
   }
   return removeOrphans(view);
  }
