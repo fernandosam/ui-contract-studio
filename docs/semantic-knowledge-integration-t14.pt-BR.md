@@ -45,3 +45,17 @@ O workflow [`quality.yml`](../.github/workflows/quality.yml) executa em PR: `npm
 O `semantic:report` gera `reports/composition-analysis/semantic-knowledge.json`, um artefato derivado e não versionado nesta entrega. A CI é a fonte da execução do relatório; nenhuma aprovação funcional pode ser inferida do JSON.
 
 **Fronteira negativa de diff:** não alterar `pi-catalog/`, `src/ui-catalog/contracts.lock.json`, `src/ui-catalog/catalog.ts`, `src/ui-catalog/extensions/catalog.ts`, schemas Zod, admissões ou permissões. **Pendências:** testes manuais/E2E de foco, teclado, responsividade e fluxos remotos; revisão de admissões apenas mediante tarefa independente.
+
+## Execução da CI comprovada (2026-10-27)
+
+O [workflow de qualidade #40505542083](https://github.com/fernandosam/ui-contract-studio/actions/runs/40505542083), no commit `0a80a457f57d62c542e5a2b46f869a2285fde596`, concluiu **os quatro jobs com sucesso**:
+
+- `semantic:check` — APROVADO; 23 overlays curados, com verificação literal de evidência.
+- `semantic:report` — APROVADO; relatório consultivo gerado (não é admissão).
+- `docs:check` — APROVADO; links e referências bilíngues conferidos.
+- `test:offline` — APROVADO; **312/312 testes, zero falhas**, inclusive regressões T14 e testes T09–T13.
+- `contracts:diff` — APROVADO; sem expansão não autorizada de contratos.
+- Verificações de código/integração, lint, TypeScript, build, artefatos experimentais e validação Pi — APROVADAS.
+- Navegador focado de admissão (desktop/mobile) — APROVADO; **30 testes Playwright**. [Artefato de evidência](https://github.com/fernandosam/ui-contract-studio/actions/runs/40505542083/artifacts/12735400601). **Não** equivale à suíte E2E completa, de execução manual.
+
+A tentativa anterior, [#40505391970](https://github.com/fernandosam/ui-contract-studio/actions/runs/40505391970), falhou exclusivamente por manter 40 guias na expectativa de `tests/bilingual-docs.test.mjs` antes da inclusão do 41º par. O inventário foi corrigido e o run acima comprova o ajuste. Capacidades `runtime-review-required` continuam aguardando revisão manual/E2E específica.

@@ -20,6 +20,8 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 
 ## Referências especializadas
 
+- [Validação semântica integrada T14 (formulários e candidatos)](semantic-knowledge-integration-t14.pt-BR.md)
+- [Integração semântica anterior T08](semantic-knowledge-integration-t08.pt-BR.md)
 - [Fontes de dados e DataTable](integracao-dados.pt-BR.md)
 - [Biblioteca ReUI](reui-composite-library.pt-BR.md)
 - [Cobertura funcional das 31 famílias ReUI](reui-functional-coverage-31.pt-BR.md) — implementações, limites e certificação pendente

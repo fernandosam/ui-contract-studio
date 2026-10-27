@@ -41,3 +41,17 @@ The existing AlertDialog, T02–T07 Dialog/DropdownMenu/Popover/Select/Accordion
 On the integration PR, [`quality.yml`](../.github/workflows/quality.yml) runs `npm run semantic:check`, `npm run semantic:report`, `npm run docs:check`, `npm run test:offline` and `npm run contracts:diff`, plus source/build integration checks. **Actual command outcomes are recorded by that workflow, not inferred from the connector's static inventory.** The derived `reports/composition-analysis/semantic-knowledge.json` is advisory and is not an admission authority.
 
 No changes to `pi-catalog/`, contract locks, catalogs, Zod schemas, admission engines or Pi permissions are within scope. Browser/manual accessibility, responsive interaction and backend integration remain pending separate runtime reviews.
+
+## Verified CI execution (2026-10-27)
+
+[Quality workflow #40505542083](https://github.com/fernandosam/ui-contract-studio/actions/runs/40505542083) on commit `0a80a457f57d62c542e5a2b46f869a2285fde596` completed with **all four jobs successful**:
+
+- `semantic:check` — PASS; 23 curated profiles validated with first-party code needles.
+- `semantic:report` — PASS; advisory report generated (not admission).
+- `docs:check` — PASS; localized links and references validated.
+- `test:offline` — PASS; **312/312 tests, 0 failures**, including T14 cross-component negatives and T09–T13 source tests.
+- `contracts:diff` — PASS; no unauthorized contract changes.
+- Integration/source verification, lint, TypeScript, production build, experimental artifacts and Pi validation — PASS.
+- Focused admission browser suite (desktop/mobile) — PASS; **30 Playwright tests**. [Browser evidence artifact](https://github.com/fernandosam/ui-contract-studio/actions/runs/40505542083/artifacts/12735400601). This is **not** the full manual E2E suite.
+
+An earlier attempt, [#40505391970](https://github.com/fernandosam/ui-contract-studio/actions/runs/40505391970), failed only because `tests/bilingual-docs.test.mjs` expected 40 bilingual guides before this 41st pair. Its inventory was updated; the run above confirms the correction. Runtime-only semantic claims remain pending dedicated manual/E2E reviews.
