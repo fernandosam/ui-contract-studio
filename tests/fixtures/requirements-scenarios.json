@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "scenarios": [
+    {
+      "id": "simple",
+      "intent": "Criar tela de cadastro simples",
+      "answers": {
+        "persistence": "local-demo"
+      },
+      "blocked": false
+    },
+    {
+      "id": "contact",
+      "intent": "Cadastro com telefone",
+      "answers": {
+        "persistence": "local-demo",
+        "fields": [
+          "name",
+          "email",
+          "phone"
+        ]
+      },
+      "blocked": false
+    },
+    {
+      "id": "corporate",
+      "intent": "Cadastro corporativo",
+      "answers": {
+        "persistence": "local-demo",
+        "fields": [
+          "name",
+          "email",
+          "company",
+          "city"
+        ],
+        "layout": "two-columns"
+      },
+      "blocked": false
+    },
+    {
+      "id": "confirmation",
+      "intent": "Cadastro com confirmação",
+      "answers": {
+        "persistence": "local-demo",
+        "confirmation": true
+      },
+      "blocked": false
+    },
+    {
+      "id": "custom-confirmation",
+      "intent": "Cadastro confirmação personalizada",
+      "answers": {
+        "persistence": "local-demo",
+        "confirmation": true,
+        "confirmationMessage": "Confirmar inclusão do novo usuário?"
+      },
+      "blocked": false
+    },
+    {
+      "id": "no-validation",
+      "intent": "Cadastro apresentação",
+      "answers": {
+        "persistence": "local-demo",
+        "validation": "none"
+      },
+      "blocked": false
+    },
+    {
+      "id": "extra-fields",
+      "intent": "Cadastro com outros campos",
+      "answers": {
+        "persistence": "local-demo",
+        "extraFields": "Cargo\nDepartamento"
+      },
+      "blocked": false
+    },
+    {
+      "id": "full-fields",
+      "intent": "Cadastro com múltiplos campos",
+      "answers": {
+        "persistence": "local-demo",
+        "fields": [
+          "name",
+          "email",
+          "password",
+          "phone",
+          "company",
+          "city",
+          "document"
+        ],
+        "layout": "two-columns"
+      },
+      "blocked": false
+    },
+    {
+      "id": "missing-persistence",
+      "intent": "Cadastro sem decisão de persistência",
+      "answers": {},
+      "blocked": true
+    },
+    {
+      "id": "remote-persistence",
+      "intent": "Cadastro com salvamento remoto",
+      "answers": {
+        "persistence": "backend"
+      },
+      "blocked": true
+    },
+    {
+      "id": "business-validation",
+      "intent": "Cadastro com validação complexa",
+      "answers": {
+        "persistence": "local-demo",
+        "validation": "business"
+      },
+      "blocked": true
+    },
+    {
+      "id": "empty-fields",
+      "intent": "Cadastro sem campos",
+      "answers": {
+        "persistence": "local-demo",
+        "fields": []
+      },
+      "blocked": true
+    }
+  ]
+}
