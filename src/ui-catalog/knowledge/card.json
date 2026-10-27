@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 1,
+  "component": "Card",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/card",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Card?",
+      "Why Use Shadcn Card?",
+      "Shadcn Card Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Agrupar informações relacionadas em uma unidade visual escaneável, com título, descrição, conteúdo e rodapé opcionais.",
+  "rationale": [
+    "Facilitar leitura e comparação de conteúdo heterogêneo em dashboards e listas de cartões.",
+    "Conter metadados e explicações em estrutura reconhecível, evitando divisões visuais arbitrárias.",
+    "Evitar prometer links, seleção, persistência e ações de cartão quando o contrato Pi contém apenas estrutura/texto."
+  ],
+  "whenUse": [
+    "Apresentar agrupamento de KPI, resumo, status, ajuda ou formulário com conteúdo filho aprovado.",
+    "Mostrar cabeçalho/descrição/rodapé textual com hierarquia e espaçamento consistentes.",
+    "Organizar poucas unidades de conteúdo ricas cujo layout não requer comparação tabular rigorosa."
+  ],
+  "whenNotUse": [
+    "Exibir grande volume de linhas/colunas para comparação: preferir Table ou DataTable.",
+    "Mostrar itens de texto simples em alta densidade: preferir List ou Item conforme contrato aprovado.",
+    "Transformar todo cartão em link, trigger ou botão sem affordance de foco/teclado e contrato de navegação.",
+    "Presumir suporte automático a imagem externa, menu de overflow, métricas atualizadas via API ou ação de rodapé."
+  ],
+  "agentNotes": [
+    "Contrato Pi Card admite title?, description?, footer? (texto até 280), size default|sm, maxWidth sm|md|lg|full, centered e slot default. Não expõe href, onClick, selected, image, CardAction, footerActions ou eventos.",
+    "O adaptador usa CardHeader condicional para título/descrição, CardContent sempre para children e CardFooter apenas para texto; nenhum slot named para ação.",
+    "O componente React instalado tem CardAction e permite elementos arbitrários React, mas o Pi serializado NÃO herda esta API.",
+    "maxWidth e centered são classes do adaptador pg-card--* e mx-auto; a aparência deve ser validada no CSS e nos viewports, não deduzida da documentação externa.",
+    "A primitiva React recebe size='default'|'sm' e define espaçamento com data-size; isso não equivale a variantes de layout do conteúdo em tabelas/grids.",
+    "Card não possui semântica de link/botão no primitive (é div); conteúdo clicável deve usar Link/Button explícito com foco visível e área de clique delimitada.",
+    "Para cartões com foto, AspectRatio/Imagem, ações de menus ou hover, solicitar composição aprovada e verificar políticas de URL e acessibilidade.",
+    "ReUI mostra padrões de cards interativos, mas o overlay não altera contratos.lock, catálogos Zod ou permissões Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "header-description-and-body-slot",
+      "description": "Renderiza título/descrição opcionais no cabeçalho e elementos aprovados no slot default.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Card: { props: obj({title:optionalText,description:optionalText"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "slots:[\"default\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "(props.title||props.description) && <CardHeader>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<CardContent className=\"flex flex-col gap-4\">{children}</CardContent>"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar somente título, somente descrição e múltiplos filhos de tipos Pi autorizados."
+      ]
+    },
+    {
+      "id": "plain-text-footer",
+      "description": "Exibe rodapé como texto opcional, sem CTA embutido.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "footer:z.string().max(280).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.footer&&<CardFooter className=\"text-sm text-muted-foreground\">{props.footer}</CardFooter>}"
+        }
+      ],
+      "testRequirements": [
+        "Testar rodapé omitido, texto curto e limite 280; recusar ação como propriedade livre."
+      ]
+    },
+    {
+      "id": "size-default-and-small",
+      "description": "Controla densidade visual padrão/pequena por size e variáveis de espaçamento.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "size:z.enum([\"default\",\"sm\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnCard size={props.size??\"default\"}"
+        },
+        {
+          "path": "src/components/ui/card.tsx",
+          "contains": "data-size={size}"
+        },
+        {
+          "path": "src/components/ui/card.tsx",
+          "contains": "data-[size=sm]:[--card-spacing:--spacing(4)]"
+        }
+      ],
+      "testRequirements": [
+        "Comparar default versus sm com longos títulos e conteúdo, verificando que não há overflow."
+      ]
+    },
+    {
+      "id": "max-width-and-centering",
+      "description": "Aplica classe de largura aprovada e centralização opcional ao wrapper visual.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "maxWidth:z.enum([\"sm\",\"md\",\"lg\",\"full\"])"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "centered:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "className={`pg-card--${props.maxWidth??\"full\"} ${props.centered?\"mx-auto\":\"\"}`}"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar as quatro larguras e centered no mobile/desktop; confirmar CSS efetivo."
+      ]
+    },
+    {
+      "id": "react-card-action-part",
+      "description": "A primitiva local possui subparte CardAction em React, sem admissão como propriedade do Card Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/card.tsx",
+          "contains": "function CardAction({ className, ...props }"
+        },
+        {
+          "path": "src/components/ui/card.tsx",
+          "contains": "data-slot=\"card-action\""
+        }
+      ],
+      "testRequirements": [
+        "Confirmar export React e ausência da propriedade de ação no schema Card Pi."
+      ]
+    },
+    {
+      "id": "interactive-card-pi",
+      "description": "Permitir clique no cartão inteiro, navegação, seleção e eventos Pi com teclado.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Antes de admitir, definir semântica de elemento interativo, foco, cliques aninhados e URL permitida."
+      ]
+    },
+    {
+      "id": "rich-media-and-footer-actions-pi",
+      "description": "Aceitar imagem, badges sobrepostos, botões/menus no footer ou no cabeçalho como API dedicada.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor composição revisável com mídia segura, alt e ações tipadas; não derivar de exemplos ReUI."
+      ]
+    },
+    {
+      "id": "live-data-and-loading",
+      "description": "Vincular automaticamente KPI a backend, loading/erro/vazio e atualização do cartão.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Especificar data source autorizado, limites e estados antes de adicionar um contrato próprio."
+      ]
+    },
+    {
+      "id": "responsive-density-and-overflow",
+      "description": "Revisar layout de cartões e grids com conteúdo variável em breakpoints e zoom.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Validar mobile 320px, cards em grid, texto longo e footer com zoom 200%."
+      ]
+    },
+    {
+      "id": "accessible-card-composition",
+      "description": "Avaliar semântica, cabeçalhos, ordem de leitura e controles filhos com teclado/leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar ordem DOM, títulos, botões aninhados e ausência de falso cursor-pointer."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Badge",
+      "relationship": "optional-status-metadata",
+      "reason": "Destacar categoria/estado visual em composição aprovada."
+    },
+    {
+      "component": "Button",
+      "relationship": "optional-footer-action",
+      "reason": "Ação explícita como filho aprovado, sem tornar Card clicável."
+    },
+    {
+      "component": "Alert",
+      "relationship": "inline-status",
+      "reason": "Anexar aviso persistente ao contexto do cartão."
+    },
+    {
+      "component": "Progress",
+      "relationship": "progress-summary",
+      "reason": "Mostrar execução determinística próxima aos dados da tarefa."
+    },
+    {
+      "component": "Table",
+      "relationship": "structured-data-alternative",
+      "reason": "Preferir tabela quando a comparação matricial é essencial."
+    },
+    {
+      "component": "DropdownMenu",
+      "relationship": "overflow-actions-candidate",
+      "reason": "Menus de ação contextual exigem composição e handlers autorizados."
+    },
+    {
+      "component": "Dialog",
+      "relationship": "detail-task-candidate",
+      "reason": "Permitir abrir tarefas detalhadas a partir de botão explícito aprovado."
+    },
+    {
+      "component": "Skeleton",
+      "relationship": "loading-placeholder-candidate",
+      "reason": "Representar carregamento por composição, não fingir dados prontos."
+    },
+    {
+      "component": "AspectRatio",
+      "relationship": "image-layout-candidate",
+      "reason": "Restringir apresentação de mídia com proporção/alt e proveniência verificadas."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Card, lista ou tabela?",
+      "guidance": "Card para item rico e heterogêneo; lista para item simples e tabela/DataTable para comparação estruturada."
+    },
+    {
+      "question": "É possível clicar em qualquer área do cartão?",
+      "guidance": "O Card Pi atual é contêiner div sem press/click/href. Inserir controles explícitos e só considerar cartão inteiro clicável após contrato acessível."
+    },
+    {
+      "question": "CardFooter aceita botões?",
+      "guidance": "No Pi somente footer textual. Em React há CardFooter/CardAction mas não foram admitidos como propriedades Pi."
+    },
+    {
+      "question": "Posso incluir imagem remota?",
+      "guidance": "Não por prop no contrato Card. Mídia requer componente/composição autorizada, alt e URL permitida."
+    },
+    {
+      "question": "O size altera o conteúdo ou só o espaçamento?",
+      "guidance": "A primitiva aplica data-size e espaçamento/typografia específicos. Não cria grid, breakpoint ou ações novas."
+    },
+    {
+      "question": "maxWidth garante layout responsivo?",
+      "guidance": "É classe do adaptador. Testar CSS, overflow e zoom; não extrapolar para qualquer composição."
+    },
+    {
+      "question": "Card recupera dados automaticamente?",
+      "guidance": "Não. Dados externos, loading e atualização exigem sourceId/fluxo aprovado em camada separada."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "header-body-slot",
+      "kind": "integration",
+      "description": "Renderizar título/descrição em combinações e filhos aprovados no slot default.",
+      "capabilities": [
+        "header-description-and-body-slot"
+      ]
+    },
+    {
+      "id": "text-only-footer-boundary",
+      "kind": "integration",
+      "description": "Testar rodapé de texto e recusar props href, footerActions, selected e image.",
+      "capabilities": [
+        "plain-text-footer",
+        "rich-media-and-footer-actions-pi"
+      ]
+    },
+    {
+      "id": "size-width-matrix",
+      "kind": "visual",
+      "description": "Comparar size default/sm e maxWidth sm/md/lg/full com centered em 320px, 768px e desktop.",
+      "capabilities": [
+        "size-default-and-small",
+        "max-width-and-centering",
+        "responsive-density-and-overflow"
+      ]
+    },
+    {
+      "id": "react-only-card-action",
+      "kind": "integration",
+      "description": "Conferir CardAction export React e rejeição como propriedade Card Pi.",
+      "capabilities": [
+        "react-card-action-part"
+      ]
+    },
+    {
+      "id": "card-a11y",
+      "kind": "manual-a11y",
+      "description": "Verificar cabeçalho, tabulação de controles filhos e ausência de elemento interativo não semântico.",
+      "capabilities": [
+        "accessible-card-composition"
+      ]
+    },
+    {
+      "id": "clickable-card-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se houver admissão, testar navegação e clique versus controles aninhados, foco/Enter/Space.",
+      "capabilities": [
+        "interactive-card-pi"
+      ]
+    },
+    {
+      "id": "media-and-actions-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após aprovação, testar imagens/alt, menu de overflow, footer actions e proteção de links.",
+      "capabilities": [
+        "rich-media-and-footer-actions-pi"
+      ]
+    },
+    {
+      "id": "async-card-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Quando houver fonte autorizada, testar carregando, vazio, falha, sucesso e atualização segura.",
+      "capabilities": [
+        "live-data-and-loading"
+      ]
+    }
+  ]
+}
