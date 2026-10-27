@@ -20,6 +20,8 @@ This page separates **current guides** from **historical audit records**. For cu
 
 ## Specialized references
 
+- [T14 integrated semantic validation (forms and candidates)](semantic-knowledge-integration-t14.md)
+- [T08 prior semantic integration](semantic-knowledge-integration-t08.md)
 - [Data sources and DataTable](integracao-dados.md)
 - [ReUI library](reui-composite-library.md)
 - [Functional coverage of 31 ReUI families](reui-functional-coverage-31.md) — implementations, limits, and pending certification
