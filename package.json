@@ -104,8 +104,9 @@
     "admission:evidence:report": "node scripts/admission-evidence.mjs --report",
     "shadcn:official:inventory:check": "node scripts/check-official-visual-inventory.mjs",
     "requirements:preview": "tsx scripts/preview-requirements.ts",
-    "requirements:test": "tsx --test tests/ui-requirements.integration.test.ts",
-    "requirements:audit": "tsx scripts/audit-requirements-scenarios.ts"
+    "requirements:test": "tsx --test tests/ui-requirements.integration.test.ts tests/requirements-traceability.integration.test.ts",
+    "requirements:audit": "tsx scripts/audit-requirements-scenarios.ts",
+    "requirements:patterns:audit": "tsx scripts/audit-pattern-requirements.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

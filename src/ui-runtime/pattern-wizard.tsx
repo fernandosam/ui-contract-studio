@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {SpecScreen} from "./spec-screen";
-import {getPatternFlow,supportedPatterns,resolvePattern,generatePatternPreview} from "../ui-requirements/patterns";
+import {tracePattern} from "../ui-requirements/traceability";
+import {getPatternFlow,activePatternQuestions,supportedPatterns,resolvePattern,generatePatternPreview} from "../ui-requirements/patterns";
 import type {Answers,Answer} from "../ui-requirements/schema";
 
 /** Secondary safe authoring tool; pattern catalogs remain approved JSON trees. */
@@ -12,6 +13,7 @@ export function PatternWizard(){
  if(!flow)return <p role="alert">Padrão não encontrado.</p>;
  const requirements=resolvePattern(pattern,provided);
  const preview=show&&!requirements.missing.length?generatePatternPreview(requirements):null;
+ const trace=preview?tracePattern(requirements,preview):null;
  const answer=(id:string,value:Answer)=>{setProvided(p=>({...p,[id]:value}));setShow(false);};
  return <section data-testid="pattern-wizard" className="space-y-4">
   <label className="block space-y-2 text-sm font-medium">Tipo de tela
@@ -23,7 +25,7 @@ export function PatternWizard(){
   </label>
   <div className="rounded-lg border bg-card p-4 space-y-3">
    <h2 className="font-semibold">Decisões para {flow.title}</h2>
-   {flow.questions.map(q=><label className="block space-y-1 text-sm" key={q.id}>
+   {activePatternQuestions(pattern,requirements.answers).map(q=><label className="block space-y-1 text-sm" key={q.id}>
     <span className="block font-medium">{q.label}</span>
     {q.type==="boolean"?
       <input aria-label={q.label} type="checkbox" checked={(requirements.answers[q.id]??false)===true}
@@ -44,6 +46,14 @@ export function PatternWizard(){
   </div>
   {preview&&<div data-testid="pattern-preview" className="rounded-lg border bg-card p-4 space-y-3">
     <h3 className="font-semibold">Prévia JSON com contratos admitidos</h3><SpecScreen spec={preview}/>
+    {trace&&<details data-testid="pattern-traceability" className="rounded-md border p-3 text-sm">
+      <summary className="cursor-pointer font-medium">Requisitos e verificações estáticas</summary>
+      <p className="mt-2 text-muted-foreground">Estrutura: {trace.structurallyValid?"válida":"inconsistente"}. Interações ainda dependem de testes independentes.</p>
+      <ul className="mt-2 list-disc space-y-2 pl-5">{trace.requirements.map(item=><li key={item.id}>
+        <strong>{item.id}</strong>: {item.status} — {item.explanation}
+        <span className="block text-muted-foreground">Origem: {item.origin}; nós: {item.nodeIds.join(", ")||"nenhum"}</span>
+      </li>)}</ul>
+    </details>}
    </div>}
  </section>;
 }

@@ -145,7 +145,11 @@
               "value": "4",
               "label": "Quatro"
             }
-          ]
+          ],
+          "visibleWhen": {
+            "question": "view",
+            "equals": "kpis"
+          }
         }
       ]
     }

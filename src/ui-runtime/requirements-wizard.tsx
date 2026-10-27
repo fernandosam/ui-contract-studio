@@ -4,6 +4,7 @@ import {RegistrationFlowDemo} from "../ui-catalog/extensions/composites/registra
 import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow} from "../ui-requirements/engine";
 import {planInterface} from "../ui-requirements/planner";
 import {generateRegistrationScreen} from "../ui-requirements/generator";
+import {traceRegistration} from "../ui-requirements/traceability";
 import type {Answers,Answer,Question} from "../ui-requirements/schema";
 
 function QuestionControl({question,value,onChange}:{question:Question;value:Answer|undefined;onChange:(next:Answer)=>void}){
@@ -39,6 +40,7 @@ export function RequirementsWizard(){
   const recognized=inferFlow(intent)==="registration";
   const blocked=!recognized||plan.blockers.length>0;
   const preview=showPreview&&!blocked?generateRegistrationScreen(requirements):null;
+  const trace=preview?traceRegistration(requirements,preview):null;
   const update=(id:string,value:Answer)=>{setProvided(previous=>({...previous,[id]:value}));setShowPreview(false);};
   const copy=(kind:"requirements"|"screen")=>{
     const value=kind==="requirements"?requirements:preview;
@@ -83,6 +85,14 @@ export function RequirementsWizard(){
       <h2 className="text-lg font-semibold">Prévia do catálogo aprovado</h2>
       <p className="text-sm text-muted-foreground">Demonstração sem persistência. Validação funcional e acessibilidade ainda exigem execução de testes.</p>
       <SpecScreen spec={preview}/>
+      {trace&&<details data-testid="requirements-traceability" className="rounded-md border p-3 text-sm">
+        <summary className="cursor-pointer font-medium">Rastreabilidade dos requisitos (somente verificação estática)</summary>
+        <p className="mt-2 text-muted-foreground">Estado da spec: {trace.structurallyValid?"estrutura válida":"estrutura inconsistente"}. Testes de execução: não comprovados por este relatório.</p>
+        <ul className="mt-2 list-disc space-y-2 pl-5">{trace.requirements.map(item=><li key={item.id}>
+          <strong>{item.id}</strong>: {item.status} — {item.explanation}
+          <span className="block text-muted-foreground">Origem: {item.origin}; nós: {item.nodeIds.join(", ")||"nenhum"}</span>
+        </li>)}</ul>
+      </details>}
       <RegistrationFlowDemo key={JSON.stringify(requirements.answers)} requirements={requirements}/>
     </div>}
   </section>;

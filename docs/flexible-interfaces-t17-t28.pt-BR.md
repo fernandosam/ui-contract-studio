@@ -44,3 +44,19 @@ npm run contracts:check
 npm run validate
 npm run build
 ```
+
+## Continuação — T34: rastreabilidade de requisitos (2026-10-27)
+
+`src/ui-requirements/traceability.ts` verifica de forma independente correspondências entre respostas, campos/seleção de componentes e árvores JSON de cadastro, login demonstrativo, busca, listagem e dashboard. Cada requisito possui ID, origem (`explicit`/`default`/`derived`), IDs dos nós relacionados, estado e evidências exclusivamente estáticas.
+
+Estados: `covered-static` significa que propriedades e composição verificadas estão presentes; `runtime-review-required` registra comportamento ainda não comprovado pelo relatório; `blocked` marca inconsistência ou capacidade indisponível. O relatório nunca indica testes de navegador como executados sem evidência separada.
+
+O dashboard pergunta por densidade de indicadores apenas para KPIs, não para a visualização de gráficos. O gerador não amplia contratos nem ações Pi. O assistente exibe o relatório em seção expansível após gerar a prévia.
+
+```bash
+npm run requirements:test
+npm run requirements:audit
+npm run requirements:patterns:audit
+```
+
+A CLI produz somente informações estáticas e permanece independente dos relatórios Playwright, que devem ser consultados com execução e commit correspondentes. A implementação não conclui autenticação, persistência, validação de negócio ou certificação acessível completa.

@@ -17,6 +17,11 @@ export function inferPattern(text:string){
  return matches.length===1?matches[0].id:null;
 }
 export function getPatternFlow(id:string){return flows.find(flow=>flow.id===id)??null;}
+export function activePatternQuestions(id:string,answers:Answers){
+ const flow=getPatternFlow(id);
+ if(!flow)return [];
+ return flow.questions.filter(q=>!q.visibleWhen||answers[q.visibleWhen.question]===q.visibleWhen.equals);
+}
 export function resolvePattern(id:string,provided:Answers={},intent=""):PatternRequirements{
  const flow=getPatternFlow(id);
  if(!flow)throw Error("Padrão não cadastrado");
@@ -29,7 +34,9 @@ export function resolvePattern(id:string,provided:Answers={},intent=""):PatternR
   if(Object.hasOwn(provided,q.id)){answers[q.id]=provided[q.id];provenance[q.id]="explicit";}
   else if(q.default!==undefined){answers[q.id]=q.default;provenance[q.id]="default";}
  }
- const missing=flow.questions.filter(q=>q.required&&(answers[q.id]===undefined||
+ const visible=new Set(activePatternQuestions(id,answers).map(q=>q.id));
+ for(const key of Object.keys(answers))if(!visible.has(key)){delete answers[key];delete provenance[key];}
+ const missing=flow.questions.filter(q=>visible.has(q.id)&&q.required&&(answers[q.id]===undefined||
   (typeof answers[q.id]==="string"&&!String(answers[q.id]).trim()))).map(q=>q.id);
  if(typeof answers.title==="string"&&answers.title.length>120)throw Error("Título muito longo");
  return {flow:id,intent:intent.slice(0,500),answers,provenance,missing};

@@ -3,6 +3,7 @@ import {resolveAnswers} from "../src/ui-requirements/engine";
 import {planInterface} from "../src/ui-requirements/planner";
 import {generateRegistrationScreen} from "../src/ui-requirements/generator";
 import {verifyInterface} from "../src/ui-requirements/verify";
+import {traceRegistration} from "../src/ui-requirements/traceability";
 type Scenario={id:string;intent:string;answers:Record<string,string|boolean|string[]>;blocked:boolean};
 const scenarios=(JSON.parse(readFileSync("tests/fixtures/requirements-scenarios.json","utf8")) as {scenarios:Scenario[]}).scenarios;
 let generated=0,blocked=0,mismatches=0;const details=[];
@@ -11,9 +12,10 @@ for(const scenario of scenarios){
  const isBlocked=plan.blockers.length>0;
  if(isBlocked)blocked++;else generated++;
  const conformity=isBlocked?null:verifyInterface(requirements,generateRegistrationScreen(requirements));
- const correct=isBlocked===scenario.blocked && (isBlocked || conformity?.valid===true);
+ const trace=isBlocked?null:traceRegistration(requirements,generateRegistrationScreen(requirements));
+ const correct=isBlocked===scenario.blocked && (isBlocked || (conformity?.valid===true&&trace?.structurallyValid===true));
  if(!correct)mismatches++;
- details.push({id:scenario.id,result:isBlocked?"blocked":"statically-valid",expected:scenario.blocked?"blocked":"statically-valid",correct,blockers:plan.blockers,coverage:plan.coverage});
+ details.push({id:scenario.id,result:isBlocked?"blocked":"statically-valid",expected:scenario.blocked?"blocked":"statically-valid",correct,blockers:plan.blockers,coverage:plan.coverage,requirements:trace?.requirements??[],runtimeTests:"not-executed"});
 }
-console.log(JSON.stringify({schemaVersion:1,total:scenarios.length,generated,blocked,mismatches,scope:"static only; no E2E or visual certification",details},null,2));
+console.log(JSON.stringify({schemaVersion:1,total:scenarios.length,generated,blocked,mismatches,scope:"static only; no E2E or visual certification",evidencePolicy:"no runtime pass inferred from static validation",details},null,2));
 if(mismatches)process.exitCode=1;
