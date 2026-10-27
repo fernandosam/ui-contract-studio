@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {SpecScreen} from "./spec-screen";
 import {tracePattern} from "../ui-requirements/traceability";
-import {getPatternFlow,supportedPatterns,resolvePattern,generatePatternPreview} from "../ui-requirements/patterns";
+import {getPatternFlow,activePatternQuestions,supportedPatterns,resolvePattern,generatePatternPreview} from "../ui-requirements/patterns";
 import type {Answers,Answer} from "../ui-requirements/schema";
 
 /** Secondary safe authoring tool; pattern catalogs remain approved JSON trees. */
@@ -25,7 +25,7 @@ export function PatternWizard(){
   </label>
   <div className="rounded-lg border bg-card p-4 space-y-3">
    <h2 className="font-semibold">Decisões para {flow.title}</h2>
-   {flow.questions.map(q=><label className="block space-y-1 text-sm" key={q.id}>
+   {activePatternQuestions(pattern,requirements.answers).map(q=><label className="block space-y-1 text-sm" key={q.id}>
     <span className="block font-medium">{q.label}</span>
     {q.type==="boolean"?
       <input aria-label={q.label} type="checkbox" checked={(requirements.answers[q.id]??false)===true}
