@@ -13,6 +13,7 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 | [Componentes e contratos](components.pt-BR.md) | shadcn/ui, ReUI, composições e admissão |
 | [Admission Engine](admission-engine.pt-BR.md) | Publicação experimental e distribuição pós-E2E |
 | [Estratégia de composições](composition-strategy.pt-BR.md) | Dependências, classificação semântica e novos exemplos ReUI |
+| [Checklist semântico de componentes](semantic-knowledge-checklist.pt-BR.md) | Revisão de conhecimento por componente, evidências, lacunas e validação |
 | [Agentes e Pi](agents.pt-BR.md) | Geração segura e validação de specs |
 | [Desenvolvimento](development.pt-BR.md) | Ambiente, testes, CI e E2E |
 | [Governança](governance.pt-BR.md) | Revisão e auditoria contínua do repositório público |
