@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 1,
+  "component": "Checkbox",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/checkbox",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "Shadcn Checkbox: Accessible Form Selection Controls",
+      "What is Shadcn Checkbox?",
+      "Why Use Shadcn Checkbox?",
+      "Shadcn Checkbox Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Capturar uma afirmação booleana explícita (aceite ou seleção independente) e permitir múltiplas escolhas pela composição de caixas individuais, sem presumir validação, auditoria ou persistência.",
+  "rationale": [
+    "Escolhas independentes permanecem visíveis e não são confundidas com seleção exclusiva do RadioGroup.",
+    "Rótulo, ajuda e estado inválido facilitam entendimento e revisão de consentimentos; sem substituir registro jurídico de aceite.",
+    "Manter mudança local separada de ação de negócio, submissão, autorização e gravação remota."
+  ],
+  "whenUse": [
+    "Consentimento, aceite de termos, inscrição opcional e seleção de itens independentes com significado descritivo.",
+    "Filtros com escolhas combináveis e listas com múltiplas opções; modelar cada Checkbox separadamente ou usar grupo composto revisado.",
+    "Campos de formulário em que required, label, name, description e invalid sejam controlados externamente."
+  ],
+  "whenNotUse": [
+    "Escolha de exatamente uma opção de um conjunto: preferir Radio (visual React RadioGroup), ou Select para lista maior.",
+    "Ativação/desativação imediatamente percebida de uma preferência: preferir Switch, caso a semântica seja on/off.",
+    "Estado misto de seleção em árvore/tabela: a primitiva Base UI suporta indeterminate em React, mas o contrato Checkbox Pi NÃO expõe esse estado.",
+    "Consentimento legal que exige prova, timestamp ou envio remoto: usar serviço e trilha de auditoria explicitamente autorizados.",
+    "Cards selecionáveis, toggle de massa ou formulário completo: composição separada, não presumir suporte no Checkbox básico."
+  ],
+  "agentNotes": [
+    "O contrato Pi expõe checked boolean|null e defaultChecked boolean. O adaptador inicializa false como fallback e envia onCheckedChange como boolean, sem modelar indeterminate.",
+    "O ReUI distingue variantes: Base UI oferece indeterminate como prop separada; Radix pode usar checked='indeterminate'. Não enviar nenhum desses formatos no JSON Pi atual.",
+    "O wrapper instalado usa @base-ui/react/checkbox, com CheckIcon no Indicator; o ícone de estado misto não está configurado como sinal visual distinto.",
+    "Os valores name, checked, disabled, required, invalid e aria-describedby são repassados pelo adaptador, com ShadcnLabel htmlFor={id}. Nome de campo não prova FormData nem aceite salvo.",
+    "onCheckedChange atualiza estado local e emite somente change, sem fornecer o novo valor no payload do evento e sem submissão automática.",
+    "O adaptador não gera FieldError, não possui checks e não calcula required inválido. A prop invalid só marca aria-invalid, sem mensagem contextual.",
+    "Checkboxes múltiplos exigem nomes/valores coerentes, gestão de seleção e revisão em FormData; o contrato atual não define CheckboxGroup nem ação em lote.",
+    "Para aceite obrigatório, testar a regra em formulário real, reset, teclado e validação do backend. Uma caixa marcada no cliente não autoriza processamento sensível.",
+    "Acessibilidade de Space, foco, disabled, required e anúncio de ajuda precisa de teste em execução; não certificá-la apenas pela base Base UI.",
+    "O enriquecimento é orientação: não estende schemas Zod, permissões Pi, certificação E2E ou chamadas remotas."
+  ],
+  "capabilities": [
+    {
+      "id": "controlled-boolean-initialization",
+      "description": "O contrato aceita checked/defaultChecked e a prévia usa estado local inicializado por prop ou binding checked.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "checked:z.boolean().nullable().optional(),defaultChecked:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.checked??props.defaultChecked??false,bindings?.checked)"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar checked true/false/null, defaultChecked e binding; verificar ausência de estado misto no Pi."
+      ]
+    },
+    {
+      "id": "local-checked-change",
+      "description": "Clique ou interação na primitiva atualiza boolean local e notifica change, sem payload de valor nem backend.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,\"change\");}}"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"change\"],description:\"Checkbox ReUI:"
+        }
+      ],
+      "testRequirements": [
+        "Alternar duas vezes e verificar callback local, sem persistência ou ação externa."
+      ]
+    },
+    {
+      "id": "name-required-disabled-forwarding",
+      "description": "Encaminha name, required e disabled para o controle Base UI; não comprova submissão nem regra do formulário.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "name={props.name} checked={checked} disabled={props.disabled} required={props.required}"
+        }
+      ],
+      "testRequirements": [
+        "Submeter formulário real e conferir name, required e disabled, separando atributos da validação."
+      ]
+    },
+    {
+      "id": "label-description-association",
+      "description": "Cria id único, Label vinculado e aria-describedby para descrição textual.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-describedby={props.description?`${id}-help`:undefined}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar clique no texto, id, ajuda anunciada e colisão entre controles."
+      ]
+    },
+    {
+      "id": "invalid-aria-visual",
+      "description": "Encaminha invalid para aria-invalid, e wrapper estiliza o estado; erro não é gerado.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-invalid={props.invalid||undefined}"
+        },
+        {
+          "path": "src/components/ui/checkbox.tsx",
+          "contains": "aria-invalid:border-destructive"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar estado inválido e verificar que nenhum FieldError aparece automaticamente."
+      ]
+    },
+    {
+      "id": "baseui-indicator-check",
+      "description": "A primitiva React possui Indicator e CheckIcon para estado marcado; isso não concede tri-state no Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/checkbox.tsx",
+          "contains": "import { Checkbox as CheckboxPrimitive } from \"@base-ui/react/checkbox\""
+        },
+        {
+          "path": "src/components/ui/checkbox.tsx",
+          "contains": "<CheckboxPrimitive.Indicator"
+        },
+        {
+          "path": "src/components/ui/checkbox.tsx",
+          "contains": "<CheckIcon"
+        }
+      ],
+      "testRequirements": [
+        "Testar ícone e contraste de checkbox marcado versus não marcado."
+      ]
+    },
+    {
+      "id": "indeterminate-tristate-pi",
+      "description": "Estado indeterminate e símbolo de menos de seleção parcial não são representados pelo contrato Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta separada: modelar indeterminate e ícone misto, definir transições e atualizar contrato antes de testes de runtime."
+      ]
+    },
+    {
+      "id": "grouped-multiselect-pi",
+      "description": "CheckboxGroup serializável, seleção coletiva e valores de opções em array não são contratos do Checkbox individual.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta: grupo composto tipado com seleção, disabled parcial, reset e cálculo de estado misto."
+      ]
+    },
+    {
+      "id": "consent-audit-and-save",
+      "description": "Registrar aceite auditável e enviá-lo ao servidor de maneira transacional com autorização.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta: serviço de consentimento aprovado, trilha de auditoria, idempotência e testes backend."
+      ]
+    },
+    {
+      "id": "formdata-native-and-required",
+      "description": "Confirmar como Base UI serializa checked/name, required, unchecked e disabled em FormData e constraint validation.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "E2E: form real com valor marcado/desmarcado, name, required, disabled e reset; inspecionar FormData."
+      ]
+    },
+    {
+      "id": "keyboard-focus-screenreader",
+      "description": "Confirmar interação por Space/Tab, foco visível, anúncio checked/unchecked, required, descrição e invalid.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Teste com teclado e leitor de tela em navegadores desktop e mobile."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Field",
+      "relationship": "validation-wrapper-candidate",
+      "reason": "Erros, grupo de ajuda e requisitos podem ser apresentados por Field após composição revisada."
+    },
+    {
+      "component": "Label",
+      "relationship": "associated-field-name",
+      "reason": "A associação htmlFor/id já existe no adaptador."
+    },
+    {
+      "component": "Form",
+      "relationship": "native-form-candidate",
+      "reason": "Submit e validação de aceite dependem de formulário e serviço autorizado."
+    },
+    {
+      "component": "RadioGroup",
+      "relationship": "single-choice-alternative",
+      "reason": "Para alternativas mutuamente exclusivas, usar primitiva React RadioGroup; Pi chama Radio."
+    },
+    {
+      "component": "Switch",
+      "relationship": "immediate-setting-alternative",
+      "reason": "Switch expressa ligar/desligar; Checkbox representa aceite e escolha independente."
+    },
+    {
+      "component": "Button",
+      "relationship": "explicit-submit-candidate",
+      "reason": "Confirma envio de formulário, mas não autoriza automaticamente gravação."
+    },
+    {
+      "component": "Alert",
+      "relationship": "validation-status-candidate",
+      "reason": "Erros de aceite e resultados não devem ficar escondidos na cor da borda."
+    },
+    {
+      "component": "Card",
+      "relationship": "selectable-tile-candidate",
+      "reason": "Cards clicáveis com Checkbox exigem prevenção de dupla ativação e composição tipada."
+    },
+    {
+      "component": "Input",
+      "relationship": "adjacent-data-field",
+      "reason": "Formulários de aceite podem requerer dado textual complementar, em contrato próprio."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Checkbox ou RadioGroup para escolher um plano?",
+      "guidance": "Radio (com React RadioGroup) se apenas um plano for válido; Checkbox para itens selecionáveis independentemente."
+    },
+    {
+      "question": "Checkbox ou Switch para uma configuração?",
+      "guidance": "Checkbox para consentimento ou seleção que será confirmada; Switch para estado ligado/desligado, com semântica de efeito imediato apenas se a integração existir."
+    },
+    {
+      "question": "O Pi aceita indeterminate?",
+      "guidance": "Não. checked é boolean|null e o adaptador converte o estado em boolean; a primitiva Base UI separa indeterminate. Não inventar propriedade."
+    },
+    {
+      "question": "Posso colocar vários Checkbox no mesmo campo e receber array?",
+      "guidance": "Não automaticamente. Cada Checkbox é independente; agrupamento e FormData.getAll exigem composição, nomes e valores revisados."
+    },
+    {
+      "question": "required sozinho valida aceite de termos?",
+      "guidance": "Não assumir. O atributo é encaminhado, mas precisa de teste no formulário e revalidação de regras no servidor."
+    },
+    {
+      "question": "O que change devolve?",
+      "guidance": "Somente sinal local change; o renderer não envia checked no payload nem persiste a alteração."
+    },
+    {
+      "question": "name significa que o checkbox será enviado ao backend?",
+      "guidance": "name é encaminhado, mas a serialização do controle Base UI precisa ser testada em form real; a política de backend é externa."
+    },
+    {
+      "question": "Como mostrar erro de consentimento?",
+      "guidance": "Invalid alimenta aria-invalid/estilo, mas mensagem, descrição e foco após erro precisam de FieldError ou composição autorizada."
+    },
+    {
+      "question": "Posso usar Checkbox para seleção em massa?",
+      "guidance": "Não no contrato individual. Ações de lote, tri-state e confirmação requerem composição e aprovação próprias."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "checked-default-binding",
+      "kind": "integration",
+      "description": "Cobrir checked true/false/null, defaultChecked, bindings e transições sem tri-state implícito.",
+      "capabilities": [
+        "controlled-boolean-initialization",
+        "local-checked-change"
+      ]
+    },
+    {
+      "id": "label-and-description",
+      "kind": "integration",
+      "description": "Conferir htmlFor/id, clique no texto, descrição e name em múltiplos controles.",
+      "capabilities": [
+        "label-description-association"
+      ]
+    },
+    {
+      "id": "disabled-required-invalid",
+      "kind": "integration",
+      "description": "Verificar repasse de disabled/required/invalid e ausência de erro automático.",
+      "capabilities": [
+        "name-required-disabled-forwarding",
+        "invalid-aria-visual"
+      ]
+    },
+    {
+      "id": "native-checkbox-formdata",
+      "kind": "integration",
+      "description": "Montar form real e testar unchecked, checked, required, disabled e reset em FormData.",
+      "capabilities": [
+        "formdata-native-and-required"
+      ]
+    },
+    {
+      "id": "checkbox-keyboard-aria",
+      "kind": "manual-a11y",
+      "description": "Validar Space, foco, contraste, anúncio do estado e descrição com leitor de tela.",
+      "capabilities": [
+        "keyboard-focus-screenreader",
+        "label-description-association"
+      ]
+    },
+    {
+      "id": "mixed-state-icon-visual",
+      "kind": "visual",
+      "description": "Inspecionar visual do Indicator normal e documentar que estado misto não tem renderizador Pi.",
+      "capabilities": [
+        "baseui-indicator-check",
+        "indeterminate-tristate-pi"
+      ]
+    },
+    {
+      "id": "multi-checkbox-mobile",
+      "kind": "visual",
+      "description": "Verificar alvo de toque, alinhamento de rótulos longos, grupos e overflow em mobile.",
+      "capabilities": [
+        "keyboard-focus-screenreader",
+        "label-description-association"
+      ]
+    },
+    {
+      "id": "future-tristate-and-group",
+      "kind": "candidate-not-executable",
+      "description": "Somente após novo contrato, validar checked/mixed, seleção de todos e FormData.getAll.",
+      "capabilities": [
+        "indeterminate-tristate-pi",
+        "grouped-multiselect-pi"
+      ]
+    },
+    {
+      "id": "future-audited-consent",
+      "kind": "candidate-not-executable",
+      "description": "Testar consentimento auditável no serviço autorizado, idempotência, erro e cancelamento.",
+      "capabilities": [
+        "consent-audit-and-save"
+      ]
+    }
+  ]
+}
