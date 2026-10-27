@@ -25,7 +25,7 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   const knowledge=analysis.report.semanticKnowledge;
   assert.equal(knowledge.coverage.reuiFamilies,31);
   assert.equal(knowledge.coverage.shadcnGuides,12);
-  assert.equal(knowledge.coverage.curatedOverlays,1);
+  assert.ok(knowledge.coverage.curatedOverlays>=2);
   assert.equal(knowledge.coverage.coveredExamples,559);
   assert.equal(knowledge.reuiExampleProfiles.length,559);
   assert.ok(knowledge.reuiExampleProfiles.every(x=>!x.approvedPiType&&x.hasFamilyGuidance));
@@ -41,6 +41,32 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Checkbox").implementedDependency,false);
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Sonner").approvedPiType,false);
   assert.equal(knowledge.profiles.find(x=>x.component==="Button")?.approvedPiType,true);
+});
+
+test("T07 Button documentation distinguishes static support from async composition",()=>{
+  const button=read("src/ui-catalog/knowledge/button.json");
+  assert.deepEqual(validateSemanticOverlay(button),[]);
+  assert.equal(button.component,"Button");
+  assert.equal(button.status,"reviewed-documentation");
+  assert.equal(button.source.url,"https://reui.io/components/button");
+  const byId=new Map(button.capabilities.map(cap=>[cap.id,cap]));
+  for(const id of ["local-press-event","visual-variants","sizes-and-icon-sizes",
+    "explicit-form-type","loading-and-disabled","icon-position-and-label","inline-count-badge"])
+    assert.equal(byId.get(id)?.state,"implemented-static-evidence");
+  for(const id of ["async-lifecycle","post-action-success-error","copy-or-external-action"])
+    assert.equal(byId.get(id)?.state,"documented-not-implemented");
+  assert.equal(byId.get("focus-and-keyboard-runtime")?.state,"runtime-review-required");
+  assert.ok(button.derivedTestCases.some(test=>test.kind==="candidate-not-executable" &&
+    test.capabilities.includes("async-lifecycle")));
+  const profile=buildSemanticKnowledge().report.profiles.find(x=>x.component==="Button");
+  assert.equal(profile.documentationReview,"reviewed-documentation");
+  assert.equal(profile.provenance.reviewedOn,"2026-10-27");
+  assert.ok(profile.integrationCandidates.every(item=>item.admission==="advisory-only"));
+  const advice=selectAgentSemanticAdvice(buildSemanticKnowledge().report,["Button"]);
+  assert.equal(advice.length,1);
+  assert.equal(advice[0].guidanceOnly,true);
+  assert.ok(advice[0].implementationGaps.some(gap=>gap.id==="async-lifecycle"));
+  assert.ok(advice[0].integrationCandidates.every(item=>item.admission==="not-granted"));
 });
 
 test("enriched guidance remains advisory and is scoped to explicitly approved Pi types",()=>{
