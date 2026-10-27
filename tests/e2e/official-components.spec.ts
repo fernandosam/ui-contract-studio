@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import {validateOfficialVisualInventory} from '../../scripts/lib/official-visual-inventory.mjs';
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -9,30 +10,16 @@ const manifest = JSON.parse(readFileSync('scripts/official-component-examples.js
   upstream: string; examples: Example[];
 };
 const plan = JSON.parse(readFileSync('shadcn-plan.json', 'utf8')) as { groups: Array<{ items: Array<{ name: string }> }> };
-const installed = plan.groups.flatMap(group => group.items.map(item => item.name));
 const pi = JSON.parse(readFileSync('pi-catalog/contracts.json', 'utf8')) as {
-  schemaVersion: number; components?: Array<{type: string}>;
+  schemaVersion: number; components: Array<{type:string}>;
 };
-if (pi.schemaVersion !== 3 || !Array.isArray(pi.components)) {
-  throw new Error('O catálogo Pi precisa publicar o manifesto v3 com components');
-}
-const types = new Set(pi.components.map(item => item.type));
 const dest = 'reports/official-components';
 test.describe('@official-docs referência pública versus Explorer local', () => {
   // This visual audit is excluded from functional E2E by @official-docs.
   // Keep validation in a hook: Playwright imports even grep-excluded specs during collection.
   test.beforeAll(() => {
-    if (manifest.examples.length !== installed.length ||
-      manifest.examples.some(item => !installed.includes(item.component)) ||
-      new Set(manifest.examples.map(item => item.component)).size !== installed.length) {
-      throw new Error('O manifesto oficial precisa cobrir exatamente as primitivas aprovadas em shadcn-plan.json');
-    }
-    for (const example of manifest.examples) {
-      const expected = example.component.split('-').map(part => part[0].toUpperCase() + part.slice(1)).join('');
-      if (example.localType !== (types.has(expected) ? expected : null)) {
-        throw new Error(`Mapeamento local incorreto de ${example.component}: ${example.localType}`);
-      }
-    }
+    const audit = validateOfficialVisualInventory(plan, manifest, pi);
+    expect(audit.errors, 'Inventário de captura precisa cobrir seleção e pendências sem pares inventados').toEqual([]);
   });
   for (const example of manifest.examples) {
     test(`@official-docs ${example.component}: captura oficial e local`, async ({ page }, testInfo) => {
@@ -87,7 +74,7 @@ test.describe('@official-docs referência pública versus Explorer local', () =>
       if (example.localType) {
         await page.goto('/?screen=explorador-primitivos', { waitUntil: 'domcontentloaded' });
         await page.getByLabel('Buscar componente').fill(example.localType);
-        await page.getByRole('button', { name: example.localType, exact: true }).click();
+        await page.locator('[aria-label="Componentes registrados"]').getByRole('button', { name: example.localType, exact: true }).click();
         const preview = page.getByTestId('catalog-live-preview');
         await expect(preview, `Amostra local ausente: ${example.localType}`).toBeVisible({ timeout: 10_000 });
         await expect(preview.getByText('Prévia bloqueada: contrato inválido.')).toHaveCount(0);

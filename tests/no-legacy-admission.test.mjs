@@ -59,6 +59,7 @@ test("Playwright official reference collection uses the authoritative Pi v3 mani
  assert.match(spec,/pi\.components\.map\(item => item\.type\)/);
  assert.doesNotMatch(spec,/\}\.contracts\.map/);
  assert.match(spec,/test\.beforeAll\(\(\) => \{/);
- assert.ok(spec.indexOf("test.beforeAll") < spec.indexOf("if (manifest.examples.length"),
-   "Official-docs coverage guard must not run at Playwright module import");
+ assert.match(spec,/validateOfficialVisualInventory\(plan, manifest, pi\)/);
+ assert.ok(spec.indexOf("test.beforeAll") < spec.indexOf("validateOfficialVisualInventory(plan, manifest, pi)"),
+   "Official visual inventory guard must run in a Playwright hook, not during import");
 });

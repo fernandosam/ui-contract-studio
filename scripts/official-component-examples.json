@@ -4,7 +4,7 @@
   "sourceRepository": "https://github.com/shadcn-ui/ui",
   "sourcePath": "apps/v4/content/docs/components/base",
   "sourceRef": "main",
-  "note": "Os 38 exemplos oficiais são capturados. Somente componentes com contrato json-render equivalente no Explorer recebem capturas locais e comparação diagnóstica. Nove sem contrato são explicitamente listados como referência oficial sem par; nenhum par é fabricado.",
+  "note": "38 referências oficiais selecionadas para a auditoria independente. As outras 12 primitivas estão registradas como pendentes de mapeamento e revisão, não como aprovadas visualmente. Somente contratos equivalentes existentes no Pi recebem captura local.",
   "examples": [
     {
       "component": "button",
@@ -309,6 +309,61 @@
       "style": "base-nova",
       "capture": "component",
       "localType": "Carousel"
+    }
+  ],
+  "selectionPolicy": {
+    "mode": "curated-official-examples",
+    "minimumSelected": 38,
+    "reviewRequiredForExcluded": true
+  },
+  "excludedComponents": [
+    {
+      "component": "aspect-ratio",
+      "reason": "Primitiva adicional instalada; captura oficial ainda aguarda mapeamento e revisão individual."
+    },
+    {
+      "component": "kbd",
+      "reason": "Primitiva adicional instalada; captura oficial ainda aguarda mapeamento e revisão individual."
+    },
+    {
+      "component": "empty",
+      "reason": "Primitiva adicional instalada; captura oficial ainda aguarda mapeamento e revisão individual."
+    },
+    {
+      "component": "scroll-area",
+      "reason": "Primitiva adicional instalada; captura oficial ainda aguarda mapeamento e revisão individual."
+    },
+    {
+      "component": "alert-dialog",
+      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
+    },
+    {
+      "component": "attachment",
+      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
+    },
+    {
+      "component": "bubble",
+      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
+    },
+    {
+      "component": "context-menu",
+      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
+    },
+    {
+      "component": "hover-card",
+      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
+    },
+    {
+      "component": "item",
+      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
+    },
+    {
+      "component": "marker",
+      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
+    },
+    {
+      "component": "message",
+      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
     }
   ]
 }
