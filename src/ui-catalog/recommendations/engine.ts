@@ -182,7 +182,12 @@ export function selectCompositionApproach(
     });
   }
   const dependenciesApproved = scenario.dependencies.every(name => approved.has(name));
-  const missingRequired = evidence.some(e =>
+  // Never treat an omitted or substituted capability list as proof of availability.
+  const capabilitySet = new Set(evidence.map(e=>e.capability));
+  const requiredCovered = capabilitySet.size === scenario.requiredCapabilities.length &&
+    evidence.length === scenario.requiredCapabilities.length &&
+    scenario.requiredCapabilities.every(id=>capabilitySet.has(id));
+  const missingRequired = !requiredCovered || evidence.some(e =>
     ["missing-record","missing-evidence","not-implemented"].includes(e.availability));
   const base = {
     criteria: [...criteria, {
@@ -200,6 +205,8 @@ export function selectCompositionApproach(
     return blocked("Efeito externo ou autorização requer revisão independente.");
   if (!dependenciesApproved)
     return blocked("Dependências não aprovadas impedem sugestão de uso.");
+  if (!requiredCovered)
+    return blocked("Lista de capacidades necessária está ausente, adulterada ou incompleta.");
   if (scenario.strategy === "declarative-composition") {
     if (scenario.target !== null || scenario.dependencies.length < 2 ||
         !scenario.dependencies.includes("Stack") || evidence.length === 0 ||
@@ -216,7 +223,9 @@ export function selectCompositionApproach(
       }],
     };
   }
-  if (scenario.strategy === "react-candidate")
+  if (scenario.strategy === "react-candidate") {
+    if (!scenario.target || approved.has(scenario.target))
+      return blocked("Candidato React precisa de alvo distinto e não pode impersonar tipo Pi aprovado.");
     return {
       kind:"react-composition", status:"candidate-needs-admission",
       criteria:[...base.criteria, {
@@ -224,6 +233,7 @@ export function selectCompositionApproach(
         reference:"src/ui-catalog/composition-policy.json",
       }],
     };
+  }
   if (!scenario.target || !approved.has(scenario.target) || missingRequired)
     return blocked("Reuso exige alvo aprovado e nenhuma capacidade necessária ausente ou não implementada.");
   const alreadyReact = compositionPolicy.reactComposites.includes(scenario.target);
