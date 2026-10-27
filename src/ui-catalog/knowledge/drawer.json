@@ -1,0 +1,322 @@
+{
+  "schemaVersion": 1,
+  "component": "Drawer",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "shadcn",
+    "url": "https://ui.shadcn.com/docs/components/base/drawer",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "Usage",
+      "Composition",
+      "Styling",
+      "Position",
+      "Swipe Handle",
+      "Nested",
+      "Non Modal",
+      "Snap Points",
+      "Responsive",
+      "Migrating from Vaul"
+    ]
+  },
+  "purpose": "Apresentar uma tarefa ou detalhes contextuais em painel que entra por uma borda da tela, mantendo orientação e possibilidade de retornar ao conteúdo principal.",
+  "rationale": [
+    "O padrão de painel móvel concentra informações e tarefas secundárias sem trocar de página.",
+    "Separar apresentação modal, gestos e estado local de submissão/persistência impede que um Drawer visual se torne operação de backend implícita.",
+    "A primitiva Base UI instalada possui mais recursos que o adaptador Pi, que aceita somente título, descrição, direção, abertura e slot de conteúdo."
+  ],
+  "whenUse": [
+    "Abrir um painel lateral ou inferior para detalhes e conteúdo secundário com retorno à interface de origem.",
+    "Apresentar conteúdo serializável do catálogo em um slot e emitir mudanças locais de abertura.",
+    "Ajustar de forma declarativa uma das quatro bordas por swipeDirection no contrato atual."
+  ],
+  "whenNotUse": [
+    "Solicitar confirmação irreversível: preferir AlertDialog com decisão explícita.",
+    "Exibir formulário modal curto em desktop sem necessidade de painel deslizante: considerar Dialog; para painel lateral sem gesto considerar Sheet.",
+    "Precisar de snap points, arraste com handle visível, modal=false, controles de fechamento e rodapé com ações via Pi sem contrato tipado dedicado.",
+    "Presumir que fechar, arrastar ou apertar um botão visual persiste dados ou executa uma ação autorizada."
+  ],
+  "agentNotes": [
+    "O arquivo src/components/ui/drawer.tsx usa @base-ui/react/drawer, não Vaul: usar swipeDirection up/down/left/right em React, sem importar direction de variantes Radix/Vaul.",
+    "No adaptador Pi, open/defaultOpen podem vincular estado e onOpenChange emite somente openChange; não confundir com evento de submissão.",
+    "DrawerContent da primitiva cria portal/overlay/viewport/popup, mas o adaptador Pi monta somente DrawerTrigger, DrawerContent, Header, Title, Description e slot de conteúdo.",
+    "O componente React suporta modal, snapPoints e showSwipeHandle, porém essas propriedades não constam de Drawer no catálogo Pi; não gerar props não permitidas.",
+    "O handle React é false por padrão; a ausência de handle no adaptador não prova ausência de gestos nem garante descoberta por toque.",
+    "Distinguir fechamento por Escape, backdrop e swipe de confirmação e envio de dados; efeitos colaterais precisam de ações explicitamente autorizadas.",
+    "Qualquer ação de Form, DrawerFooter ou DrawerClose adicionada por composição React exige revisão do contrato próprio; não usar JSX arbitrário no slot Pi.",
+    "Validar gestos, foco ao abrir/fechar, contenção de rolagem, teclado virtual e iOS Safari em runtime; CSS da overlay pode exigir body posicionado (orientação oficial Base UI).",
+    "Padrões ReUI de formulários, drawers aninhados e posições são referência composicional, não prova de capacidades aprovadas no Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "local-controlled-open",
+      "description": "O adaptador oferece abertura por open/defaultOpen e publica alteração local openChange.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.open??props.defaultOpen??false,bindings?.open)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "notify(emit,\"openChange\");"
+        }
+      ],
+      "testRequirements": [
+        "Abrir e fechar sob estado inicial falso/verdadeiro, verificar vínculo e evento único por mudança."
+      ]
+    },
+    {
+      "id": "four-swipe-directions-pi",
+      "description": "O schema aceita quatro direções e a implementação as repassa à primitiva.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "swipeDirection: z.enum([\"up\",\"down\",\"left\",\"right\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "swipeDirection={props.swipeDirection??\"down\"}"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar up/down/left/right, verificar borda de entrada e direção sem overflow."
+      ]
+    },
+    {
+      "id": "title-description-and-slot",
+      "description": "O painel inclui título obrigatório, descrição opcional e filhos serializados em área de conteúdo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "description: optionalText, open: z.boolean().nullable().optional(), defaultOpen: z.boolean().optional(), swipeDirection:"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<DrawerTitle>{props.title}</DrawerTitle>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<div className=\"p-4\">{children}</div>"
+        }
+      ],
+      "testRequirements": [
+        "Verificar título visível, descrição opcional e slots com conteúdo declarado."
+      ]
+    },
+    {
+      "id": "primitive-portal-and-modal-overlay",
+      "description": "A primitiva usada pelo adaptador implementa portal, viewport e overlay quando modal=true (padrão).",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/drawer.tsx",
+          "contains": "<DrawerPortal data-slot=\"drawer-portal\">"
+        },
+        {
+          "path": "src/components/ui/drawer.tsx",
+          "contains": "{modal === true && ("
+        },
+        {
+          "path": "src/components/ui/drawer.tsx",
+          "contains": "<DrawerOverlay data-snap-points={hasSnapPoints ? \"\" : undefined} />"
+        }
+      ],
+      "testRequirements": [
+        "Conferir overlay/viewport ao abrir, montagem e remoção após fechar em navegador."
+      ]
+    },
+    {
+      "id": "snap-points-and-active-snap",
+      "description": "Pontos de encaixe e estado do ponto ativo existem na primitiva Base UI, não na API Drawer do Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após novo contrato, alterar pontos de snap verticais e conferir estado controlado e rolagem."
+      ]
+    },
+    {
+      "id": "swipe-handle-and-nested-drawer",
+      "description": "Handle visível e sequência de drawers aninhados dependem de composição React; não são contratados no Drawer Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após composto específico, testar handle, nested stacking, retorno de foco e fechamento em ordem."
+      ]
+    },
+    {
+      "id": "nonmodal-and-dismiss-policy",
+      "description": "modal=false, trap-focus e controle de dismiss pela área externa não são declarados no schema Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após aprovação, confirmar interação externa, foco, rolagem e comportamento de clique fora."
+      ]
+    },
+    {
+      "id": "footer-close-and-form-actions",
+      "description": "DrawerFooter, DrawerClose e submit com validação não fazem parte do adaptador Pi, apesar de exports React.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após contrato de formulário com ações tipadas, validar erro, sucesso, Cancel e ausência de persistência implícita."
+      ]
+    },
+    {
+      "id": "responsive-dialog-drawer",
+      "description": "Trocar Dialog no desktop por Drawer no mobile requer seleção responsiva de composição, ausente no contrato Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após composto aprovado, validar breakpoints e preservação de estado ao trocar de apresentação."
+      ]
+    },
+    {
+      "id": "focus-escape-backdrop-swipe",
+      "description": "Contenção e retorno do foco, Escape, clique no backdrop e gesto de fechar exigem testes de interação reais.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Validar foco, Escape, clique fora, swipe, retorno ao trigger e leitores de tela em dispositivos."
+      ]
+    },
+    {
+      "id": "mobile-scroll-and-virtual-keyboard",
+      "description": "Alturas, scrolling, alvos de toque, orientação e teclado virtual dependem de viewport real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Avaliar mobile vertical/horizontal, iOS Safari após scroll, zoom e teclado virtual."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "trigger-and-future-actions",
+      "reason": "Abrir o painel com um trigger; ações de rodapé precisam de contrato e handler próprios."
+    },
+    {
+      "component": "Dialog",
+      "relationship": "responsive-alternative",
+      "reason": "Troca desktop/mobile proposta, sem inferir breakpoint no Pi."
+    },
+    {
+      "component": "Sheet",
+      "relationship": "desktop-side-panel-alternative",
+      "reason": "Painel lateral de desktop sem swipe pode ser mais adequado."
+    },
+    {
+      "component": "ScrollArea",
+      "relationship": "long-content-candidate",
+      "reason": "Conter conteúdo longo no painel com comportamento de rolagem testado."
+    },
+    {
+      "component": "Form",
+      "relationship": "form-with-validation-candidate",
+      "reason": "Reunir campos e feedback sem confundir fechamento com submissão."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "destructive-confirmation-candidate",
+      "reason": "Confirmar ações críticas antes de executá-las por integração autorizada."
+    },
+    {
+      "component": "Sonner",
+      "relationship": "post-action-feedback-candidate",
+      "reason": "Notificações após resultado real só com estado e ações aprovados."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Qual a diferença entre Drawer, Dialog, Sheet e AlertDialog?",
+      "guidance": "Drawer para painel deslizante e interações móveis; Dialog para formulário/edição modal; Sheet para painel lateral convencional; AlertDialog para confirmação crítica."
+    },
+    {
+      "question": "Posso usar snapPoints, modal=false e showSwipeHandle no Pi?",
+      "guidance": "Não: a primitiva React suporta recursos mais amplos, mas o contrato Drawer do Pi contém apenas title, description, open, defaultOpen e swipeDirection."
+    },
+    {
+      "question": "Um botão Submit dentro do Drawer salva dados?",
+      "guidance": "Não. O adaptador atual apenas renderiza conteúdo e emite openChange. Persistência exige Form e ação/backend explicitamente autorizados."
+    },
+    {
+      "question": "Um Drawer fecha e devolve foco automaticamente em todos os dispositivos?",
+      "guidance": "Não declarar isso como testado. Verificar Escape, backdrop, swipe, foco e leitores de tela; a camada Base UI é a origem do comportamento."
+    },
+    {
+      "question": "Como escolher direção?",
+      "guidance": "No Pi usar swipeDirection com up/down/left/right, padrão down; não usar direction bottom/top dos exemplos Vaul/Radix."
+    },
+    {
+      "question": "O slot default autoriza qualquer JSX ou elemento?",
+      "guidance": "Não. Apenas filhos serializáveis e já permitidos pelo catálogo; DrawerClose/Footer React não entram no Pi por consequência."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "drawer-open-and-event",
+      "kind": "integration",
+      "description": "Testar open/defaultOpen/binding, trigger, fechamento e contagem de openChange sem efeitos remotos.",
+      "capabilities": [
+        "local-controlled-open"
+      ]
+    },
+    {
+      "id": "drawer-directions-and-slot",
+      "kind": "visual",
+      "description": "Comparar quatro direções, título, descrição e conteúdo com viewport suficiente e estreita.",
+      "capabilities": [
+        "four-swipe-directions-pi",
+        "title-description-and-slot"
+      ]
+    },
+    {
+      "id": "modal-portal-backdrop",
+      "kind": "integration",
+      "description": "Inspecionar criação/remoção do portal e overlay; verificar que não houve confirmação de tarefa.",
+      "capabilities": [
+        "primitive-portal-and-modal-overlay",
+        "local-controlled-open"
+      ]
+    },
+    {
+      "id": "drawer-keyboard-and-gesture",
+      "kind": "manual-a11y",
+      "description": "Testar Tab, Escape, leitores de tela, foco inicial/retorno, backdrop e gestos reais.",
+      "capabilities": [
+        "focus-escape-backdrop-swipe"
+      ]
+    },
+    {
+      "id": "drawer-mobile-ios-scroll",
+      "kind": "visual",
+      "description": "Inspecionar scroll de conteúdo, topo/borda, teclado virtual e Safari iOS após scroll da página.",
+      "capabilities": [
+        "mobile-scroll-and-virtual-keyboard"
+      ]
+    },
+    {
+      "id": "drawer-advanced-swipe-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após contrato separado, cobrir snapPoints, handle, aninhamento e política nonmodal.",
+      "capabilities": [
+        "snap-points-and-active-snap",
+        "swipe-handle-and-nested-drawer",
+        "nonmodal-and-dismiss-policy"
+      ]
+    },
+    {
+      "id": "drawer-responsive-form-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após composição aprovada, testar Drawer/Dialog responsivo e formulário com Cancel e submit validado.",
+      "capabilities": [
+        "footer-close-and-form-actions",
+        "responsive-dialog-drawer"
+      ]
+    }
+  ]
+}
