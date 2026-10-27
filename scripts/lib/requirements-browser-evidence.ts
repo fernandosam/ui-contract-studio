@@ -40,7 +40,7 @@ export function verifyPatternBrowserEvidence(root:string,revision:string){
   if(!expected||expected.flow!==item.flow||expected.specFingerprint!==fingerprint||
     JSON.stringify(expected.checkedRequirementIds)!==JSON.stringify(item.checked))
    fail(item.id+": preflight fingerprint mismatch");
-  const projects=[];
+  const projects:{project:string;report:string;screenshot:string;screenshotSha256:string}[]=[];
   for(const project of browserProjects){
    const base=join(root,patternEvidenceRoot,project,item.id);
    if(!existsSync(base+".json")||!existsSync(base+".png"))
