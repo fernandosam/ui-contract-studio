@@ -108,7 +108,7 @@ test("T19: bilingual coverage matrices are traceable to versioned source counts"
     "docs/semantic-knowledge-coverage-t19.pt-BR.md",
   ]){
     const md=readFileSync(file,"utf8");
-    const rowPattern=/^\\| \\[([A-Z][A-Za-z0-9]+)\\]\\(\\.\\.\\/src\\/ui-catalog\\/knowledge\\/([a-z-]+)\\.json\\) \\| (\\d+) \\| (\\d+)\\/(\\d+)\\/(\\d+) \\| (\\d+) \\|$/gm;
+    const rowPattern=/^\| \[([A-Z][A-Za-z0-9]+)\]\(\.\.\/src\/ui-catalog\/knowledge\/([a-z-]+)\.json\) \| (\d+) \| (\d+)\/(\d+)\/(\d+) \| (\d+) \|$/gm;
     const rows=[...md.matchAll(rowPattern)];
     assert.equal(rows.length,31,`${file}: expected 31 ReUI-family rows`);
     assert.deepEqual(rows.map(x=>x[1]).sort(),reuiFamilies);
@@ -122,7 +122,7 @@ test("T19: bilingual coverage matrices are traceable to versioned source counts"
       assert.equal(Number(runtime),doc.capabilities.filter(x=>x.state==="runtime-review-required").length,name);
       assert.equal(Number(cases),doc.derivedTestCases.length,name);
     }
-    assert.match(md,/\\*\\*559\\*\\* \\| \\*\\*181\\/103\\/72\\*\\* \\| \\*\\*257\\*\\*/);
+    assert.match(md,/\*\*559\*\* \| \*\*181\/103\/72\*\* \| \*\*257\*\*/);
   }
   assert.equal(records.reduce((n,x)=>n+x.record.capabilities.length,0),444);
   assert.equal(records.reduce((n,x)=>n+x.record.derivedTestCases.length,0),315);
