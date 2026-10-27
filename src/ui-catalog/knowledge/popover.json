@@ -1,0 +1,409 @@
+{
+  "schemaVersion": 1,
+  "component": "Popover",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/popover",
+    "reviewedOn": "2026-10-26",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Popover?",
+      "Why Use Shadcn Popover?",
+      "Shadcn Popover Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Mostrar informações ou tarefas contextuais breves, ancoradas a um gatilho, sem substituir a navegação principal nem interromper a página com um diálogo modal.",
+  "rationale": [
+    "Manter o contexto do usuário visível ao consultar detalhes ou realizar uma ação curta, evitando a interrupção desnecessária de um Dialog.",
+    "Distinguir um painel acionável de Tooltip/HoverCard informativos e reservar Dialog/AlertDialog para formulários extensos ou decisões críticas.",
+    "Separar as capacidades do contrato Popover (texto, estado e side/align) das APIs internas da primitiva Base UI e dos exemplos TSX ReUI: documentação não autoriza novas props, ações, persistência nem distribuição Pi."
+  ],
+  "whenUse": [
+    "Mostrar ajuda contextual ou detalhes curtos que o usuário abre por clique em um botão.",
+    "Exibir texto complementar associado a um item, mantendo a tarefa principal na página.",
+    "Usar a primitiva em uma composição aprovada específica, como DatePicker com Calendar, quando o contrato dessa composição for adequado; não presumir conteúdo React arbitrário no Popover Pi."
+  ],
+  "whenNotUse": [
+    "Exibir somente uma dica curta sem interação adicional: preferir Tooltip; prévia de informação por hover: avaliar HoverCard.",
+    "Recolher navegação e ações de menu hierárquicas: preferir DropdownMenu ou Command, conforme seleção e busca.",
+    "Editar muitos campos, validar e submeter uma página inteira ou bloquear o usuário até responder: preferir Form/Dialog; confirmação irreversível: AlertDialog.",
+    "Usar o Popover textual atual como se já aceitasse filhos JSX, controles, handlers de submissão, estilos arbitrários ou chamadas de backend."
+  ],
+  "agentNotes": [
+    "A implementação instalada usa @base-ui/react/popover, não a variante Radix: compor o Trigger com render={<Button ... />} na primitiva; asChild é da variante Radix e não deve ser enviado ao contrato Pi.",
+    "No contrato Popover do catálogo, trigger e content são strings. PopoverTitle/PopoverDescription, formulários e controle de largura estão disponíveis na primitiva React ou nos exemplos TSX, não como props do tipo Pi Popover.",
+    "O contrato expõe side ('top'|'bottom'|'left'|'right') e align ('start'|'center'|'end'); o renderer usa bottom/center por padrão. sideOffset/alignOffset estão na primitiva, mas não são props do contrato Pi.",
+    "A primitiva posiciona via Portal + Positioner e usa painel com w-72; a API React aceita className no Content, mas o contrato serializável não oferece className nem conteúdo JSX.",
+    "O contrato expõe open (boolean|null), defaultOpen (boolean) e evento openChange; o renderer faz useValue(props.open??props.defaultOpen??false, bindings?.open) e emite openChange. Esse sinal não executa persistência ou ação remota.",
+    "Evitar abrir o Popover automaticamente sem necessidade. Se defaultOpen for usado, avaliar foco inicial e navegação por teclado; não alegar conformidade de acessibilidade antes de E2E com Base UI.",
+    "Para popovers com formulário, validação, botões, Switch/Slider, Command ou navegação de etapas, propor composição/contrato separado com estado e ações autorizadas; exemplos ReUI isolados não acrescentam funcionalidades ao Popover básico.",
+    "Testar Escape, clique externo, retorno de foco, rotulagem acessível, colisão com bordas, rolagem e responsividade em navegador; não assumir o comportamento Radix descrito genericamente no texto ReUI."
+  ],
+  "capabilities": [
+    {
+      "id": "text-trigger-and-content",
+      "description": "Renderiza gatilho de botão e painel com conteúdo textual proveniente de trigger/content.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Popover: { props: obj({ trigger: z.string(), content: z.string()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<PopoverTrigger render={<ShadcnButton variant=\"outline\" type=\"button\"/>}>{props.trigger}</PopoverTrigger>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": ">{props.content}</PopoverContent>"
+        }
+      ],
+      "testRequirements": [
+        "Abrir pelo botão e conferir renderização exata do texto do gatilho e do conteúdo sem aceitar HTML ou JSX da spec."
+      ]
+    },
+    {
+      "id": "controlled-open-change",
+      "description": "Controla abertura com open/defaultOpen ou binding e comunica mudanças pelo evento local openChange.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "open: z.boolean().nullable().optional(), defaultOpen: z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events: [\"openChange\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.open??props.defaultOpen??false,bindings?.open)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "notify(emit,\"openChange\")"
+        }
+      ],
+      "testRequirements": [
+        "Abrir/fechar em estados não controlado e vinculado; verificar transições e emissão de openChange, sem efeitos remotos implícitos."
+      ]
+    },
+    {
+      "id": "side-and-align",
+      "description": "Permite posicionamento preferencial side e align no contrato serializável, com defaults bottom/center no renderer.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "side: z.enum([\"top\",\"bottom\",\"left\",\"right\"]).optional(), align: z.enum([\"start\",\"center\",\"end\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "side={props.side??\"bottom\"} align={props.align??\"center\"}"
+        },
+        {
+          "path": "src/components/ui/popover.tsx",
+          "contains": "align={align}"
+        },
+        {
+          "path": "src/components/ui/popover.tsx",
+          "contains": "side={side}"
+        }
+      ],
+      "testRequirements": [
+        "Exercitar as quatro direções e três alinhamentos em viewport ampla, confirmando a preferência solicitada sem prometer posição final fixa."
+      ]
+    },
+    {
+      "id": "portal-and-positioner",
+      "description": "A primitiva usada pelo contrato monta o conteúdo em Portal/Positioner com deslocamento padrão de 4px, sem expor esses offsets ao contrato Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/popover.tsx",
+          "contains": "<PopoverPrimitive.Portal>"
+        },
+        {
+          "path": "src/components/ui/popover.tsx",
+          "contains": "<PopoverPrimitive.Positioner"
+        },
+        {
+          "path": "src/components/ui/popover.tsx",
+          "contains": "sideOffset = 4,"
+        }
+      ],
+      "testRequirements": [
+        "Conferir no DOM se o painel aparece no portal, fora do fluxo principal, mantendo posição próxima ao gatilho."
+      ]
+    },
+    {
+      "id": "default-open",
+      "description": "O contrato aceita abertura inicial via defaultOpen; a decisão de abrir automaticamente é do autor da tela.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "defaultOpen: z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.open??props.defaultOpen??false"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar com defaultOpen=true e verificar painel inicial sem disputar foco com outras camadas."
+      ]
+    },
+    {
+      "id": "rich-interactive-content",
+      "description": "Permitir campos, botões, switches e sliders dentro do painel; presente em exemplos TSX, mas não no contrato Pi textual do Popover.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Criar contrato/composição explicitamente aprovada antes de aceitar elementos filhos e validar interações, estado e submissão."
+      ]
+    },
+    {
+      "id": "named-rich-panel",
+      "description": "Expor título e descrição semânticos em conteúdo rico; a primitiva fornece PopoverTitle/PopoverDescription, mas o contrato Popover não os serializa.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se houver contrato rico, associar PopoverTitle/Description e conferir anúncio de leitor de tela."
+      ]
+    },
+    {
+      "id": "offset-and-width-customization",
+      "description": "Permitir sideOffset/alignOffset e largura específica por spec Pi; configurável somente na API React da primitiva neste momento.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se houver ampliação contratual autorizada, validar offsets e largura em móveis e desktop."
+      ]
+    },
+    {
+      "id": "submit-and-feedback",
+      "description": "Validar e salvar uma edição ou exibir feedback de erro no Popover; o componente básico não define submissão nem autorização de backend.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em uma composição futura, testar validação, cancelamento, estados pendentes e execução somente de ações autorizadas."
+      ]
+    },
+    {
+      "id": "focus-keyboard-dismiss",
+      "description": "Confirmar gestão do foco inicial/final, Tab, Escape e descarte por clique externo no runtime Base UI efetivamente instalado.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Teste E2E/manual de Tab/Shift+Tab, Escape, clique externo e retorno do foco ao botão, incluindo elemento desabilitado."
+      ]
+    },
+    {
+      "id": "viewport-collision-and-scroll",
+      "description": "Confirmar reposicionamento, ausência de corte e estabilidade do painel em bordas, contêiner rolável e telas pequenas.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Executar ensaios com gatilho perto de cantos, resize, scroll, zoom e viewport móvel; registrar posição real e clipping."
+      ]
+    },
+    {
+      "id": "screen-reader-semantics",
+      "description": "Confirmar nome acessível, relação gatilho/painel e anúncio correto do texto básico; o adaptador Pi não usa PopoverTitle.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Auditar árvore de acessibilidade e anúncio por leitor de tela real; propor rotulagem explícita se faltar nome/descrição."
+      ]
+    },
+    {
+      "id": "nested-overlays",
+      "description": "Verificar comportamento de foco e fechamento em composição com outros overlays, especialmente Dialog e menus.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Validar Escape, ordem de camadas e retorno de foco com popovers aninhados ou adjacentes sem múltiplas aberturas indevidas."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "trigger",
+      "reason": "Gatilho de clique já usado pelo renderer; rótulo do botão deve explicar a finalidade."
+    },
+    {
+      "component": "DatePicker",
+      "relationship": "existing-separate-composition",
+      "reason": "O DatePicker local já combina Calendar e a primitiva Popover; isso não expõe Calendar como filho no tipo Pi Popover."
+    },
+    {
+      "component": "Input",
+      "relationship": "quick-edit-candidate",
+      "reason": "Permite edição curta dentro de um composto rico futuro, com rótulo e validação apropriados."
+    },
+    {
+      "component": "Field",
+      "relationship": "form-field-candidate",
+      "reason": "Agrupa rótulos, descrições e erros de entradas em uma composição controlada."
+    },
+    {
+      "component": "Command",
+      "relationship": "searchable-selection-candidate",
+      "reason": "Quando há pesquisa e seleção, preferir um composto explícito; não usar Popover textual como menu arbitrário."
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "alternative",
+      "reason": "Preferir Tooltip para dica pequena não interativa em vez de abrir um painel."
+    },
+    {
+      "component": "HoverCard",
+      "relationship": "alternative-preview",
+      "reason": "Preferir prévia somente informativa por hover; Popover serve para conteúdo acionável por clique."
+    },
+    {
+      "component": "Dialog",
+      "relationship": "alternative-modal",
+      "reason": "Fluxos longos, formulários complexos ou que interrompem a tarefa pedem Dialog."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "alternative-critical-confirmation",
+      "reason": "Reservar para confirmação crítica em vez de tomar decisões irreversíveis em painel contextual."
+    },
+    {
+      "component": "Slider",
+      "relationship": "settings-candidate",
+      "reason": "Ajustes rápidos de valor aparecem em exemplo ReUI isolado e requerem contrato de estado próprio."
+    },
+    {
+      "component": "Switch",
+      "relationship": "settings-candidate",
+      "reason": "Alternâncias dentro do popover só devem persistir com ação explicitamente autorizada."
+    },
+    {
+      "component": "Alert",
+      "relationship": "validation-feedback-candidate",
+      "reason": "Uma composição futura pode apresentar erro local sem fechamento prematuro."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando usar Popover em vez de Tooltip ou HoverCard?",
+      "guidance": "Use Popover para informação contextual aberta por clique, principalmente quando exigir interação; Tooltip para dica curta não interativa e HoverCard para prévia por hover."
+    },
+    {
+      "question": "Quando preferir Dialog, AlertDialog ou um formulário de página?",
+      "guidance": "Fluxos longos ou que exigem bloqueio e foco dedicado pedem Dialog; confirmação irreversível pede AlertDialog; muitos campos e navegação própria pedem Form/página."
+    },
+    {
+      "question": "Como escolher side e align em telas menores?",
+      "guidance": "Use side/align do contrato como preferência, não garantia de posição. Teste cantos, zoom e rolagem; o ajuste de colisão deve ser verificado no browser."
+    },
+    {
+      "question": "Posso ajustar a distância e a largura do Popover pela spec?",
+      "guidance": "Não no tipo Popover atual. A primitiva Base UI tem sideOffset/alignOffset e classes de largura, porém o contrato Pi expõe apenas side e align."
+    },
+    {
+      "question": "É possível incluir Input, Switch, Slider ou ações no conteúdo?",
+      "guidance": "Não no contrato Popover básico, que aceita content:string. Os exemplos ReUI são composições TSX isoladas; novo composto exige contrato, validação e autorização próprios."
+    },
+    {
+      "question": "Como abrir, fechar e acompanhar estado?",
+      "guidance": "open/defaultOpen e binding controlam o estado no renderer; openChange é sinal local. Não inventar setOpen, callbacks arbitrários ou submissão remota na spec."
+    },
+    {
+      "question": "Como o foco, Escape e clique fora funcionam?",
+      "guidance": "A primitiva instalada é Base UI, não Radix. Confirmar fechamento e restauração de foco em testes E2E/manual antes de declarar conformidade; rotular gatilho e painel adequadamente."
+    },
+    {
+      "question": "Como incluir um seletor de data?",
+      "guidance": "Preferir o DatePicker aprovado que já usa Calendar + Popover, em vez de tentar embutir um Calendar no conteúdo textual do Popover."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "text-rendering",
+      "kind": "integration",
+      "description": "Montar Popover Pi com trigger/content textuais, abrir e conferir conteúdo e botão; ausência de injeção JSX.",
+      "capabilities": [
+        "text-trigger-and-content"
+      ]
+    },
+    {
+      "id": "open-change-and-default",
+      "kind": "integration",
+      "description": "Cobrir defaultOpen, open controlado, binding e sinal openChange em abertura/fechamento; sem persistência implícita.",
+      "capabilities": [
+        "controlled-open-change",
+        "default-open"
+      ]
+    },
+    {
+      "id": "position-matrix",
+      "kind": "visual",
+      "description": "Exercitar 4 valores de side x 3 de align e defaults; verificar painel ancorado no portal.",
+      "capabilities": [
+        "side-and-align",
+        "portal-and-positioner"
+      ]
+    },
+    {
+      "id": "keyboard-and-dismiss",
+      "kind": "manual-a11y",
+      "description": "Com teclado e mouse, testar Tab, Shift+Tab, Escape, clique fora e retorno do foco ao gatilho.",
+      "capabilities": [
+        "focus-keyboard-dismiss"
+      ]
+    },
+    {
+      "id": "small-viewport-collision",
+      "kind": "visual",
+      "description": "Abrir junto às bordas em mobile, zoom e rolagem; registrar overflow, clipping e eventual inversão de posição.",
+      "capabilities": [
+        "viewport-collision-and-scroll",
+        "side-and-align"
+      ]
+    },
+    {
+      "id": "assistive-labels",
+      "kind": "manual-a11y",
+      "description": "Confirmar nome/descrição/relacionamento do painel e gatilho em árvore de acessibilidade e leitor de tela; reportar falta de rotulagem.",
+      "capabilities": [
+        "screen-reader-semantics"
+      ]
+    },
+    {
+      "id": "overlay-stacking",
+      "kind": "integration",
+      "description": "Testar Escape, foco e empilhamento em contextos com outros overlays, sem fechar elemento incorreto.",
+      "capabilities": [
+        "nested-overlays"
+      ]
+    },
+    {
+      "id": "future-rich-editing",
+      "kind": "candidate-not-executable",
+      "description": "Em futuro contrato composto aprovado, testar inputs, toggles, validação de formulário, salvar/cancelar e tratamento de erros.",
+      "capabilities": [
+        "rich-interactive-content",
+        "submit-and-feedback",
+        "named-rich-panel"
+      ]
+    },
+    {
+      "id": "future-offset-and-sizing",
+      "kind": "candidate-not-executable",
+      "description": "Após aprovação contratual, testar parâmetros de largura e offsets em 320px, desktop e RTL.",
+      "capabilities": [
+        "offset-and-width-customization"
+      ]
+    }
+  ]
+}

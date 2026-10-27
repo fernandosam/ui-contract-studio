@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 1,
+  "component": "Button",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/button",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Button?",
+      "Why Use Shadcn Button?",
+      "Shadcn Button Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Disparar uma ação contextual inequívoca, inclusive operações locais e submissão explícita de formulários, com hierarquia visual, estados e rótulo compreensíveis; o componente não realiza a operação de negócio.",
+  "rationale": [
+    "Padronizar a hierarquia entre ação principal, alternativa e destrutiva diminui erros de escolha e melhora a leitura de telas e formulários.",
+    "Indicar indisponibilidade e atividade visualmente evita reativações enquanto o consumidor informa loading; isso não garante prevenção de duplicidade no backend.",
+    "Separar o sinal de press da autorização, persistência e confirmação do resultado impede inferir efeitos remotos a partir de aparências e exemplos."
+  ],
+  "whenUse": [
+    "Ação explícita em página, formulário, cartão ou diálogo (salvar, confirmar, cancelar, tentar novamente), com propósito verbal específico.",
+    "Acionamento com ícone quando o nome acessível e o efeito são claros; usar ariaLabel descritivo nos controles compactos.",
+    "Ação com loading ou disabled informado pelo estado externo, e variantes que comuniquem prioridade e risco da decisão."
+  ],
+  "whenNotUse": [
+    "Navegar para outra página como semântica principal: preferir Link/âncora real com href autorizado, estilizada por buttonVariants quando aplicável; variant='link' não transforma Button em link.",
+    "Alternância que permanece ativada/desativada: preferir Toggle (ou ToggleGroup), não simular pressed em Button.",
+    "Várias ações relacionadas agrupadas sem espaço: preferir ButtonGroup.",
+    "Botão incorporado ao interior de um campo: preferir InputGroup e suas primitivas próprias.",
+    "Operação destrutiva sensível sem etapa de confirmação: considerar AlertDialog e decisão explícita, conforme risco.",
+    "Indicador de progresso sem ação acionável: preferir Spinner/Progress; não deixar um Button desabilitado como único canal de estado."
+  ],
+  "agentNotes": [
+    "O Button JSON do catálogo tem somente o evento 'press'; não adicione handler arbitrário, promessa, requisição remota, onSuccess, onError ou propriedade não declarada ao Zod/Pi. Aconselhamento semântico não concede permissão.",
+    "Na implementação instalada (shadcn Base UI), o adaptador usa type={props.type??'button'}; informe type='submit' somente para submeter um formulário efetivamente implementado, e não suponha envio/persistência automáticos.",
+    "loading é booleano fornecido pelas props: mostra LoaderCircle com aria-hidden e desabilita o controle, mas não observa promises nem altera o texto do rótulo; atualização de pending/sucesso/erro pertence a uma composição autorizada.",
+    "Desabilitar o Button ajuda a bloquear reentrada na interface, mas não substitui idempotência, controle de concorrência, tratamento de rejeição, autorização, timeout ou rollback do serviço.",
+    "Use as seis variantes e os oito tamanhos do contrato atual; destructive é ênfase visual, não autorização. Para ícones use a allowlist, iconPosition start/end e rótulo acessível não vazio.",
+    "Para ícones posicionados, a primitiva usa data-icon='inline-start'/'inline-end'. O loader deste adaptador não usa data-icon; revisar espaçamento real em execução, sem presumir paridade exata com demos de ReUI.",
+    "Embora o ReUI cite composição de links com render/asChild conforme variante, a documentação shadcn Base UI instalada orienta usar âncora pura com buttonVariants: Button renderizado como <a> conserva role='button' na versão atual. O contrato JSON de Button não expõe render, nativeButton, asChild nem href.",
+    "Contador e badge são elementos de apresentação passados pelo consumidor, não confirmação de cópia, resposta da API ou estado de sucesso.",
+    "Não inferir ações de clipboard, login social, switch de tema ou atalhos a partir dos exemplos ReUI; implementações compostas/experimentais não ampliam o Button básico.",
+    "A recomendação de alvo de toque ~44px, acessibilidade de teclado e feedback anunciado exige validação no navegador e em dispositivos; classes de foco ou aria-label no código são apenas indícios estáticos."
+  ],
+  "capabilities": [
+    {
+      "id": "local-press-event",
+      "description": "O botão do catálogo emite o evento local press ao ser clicado, sem executar por si só uma operação de negócio ou chamada de rede.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"press\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onClick={()=>notify(emit,\"press\")}"
+        }
+      ],
+      "testRequirements": [
+        "Acionar uma vez e observar um único sinal press; inspecionar se o fluxo consumidor trata o evento separadamente."
+      ]
+    },
+    {
+      "id": "visual-variants",
+      "description": "O contrato aceita seis variantes visuais: default, secondary, outline, ghost, destructive e link. A escolha altera apresentação, não autorização.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "variant:z.enum([\"default\",\"secondary\",\"outline\",\"ghost\",\"destructive\",\"link\"])"
+        },
+        {
+          "path": "src/components/ui/button.tsx",
+          "contains": "destructive:"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar seis variantes; conferir contraste, hierarquia e foco em temas claro/escuro."
+      ]
+    },
+    {
+      "id": "sizes-and-icon-sizes",
+      "description": "A primitiva e o contrato aceitam oito tamanhos: default, xs, sm, lg, icon, icon-xs, icon-sm e icon-lg.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "size:z.enum([\"default\",\"xs\",\"sm\",\"lg\",\"icon\",\"icon-xs\",\"icon-sm\",\"icon-lg\"])"
+        },
+        {
+          "path": "src/components/ui/button.tsx",
+          "contains": "\"icon-lg\":"
+        }
+      ],
+      "testRequirements": [
+        "Verificar dimensões, alinhamento de texto/ícone, truncamento e alvos de toque em cada tamanho."
+      ]
+    },
+    {
+      "id": "explicit-form-type",
+      "description": "O adaptador especifica type='button' por padrão e aceita button, submit ou reset; não envia formulários nem persiste dados por conta própria.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "type:z.enum([\"button\",\"submit\",\"reset\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "type={props.type??\"button\"}"
+        }
+      ],
+      "testRequirements": [
+        "Dentro de formulário, validar que button não submete, submit aciona a submissão configurada e reset respeita semântica nativa."
+      ]
+    },
+    {
+      "id": "loading-and-disabled",
+      "description": "loading é sinal visual fornecido pelo consumidor: renderiza LoaderCircle e bloqueia cliques junto com disabled, mas não inicia nem finaliza uma requisição.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const busy=props.loading??false;"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={props.disabled||busy} onClick={()=>notify(emit,\"press\")}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{busy?<LoaderCircle aria-hidden=\"true\" className=\"size-4 animate-spin\"/>"
+        }
+      ],
+      "testRequirements": [
+        "Com loading=true/disabled=true, verificar impossibilidade de press por mouse e teclado, presença de spinner e liberação somente após atualização externa das props."
+      ]
+    },
+    {
+      "id": "icon-position-and-label",
+      "description": "Permite ícone de lista permitida com posição inicial/final; o adaptador define aria-label explícito ou usa label como alternativa.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const Icon=icons[props.icon as keyof typeof icons];"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "data-icon={props.iconPosition===\"end\"?\"inline-end\":\"inline-start\"}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-label={props.ariaLabel||props.label}"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar rótulos acessíveis para botões de ícone, variações de posição e ausência de nome vazio no consumidor."
+      ]
+    },
+    {
+      "id": "inline-count-badge",
+      "description": "O adaptador pode apresentar count numérico e badge textual ao lado do rótulo; esses valores são props, não indicadores automáticos de conclusão.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{typeof props.count===\"number\"&&<span"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.badge&&<ShadcnBadge variant=\"secondary\">"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar count=0 e count>0; validar badge, overflow e atualização do conteúdo sem confundir contagem com confirmação de sucesso."
+      ]
+    },
+    {
+      "id": "invalid-and-full-width",
+      "description": "Aceita aria-invalid e w-full como indicação visual/ocupação horizontal, sem criar validação ou breakpoint automático.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-invalid={props.invalid||undefined}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "className={props.fullWidth?\"w-full\":undefined}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar estado invalid e largura total em contêineres estreitos/largos, sem presumir semântica de erro de campo."
+      ]
+    },
+    {
+      "id": "async-lifecycle",
+      "description": "Uma composição futura deve coordenar pending, sucesso, erro, finally e idempotência/concorrência fora do Button; o contrato básico não fornece callback assíncrono, promise, retry ou cancel.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Criar cenário com duas ativações rápidas, falha e sucesso; garantir apenas uma requisição autorizada por vez, recuperação do estado e feedback consistente."
+      ]
+    },
+    {
+      "id": "post-action-success-error",
+      "description": "Feedback de resultado (salvo, falhou, tentar novamente) e anúncios assistivos após operação assíncrona requerem estado/integração do consumidor; count/badge/loading sozinhos não equivalem a resultado.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em composição futura, simular sucesso e falha, confirmar mensagens contextuais acessíveis e retorno à ação disponível."
+      ]
+    },
+    {
+      "id": "copy-or-external-action",
+      "description": "Copiar para a área de transferência, alterar tema, acionar URL ou backend não é efeito do press; requer composição ou componente autorizado independente.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se existir composição autorizada, verificar permissões, destino, feedback e ausência de efeitos ao apenas renderizar Button."
+      ]
+    },
+    {
+      "id": "focus-and-keyboard-runtime",
+      "description": "A base usa estilos focus-visible, porém foco, ativação por Enter/Espaço e nome anunciado dependem de validação real no navegador e leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar Tab, Shift+Tab, Enter e Espaço com variações disabled/loading, navegação por leitor de tela e foco visível."
+      ]
+    },
+    {
+      "id": "mobile-contrast-and-feedback-runtime",
+      "description": "Legibilidade, contraste, tamanho de toque e anúncio de estado pendente/sucesso/erro exigem inspeção móvel e com tecnologia assistiva; não são demonstrados só por classes CSS.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Revisar viewport móvel e zoom, dark mode, alvo de toque de tamanhos icon/xs, contraste e comunicação de loading."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "ButtonGroup",
+      "relationship": "related-actions",
+      "reason": "Agrupar ações relacionadas mantendo ordem e hierarquia visual; seleção persistente pede ToggleGroup."
+    },
+    {
+      "component": "Input",
+      "relationship": "form-action",
+      "reason": "Submeter ou limpar dados de formulário em composição controlada; Button sozinho não captura valores."
+    },
+    {
+      "component": "Field",
+      "relationship": "form-validation-context",
+      "reason": "Relacionar ação, campos e mensagens de erro com semântica adequada no formulário."
+    },
+    {
+      "component": "Dialog",
+      "relationship": "dialog-actions",
+      "reason": "Oferecer confirmar/cancelar em edição comum sem assumir fechamento automático."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "destructive-confirmation",
+      "reason": "Exigir confirmação contextual para decisões potencialmente irreversíveis antes de executar lógica autorizada."
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "icon-action-help",
+      "reason": "Dar contexto adicional a ícone sem substituir ariaLabel acessível."
+    },
+    {
+      "component": "Badge",
+      "relationship": "status-or-count",
+      "reason": "Apresentar contagem ou estado adjacente; resultado remoto requer tratamento externo."
+    },
+    {
+      "component": "Spinner",
+      "relationship": "pending-visual",
+      "reason": "Indicador alternativo de atividade em composição; Button do catálogo atualmente usa LoaderCircle."
+    },
+    {
+      "component": "Alert",
+      "relationship": "post-action-feedback",
+      "reason": "Exibir sucesso ou erro persistente em resultado de ação quando houver fluxo consumidor."
+    },
+    {
+      "component": "Sonner",
+      "relationship": "ephemeral-async-feedback",
+      "reason": "Notificação transitória candidata, sem permissão automática no Pi nem execução ao pressionar Button."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Que variante escolher para a ação principal e a destrutiva?",
+      "guidance": "Usar default para ação primária única, secondary/outline para alternativas, ghost em contextos discretos, destructive apenas para comunicar risco. A variante não autoriza operação; para efeito crítico considerar AlertDialog."
+    },
+    {
+      "question": "Como representar loading de uma chamada assíncrona?",
+      "guidance": "No contrato atual, o consumidor fornece loading=true enquanto aguarda, atualiza o estado após sucesso/erro e oferece feedback externo; o Button somente desenha spinner e desabilita. Implementar anti-duplicação/idempotência no fluxo autorizado."
+    },
+    {
+      "question": "O clique faz fetch, copia ou salva automaticamente?",
+      "guidance": "Não. Apenas press local. Cópia, envio, navegação, persistência, toast e política de retry exigem composição/callback autorizado e teste separado."
+    },
+    {
+      "question": "Como escolher entre submit, reset e button?",
+      "guidance": "type padrão é button; usar submit ou reset explicitamente dentro de formulário configurado. Nenhuma das opções implica submissão remota."
+    },
+    {
+      "question": "Posso usar variant='link' para navegação?",
+      "guidance": "Não confundir estilo link com semântica de âncora. Preferir Link/âncora com href aprovado e buttonVariants; não introduzir render/asChild/href no Button JSON."
+    },
+    {
+      "question": "Como construir botões apenas com ícone?",
+      "guidance": "Informar label/ariaLabel significativo, escolher tamanho icon apropriado e validar leitores de tela, teclado, contraste e alvo de toque, especialmente em icon-xs."
+    },
+    {
+      "question": "Quando usar contador, badge ou aviso de sucesso?",
+      "guidance": "count e badge são conteúdo descritivo alimentado por props. Para resultado após uma operação, integrar Alert/Sonner ou composição aprovada com estado de sucesso/erro e anúncio acessível."
+    },
+    {
+      "question": "Como lidar com múltiplos cliques ou falha de rede?",
+      "guidance": "loading desabilita visualmente apenas enquanto permanecer true. Consumidor deve bloquear concorrência, dar feedback de falha, restaurar interação e não repetir operação não idempotente automaticamente."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "press-event-and-disabled",
+      "kind": "integration",
+      "description": "Emitir um press em clique habilitado e zero em disabled/loading; verificar que a renderização isolada não invoca API nem clipboard.",
+      "capabilities": [
+        "local-press-event",
+        "loading-and-disabled"
+      ]
+    },
+    {
+      "id": "form-type-behavior",
+      "kind": "integration",
+      "description": "Montar formulário com ações button/submit/reset e conferir o evento nativo esperado sem persistência implícita.",
+      "capabilities": [
+        "explicit-form-type"
+      ]
+    },
+    {
+      "id": "variants-and-sizes",
+      "kind": "visual",
+      "description": "Conferir seis variantes e oito tamanhos em light/dark, inclusive destructive/icon e alinhamento com textos extensos.",
+      "capabilities": [
+        "visual-variants",
+        "sizes-and-icon-sizes"
+      ]
+    },
+    {
+      "id": "icon-and-label-a11y",
+      "kind": "manual-a11y",
+      "description": "Verificar nomes acessíveis de botões apenas com ícone, leitura de label/ariaLabel e indicação de posição no layout.",
+      "capabilities": [
+        "icon-position-and-label",
+        "focus-and-keyboard-runtime"
+      ]
+    },
+    {
+      "id": "loading-feedback-and-badge",
+      "kind": "visual",
+      "description": "Comparar normal, loading, disabled, invalid, count=0, count>0, badge e fullWidth sem confundir estado pendente com sucesso.",
+      "capabilities": [
+        "loading-and-disabled",
+        "inline-count-badge",
+        "invalid-and-full-width"
+      ]
+    },
+    {
+      "id": "keyboard-focus-states",
+      "kind": "manual-a11y",
+      "description": "Testar Tab, Shift+Tab, Enter, Espaço, foco visível e anúncios de loading sob leitores de tela; checar disabled.",
+      "capabilities": [
+        "focus-and-keyboard-runtime",
+        "loading-and-disabled"
+      ]
+    },
+    {
+      "id": "touch-responsive",
+      "kind": "visual",
+      "description": "Testar xs/icon-xs e fullWidth em viewport móvel, 200% zoom, tema escuro e contraste; registrar alvos abaixo das recomendações.",
+      "capabilities": [
+        "mobile-contrast-and-feedback-runtime",
+        "sizes-and-icon-sizes",
+        "invalid-and-full-width"
+      ]
+    },
+    {
+      "id": "async-pending-success-error",
+      "kind": "candidate-not-executable",
+      "description": "Em futura composição autorizada, simular latência, sucesso e erro, impedir dupla execução, tratar rejeição e recuperar o Button.",
+      "capabilities": [
+        "async-lifecycle",
+        "post-action-success-error"
+      ]
+    },
+    {
+      "id": "external-action-guard",
+      "kind": "candidate-not-executable",
+      "description": "Em composição aprovada, confirmar que clipboard, URL ou backend só são invocados pelo handler permitido, com erro e feedback explícitos.",
+      "capabilities": [
+        "copy-or-external-action",
+        "post-action-success-error"
+      ]
+    }
+  ]
+}
