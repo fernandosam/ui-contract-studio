@@ -112,3 +112,11 @@ A auditoria mede a aprovação inicial de 12 variantes de cadastro e 12 variante
 ## T33 — Três decisões por padrão (2026-10-27)
 
 Cada fluxo declara pelo menos três decisões de interface: o login pode mostrar ajuda, a listagem exibir um resumo de dados fictícios e o dashboard uma nota sobre os valores. A busca já possuía três perguntas. Todas as variações reutilizam contratos Text/Card/Table/Metric/Grid aprovados. As respostas mantêm proveniência e são verificadas na árvore gerada. As novas decisões visuais não habilitam autenticação, busca remota, mutações ou persistência.
+
+## T34 — Evidências de navegador por requisito, vinculadas à spec e ao commit (2026-10-27)
+
+O job de revisão em navegador executa oito variantes representativas em desktop e mobile, verificando campos, rótulos, elementos opcionais e linhas visíveis. Cada execução Playwright real gera PNG e JSON com SHA de origem, impressão digital da spec Pi gerada, caso, IDs dos requisitos efetivamente verificados e projeto do navegador. O comando \`npm run requirements:browser:report\` rejeita evidências ausentes, incorretas ou obsoletas antes de gravar \`reports/requirements-browser/summary.json\` no artefato do CI.
+
+Somente as **afirmações específicas de renderização** recebem estado \`tested-render\`; os demais requisitos continuam \`covered-static\` ou \`runtime-review-required\`. Isso não certifica filtro funcional, autenticação, CRUD, envio de formulário, leitor de tela ou fidelidade visual. SHA/spec divergente, execução reprovada/repetida, captura ausente, requisito não declarado e navegador incorreto bloqueiam o relatório. Fixtures sintéticas de teste da verificação não são provas de navegador.
+
+Evidência de PR é auxiliar à revisão, não certificação independente de produção. Nenhum contrato ou permissão Pi é alterado.
