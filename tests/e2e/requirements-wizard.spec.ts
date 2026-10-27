@@ -1,0 +1,35 @@
+import {test,expect} from "@playwright/test";
+test("requirements wizard asks for persistence before generating a preview",async({page})=>{
+  await page.goto("/?screen=criador-interfaces");
+  const wizard=page.getByTestId("requirements-wizard");
+  await expect(wizard).toBeVisible();
+  await expect(wizard.getByText("Resposta obrigatória: persistence")).toBeVisible();
+  await expect(wizard.getByRole("button",{name:"Gerar prévia JSON"})).toBeDisabled();
+  await wizard.getByLabel("O cadastro será demonstrativo ou salvará no servidor?").selectOption("local-demo");
+  await expect(wizard.getByRole("button",{name:"Gerar prévia JSON"})).toBeEnabled();
+  await wizard.getByRole("button",{name:"Gerar prévia JSON"}).click();
+  await expect(wizard.getByTestId("generated-preview")).toBeVisible();
+  await expect(wizard.getByRole("alert",{name:/interface foi bloqueada/i})).toHaveCount(0);
+  await expect(wizard.getByTestId("generated-preview").getByText("Cadastro de usuários")).toBeVisible();
+});
+test("conditional confirmation and blocked backend are explicit",async({page})=>{
+  await page.goto("/?screen=criador-interfaces");
+  const wizard=page.getByTestId("requirements-wizard");
+  await expect(wizard.getByLabel("Qual mensagem de confirmação?")).toHaveCount(0);
+  await wizard.getByLabel("Mostrar confirmação antes de salvar?").check();
+  await expect(wizard.getByLabel("Qual mensagem de confirmação?")).toBeVisible();
+  await wizard.getByLabel("O cadastro será demonstrativo ou salvará no servidor?").selectOption("backend");
+  await expect(wizard.getByText(/Persistência remota depende de ação\/backend autorizado/)).toBeVisible();
+  await expect(wizard.getByRole("button",{name:"Gerar prévia JSON"})).toBeDisabled();
+  await wizard.getByLabel("O cadastro será demonstrativo ou salvará no servidor?").selectOption("local-demo");
+  await wizard.getByRole("button",{name:"Gerar prévia JSON"}).click();
+  await expect(wizard.getByTestId("generated-preview")).toBeVisible();
+});
+test("business rules remain blocked without an approved behavioral contract",async({page})=>{
+  await page.goto("/?screen=criador-interfaces");
+  const wizard=page.getByTestId("requirements-wizard");
+  await wizard.getByLabel("O cadastro será demonstrativo ou salvará no servidor?").selectOption("local-demo");
+  await wizard.getByLabel("Qual nível de validação?").selectOption("business");
+  await expect(wizard.getByText(/Validação de negócio não disponível/)).toBeVisible();
+  await expect(wizard.getByRole("button",{name:"Gerar prévia JSON"})).toBeDisabled();
+});

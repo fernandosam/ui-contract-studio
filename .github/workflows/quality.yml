@@ -93,12 +93,13 @@ jobs:
       - uses: ./.github/actions/setup-chromium
       - name: Clear evidence from earlier runs
         run: npm run admission:evidence:reset
-      - name: Verify all 4 compositions and official Pi explorer on desktop/mobile
+      - name: Verify admission compositions and requirements wizard on desktop/mobile
         run: |
           npx playwright test \
             tests/e2e/typed-confirmation-pilot.spec.ts \
             tests/e2e/admission-candidates.spec.ts \
             tests/e2e/admission-catalog.spec.ts \
+            tests/e2e/requirements-wizard.spec.ts \
             --project=desktop --project=mobile
       - name: Check all four fingerprint-bound browser evidence reports
         run: npm run admission:evidence:report
