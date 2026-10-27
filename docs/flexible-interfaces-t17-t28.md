@@ -72,3 +72,13 @@ The second phase registers `DeclarativeFormFlow` **only in the Pi experimental c
 The authoring wizard now uses `SpecScreen channel="experimental"` to exercise the actual Pi renderer. A serializable example lives in `pi-catalog/experimental-examples/DeclarativeFormFlow.json`; contract checks reject arbitrary properties and stable-channel use.
 
 **Not certified:** `validation.e2e=pending`, no automatic promotion eligibility. Local browser checks and accessibility review are not substitutes for the independent certification via the Admission Engine manual workflow. No backend permission is added.
+
+## T35 — Independent DeclarativeFormFlow browser certification protocol (2026-10-27)
+
+The `declarative-form-desktop-mobile` protocol runs five independent cases on each of desktop and mobile (ten total), recording browser screenshots and structured status under `reports/composition-validation/admission/form-declarative/`, bound to source digest, protocol ID and exact main SHA.
+
+Cases verify required/error focus and ARIA, cancel/Escape/reopen confirmation, Tab/Enter keyboard order, responsive two-/one-column layout with optional inputs, and an explicit no-validation local-only completion. Tests watch for unexpected fetch/XHR requests and check that no data is saved.
+
+Adding `e2eEligible` does **not** certify or stabilize the Pi type. It remains experimental and stable Pi rejects it. Passing PR tests only establishes a provisional runtime review; promotion requires the independently initiated `E2E manual (main)` workflow after PR approval, which rechecks main SHA, resets stale evidence, verifies every desktop/mobile case, and certifies in a separate job. Screen reader accessibility and manual security review remain pending unless independently completed.
+
+Synthetic test screenshots are never production-browser proof. Do not prefill `certifications.json`; source digest, protocol or revision drift invalidates existing evidence.

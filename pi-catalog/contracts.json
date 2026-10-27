@@ -12614,7 +12614,7 @@
       "example": "pi-catalog/experimental-examples/DeclarativeFormFlow.json",
       "capability": "local-interactive",
       "sourceDigest": "e1915c4a98271a982d01fff2251174f1c036e06c660ca3a6c1f1694118f8b066",
-      "e2eProtocol": null,
+      "e2eProtocol": "declarative-form-desktop-mobile",
       "validation": {
         "static": "passed",
         "e2e": "pending"

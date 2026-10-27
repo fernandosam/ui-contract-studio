@@ -12,7 +12,8 @@
     "alert-checkbox",
     "alert-typed",
     "accordion-members",
-    "button-copy"
+    "button-copy",
+    "form-declarative"
   ],
-  "explanation": "Four previously certified local-only candidates retain their independent E2E promotion protocols. DeclarativeFormFlow is explicitly enabled in the experimental channel for review only, without E2E promotion eligibility or stable access; no remote actions, URLs or JSX are permitted."
+  "explanation": "All five local-only proposals have independent desktop/mobile browser protocols. Eligibility does not certify a component: DeclarativeFormFlow remains experimental until a trusted manual main-branch E2E run produces source-bound evidence and the separate certificate is reviewed."
 }

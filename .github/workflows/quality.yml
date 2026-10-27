@@ -103,8 +103,9 @@ jobs:
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
             tests/e2e/declarative-form-pi.spec.ts \
+            tests/e2e/declarative-form-certification.spec.ts \
             --project=desktop --project=mobile
-      - name: Check all four fingerprint-bound browser evidence reports
+      - name: Check all five fingerprint-bound browser evidence reports
         run: npm run admission:evidence:report
       - name: Preserve browser evidence for review
         if: always()

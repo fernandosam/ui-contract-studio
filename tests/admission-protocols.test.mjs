@@ -95,3 +95,26 @@ test("unknown E2E protocol remains ineligible even when recipe allowlisted",()=>
  const errors=evaluatePolicy({policy,recipes,scenarios,lock,pi,sources,protocols:clone});
  assert.ok(errors.some(x=>x.includes("button-copy: no verified browser evidence protocol")));
 });
+
+test("T35: form source-bound evidence is fail-closed for all five desktop/mobile cases",t=>{
+ const id="form-declarative",entry=entries.find(x=>x.id===id),protocol=protocolCatalog.candidates[id];
+ assert.ok(entry);
+ assert.equal(entry.e2eProtocol,protocol.protocol);
+ const root=mkdtempSync(join(tmpdir(),"form-composition-"));
+ t.after(()=>rmSync(root,{recursive:true,force:true}));
+ const revision="d".repeat(40);
+ createEvidence(root,id,entry,protocol,revision);
+ assert.equal(inspectEvidence(root,id,entry,protocol,revision).executions,10);
+ const caseId=protocol.cases.at(-1);
+ const location=join(root,protocol.evidenceRoot,"mobile",caseId+".json");
+ const initial=JSON.parse(readFileSync(location,"utf8"));
+ writeFileSync(location,JSON.stringify({...initial,sourceDigest:"0".repeat(64)}));
+ assert.throws(()=>inspectEvidence(root,id,entry,protocol,revision),/failed\/incompatible/);
+ writeFileSync(location,JSON.stringify(initial));
+ const summary=join(root,protocol.evidenceRoot,"summary.json");
+ const previous=JSON.parse(readFileSync(summary,"utf8"));
+ writeFileSync(summary,JSON.stringify({...previous,sourceRevision:"e".repeat(40)}));
+ assert.throws(()=>inspectEvidence(root,id,entry,protocol,revision),/stale/);
+ rmSync(join(root,protocol.evidenceRoot,"desktop",protocol.cases[0]+".png"));
+ assert.throws(()=>inspectEvidence(root,id,entry,protocol,revision),/missing evidence/);
+});
