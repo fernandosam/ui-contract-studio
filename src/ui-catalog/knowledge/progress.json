@@ -153,26 +153,9 @@
     },
     {
       "id": "react-progress-label-and-value",
-      "description": "A primitiva React exporta ProgressLabel e ProgressValue, mas são peças adicionais não expostas como subpartes Pi.",
-      "state": "implemented-static-evidence",
-      "evidence": [
-        {
-          "path": "src/components/ui/progress.tsx",
-          "contains": "function ProgressLabel("
-        },
-        {
-          "path": "src/components/ui/progress.tsx",
-          "contains": "function ProgressValue("
-        },
-        {
-          "path": "src/components/ui/progress.tsx",
-          "contains": "  ProgressLabel,"
-        },
-        {
-          "path": "src/components/ui/progress.tsx",
-          "contains": "  ProgressValue,"
-        }
-      ],
+      "description": "Expor ProgressLabel e ProgressValue como slots/partes do contrato Pi. As peças existem só na primitiva React; o adaptador Pi usa ShadcnLabel e texto próprios.",
+      "state": "documented-not-implemented",
+      "evidence": [],
       "testRequirements": [
         "Conferir export React e que a API Pi não aceita slots ProgressLabel/ProgressValue."
       ]
@@ -335,7 +318,7 @@
     },
     {
       "id": "react-only-parts",
-      "kind": "integration",
+      "kind": "candidate-not-executable",
       "description": "Verificar export das subpartes React sem permitir slots novos no contrato Pi.",
       "capabilities": [
         "react-progress-label-and-value"
