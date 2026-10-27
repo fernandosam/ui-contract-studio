@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "component": "Toggle",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/toggle",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Toggle?",
+      "Why Use Shadcn Toggle?",
+      "Shadcn Toggle Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Expressar e alternar o estado pressionado de um controle binário individual, distinguindo escolha persistente na UI de um clique de ação isolada.",
+  "rationale": [
+    "Oferecer feedback visual duradouro para estados como destaque, fixação ou modo ativo.",
+    "Evitar tratar o evento change como autorização ou persistência automática de preferências e reações."
+  ],
+  "whenUse": [
+    "Controle isolado cuja ação muda um estado binário visível, como exibir/ocultar detalhe local ou marcar opção de interface.",
+    "Preferência instantânea de apresentação controlada pela UI, com estado pressionado claramente distinguível.",
+    "Ações de edição de estado como negrito, desde que existam editor e operação concreta autorizados fora de Toggle."
+  ],
+  "whenNotUse": [
+    "Salvar, enviar, excluir ou navegar uma vez sem estado pressionado: preferir Button.",
+    "Escolher uma entre várias opções correlacionadas ou várias simultaneamente: preferir ToggleGroup.",
+    "Um campo booleano de formulário com rótulo de configuração e semântica on/off: preferir Switch; aceite explícito: Checkbox.",
+    "Reação remota ou bookmark persistido sem API autorizada; Toggle não grava dados em servidor."
+  ],
+  "agentNotes": [
+    "A primitiva instalada em src/components/ui/toggle.tsx é @base-ui/react/toggle, enquanto exemplos ReUI descrevem Radix; conferir compatibilidade e não copiar atributos não previstos pelo Pi.",
+    "O contrato Pi exige label textual e admite pressed/defaultPressed, variante default/outline, size default/sm/lg, disabled e um ícone de allowlist.",
+    "O playground inicializa pressed via props ou binding e onPressedChange atualiza o valor local, emitindo change sem payload de persistência.",
+    "A API aprovada não prevê ícone-only sem label, contadores, ariaLabel customizado, tooltip embutida nem handlers de backend; variantes de exemplo são candidatas.",
+    "No estado controlado, sincronizar pressed com a real condição exibida pelo consumidor. O evento não comprova que o efeito de domínio ocorreu.",
+    "A primitiva visual aplica estilos aria-pressed e foco; confirmar teclado, leitor de tela, contraste e estados em execução.",
+    "Não confundir Toggle com Switch: ambos possuem dois estados, mas representam controles e contextos de interação diferentes."
+  ],
+  "capabilities": [
+    {
+      "id": "pressed-and-default-pressed",
+      "description": "Estado pressionado atual/default do contrato, com fallback false.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "pressed:z.boolean().nullable().optional(),defaultPressed:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.pressed??props.defaultPressed??false,bindings?.pressed)"
+        }
+      ],
+      "testRequirements": [
+        "Inicializar true/false, alterar e validar precedência de pressed sobre defaultPressed e binding."
+      ]
+    },
+    {
+      "id": "local-change-event",
+      "description": "Alteração de pressed propaga estado local/binding e emite evento change.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onPressedChange={(v:boolean)=>{setValue(v);notify(emit,\"change\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Clicar duas vezes e validar alternância e change por ação, sem side effect remoto."
+      ]
+    },
+    {
+      "id": "variants-and-sizes",
+      "description": "Variantes default/outline e dimensões default/sm/lg disponíveis.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "variant:z.enum([\"default\",\"outline\"]).optional(),size:z.enum([\"default\",\"sm\",\"lg\"]).optional()"
+        },
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "contains": "toggleVariants({ variant, size, className })"
+        }
+      ],
+      "testRequirements": [
+        "Testar 2 variantes x 3 tamanhos com estados ligado e desligado."
+      ]
+    },
+    {
+      "id": "disabled-interaction",
+      "description": "Estado disabled é passado à primitiva, impedindo interação do controle.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={props.disabled} pressed={value}"
+        },
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "contains": "disabled:pointer-events-none disabled:opacity-50"
+        }
+      ],
+      "testRequirements": [
+        "Garantir que desabilitado não altera pressed nem dispara change."
+      ]
+    },
+    {
+      "id": "allowed-icon-and-label",
+      "description": "Mostra label textual aprovado e ícone Lucide de lista restrita quando informado.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "icon:z.enum([\"Star\",\"Heart\",\"Check\",\"X\",\"Bell\",\"Settings\",\"Sun\",\"Moon\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{Icon&&<Icon aria-hidden=\"true\" className=\"size-4\"/>}{props.label}"
+        }
+      ],
+      "testRequirements": [
+        "Validar rótulo com e sem ícone e rejeição contratual de ícone fora da allowlist."
+      ]
+    },
+    {
+      "id": "pressed-visual-feedback",
+      "description": "Estilos condicionais de estado pressionado e foco são configurados na primitiva Base UI.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "contains": "aria-pressed:bg-muted"
+        },
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "contains": "focus-visible:ring-[3px]"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar classes e aparência pressionada/normal; conferir contraste no navegador separadamente."
+      ]
+    },
+    {
+      "id": "remote-reaction-persistence",
+      "description": "Persistência remota de favoritos, bookmarks, reações ou preferências com tratamento de erro.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor handler tipado, autorização, reversão de estado e feedback de erro em fluxo distinto."
+      ]
+    },
+    {
+      "id": "icon-only-and-tooltip-contract",
+      "description": "Rótulo acessível para controle puramente icônico e tooltip integrada declarados como props Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se admitido, verificar ícone-only com nome acessível, dica por hover/foco e sem colisão de rótulos."
+      ]
+    },
+    {
+      "id": "counts-and-async-loading",
+      "description": "Contadores de reação e estados pending/success/error durante ação assíncrona.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Somente com contrato próprio, testar contagem estável, loading e deduplicação de cliques."
+      ]
+    },
+    {
+      "id": "keyboard-and-aria-pressed",
+      "description": "Comportamento real de Space/Enter, foco e anúncio do estado pressionado para leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar teclado e leitor de tela com e sem ícone, disabled, labels e estado alterado."
+      ]
+    },
+    {
+      "id": "contrast-touch-responsive",
+      "description": "Legibilidade, contraste e tamanho de alvo tátil em todas as variantes.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar modo claro/escuro, sm/lg, foco visível e interação por toque em mobile."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "alternative-one-shot-action",
+      "reason": "Ação sem estado pressionado deve usar Button, não Toggle."
+    },
+    {
+      "component": "ToggleGroup",
+      "relationship": "candidate-grouped-selections",
+      "reason": "Quando múltiplas opções compartilham regra de seleção e navegação, empregar o grupo em vez de toggles isolados."
+    },
+    {
+      "component": "Switch",
+      "relationship": "alternative-boolean-setting",
+      "reason": "Preferir para controle de configuração explícito ligado/desligado."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "alternative-form-affirmation",
+      "reason": "Preferir para consentimento, seleção múltipla ou marcação de formulário."
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "candidate-icon-explanation",
+      "reason": "Explicação contextual de ícone, sem substituir texto ou nome acessível."
+    },
+    {
+      "component": "Badge",
+      "relationship": "candidate-reaction-count",
+      "reason": "Contadores são composição externa e dependem de fonte/autorização próprias."
+    },
+    {
+      "component": "Alert",
+      "relationship": "candidate-action-feedback",
+      "reason": "Exibir erro de persistência futura sem apresentar change local como sucesso remoto."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Toggle, Switch ou Checkbox?",
+      "guidance": "Toggle modela botão pressionado; Switch alterna configuração on/off; Checkbox registra seleção ou afirmação."
+    },
+    {
+      "question": "Quando usar Button em vez de Toggle?",
+      "guidance": "Se a interação é ação pontual sem estado selecionado, Button é semanticamente mais adequado."
+    },
+    {
+      "question": "O evento change já salva um favorito?",
+      "guidance": "Não. Change altera estado local/binding; operação remota precisa de integração tipada e autorização."
+    },
+    {
+      "question": "É permitido criar Toggle somente com ícone?",
+      "guidance": "O contrato atual exige label textual; exemplo de ícone-only + aria-label pertence a evolução não admitida."
+    },
+    {
+      "question": "Como marcar disabled?",
+      "guidance": "Usar disabled do contrato; verificar que a interação não modifica o estado e que a razão seja compreensível no contexto."
+    },
+    {
+      "question": "O estilo aria-pressed comprova suporte completo a leitores de tela?",
+      "guidance": "Não. É evidência estática de classes; navegação e anúncio dependem de teste em runtime."
+    },
+    {
+      "question": "Como montar grupo exclusivo?",
+      "guidance": "Preferir ToggleGroup com seleção única em vez de orquestrar Toggles independentes."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "local-pressed-roundtrip",
+      "kind": "integration",
+      "description": "Alternar pressed/defaultPressed e binding, observar apenas change local e bloquear interação disabled.",
+      "capabilities": [
+        "pressed-and-default-pressed",
+        "local-change-event",
+        "disabled-interaction"
+      ]
+    },
+    {
+      "id": "variants-icon-matrix",
+      "kind": "visual",
+      "description": "Comparar variantes, tamanhos, estados ativo/inativo e ícones permitidos com texto.",
+      "capabilities": [
+        "variants-and-sizes",
+        "allowed-icon-and-label",
+        "pressed-visual-feedback"
+      ]
+    },
+    {
+      "id": "keyboard-aria-toggle",
+      "kind": "manual-a11y",
+      "description": "Testar Tab, Enter, Space, leitura aria-pressed e label em estados distintos.",
+      "capabilities": [
+        "keyboard-and-aria-pressed",
+        "allowed-icon-and-label"
+      ]
+    },
+    {
+      "id": "mobile-contrast-toggle",
+      "kind": "visual",
+      "description": "Auditar foco, contraste e alvos táteis em claro/escuro e mobile.",
+      "capabilities": [
+        "contrast-touch-responsive",
+        "variants-and-sizes"
+      ]
+    },
+    {
+      "id": "remote-reaction-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Testar futura persistência autorizada, rollback e falhas sem presumir sucesso local.",
+      "capabilities": [
+        "remote-reaction-persistence"
+      ]
+    },
+    {
+      "id": "icon-only-help-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Propor rótulo ARIA tipado e Tooltip acessível para opção só com ícone.",
+      "capabilities": [
+        "icon-only-and-tooltip-contract"
+      ]
+    },
+    {
+      "id": "reaction-pending-count-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Propor feedback de pending/erro e contagem sem clique duplicado em integração futura.",
+      "capabilities": [
+        "counts-and-async-loading"
+      ]
+    }
+  ]
+}

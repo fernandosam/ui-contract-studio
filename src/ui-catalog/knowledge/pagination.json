@@ -1,0 +1,361 @@
+{
+  "schemaVersion": 1,
+  "component": "Pagination",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/pagination",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Pagination?",
+      "Why Use Shadcn Pagination?",
+      "Shadcn Pagination Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Navegar de forma previsível por fatias numeradas de resultados, mantendo página atual, limites e opção de tamanho por página legíveis.",
+  "rationale": [
+    "Expor progresso e saltos de posição sem sobrecarregar a interface com todos os números.",
+    "Separar paginação visual local de consultas, URL e carregamento de dados, que não são executados pelo contrato Pi."
+  ],
+  "whenUse": [
+    "Listas ou resultados já segmentados, com total de páginas conhecido e navegação por página.",
+    "Rodapés de listas ou tabelas simples com botões anterior/próximo e indicação da página atual.",
+    "Quando totalItems é conhecido, apresentar seletor local de quantidade por página; o consumidor deve ajustar os dados exibidos."
+  ],
+  "whenNotUse": [
+    "Tabela rica com busca, ordenação, filtros e paginação integrada: preferir DataTable ou composição própria.",
+    "Feed de descoberta contínua sem necessidade de saltar para páginas: avaliar rolagem contínua com critérios de acessibilidade.",
+    "Navegação que exige URL compartilhável, voltar/avançar e busca remota automaticamente: o contrato Pagination atual não implementa isso.",
+    "Uso como ButtonGroup de ações que não representam páginas de resultados."
+  ],
+  "agentNotes": [
+    "O Pagination aprovado em src/ui-catalog/catalog.ts renderiza botões locais em playground.tsx e emite change/pageSizeChange; não assume links href nem roteamento.",
+    "A primitiva independente src/components/ui/pagination.tsx inclui PaginationLink com âncora, mas não é o renderizador do contrato Pi; exemplos com href='#' não autorizam navegação real.",
+    "totalPages é obrigatório no JSON; totalItems, quando fornecido, recalcula o total com pageSize local; o componente limita current entre 1 e total.",
+    "showPageSize só é renderizado se totalItems estiver disponível; mudança de tamanho volta para página 1 e emite pageSizeChange (não emite change nesse caminho).",
+    "siblingCount admite 0 a 3; showGoTo, showFirstLast e pageSizeOptions são opcionais já aprovados. Não adicione page URLs, callbacks ou estado de carregamento ao schema por inferência.",
+    "O campo de salto usa id estático pg-pagination-goto; testar múltiplas instâncias e associação de rótulo antes de considerar a composição acessível.",
+    "Paginação no cliente não filtra nem busca registros automaticamente. Sincronizar página, filtros, tamanho e dados com fluxo consumidor autorizado."
+  ],
+  "capabilities": [
+    {
+      "id": "numbered-page-window",
+      "description": "Botões para primeira/última janela numérica, vizinhos e reticências quando há lacunas.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const windowPages=new Set<number>([1,total]);"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{i>0&&p-pages[i-1]>1&&<span aria-hidden=\"true\""
+        }
+      ],
+      "testRequirements": [
+        "Testar totalPages=1, 2, 20, início/meio/fim e siblingCount=0 e 3."
+      ]
+    },
+    {
+      "id": "page-boundaries",
+      "description": "Limites de página e botões anterior/próximo desabilitados nas extremidades.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const current=clamp(page,1,total),siblings=props.siblingCount??1;"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={current<=1}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={current>=total}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar clamp quando page excede total ou é menor que 1 na inicialização e em ações."
+      ]
+    },
+    {
+      "id": "page-change-signal",
+      "description": "Troca local da página em estado/binding e emite exclusivamente o evento change.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Pagination: { props: obj({ totalPages:z.number().int().min(1)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "notify(emit,\"change\");"
+        }
+      ],
+      "testRequirements": [
+        "Clicar em página e anterior/próximo e conferir mudança local com um change, sem requisição de rede."
+      ]
+    },
+    {
+      "id": "first-last-controls",
+      "description": "Exibe botões de primeira e última página quando showFirstLast está ativo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.showFirstLast&&<button type=\"button\" aria-label=\"Primeira página\""
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-label=\"Última página\""
+        }
+      ],
+      "testRequirements": [
+        "Validar habilitação e destino de primeira/última nos limites."
+      ]
+    },
+    {
+      "id": "numeric-page-jump",
+      "description": "Formulário local de salto para número inteiro usando showGoTo e clamp.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.showGoTo&&<form"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "if(Number.isInteger(next))change(next);"
+        }
+      ],
+      "testRequirements": [
+        "Submeter valores válidos, vazios, decimais e fora dos limites, sem navegação remota."
+      ]
+    },
+    {
+      "id": "page-size-with-total-items",
+      "description": "Seleciona número de itens por página quando totalItems e showPageSize estão presentes; atualiza total e emite pageSizeChange.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.totalItems==null?props.totalPages:Math.ceil(props.totalItems/size)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "notify(emit,\"pageSizeChange\");"
+        }
+      ],
+      "testRequirements": [
+        "Trocar tamanho, validar cálculo de total, reset para primeira página e apenas pageSizeChange; cobrir totalItems=0."
+      ]
+    },
+    {
+      "id": "active-page-a11y-attributes",
+      "description": "Estrutura local possui nav, aria-label e aria-current de página ativa.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<nav className=\"pg-pagination\" aria-label=\"Paginação\">"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-current={current===p?\"page\":undefined}"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar atributos gerados; validar anúncio real por leitor de tela em teste separado."
+      ]
+    },
+    {
+      "id": "url-and-history-sync",
+      "description": "Sincronização declarativa com links por página, query string, URL compartilhável e histórico de navegação.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor contrato/integração de roteador e validar URL, voltar/avançar e refresh sem depender de href de exemplos."
+      ]
+    },
+    {
+      "id": "server-data-requests",
+      "description": "Buscar, filtrar, ordenar ou substituir resultados do servidor ao mudar página/tamanho.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor integração tipada com fonte de dados, erro e loading sem conceder execução remota ao componente."
+      ]
+    },
+    {
+      "id": "auto-filter-reset",
+      "description": "Reset automático ao aplicar filtros externos e coordenação de totalItems com filtros/ordenação.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor teste de alteração de filtro com página atual inválida; consumidor deve explicitar o reset."
+      ]
+    },
+    {
+      "id": "keyboard-and-screen-reader",
+      "description": "Verificação em navegador de navegação por teclado, anúncio das páginas, salto e compatibilidade com leitores de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar Tab, Enter, rótulos, aria-current, foco após mudança e validação do salto em leitor de tela."
+      ]
+    },
+    {
+      "id": "small-viewport-and-multi-instance",
+      "description": "Resiliência visual e associação do label de salto em mobile e quando há mais de um Pagination na tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Inspecionar quebra de linha, alvos táteis e duplicação do id pg-pagination-goto com dois paginadores."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Table",
+      "relationship": "candidate-table-footer",
+      "reason": "Organizar um paginador local sob tabela simples com dados segmentados externamente."
+    },
+    {
+      "component": "DataTable",
+      "relationship": "alternative-integrated-grid",
+      "reason": "Preferir tabela avançada com estado próprio quando há filtros, ordenação e paginação conjunta."
+    },
+    {
+      "component": "Select",
+      "relationship": "optional-page-size-choice",
+      "reason": "Uma opção tipada de tamanho pode integrar composição futura, sem substituir o select nativo local atual."
+    },
+    {
+      "component": "Input",
+      "relationship": "optional-page-jump",
+      "reason": "Entrada numérica de salto precisa validar limite; já existe input HTML interno para showGoTo."
+    },
+    {
+      "component": "Button",
+      "relationship": "alternative-load-more",
+      "reason": "Carregamento progressivo é um padrão diferente e exige ações de dados autorizadas."
+    },
+    {
+      "component": "Card",
+      "relationship": "candidate-feed-layout",
+      "reason": "Paginador pode acompanhar cartões de resultados, coordenando paginação e dados externamente."
+    },
+    {
+      "component": "Badge",
+      "relationship": "optional-result-count",
+      "reason": "Contextualizar total de registros sem confundir com consulta executada."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Pagination ou DataTable?",
+      "guidance": "Usar Pagination para posição em dados já segmentados; DataTable quando tabela precisa combinar filtro, ordenação e paginação."
+    },
+    {
+      "question": "Os números geram links e alteram a URL?",
+      "guidance": "Não no contrato Pi atual: são botões com evento local change. A primitiva PaginationLink é separada e não autoriza navegação."
+    },
+    {
+      "question": "Como atualizar resultados ao avançar?",
+      "guidance": "A resposta deve vir de integração de dados explicitamente implementada e autorizada; change é sinal local, não fetch."
+    },
+    {
+      "question": "Qual o papel de totalPages e totalItems?",
+      "guidance": "totalPages é sempre obrigatório; se totalItems existir, o renderizador calcula a quantidade de páginas segundo size atual (mínimo 1)."
+    },
+    {
+      "question": "O que ocorre ao alterar itens por página?",
+      "guidance": "O estado local de página retorna a 1 e emite pageSizeChange; não presumir change ou atualização automática dos dados."
+    },
+    {
+      "question": "Posso usar a paginação em tela pequena ou duas vezes no mesmo formulário?",
+      "guidance": "Testar layout responsivo e ids repetidos de salto. A presença de markup aria não atesta a acessibilidade em runtime."
+    },
+    {
+      "question": "Quando preferir paginação à rolagem infinita?",
+      "guidance": "Quando é importante saltar, compartilhar um estado de página (se houver roteamento próprio) ou conhecer o total."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "page-window-limits",
+      "kind": "integration",
+      "description": "Testar janela/reticências, clamp e estados das extremidades para diferentes totais e siblingCount.",
+      "capabilities": [
+        "numbered-page-window",
+        "page-boundaries",
+        "first-last-controls"
+      ]
+    },
+    {
+      "id": "change-event-local-only",
+      "kind": "integration",
+      "description": "Confirmar page/change local em todos os controles sem URL ou chamada remota.",
+      "capabilities": [
+        "page-change-signal",
+        "page-boundaries"
+      ]
+    },
+    {
+      "id": "jump-number-validation",
+      "kind": "integration",
+      "description": "Testar salto com número inteiro, vazio e fora de intervalo.",
+      "capabilities": [
+        "numeric-page-jump",
+        "page-boundaries"
+      ]
+    },
+    {
+      "id": "page-size-and-zero-count",
+      "kind": "integration",
+      "description": "Conferir totalItems=0, opções, mudança de tamanho e distinção entre pageSizeChange e change.",
+      "capabilities": [
+        "page-size-with-total-items"
+      ]
+    },
+    {
+      "id": "aria-and-keyboard",
+      "kind": "manual-a11y",
+      "description": "Avaliar teclado, rótulos, aria-current e anúncio da página selecionada.",
+      "capabilities": [
+        "active-page-a11y-attributes",
+        "keyboard-and-screen-reader"
+      ]
+    },
+    {
+      "id": "mobile-two-pagers",
+      "kind": "visual",
+      "description": "Inspecionar overflow/alvos de toque e conflito de id do input em duas instâncias.",
+      "capabilities": [
+        "small-viewport-and-multi-instance",
+        "numeric-page-jump"
+      ]
+    },
+    {
+      "id": "routing-and-backend-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Somente após admissão separada, avaliar URLs, histórico e solicitações tipadas para dados remotos.",
+      "capabilities": [
+        "url-and-history-sync",
+        "server-data-requests"
+      ]
+    },
+    {
+      "id": "filter-reset-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Somente em futura integração, alterar filtros e verificar reset de página e total coerente.",
+      "capabilities": [
+        "auto-filter-reset"
+      ]
+    }
+  ]
+}
