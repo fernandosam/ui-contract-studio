@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "component": "Slider",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/slider",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Slider?",
+      "Why Use Shadcn Slider?",
+      "Shadcn Slider Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Permitir ajuste direto de um valor numérico ou intervalo limitado, com uma a três alças e retorno visual do valor escolhido.",
+  "rationale": [
+    "Facilitar exploração e ajuste aproximado de grandezas contínuas sem exigir digitação.",
+    "Distinguir controle de entrada de indicador somente de leitura e impedir suposições de persistência, validação cruzada ou sincronização remota."
+  ],
+  "whenUse": [
+    "Ajustar volume, intensidade, opacidade ou configuração quantitativa com mínimo, máximo e incremento conhecidos.",
+    "Escolher faixa de valores por duas ou três alças numa mesma escala, com orientação horizontal ou vertical.",
+    "Oferecer feedback textual do valor atual quando showValue estiver habilitado."
+  ],
+  "whenNotUse": [
+    "Quando é obrigatória entrada exata de número/unidade ou acessibilidade textual exige maior precisão: considerar Input numérico sincronizado.",
+    "Para progresso de tarefa somente leitura: utilizar Progress.",
+    "Para um conjunto completo de filtros comerciais com aplicação, sincronização e persistência: exigir composição e fonte de dados adicionais.",
+    "Para campos com requisitos de consistência min/max, soma de intervalos ou validações de domínio não previstos no contrato atual."
+  ],
+  "agentNotes": [
+    "A variante instalada usa @base-ui/react/slider; src/components/ui/slider.tsx normaliza valores escalares para array e gera uma Thumb por elemento.",
+    "No contrato Pi, value/defaultValue são escalares legados; values/defaultValues aceitam 1 a 3 números. Se coexistirem, o renderizador prioriza arrays.",
+    "O renderizador controla estado por useValue e publica apenas change local; não envia valor ao servidor nem garante form binding nativo.",
+    "onValueChange da Base UI pode fornecer número ou array somente de leitura; o adaptador transforma em array e devolve escalar no modo legado, array no modo values/defaultValues.",
+    "O rótulo visível está em ShadcnLabel sem htmlFor; o renderizador passa aria-label ao Slider, e a primitiva o repassa às alças. Exigir ensaio com leitor de tela para associação, sobretudo várias alças.",
+    "showValue=false oculta output textual, não altera limite ou escala. Não inferir ticks, unidade monetária, bubble, emoji, gradient, escala logarítmica ou per-thumb labels do ReUI como API Pi.",
+    "A validação Zod restringe formatos e quantidade de alças, mas não prova ordenação de valores, consistência entre min/max ou comportamento em dispositivos."
+  ],
+  "capabilities": [
+    {
+      "id": "single-scalar-value",
+      "description": "Valor escalar legado e defaultValue configuram uma alça no contrato Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "value:z.number().nullable().optional(),defaultValue:z.number().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const initial=props.values??props.defaultValues??(props.value??props.defaultValue??props.min??0);"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar valores 0, intermediário e limite superior, confirmar um único thumb e atualização escalar."
+      ]
+    },
+    {
+      "id": "multi-thumb-arrays",
+      "description": "values/defaultValues aprovados aceitam entre uma e três posições de alça.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "values:z.array(z.number()).min(1).max(3).optional()"
+        },
+        {
+          "path": "src/components/ui/slider.tsx",
+          "contains": "{Array.from({ length: _values.length }, (_, index) => ("
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const current=Array.isArray(value)?value:[value];"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar 1, 2 e 3 alças, verificar isolamento e não assumir ordenação automática dos dados."
+      ]
+    },
+    {
+      "id": "min-max-and-step",
+      "description": "Repassa limites e step do JSON para a primitiva local.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "min={props.min??0} max={props.max??100} step={props.step??1}"
+        }
+      ],
+      "testRequirements": [
+        "Testar valores nos limites, diferentes incrementos e casos min/max inválidos como risco de validação."
+      ]
+    },
+    {
+      "id": "orientation-and-disabled",
+      "description": "Oferece orientação horizontal/vertical e bloqueio de interação por disabled.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "orientation={props.orientation??\"horizontal\"} disabled={props.disabled}"
+        },
+        {
+          "path": "src/components/ui/slider.tsx",
+          "contains": "data-[orientation=vertical]:h-full"
+        }
+      ],
+      "testRequirements": [
+        "Cobrir ambas orientações e disabled em tentativa de clique/teclado."
+      ]
+    },
+    {
+      "id": "local-change-and-binding",
+      "description": "Armazena escolha no estado/binding e emite change local; no modo arrays mantém vetor de números.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const [value,setValue]=useValue<number|number[]>(initial,bindings?.value);"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "setValue(props.values||props.defaultValues?next:next[0]);notify(emit,\"change\");"
+        }
+      ],
+      "testRequirements": [
+        "Validar escalar versus array, emissão única de change e ausência de efeito remoto."
+      ]
+    },
+    {
+      "id": "visible-current-output",
+      "description": "Rótulo opcional e valor tabular (incluindo faixas) aparecem fora da trilha.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.showValue!==false&&<output className=\"text-xs tabular-nums\">{current.join(\" – \")}</output>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnLabel>{props.label??\"Valor\"}</ShadcnLabel>"
+        }
+      ],
+      "testRequirements": [
+        "Conferir showValue on/off e exibição correta de múltiplas posições, sem presumir unidade."
+      ]
+    },
+    {
+      "id": "normalized-base-ui-thumb-count",
+      "description": "A primitiva converte número em array, garantindo quantidade correspondente de alças.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/slider.tsx",
+          "contains": "const normalizedValue = value === undefined ? undefined : Array.isArray(value) ? value : [value]"
+        },
+        {
+          "path": "src/components/ui/slider.tsx",
+          "contains": "const normalizedDefaultValue = defaultValue === undefined ? undefined : Array.isArray(defaultValue) ? defaultValue : [defaultValue]"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar uma alça para número e múltiplas para array; testar rerender e mudança de cardinalidade."
+      ]
+    },
+    {
+      "id": "field-input-sync",
+      "description": "Sincronizar leitura/digitação em Input, unidade e validações de Field como um formulário único.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Somente após composição aprovada, editar Input e Slider e garantir roundtrip/validação bidirecional."
+      ]
+    },
+    {
+      "id": "scale-ticks-tooltips-units",
+      "description": "Ticks, marcas, tooltip, moeda, valores formatados, gradientes e etiquetas por alça.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Definir proposta independente e testar densidade, nomenclatura e escala antes de alterar contrato."
+      ]
+    },
+    {
+      "id": "native-form-submit",
+      "description": "Serializar valor ou intervalo com name e submeter automaticamente a formulário remoto.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor form binding tipado com persistência autorizada; change não representa submit."
+      ]
+    },
+    {
+      "id": "keyboard-a11y-multithumb",
+      "description": "Revisão de teclado, aria-label por alça, limites anunciados e foco real para diversas alças.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Ensaiar setas, Home/End, Tab e leitor de tela com 1, 2 e 3 alças em duas orientações."
+      ]
+    },
+    {
+      "id": "mobile-touch-and-clamping",
+      "description": "Qualidade de toque, alvos, comportamento nos limites e ordenação ao arrastar alças.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar gestos/touch em smartphone, colisão de alças, ordem de faixas, step fracionário e extremos."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Input",
+      "relationship": "candidate-exact-number-entry",
+      "reason": "Permite digitar valor preciso com sincronização explícita em composição futura."
+    },
+    {
+      "component": "Field",
+      "relationship": "candidate-validation-wrapper",
+      "reason": "Relacionar legenda, descrição e mensagens de erro a escala com requisito de validação."
+    },
+    {
+      "component": "Label",
+      "relationship": "accessibility-label",
+      "reason": "Nomear a escala corretamente; a associação à alça demanda ensaio, não apenas htmlFor."
+    },
+    {
+      "component": "Card",
+      "relationship": "settings-panel",
+      "reason": "Agrupar preferências quantitativas com descrição sem transformar Slider em formulário autônomo."
+    },
+    {
+      "component": "Button",
+      "relationship": "candidate-reset-apply",
+      "reason": "Reiniciar/aplicar filtros exige ações e estado além do evento change."
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "candidate-value-help",
+      "reason": "Mostrar significado ou número na alça requer composição não admitida."
+    },
+    {
+      "component": "Progress",
+      "relationship": "read-only-alternative",
+      "reason": "Progress é adequado a indicador passivo e não deve ser substituído por entrada editável."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Slider ou Input numérico?",
+      "guidance": "Slider favorece exploração aproximada dentro de limites; para precisão, preferir Input ou integração explicitamente sincronizada."
+    },
+    {
+      "question": "Como configurar uma faixa de duas ou três alças?",
+      "guidance": "Usar values/defaultValues com vetor de 2 ou 3 números no contrato Pi; confirmar limites e ordenação no consumidor."
+    },
+    {
+      "question": "A primitiva instalada é Radix?",
+      "guidance": "Não. O projeto instala Base UI e normaliza escalar para array em src/components/ui/slider.tsx; não copiar API de outra variante sem conferência."
+    },
+    {
+      "question": "O rótulo visual basta para acessibilidade?",
+      "guidance": "Não. O adaptador passa aria-label às alças; verificar anúncios e distinção por alça em navegação assistiva."
+    },
+    {
+      "question": "O valor é salvo ou submetido ao formulário?",
+      "guidance": "Não. O contrato apenas gerencia estado local/binding e emite change; persistência exige integração autorizada."
+    },
+    {
+      "question": "É permitido adicionar ticks, bolha monetária ou gradiente dos exemplos?",
+      "guidance": "Não por documentação. Essas variantes ficam como candidatas, fora do schema Zod/Pi aprovado."
+    },
+    {
+      "question": "Quando usar Progress em vez de Slider?",
+      "guidance": "Quando a informação é somente leitura, como progresso de tarefa ou download."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "scalar-array-mode",
+      "kind": "integration",
+      "description": "Validar precedência values/defaultValues sobre escalares, atualização do tipo correto e cardinalidade 1/2/3.",
+      "capabilities": [
+        "single-scalar-value",
+        "multi-thumb-arrays",
+        "normalized-base-ui-thumb-count",
+        "local-change-and-binding"
+      ]
+    },
+    {
+      "id": "step-limits-disabled",
+      "kind": "integration",
+      "description": "Cobrir min/max/step, orientação vertical e disabled; registrar comportamento com limites inconsistentes.",
+      "capabilities": [
+        "min-max-and-step",
+        "orientation-and-disabled"
+      ]
+    },
+    {
+      "id": "value-output-and-label",
+      "kind": "visual",
+      "description": "Verificar output textual, showValue=false e rótulo associado visualmente a 1/2/3 alças.",
+      "capabilities": [
+        "visible-current-output",
+        "multi-thumb-arrays"
+      ]
+    },
+    {
+      "id": "multithumb-keyboard-reader",
+      "kind": "manual-a11y",
+      "description": "Teclado e leitor de tela para identificação das alças, foco, orientação e limites.",
+      "capabilities": [
+        "keyboard-a11y-multithumb"
+      ]
+    },
+    {
+      "id": "touch-and-thumb-collision",
+      "kind": "visual",
+      "description": "Testar toque em mobile e colisões de alças com valores iguais ou próximos.",
+      "capabilities": [
+        "mobile-touch-and-clamping"
+      ]
+    },
+    {
+      "id": "input-field-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após revisão funcional, testar sincronização com Input/Field e envio de formulário tipado.",
+      "capabilities": [
+        "field-input-sync",
+        "native-form-submit"
+      ]
+    },
+    {
+      "id": "advanced-labels-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Somente após nova admissão, inspecionar ticks, unidades, bubbles, gradientes e rótulos distintos.",
+      "capabilities": [
+        "scale-ticks-tooltips-units"
+      ]
+    }
+  ]
+}

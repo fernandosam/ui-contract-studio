@@ -1,0 +1,40 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import {buildSemanticKnowledge,validateSemanticOverlay,selectAgentSemanticAdvice} from "../scripts/lib/semantic-knowledge.mjs";
+const doc=JSON.parse(readFileSync("src/ui-catalog/knowledge/drawer.json","utf8"));
+const clone=x=>JSON.parse(JSON.stringify(x));
+test("T11 Drawer: provenance and real implementation evidence",()=>{
+ assert.deepEqual(validateSemanticOverlay(doc),[]);
+ assert.equal(doc.source.url,"https://ui.shadcn.com/docs/components/base/drawer");
+ assert.equal(doc.source.reviewedOn,"2026-10-27");
+ for(const state of ["implemented-static-evidence","documented-not-implemented","runtime-review-required"])assert.ok(doc.capabilities.some(c=>c.state===state));
+ assert.ok(doc.capabilities.some(c=>c.id==="four-swipe-directions-pi"&&c.state==="implemented-static-evidence"));
+ assert.ok(doc.capabilities.some(c=>c.id==="snap-points-and-active-snap"&&c.state==="documented-not-implemented"));
+ assert.ok(doc.derivedTestCases.some(c=>c.id==="drawer-advanced-swipe-proposal"&&c.kind==="candidate-not-executable"));
+});
+test("T11 Drawer: advisory-only scope, no unauthorized actions",()=>{
+ const {report,errors}=buildSemanticKnowledge();
+ assert.deepEqual(errors,[]);
+ const profile=report.profiles.find(p=>p.component==="Drawer");
+ assert.equal(profile.documentationReview,"reviewed-documentation");
+ assert.equal(profile.approvedPiType,true);
+ assert.ok(profile.implementationGaps.some(c=>c.id==="footer-close-and-form-actions"));
+ assert.ok(profile.integrationCandidates.every(i=>i.admission==="advisory-only"));
+ const advice=selectAgentSemanticAdvice(report,["Drawer"]);
+ assert.equal(advice.length,1);
+ assert.equal(advice[0].guidanceOnly,true);
+ assert.ok(advice[0].integrationCandidates.every(i=>i.admission==="not-granted"));
+ assert.ok(!advice[0].verifiedStaticCapabilities.some(c=>c.id==="snap-points-and-active-snap"));
+});
+test("T11 Drawer: stale evidence and fabricated Pi props rejected",()=>{
+ const stale=clone(doc);
+ stale.capabilities.find(x=>x.id==="four-swipe-directions-pi").evidence[0].contains="NO_SUCH_DIRECTION";
+ assert.ok(validateSemanticOverlay(stale).some(e=>e.includes("stale or missing code evidence")));
+ const invented=clone(doc);
+ invented.capabilities.find(x=>x.id==="nonmodal-and-dismiss-policy").state="implemented-static-evidence";
+ assert.ok(validateSemanticOverlay(invented).some(e=>e.includes("needs first-party evidence")));
+ const runtime=clone(doc);
+ runtime.capabilities.find(x=>x.id==="focus-escape-backdrop-swipe").evidence=[{path:"src/components/ui/drawer.tsx",contains:"DrawerPrimitive.Root"}];
+ assert.ok(validateSemanticOverlay(runtime).some(e=>e.includes("unverified capability may not claim implementation evidence")));
+});

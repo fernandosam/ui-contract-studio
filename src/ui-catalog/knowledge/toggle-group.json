@@ -1,0 +1,393 @@
+{
+  "schemaVersion": 1,
+  "component": "ToggleGroup",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/toggle-group",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Toggle Group?",
+      "Why Use Shadcn Toggle Group?",
+      "Shadcn Toggle Group Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Agrupar opções curtas, com estado pressionado visível, para alternância exclusiva ou múltipla de modos e filtros locais.",
+  "rationale": [
+    "Explicitar opções relacionadas e seu estado ativo sem obrigar um menu de seleção para poucas alternativas.",
+    "Separar seleção no controle, requisitos de obrigatoriedade e aplicação a dados/rotas para não conceder ações implícitas ao Pi."
+  ],
+  "whenUse": [
+    "Alternar entre modos curtos de exibição, como lista, grade e cartões, desde que os painéis sejam coordenados externamente.",
+    "Selecionar uma ou várias opções compactas de formatação ou filtros locais.",
+    "Escolher orientação horizontal ou vertical para controles visuais correlacionados com labels curtas."
+  ],
+  "whenNotUse": [
+    "Comandos agrupados sem estado de seleção, como exportar e atualizar: usar ButtonGroup.",
+    "Um único botão com estado pressionado: usar Toggle; múltiplas configurações independentes on/off: usar Switch.",
+    "Escolha obrigatória única em formulário com descrição extensa ou semântica radio: avaliar RadioGroup.",
+    "Filtros que dependem automaticamente de rede, dados ou navegação sem integração explicitamente admitida."
+  ],
+  "agentNotes": [
+    "A implementação instalada é Base UI (@base-ui/react/toggle-group), não Radix; o contrato Pi aceita type single/multiple, mas o adaptador converte string ou array em array selecionado para a primitiva.",
+    "No modo single, change armazena o último item ou string vazia; desmarcar item pode deixar zero opções. Não presumir required nem seleção não vazia.",
+    "No modo multiple, change armazena o vetor. O schema permite value/defaultValue como string ou array em qualquer type; orientar consumidores a manter formatos coerentes.",
+    "Cada item Pi exige label e value; disabled e icon são opcionais com allowlist. Evitar values duplicados por gerar chaves React repetidas e ambiguidade de seleção.",
+    "O renderizador aplica orientação por classes CSS externas, mas não repassa orientation para a primitiva Base UI; validar navegação por teclado no modo vertical em runtime.",
+    "spacing=2 é default da primitiva React e não existe prop spacing admitida no contrato Pi; não copiar exemplos ReUI com spacing arbitrário.",
+    "A mudança publica apenas change local; não modifica painel, formulário persistido, URL ou filtros reais sem composição autorizada.",
+    "As opções desabilitadas não são ações permitidas ocultas; a UI não implementa autorização backend por item."
+  ],
+  "capabilities": [
+    {
+      "id": "single-selection",
+      "description": "type single converte seleção interna em um value textual ou vazio.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "type:z.enum([\"single\",\"multiple\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "setValue(props.type===\"multiple\"?next:(next.at(-1)??\"\"))"
+        }
+      ],
+      "testRequirements": [
+        "Selecionar A e B, desmarcar B e confirmar resultado string vazia ou um item."
+      ]
+    },
+    {
+      "id": "multiple-selection",
+      "description": "type multiple mantém lista de itens ativos em value e emite change.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const selected=Array.isArray(value)?value:(value?[value]:[]);"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const change=(next:string[])=>{setValue(props.type===\"multiple\"?next:(next.at(-1)??\"\"));notify(emit,\"change\");};"
+        }
+      ],
+      "testRequirements": [
+        "Ativar e desativar múltiplos itens; checar array e evento change local."
+      ]
+    },
+    {
+      "id": "controlled-value-and-default",
+      "description": "value/defaultValue e binding inicializam seleção; valor interno é normalizado para array.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "value:z.union([z.string(),z.array(z.string())]).nullable().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const initial=props.value??props.defaultValue??\"\";"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const [value,setValue]=useValue<string|string[]>(initial,bindings?.value);"
+        }
+      ],
+      "testRequirements": [
+        "Cobrir valor string, array, null/defaultValue e binding; rejeitar suposição de shape obrigatório via docs."
+      ]
+    },
+    {
+      "id": "item-icon-label-and-disabled",
+      "description": "Itens textuais com value, ícone de allowlist e disabled individual.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "items:z.array(obj({label:z.string(),value:z.string(),disabled:z.boolean().optional(),icon:z.enum("
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ToggleGroupItem key={item.value} value={item.value} disabled={item.disabled}>"
+        }
+      ],
+      "testRequirements": [
+        "Usar label/value distintos, ícones permitidos e item disabled; testar valores duplicados como risco de consumidor."
+      ]
+    },
+    {
+      "id": "group-disabled",
+      "description": "disabled no grupo bloqueia alteração de itens.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "value={selected} disabled={props.disabled} onValueChange={change}"
+        }
+      ],
+      "testRequirements": [
+        "Testar disabled do grupo com itens habilitados, sem change indevido."
+      ]
+    },
+    {
+      "id": "visual-variant-size",
+      "description": "O contrato oferece variante default/outline e tamanhos default/sm/lg herdados do grupo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "variant:z.enum([\"default\",\"outline\"]).optional(),size:z.enum([\"default\",\"sm\",\"lg\"]).optional()"
+        },
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "contains": "value={{ variant, size, spacing, orientation }}"
+        }
+      ],
+      "testRequirements": [
+        "Conferir 2 variantes e 3 tamanhos com seleção única e múltipla."
+      ]
+    },
+    {
+      "id": "visual-orientation",
+      "description": "Classes do adaptador determinam eixo horizontal/vertical de apresentação.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "className={props.orientation===\"vertical\"?\"flex flex-col items-stretch\":\"flex flex-row flex-wrap\"}"
+        },
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "contains": "data-orientation={orientation}"
+        }
+      ],
+      "testRequirements": [
+        "Comparar layouts horizontal/vertical sem assumir comportamento de setas adequado antes de teste runtime."
+      ]
+    },
+    {
+      "id": "enforced-required-one",
+      "description": "Obrigatoriedade de manter sempre exatamente uma opção ativa em single.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Somente após evolução, impedir desmarcar último item e rejeitar seleção vazia com feedback acessível."
+      ]
+    },
+    {
+      "id": "form-field-persistence",
+      "description": "Campo serializado com name, validação nativa ou submissão a backend tipado.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor integração form/Field controlada, incluindo validação e persistência autorizada."
+      ]
+    },
+    {
+      "id": "spacing-and-toolbar-semantics-pi",
+      "description": "Spacing customizável, toolbar ARIA ou papel de campo configurável como props Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Revisar proposta de API explícita e testar espaçamento e semântica antes de eventual admissão."
+      ]
+    },
+    {
+      "id": "view-and-filter-effect",
+      "description": "Alterar automaticamente painéis, ordenação ou filtros em dados da aplicação.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor wiring separado de binding e consumo do evento, com ações de dados autorizadas."
+      ]
+    },
+    {
+      "id": "keyboard-focus-roving",
+      "description": "Garantir navegação por setas, Tab, Space/Enter, foco, anúncio de grupo e itens no Base UI.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Ensaiar teclado/leitor de tela em single/multiple, itens disabled e orientação vertical/horizontal."
+      ]
+    },
+    {
+      "id": "mobile-overflow-and-hit-targets",
+      "description": "Validar responsividade, quebra de linha e alvos de toque para opções numerosas.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Inspecionar overflow, foco visível, contraste e alvos de toque em mobile com itens longos."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Toggle",
+      "relationship": "individual-state-alternative",
+      "reason": "Preferir Toggle para um estado isolado, sem conjunto compartilhado."
+    },
+    {
+      "component": "ButtonGroup",
+      "relationship": "non-selection-alternative",
+      "reason": "Conjunto de ações sem escolha persistente deve usar botões de ação."
+    },
+    {
+      "component": "Radio",
+      "relationship": "required-single-choice-alternative",
+      "reason": "Para escolha mutuamente exclusiva com rótulo de formulário, Radio pode representar melhor a semântica."
+    },
+    {
+      "component": "Switch",
+      "relationship": "independent-preferences-alternative",
+      "reason": "Configurações independentes com on/off não precisam de seleção coordenada."
+    },
+    {
+      "component": "Table",
+      "relationship": "candidate-view-mode",
+      "reason": "Trocar modo de visualização da mesma coleção requer integração do painel externo."
+    },
+    {
+      "component": "Card",
+      "relationship": "candidate-visual-mode",
+      "reason": "Alternativa visual de cartões condicionada ao estado externo de seleção."
+    },
+    {
+      "component": "Select",
+      "relationship": "candidate-advanced-filter",
+      "reason": "Filtro complementar pode ser composto sem criar APIs implícitas."
+    },
+    {
+      "component": "Popover",
+      "relationship": "candidate-more-filter-options",
+      "reason": "Oferecer filtros secundários sem sobrecarregar grupo de toggles."
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "candidate-icon-help",
+      "reason": "Contextualizar ícones; os rótulos textuais aprovados continuam obrigatórios."
+    },
+    {
+      "component": "Field",
+      "relationship": "candidate-form-validation",
+      "reason": "Relacionar legenda, seleção e erro de um formulário em fluxo futuro."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "ToggleGroup ou ButtonGroup?",
+      "guidance": "ToggleGroup representa opção selecionada; ButtonGroup agrupa ações pontuais sem seleção persistente."
+    },
+    {
+      "question": "Quando escolher Radio/Checkbox em vez de ToggleGroup?",
+      "guidance": "Se obrigatório escolher exatamente uma opção de formulário, Radio; múltiplos campos independentes, Checkbox; modos visuais curtos, ToggleGroup."
+    },
+    {
+      "question": "Como funciona single na variante Base UI local?",
+      "guidance": "Pi type='single' converte array retornado em último valor textual ou string vazia; a primitiva React recebe value como array, não type Radix."
+    },
+    {
+      "question": "É possível não haver opção selecionada?",
+      "guidance": "Sim. Desmarcar item permite vazio; required-single não é garantido pelo contrato atual."
+    },
+    {
+      "question": "A orientação vertical altera automaticamente navegação por setas?",
+      "guidance": "Não presumir: o playground altera CSS, não passa orientation para a primitiva; validar em runtime."
+    },
+    {
+      "question": "Posso configurar spacing ou label só por ícone?",
+      "guidance": "Não como novas props Pi: spacing não consta do schema e itens exigem label textual."
+    },
+    {
+      "question": "A escolha troca imediatamente o conteúdo da tela?",
+      "guidance": "Não por si só. change sinaliza estado; o consumidor precisa vincular painéis/dados autorizados."
+    },
+    {
+      "question": "Como tratar itens desabilitados e valores repetidos?",
+      "guidance": "Respeitar disabled por item e grupo; exigir valores únicos no produtor de dados, apesar de não ser refinamento garantido pelo schema."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "single-empty-exclusivity",
+      "kind": "integration",
+      "description": "Selecionar e soltar itens em type single; garantir valor textual ou vazio e nenhum estado múltiplo.",
+      "capabilities": [
+        "single-selection",
+        "controlled-value-and-default"
+      ]
+    },
+    {
+      "id": "multiple-and-bindings",
+      "kind": "integration",
+      "description": "Alternar múltiplos itens, validar arrays e change com binding sem efeito remoto.",
+      "capabilities": [
+        "multiple-selection",
+        "controlled-value-and-default"
+      ]
+    },
+    {
+      "id": "disabled-and-icon-keys",
+      "kind": "integration",
+      "description": "Validar disabled individual/grupo, ícones allowlist e efeito de valores duplicados.",
+      "capabilities": [
+        "item-icon-label-and-disabled",
+        "group-disabled"
+      ]
+    },
+    {
+      "id": "orientation-variants-visual",
+      "kind": "visual",
+      "description": "Inspecionar orientação horizontal/vertical, variantes e tamanhos.",
+      "capabilities": [
+        "visual-orientation",
+        "visual-variant-size"
+      ]
+    },
+    {
+      "id": "keyboard-group-navigation",
+      "kind": "manual-a11y",
+      "description": "Testar Tab, setas, foco, anúncio de item selecionado e disabled em ambas orientações.",
+      "capabilities": [
+        "keyboard-focus-roving",
+        "visual-orientation"
+      ]
+    },
+    {
+      "id": "mobile-many-options",
+      "kind": "visual",
+      "description": "Inspecionar opções numerosas, texto longo, overflow e alvos de toque.",
+      "capabilities": [
+        "mobile-overflow-and-hit-targets"
+      ]
+    },
+    {
+      "id": "required-single-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Proposta para seleção obrigatória e validação de vazio, sem presumir prop required.",
+      "capabilities": [
+        "enforced-required-one"
+      ]
+    },
+    {
+      "id": "form-toolbar-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Avaliar integração com Field/form submit e API explícita de spacing e toolbar.",
+      "capabilities": [
+        "form-field-persistence",
+        "spacing-and-toolbar-semantics-pi"
+      ]
+    },
+    {
+      "id": "panel-filter-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Somente após composição autorizada, aplicar seleção em painéis e filtros reais.",
+      "capabilities": [
+        "view-and-filter-effect"
+      ]
+    }
+  ]
+}

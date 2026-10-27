@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "component": "Tooltip",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "shadcn",
+    "url": "https://ui.shadcn.com/docs/components/base/tooltip",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "Usage",
+      "Composition",
+      "Side",
+      "With Keyboard Shortcut",
+      "Disabled Button",
+      "RTL",
+      "API Reference"
+    ]
+  },
+  "purpose": "Oferecer informação curta e secundária sobre um controle quando o usuário o explora por mouse ou teclado, sem substituir rótulos e instruções essenciais.",
+  "rationale": [
+    "Reduz ambiguidade de ícones e controles compactos sem interromper a navegação principal.",
+    "Mantém dicas secundárias fora do conteúdo principal; informação crítica deve permanecer disponível sem hover.",
+    "O contrato Pi entrega texto/atalho informativo e posicionamento, mas não cria atalhos, ações ou um popover interativo."
+  ],
+  "whenUse": [
+    "Explicar uma ação representada por ícone ou esclarecer uma abreviação sem substituir o nome acessível.",
+    "Mostrar descrição secundária curta ou o atalho de teclado já existente.",
+    "Associar texto de ajuda contextual a um disparador visível com foco por teclado."
+  ],
+  "whenNotUse": [
+    "Mostrar erros, validações ou instruções obrigatórias que precisam estar permanentemente visíveis: usar Field/Alert ou texto adjacente.",
+    "Colocar links, botões, formulários ou conteúdo que precisa receber Tab: preferir Popover.",
+    "Mostrar prévia rica e persistente de perfil: preferir HoverCard; status sempre visível: Badge.",
+    "Prometer que o atributo shortcut registra um atalho ou que o tooltip funciona exclusivamente por toque."
+  ],
+  "agentNotes": [
+    "O projeto usa Tooltip Base UI com TooltipProvider delay=0 por padrão, porém o contrato Pi não expõe delay configurável.",
+    "No adaptador Pi, TooltipTrigger usa render com span focável tabIndex=0; não montar Button dentro de outro Button e não transportar asChild da variante Radix.",
+    "O schema Pi exige text e content, permite side (top/bottom/left/right), triggerIcon de enum restrito e shortcut textual até 20 caracteres.",
+    "O conteúdo é texto + kbd visual; shortcut não registra listener, e ícone não substitui descrição textual do trigger.",
+    "TooltipContent usa Portal e role=tooltip na primitiva local; falta verificar associação acessível, Escape, foco e leitores de tela em execução.",
+    "A documentação Base UI explica TooltipTrigger/TooltipContent; conteúdo interativo ou rich card exige Popover, nunca filhos JSX arbitrários dentro de props.content.",
+    "Para um Button disabled sem hover/foco, a documentação sugere wrapper focável em composição React; não alegar suporte automático no tipo Tooltip Pi.",
+    "Ferramentas de toque podem não ter hover; informações essenciais exigem alternativa sempre acessível.",
+    "A revisão documental não altera schema Zod, gerações Pi, eventos, permissões, estado certificado ou comportamento real."
+  ],
+  "capabilities": [
+    {
+      "id": "pi-text-content-and-trigger",
+      "description": "O contrato exige text e content; o adaptador cria gatilho textual e mensagem curta.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Tooltip: { props: obj({content:z.string(),text:z.string(),side:"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<TooltipTrigger render={<span className=\"inline-flex cursor-help items-center gap-1 underline decoration-dotted\" tabIndex={0}/>}>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<TooltipContent side={props.side??\"top\"}>{props.content}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar texto em gatilho e tooltip, sem HTML arbitrário nem link interativo."
+      ]
+    },
+    {
+      "id": "four-sides-position",
+      "description": "O adaptador encaminha side top/bottom/left/right à primitiva.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "side:z.enum([\"top\",\"bottom\",\"left\",\"right\"]).optional(),triggerIcon:"
+        },
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "contains": "side={side}"
+        }
+      ],
+      "testRequirements": [
+        "Abrir em quatro lados e validar deslocamento e colisão com a viewport."
+      ]
+    },
+    {
+      "id": "allowlisted-icon-and-shortcut-text",
+      "description": "O Pi permite ícone aprovado e rótulo visual kbd de atalho não executável.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "triggerIcon:z.enum([\"Info\",\"Search\",\"Bell\",\"Settings\",\"Check\"]).optional(),shortcut:z.string().max(20).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<kbd className=\"ml-2 rounded bg-muted px-1 font-mono text-xs text-muted-foreground\">{props.shortcut}</kbd>"
+        }
+      ],
+      "testRequirements": [
+        "Validar allowlist de ícones, texto de atalho e ausência de listener executando a combinação."
+      ]
+    },
+    {
+      "id": "base-provider-portal-role",
+      "description": "O adaptador envolve TooltipProvider e a primitiva entrega role tooltip em portal.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "return <TooltipProvider><ShadcnTooltip>"
+        },
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "contains": "role=\"tooltip\""
+        },
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "contains": "<TooltipPrimitive.Portal>"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar role/portal após hover e foco; associação com o gatilho é teste de runtime."
+      ]
+    },
+    {
+      "id": "provider-default-delay",
+      "description": "O TooltipProvider da primitiva instalada define delay=0 quando não configurado.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "contains": "delay = 0,"
+        },
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "contains": "delay={delay}"
+        }
+      ],
+      "testRequirements": [
+        "Revisar o comportamento padrão do provider; medir latência em runtime sem alegar temporização exata."
+      ]
+    },
+    {
+      "id": "rich-interactive-content",
+      "description": "Link, formulário, botão e popover enriquecido não estão disponíveis no content textual do Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após composto aprovado, garantir foco e interações por Popover em vez de Tooltip."
+      ]
+    },
+    {
+      "id": "configurable-delay-and-controlled-state-pi",
+      "description": "delay e estado open controlado não são props de Tooltip no contrato Pi atual.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se houver nova API, testar delay e controle de abertura sem flicker em mudança de trigger."
+      ]
+    },
+    {
+      "id": "disabled-action-tooltip",
+      "description": "Associar ajuda a botão desabilitado por wrapper focável é composição React não contratada no Tooltip Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após contrato específico, testar foco e hover no wrapper mantendo botão desabilitado."
+      ]
+    },
+    {
+      "id": "focus-hover-escape-a11y",
+      "description": "Abertura por hover/foco, anúncio acessível, fechamento por Escape e associação com gatilho exigem teste em navegador.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Validar teclado, Escape, relação acessível e leitor de tela; não confiar somente no role da primitiva."
+      ]
+    },
+    {
+      "id": "touch-and-collision-visibility",
+      "description": "Descoberta por toque, colisão e legibilidade em viewport estreito/RTL exigem inspeção real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar mobile touch, lados, zoom, corte, rolagem e orientação RTL."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "icon-action-help",
+      "reason": "Complementar ação compacta sem substituir aria-label ou um rótulo legível."
+    },
+    {
+      "component": "Kbd",
+      "relationship": "keyboard-shortcut-display",
+      "reason": "Mostrar um atalho já existente, sem cadastrar eventos de teclado."
+    },
+    {
+      "component": "Popover",
+      "relationship": "interactive-help-alternative",
+      "reason": "Usar quando conteúdo rico ou controles precisam receber foco."
+    },
+    {
+      "component": "HoverCard",
+      "relationship": "rich-preview-alternative",
+      "reason": "Prévia informativa mais extensa deve ser uma composição apropriada."
+    },
+    {
+      "component": "Field",
+      "relationship": "form-help-alternative",
+      "reason": "Instruções obrigatórias ou erros pertencem ao campo visível, não a hover."
+    },
+    {
+      "component": "Badge",
+      "relationship": "persistent-status-alternative",
+      "reason": "Status e contagens importantes devem continuar visíveis sem apontamento."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando Tooltip deve ser substituído por Popover ou HoverCard?",
+      "guidance": "Popover para conteúdo com links, botões ou foco; HoverCard para prévia rica; Tooltip apenas informação breve não interativa."
+    },
+    {
+      "question": "Tooltip serve para mensagens de erro obrigatórias?",
+      "guidance": "Não. Exibir validação e informações essenciais junto ao campo com Field/Alert ou texto visível."
+    },
+    {
+      "question": "shortcut cria atalho de teclado?",
+      "guidance": "Não. O schema exibe kbd como texto; não registra keydown nem executa ação."
+    },
+    {
+      "question": "Posso ajustar delay/open/disabled button no Pi?",
+      "guidance": "Não por props do tipo Tooltip atual. Provider da primitiva React tem delay padrão, mas esses controles requerem implementação/admissão separadas."
+    },
+    {
+      "question": "TooltipTrigger aceita Button aninhado diretamente?",
+      "guidance": "Na variante Base UI, preferir composição via render para evitar controles interativos aninhados; no adaptador Pi já há span com tabIndex=0."
+    },
+    {
+      "question": "Como garantir acesso em dispositivos sem hover?",
+      "guidance": "Verificar touch e foco em navegador; se a informação for essencial, mostrá-la persistentemente ou usar componente alternativo."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "tooltip-text-side-icon",
+      "kind": "integration",
+      "description": "Renderizar text/content, ícone permitido, shortcut e quatro sides sem criar ações.",
+      "capabilities": [
+        "pi-text-content-and-trigger",
+        "four-sides-position",
+        "allowlisted-icon-and-shortcut-text"
+      ]
+    },
+    {
+      "id": "tooltip-provider-portal",
+      "kind": "integration",
+      "description": "Inspecionar provider, role e portal em trigger e troca de alvo, sem assumir anúncio real.",
+      "capabilities": [
+        "base-provider-portal-role",
+        "provider-default-delay"
+      ]
+    },
+    {
+      "id": "tooltip-focus-escape-screenreader",
+      "kind": "manual-a11y",
+      "description": "Testar Tab no gatilho, foco, hover, Escape, aria-describedby e leitura assistiva.",
+      "capabilities": [
+        "focus-hover-escape-a11y"
+      ]
+    },
+    {
+      "id": "tooltip-mobile-rtl",
+      "kind": "visual",
+      "description": "Verificar toque, RTL, zoom e corte nas bordas de telas estreitas.",
+      "capabilities": [
+        "touch-and-collision-visibility",
+        "four-sides-position"
+      ]
+    },
+    {
+      "id": "tooltip-rich-alternative-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão, verificar conteúdo interativo no Popover e wrapper para botão disabled.",
+      "capabilities": [
+        "rich-interactive-content",
+        "disabled-action-tooltip"
+      ]
+    },
+    {
+      "id": "tooltip-controlled-delay-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após contrato separado, testar delay configurável e estado controlado sem ciclos inconsistentes.",
+      "capabilities": [
+        "configurable-delay-and-controlled-state-pi"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "component": "ButtonGroup",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "shadcn",
+    "url": "https://ui.shadcn.com/docs/components/base/button-group",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "Usage",
+      "Composition",
+      "Accessibility",
+      "ButtonGroup vs ToggleGroup",
+      "Orientation",
+      "Nested",
+      "Separator",
+      "Split",
+      "Input",
+      "Dropdown Menu",
+      "Select",
+      "Popover",
+      "API Reference"
+    ]
+  },
+  "purpose": "Agrupar ações ou escolhas relacionadas em uma faixa visual coesa, tornando a operação do conjunto mais fácil de localizar e comparar.",
+  "rationale": [
+    "Aprimora a hierarquia visual de ações adjacentes com bordas e espaços consistentes, sem introduzir um fluxo de execução próprio.",
+    "No contrato Pi atual, cada botão muda apenas o valor selecionado e emite change; isso não equivale a executar comandos, navegar ou submeter formulários.",
+    "Mantém distintas a primitiva de composição React e a API serializável limitada do catálogo."
+  ],
+  "whenUse": [
+    "Apresentar um conjunto curto de botões relacionados com orientação horizontal ou vertical.",
+    "Oferecer seleção local de uma opção dentre botões do catálogo, quando a aplicação consumidora souber tratar change explicitamente.",
+    "Reunir ações em um toolbar React controlado, desde que os handlers reais sejam providos pelo aplicativo e não inventados pelo agente."
+  ],
+  "whenNotUse": [
+    "Representar alternância exclusiva ou múltipla com semântica pressed e estado anunciado: preferir ToggleGroup.",
+    "Apresentar somente uma ação isolada: preferir Button.",
+    "Precisar de input, select, dropdown, split button, submit ou navegação dentro do contrato Pi: essas composições não estão declaradas em ButtonGroup.buttons.",
+    "Inferir permissão de execução externa a partir do evento local change."
+  ],
+  "agentNotes": [
+    "O componente instalado é shadcn Base UI: ButtonGroup fornece role='group' e orientação; nome acessível precisa ser assegurado por composição React e validado, pois o contrato Pi não possui ariaLabel.",
+    "O contrato Pi recebe buttons com label/value, disabled e ícone de enum restrito, além de orientation, selected, variant e size; não aceita JSX nem handlers arbitrários.",
+    "Apesar do nome ButtonGroup, o adaptador Pi trata o clique como seleção local e aplica variant='default' ao selecionado; não confundir com execução de comandos do Button.",
+    "A primitiva React exporta ButtonGroupSeparator e ButtonGroupText, mas a API Pi não expõe filhos genéricos, separadores, Input ou ButtonGroupText.",
+    "Evite IDs value repetidos: são usados como React key e identificação da escolha; criar regras de unicidade dependeria de mudança de contrato separada.",
+    "Na variante shadcn Base UI use render para compor elementos onde documentado; não transportar automaticamente asChild da variante Radix.",
+    "Exemplos da Galeria ReUI (incluindo split/menu/input) demonstram composição React, não um tipo composto Pi aprovado; consulte src/ui-catalog/reui-guidance.json.",
+    "Acessibilidade, rolagem horizontal, navegação por Tab e anúncio de seleção precisam de verificação real; documentar não concede novos eventos, permissões nem status E2E."
+  ],
+  "capabilities": [
+    {
+      "id": "group-role-and-layout",
+      "description": "A primitiva agrupa os controles com role='group' e classe por orientação.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/button-group.tsx",
+          "contains": "role=\"group\""
+        },
+        {
+          "path": "src/components/ui/button-group.tsx",
+          "contains": "className={cn(buttonGroupVariants({ orientation }), className)}"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar papel de grupo e orientação no DOM; verificar que label acessível não é presumido."
+      ]
+    },
+    {
+      "id": "pi-horizontal-vertical",
+      "description": "O contrato Pi aceita orientação horizontal ou vertical e a encaminha ao agrupamento.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "orientation:z.enum([\"horizontal\",\"vertical\"]).optional(),selected:optionalText"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnButtonGroup orientation={props.orientation??\"horizontal\"}>"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar ambas as orientações e verificar ordem DOM e espaçamento."
+      ]
+    },
+    {
+      "id": "local-selected-binding-and-event",
+      "description": "O adaptador mantém seleção local/vinculada e emite apenas change ao clicar.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.selected??\"\",bindings?.selected)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "setValue(item.value);notify(emit,\"change\");"
+        }
+      ],
+      "testRequirements": [
+        "Escolher duas opções em sequência e observar selected/change sem executar operação externa."
+      ]
+    },
+    {
+      "id": "item-disabled-and-allowlisted-icons",
+      "description": "Botões respeitam disabled e renderizam somente ícones previstos pelo contrato.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={item.disabled}"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "icon:z.enum([\"Search\",\"Check\",\"X\",\"Plus\",\"Minus\",\"Settings\",\"Star\",\"Heart\"])"
+        }
+      ],
+      "testRequirements": [
+        "Não disparar change em botão disabled; confirmar ícones permitidos e rejeição de outros."
+      ]
+    },
+    {
+      "id": "uniform-size-and-selected-variant",
+      "description": "Renderiza tamanho comum e distingue a seleção pela variante visual default.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "size={props.size??\"default\"}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "variant={value===item.value?\"default\":props.variant??\"outline\"}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar xs/sm/default/lg e estados selecionado, não selecionado e desabilitado."
+      ]
+    },
+    {
+      "id": "split-menu-and-independent-actions",
+      "description": "Botão principal com ação própria e menu de ações secundárias requer composição dedicada, não disponível no ButtonGroup Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após contrato próprio, selecionar ação principal ou item do menu e executar apenas callbacks permitidos."
+      ]
+    },
+    {
+      "id": "input-select-and-prefix-composition",
+      "description": "Input, InputGroup, Select, texto e separador integrados são possíveis em React, mas não em ButtonGroup.buttons serializado.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após aprovação de composto tipado, digitar, selecionar e validar focos, formatação e responsividade."
+      ]
+    },
+    {
+      "id": "semantic-toggle-and-form-submit",
+      "description": "Estados de ToggleGroup e submissão de formulário não são fornecidos pelo evento change de ButtonGroup.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor contrato tipado distinto para toggles ou submit e validar fluxo sem inferir autorizações."
+      ]
+    },
+    {
+      "id": "keyboard-name-and-selection-a11y",
+      "description": "Nome acessível, ordem de Tab, anúncio de estado selecionado e uso com tecnologia assistiva exigem avaliação em navegador.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Inspecionar nome do role group, navegação individual por Tab, disabled e comunicação da seleção."
+      ]
+    },
+    {
+      "id": "mobile-overflow-and-targets",
+      "description": "Distribuição em largura reduzida, toque e risco de overflow em agrupamentos longos exigem inspeção visual.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar tamanhos de alvo, layout vertical e scroll horizontal em viewport móvel."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "grouped-control",
+      "reason": "Apresentar ações React lado a lado; no Pi a escolha dos botões existentes produz apenas change."
+    },
+    {
+      "component": "ToggleGroup",
+      "relationship": "semantic-state-alternative",
+      "reason": "Preferir quando estado ligado/desligado e semântica de alternância são necessários."
+    },
+    {
+      "component": "Input",
+      "relationship": "typed-input-candidate",
+      "reason": "Campos anexos e pesquisa precisam de composição tipada independente do array buttons."
+    },
+    {
+      "component": "InputGroup",
+      "relationship": "input-composition-candidate",
+      "reason": "Agrupar entrada e controles internos sem inventar filhos no contrato ButtonGroup."
+    },
+    {
+      "component": "DropdownMenu",
+      "relationship": "split-action-candidate",
+      "reason": "Separar ação primária e opções secundárias com autorização explícita."
+    },
+    {
+      "component": "Select",
+      "relationship": "adjacent-picker-candidate",
+      "reason": "Anexar seleção de parâmetros apenas em composto com props verificadas."
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "icon-button-help-candidate",
+      "reason": "Descrever ações sem rótulo visível, preservando foco e nome acessível."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "ButtonGroup substitui ToggleGroup?",
+      "guidance": "Não. Para controles de alternância cujos estados precisam ser anunciados, preferir ToggleGroup; ButtonGroup Pi apenas escolhe um value e emite change."
+    },
+    {
+      "question": "Posso executar exportar ou excluir ao clicar um item?",
+      "guidance": "Não no contrato atual. O clique altera selected e emite change local; handler autorizado e nova API precisam de revisão separada."
+    },
+    {
+      "question": "Posso compor split button, DropdownMenu ou campo de pesquisa?",
+      "guidance": "Somente no React da aplicação ou em composto tipado aprovado. ButtonGroup Pi recebe exclusivamente buttons serializados."
+    },
+    {
+      "question": "O grupo já possui rótulo acessível e navegação por setas?",
+      "guidance": "A primitiva define role=group, mas o adaptador Pi não fornece aria-label nem roving focus; testar Tab e anúncio, não presumir setas."
+    },
+    {
+      "question": "Posso usar value repetido em buttons?",
+      "guidance": "Evitar: value é chave React e identificador de seleção; unicidade ainda não é exigida no schema e deve ser testada/validada no fluxo consumidor."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "selection-event-disabled",
+      "kind": "integration",
+      "description": "Conferir binding selected, change local, disabled e ausência de handlers remotos ao clicar.",
+      "capabilities": [
+        "local-selected-binding-and-event",
+        "item-disabled-and-allowlisted-icons"
+      ]
+    },
+    {
+      "id": "orientation-and-variants",
+      "kind": "visual",
+      "description": "Comparar horizontal/vertical, variantes, tamanho e ícones com texto, evitando perda de bordas e estados.",
+      "capabilities": [
+        "pi-horizontal-vertical",
+        "uniform-size-and-selected-variant",
+        "group-role-and-layout"
+      ]
+    },
+    {
+      "id": "group-keyboard-and-a11y",
+      "kind": "manual-a11y",
+      "description": "Inspecionar nome do grupo, Tab, foco, disabled e anúncio de seleção com leitores de tela.",
+      "capabilities": [
+        "keyboard-name-and-selection-a11y",
+        "group-role-and-layout"
+      ]
+    },
+    {
+      "id": "mobile-size-and-overflow",
+      "kind": "visual",
+      "description": "Verificar quebra ou overflow, alvos de toque e organização vertical em telas estreitas.",
+      "capabilities": [
+        "mobile-overflow-and-targets"
+      ]
+    },
+    {
+      "id": "split-and-mixed-controls-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após contrato separado, validar split/menu, input/select e hierarquia entre as ações, sem expor JSX em Pi.",
+      "capabilities": [
+        "split-menu-and-independent-actions",
+        "input-select-and-prefix-composition"
+      ]
+    },
+    {
+      "id": "toggle-or-submit-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão de novo contrato, validar semântica de alternância e submissão autorizada.",
+      "capabilities": [
+        "semantic-toggle-and-form-submit"
+      ]
+    }
+  ]
+}

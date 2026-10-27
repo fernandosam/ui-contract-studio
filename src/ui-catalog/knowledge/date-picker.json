@@ -1,0 +1,385 @@
+{
+  "schemaVersion": 1,
+  "component": "DatePicker",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "shadcn",
+    "url": "https://ui.shadcn.com/docs/components/base/date-picker",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "Installation",
+      "Usage",
+      "Composition",
+      "Basic",
+      "Range Picker",
+      "Date of Birth",
+      "Input",
+      "Time Picker",
+      "Natural Language Picker"
+    ]
+  },
+  "purpose": "Permitir a escolha de uma única data civil em calendário, armazenada como string local YYYY-MM-DD com rótulo, limites opcionais e feedback de validação após interação.",
+  "rationale": [
+    "Evita ambiguidades de apresentação entre data pt-BR e valor ISO serializado, preservando um formato estrito no contrato.",
+    "Combina Calendar e Popover já presentes no projeto, com bloqueio de datas fora de limites e sinalização de alteração local.",
+    "Separa regras de seleção, valor vinculado e envio do formulário: mudança local não realiza requisição nem concede permissão ao agente."
+  ],
+  "whenUse": [
+    "Selecionar uma única data, como vencimento ou agendamento de um dia, em formulário com label e name aprovados.",
+    "Restringir calendário por minDate/maxDate inclusivos, ou exibir que data é required após a interação do usuário.",
+    "Vincular value a um caminho de estado aprovado via $bindState quando a composição já possuir esse fluxo."
+  ],
+  "whenNotUse": [
+    "Selecionar intervalo com duas pontas, múltiplas datas, horário, timezone ou agendamento recorrente: não há tais props no contrato.",
+    "Aceitar data em linguagem natural, digitação livre ou presets: exemplos oficiais não alteram a API Pi instalada.",
+    "Depender de validação backend, submissão automática ou evento ao apenas abrir/fechar o calendário.",
+    "Tentar fornecer URLs, handlers JS, onSelect, formatadores ou classes personalizadas ao contrato JSON estrito."
+  ],
+  "agentNotes": [
+    "Contrato aprovado 1.1.0: label/name obrigatórios, value/placeholder/minDate/maxDate/disabled/required nullable; evento change e binding autorizado de value; sem slots.",
+    "value/minDate/maxDate devem ser strings YYYY-MM-DD ou null; a regex Zod valida apenas formato, enquanto dateError valida datas civis reais e limites no runtime.",
+    "Não confundir ISO civil (sem horário) com datetime UTC. parseIsoDate constrói Date local, toIsoDate devolve ano-mês-dia e o rótulo usa locale pt-BR.",
+    "Ao escolher uma data válida, o adaptador atualiza estado local ou bound value, marca touched, fecha Popover e então notifica change; change não significa persistência remota.",
+    "required não é atributo required de um input visível: o erro é apresentado com role=alert somente após touched; o input oculto transporta name/value, sem impor validação nativa equivalente.",
+    "disabled bloqueia o gatilho; min/max são aplicados também às datas do Calendar; verificar em navegador teclado, Escape, foco, zoom e anúncio da seleção.",
+    "O manual shadcn inclui ranges, presets, time e natural language como exemplos de composição, não como capacidade do DatePicker JSON aprovado."
+  ],
+  "capabilities": [
+    {
+      "id": "single-date-popover",
+      "description": "Popover controlado apresenta Calendar mode=single a partir de gatilho Button.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "<Popover open={open} onOpenChange="
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "<Calendar mode=\"single\" selected={selected} onSelect={choose}"
+        }
+      ],
+      "testRequirements": [
+        "Abrir, escolher dia e confirmar fechamento; nunca criar seleção de intervalo."
+      ]
+    },
+    {
+      "id": "iso-local-value",
+      "description": "Converte seleção de Date local em YYYY-MM-DD e apresenta valor selecionado em pt-BR.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "const next=toIsoDate(date);"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "selected.toLocaleDateString('pt-BR')"
+        },
+        {
+          "path": "src/ui-data/date-rules.mjs",
+          "contains": "export const toIsoDate=date=>"
+        }
+      ],
+      "testRequirements": [
+        "Testar virada de mês, ano bissexto e ausência de deslocamento de fuso ao salvar data civil."
+      ]
+    },
+    {
+      "id": "min-max-calendar-guards",
+      "description": "Bloqueia no calendário e na função choose seleções anteriores ao mínimo ou posteriores ao máximo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "if(dateError(next,props.minDate,props.maxDate,false))return;"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "disabled={(day:Date)=>Boolean((min&&day<min)||(max&&day>max))}"
+        }
+      ],
+      "testRequirements": [
+        "Testar limites inclusivos, datas fora do limite e minDate superior a maxDate."
+      ]
+    },
+    {
+      "id": "required-and-touched-error",
+      "description": "Calcula erro de obrigatoriedade e data inválida, exibindo feedback apenas após touched.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "dateError(value,props.minDate,props.maxDate,Boolean(props.required))"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "{touched&&error&&<p id={errorId} role=\"alert\""
+        },
+        {
+          "path": "src/ui-data/date-rules.mjs",
+          "contains": "return required?'Informe uma data.':null;"
+        }
+      ],
+      "testRequirements": [
+        "Fechar sem escolher com required=true e verificar alerta; invalidar data e revisar mensagens."
+      ]
+    },
+    {
+      "id": "disabled-trigger",
+      "description": "Permite desabilitar o gatilho do calendário pelo boolean nullable disabled.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "<PopoverTrigger disabled={Boolean(props.disabled)}"
+        },
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "disabled: z.boolean().nullable(),"
+        }
+      ],
+      "testRequirements": [
+        "Verificar impossibilidade de abertura por mouse/teclado com disabled=true."
+      ]
+    },
+    {
+      "id": "bound-value-and-change-signal",
+      "description": "Atualiza value por binding quando fornecido e emite evento local change em escolha válida.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "useBoundProp<string|null>(props.value,statePath)"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "if(statePath)setBound(next);else setLocal(next);"
+        },
+        {
+          "path": "src/ui-catalog/extensions/registry.tsx",
+          "contains": "onChange={()=>emit?.('change')}"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar atualização do binding e apenas um change por escolha válida, sem operação remota."
+      ]
+    },
+    {
+      "id": "name-hidden-form-value",
+      "description": "Disponibiliza um input hidden com name e valor ISO atual para integração possível com formulário.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/date-picker.tsx",
+          "contains": "<input type=\"hidden\" name={props.name} value={value??''}/>"
+        },
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "name: z.string().regex(/^[a-zA-Z][a-zA-Z0-9_-]*$/)"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar input hidden com e sem value e testar serialização quando houver form externo."
+      ]
+    },
+    {
+      "id": "strict-date-props",
+      "description": "A API JSON permite apenas campos e evento explicitamente declarados, sem renderProps, JSX ou handlers externos.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "value: isoDate.nullable(),"
+        },
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "events: [\"change\"]"
+        }
+      ],
+      "testRequirements": [
+        "Rejeitar range, time, presets, onSelect e formatos de valor não suportados na validação do contrato."
+      ]
+    },
+    {
+      "id": "date-range-and-multiple-selection",
+      "description": "Seleção de intervalo ou múltiplos dias é apenas exemplo do fornecedor, não API da extensão.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se houver proposta, avaliar novos contratos, dois limites e estados parciais antes de novos testes executáveis."
+      ]
+    },
+    {
+      "id": "text-time-natural-input",
+      "description": "Digitação manual, hora, presets e interpretação de linguagem natural não existem neste adaptador.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se aprovado, validar entrada, timezone, locale e ambiguidades sem alterar a extensão atual."
+      ]
+    },
+    {
+      "id": "form-submission-and-remote-validation",
+      "description": "Persistência, validação de negócio e submit remoto não são efeitos do evento change nem do campo hidden.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em composição autorizada, testar erro de servidor, estado pendente e prevenção de submissão duplicada."
+      ]
+    },
+    {
+      "id": "explicit-clear-action",
+      "description": "O adaptador atual não oferece controle para limpar data depois de selecionada.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura deve prever limpeza, required, evento change e binding coerentes."
+      ]
+    },
+    {
+      "id": "calendar-keyboard-focus-runtime",
+      "description": "Foco ao abrir/fechar, setas do calendário, Escape e leitura de data selecionada dependem de revisão em browser e leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar abertura, seleção, Tab, Escape, retorno ao gatilho e leitor de tela."
+      ]
+    },
+    {
+      "id": "mobile-calendar-and-error-runtime",
+      "description": "Validar calendário, feedback role=alert, scroll/portal e toque em viewport móvel e zoom.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar com dispositivo móvel e ampliação, sem recortes do Popover nem invisibilidade do erro."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Calendar",
+      "relationship": "single-date-selection",
+      "reason": "Primitiva usada no calendário, limitada a mode=single pelo adaptador."
+    },
+    {
+      "component": "Popover",
+      "relationship": "trigger-and-overlay",
+      "reason": "Abrir seleção e fechar ao escolher sem transformar open em evento Pi."
+    },
+    {
+      "component": "Button",
+      "relationship": "calendar-trigger",
+      "reason": "Gatilho acessível com estado disabled; sem submit remoto."
+    },
+    {
+      "component": "Field",
+      "relationship": "form-description-context",
+      "reason": "Agrupar instruções e seleção em composição aprovada, evitando rótulos duplicados."
+    },
+    {
+      "component": "Input",
+      "relationship": "manual-entry-future-candidate",
+      "reason": "Entrada textual é proposta futura e não está disponível no DatePicker aprovado."
+    },
+    {
+      "component": "Alert",
+      "relationship": "validation-feedback-candidate",
+      "reason": "Resumo de erro do formulário em composição externa, sem substituir feedback local."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Posso selecionar intervalo, horário ou data por linguagem natural?",
+      "guidance": "Não no contrato aprovado. A documentação shadcn mostra composições exemplificativas; aqui só existe mode=single com ISO civil."
+    },
+    {
+      "question": "O que significa required?",
+      "guidance": "Validação local de data presente, mostrada após touched; não significa validação nativa de um input obrigatório nem autorização de submit."
+    },
+    {
+      "question": "Como funcionam minDate e maxDate?",
+      "guidance": "São limites inclusivos para dias válidos. dateError também rejeita limites inconsistentes e datas impossíveis, além do formato Zod."
+    },
+    {
+      "question": "O evento change salva dados?",
+      "guidance": "Não. change notifica uma escolha válida no cliente. Persistência depende de fluxo/backend expressamente autorizado."
+    },
+    {
+      "question": "value representa instante e timezone UTC?",
+      "guidance": "Não. É uma data civil YYYY-MM-DD sem hora ou offset, parseada/formatada localmente."
+    },
+    {
+      "question": "Como limpar uma data?",
+      "guidance": "Não há clear no adaptador; não propor handler imaginário. Pedir evolução específica da API ou fluxo externo aprovado."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "single-day-open-select-close",
+      "kind": "integration",
+      "description": "Abrir Popover, escolher uma data válida e confirmar fechamento, valor ISO e único change sem envio remoto.",
+      "capabilities": [
+        "single-date-popover",
+        "iso-local-value",
+        "bound-value-and-change-signal"
+      ]
+    },
+    {
+      "id": "date-limits-and-invalid-input",
+      "kind": "integration",
+      "description": "Validar bissexto, mínimo/máximo inclusivos, data impossível e limites invertidos; não aceitar escolha inválida.",
+      "capabilities": [
+        "min-max-calendar-guards",
+        "required-and-touched-error",
+        "strict-date-props"
+      ]
+    },
+    {
+      "id": "required-disabled-form-hidden",
+      "kind": "integration",
+      "description": "Verificar required após touched, gatilho disabled e campo hidden com name/valor sem submissão automática.",
+      "capabilities": [
+        "required-and-touched-error",
+        "disabled-trigger",
+        "name-hidden-form-value"
+      ]
+    },
+    {
+      "id": "calendar-keyboard-screenreader",
+      "kind": "manual-a11y",
+      "description": "Conferir Tab, setas do calendário, Escape, foco e anúncio de data e erro em leitor de tela.",
+      "capabilities": [
+        "calendar-keyboard-focus-runtime"
+      ]
+    },
+    {
+      "id": "mobile-calendar-and-errors",
+      "kind": "visual",
+      "description": "Inspecionar popover com limites e mensagem de erro em mobile/zoom, sem clipping.",
+      "capabilities": [
+        "mobile-calendar-and-error-runtime",
+        "single-date-popover"
+      ]
+    },
+    {
+      "id": "unsupported-range-time-input",
+      "kind": "candidate-not-executable",
+      "description": "Em futura API revisada, testar seleção de range/múltipla, digitação, presets e hora; proibir atualmente via Zod.",
+      "capabilities": [
+        "date-range-and-multiple-selection",
+        "text-time-natural-input"
+      ]
+    },
+    {
+      "id": "clear-and-server-flow-future",
+      "kind": "candidate-not-executable",
+      "description": "Após aprovação funcional, testar limpeza, sincronização value e fluxo backend validado; nenhum deles existe agora.",
+      "capabilities": [
+        "explicit-clear-action",
+        "form-submission-and-remote-validation"
+      ]
+    }
+  ]
+}
