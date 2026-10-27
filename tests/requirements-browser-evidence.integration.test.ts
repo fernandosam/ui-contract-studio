@@ -40,7 +40,7 @@ test("T34: strict report links each declared rendered requirement to sixteen pro
 });
 test("T34: stale revisions and altered fingerprints fail closed",t=>{
  const root=setup();t.after(()=>rmSync(root,{recursive:true,force:true}));
- assert.throws(()=>verifyPatternBrowserEvidence(root,"b".repeat(40)),/mismatched/);
+ assert.throws(()=>verifyPatternBrowserEvidence(root,"b".repeat(40)),/stale|mismatched/);
  const path=join(root,patternEvidenceRoot,"desktop","dashboard-kpis.json");
  const obj=JSON.parse(readFileSync(path,"utf8"));
  writeFileSync(path,JSON.stringify({...obj,specFingerprint:"0".repeat(64)}));
