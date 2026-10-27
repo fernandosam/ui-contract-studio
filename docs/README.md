@@ -20,6 +20,7 @@ This page separates **current guides** from **historical audit records**. For cu
 
 ## Specialized references
 
+- [T19 semantic coverage audit of the 31 ReUI families](semantic-knowledge-coverage-t19.md) — 31/559/39 matrix and T01 checklist
 - [T17 semantic review (Alert, Card, Textarea, Progress)](semantic-knowledge-t17.md)
 
 - [T14 integrated semantic validation (forms and candidates)](semantic-knowledge-integration-t14.md)
