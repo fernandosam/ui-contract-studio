@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {SpecScreen} from "./spec-screen";
-import {RegistrationFlowDemo} from "../ui-catalog/extensions/components/registration-flow-demo";
+import {RegistrationFlowDemo} from "../ui-catalog/extensions/composites/registration-flow-demo";
 import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow} from "../ui-requirements/engine";
 import {planInterface} from "../ui-requirements/planner";
 import {generateRegistrationScreen} from "../ui-requirements/generator";
