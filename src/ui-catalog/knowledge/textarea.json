@@ -39,6 +39,7 @@
     "A prop checks é aceita no schema e o adaptador inspeciona se existe check.type='required' para marcar required. Não pressupor que outros tipos de checks sejam executados automaticamente pelo elemento.",
     "A primitiva é textarea HTML, com field-sizing-content e min-h-16; a regra CSS permite crescimento intrínseco, mas não corresponde a contador ao vivo, cálculo de scrollHeight, limite dinâmico de altura ou controle explícito de autoResize no Pi.",
     "rows é repassado ao elemento nativo (padrão 3), maxLength limita entrada no navegador e não apresenta progresso 0/N ou mensagem de tamanho excedido.",
+    "Na variante com field-sizing-content, o Chromium pode ignorar rows para altura; validar altura efetiva e eventual crescimento sem limite em navegador antes de apresentar garantia de dimensões.",
     "aria-invalid segue props.invalid e aria-describedby aponta para ajuda textual se houver description; erros associados, mensagens vivas e aria-errormessage exigem composição e revisão.",
     "readOnly preserva possibilidade de leitura/cópia e é distinto de disabled; nunca bloquear dados do backend somente por propriedade visual.",
     "CharacterCountTextarea é uma extensão React distinta; sua existência não habilita contador, envio por Enter nem variações dessa API para Textarea Pi.",
