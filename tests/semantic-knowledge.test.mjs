@@ -25,7 +25,7 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   const knowledge=analysis.report.semanticKnowledge;
   assert.equal(knowledge.coverage.reuiFamilies,31);
   assert.equal(knowledge.coverage.shadcnGuides,12);
-  assert.equal(knowledge.coverage.curatedOverlays,1);
+  assert.equal(knowledge.coverage.curatedOverlays,2);
   assert.equal(knowledge.coverage.coveredExamples,559);
   assert.equal(knowledge.reuiExampleProfiles.length,559);
   assert.ok(knowledge.reuiExampleProfiles.every(x=>!x.approvedPiType&&x.hasFamilyGuidance));
@@ -163,4 +163,47 @@ test("semantic:check and semantic:report validate the overlay and generate an ad
   assert.ok(profile.implementationGaps.some(x=>x.id==="typed-confirmation"));
   assert.ok(profile.derivedTestCases.some(x=>x.id==="cancel-no-confirm"));
   assert.ok(profile.integrationCandidates.every(x=>x.admission==="advisory-only"));
+});
+
+
+test("Dialog T02 follows the AlertDialog checklist without expanding Pi contracts",()=>{
+  const dialog=read("src/ui-catalog/knowledge/dialog.json");
+  assert.deepEqual(validateSemanticOverlay(dialog),[]);
+  assert.equal(dialog.schemaVersion,1);
+  assert.equal(dialog.component,"Dialog");
+  assert.equal(dialog.source.provider,"ReUI");
+  assert.equal(dialog.source.url,"https://reui.io/components/dialog");
+  assert.equal(dialog.source.reviewedOn,"2026-10-26");
+  const {report,errors}=buildSemanticKnowledge();
+  assert.deepEqual(errors,[]);
+  assert.equal(report.coverage.curatedOverlays,2);
+  const profile=report.profiles.find(x=>x.component==="Dialog");
+  assert.equal(profile.documentationReview,"reviewed-documentation");
+  assert.equal(profile.approvedPiType,true);
+  assert.ok(profile.capabilities.some(x=>x.id==="controlled-open-and-event"&&x.state==="implemented-static-evidence"));
+  assert.ok(profile.capabilities.some(x=>x.id==="title-description-and-children"&&x.state==="implemented-static-evidence"));
+  assert.ok(profile.implementationGaps.some(x=>x.id==="native-form-workflow-pi"&&x.state==="documented-not-implemented"));
+  assert.ok(profile.implementationGaps.some(x=>x.id==="unsaved-changes-guard"));
+  assert.ok(profile.implementationGaps.some(x=>x.id==="focus-management"&&x.state==="runtime-review-required"));
+  assert.ok(profile.derivedTestCases.some(x=>x.id==="form-submission-proposal"&&x.kind==="candidate-not-executable"));
+  assert.ok(profile.derivedTestCases.some(x=>x.id==="focus-trap-and-return"&&x.kind==="manual-a11y"));
+  assert.ok(profile.faqDecisions.some(x=>x.question.includes("AlertDialog")));
+  assert.ok(profile.integrationCandidates.every(x=>x.admission==="advisory-only"));
+  const advice=selectAgentSemanticAdvice(report,["Dialog"]);
+  assert.equal(advice.length,1);
+  assert.equal(advice[0].guidanceOnly,true);
+  assert.ok(advice[0].integrationCandidates.every(x=>x.admission==="not-granted"));
+});
+
+test("Dialog T02 rejects invented functionality and stale source evidence",()=>{
+  const dialog=read("src/ui-catalog/knowledge/dialog.json");
+  const stale=clone(dialog);
+  stale.capabilities.find(x=>x.id==="automatic-trigger").evidence[0].contains="not in repo";
+  assert.ok(validateSemanticOverlay(stale).some(x=>x.includes("stale or missing code evidence")));
+  const invented=clone(dialog);
+  invented.capabilities.find(x=>x.id==="native-form-workflow-pi").state="implemented-static-evidence";
+  assert.ok(validateSemanticOverlay(invented).some(x=>x.includes("needs first-party evidence")));
+  const falseApproval=clone(dialog);
+  falseApproval.capabilities.find(x=>x.id==="focus-management").evidence=[{path:"src/components/ui/dialog.tsx",contains:"DialogPrimitive.Root"}];
+  assert.ok(validateSemanticOverlay(falseApproval).some(x=>x.includes("unverified capability may not claim implementation evidence")));
 });
