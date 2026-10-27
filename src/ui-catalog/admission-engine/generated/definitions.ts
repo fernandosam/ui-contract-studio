@@ -11,4 +11,4 @@ export const experimentalDefinitions = {
   TeamMemberAccordion: {props:teamMemberAccordionSchema,description:"Composição local experimental TeamMemberAccordion; sem integração remota ou JSX dinâmico."},
   CopyFeedbackButton: {props:copyFeedbackButtonSchema,description:"Composição local experimental CopyFeedbackButton; sem integração remota ou JSX dinâmico."},
   DeclarativeFormFlow: {props:declarativeFormFlowSchema,description:"Composição local experimental DeclarativeFormFlow; sem integração remota ou JSX dinâmico."},
-}
+};
