@@ -1,6 +1,8 @@
+[English](flexible-interfaces-t17-t28.md) | [Português](flexible-interfaces-t17-t28.pt-BR.md)
+
 # T17–T28 — Requirements-driven flexible interfaces
 
-Initial review: 2026-10-27. [Português](flexible-interfaces-t17-t28.pt-BR.md).
+Initial review: 2026-10-27.
 
 ## T17 — Baseline analysis
 

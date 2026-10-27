@@ -1,6 +1,8 @@
+[English](flexible-interfaces-t17-t28.md) | [Português](flexible-interfaces-t17-t28.pt-BR.md)
+
 # T17–T28 — Interfaces flexíveis orientadas por requisitos
 
-Revisão inicial: 2026-10-27. [English](flexible-interfaces-t17-t28.md).
+Revisão inicial: 2026-10-27.
 
 ## T17 — Diagnóstico de limitações
 
