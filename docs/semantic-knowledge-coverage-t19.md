@@ -72,6 +72,8 @@ Each of the **39 overlays** was inspected for: canonical identity and official s
 
 **T19 gap fixed:** `DropdownMenu` described its statically evidenced `separators` capability without a linked derived test. The new `separator-groups-not-selectable` case requires separators to be neither focusable nor selectable; documenting that test does not constitute executing it in a browser.
 
+**Additional reporting gap fixed:** the `semantic:report` CLI previously called the aggregator without ReUI examples, yielding `coveredExamples: 0` despite a 559-example baseline. The command now supplies the existing `src/ui-catalog/reui-primitive-source-baseline.json` inventory and reports `coveredExamples: 559`; guidance remains advisory only.
+
 **Intentionally open gaps:** the 126 `documented-not-implemented` capabilities are not new APIs. The 88 `runtime-review-required` capabilities still need real keyboard, focus, accessibility, responsive-layout, and/or interaction testing. Integrations remain `advisory-only`. No changes were made to Zod schemas, admitted APIs, `contracts.lock.json`, `pi-catalog/` or Pi permissions.
 
 ## Reproducible evidence and verification
