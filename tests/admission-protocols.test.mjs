@@ -13,9 +13,12 @@ const entries=json("src/ui-catalog/admission-engine/entries.json").entries;
 const png=Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]),Buffer.from("synthetic-unit-only")]);
 
 test("every eligible experimental candidate has a distinct, declared browser protocol",()=>{
- assert.deepEqual([...policy.e2eEligible].sort(),policy.allowedScenarios.slice().sort());
+ assert.ok(policy.e2eEligible.every(id=>policy.allowedScenarios.includes(id)), "Eligibility must be allowlisted");
+ for(const entry of entries.filter(x=>!policy.e2eEligible.includes(x.id))){
+  assert.equal(entry.e2eProtocol,null,"Uncertified experimental candidates may not inherit a protocol");
+ }
  assert.deepEqual(Object.keys(protocolCatalog.candidates).sort(),policy.e2eEligible.slice().sort());
- assert.equal(new Set(Object.values(protocolCatalog.candidates).map(x=>x.protocol)).size,4);
+ assert.equal(new Set(Object.values(protocolCatalog.candidates).map(x=>x.protocol)).size,policy.e2eEligible.length);
  for(const id of policy.e2eEligible){
   const entry=entries.find(x=>x.id===id),protocol=protocolCatalog.candidates[id];
   assert.ok(entry);

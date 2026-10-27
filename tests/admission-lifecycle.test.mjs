@@ -12,9 +12,10 @@ test("official Pi v3 exposes one authoritative collection with lifecycle gates",
  assert.equal(official.schemaVersion,3);
  assert.deepEqual(Object.keys(official).filter(key=>["contracts","entries","experimentalContracts","catalogSize","experimentalCatalogSize"].includes(key)),[]);
  const all=official.components.map(x=>x.type);
- assert.equal(all.length,106);
- assert.equal(new Set(all).size,106);
  const locked=read("src/ui-catalog/contracts.lock.json").components;
+ const expectedCount=locked.length+entries.length;
+ assert.equal(all.length,expectedCount);
+ assert.equal(new Set(all).size,expectedCount);
  assert.deepEqual(official.components.filter(x=>x.tier!=="composition").map(x=>x.type).sort(),locked.map(x=>x.name).sort());
  for(const legacy of official.components.filter(x=>x.tier!=="composition")){
   assert.equal(legacy.lifecycle,"stable");

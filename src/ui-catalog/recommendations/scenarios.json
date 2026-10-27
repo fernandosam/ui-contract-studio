@@ -414,6 +414,45 @@
           "Verificar alternância e anúncio de pressed pelo teclado."
         ]
       ]
+    },
+    {
+      "id": "form-declarative",
+      "family": "Form",
+      "title": "Formulário declarativo reutilizável",
+      "need": "Compor campos tipados, validação local, confirmação opcional e conclusão demonstrativa em formulários variados sem ações remotas.",
+      "keywords": [
+        "formulário com validação",
+        "formulário com confirmação",
+        "cadastro declarativo"
+      ],
+      "strategy": "react-candidate",
+      "target": "DeclarativeFormFlow",
+      "dependencies": [
+        "Input",
+        "Button",
+        "AlertDialog"
+      ],
+      "requiredCapabilities": [],
+      "reason": "Os contratos Input, Button e AlertDialog separados não coordenam o estado de validação/submissão, exigindo uma composição React de fronteira tipada. Capacidades são propostas no schema React/Zod e ainda não fazem parte do overlay curado; não serão inferidas como implementadas pelo catálogo.",
+      "risks": [
+        "Proibido conectar a URLs e backends por inferência.",
+        "Não promover a estável sem evidência independente e revisão.",
+        "Não compartilhar valores de campos sensíveis em eventos."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Validar três variações de formulário com schema estrito, campos únicos e bloqueio de propriedades arbitrárias."
+        ],
+        [
+          "manual-a11y",
+          "Testar erros, foco, teclado e confirmação/cancelamento em desktop e mobile."
+        ],
+        [
+          "security-review",
+          "Demonstrar que nenhum valor é enviado remotamente."
+        ]
+      ]
     }
   ]
 }

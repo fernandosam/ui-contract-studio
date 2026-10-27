@@ -13,7 +13,8 @@ test("closed recipe generator audits without writing and refuses non-candidate/r
   const result=run("--check");
   assert.equal(result.status,0,result.stderr);
   assert.match(result.stdout,/Approval|No Pi lock/);
-  assert.equal(recipes.length,4);
+  const policy=JSON.parse(readFileSync("src/ui-catalog/admission-engine/policy.json","utf8"));
+  assert.equal(recipes.length,policy.allowedScenarios.length);
   for(const id of ["alert-simple","alert-remote","accordion-faq","button-loading","unknown","../unsafe"]){
     const denied=run("--id="+id);
     assert.notEqual(denied.status,0,id);

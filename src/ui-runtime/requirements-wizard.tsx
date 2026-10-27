@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {SpecScreen} from "./spec-screen";
-import {DeclarativeFormFlow} from "../ui-catalog/extensions/composites/proposals/DeclarativeFormFlow";
+
 import {proposeFormFlow} from "../ui-requirements/form-proposal";
 import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow} from "../ui-requirements/engine";
 import {planInterface} from "../ui-requirements/planner";
@@ -95,8 +95,8 @@ export function RequirementsWizard(){
           <span className="block text-muted-foreground">Origem: {item.origin}; nós: {item.nodeIds.join(", ")||"nenhum"}</span>
         </li>)}</ul>
       </details>}
-      {localCandidate&&<DeclarativeFormFlow key={JSON.stringify(localCandidate)} props={localCandidate}/>}
-      <p className="text-xs text-muted-foreground">O formulário funcional acima é uma proposta React/Zod em avaliação. Ele ainda não integra o catálogo Pi estável ou experimental.</p>
+      {localCandidate&&<SpecScreen channel="experimental" spec={{root:"form",elements:{form:{type:"DeclarativeFormFlow",props:localCandidate,children:[]}}}}/>}
+      <p className="text-xs text-muted-foreground">O formulário funcional acima usa o Pi experimental, com contrato revisável e sem persistência. Não está autorizado no Pi estável.</p>
     </div>}
   </section>;
 }

@@ -11,9 +11,9 @@ const known=lock.components.map(c=>c.name);
 const generatedComposites=new Set(JSON.parse(readFileSync('src/ui-catalog/extensions/composites/generated-manifest.json','utf8')).components.map(x=>x.name));
 
 test('Pi possui 102 exemplos válidos estruturalmente e contratos sem duplicidade',()=>{
- assert.equal(manifest.components.length,106);
+ assert.equal(manifest.components.length,lock.components.length+read("src/ui-catalog/admission-engine/entries.json").entries.length);
  assert.equal(manifest.components.filter(x=>x.tier!=='composition').length,102);
- assert.equal(new Set(manifest.components.map(c=>c.type)).size,106);
+ assert.equal(new Set(manifest.components.map(c=>c.type)).size,manifest.components.length);
  for(const c of manifest.components.filter(x=>x.tier!=='composition')){
    assert.ok(existsSync(c.example),c.type);
    const spec=read(c.example);

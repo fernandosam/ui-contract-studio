@@ -6,7 +6,7 @@ import reuiGuidance from "../reui-guidance.json";
 import shadcnGuidance from "../shadcn-guidance.json";
 
 export const pilotFamilies = ["AlertDialog", "Accordion", "Button"] as const;
-const familySchema = z.enum(pilotFamilies);
+const familySchema = z.enum([...pilotFamilies, "Form"] as const);
 const strategySchema = z.enum(["reuse-contract", "react-candidate", "review-required"]);
 const testModeSchema = z.enum(["integration", "manual-a11y", "security-review", "visual"]);
 const scenarioSchema = z.object({
@@ -112,7 +112,10 @@ export function getCompositionRecommendation(id: string): Recommendation | null 
     proposedOnly: scenario.strategy !== "reuse-contract",
     dependencies: scenario.dependencies.map(name => ({name,piApproved:approved.has(name)})),
     evidence, gaps, tests,
-    provenance: scenario.family === "AlertDialog"
+    provenance: scenario.family === "Form"
+      ? ["src/ui-catalog/extensions/composites/proposals/DeclarativeFormFlow.schema.ts",
+         "src/ui-catalog/contracts.lock.json"]
+      : scenario.family === "AlertDialog"
       ? ["src/ui-catalog/knowledge/alert-dialog.json", "src/ui-catalog/shadcn-guidance.json",
         "src/ui-catalog/contracts.lock.json"]
       : ["src/ui-catalog/reui-guidance.json", "src/ui-catalog/contracts.lock.json",

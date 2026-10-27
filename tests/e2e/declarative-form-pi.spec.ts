@@ -1,0 +1,22 @@
+import {test,expect} from "@playwright/test";
+test("T35 experimental Pi renders validated local form but stable catalog hides it",async({page})=>{
+ const requests:string[]=[];
+ page.on("request",request=>{if(["xhr","fetch"].includes(request.resourceType()))requests.push(request.url());});
+ await page.goto("/?screen=catalogo-pi");
+ const catalog=page.getByTestId("admission-catalog");
+ await expect(catalog).toBeVisible();
+ await catalog.getByLabel("Buscar componente").fill("DeclarativeFormFlow");
+ await catalog.getByLabel("Canal Pi").selectOption("experimental");
+ const preview=catalog.getByRole("region",{name:"Prévia do contrato"});
+ await expect(preview).toBeVisible();
+ const form=preview.getByTestId("registration-flow-demo");
+ await expect(form).toBeVisible();
+ await form.getByRole("button",{name:"Concluir demonstração"}).click();
+ await expect(form.getByText("Campo obrigatório").first()).toBeVisible();
+ await form.getByLabel(/^Nome/).fill("Ana");
+ await form.getByLabel(/^E-mail/).fill("ana@example.com");
+ await form.getByLabel(/^Senha/).fill("senha");
+ await form.getByRole("button",{name:"Concluir demonstração"}).click();
+ await expect(form.getByRole("status")).toContainText("Nenhum registro foi salvo");
+ expect(requests).toEqual([]);
+});

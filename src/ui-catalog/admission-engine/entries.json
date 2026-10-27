@@ -56,6 +56,19 @@
       "events": [],
       "sourceLicense": "MIT (local composition)",
       "e2eProtocol": "copy-feedback-desktop-mobile"
+    },
+    {
+      "id": "form-declarative",
+      "type": "DeclarativeFormFlow",
+      "version": "0.1.0",
+      "tier": "composition",
+      "sourceDigest": "e1915c4a98271a982d01fff2251174f1c036e06c660ca3a6c1f1694118f8b066",
+      "recipeId": "form-declarative",
+      "source": "scripts/composition-codegen/recipes/form-declarative",
+      "example": "pi-catalog/experimental-examples/DeclarativeFormFlow.json",
+      "events": [],
+      "sourceLicense": "MIT (local composition)",
+      "e2eProtocol": null
     }
   ]
 }

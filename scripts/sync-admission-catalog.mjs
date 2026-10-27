@@ -92,7 +92,14 @@ outputs["src/ui-catalog/admission-engine/entries.json"]=JSON.stringify({schemaVe
 let failures=0;
 for (const [path, content] of Object.entries(outputs)) {
   if (write) {mkdirSync(dirname(path),{recursive:true});writeFileSync(path,content);}
-  else if (!existsSync(path) || read(path)!==content) {console.error("✗ out of sync: "+path);failures++;}
+  else if (!existsSync(path) || read(path)!==content) {
+    const actual=existsSync(path)?read(path):"";
+    let offset=0;while(offset<content.length&&offset<actual.length&&content[offset]===actual[offset])offset++;
+    console.error("✗ out of sync: "+path+" at "+offset+" (expected "+content.length+" chars; got "+actual.length+")");
+    console.error("  expected: "+JSON.stringify(content.slice(Math.max(0,offset-40),offset+100)));
+    console.error("  actual:   "+JSON.stringify(actual.slice(Math.max(0,offset-40),offset+100)));
+    failures++;
+  }
 }
 if (failures) process.exit(1);
 console.log("✓ "+rows.length+" contracts and "+Object.keys(outputs).length+" generated files "+(write?"written":"verified"));

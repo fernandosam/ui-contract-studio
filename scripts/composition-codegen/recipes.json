@@ -146,6 +146,94 @@
           }
         ]
       }
+    },
+    {
+      "id": "form-declarative",
+      "target": "DeclarativeFormFlow",
+      "componentFile": "DeclarativeFormFlow.tsx",
+      "schemaFile": "DeclarativeFormFlow.schema.ts",
+      "schemaExport": "declarativeFormFlowSchema",
+      "review": "required",
+      "fixtures": {
+        "valid": {
+          "title": "Cadastro demonstrativo",
+          "description": "Sem persistência remota.",
+          "fields": [
+            {
+              "name": "name",
+              "label": "Nome",
+              "type": "text",
+              "required": true
+            },
+            {
+              "name": "email",
+              "label": "E-mail",
+              "type": "email",
+              "required": true
+            },
+            {
+              "name": "password",
+              "label": "Senha",
+              "type": "password",
+              "required": true
+            }
+          ],
+          "layout": "single",
+          "validation": "on-submit",
+          "submitLabel": "Concluir demonstração",
+          "confirmation": null
+        },
+        "invalid": [
+          {
+            "title": "",
+            "description": null,
+            "fields": [],
+            "layout": "single",
+            "validation": "on-submit",
+            "submitLabel": "Concluir",
+            "confirmation": null
+          },
+          {
+            "title": "Cadastro",
+            "description": null,
+            "fields": [
+              {
+                "name": "name",
+                "label": "Nome",
+                "type": "text",
+                "required": true
+              },
+              {
+                "name": "name",
+                "label": "Duplicado",
+                "type": "text",
+                "required": true
+              }
+            ],
+            "layout": "single",
+            "validation": "on-submit",
+            "submitLabel": "Concluir",
+            "confirmation": null
+          },
+          {
+            "title": "Cadastro",
+            "description": null,
+            "fields": [
+              {
+                "name": "name",
+                "label": "Nome",
+                "type": "text",
+                "required": true
+              }
+            ],
+            "layout": "single",
+            "validation": "on-submit",
+            "submitLabel": "Concluir",
+            "confirmation": null,
+            "endpoint": "https://example.test"
+          }
+        ]
+      }
     }
   ]
 }

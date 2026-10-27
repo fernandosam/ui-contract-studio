@@ -5,7 +5,8 @@
     "alert-checkbox",
     "alert-typed",
     "accordion-members",
-    "button-copy"
+    "button-copy",
+    "form-declarative"
   ],
   "e2eEligible": [
     "alert-checkbox",
@@ -13,5 +14,5 @@
     "accordion-members",
     "button-copy"
   ],
-  "explanation": "All four allowlisted local-only React/Zod candidates have independent desktop/mobile E2E protocols. Static gates allow experimental access; only the trusted main workflow can publish fingerprint-bound E2E certificates into the stable Pi channel."
+  "explanation": "Four previously certified local-only candidates retain their independent E2E promotion protocols. DeclarativeFormFlow is explicitly enabled in the experimental channel for review only, without E2E promotion eligibility or stable access; no remote actions, URLs or JSX are permitted."
 }

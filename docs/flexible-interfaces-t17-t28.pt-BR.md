@@ -70,3 +70,11 @@ O assistente de cadastro utiliza a proposta como prévia executável. A spec JSO
 Testes de contrato, estados e navegador devem passar antes da revisão humana de API e da entrada eventual no Admission Engine. Somente um passo independente pode ampliar o manifesto Pi. A T35 ainda requer essa admissão e avaliação acessível independente.
 
 Critério futuro: pelo menos três cenários reutilizando o mesmo componente, contrato Zod estrito, Playwright desktop/mobile, verificação de foco e teclado, e ausência de chamadas remotas.
+
+## T35 — Admissão experimental explícita (2026-10-27)
+
+A segunda etapa registra `DeclarativeFormFlow` **somente no canal experimental do Pi**, mediante receita revisável, schema Zod estrito e controle de origem no Admission Engine. O canal estável permanece sem o contrato. A implementação continua exclusivamente local, sem endpoints, ações remotas, envio ou persistência; seu evento `complete` não é exposto como ação Pi.
+
+A demonstração no assistente passa a usar `SpecScreen channel="experimental"`, exercitando o renderizador Pi real. Há um exemplo serializado em `pi-catalog/experimental-examples/DeclarativeFormFlow.json` e verificações que rejeitam atributos arbitrários e recusam a spec no canal estável.
+
+**Ainda não homologado:** `validation.e2e=pending`, sem elegibilidade à promoção automática. Evidências de navegador local e auditoria de acessibilidade não equivalem à certificação independente exigida pelo workflow manual do Admission Engine. Nenhuma permissão de backend é concedida.

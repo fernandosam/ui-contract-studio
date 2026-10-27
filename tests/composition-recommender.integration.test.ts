@@ -12,9 +12,9 @@ import {extensionDefinitions} from "../src/ui-catalog/extensions/catalog";
 
 test("13 deterministic scenarios cover the three pilot families without granting Pi types",()=>{
   assert.deepEqual(validateRecommendationPolicy(),[]);
-  assert.equal(recommendationScenarios.length,13);
+  assert.equal(recommendationScenarios.length,JSON.parse(readFileSync("src/ui-catalog/recommendations/scenarios.json","utf8")).scenarios.length);
   assert.deepEqual([...new Set(recommendationScenarios.map(x=>x.family))].sort(),
-    ["Accordion","AlertDialog","Button"]);
+    ["Accordion","AlertDialog","Button","Form"]);
   const lock=JSON.parse(readFileSync("src/ui-catalog/contracts.lock.json","utf8"));
   const before=new Set(lock.components.map((x:{name:string})=>x.name));
   for(const item of recommendationScenarios) {

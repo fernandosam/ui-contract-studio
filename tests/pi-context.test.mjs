@@ -11,7 +11,9 @@ test('context pack contém somente tipos solicitados e exemplos íntegros',()=>{
  assert.ok(pack.selected.every(x=>x.example.elements[x.example.root].type===x.contract.type));
  assert.equal(pack.selected[1].contract.contentProperty,'content');
  assert.ok(pack.selected[1].contract.configuredContentFields.length>0);
- assert.equal(api.components.length,106);
+ const entries=JSON.parse(readFileSync('src/ui-catalog/admission-engine/entries.json','utf8')).entries;
+ const locked=JSON.parse(readFileSync('src/ui-catalog/contracts.lock.json','utf8')).components;
+ assert.equal(api.components.length,locked.length+entries.length);
 });
 test('tipo não aprovado e lotes grandes são bloqueados',()=>{
  const invalid=spawnSync(process.execPath,['scripts/select-pi-context.mjs','--types=ArbitraryWidget','--stdout','--metadata-only'],{encoding:'utf8'});

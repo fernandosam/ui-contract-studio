@@ -64,3 +64,11 @@ The registration authoring wizard previews the candidate interactively. The cano
 Contract tests and Playwright must precede independent API/admission review. Only a separate approved admission step may change the Pi manifest. T35 still requires that admission and independent accessibility evidence.
 
 Future acceptance: three distinct form variants with the same candidate, strict Zod, browser desktop/mobile, focus/keyboard validation and zero remote actions.
+
+## T35 — Explicit experimental admission (2026-10-27)
+
+The second phase registers `DeclarativeFormFlow` **only in the Pi experimental channel**, through a reviewable recipe, strict Zod schema and source-fingerprint checks in the Admission Engine. Stable Pi remains unchanged. The implementation is local-only with no backend endpoint, remote action, submission or persistence. The `complete` React callback is not exposed as a Pi action.
+
+The authoring wizard now uses `SpecScreen channel="experimental"` to exercise the actual Pi renderer. A serializable example lives in `pi-catalog/experimental-examples/DeclarativeFormFlow.json`; contract checks reject arbitrary properties and stable-channel use.
+
+**Not certified:** `validation.e2e=pending`, no automatic promotion eligibility. Local browser checks and accessibility review are not substitutes for the independent certification via the Admission Engine manual workflow. No backend permission is added.
