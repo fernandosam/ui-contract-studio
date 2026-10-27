@@ -1,0 +1,40 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import {buildSemanticKnowledge,validateSemanticOverlay,selectAgentSemanticAdvice} from "../scripts/lib/semantic-knowledge.mjs";
+const doc=JSON.parse(readFileSync("src/ui-catalog/knowledge/tooltip.json","utf8"));
+const clone=x=>JSON.parse(JSON.stringify(x));
+test("T11 Tooltip: evidence, provenance and implementation boundaries",()=>{
+ assert.deepEqual(validateSemanticOverlay(doc),[]);
+ assert.equal(doc.source.url,"https://ui.shadcn.com/docs/components/base/tooltip");
+ assert.equal(doc.source.reviewedOn,"2026-10-27");
+ for(const state of ["implemented-static-evidence","documented-not-implemented","runtime-review-required"])assert.ok(doc.capabilities.some(c=>c.state===state));
+ assert.ok(doc.capabilities.some(c=>c.id==="allowlisted-icon-and-shortcut-text"&&c.state==="implemented-static-evidence"));
+ assert.ok(doc.capabilities.some(c=>c.id==="rich-interactive-content"&&c.state==="documented-not-implemented"));
+ assert.ok(doc.derivedTestCases.some(c=>c.id==="tooltip-rich-alternative-proposal"&&c.kind==="candidate-not-executable"));
+});
+test("T11 Tooltip: semantic advice does not add Pi actions",()=>{
+ const {report,errors}=buildSemanticKnowledge();
+ assert.deepEqual(errors,[]);
+ const profile=report.profiles.find(p=>p.component==="Tooltip");
+ assert.equal(profile.documentationReview,"reviewed-documentation");
+ assert.equal(profile.approvedPiType,true);
+ assert.ok(profile.implementationGaps.some(x=>x.id==="configurable-delay-and-controlled-state-pi"));
+ assert.ok(profile.integrationCandidates.every(x=>x.admission==="advisory-only"));
+ const advice=selectAgentSemanticAdvice(report,["Tooltip"]);
+ assert.equal(advice.length,1);
+ assert.equal(advice[0].guidanceOnly,true);
+ assert.ok(advice[0].integrationCandidates.every(x=>x.admission==="not-granted"));
+ assert.ok(!advice[0].verifiedStaticCapabilities.some(x=>x.id==="rich-interactive-content"));
+});
+test("T11 Tooltip: rejects stale and fabricated evidence",()=>{
+ const stale=clone(doc);
+ stale.capabilities.find(x=>x.id==="pi-text-content-and-trigger").evidence[0].contains="INVENTED_TOOLTIP";
+ assert.ok(validateSemanticOverlay(stale).some(e=>e.includes("stale or missing code evidence")));
+ const invented=clone(doc);
+ invented.capabilities.find(x=>x.id==="rich-interactive-content").state="implemented-static-evidence";
+ assert.ok(validateSemanticOverlay(invented).some(e=>e.includes("needs first-party evidence")));
+ const runtime=clone(doc);
+ runtime.capabilities.find(x=>x.id==="focus-hover-escape-a11y").evidence=[{path:"src/components/ui/tooltip.tsx",contains:'role="tooltip"'}];
+ assert.ok(validateSemanticOverlay(runtime).some(e=>e.includes("unverified capability may not claim implementation evidence")));
+});
