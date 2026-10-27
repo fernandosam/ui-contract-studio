@@ -12,6 +12,7 @@ import {extractReuiMarkdown} from "../scripts/lib/extract-reui-markdown.mjs";
 
 const read=path=>JSON.parse(readFileSync(path,"utf8"));
 const seed=read("src/ui-catalog/knowledge/alert-dialog.json");
+const selectSeed=read("src/ui-catalog/knowledge/select.json");
 const clone=value=>JSON.parse(JSON.stringify(value));
 const write=(root,path,value)=>{
   const full=join(root,path);
@@ -25,7 +26,7 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   const knowledge=analysis.report.semanticKnowledge;
   assert.equal(knowledge.coverage.reuiFamilies,31);
   assert.equal(knowledge.coverage.shadcnGuides,12);
-  assert.equal(knowledge.coverage.curatedOverlays,1);
+  assert.ok(knowledge.coverage.curatedOverlays>=2);
   assert.equal(knowledge.coverage.coveredExamples,559);
   assert.equal(knowledge.reuiExampleProfiles.length,559);
   assert.ok(knowledge.reuiExampleProfiles.every(x=>!x.approvedPiType&&x.hasFamilyGuidance));
@@ -41,6 +42,46 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Checkbox").implementedDependency,false);
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Sonner").approvedPiType,false);
   assert.equal(knowledge.profiles.find(x=>x.component==="Button")?.approvedPiType,true);
+});
+
+test("Select semantic overlay distinguishes code-backed selection from form and accessibility gaps",()=>{
+  assert.deepEqual(validateSemanticOverlay(selectSeed),[]);
+  const knowledge=buildSemanticKnowledge().report;
+  const selected=knowledge.profiles.find(x=>x.component==="Select");
+  assert.ok(selected);
+  assert.equal(selected.documentationReview,"reviewed-documentation");
+  assert.equal(selected.approvedPiType,true);
+  assert.equal(selected.provenance.reviewedOn,"2026-10-26");
+  assert.ok(selected.capabilities.some(x=>x.id==="grouped-text-options"&&x.state==="implemented-static-evidence"));
+  assert.ok(selected.capabilities.some(x=>x.id==="value-defaultvalue-and-change"&&x.state==="implemented-static-evidence"));
+  assert.ok(selected.capabilities.some(x=>x.id==="required-forwarding"&&x.state==="implemented-static-evidence"));
+  assert.ok(selected.implementationGaps.some(x=>x.id==="named-native-form-serialization"&&x.state==="documented-not-implemented"));
+  assert.ok(selected.implementationGaps.some(x=>x.id==="business-checks-and-errors"));
+  assert.ok(selected.implementationGaps.some(x=>x.id==="selected-label-fidelity"&&x.state==="runtime-review-required"));
+  assert.ok(selected.derivedTestCases.some(x=>x.id==="keyboard-screen-reader"&&x.kind==="manual-a11y"));
+  assert.ok(selected.derivedTestCases.some(x=>x.id==="native-form-and-validation-proposal"&&x.kind==="candidate-not-executable"));
+  assert.ok(selected.integrationCandidates.every(x=>x.admission==="advisory-only"));
+  const advice=selectAgentSemanticAdvice(knowledge,["Select"]);
+  assert.equal(advice.length,1);
+  assert.equal(advice[0].guidanceOnly,true);
+  assert.ok(advice[0].implementationGaps.some(x=>x.id==="named-native-form-serialization"));
+  assert.ok(advice[0].integrationCandidates.every(x=>x.admission==="not-granted"));
+  const noSelect=buildSemanticKnowledge({approvedNames:new Set(["Button"])}).report;
+  assert.deepEqual(selectAgentSemanticAdvice(noSelect,["Select"]),[]);
+});
+
+test("Select code evidence fails closed when altered or claimed without implementation",()=>{
+  const stale=clone(selectSeed);
+  stale.capabilities.find(x=>x.id==="single-select-text-options").evidence[0].contains="NONEXISTENT SELECT PROP";
+  assert.ok(validateSemanticOverlay(stale).some(x=>x.includes("stale or missing code evidence")));
+  const invented=clone(selectSeed);
+  invented.capabilities.find(x=>x.id==="multi-select").state="implemented-static-evidence";
+  assert.ok(validateSemanticOverlay(invented).some(x=>x.includes("needs first-party evidence")));
+  const unverified=clone(selectSeed);
+  unverified.capabilities.find(x=>x.id==="selected-label-fidelity").evidence=[{
+    path:"src/components/ui/select.tsx",contains:"<SelectPrimitive.Value",
+  }];
+  assert.ok(validateSemanticOverlay(unverified).some(x=>x.includes("unverified capability may not claim implementation evidence")));
 });
 
 test("enriched guidance remains advisory and is scoped to explicitly approved Pi types",()=>{
@@ -163,4 +204,11 @@ test("semantic:check and semantic:report validate the overlay and generate an ad
   assert.ok(profile.implementationGaps.some(x=>x.id==="typed-confirmation"));
   assert.ok(profile.derivedTestCases.some(x=>x.id==="cancel-no-confirm"));
   assert.ok(profile.integrationCandidates.every(x=>x.admission==="advisory-only"));
+  const select=report.profiles.find(x=>x.component==="Select");
+  assert.equal(select.provenance.reviewedOn,"2026-10-26");
+  assert.equal(select.documentationReview,"reviewed-documentation");
+  assert.ok(select.capabilities.some(x=>x.id==="grouped-text-options"));
+  assert.ok(select.implementationGaps.some(x=>x.id==="named-native-form-serialization"));
+  assert.ok(select.derivedTestCases.some(x=>x.id==="keyboard-screen-reader"));
+  assert.ok(select.integrationCandidates.every(x=>x.admission==="advisory-only"));
 });
