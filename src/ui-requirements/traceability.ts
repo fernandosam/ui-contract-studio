@@ -6,7 +6,7 @@ import type {PatternRequirements} from "./patterns";
 type Node={type:string;props:Record<string,unknown>;children:string[]};
 type Screen={root:string;elements:Record<string,Node>};
 export type TraceStatus="covered-static"|"runtime-review-required"|"blocked";
-export type TraceOrigin="explicit"|"default"|"derived";
+export type TraceOrigin="explicit"|"inferred"|"default"|"derived";
 export type RequirementTrace={
  id:string;questionId:string;origin:TraceOrigin;
  nodeIds:string[];status:TraceStatus;
@@ -25,7 +25,7 @@ function inspect(spec:unknown){
  if(!parsed.success)issues.push("A estrutura não passou no catálogo Zod");
  return {screen:parsed.success?parsed.data as unknown as Screen:null,issues};
 }
-function source(map:Record<string,"explicit"|"default">,key:string):TraceOrigin{
+function source(map:Record<string,"explicit"|"inferred"|"default">,key:string):TraceOrigin{
  return map[key]??"derived";
 }
 function add(entries:RequirementTrace[],args:{

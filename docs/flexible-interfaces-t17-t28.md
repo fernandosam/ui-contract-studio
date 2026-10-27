@@ -90,3 +90,9 @@ Synthetic test screenshots are never production-browser proof. Do not prefill `c
 The gateway validates payload shape, prevents concurrent duplicates and conflicting reuse of idempotency keys, bounds timeouts with \`AbortSignal\` and returns sanitized adapter errors. **In-memory idempotency and abortion alone are not durable, transactional guarantees.** Production requires a separately approved backend, persistent idempotency, logging, authenticated identity and security review.
 
 No URL/SQL/JS, new Pi permission, browser submission route or remote data operation is added. Tests cover authorized success, conflicts, isolation, timeout, retry and failure. Browser E2E for real persistence remains out of scope without an authorized service.
+
+## T33 — Reuse decisions from the initial request (2026-10-27)
+
+The pattern wizard accepts a short description, detects an unambiguous pattern and only pre-fills choices already declared in \`pattern-flows.json\`. Priority: **explicit selection > conservative inference > documented default**. Requirement reports keep \`explicit\`, \`inferred\` or \`default\` provenance; ambiguous intent requires a manual choice. Hidden conditional questions do not enter the generated spec. \`validateFlow\` rejects duplicates and invalid dependencies.
+
+No model-generated handler, API, remote authentication or additional Pi component is granted. Integration and desktop/mobile browser tests cover these choices.
