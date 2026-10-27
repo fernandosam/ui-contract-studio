@@ -1,0 +1,358 @@
+{
+  "schemaVersion": 1,
+  "component": "Collapsible",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/collapsible",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Collapsible?",
+      "Why Use Shadcn Collapsible?",
+      "Shadcn Collapsible Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Revelar sob demanda uma única região secundária, com gatilho identificado e estado de expansão local, sem deslocar o usuário para outra tela.",
+  "rationale": [
+    "Manter detalhes opcionais e configurações avançadas fora do fluxo principal até que o usuário peça acesso.",
+    "Usar uma região independente em vez de impor a semântica de grupos coordenados do Accordion.",
+    "Separar a expansão visual do controle de permissões, navegação, persistência, carregamento e submissão."
+  ],
+  "whenUse": [
+    "Mostrar detalhes adicionais de pedido, perfil, consumo ou filtros avançados em painel individual.",
+    "Revelar uma resposta de ajuda isolada ou controles secundários sem abrir modal.",
+    "Construir hierarquias simples por composição revisada, com um estado de abertura por nó."
+  ],
+  "whenNotUse": [
+    "Várias seções irmãs com regra de abrir apenas uma: usar Accordion.",
+    "Árvore grande com seleção, navegação por setas, foco roving e busca: preferir Tree ou componente específico revisado.",
+    "Informações essenciais para decisão ou instruções obrigatórias: não ocultar por padrão sem sinalização.",
+    "Ocultar campos para dispensar validação ou autorização: a expansão não modifica regras de negócio.",
+    "Assumir que o contrato Pi integra rotas, armazenamento local, carregamento remoto ou animação customizada."
+  ],
+  "agentNotes": [
+    "O contrato aprovado Collapsible aceita title, open(nullable), defaultOpen, disabled, slot default e evento openChange; não inventar asChild, render, className, persistKey ou handlers remotos na especificação Pi.",
+    "O adaptador usa useValue(props.open??props.defaultOpen??false,bindings?.open); open informado prevalece sobre defaultOpen, e binding de estado depende de configuração explícita.",
+    "O gatilho é um Button outline renderizado via propriedade render da variante Base UI, não via asChild da Radix.",
+    "O título serializado é o rótulo do gatilho. O slot default só monta conteúdo local da composição; não é API de árvore, lista de links ou lazy loading.",
+    "O evento openChange emite sinal sem payload; não transmite automaticamente booleano, navega, persiste preferências ou busca informações.",
+    "disabled é encaminhado à raiz Base UI; verificar no navegador bloqueio de ativação por clique e teclado, sem usá-lo como mecanismo de autorização.",
+    "A nota ReUI de conteúdo fechado ausente no HTML do servidor não prova política SSR da variante @base-ui/react instalada; testar montagem, hidratação e leitor de tela separadamente.",
+    "Ícone ChevronDown estático no adaptador: não presumir rotação animada, nem indicação visual suficiente sem estado aria-expanded da primitiva.",
+    "Documentação e provas textuais são orientação consultiva; não elevam composições ReUI a contrato Pi nem alteram Zod, permissões ou ações remotas."
+  ],
+  "capabilities": [
+    {
+      "id": "approved-title-and-content-slot",
+      "description": "Apresenta título textual no gatilho e conteúdo do slot default no painel.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Collapsible: { props: obj({ title: z.string()"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "slots: [\"default\"], events: [\"openChange\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.title}<ChevronDown"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<CollapsibleContent className=\"mt-2 flex flex-col gap-3\">{children}</CollapsibleContent>"
+        }
+      ],
+      "testRequirements": [
+        "Montar title e conteúdo de slot; abrir e conferir presença visual e associação com o gatilho."
+      ]
+    },
+    {
+      "id": "controlled-and-default-open",
+      "description": "Recebe open/defaultOpen e binding opcional de estado para expansão local.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "open: z.boolean().nullable().optional(), defaultOpen: z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.open??props.defaultOpen??false,bindings?.open)"
+        }
+      ],
+      "testRequirements": [
+        "Exercitar aberto/fechado inicial, precedência de open e vínculo explícito sem propagação remota."
+      ]
+    },
+    {
+      "id": "open-change-signal",
+      "description": "Notifica mudança de expansão com evento local openChange sem transportar o valor no próprio evento.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events: [\"openChange\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onOpenChange={(v:boolean)=>{setOpen(v);notify(emit,\"openChange\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Alternar duas vezes e verificar uma notificação por mudança, sem payload assumido."
+      ]
+    },
+    {
+      "id": "disabled-root",
+      "description": "Encaminha disabled ao Collapsible raiz e expõe booleano opcional aprovado.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "disabled: z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnCollapsible open={open} disabled={props.disabled}"
+        }
+      ],
+      "testRequirements": [
+        "Validar estado desabilitado por mouse e teclado; distinguir encaminhamento estático de teste runtime."
+      ]
+    },
+    {
+      "id": "base-ui-disclosure-anatomy",
+      "description": "Usa Root, Trigger e Panel do Collapsible instalado em @base-ui/react.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "contains": "import { Collapsible as CollapsiblePrimitive } from \"@base-ui/react/collapsible\""
+        },
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "contains": "<CollapsiblePrimitive.Root"
+        },
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "contains": "<CollapsiblePrimitive.Trigger"
+        },
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "contains": "<CollapsiblePrimitive.Panel"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<CollapsibleTrigger render={<ShadcnButton variant=\"outline\" type=\"button\"/>}>"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar no DOM que trigger e região aberta estão relacionados na implementação local Base UI."
+      ]
+    },
+    {
+      "id": "nested-tree-pi-model",
+      "description": "Expor hierarquia de árvores/rotas, navegação por setas e seleção de nós como contrato pronto.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se proposta futura for aprovada, validar estados independentes, URLs, foco roving, seleção e nós folha."
+      ]
+    },
+    {
+      "id": "advanced-controls-persistence",
+      "description": "Persistir expansão em URL/storage ou carregar filtros avançados e dados remotos automaticamente.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Caso novo contrato seja aprovado, testar reidratação e autorização de carregamento, sem inferência a partir de openChange."
+      ]
+    },
+    {
+      "id": "animated-disclosure",
+      "description": "Configurar animação de altura e rotação de ícone como props do contrato Pi atual.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Validar animações, reduced-motion e dimensões somente se uma implementação futura as admitir."
+      ]
+    },
+    {
+      "id": "keyboard-and-aria",
+      "description": "Garantir aria-expanded/aria-controls, Enter/Space, foco e leitura correta por assistiva na versão instalada.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "E2E/manual com Enter, Espaço, Tab e leitor de tela; medir foco e estado anunciado."
+      ]
+    },
+    {
+      "id": "closed-content-hydration",
+      "description": "Confirmar montagem/desmontagem, SSR e visibilidade de texto quando fechado, inclusive conteúdo aninhado.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Inspecionar DOM fechado/aberto e saída SSR/hidratação; não extrapolar comportamento Radix."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "trigger",
+      "reason": "Gatilho local acessível com hierarquia visual previsível."
+    },
+    {
+      "component": "Accordion",
+      "relationship": "alternative-multiple-disclosures",
+      "reason": "Para painéis irmãos com expansão coordenada, preferir Accordion."
+    },
+    {
+      "component": "Card",
+      "relationship": "optional-container",
+      "reason": "Revelar detalhes complementares em cartões de resumo."
+    },
+    {
+      "component": "Badge",
+      "relationship": "optional-status-context",
+      "reason": "Exibir status persistente mesmo com a área secundária oculta."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "advanced-filter-content",
+      "reason": "Exibir filtros opcionais em composição revisada, sem enviar dados automaticamente."
+    },
+    {
+      "component": "RadioGroup",
+      "relationship": "advanced-filter-content",
+      "reason": "Exibir opções de seleção de filtros em composição especializada."
+    },
+    {
+      "component": "Drawer",
+      "relationship": "mobile-navigation-candidate",
+      "reason": "Compor navegação secundária móvel apenas com revisão de foco e estado."
+    },
+    {
+      "component": "Sidebar",
+      "relationship": "navigation-candidate",
+      "reason": "Submenus colapsáveis requerem contrato próprio para links e hierarquias."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando preferir Collapsible ao Accordion?",
+      "guidance": "Escolha Collapsible para um disclosure independente; Accordion organiza múltiplos itens irmãos e pode coordenar expansão."
+    },
+    {
+      "question": "O evento openChange devolve o booleano no Pi?",
+      "guidance": "Não: o adaptador atual notifica apenas o nome do evento; use binding de estado explicitamente definido para observar o valor."
+    },
+    {
+      "question": "Posso aninhar itens para criar uma árvore navegável?",
+      "guidance": "O slot admite composição local, mas árvore com links, foco por setas, seleção e múltiplos níveis não é contrato pronto."
+    },
+    {
+      "question": "Base UI usa asChild como Radix?",
+      "guidance": "Não no adaptador instalado: CollapsibleTrigger recebe render de Button outline."
+    },
+    {
+      "question": "Conteúdo fechado permanece no DOM e HTML de servidor?",
+      "guidance": "Não deduzir do guia Radix/ReUI; verificar Base UI instalada e hidratação com testes de runtime."
+    },
+    {
+      "question": "Posso colapsar uma validação obrigatória ou permissão?",
+      "guidance": "Não: visibilidade não substitui validação, autorização ou persistência."
+    },
+    {
+      "question": "O ícone gira e o painel anima automaticamente?",
+      "guidance": "ChevronDown está desenhado no gatilho; não há props Pi de rotação nem garantia de animação acessível."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "local-toggle-and-signal",
+      "kind": "integration",
+      "description": "Abrir e fechar, confirmar painel e uma notificação local openChange por interação.",
+      "capabilities": [
+        "controlled-and-default-open",
+        "open-change-signal",
+        "approved-title-and-content-slot"
+      ]
+    },
+    {
+      "id": "bound-open-precedence",
+      "kind": "integration",
+      "description": "Validar open sobre defaultOpen, binding explícito e ausência de persistência implícita.",
+      "capabilities": [
+        "controlled-and-default-open",
+        "open-change-signal"
+      ]
+    },
+    {
+      "id": "disabled-activation",
+      "kind": "integration",
+      "description": "Verificar que disabled impede interação por mouse e teclado na versão Base UI.",
+      "capabilities": [
+        "disabled-root",
+        "base-ui-disclosure-anatomy"
+      ]
+    },
+    {
+      "id": "aria-keyboard-disclosure",
+      "kind": "manual-a11y",
+      "description": "Testar aria-expanded, aria-controls, Enter, Space e retorno do foco com leitor de tela.",
+      "capabilities": [
+        "keyboard-and-aria",
+        "base-ui-disclosure-anatomy"
+      ]
+    },
+    {
+      "id": "closed-dom-and-hydration",
+      "kind": "integration",
+      "description": "Validar DOM, conteúdo fechado, SSR e hidratação com níveis aninhados.",
+      "capabilities": [
+        "closed-content-hydration",
+        "approved-title-and-content-slot"
+      ]
+    },
+    {
+      "id": "responsive-panel",
+      "kind": "visual",
+      "description": "Abrir texto longo em largura móvel e verificar legibilidade, foco e posicionamento.",
+      "capabilities": [
+        "approved-title-and-content-slot",
+        "keyboard-and-aria"
+      ]
+    },
+    {
+      "id": "future-tree-navigation",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão separada, validar árvore, seleção, rotas e acessibilidade multinível.",
+      "capabilities": [
+        "nested-tree-pi-model"
+      ]
+    },
+    {
+      "id": "future-state-sync",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão separada, verificar armazenamento, URL e carregamento de dados com permissão.",
+      "capabilities": [
+        "advanced-controls-persistence"
+      ]
+    },
+    {
+      "id": "future-disclosure-animation",
+      "kind": "candidate-not-executable",
+      "description": "Se implementada, inspecionar animação e preferência reduced-motion.",
+      "capabilities": [
+        "animated-disclosure"
+      ]
+    }
+  ]
+}
