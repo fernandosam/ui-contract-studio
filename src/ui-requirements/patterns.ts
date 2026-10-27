@@ -3,7 +3,7 @@ import searchTemplate from "../ui-patterns/search-and-filters.json";
 import dashboardKpis from "../ui-patterns/dashboard-kpis.json";
 import dashboardGraphs from "../ui-patterns/dashboard-analytics.json";
 import listTemplate from "../ui-patterns/crud-list.json";
-import {flowSchema,validAnswer,type Answer,type Answers} from "./schema";
+import {flowSchema,validAnswer,type Answers} from "./schema";
 
 const flows=flowDocument.flows.map(flow=>flowSchema.parse({schemaVersion:1,...flow}));
 export const supportedPatterns=flows.map(f=>({id:f.id,title:f.title}));
