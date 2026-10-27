@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "component": "Spinner",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/spinner",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Spinner?",
+      "Why Use Shadcn Spinner?",
+      "Shadcn Spinner Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Comunicar visual e textualmente que uma operação está em andamento quando não se dispõe de progresso percentual.",
+  "rationale": [
+    "Dar feedback de espera sem inventar avanço mensurável.",
+    "Distinguir carregamento indeterminado de placeholder de conteúdo previsível.",
+    "Exigir coordenação de estado real para não sugerir que o ícone executa ou bloqueia uma requisição."
+  ],
+  "whenUse": [
+    "Busca breve com formato de resultado imprevisível.",
+    "Processamento de pedido ou sincronização com rótulo contextual.",
+    "No interior de botão/card quando a aplicação controla loading e disabled externamente."
+  ],
+  "whenNotUse": [
+    "Conteúdo final com geometria previsível: usar Skeleton.",
+    "Avanço real com valor/max: usar Progress.",
+    "Estado pending/success/error autogerenciado: precisar de Button e fluxo assíncrono autorizado.",
+    "Spinner perpétuo como único feedback de falha."
+  ],
+  "agentNotes": [
+    "A primitiva instalada usa Loader2Icon com animate-spin e role=status aria-label=Loading (inglês).",
+    "O adaptador Pi cria outro span role=status e texto Carregando; verificar anúncios duplicados e idiomas mistos em leitor de tela.",
+    "O schema só admite size sm/md/lg, label, tone default/success/info/warning/error e hideLabel; não inventar promise, speed, overlay, disabled ou percent.",
+    "hideLabel aplica sr-only ao texto, não o exclui da árvore de acessibilidade.",
+    "size e tone controlam classes visuais; o nó não inicia requisição, evita duplicidade de envio, aplica timeout ou muda de estado.",
+    "Padrões ReUI em badge, input group, página e card são candidatos de composição, não props Pi.",
+    "Validar prefers-reduced-motion, contraste e semântica real antes de afirmar conformidade acessível."
+  ],
+  "capabilities": [
+    {
+      "id": "lucide-spinning-svg",
+      "description": "Primitiva renderiza Loader2Icon com animação de rotação e role status.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/spinner.tsx",
+          "contains": "import { Loader2Icon } from \"lucide-react\""
+        },
+        {
+          "path": "src/components/ui/spinner.tsx",
+          "contains": "role=\"status\" aria-label=\"Loading\""
+        },
+        {
+          "path": "src/components/ui/spinner.tsx",
+          "contains": "size-4 animate-spin"
+        }
+      ],
+      "testRequirements": [
+        "Verificar SVG renderizado e classe de animação."
+      ]
+    },
+    {
+      "id": "size-and-tone",
+      "description": "Contrato Pi limita tamanho e tom; adaptador associa classes.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Spinner: { props: obj({size:z.enum([\"sm\",\"md\",\"lg\"])"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "tone:z.enum([\"default\",\"success\",\"info\",\"warning\",\"error\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.size===\"lg\"?\"size-8\":props.size===\"sm\"?\"size-4\":\"size-6\""
+        }
+      ],
+      "testRequirements": [
+        "Comparar todos os tamanhos e tons em tema claro/escuro."
+      ]
+    },
+    {
+      "id": "optional-visible-label",
+      "description": "Texto de espera padrão ou informado pode ser oculto só visualmente.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "hideLabel:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<span className={props.hideLabel?\"sr-only\":undefined}>{props.label??\"Carregando\"}</span>"
+        }
+      ],
+      "testRequirements": [
+        "Validar label com hideLabel=true e false."
+      ]
+    },
+    {
+      "id": "nested-status-structure",
+      "description": "Span externo e SVG interno usam role=status.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<span role=\"status\" className={`inline-flex items-center gap-2"
+        },
+        {
+          "path": "src/components/ui/spinner.tsx",
+          "contains": "role=\"status\" aria-label=\"Loading\""
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar se leitura assistiva produz anúncio duplicado."
+      ]
+    },
+    {
+      "id": "request-state-management",
+      "description": "Spinner Pi não possui isLoading, Promise, bloqueio de botão, cancelamento ou feedback automático.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após proposta aprovada, testar pending, retry, sucesso/erro e prevenção de clique duplicado."
+      ]
+    },
+    {
+      "id": "overlay-and-contextual-patterns",
+      "description": "Exemplos de overlay e integração automática com cards/badges não são contrato Pi Spinner.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se composto for admitido, validar foco, scroll, stacking e retry."
+      ]
+    },
+    {
+      "id": "measured-progress",
+      "description": "Spinner Pi não dispõe de value e max; progresso percentual cabe a Progress.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se houver progresso medido, testar Progress no contrato apropriado."
+      ]
+    },
+    {
+      "id": "a11y-duplicate-and-locale",
+      "description": "A combinação de dois role=status e rótulos em idiomas diferentes exige revisão de leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar NVDA/VoiceOver, DOM e número de anúncios."
+      ]
+    },
+    {
+      "id": "contrast-and-reduced-motion",
+      "description": "Conforto visual, tempo de espera e redução de movimento precisam de avaliação real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar contraste e prefers-reduced-motion em cenários demorados."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "pending-action",
+      "reason": "Feedback de submissão com disabled controlado pela aplicação."
+    },
+    {
+      "component": "Skeleton",
+      "relationship": "predictable-content-alternative",
+      "reason": "Reservar forma de cards/listas quando houver layout final."
+    },
+    {
+      "component": "Progress",
+      "relationship": "determinate-alternative",
+      "reason": "Exibir porcentagem quando houver valor mensurado."
+    },
+    {
+      "component": "Card",
+      "relationship": "local-loading-indicator",
+      "reason": "Oferecer aviso de espera no contexto do card."
+    },
+    {
+      "component": "Alert",
+      "relationship": "completion-feedback",
+      "reason": "Apresentar erro/sucesso após processamento autorizado."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Spinner faz a requisição?",
+      "guidance": "Não; somente sinaliza espera e não controla pending/disabled."
+    },
+    {
+      "question": "Spinner ou Skeleton?",
+      "guidance": "Spinner para operação sem geometria final; Skeleton para conteúdo previsível."
+    },
+    {
+      "question": "Spinner ou Progress?",
+      "guidance": "Progress quando existe avanço mensurável, em vez de simular porcentagem no Spinner."
+    },
+    {
+      "question": "hideLabel retira a descrição acessível?",
+      "guidance": "Não; aplica sr-only, mas a duplicidade de status exige teste de leitor de tela."
+    },
+    {
+      "question": "O botão será desabilitado automaticamente?",
+      "guidance": "Não; usar estado pending controlado em composição aprovada."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "spinner-visual",
+      "kind": "visual",
+      "description": "Conferir ícone, tons, tamanhos e rótulos visível/oculto.",
+      "capabilities": [
+        "lucide-spinning-svg",
+        "size-and-tone",
+        "optional-visible-label"
+      ]
+    },
+    {
+      "id": "spinner-screenreader",
+      "kind": "manual-a11y",
+      "description": "Examinar roles duplicados, idioma, contraste e movimento.",
+      "capabilities": [
+        "nested-status-structure",
+        "a11y-duplicate-and-locale",
+        "contrast-and-reduced-motion"
+      ]
+    },
+    {
+      "id": "async-future",
+      "kind": "candidate-not-executable",
+      "description": "Validar ciclo pending e bloqueio somente quando aprovado.",
+      "capabilities": [
+        "request-state-management"
+      ]
+    },
+    {
+      "id": "overlays-future",
+      "kind": "candidate-not-executable",
+      "description": "Testar overlay e retry apenas se admitidos.",
+      "capabilities": [
+        "overlay-and-contextual-patterns"
+      ]
+    },
+    {
+      "id": "progress-future",
+      "kind": "candidate-not-executable",
+      "description": "Testar estado numérico por Progress, não Spinner.",
+      "capabilities": [
+        "measured-progress"
+      ]
+    }
+  ]
+}
