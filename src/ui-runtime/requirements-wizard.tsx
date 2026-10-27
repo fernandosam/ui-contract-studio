@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {SpecScreen} from "./spec-screen";
+import {RegistrationFlowDemo} from "../ui-catalog/extensions/composites/registration-flow-demo";
 import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow} from "../ui-requirements/engine";
 import {planInterface} from "../ui-requirements/planner";
 import {generateRegistrationScreen} from "../ui-requirements/generator";
@@ -82,6 +83,7 @@ export function RequirementsWizard(){
       <h2 className="text-lg font-semibold">Prévia do catálogo aprovado</h2>
       <p className="text-sm text-muted-foreground">Demonstração sem persistência. Validação funcional e acessibilidade ainda exigem execução de testes.</p>
       <SpecScreen spec={preview}/>
+      <RegistrationFlowDemo key={JSON.stringify(requirements.answers)} requirements={requirements}/>
     </div>}
   </section>;
 }
