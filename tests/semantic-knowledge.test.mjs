@@ -339,7 +339,7 @@ test("T08 integrated evidence and checklist across six components",()=>{
   const {report,errors}=buildSemanticKnowledge();
   assert.deepEqual(errors,[]);
   const files=readdirSync("src/ui-catalog/knowledge").filter(x=>x.endsWith(".json"));
-  assert.equal(files.length,7,"AlertDialog plus six T02-T07 overlays");
+  assert.ok(files.length>=7,"AlertDialog and six T02-T07 overlays must remain available as the catalog grows");
   assert.equal(report.coverage.curatedOverlays,files.length);
   let totalStates=[0,0,0],proofs=0,integrations=0,faq=0,derived=0;
   for(const [name,slug,expected] of t08Targets){
