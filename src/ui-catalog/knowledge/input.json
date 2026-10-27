@@ -1,0 +1,398 @@
+{
+  "schemaVersion": 1,
+  "component": "Input",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/input",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "Shadcn Input: Text Entry with Validation",
+      "What is Shadcn Input?",
+      "Why Use Shadcn Input?",
+      "Shadcn Input Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Coletar um valor textual ou tipado em um campo identificável de formulário, com rótulo, restrições nativas e eventos locais; a persistência depende de um fluxo de formulário autorizado.",
+  "rationale": [
+    "Manter associação entre dado, rótulo e instruções para reduzir ambiguidades de entrada e tornar estados verificáveis.",
+    "Aproveitar os tipos nativos permitidos para adequar teclado e regras HTML sem afirmar validação de negócio inexistente.",
+    "Separar edição e sinalização local de envio, persistência e autorização do backend."
+  ],
+  "whenUse": [
+    "Nome, e-mail, senha, busca, telefone, URL e número quando o campo exige entrada curta em linha única.",
+    "Filtros textuais locais e campos de formulário que precisam de label, placeholder, descrição, maxLength, required ou readOnly.",
+    "Entrada inválida sinalizada por estado externo conhecido; o controlador do formulário deve decidir regra, erro e momento da validação."
+  ],
+  "whenNotUse": [
+    "Texto longo e multilinha: preferir Textarea.",
+    "Uma escolha entre opções fechadas: Select ou Radio (primitiva React RadioGroup); múltiplas opções: Checkbox.",
+    "Ícones, unidades, botões dentro da borda: InputGroup/composição React explicitamente admitida, não prop arbitrária do Input Pi.",
+    "Telefone internacional com bandeira e máscara, upload de arquivo, date/time/range/color: os exemplos ReUI não estendem os sete tipos permitidos no contrato Pi.",
+    "Fluxo com salvamento, validação assíncrona e tratamento de erros: compor Form, Field e ação autorizada em etapa própria."
+  ],
+  "agentNotes": [
+    "O Input Pi suporta SOMENTE type text/email/password/number/search/tel/url. Não importar date, datetime-local, file, color, range ou time dos exemplos ReUI para o JSON aprovado.",
+    "O label e name são obrigatórios pelo schema; o adaptador utiliza label htmlFor ligado ao id criado por useId, encaminha name e aria-describedby para ajuda textual.",
+    "value pode iniciar o estado, e binding de value participa da inicialização; onChange atualiza estado local e emite change. Eventos focus e blur são sinais locais, não validação.",
+    "O evento submit do Input é emitido ao pressionar Enter no onKeyDown. Ele não faz preventDefault nem prova submit de form, validação de campos ou persistência.",
+    "required pode vir da prop ou da presença de um checks do tipo required, mas outros checks não são executados no adaptador. Validar checks de negócio exige implementação específica.",
+    "invalid apenas encaminha aria-invalid ao input, estilizado no wrapper; não calcula erros nem exibe FieldError. Criar descrição de ajuda não equivale a mensagem de erro.",
+    "maxLength é repassado ao campo; conferir comportamento real para cada type, especialmente number. Não inferir conversão numérica: o estado recebe e.target.value como string.",
+    "readOnly preserva capacidade de foco/seleção de texto, enquanto disabled restringe interação. Confirmar diferenças e serialização real com navegador.",
+    "Shadcn instalado utiliza @base-ui/react/input; exemplos ReUI podem usar tipos, validadores, React Hook Form e estruturas JSX além da superfície Zod/Pi.",
+    "Nenhuma orientação documentada concede novas propriedades, operações de backend, permissões Pi ou certificação E2E."
+  ],
+  "capabilities": [
+    {
+      "id": "pi-allowed-html-types",
+      "description": "O schema expõe sete tipos de entrada e o adaptador os encaminha ao Input React; não engloba todos os tipos HTML.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "type:z.enum([\"text\",\"email\",\"password\",\"number\",\"search\",\"tel\",\"url\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "type={props.type??\"text\"}"
+        }
+      ],
+      "testRequirements": [
+        "Testar text/email/password/number/search/tel/url e rejeição de tipos ausentes no schema; não assumir máscara."
+      ]
+    },
+    {
+      "id": "label-name-and-help",
+      "description": "O adaptador vincula label ao campo por id e associa a descrição ao aria-describedby; encaminha name.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<label htmlFor={id}>{props.label}</label>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "name={props.name}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-describedby={props.description?`${id}-help`:undefined}"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar nome e descrição acessíveis com dois campos irmãos, IDs únicos e descrição opcional."
+      ]
+    },
+    {
+      "id": "native-state-and-length",
+      "description": "disabled, required, readOnly e maxLength são encaminhados ao campo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={props.disabled} readOnly={props.readOnly}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "maxLength={props.maxLength} placeholder={props.placeholder??\"\"}"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "maxLength:z.number().int().min(1).max(10000).optional()"
+        }
+      ],
+      "testRequirements": [
+        "Validar disabled/readOnly/required e limites; distinguir tipo number do comprimento realmente imposto pelo navegador."
+      ]
+    },
+    {
+      "id": "local-value-binding-and-change",
+      "description": "Valor inicial da prop ou binding e evento change são tratados no estado do adaptador sem envio automático.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.value??\"\",bindings?.value)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onChange={e=>{setValue(e.target.value);notify(emit,\"change\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Alterar valor com digitação, binding e prop inicial; conferir evento sem efeito colateral remoto."
+      ]
+    },
+    {
+      "id": "focus-blur-and-enter-signal",
+      "description": "Emite focus, blur e submit local quando a tecla Enter é pressionada no Input.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"submit\",\"focus\",\"blur\",\"change\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onFocus={()=>notify(emit,\"focus\")} onBlur={()=>notify(emit,\"blur\")}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onKeyDown={e=>{if(e.key===\"Enter\")notify(emit,\"submit\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Acionar foco, desfoco e Enter dentro e fora de formulário, garantindo que o evento não seja tratado como submit validado."
+      ]
+    },
+    {
+      "id": "invalid-aria-state",
+      "description": "O estado invalid externo é repassado a aria-invalid e o wrapper tem estilos para esse atributo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-invalid={props.invalid||undefined}"
+        },
+        {
+          "path": "src/components/ui/input.tsx",
+          "contains": "aria-invalid:border-destructive"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar aria-invalid e borda; verificar ausência de texto de erro gerado automaticamente."
+      ]
+    },
+    {
+      "id": "required-check-forwarding",
+      "description": "Um check de tipo required pode ativar a prop HTML required, sem execução genérica de checks.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "required={props.required??props.checks?.some((c:any)=>c.type===\"required\")}"
+        }
+      ],
+      "testRequirements": [
+        "Passar checks required e outros checks; diferenciar atributo nativo de avaliação de regra customizada."
+      ]
+    },
+    {
+      "id": "business-rules-and-error-rendering",
+      "description": "Aplicar checks arbitrários, FieldError, validação assíncrona e feedback contextual completo no contrato Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta: versão funcional separada com validação, mensagens associadas e ciclo submit/error."
+      ]
+    },
+    {
+      "id": "rich-input-group-and-masks",
+      "description": "Ícones internos, unidades, máscaras, senha com alternância de visibilidade e formatos internacionais não são props desse Input Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta: usar InputGroup/composto tipado com revisão de props e testes antes de publicar."
+      ]
+    },
+    {
+      "id": "typed-form-submission",
+      "description": "Executar submissão de formulário e persistir dados com backend autorizado a partir do evento submit do campo.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta: form real, submit cancelável, validação e handler explicitamente permitido."
+      ]
+    },
+    {
+      "id": "native-validity-and-formdata-runtime",
+      "description": "Confirmar constraint validation real por tipo, serialização em FormData e comportamento de Enter no formulário.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "E2E: formulário real com email inválido, campos disabled/readOnly, name, required e botão submit."
+      ]
+    },
+    {
+      "id": "keyboard-autocomplete-mobile-a11y",
+      "description": "Confirmar teclado móvel, seleção, autocomplete, foco, leitores de tela e anúncios de erro em runtime.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Executar teclado/tecnologia assistiva, zoom e viewport móvel com ajuda e estado inválido."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Field",
+      "relationship": "semantic-form-wrapper-candidate",
+      "reason": "Compor ajuda, indicação required e FieldError; o Input Pi não monta Field."
+    },
+    {
+      "component": "Label",
+      "relationship": "accessible-name",
+      "reason": "O adaptador já usa label HTML com htmlFor/id, mas a composição React pode usar Label."
+    },
+    {
+      "component": "Form",
+      "relationship": "submission-candidate",
+      "reason": "Formulário completo com regras de validação, submit e erros não surge do evento Input.submit."
+    },
+    {
+      "component": "Button",
+      "relationship": "explicit-submit-action",
+      "reason": "Botão com type submit em form autorizado; não converter Enter do campo em chamada remota."
+    },
+    {
+      "component": "Textarea",
+      "relationship": "multiline-alternative",
+      "reason": "Entrada livre longa e quebra de linha pertencem ao Textarea."
+    },
+    {
+      "component": "Select",
+      "relationship": "fixed-choice-alternative",
+      "reason": "Para alternativas limitadas, evitar texto livre sem necessidade."
+    },
+    {
+      "component": "RadioGroup",
+      "relationship": "single-choice-react-alternative",
+      "reason": "Primitiva React para escolha mutuamente exclusiva; o tipo Pi correspondente chama-se Radio."
+    },
+    {
+      "component": "InputGroup",
+      "relationship": "rich-field-candidate",
+      "reason": "Ícones/unidades/botões na mesma borda exigem composição, não estão no Input Pi."
+    },
+    {
+      "component": "Popover",
+      "relationship": "contextual-help-candidate",
+      "reason": "Ajuda complementar com conteúdo separável, sem autorizar auto-validação."
+    },
+    {
+      "component": "Alert",
+      "relationship": "result-feedback-candidate",
+      "reason": "Exibir erro geral de formulário após validação autorizada."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Input faz validação de formulário automaticamente?",
+      "guidance": "Não. O navegador pode executar restrições nativas em um form; checks diferentes de required não são avaliados pelo adaptador e invalid é um sinal fornecido."
+    },
+    {
+      "question": "O evento submit significa envio ao servidor?",
+      "guidance": "Não. O Input emite submit quando recebe Enter. Não há chamada HTTP, persistência, nem handler de form por padrão."
+    },
+    {
+      "question": "Posso usar date, file ou máscara de telefone porque aparecem no ReUI?",
+      "guidance": "Não no Pi atual: type permite text/email/password/number/search/tel/url. Qualquer extensão exige alteração de contrato revisada."
+    },
+    {
+      "question": "required, disabled e readOnly são equivalentes?",
+      "guidance": "Não. Required expressa obrigatoriedade nativa, disabled impede interação e pode omitir o campo da submissão; readOnly conserva valor editável apenas por código. Confirmar em form real."
+    },
+    {
+      "question": "Como mostrar um erro de validação?",
+      "guidance": "Forneça invalid somente quando houver regra verificada e componha FieldError/aria-describedby em implementação autorizada; o Input Pi atual não exibe mensagem."
+    },
+    {
+      "question": "Como tratar número e maxLength?",
+      "guidance": "O adaptador lê e.target.value como string; number não deve ser tratado como número coerente nem como campo necessariamente limitado por maxLength."
+    },
+    {
+      "question": "Posso usar name para enviar FormData?",
+      "guidance": "O atributo name é encaminhado, mas somente um form real e um teste de submissão demonstram serialização; não confundir com autorização de backend."
+    },
+    {
+      "question": "Quando migrar para InputGroup, PhoneInput ou Form?",
+      "guidance": "InputGroup para adornos, PhoneInput para formato internacional, Form para múltiplos campos e submissão; essas composições não estão liberadas automaticamente no Pi."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "allowed-types-and-rejected-types",
+      "kind": "integration",
+      "description": "Validar os sete tipos do schema e rejeitar date/file; inspecionar atributos forwarded e valor textual.",
+      "capabilities": [
+        "pi-allowed-html-types",
+        "native-state-and-length"
+      ]
+    },
+    {
+      "id": "label-name-help-ids",
+      "kind": "integration",
+      "description": "Renderizar dois Input com ajuda; inspecionar htmlFor, id, aria-describedby e name sem colisão.",
+      "capabilities": [
+        "label-name-and-help"
+      ]
+    },
+    {
+      "id": "local-change-and-enter",
+      "kind": "integration",
+      "description": "Digitar, alternar binding e usar Enter/focus/blur; conferir sinais locais e ausência de persistência.",
+      "capabilities": [
+        "local-value-binding-and-change",
+        "focus-blur-and-enter-signal"
+      ]
+    },
+    {
+      "id": "required-readonly-disabled-length",
+      "kind": "integration",
+      "description": "Executar estados, checks required, maxLength e invalid; registrar o que é somente repasse de atributo.",
+      "capabilities": [
+        "native-state-and-length",
+        "required-check-forwarding",
+        "invalid-aria-state"
+      ]
+    },
+    {
+      "id": "formdata-html-validity",
+      "kind": "integration",
+      "description": "Submeter form nativo com name, email, required, readOnly e disabled; verificar FormData, validade e Enter no runtime.",
+      "capabilities": [
+        "native-validity-and-formdata-runtime"
+      ]
+    },
+    {
+      "id": "mobile-keyboard-a11y",
+      "kind": "manual-a11y",
+      "description": "Testar leitor de tela, foco, etiqueta, ajuda, contraste, autocomplete e teclado móvel.",
+      "capabilities": [
+        "keyboard-autocomplete-mobile-a11y",
+        "label-name-and-help"
+      ]
+    },
+    {
+      "id": "long-input-visual",
+      "kind": "visual",
+      "description": "Revisar layout com rótulos longos, ajuda, foco, erro e telas pequenas.",
+      "capabilities": [
+        "invalid-aria-state",
+        "keyboard-autocomplete-mobile-a11y"
+      ]
+    },
+    {
+      "id": "future-validated-submission",
+      "kind": "candidate-not-executable",
+      "description": "Após aprovação funcional separada, testar regras de negócio, erros assíncronos e backend autorizado.",
+      "capabilities": [
+        "business-rules-and-error-rendering",
+        "typed-form-submission"
+      ]
+    },
+    {
+      "id": "future-rich-input",
+      "kind": "candidate-not-executable",
+      "description": "Somente com composição autorizada, testar máscaras, ícones, adornos e alternância de senha.",
+      "capabilities": [
+        "rich-input-group-and-masks"
+      ]
+    }
+  ]
+}
