@@ -36,6 +36,8 @@ test("T09: four ReUI form controls have reviewed, evidence-backed overlays", () 
 test("T09: approved Pi Radio and React RadioGroup never become interchangeable types", () => {
   const radio = read("radio");
   const group = read("radio-group");
+  assert.equal(group.component, "RadioGroup");
+  assert.deepEqual(validateSemanticOverlay(group), []);
   assert.deepEqual(validateSemanticOverlay(radio), []);
   assert.equal(radio.source.provider, "shadcn");
   assert.equal(radio.source.reviewedOn, "2026-10-27");
