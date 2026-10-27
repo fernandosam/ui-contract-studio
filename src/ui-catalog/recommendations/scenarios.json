@@ -160,7 +160,11 @@
       "dependencies": [
         "Accordion"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "textual-items",
+        "single-multiple-expansion",
+        "keyboard-and-aria"
+      ],
       "reason": "O contrato Accordion aprovado representa itens textuais expansíveis; não é necessário introduzir outro composto para uma FAQ simples.",
       "risks": [
         "Não ocultar informações críticas apenas em painéis fechados.",
@@ -255,7 +259,9 @@
         "Avatar",
         "Badge"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "rich-structured-content"
+      ],
       "reason": "O Accordion JSON aprova itens textuais; avatar e crachá por item precisam de API semântica e implementação específica, sem JSX arbitrário.",
       "risks": [
         "Evitar callback e URL de imagem livres.",
@@ -287,7 +293,10 @@
       "dependencies": [
         "Button"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "local-press-event",
+        "focus-and-keyboard-runtime"
+      ],
       "reason": "Button já permite label, variantes, tamanhos e evento press; nenhuma composição adicional é necessária.",
       "risks": [
         "Evento press não concede execução de operação externa.",
@@ -315,7 +324,9 @@
       "dependencies": [
         "Button"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "loading-and-disabled"
+      ],
       "reason": "O contrato Button já inclui loading e o renderizador desabilita o botão quando ocupado; orquestração assíncrona não é implícita.",
       "risks": [
         "O próprio Button não inicia requisições remotas.",
@@ -344,7 +355,10 @@
         "Button",
         "Tooltip"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "local-press-event",
+        "copy-or-external-action"
+      ],
       "reason": "O Button atual fornece press, mas não controla clipboard, confirmação temporária nem tratamento de falha; é comportamento composto.",
       "risks": [
         "Clipboard depende de permissão do navegador e gesto de usuário.",
