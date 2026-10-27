@@ -25,7 +25,7 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   const knowledge=analysis.report.semanticKnowledge;
   assert.equal(knowledge.coverage.reuiFamilies,31);
   assert.equal(knowledge.coverage.shadcnGuides,12);
-  assert.equal(knowledge.coverage.curatedOverlays,1);
+  assert.ok(knowledge.coverage.curatedOverlays >= 2);
   assert.equal(knowledge.coverage.coveredExamples,559);
   assert.equal(knowledge.reuiExampleProfiles.length,559);
   assert.ok(knowledge.reuiExampleProfiles.every(x=>!x.approvedPiType&&x.hasFamilyGuidance));
@@ -41,6 +41,38 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Checkbox").implementedDependency,false);
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Sonner").approvedPiType,false);
   assert.equal(knowledge.profiles.find(x=>x.component==="Button")?.approvedPiType,true);
+});
+
+test("DropdownMenu T03 distinguishes local Pi features from navigation, authorization, and runtime gaps",()=>{
+  const dropdown=read("src/ui-catalog/knowledge/dropdown-menu.json");
+  assert.deepEqual(validateSemanticOverlay(dropdown),[]);
+  assert.equal(dropdown.source.url,"https://reui.io/components/dropdown-menu");
+  assert.equal(dropdown.source.reviewedOn,"2026-10-26");
+  const {report,errors}=buildSemanticKnowledge();
+  assert.deepEqual(errors,[]);
+  const menu=report.profiles.find(x=>x.component==="DropdownMenu");
+  assert.equal(menu.documentationReview,"reviewed-documentation");
+  assert.equal(menu.approvedPiType,true);
+  assert.ok(menu.capabilities.some(x=>x.id==="single-level-submenu"&&x.state==="implemented-static-evidence"));
+  assert.ok(menu.capabilities.some(x=>x.id==="local-checkbox"&&x.state==="implemented-static-evidence"));
+  assert.ok(menu.capabilities.some(x=>x.id==="select-signal"&&x.state==="implemented-static-evidence"));
+  for(const id of ["item-link-navigation","action-permission-policy","radio-or-exclusive-choice","nested-submenus"]){
+    assert.ok(menu.implementationGaps.some(x=>x.id===id&&x.state==="documented-not-implemented"));
+    assert.ok(!menu.capabilities.find(x=>x.id===id).evidence.length);
+  }
+  for(const id of ["group-label-semantics","keyboard-focus-a11y"]){
+    assert.ok(menu.implementationGaps.some(x=>x.id===id&&x.state==="runtime-review-required"));
+  }
+  assert.ok(menu.derivedTestCases.some(x=>x.id==="restricted-navigation-and-permissions"&&x.kind==="candidate-not-executable"));
+  assert.ok(menu.derivedTestCases.some(x=>x.id==="keyboard-and-submenu-a11y"&&x.kind==="manual-a11y"));
+  const advice=selectAgentSemanticAdvice(report,["DropdownMenu"]);
+  assert.equal(advice.length,1);
+  assert.equal(advice[0].guidanceOnly,true);
+  assert.ok(advice[0].integrationCandidates.every(x=>x.admission==="not-granted"));
+  assert.ok(!advice[0].verifiedStaticCapabilities.some(x=>x.id==="action-permission-policy"));
+  const stale=clone(dropdown);
+  stale.capabilities.find(x=>x.id==="single-level-submenu").evidence[0].contains="not real submenu implementation";
+  assert.ok(validateSemanticOverlay(stale).some(x=>x.includes("stale or missing code evidence")));
 });
 
 test("enriched guidance remains advisory and is scoped to explicitly approved Pi types",()=>{
@@ -163,4 +195,9 @@ test("semantic:check and semantic:report validate the overlay and generate an ad
   assert.ok(profile.implementationGaps.some(x=>x.id==="typed-confirmation"));
   assert.ok(profile.derivedTestCases.some(x=>x.id==="cancel-no-confirm"));
   assert.ok(profile.integrationCandidates.every(x=>x.admission==="advisory-only"));
+  const dropdownReport=report.profiles.find(x=>x.component==="DropdownMenu");
+  assert.equal(dropdownReport.provenance.reviewedOn,"2026-10-26");
+  assert.ok(dropdownReport.capabilities.some(x=>x.id==="single-level-submenu"));
+  assert.ok(dropdownReport.implementationGaps.some(x=>x.id==="action-permission-policy"));
+  assert.ok(dropdownReport.integrationCandidates.every(x=>x.admission==="advisory-only"));
 });
