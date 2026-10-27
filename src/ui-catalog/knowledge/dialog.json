@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "component": "Dialog",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/dialog",
+    "reviewedOn": "2026-10-26",
+    "sections": [
+      "For AI Agents",
+      "Shadcn Dialog: Modal Forms and Confirmation Overlays",
+      "What is Shadcn Dialog?",
+      "Why Use Shadcn Dialog?",
+      "Shadcn Dialog Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Concentrar uma tarefa contextual e reversível em uma janela modal com título, conteúdo e caminho de fechamento, sem retirar o usuário permanentemente da tela de origem.",
+  "rationale": [
+    "Preservar contexto em ajustes rápidos, edição curta e consulta focada, evitando navegação de página inteira quando desnecessária.",
+    "Oferecer uma estrutura de conteúdo e fechamento identificável; acessibilidade efetiva de foco e teclado deve ser validada em execução.",
+    "Separar a apresentação modal de validação, submissão, persistência e autorização: o Dialog Pi atual não fornece operações de backend.",
+    "Reduzir uso inadequado de confirmações destrutivas: ações irreversíveis que exigem decisão explícita pertencem ao AlertDialog."
+  ],
+  "whenUse": [
+    "Editar uma pequena quantidade de campos ou configurações em uma tarefa única, com formulário composto e tratamento explícito de resultado quando implementado.",
+    "Exibir atalhos de teclado, informações de referência, detalhes breves ou aviso contextual que exigem atenção temporária.",
+    "Apresentar conteúdo que precisa manter o usuário na tela atual, com abertura e fechamento controláveis."
+  ],
+  "whenNotUse": [
+    "Confirmar exclusão, revogação ou outra ação irreversível: preferir AlertDialog e autorização externa para a ação real.",
+    "Exibir mensagens puramente informativas sem interação bloqueante: preferir Alert; para feedback transitório, usar notificação apropriada.",
+    "Formulários extensos, navegação em várias etapas ou fluxos que precisam de URL, histórico e botão Voltar: preferir página dedicada ou Sheet.",
+    "Painéis móveis com gesto de deslizar a partir da borda inferior: preferir Drawer, quando houver contrato e implementação.",
+    "Impor bloqueio de fechamento com dados não salvos sem uma política de descarte e confirmação realmente implementadas."
+  ],
+  "agentNotes": [
+    "O projeto instala @base-ui/react: em DialogTrigger componha o gatilho React via render, não via asChild (esta orientação é para a variante Radix).",
+    "O contrato JSON/Pi aprovado de Dialog aceita title obrigatório, description opcional, open/defaultOpen e filhos no slot default; emite openChange. Não invente showCloseButton, closeOnEscape, onSubmit, validationSchema ou ações remotas no JSON.",
+    "No adaptador Pi, open prioriza o valor não nulo, depois defaultOpen; o gatilho é gerado automaticamente, e filhos entram no conteúdo. openChange não significa submissão ou confirmação.",
+    "Na primitiva React shadcn, DialogContent mostra botão X por padrão; showCloseButton={false} é opção da primitiva, NÃO uma prop do contrato Pi atual. DialogClose compõe fechamento para React, sem enviar formulário.",
+    "Exemplos ReUI de edição usam form, Field, Input, FormData, handleSubmit e setOpen(false) em código React próprio; isso não prova que o Dialog JSON/Pi suporta formulário com submit ou persistência.",
+    "Para formulários reais, controlar estados idle/editing/validating/submitting/success/error, desabilitar submissões duplicadas, apresentar erros em campos e fechar somente após sucesso confirmado. Essas transições requerem implementação revisada.",
+    "Não tratar clique fora, Escape ou X como confirmação nem perda automática permitida de alterações: definir política de cancelamento, descarte e retorno de foco; testar o comportamento Base UI em navegador.",
+    "Não assumir trap de foco, Escape, clique no backdrop, foco inicial ou retorno ao gatilho como homologados apenas pela documentação. Exigir teste de teclado e tecnologia assistiva.",
+    "Incluir DialogTitle significativo e, quando pertinente, DialogDescription. Se a descrição for omitida, verificar anúncio por leitor de tela e associação acessível.",
+    "Evitar modais aninhados e excesso de conteúdo. Scroll interno, cabeçalho/rodapé fixos e comportamento mobile dos exemplos são composições, não propriedades automáticas do Dialog Pi.",
+    "A documentação semântica é consultiva: não altera schemas Zod, permissões Pi, contratos existentes, eventos ou certificados E2E."
+  ],
+  "capabilities": [
+    {
+      "id": "controlled-open-and-event",
+      "description": "O contrato Pi oferece open/defaultOpen e notifica openChange quando a primitiva solicita alteração; não implica salvamento.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Dialog: { props: obj({ title: z.string(), description: optionalText, open: z.boolean().nullable().optional(), defaultOpen: z.boolean().optional() })"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.open??props.defaultOpen??false,bindings?.open)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "notify(emit,\"openChange\")"
+        }
+      ],
+      "testRequirements": [
+        "Verificar defaultOpen=false/true, estado open vinculado, gatilho, fechamento e emissão de openChange uma vez por transição."
+      ]
+    },
+    {
+      "id": "automatic-trigger",
+      "description": "O adaptador Pi cria um botão de abertura associado ao título, usando a API render do Base UI.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<DialogTrigger render={<ShadcnButton type=\"button\" variant=\"outline\"/>}>Abrir: {props.title}</DialogTrigger>"
+        }
+      ],
+      "testRequirements": [
+        "Ativar por clique, Enter e Space; conferir rotulagem do gatilho e abertura sem envio de formulário."
+      ]
+    },
+    {
+      "id": "title-description-and-children",
+      "description": "O adaptador apresenta título, descrição opcional e filhos do slot default dentro do DialogContent.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "slots: [\"default\"], events: [\"openChange\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<DialogHeader><DialogTitle>{props.title}</DialogTitle>{props.description&&<DialogDescription>{props.description}</DialogDescription>}</DialogHeader>{children}</DialogContent>"
+        }
+      ],
+      "testRequirements": [
+        "Validar título obrigatório, descrição presente/ausente e ordem do conteúdo filho, sem conceder props adicionais."
+      ]
+    },
+    {
+      "id": "overlay-and-close-control",
+      "description": "A primitiva React monta portal/backdrop/popup e botão X opcional por padrão, usado pelo DialogContent do adaptador; o ato de fechar não confirma nem persiste.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "contains": "showCloseButton = true"
+        },
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "contains": "<DialogOverlay />"
+        },
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "contains": "<DialogPrimitive.Popup"
+        },
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "contains": "<DialogPrimitive.Close"
+        }
+      ],
+      "testRequirements": [
+        "Abrir, usar o X para fechar e inspecionar overlay e ausência de ação de negócio implícita."
+      ]
+    },
+    {
+      "id": "react-close-composition",
+      "description": "A primitiva React exporta DialogClose e fornece rodapé configurável; composições React podem adicionar Cancelar, mas a API Pi de Dialog não inclui uma prop cancelLabel.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "contains": "function DialogClose({ ...props }: DialogPrimitive.Close.Props)"
+        },
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "contains": "function DialogFooter({"
+        },
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "contains": "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar em composição React um botão Cancelar com DialogClose e comportamento de rodapé responsivo, sem confundir com props Pi."
+      ]
+    },
+    {
+      "id": "native-form-workflow-pi",
+      "description": "Submissão, validação de campos, estado de erro, persistência e fechamento pós-sucesso não são fornecidos pelo contrato Dialog Pi; exigem uma composição funcional autorizada.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor caso futuro com validação inválida, loading, falha e sucesso; não executar como capacidade Pi atual."
+      ]
+    },
+    {
+      "id": "unsaved-changes-guard",
+      "description": "Bloquear ou confirmar descarte ao fechar com alterações não salvas requer estado e handler próprios; o Dialog Pi não expõe essa política.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em composição futura, impedir perda silenciosa de dados pelo X, Escape, backdrop ou Cancelar."
+      ]
+    },
+    {
+      "id": "long-content-sticky-scroll-pi",
+      "description": "Header/footer fixos com área interna rolável são padrões documentados e exemplificados em React, mas não configurações disponíveis no contrato Pi de Dialog.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Projetar composição separada para rolagem e cabeçalho/rodapé fixos sem extrapolar o schema Pi."
+      ]
+    },
+    {
+      "id": "focus-management",
+      "description": "Foco inicial, contenção de Tab/Shift+Tab, anúncio de título/descrição e retorno ao gatilho dependem da execução Base UI e de testes assistivos.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar foco inicial e restituição ao gatilho; percorrer Tab/Shift+Tab; avaliar anúncio com leitor de tela."
+      ]
+    },
+    {
+      "id": "escape-and-backdrop-dismissal",
+      "description": "A semântica de Escape, clique externo e sua interação com eventos/alterações pendentes exige verificação real; não tratá-la como autorização para descartar dados.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar Escape, clique no backdrop, clique interno, X e rotas de cancelamento, preservando dados conforme a política aprovada."
+      ]
+    },
+    {
+      "id": "responsive-layout-and-scroll",
+      "description": "Visualização em tela pequena, zoom elevado, rolagem e acesso às ações dependem de viewport e conteúdo reais.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar 320 px, dispositivos móveis, zoom 200%, teclado virtual e conteúdo maior que a área disponível."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "trigger-close-and-actions",
+      "reason": "Abertura e ações primárias/secundárias com rótulo claro; o adaptador Pi já usa Button como trigger, mas submit não é implícito."
+    },
+    {
+      "component": "Field",
+      "relationship": "candidate-form-fields",
+      "reason": "Agrupar rótulos, ajuda e erros em formulário React composto; requer implementação de submissão/validação externa ao Dialog Pi."
+    },
+    {
+      "component": "Input",
+      "relationship": "candidate-edit-fields",
+      "reason": "Campos curtos em edição localizada, com estado, validação e persistência explícitos."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "candidate-form-options",
+      "reason": "Opções booleanas de um formulário; não adiciona lógica de confirmação ao Dialog atual."
+    },
+    {
+      "component": "RadioGroup",
+      "relationship": "candidate-exclusive-options",
+      "reason": "Escolhas exclusivas dentro de formulário curto quando não justificam página dedicada."
+    },
+    {
+      "component": "Alert",
+      "relationship": "candidate-validation-feedback",
+      "reason": "Mostrar erro ou aviso contextual sem assumir backend, schema ou fechamento automático."
+    },
+    {
+      "component": "Tabs",
+      "relationship": "candidate-organized-content",
+      "reason": "Separar poucas seções de configurações mantendo navegação por teclado; evitar modal extenso."
+    },
+    {
+      "component": "Command",
+      "relationship": "candidate-command-palette",
+      "reason": "Compor seletor de comandos em React quando contrato e ações forem revisados; não delegar comandos arbitrários."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "separate-destructive-confirmation",
+      "reason": "Transferir confirmação crítica de descarte/exclusão a um fluxo explícito, sem aninhamento não validado."
+    },
+    {
+      "component": "Sheet",
+      "relationship": "alternative-long-workflow",
+      "reason": "Alternativa para edição maior em painel lateral com espaço para conteúdo."
+    },
+    {
+      "component": "Drawer",
+      "relationship": "alternative-mobile-swipe",
+      "reason": "Alternativa para painel móvel com interação de deslizar, sujeita ao contrato implementado."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Dialog ou AlertDialog para confirmar exclusão?",
+      "guidance": "Usar AlertDialog para ação destrutiva de confirmação explícita. Dialog é para tarefa ou edição comum; nenhuma das primitivas autoriza exclusão no backend."
+    },
+    {
+      "question": "Dialog envia ou valida formulários automaticamente?",
+      "guidance": "Não no Pi atual. Em React, montar form, Field/Input, validação e handler autorizado; não fechar antes de sucesso real. Exemplos ReUI não ampliam o JSON."
+    },
+    {
+      "question": "Como abrir e fechar no JSON Pi?",
+      "guidance": "Utilizar title e open/defaultOpen conforme o schema, inserir filhos no slot default e observar openChange. Gatilho e X são gerados pelo adaptador; showCloseButton não é prop Pi."
+    },
+    {
+      "question": "O X, Escape e backdrop podem descartar alterações?",
+      "guidance": "Não assumir descarte seguro; se houver dados sujos, definir proteção de fechamento, confirmação separada e testes. Escape/backdrop exigem verificação Base UI em execução."
+    },
+    {
+      "question": "É possível esconder o X?",
+      "guidance": "Em React shadcn há showCloseButton={false} em DialogContent; esse controle não está disponível no contrato JSON/Pi Dialog."
+    },
+    {
+      "question": "Dialog garante foco acessível e retorno ao gatilho?",
+      "guidance": "As bibliotecas documentam suporte, mas é preciso validar foco inicial, ciclo, retorno, anúncio do título/descrição e teclado em browser e tecnologia assistiva."
+    },
+    {
+      "question": "Quando preferir Sheet, Drawer ou página?",
+      "guidance": "Para fluxo longo/multietapas preferir página; painel lateral com muitos campos pode usar Sheet; painel móvel deslizante pode usar Drawer. Verificar contrato efetivo antes de compor."
+    },
+    {
+      "question": "Como lidar com conteúdo extenso em telas móveis?",
+      "guidance": "Criar layout rolável e, se necessário, cabeçalho/rodapé fixos em composição React validada. O Dialog Pi não expõe essas opções de layout."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "state-controlled-and-default",
+      "kind": "integration",
+      "description": "Abrir/fechar com open e defaultOpen, confirmar precedência, ligação de estado e evento openChange sem operações remotas.",
+      "capabilities": [
+        "controlled-open-and-event"
+      ]
+    },
+    {
+      "id": "trigger-title-content",
+      "kind": "integration",
+      "description": "Acionar trigger com mouse/teclado e verificar título, descrição opcional e conteúdo filho da API Pi.",
+      "capabilities": [
+        "automatic-trigger",
+        "title-description-and-children"
+      ]
+    },
+    {
+      "id": "close-without-submit",
+      "kind": "integration",
+      "description": "Fechar pelo X e por DialogClose em composição React, sem emitir evento de confirmação ou persistir dados.",
+      "capabilities": [
+        "overlay-and-close-control",
+        "react-close-composition"
+      ]
+    },
+    {
+      "id": "form-submission-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Quando a composição de formulário for aprovada, testar estado inválido, validação, loading, falha, sucesso e fechamento pós-persistência.",
+      "capabilities": [
+        "native-form-workflow-pi"
+      ]
+    },
+    {
+      "id": "dirty-form-dismissal-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Quando houver implementação de proteção, testar abandono por X, Escape, backdrop e Cancelar com dados alterados.",
+      "capabilities": [
+        "unsaved-changes-guard"
+      ]
+    },
+    {
+      "id": "sticky-scroll-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Validar composição futura com scroll interno e ações persistentes, sem atribuir a opção ao schema Pi.",
+      "capabilities": [
+        "long-content-sticky-scroll-pi"
+      ]
+    },
+    {
+      "id": "focus-trap-and-return",
+      "kind": "manual-a11y",
+      "description": "Testar foco inicial, Tab/Shift+Tab, retorno ao gatilho e anúncio por leitor de tela, incluindo ausência de descrição.",
+      "capabilities": [
+        "focus-management",
+        "title-description-and-children"
+      ]
+    },
+    {
+      "id": "escape-backdrop-and-x",
+      "kind": "integration",
+      "description": "Abrir e ensaiar Escape, clique interno/externo e X; verificar openChange e ausência de submissão/cancelamento acidental.",
+      "capabilities": [
+        "escape-and-backdrop-dismissal",
+        "controlled-open-and-event",
+        "overlay-and-close-control"
+      ]
+    },
+    {
+      "id": "mobile-scroll-and-actions",
+      "kind": "visual",
+      "description": "Avaliar 320 px, viewport móvel, zoom 200%, rolagem, altura reduzida e áreas clicáveis; revisar rodapé React responsivo.",
+      "capabilities": [
+        "responsive-layout-and-scroll",
+        "react-close-composition"
+      ]
+    },
+    {
+      "id": "dialog-vs-alertdialog-boundary",
+      "kind": "integration",
+      "description": "Conferir que o catálogo Dialog não expõe eventos confirm, operações destrutivas, showCloseButton ou props de submissão não declaradas.",
+      "capabilities": [
+        "controlled-open-and-event",
+        "native-form-workflow-pi"
+      ]
+    }
+  ]
+}
