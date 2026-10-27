@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "component": "Alert",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/alert",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Alert?",
+      "Why Use Shadcn Alert?",
+      "Shadcn Alert Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Comunicar avisos, erros, resultados ou próximos passos no contexto da página, sem interromper a tarefa com um modal.",
+  "rationale": [
+    "Dar visibilidade persistente ao estado da interface e permitir leitura no contexto do trabalho.",
+    "Diferenciar mensagem não bloqueante de confirmação obrigatória; evitar AlertDialog para simples notificação.",
+    "Não confundir a apresentação de sucesso/erro com prova de persistência ou execução de ação externa."
+  ],
+  "whenUse": [
+    "Mostrar resultado de validação, falha de operação ou aviso de segurança junto do conteúdo relevante.",
+    "Apresentar informações e próximos passos visíveis em formulários, cartões e painéis de estado.",
+    "Exibir mensagem descartável localmente quando a remoção não altera o resultado no servidor."
+  ],
+  "whenNotUse": [
+    "Exigir aceite explícito antes de decisão crítica: usar AlertDialog.",
+    "Informar resultado breve e transitório sem ocupar o layout: avaliar Sonner/Toast em composição aprovada.",
+    "Executar ação remota, repetir requisição ou restaurar aviso após fechamento apenas com a prop dismissible.",
+    "Anunciar informação passiva sem urgência a leitores de tela como se fosse um erro urgente: requer avaliação do role."
+  ],
+  "agentNotes": [
+    "Contrato Pi aprovado: title?, description?, variant default|destructive, tone info|success|warning|error, dismissible? e showIcon?; não há slots, eventos, actions, callback ou prop role.",
+    "A primitiva local usa role=\"alert\" para TODOS os tons, inclusive info e success. A recomendação ReUI role=\"status\" para avisos não urgentes não é exposta no JSON/Pi atual; avaliar a11y antes de generalizar.",
+    "tone altera o ícone local; somente tone=error (ou variant=destructive) seleciona a variante visual destructive. Success, info e warning não ganham automaticamente as variantes cromáticas customizadas do ReUI.",
+    "dismissible monta um button local e usa setVisible(false), sem persistir dispensa, emitir evento, alterar backend ou fornecer reabertura via Pi.",
+    "showIcon=false omite o ícone; title é opcional. Preferir texto claro e não depender apenas da cor/ícone para transmitir gravidade.",
+    "AlertAction existe na primitiva React, mas o adaptador Pi usa apenas Alert, AlertTitle e AlertDescription; botões/links de ação, retry e navegação dependem de composição e autorização próprias.",
+    "Sem atualização automática de estado remoto; gerar somente conteúdos e propriedades aprovados, nunca inferir sucesso de envio.",
+    "Orientações de ReUI são documentação consultiva; não alteram schema Zod, contracts.lock.json nem permissões Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "inline-message",
+      "description": "Renderiza título e descrição opcionais em alerta no fluxo da página.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Alert: { props: obj({title:z.string().optional(),description:optionalText"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.description&&<AlertDescription>{props.description}</AlertDescription>}"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar combinações título/descrição, inclusive mensagem sem título, sem conteúdo oculto."
+      ]
+    },
+    {
+      "id": "default-destructive-visual",
+      "description": "Expõe somente variantes visuais default/destructive no contrato Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "variant:z.enum([\"default\",\"destructive\"])"
+        },
+        {
+          "path": "src/components/ui/alert.tsx",
+          "contains": "variant: {"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.variant===\"destructive\"||props.tone===\"error\"?\"destructive\":\"default\""
+        }
+      ],
+      "testRequirements": [
+        "Verificar tom error e variant destructive versus success, info e warning."
+      ]
+    },
+    {
+      "id": "tone-icons",
+      "description": "Seleciona ícones Lucide de info, sucesso, aviso e erro, com opção de ocultar.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "tone:z.enum([\"info\",\"success\",\"warning\",\"error\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const ToneIcon=props.tone===\"success\"?CheckCircle:props.tone===\"warning\"?AlertTriangle:props.tone===\"error\"?XCircle:Info;"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.showIcon!==false&&<ToneIcon className=\"size-4\"/>"
+        }
+      ],
+      "testRequirements": [
+        "Cobrir quatro tons e showIcon=false com mensagem compreensível sem ícone."
+      ]
+    },
+    {
+      "id": "local-dismiss",
+      "description": "Permite fechar o aviso localmente, removendo-o da árvore React, sem evento Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "dismissible:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const [visible,setVisible]=useState(true);"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onClick={()=>setVisible(false)}"
+        }
+      ],
+      "testRequirements": [
+        "Ativar Fechar aviso via clique/teclado e verificar remoção sem evento remoto."
+      ]
+    },
+    {
+      "id": "alert-role",
+      "description": "A primitiva padrão anuncia o conteúdo com role alert, independentemente do tom.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/alert.tsx",
+          "contains": "role=\"alert\""
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar role DOM para info/success/error; verificar se avisos passivos geram anúncios excessivos."
+      ]
+    },
+    {
+      "id": "nonurgent-status-role-pi",
+      "description": "Permitir role=status como alternativa menos intrusiva para avisos não urgentes no contrato Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor role permitido, avaliação de impacto e testes com leitor de tela antes de qualquer admissão."
+      ]
+    },
+    {
+      "id": "alert-action-pi",
+      "description": "Expor ações de tentar novamente, abrir detalhes ou dispensar com evento contratual e política de backend.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Propor ação explícita com eventos e autorização; não derivar capacidade de AlertAction React."
+      ]
+    },
+    {
+      "id": "reopen-and-persist-dismissal",
+      "description": "Controlar reabertura, persistência da dispensa e sincronização com estado externo.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Validar política de persistência e reabertura apenas se existir contrato futuro."
+      ]
+    },
+    {
+      "id": "assistive-announcement",
+      "description": "Avaliar anúncio dinâmico, legibilidade e hierarquia da mensagem por leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar NVDA/VoiceOver com renderização, atualização de mensagem e foco na ação opcional."
+      ]
+    },
+    {
+      "id": "responsive-dismiss-and-contrast",
+      "description": "Conferir legibilidade, contraste, foco e sobreposição do botão de fechar em diferentes tamanhos.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar 320 px, zoom 200%, teclado e mensagens longas com dismissible."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Field",
+      "relationship": "validation-summary-candidate",
+      "reason": "Apresentar mensagem geral de validação próxima aos campos, sem substituir erro individual."
+    },
+    {
+      "component": "Button",
+      "relationship": "optional-action-composition",
+      "reason": "Permitir retry/ajuda/descarte somente em composição React/contrato autorizado."
+    },
+    {
+      "component": "Card",
+      "relationship": "contextual-notice",
+      "reason": "Anexar aviso persistente a um painel sem abrir modal."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "blocking-confirmation-alternative",
+      "reason": "Redirecionar decisões críticas para confirmação explícita, não para Alert."
+    },
+    {
+      "component": "Dialog",
+      "relationship": "form-or-complex-task-alternative",
+      "reason": "Concentrar tarefas com múltiplos controles que não cabem num aviso."
+    },
+    {
+      "component": "Sonner",
+      "relationship": "transient-feedback-candidate",
+      "reason": "Notificações breves são transitórias; não presumir integração Pi."
+    },
+    {
+      "component": "Progress",
+      "relationship": "operation-state-candidate",
+      "reason": "Distinguir avanço contínuo da mensagem terminal de êxito ou falha."
+    },
+    {
+      "component": "Badge",
+      "relationship": "status-summary-candidate",
+      "reason": "Resumir status em cartões, sem substituir texto explicativo em situações críticas."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando Alert versus AlertDialog?",
+      "guidance": "Alert informa sem bloquear; AlertDialog exige confirmação crítica. O aviso nunca equivale à autorização de uma ação."
+    },
+    {
+      "question": "Quando usar Sonner?",
+      "guidance": "Usar alerta persistente para contexto que precisa permanecer visível; toast é transitório e exige contrato/composição próprio."
+    },
+    {
+      "question": "Alert pode disparar retry ou abrir link?",
+      "guidance": "Não no Pi atual: não há eventos nem ações Alert. A primitiva React inclui AlertAction, mas o adaptador aprovado não a utiliza."
+    },
+    {
+      "question": "O tom success garante que a operação terminou?",
+      "guidance": "Não. tone apenas modifica apresentação local; depender de estado comprovado pela integração autorizada."
+    },
+    {
+      "question": "Qual semântica de acessibilidade é emitida?",
+      "guidance": "A primitiva instalada usa role=alert em todos os tons. role=status para avisos não urgentes exige mudança separada e revisão em runtime."
+    },
+    {
+      "question": "O botão de fechar persiste a preferência?",
+      "guidance": "Não. setVisible(false) desmonta o aviso localmente; nova montagem o exibe novamente."
+    },
+    {
+      "question": "Os seis tons do ReUI estão disponíveis?",
+      "guidance": "Não. O schema Pi oferece tone=info/success/warning/error, mas a variante de superfície da primitiva instalada é somente default/destructive."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "inline-title-description",
+      "kind": "integration",
+      "description": "Renderizar título opcional, descrição opcional e combinação; conferir texto e ausência de ação remota.",
+      "capabilities": [
+        "inline-message"
+      ]
+    },
+    {
+      "id": "tone-and-icon-matrix",
+      "kind": "visual",
+      "description": "Cobrir info/success/warning/error, variant destructive e showIcon=false sem depender apenas da cor.",
+      "capabilities": [
+        "default-destructive-visual",
+        "tone-icons"
+      ]
+    },
+    {
+      "id": "dismiss-is-local",
+      "kind": "integration",
+      "description": "Fechar aviso pelo botão e verificar unmount, ausência de eventos e nova exibição após remount.",
+      "capabilities": [
+        "local-dismiss"
+      ]
+    },
+    {
+      "id": "role-audit",
+      "kind": "manual-a11y",
+      "description": "Checar role=alert inclusive em mensagens informativas e anúncios em leitor de tela.",
+      "capabilities": [
+        "alert-role",
+        "assistive-announcement"
+      ]
+    },
+    {
+      "id": "mobile-dismiss-layout",
+      "kind": "visual",
+      "description": "Inspecionar texto longo com dismissible a 320 px e zoom 200%, foco e contraste.",
+      "capabilities": [
+        "responsive-dismiss-and-contrast",
+        "local-dismiss"
+      ]
+    },
+    {
+      "id": "status-role-admission-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se aprovado role=status no contrato, validar mapeamento de urgência e semântica de anúncio.",
+      "capabilities": [
+        "nonurgent-status-role-pi"
+      ]
+    },
+    {
+      "id": "actions-admission-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se aprovado fluxo de ação no aviso, validar eventos, autorização e estado de resultado.",
+      "capabilities": [
+        "alert-action-pi"
+      ]
+    },
+    {
+      "id": "dismissal-persistence-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se aprovada persistência ou controle externo, testar remount/reabertura e política de estado.",
+      "capabilities": [
+        "reopen-and-persist-dismissal"
+      ]
+    }
+  ]
+}
