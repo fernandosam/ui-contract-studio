@@ -6,10 +6,11 @@ import accordionKnowledge from "../knowledge/accordion.json";
 import buttonKnowledge from "../knowledge/button.json";
 import reuiGuidance from "../reui-guidance.json";
 import shadcnGuidance from "../shadcn-guidance.json";
+import compositionPolicy from "../composition-policy.json";
 
 export const pilotFamilies = ["AlertDialog", "Accordion", "Button"] as const;
 const familySchema = z.enum([...pilotFamilies, "Form"] as const);
-const strategySchema = z.enum(["reuse-contract", "react-candidate", "review-required"]);
+const strategySchema = z.enum(["reuse-contract", "declarative-composition", "react-candidate", "review-required"]);
 const testModeSchema = z.enum(["integration", "manual-a11y", "security-review", "visual"]);
 const scenarioSchema = z.object({
   id: z.string().regex(/^[a-z]+(?:-[a-z]+)+$/),
@@ -33,9 +34,16 @@ const documentSchema = z.object({
 export type PilotFamily = z.infer<typeof familySchema>;
 export type Scenario = z.infer<typeof scenarioSchema>;
 export type Strategy = z.infer<typeof strategySchema>;
+export type CompositionKind = "primitive" | "declarative-composition" | "react-composition" | "authorization-review";
+export type CompositionSelection = Readonly<{
+  kind: CompositionKind;
+  status: "available-approved-contract" | "proposal-existing-contracts" | "candidate-needs-admission" | "blocked-review";
+  criteria: readonly { rule: string; reference: string }[];
+}>;
 export type Recommendation = Readonly<{
   scenario: Scenario;
   decision: Strategy;
+  selection: CompositionSelection;
   target: string | null;
   targetApproved: boolean;
   proposedOnly: boolean;
@@ -115,6 +123,10 @@ export function validateRecommendationPolicy(): string[] {
       errors.push(item.id + ": a proposed composite must not impersonate an approved Pi contract");
     if (item.strategy === "review-required" && item.target !== null)
       errors.push(item.id + ": review-required must not grant a target");
+    if (item.strategy === "declarative-composition" &&
+      (item.target !== null || item.dependencies.length < 2 ||
+       !item.dependencies.includes("Stack") || item.requiredCapabilities.length === 0))
+      errors.push(item.id + ": declarative proposal requires approved Stack/children, verified capabilities and no new Pi target");
     for (const dependency of item.dependencies)
       if (!approved.has(dependency)) errors.push(item.id + ": unapproved dependency " + dependency);
 
@@ -131,6 +143,8 @@ export function validateRecommendationPolicy(): string[] {
         errors.push(item.id + ": implemented capability lacks usable code evidence: " + capability);
       else if (availability === "not-implemented" && item.strategy === "reuse-contract")
         errors.push(item.id + ": cannot reuse the target for missing capability " + capability);
+      else if (item.strategy === "declarative-composition" && availability !== "verified-static")
+        errors.push(item.id + ": declarative proposal needs verified-static evidence: " + capability);
     }
     if (new Set(item.keywords.map(normalized)).size !== item.keywords.length)
       errors.push(item.id + ": duplicate normalized keywords");
@@ -143,6 +157,87 @@ export function validateRecommendationPolicy(): string[] {
       errors.push(family + ": missing ReUI family guidance");
   }
   return errors.sort();
+}
+
+
+/**
+ * Decides the implementation *approach*, independently of contract admission.
+ * Checked family overlays and the contract lock provide the only positive evidence.
+ * Unknown, undocumented and non-implemented capabilities never become Pi APIs.
+ */
+export function selectCompositionApproach(
+  scenario: Scenario,
+  evidence: Recommendation["evidence"],
+): CompositionSelection {
+  const criteria: {rule:string;reference:string}[] = [{
+    rule: "Cenário funcional revisado; proposta consultiva sem alteração de contrato.",
+    reference: "src/ui-catalog/recommendations/scenarios.json",
+  }];
+  for (const entry of evidence) {
+    criteria.push({
+      rule: entry.capability + ": " + entry.availability +
+        (entry.availability === "verified-static" ? " (somente evidência no código)." :
+         " (não comprova disponibilidade no contrato)."),
+      reference: entry.source || "src/ui-catalog/recommendations/scenarios.json",
+    });
+  }
+  const dependenciesApproved = scenario.dependencies.every(name => approved.has(name));
+  const missingRequired = evidence.some(e =>
+    ["missing-record","missing-evidence","not-implemented"].includes(e.availability));
+  const base = {
+    criteria: [...criteria, {
+      rule: dependenciesApproved
+        ? "Todas as dependências constam como approved no lock; não surgem novas props ou ações."
+        : "Existe dependência sem admissão approved no lock.",
+      reference: "src/ui-catalog/contracts.lock.json",
+    }],
+  };
+  const blocked = (why:string): CompositionSelection => ({
+    kind:"authorization-review", status:"blocked-review",
+    criteria:[...base.criteria, {rule:why,reference:"src/ui-catalog/composition-policy.json"}],
+  });
+  if (scenario.strategy === "review-required")
+    return blocked("Efeito externo ou autorização requer revisão independente.");
+  if (!dependenciesApproved)
+    return blocked("Dependências não aprovadas impedem sugestão de uso.");
+  if (scenario.strategy === "declarative-composition") {
+    if (scenario.target !== null || scenario.dependencies.length < 2 ||
+        !scenario.dependencies.includes("Stack") || evidence.length === 0 ||
+        evidence.some(e=>e.availability !== "verified-static"))
+      return blocked("Composição declarativa exige somente estruturas Pi admitidas e capacidades verificadas; sem estado/efeitos novos.");
+    return {
+      kind:"declarative-composition", status:"proposal-existing-contracts",
+      criteria:[...base.criteria, {
+        rule:"Organizar nós e slots JSON já admitidos; sem novo estado, handler, esquema ou tipo Pi.",
+        reference:"src/ui-catalog/catalog.ts",
+      }, {
+        rule:"O catálogo demonstra filhos declarativos em Field/Stack; a árvore proposta exige validação Pi normal.",
+        reference:"pi-catalog/examples/Field.json",
+      }],
+    };
+  }
+  if (scenario.strategy === "react-candidate")
+    return {
+      kind:"react-composition", status:"candidate-needs-admission",
+      criteria:[...base.criteria, {
+        rule:"Comportamento/estado adicional necessita adapter React com Zod estrito e revisão independente; evidência documental não o admite.",
+        reference:"src/ui-catalog/composition-policy.json",
+      }],
+    };
+  if (!scenario.target || !approved.has(scenario.target) || missingRequired)
+    return blocked("Reuso exige alvo aprovado e nenhuma capacidade necessária ausente ou não implementada.");
+  const alreadyReact = compositionPolicy.reactComposites.includes(scenario.target);
+  return {
+    kind:alreadyReact ? "react-composition" : "primitive",
+    status:"available-approved-contract",
+    criteria:[...base.criteria, {
+      rule:alreadyReact
+        ? "Reusar composição React semântica já admitida em vez de criar outro adapter."
+        : "A necessidade cabe em um único tipo Pi admitido sem comportamento adicional.",
+      reference:alreadyReact ? "src/ui-catalog/composition-policy.json" :
+        "src/ui-catalog/contracts.lock.json",
+    }],
+  };
 }
 
 /** Produces an implementation/test plan; never a validated UI spec or an action. */
@@ -166,24 +261,25 @@ export function getCompositionRecommendation(id: string): Recommendation | null 
   const gaps = evidence.filter(item => item.availability !== "verified-static")
     .map(({capability, description, state, availability}) =>
       ({capability, description, state, availability}));
+  const selection = selectCompositionApproach(scenario, evidence);
   const tests = scenario.tests.map(([mode,description]) => ({
     mode, description, status: "planned-not-executed" as const,
   }));
   return {
-    scenario, decision: scenario.strategy,
+    scenario, decision: scenario.strategy, selection,
     target: scenario.target,
-    targetApproved: scenario.strategy === "reuse-contract" && !!scenario.target && approved.has(scenario.target),
-    proposedOnly: scenario.strategy !== "reuse-contract",
+    targetApproved: selection.status === "available-approved-contract",
+    proposedOnly: selection.status !== "available-approved-contract",
     dependencies: scenario.dependencies.map(name => ({name,piApproved:approved.has(name)})),
     evidence, gaps, tests,
 
     provenance: scenario.family === "Form"
       ? ["src/ui-catalog/extensions/composites/proposals/DeclarativeFormFlow.schema.ts",
-         "src/ui-catalog/contracts.lock.json"]
+         "src/ui-catalog/contracts.lock.json", "src/ui-catalog/composition-policy.json"]
       : [ ...(overlay ? [overlay.source] : []),
         scenario.family === "AlertDialog"
           ? "src/ui-catalog/shadcn-guidance.json" : "src/ui-catalog/reui-guidance.json",
-        "src/ui-catalog/contracts.lock.json",
+        "src/ui-catalog/contracts.lock.json", "src/ui-catalog/composition-policy.json",
         ...(scenario.target === "OnboardingChecklist"
           ? ["src/ui-catalog/semantic-contract-guidance.json"] : [])],
     authorization: "advisory-only",
