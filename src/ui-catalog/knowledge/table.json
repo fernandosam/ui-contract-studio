@@ -1,0 +1,466 @@
+{
+  "schemaVersion": 1,
+  "component": "Table",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/table",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Table?",
+      "Why Use Shadcn Table?",
+      "Shadcn Table Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Apresentar dados comparáveis em linhas e colunas com cabeçalhos reconhecíveis e leitura tabular, inclusive quando não há registros.",
+  "rationale": [
+    "Tornar relações e diferenças entre atributos de registros perceptíveis sem exigir um sistema interativo de grade.",
+    "Manter semântica nativa de tabela, nomes de coluna e rolamento horizontal quando a largura não comporta os dados.",
+    "Evitar confundir estrutura visual de linhas/colunas com motor de dados: filtros, seleção, edição, paginação e operações remotas pertencem a outras composições."
+  ],
+  "whenUse": [
+    "Listar pequeno conjunto textual de faturas, registros, itens ou estados com colunas estáveis e comparáveis.",
+    "Apresentar dados tabulares somente de leitura, com cabeçalho, legenda opcional e mensagem de vazio.",
+    "Usar striped para varredura de linhas ou compact para densidade controlada, após conferir legibilidade."
+  ],
+  "whenNotUse": [
+    "Exigir ordenação, filtros, seleção múltipla, paginação, edição em linha ou gerenciamento de colunas no Table Pi básico: avaliar DataTable ou Data Grid sob contrato próprio.",
+    "Exibir única entidade sem comparação entre registros: preferir lista de descrição ou Card com pares rótulo/valor.",
+    "Grandes conjuntos de dados que exigem virtualização, carregamento remoto, paginação server-side e estados assíncronos.",
+    "Disfarçar ações destrutivas ou permissões como cliques de célula: operações precisam de botões/menus e backend autorizado.",
+    "Comprimir muitas colunas em viewport móvel de modo ilegível sem estratégia de rolagem, prioridade ou reformatação revisada."
+  ],
+  "agentNotes": [
+    "O Table shadcn do projeto é HTML semântico simples, não TanStack Table. A documentação ReUI discute TanStack v8/v9 e grids como padrões compostos; conferir a dependência efetiva e não atribuir recursos da biblioteca ao contrato Table.",
+    "O JSON/Pi Table aceita columns:string[], rows:string[][], caption?, emptyMessage?, striped? e compact?; não há events, slot para JSX, sortKey, filters, pagination, selection, rowActions, export ou chamada backend no contrato básico.",
+    "A renderização percorre props.columns para cada linha; se faltarem células em um row, o adaptador apresenta string vazia (row[j]??''). Não prometer validação estrutural de largura idêntica por linha.",
+    "Table já encapsula <table> em um wrapper interno com overflow-x-auto; className da primitiva é aplicado ao elemento table interno, não ao wrapper de rolagem.",
+    "No adaptador Pi há também wrapper externo com borda. O callback ref adiciona tabIndex=0, role=region e aria-label ao data-slot='table-container' interno, usando caption ou rótulo padrão. Revisar navegação de teclado e anúncios em runtime.",
+    "O adaptador usa <caption className='sr-only'> quando props.caption existe, portanto há legenda para tecnologia assistiva mas não título visual aparente. A primitiva React exporta TableCaption, mas não adiciona prop Pi de legenda visível.",
+    "Cabeçalho usa <th> e corpo <tbody>; TableHead e TableCell no estilo local são whitespace-nowrap. Valores longos tendem a rolar horizontalmente, não a quebrar linha automaticamente.",
+    "Para rows vazio, o adaptador cria linha única com colSpan=Math.max(1,columns.length) e emptyMessage fallback 'Nenhum registro.'. Não interpretar vazio como loading ou falha de busca.",
+    "striped alterna fundos pela paridade do índice de linha; compact altera padding e tamanho de fonte. Verificar contraste, seleção de texto e zoom antes de homologar.",
+    "TableFooter e TableCaption estão exportados pela primitiva React, mas não são conteúdos/props da API Pi básica. Totais e menus de ação requerem composição separada revisada.",
+    "A extensão DataTable do projeto é distinta de Table, com lógica própria; não herdar automaticamente seleção, paginação, filtros, edição, row actions ou autorizações da extensão.",
+    "Ordenação, exportação, exclusão e seleção em massa exigem estado explícito, validação, controle de permissão e eventual confirmação AlertDialog. Integrações aqui são consultivas; não modificam schema Zod/Pi ou estado de admissão."
+  ],
+  "capabilities": [
+    {
+      "id": "text-columns-and-rows",
+      "description": "O contrato Pi representa cabeçalhos e células apenas como arrays de strings, renderizados em marcação tabular.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Table: { props: obj({columns:z.array(z.string()),rows:z.array(z.array(z.string()))"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<TableHeader><TableRow>{props.columns.map((c:string,i:number)=><TableHead"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.rows.map((row:string[],i:number)=><TableRow"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar cabeçalho e duas linhas; verificar ordem de colunas/linhas e tratamento de linha curta."
+      ]
+    },
+    {
+      "id": "semantic-table-anatomy",
+      "description": "A primitiva React cria table, thead, tbody, tr, th e td com marcação nativa para dados.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "<table"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "<thead"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "<tbody"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "<tr"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "<th"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "<td"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar DOM, cabeçalhos e associação de colunas em leitor de tela, sem extrapolar para cabeçalhos complexos."
+      ]
+    },
+    {
+      "id": "optional-accessible-caption",
+      "description": "O Pi renderiza caption opcional sr-only; a primitiva React também fornece TableCaption para composições diretas.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "caption:optionalText,emptyMessage:z.string().max(180).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.caption&&<caption className=\"sr-only\">{props.caption}</caption>}"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "function TableCaption({"
+        }
+      ],
+      "testRequirements": [
+        "Com e sem caption: conferir localização em HTML, anúncio assistivo e ausência de promessa de cabeçalho visível."
+      ]
+    },
+    {
+      "id": "empty-rows-feedback",
+      "description": "Quando rows está vazio, mostra linha de estado vazio com colSpan e texto padrão ou customizado.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.rows.length===0?<TableRow><TableCell colSpan={Math.max(1,props.columns.length)}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.emptyMessage??\"Nenhum registro.\"}"
+        }
+      ],
+      "testRequirements": [
+        "Testar rows=[] e colunas em diferentes quantidades, com e sem emptyMessage; distinguir de loading e erro."
+      ]
+    },
+    {
+      "id": "striped-and-compact-styles",
+      "description": "A API Pi expõe striped e compact para alternância de fundo e densidade de célula/linha.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "striped:z.boolean().optional(),compact:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "className={props.striped&&i%2===1?\"bg-muted/50\":undefined}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "className={props.compact?\"px-2 py-1.5\":undefined}"
+        }
+      ],
+      "testRequirements": [
+        "Testar ambas variações, contraste, alinhamento e leitura de números nas diversas larguras."
+      ]
+    },
+    {
+      "id": "horizontal-scroll-region",
+      "description": "Table já possui wrapper overflow-x-auto; o adaptador Pi marca esse wrapper como região com foco e aria-label.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "data-slot=\"table-container\""
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "className=\"relative w-full overflow-x-auto\""
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "region.tabIndex=0;region.setAttribute('role','region');region.setAttribute('aria-label',props.caption??'Tabela com rolagem horizontal');"
+        }
+      ],
+      "testRequirements": [
+        "Criar tabela larga, percorrer região por teclado, rolar horizontalmente e conferir nome da região."
+      ]
+    },
+    {
+      "id": "react-footer-and-header-components",
+      "description": "TableFooter, TableCaption e componentes de seção existem na primitiva React, mas não criam API Pi para rodapé/totais.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "function TableFooter({"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "function TableCaption({"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "contains": "export {"
+        }
+      ],
+      "testRequirements": [
+        "Conferir composição React com footer sem alegar que o contrato Pi a aceita."
+      ]
+    },
+    {
+      "id": "sorting-filtering-and-pagination-pi",
+      "description": "Ordenação, filtros, paginação e carregamento remoto não são recursos do contrato Table Pi; exigem DataTable ou composto específico.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após aprovação funcional, testar sort asc/desc, filtros, pager, reset de página e dados remotos; não executar como capacidade Table atual."
+      ]
+    },
+    {
+      "id": "selection-and-row-actions-pi",
+      "description": "Checkbox por linha, ações contextuais, seleção em massa e confirmação não estão disponíveis na matriz textual Table Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após implementação revisada, validar seleção, linha desabilitada, permissões por ação e confirmação de operação destrutiva."
+      ]
+    },
+    {
+      "id": "column-management-and-editing-pi",
+      "description": "Visibilidade/redimensionamento de colunas, edição inline, drag-and-drop e virtualização são padrões de grade não expostos por Table Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Projetar Data Grid separado com testes de edição, cancelamento, estado sujo, persistência, redimensionamento e desempenho."
+      ]
+    },
+    {
+      "id": "visible-totals-and-rich-cells-pi",
+      "description": "Totais com TableFooter, Badge, Avatar, Button ou DropdownMenu como células ricas não são representáveis em rows:string[][] de Table Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após aprovação de composição, testar totais, células ricas, coluna de ações e cabeçalho associado."
+      ]
+    },
+    {
+      "id": "keyboard-scroll-and-screenreader",
+      "description": "Navegação por célula, anúncio de cabeçalhos, legenda/rolagem e descoberta do region focável exigem verificação real com tecnologia assistiva.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Validar Tab/Shift+Tab, setas/rolagem, cabeçalho/célula, caption e duplicação de regiões em NVDA/VoiceOver."
+      ]
+    },
+    {
+      "id": "mobile-density-and-overflow",
+      "description": "Responsividade real, zoom, textos longos e foco no rolamento dependem de conteúdo/viewport de teste.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar 320 px, zoom 200%, 10+ colunas, dados longos, seleção de texto e contraste striped/compact."
+      ]
+    },
+    {
+      "id": "async-states-and-data-quality",
+      "description": "Distinção operacional entre carregando, erro, vazio e linhas inconsistentes depende de fluxo de dados externo, inexistente no Table Pi.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Em contexto integrado, checar que erro e loading não sejam representados falsamente como tabela vazia; verificar cortes de dados."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "DataTable",
+      "relationship": "alternative-interactive-grid",
+      "reason": "Recurso independente para consultas, filtros e paginação; não confundir API da extensão com Table primitivo."
+    },
+    {
+      "component": "Badge",
+      "relationship": "candidate-status-cell",
+      "reason": "Status visual em células ricas de composição; rows do Table Pi são strings."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "candidate-row-selection",
+      "reason": "Seleção explícita em grid revisado, com estado e operações controladas."
+    },
+    {
+      "component": "DropdownMenu",
+      "relationship": "candidate-row-actions",
+      "reason": "Menu de opções por registro com rótulo, foco e política de permissão própria."
+    },
+    {
+      "component": "Button",
+      "relationship": "candidate-toolbar-actions",
+      "reason": "Atualizar/exportar/agir sobre seleção somente com handlers aprovados."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "candidate-critical-confirmation",
+      "reason": "Confirmação para remoção ou operação crítica originada em ação de tabela, sem autorização embutida."
+    },
+    {
+      "component": "Pagination",
+      "relationship": "candidate-navigation",
+      "reason": "Paginador coordenado com estado de dados/consulta; não fornecido por Table Pi."
+    },
+    {
+      "component": "Select",
+      "relationship": "candidate-page-size",
+      "reason": "Escolha de tamanho de página para DataTable/composto, não uma prop de Table."
+    },
+    {
+      "component": "Input",
+      "relationship": "candidate-text-filter",
+      "reason": "Busca/filtragem com debouncing e fonte de dados explícita em componente de grade."
+    },
+    {
+      "component": "Card",
+      "relationship": "candidate-record-detail-alternative",
+      "reason": "Para poucos atributos de um único registro, pares rótulo/valor podem ser mais legíveis que colunas."
+    },
+    {
+      "component": "Tabs",
+      "relationship": "candidate-parallel-dataset-view",
+      "reason": "Alternar pequenos subconjuntos relacionados em painéis, com estado de abas independente."
+    },
+    {
+      "component": "Skeleton",
+      "relationship": "candidate-loading-feedback",
+      "reason": "Mostrar carregamento fora do Table Pi; estado vazio não é indicador de loading."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Quando usar Table, DataTable ou Data Grid?",
+      "guidance": "Table Pi para grade textual simples somente leitura; DataTable/composto para ordenação/filtro/paginação; Data Grid para edição/resize/virtualização conforme contrato aprovado."
+    },
+    {
+      "question": "Table ordena ou pagina automaticamente?",
+      "guidance": "Não. Não há estado, callbacks nem props Pi de sort, filter ou pager. Exemplos TanStack no ReUI são padrões externos."
+    },
+    {
+      "question": "Como representar nenhuma linha?",
+      "guidance": "rows=[] mostra uma linha com emptyMessage ou 'Nenhum registro.'; distinguir no fluxo de dados estados loading e erro."
+    },
+    {
+      "question": "O caption aparece visualmente?",
+      "guidance": "O Pi atual usa caption com classe sr-only e rotula a região de rolagem; em React TableCaption separado pode ser visível. Não prometer legenda visual no JSON."
+    },
+    {
+      "question": "As colunas precisam corresponder aos comprimentos de todas as linhas?",
+      "guidance": "De preferência sim para integridade tabular. O adaptador percorre columns e usa texto vazio para célula ausente; revisar linhas excedentes ou curtas e qualidade dos dados."
+    },
+    {
+      "question": "A tabela se adapta ao mobile empilhando cartões?",
+      "guidance": "Não automaticamente. O wrapper interno usa overflow-x-auto e células nowrap; transformação para cards requer composição, revisão de semântica e E2E."
+    },
+    {
+      "question": "É possível colocar menus, botões ou checkbox dentro de células?",
+      "guidance": "Não no Table JSON/Pi básico; rows contêm strings. Criar composto DataTable/grid com permissões e acessibilidade próprias."
+    },
+    {
+      "question": "Table suporta totais no rodapé?",
+      "guidance": "A primitiva React exporta TableFooter, mas o adaptador Pi não gera rodapé nem calcula totais; uma composição aprovada deve fornecê-los."
+    },
+    {
+      "question": "Posso usar a versão TanStack descrita pela ReUI sem verificar?",
+      "guidance": "Não. A página ReUI contém menções v8 e v9; verificar package.json do projeto e implementação efetiva antes de planejar extensão. Table atual nem usa TanStack."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "static-headers-and-cells",
+      "kind": "integration",
+      "description": "Renderizar múltiplas colunas/linhas e linha curta; conferir células vazias e ordem sem handlers embutidos.",
+      "capabilities": [
+        "text-columns-and-rows",
+        "semantic-table-anatomy"
+      ]
+    },
+    {
+      "id": "caption-and-region",
+      "kind": "manual-a11y",
+      "description": "Verificar caption sr-only, nome da região scroll, Tab e associação dos cabeçalhos no leitor de tela.",
+      "capabilities": [
+        "optional-accessible-caption",
+        "horizontal-scroll-region",
+        "keyboard-scroll-and-screenreader"
+      ]
+    },
+    {
+      "id": "empty-columns-and-rows",
+      "kind": "integration",
+      "description": "Ensaiar rows=[] com caption, emptyMessage customizada, múltiplas colunas e ausência de registros.",
+      "capabilities": [
+        "empty-rows-feedback"
+      ]
+    },
+    {
+      "id": "density-stripes",
+      "kind": "visual",
+      "description": "Comparar default/compact e striped, alinhamento, contraste e leitura em 320 px/zoom 200%.",
+      "capabilities": [
+        "striped-and-compact-styles",
+        "mobile-density-and-overflow"
+      ]
+    },
+    {
+      "id": "overflow-viewport",
+      "kind": "visual",
+      "description": "Tabela de muitas colunas com valores longos: garantir rolagem horizontal e região focável sem corte de informação.",
+      "capabilities": [
+        "horizontal-scroll-region",
+        "mobile-density-and-overflow"
+      ]
+    },
+    {
+      "id": "react-footer-scope",
+      "kind": "integration",
+      "description": "Inspecionar que TableFooter existe na primitiva React mas não aparece na renderização Pi textual simples.",
+      "capabilities": [
+        "react-footer-and-header-components"
+      ]
+    },
+    {
+      "id": "interactive-grid-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Caso DataTable/grade seja aprovado, testar sort, filtro, paginação local/remota e erros em consulta.",
+      "capabilities": [
+        "sorting-filtering-and-pagination-pi"
+      ]
+    },
+    {
+      "id": "selection-action-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Após aprovar composição, testar checkbox, ações por linha, permissão, confirmação e retorno de foco.",
+      "capabilities": [
+        "selection-and-row-actions-pi"
+      ]
+    },
+    {
+      "id": "column-and-edit-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Futuro grid: validar redimensionamento, edição inline, rolagem virtual, undo e falha de persistência.",
+      "capabilities": [
+        "column-management-and-editing-pi",
+        "visible-totals-and-rich-cells-pi"
+      ]
+    },
+    {
+      "id": "external-data-lifecycle",
+      "kind": "integration",
+      "description": "No fluxo hospedeiro, distinguir carregando/erro/vazio e verificar consistência de células antes de apresentar dados.",
+      "capabilities": [
+        "async-states-and-data-quality"
+      ]
+    }
+  ]
+}
