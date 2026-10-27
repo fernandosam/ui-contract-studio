@@ -1,0 +1,455 @@
+{
+  "schemaVersion": 1,
+  "component": "Rating",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/rating",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Rating?",
+      "Why Use Shadcn Rating?",
+      "Shadcn Rating Features",
+      "Integrating With Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Exibir uma nota em escala de estrelas, inclusive fracionária, ou captar uma seleção local de nota com alvos explícitos e informação textual do valor.",
+  "rationale": [
+    "Facilitar leitura de feedback quantitativo com valor visual e alternativa textual para leitores de tela.",
+    "Separar o valor fracionário exibido da granularidade permitida para clique e impedir escalas sem limite explícito.",
+    "Evitar equiparar visualização ou change local a validação, envio persistente de review, semântica de rádio ou permissão para operações remotas."
+  ],
+  "whenUse": [
+    "Exibir uma média avaliada por estrelas, com fração visível e escala declarada.",
+    "Permitir que o usuário escolha uma avaliação inteira ou meia estrela no contrato Pi, sem envio remoto implícito.",
+    "Mostrar nota resumida em Card/visão de avaliação quando texto e escala ajudam a interpretação."
+  ],
+  "whenNotUse": [
+    "Coletar campo obrigatório acessível com navegação por setas, semântica nativa radio e validação de formulário: preferir RadioGroup até admissão e teste de composição dedicada.",
+    "Usar a estrela ReUI editável baseada em div como controle acessível por teclado ou leitor de tela.",
+    "Selecionar frações menores que meia estrela: considerar Slider com passo declarado, se apropriado.",
+    "Exibir distribuição agregada de avaliações usando apenas o Rating individual: preferir RatingDistribution aprovado ou gráfico dedicado.",
+    "Envolver reviews, comentários, avatares, emojis e persistência sem contrato composto e backend autorizado."
+  ],
+  "agentNotes": [
+    "Contrato Pi Rating aprovado: value de 0 a 10, max inteiro de 1 a 10 (padrão 5), label, interactive, step 0.5|1, showValue e evento change; não inventar onRatingChange, editable, starClassName, formName, disabled, readonly ou props ReUI como Pi.",
+    "O adaptador Pi usa useValue(props.value??0,bindings?.value), clamp(value,0,max) e renderiza botões type=button com aria-label e aria-pressed para seleção; o evento change não contém valor no payload.",
+    "interactive === false ativa visualização sem botões; se interactive é omitido, há controles de seleção. showValue apresenta output, e há texto sr-only com valor e máximo.",
+    "step=0.5 cria duas metades clicáveis por estrela; step omitido/1 seleciona inteiros. Valor recebido pode ter outra fração e ainda ser desenhado; não inferir seleção por passo de 0.25.",
+    "ratingStarFillPercent limita valor a [0,max] e calcula preenchimento 0-100%; helper testa frações como 2.25, 3.5 e 4.75.",
+    "ReUI registra nos Agent notes que seu Rating editable usa div com onClick sem role, tab stop nem teclado, apesar de partes descritivas da página alegarem radio input/fieldset. O adaptador de exemplos local confirma a limitação; NÃO propagá-la ao contrato Pi, que usa buttons.",
+    "Os exemplos c-rating-* e reui-rating-adapter.tsx são composições TSX independentes: showValue e starClassName do adapter não pertencem ao Pi; starClassName nele modifica o span numérico, não a estrela.",
+    "Os botões Pi com aria-pressed não são um radiogroup nativo: verificar foco, leitura do valor, teclado e instruções na versão implantada antes de declarar acessibilidade plena.",
+    "A biblioteca RatingDistribution é um contrato composto separado para contagem/percentuais, não é prop do Rating.",
+    "A cor/glyph de estrela tem significado visual; preservar descrição textual e nunca depender apenas de amarelo versus cinza.",
+    "Orientação documental não adiciona schemas Zod, permissões Pi, persistência, callbacks remotos ou certificação de E2E."
+  ],
+  "capabilities": [
+    {
+      "id": "approved-bounded-value-and-scale",
+      "description": "Contrato Pi declara valor 0-10 e máximo inteiro opcional 1-10; adaptador limita exibição a [0,max].",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Rating: { props: obj({value:z.number().min(0).max(10)"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "max:z.number().int().min(1).max(10).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const max=props.max??5;"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const current=clamp(value,0,max);"
+        }
+      ],
+      "testRequirements": [
+        "Verificar escalas 1/5/10 e valores acima de max, mantendo indicação numérica coerente."
+      ]
+    },
+    {
+      "id": "partial-star-rendering",
+      "description": "Desenha frações na estrela por gradiente com cálculo clamp de percentual por índice.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "ratingStarFillPercent(current,i,max)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "backgroundImage:\"linear-gradient(90deg, var(--warning) \"+fill+\"%, var(--muted-foreground) \"+fill+\"%)\""
+        },
+        {
+          "path": "src/ui-catalog/rating-fill.ts",
+          "contains": "return Math.round(100 * Math.max(0, Math.min(1, bounded - index)));"
+        }
+      ],
+      "testRequirements": [
+        "Conferir 0, 2.25, 3.5, 4.75 e escala máxima com 0/25/50/75/100% de preenchimento."
+      ]
+    },
+    {
+      "id": "read-only-display",
+      "description": "Quando interactive=false, renderiza somente spans visuais sem targets de clique.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "interactive:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "if(props.interactive === false)return <span key={i} className=\"pg-rating-static\">{glyph}</span>"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar ausência de botões no modo somente leitura e alternativa textual acessível."
+      ]
+    },
+    {
+      "id": "whole-star-press",
+      "description": "No modo interativo padrão, renderiza botão por estrela para seleção inteira com aria-pressed.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "return <button type=\"button\" key={i} aria-label={(i+1)+\" de \"+max+\" estrelas\"} aria-pressed={current===i+1} onClick={()=>select(i+1)}>{glyph}</button>"
+        }
+      ],
+      "testRequirements": [
+        "Selecionar valor inteiro, confirmar atualização, foco e sem submissão de formulário."
+      ]
+    },
+    {
+      "id": "half-star-click-targets",
+      "description": "step=0.5 permite seleção de metades com dois botões por estrela e aria-label específico.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "step:z.union([z.literal(0.5),z.literal(1)]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "if(props.step===0.5)return <span key={i}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{[0.5,1].map((part,j)=><button"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-pressed={current===i+part} onClick={()=>select(i+part)}"
+        }
+      ],
+      "testRequirements": [
+        "Selecionar 0.5, 1, 3.5 e 5, checar clique nas duas metades e leitura do alvo."
+      ]
+    },
+    {
+      "id": "binding-and-local-change",
+      "description": "Estado local ou binding explícito atualizam valor e emitem apenas notificação change, sem payload de nota.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"change\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.value??0,bindings?.value)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const select=(next:number)=>{setValue(next);notify(emit,\"change\");};"
+        }
+      ],
+      "testRequirements": [
+        "Confirmar mudança visual local e uma notificação change; testar binding de estado separado."
+      ]
+    },
+    {
+      "id": "text-alternative-and-number",
+      "description": "Fornece label de grupo, texto acessível com valor/máximo e output numérico opcional.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "role=\"group\" aria-label={props.label??\"Avaliação\"}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<span className=\"sr-only\">{\"Nota \"+formatted+\" de \"+max+\" estrelas\"}</span>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.showValue&&<output aria-live=\"polite\""
+        }
+      ],
+      "testRequirements": [
+        "Verificar saída pt-BR, label, nota em texto, anúncio de alteração e estado sem showValue."
+      ]
+    },
+    {
+      "id": "review-form-validation-and-submit",
+      "description": "Integrar campo required, validação, erro, armazenamento de avaliação e envio de texto de review ao backend no contrato Rating.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em futura admissão, vincular Field/RadioGroup, validar escala, erro e autorização no backend."
+      ]
+    },
+    {
+      "id": "emoji-and-rich-review",
+      "description": "Expor escala emoji, comentário, avatar, resumo de reviews e fluxos completos como props do Rating Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se houver contrato composto, validar estados, textos alternativos e integrações sem JSX livre."
+      ]
+    },
+    {
+      "id": "hover-and-reui-adapter-options",
+      "description": "Oferecer no Pi hover preview, editable, onRatingChange e starClassName do adaptador ReUI independente.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Revisar uma possível evolução com matriz pointer/keyboard; não usar TSX do exemplo como prova Pi."
+      ]
+    },
+    {
+      "id": "native-radio-group-semantics",
+      "description": "Disponibilizar inputs radio nativos com navegação por setas e serialização de formulário como Rating Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em proposta futura, testar role, arrow keys, nome, required e envio nativo antes de admissão."
+      ]
+    },
+    {
+      "id": "keyboard-and-sr-runtime",
+      "description": "Validar navegação Tab, seleção Enter/Space, aria-pressed, grupo e anúncio de valor nas tecnologias assistivas.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Auditar foco, Enter/Space e leitura de texto/pressed em leitores de tela, incluindo meia estrela."
+      ]
+    },
+    {
+      "id": "contrast-and-touch-targets",
+      "description": "Verificar contraste das estrelas/estado selecionado e alvos de meia estrela em mobile.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Medir contraste real, tamanho de alvo, zoom 200% e layout responsivo."
+      ]
+    },
+    {
+      "id": "reui-editable-pointer-limit",
+      "description": "Confirmar o comportamento pointer-only das composições ReUI independentes e prevenir seu uso como campo acessível obrigatório.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar preview ReUI com Tab/Enter/Space e documentar a lacuna de div onClick sem keydown, sem confundir com Pi."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Card",
+      "relationship": "rating-summary",
+      "reason": "Exibir nota individual ao lado de contexto textual e descrição."
+    },
+    {
+      "component": "Field",
+      "relationship": "validated-input-candidate",
+      "reason": "Rótulo, instruções e mensagens de erro em formulário dedicado."
+    },
+    {
+      "component": "RadioGroup",
+      "relationship": "accessible-required-alternative",
+      "reason": "Entrada obrigatória com semântica radio preferível ao exemplo editable ReUI."
+    },
+    {
+      "component": "Slider",
+      "relationship": "finer-granularity-alternative",
+      "reason": "Permitir granularidade adequada quando estrelas discretas não bastam."
+    },
+    {
+      "component": "Progress",
+      "relationship": "distribution-candidate",
+      "reason": "Exibir barras de contagem quando derivadas de dados agregados aprovados."
+    },
+    {
+      "component": "RatingDistribution",
+      "relationship": "separate-aggregate-contract",
+      "reason": "Média ponderada e percentuais por nota não pertencem ao Rating simples."
+    },
+    {
+      "component": "Textarea",
+      "relationship": "review-text-candidate",
+      "reason": "Comentário associado exige formulário e validação próprios."
+    },
+    {
+      "component": "Button",
+      "relationship": "review-submit-candidate",
+      "reason": "Submeter review apenas com handler/backend autorizado."
+    },
+    {
+      "component": "Badge",
+      "relationship": "review-context",
+      "reason": "Identificar etiqueta informativa/verificada por fonte confiável."
+    },
+    {
+      "component": "Sonner",
+      "relationship": "post-submit-feedback-candidate",
+      "reason": "Feedback de sucesso/erro requer integração assíncrona explícita."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Rating Pi e Rating ReUI são o mesmo componente?",
+      "guidance": "Não: Rating Pi em playground usa botões, aria-pressed e step=0.5; exemplos TSX usam reui-rating-adapter com div onClick sem teclado."
+    },
+    {
+      "question": "O documento ReUI não diz que usa radios nativos?",
+      "guidance": "A descrição geral e os Agent notes divergem; as provas locais prevalecem. Não afirmar radio group nativo sem observar implementação."
+    },
+    {
+      "question": "A nota fracionária pode ser selecionada?",
+      "guidance": "Pi permite cliques em incrementos 0.5 com step=0.5; valores fracionários como 2.25 são exibidos, mas não selecionáveis diretamente pelo usuário."
+    },
+    {
+      "question": "Modo somente leitura ainda é clicável?",
+      "guidance": "Não no render Pi quando interactive=false: as estrelas viram spans e o valor tem texto acessível."
+    },
+    {
+      "question": "O evento change entrega o número ao backend?",
+      "guidance": "Não: somente notificação local; valor pode ser ligado a estado por binding separado e envio exige ação autorizada."
+    },
+    {
+      "question": "Rating é campo obrigatório e acessível de formulário?",
+      "guidance": "Não foi demonstrado; para required com teclado e leitor de tela, usar RadioGroup com validação até existir implementação certificada."
+    },
+    {
+      "question": "showValue, starClassName e editable funcionam no Pi?",
+      "guidance": "Somente showValue é prop Pi. As outras pertencem ao adaptador ReUI TSX separado."
+    },
+    {
+      "question": "Qual componente mostra distribuição das notas?",
+      "guidance": "RatingDistribution possui contrato independente para agregados; Rating apresenta/seleciona nota individual."
+    },
+    {
+      "question": "Como exibir 4,75 estrelas?",
+      "guidance": "Enviar valor válido e usar representação fracionária; ratingStarFillPercent define o preenchimento, sem implicar clique em quartos de estrela."
+    },
+    {
+      "question": "Posso submeter um review pelo Rating?",
+      "guidance": "Não: Rating apenas altera valor local e emite change; Textarea, Button, validação e persistência são fluxo composto independente."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "rating-range-and-fractions",
+      "kind": "integration",
+      "description": "Cobrir valor 0-10, max 1-10, clamp e helper 25/50/75% para estrelas parciais.",
+      "capabilities": [
+        "approved-bounded-value-and-scale",
+        "partial-star-rendering"
+      ]
+    },
+    {
+      "id": "rating-read-only-static",
+      "kind": "integration",
+      "description": "Confirmar que interactive=false produz apenas estrelas estáticas, valor textual e nenhum botão.",
+      "capabilities": [
+        "read-only-display",
+        "text-alternative-and-number"
+      ]
+    },
+    {
+      "id": "rating-whole-click",
+      "kind": "integration",
+      "description": "Selecionar inteiros por botões, conferir aria-pressed, binding e apenas change local.",
+      "capabilities": [
+        "whole-star-press",
+        "binding-and-local-change"
+      ]
+    },
+    {
+      "id": "rating-half-click",
+      "kind": "integration",
+      "description": "Testar alvos de meia estrela, número selecionado e pressed coerentes.",
+      "capabilities": [
+        "half-star-click-targets",
+        "partial-star-rendering"
+      ]
+    },
+    {
+      "id": "rating-keyboard-a11y",
+      "kind": "manual-a11y",
+      "description": "Testar Tab, Enter, Space, pressed e anúncio da nota, sem alegar radiogroup nativo.",
+      "capabilities": [
+        "keyboard-and-sr-runtime",
+        "text-alternative-and-number"
+      ]
+    },
+    {
+      "id": "rating-mobile-contrast",
+      "kind": "visual",
+      "description": "Inspecionar meia estrela, área de toque, contraste e zoom em mobile.",
+      "capabilities": [
+        "contrast-and-touch-targets",
+        "half-star-click-targets"
+      ]
+    },
+    {
+      "id": "reui-pointer-regression",
+      "kind": "manual-a11y",
+      "description": "Verificar que a composição ReUI editable de div não oferece navegação por teclado; registrar bloqueio para required.",
+      "capabilities": [
+        "reui-editable-pointer-limit"
+      ]
+    },
+    {
+      "id": "future-form-submit",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão, provar validação de required e persistência autorizada da nota/texto.",
+      "capabilities": [
+        "review-form-validation-and-submit"
+      ]
+    },
+    {
+      "id": "future-emoji-review",
+      "kind": "candidate-not-executable",
+      "description": "Após contrato composto, conferir reviews ricos e escala emoji independente.",
+      "capabilities": [
+        "emoji-and-rich-review"
+      ]
+    },
+    {
+      "id": "future-hover-props",
+      "kind": "candidate-not-executable",
+      "description": "Se admitidos novos props, validar hover, teclado e distinção de Pi versus TSX.",
+      "capabilities": [
+        "hover-and-reui-adapter-options"
+      ]
+    },
+    {
+      "id": "future-radio-semantics",
+      "kind": "candidate-not-executable",
+      "description": "Após implementação, verificar native radio, setas, required e serialização de formulário.",
+      "capabilities": [
+        "native-radio-group-semantics"
+      ]
+    }
+  ]
+}
