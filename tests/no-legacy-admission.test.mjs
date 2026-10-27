@@ -52,14 +52,12 @@ test("only semantic fingerprints gate reviewed contract changes",()=>{
  assert.doesNotMatch(text("scripts/lib/contract-lock.mjs"),/fingerprint:createHash/);
 });
 
-test("Playwright official reference collection uses the authoritative Pi v3 manifest",()=>{
+test("Playwright official capture validates selected references via the same inventory checker",()=>{
  const spec=text("tests/e2e/official-components.spec.ts");
- assert.match(spec,/pi\.schemaVersion !== 3/);
- assert.match(spec,/Array\.isArray\(pi\.components\)/);
- assert.match(spec,/pi\.components\.map\(item => item\.type\)/);
- assert.doesNotMatch(spec,/\}\.contracts\.map/);
- assert.match(spec,/test\.beforeAll\(\(\) => \{/);
  assert.match(spec,/validateOfficialVisualInventory\(plan, manifest, pi\)/);
+ assert.match(spec,/test\.beforeAll\(\(\) => \{/);
  assert.ok(spec.indexOf("test.beforeAll") < spec.indexOf("validateOfficialVisualInventory(plan, manifest, pi)"),
-   "Official visual inventory guard must run in a Playwright hook, not during import");
+   "Official inventory guard must run in a Playwright hook, not during module import");
+ assert.match(spec,/pi-catalog\/contracts\.json/);
+ assert.doesNotMatch(spec,/\}\.contracts\.map/);
 });
