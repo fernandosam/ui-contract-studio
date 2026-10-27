@@ -8,7 +8,7 @@ import {readFileSync,existsSync,writeFileSync,mkdirSync} from "node:fs";
 import {join} from "node:path";
 import {resolvePattern,generatePatternPreview} from "../../src/ui-requirements/patterns";
 import {tracePattern} from "../../src/ui-requirements/traceability";
-import lock from "../../src/ui-catalog/contracts.lock.json";
+const lock=JSON.parse(readFileSync(new URL("../../src/ui-catalog/contracts.lock.json",import.meta.url),"utf8")) as {schemaVersion:number};
 
 export const patternEvidenceCases=[
  {id:"login-default",flow:"login",answers:{},checked:["identifier","remember","showHelp"]},
