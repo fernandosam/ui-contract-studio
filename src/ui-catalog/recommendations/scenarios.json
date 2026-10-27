@@ -432,12 +432,8 @@
         "Button",
         "AlertDialog"
       ],
-      "requiredCapabilities": [
-        "typed-form-fields",
-        "local-validation",
-        "optional-confirmation"
-      ],
-      "reason": "Os contratos Input, Button e AlertDialog separados não coordenam o estado de validação/submissão, exigindo uma composição React de fronteira tipada.",
+      "requiredCapabilities": [],
+      "reason": "Os contratos Input, Button e AlertDialog separados não coordenam o estado de validação/submissão, exigindo uma composição React de fronteira tipada. Capacidades são propostas no schema React/Zod e ainda não fazem parte do overlay curado; não serão inferidas como implementadas pelo catálogo.",
       "risks": [
         "Proibido conectar a URLs e backends por inferência.",
         "Não promover a estável sem evidência independente e revisão.",
