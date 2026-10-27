@@ -70,6 +70,8 @@ A auditoria verificou em **cada um dos 39 registros**: identidade e fonte oficia
 
 **Lacuna corrigida na T19:** `DropdownMenu` possuía a capacidade `separators` com evidência estática, mas sem caso derivado vinculado. Foi acrescentado o teste derivado `separator-groups-not-selectable`, exigindo separadores sem foco/seleção; ainda não equivale à execução desse teste de interação no navegador.
 
+**Lacuna adicional corrigida no relatório:** o comando `semantic:report` antes chamava o agregador sem os exemplos ReUI e apresentava `coveredExamples: 0`, embora o baseline contivesse 559 arquivos. O comando agora usa `src/ui-catalog/reui-primitive-source-baseline.json` e informa `coveredExamples: 559`; a capacidade de orientação continua apenas documental.
+
 **Lacunas intencionalmente abertas:** as 126 capacidades `documented-not-implemented` não se tornam APIs; as 88 `runtime-review-required` continuam dependentes de validação real de teclado, foco, acessibilidade, responsividade e/ou interação. Integrações permanecem `advisory-only`; não houve modificação de schemas Zod, APIs admitidas, `contracts.lock.json`, `pi-catalog/` ou permissões Pi.
 
 ## Evidências reproduzíveis e validação
