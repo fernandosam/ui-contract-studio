@@ -1,3 +1,5 @@
+[English](semantic-knowledge-integration-t08.md) | [Português](semantic-knowledge-integration-t08.pt-BR.md)
+
 # T08 — Validação integrada de conhecimento semântico
 
 **Revisão:** 2026-10-27. **Modelo:** [AlertDialog e checklist T01](semantic-knowledge-checklist.pt-BR.md). **Escopo:** seis propostas individuais [T02](https://github.com/fernandosam/ui-contract-studio/pull/30), [T03](https://github.com/fernandosam/ui-contract-studio/pull/31), [T04](https://github.com/fernandosam/ui-contract-studio/pull/32), [T05](https://github.com/fernandosam/ui-contract-studio/pull/33), [T06](https://github.com/fernandosam/ui-contract-studio/pull/34) e [T07](https://github.com/fernandosam/ui-contract-studio/pull/35), todas ainda não mescladas à main quando começou a T08. Esta branch incorpora os seis overlays e consolida seus testes para revisão integrada.
