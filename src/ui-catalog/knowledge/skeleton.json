@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "component": "Skeleton",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/skeleton",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Skeleton?",
+      "Why Use Shadcn Skeleton?",
+      "Shadcn Skeleton Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Reservar visualmente o espaço de conteúdo esperado enquanto dados ainda não chegaram, sem simular seu carregamento.",
+  "rationale": [
+    "Reduzir alterações bruscas de geometria durante espera.",
+    "Comunicar a forma provável de textos, fotos e cartões antes da substituição.",
+    "Evitar confundir placeholder e ciclo de vida de dados assíncronos."
+  ],
+  "whenUse": [
+    "Esqueleto de título, perfil, tabela ou card cujo layout final é previsível.",
+    "Linhas de texto e representações de imagem com espaço previamente reservado.",
+    "Composição que substitui o placeholder quando a aplicação sinaliza o fim da requisição."
+  ],
+  "whenNotUse": [
+    "Aguardar operação sem formato de resultado: usar Spinner.",
+    "Exibir porcentagem conhecida: usar Progress.",
+    "Usar Skeleton permanentemente como dados reais.",
+    "Recriar placeholders já fornecidos por DataGrid/Sidebar sem necessidade."
+  ],
+  "agentNotes": [
+    "A primitiva local é um div com animate-pulse, rounded-md e bg-muted, sem medidas ou role próprios.",
+    "O contrato Pi admite width/height como texto CSS opcional, shape rectangle/circle/square, rounded e lines de 1 a 5; não inferir validação automática de proporção.",
+    "shape explícito prevalece sobre rounded; circle aplica rounded-full aspect-square, mas estilos width/height inline podem contrariar proporção.",
+    "O wrapper Pi usa role=status e aria-label estático Carregando conteúdo, não aria-busy no contêiner real, e não comunica troca de loading automaticamente.",
+    "Não há fetch, retry, cronômetro ou substituição de estado neste nó; a composição externa autorizada decide quando remover o Skeleton.",
+    "A opção ReUI wave/shimmer não integra a API Pi, que só usa pulse nesta implementação.",
+    "Inspecionar CLS, contraste, zoom, aria-busy e prefers-reduced-motion em runtime; o texto do overlay não certifica acessibilidade."
+  ],
+  "capabilities": [
+    {
+      "id": "muted-pulse-primitive",
+      "description": "Usa estilo de placeholder pulsante neutro.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/skeleton.tsx",
+          "contains": "data-slot=\"skeleton\""
+        },
+        {
+          "path": "src/components/ui/skeleton.tsx",
+          "contains": "animate-pulse rounded-md bg-muted"
+        }
+      ],
+      "testRequirements": [
+        "Conferir aspecto estático e animação da primitiva."
+      ]
+    },
+    {
+      "id": "shape-and-inline-dimensions",
+      "description": "Aplicação Pi aceita formato e define width/height no estilo inline.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "shape:z.enum([\"rectangle\",\"circle\",\"square\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const shape=props.shape??(props.rounded?\"circle\":\"rectangle\")"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "style={{width:props.width??\"100%\",height:props.height??\"1.3rem\"}}"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar formatos em cartões com largura móvel."
+      ]
+    },
+    {
+      "id": "bounded-placeholder-lines",
+      "description": "Repete entre uma e cinco linhas definidas no catálogo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "lines:z.number().int().min(1).max(5).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "Array.from({length:props.lines??1},(_,i)=>"
+        }
+      ],
+      "testRequirements": [
+        "Verificar 1 e 5 linhas; rejeição de valores fora de 1–5."
+      ]
+    },
+    {
+      "id": "static-role-status-wrapper",
+      "description": "Adaptador desenha contêiner role=status com texto de carga fixo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<div role=\"status\" aria-label=\"Carregando conteúdo\""
+        }
+      ],
+      "testRequirements": [
+        "Examinar DOM com uma e múltiplas áreas de loading."
+      ]
+    },
+    {
+      "id": "automatic-data-lifecycle",
+      "description": "Skeleton Pi não dispara busca, monitora isLoading ou substitui nós por dados.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após admitir composição, testar loading→success/error com atualização autorizada."
+      ]
+    },
+    {
+      "id": "wave-and-template-presets",
+      "description": "Shimmer, wave e presets de tabela/card não estão disponíveis como props Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Caso aprovados, avaliar animação, temas e dimensões."
+      ]
+    },
+    {
+      "id": "layout-cls-and-circle",
+      "description": "Espaço final e proporção circular só podem ser avaliados em renderização real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Comparar placeholder com conteúdo final e medir deslocamento visual."
+      ]
+    },
+    {
+      "id": "a11y-region-and-motion",
+      "description": "O anúncio, aria-busy adequado e redução de movimento exigem teste no navegador.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar leitores de tela, zoom e prefers-reduced-motion."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Avatar",
+      "relationship": "identity-placeholder",
+      "reason": "Reservar foto e nome durante carregamento."
+    },
+    {
+      "component": "Card",
+      "relationship": "shape-template",
+      "reason": "Espelhar geometria do card final."
+    },
+    {
+      "component": "Table",
+      "relationship": "table-rows",
+      "reason": "Desenhar linhas temporárias com dimensões consistentes."
+    },
+    {
+      "component": "Spinner",
+      "relationship": "operation-alternative",
+      "reason": "Usar spinner se o resultado não possuir forma previsível."
+    },
+    {
+      "component": "Progress",
+      "relationship": "known-work",
+      "reason": "Mostrar progresso medido em vez de placeholder."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Skeleton busca dados?",
+      "guidance": "Não, o nó apenas renderiza formas; loading e substituição dependem da aplicação."
+    },
+    {
+      "question": "Como escolher dimensões?",
+      "guidance": "Use tamanho do conteúdo final, evitando width/height incompatíveis em círculos."
+    },
+    {
+      "question": "Wave está disponível?",
+      "guidance": "Não. A primitiva instalada usa animate-pulse; shimmer é candidato."
+    },
+    {
+      "question": "É automaticamente acessível?",
+      "guidance": "O adaptador tem role=status estático, mas aria-busy e anúncio reativo exigem composição e teste."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "geometry-visual",
+      "kind": "visual",
+      "description": "Inspecionar linhas, círculos, dimensões e estabilidade ao renderizar conteúdo real.",
+      "capabilities": [
+        "muted-pulse-primitive",
+        "shape-and-inline-dimensions",
+        "bounded-placeholder-lines",
+        "layout-cls-and-circle"
+      ]
+    },
+    {
+      "id": "loading-a11y",
+      "kind": "manual-a11y",
+      "description": "Checar status e aria-busy real, leitores de tela e reduced-motion.",
+      "capabilities": [
+        "static-role-status-wrapper",
+        "a11y-region-and-motion"
+      ]
+    },
+    {
+      "id": "future-data-state",
+      "kind": "candidate-not-executable",
+      "description": "Testar substituição com requisição somente após contrato de composição autorizado.",
+      "capabilities": [
+        "automatic-data-lifecycle"
+      ]
+    },
+    {
+      "id": "future-wave",
+      "kind": "candidate-not-executable",
+      "description": "Validar presets e shimmer se novos contratos forem aprovados.",
+      "capabilities": [
+        "wave-and-template-presets"
+      ]
+    }
+  ]
+}
