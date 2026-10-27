@@ -30,6 +30,8 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - name: Validate admission allowlist and reviewed recipes
         run: npm run admission:check
+      - name: Export authoritative Pi schemas before validation
+        run: npm run pi:zod-schema
       - name: Run static gates, tests and build (no browser E2E)
         run: npm run validate && npm run build
       - name: Publish immutable experimental artifact for this commit
