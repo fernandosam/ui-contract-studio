@@ -20,6 +20,8 @@ This page separates **current guides** from **historical audit records**. For cu
 
 ## Specialized references
 
+- [T17 semantic review (Alert, Card, Textarea, Progress)](semantic-knowledge-t17.md)
+
 - [T14 integrated semantic validation (forms and candidates)](semantic-knowledge-integration-t14.md)
 - [T08 prior semantic integration](semantic-knowledge-integration-t08.md)
 - [Data sources and DataTable](integracao-dados.md)
