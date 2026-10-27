@@ -65,7 +65,7 @@ test("T19: family-to-overlay mapping remains one-to-one without inventing famili
     assert.ok(record,`Missing semantic overlay for ${family}`);
     assert.equal(record.source.provider,"ReUI",`Verify official ReUI provenance for ${family}`);
     assert.equal(record.source.url,`https://reui.io/components/${slug(family)}`);
-    assert.match(record.source.reviewedOn,/^\\d{4}-\\d{2}-\\d{2}$/);
+    assert.match(record.source.reviewedOn,/^\d{4}-\d{2}-\d{2}$/);
     assert.ok(baseline.entries.some(x=>x.family===family));
   }
   assert.equal(overlays.get("AlertDialog")?.component,"AlertDialog",
@@ -73,7 +73,9 @@ test("T19: family-to-overlay mapping remains one-to-one without inventing famili
 });
 
 test("T19: report preserves advisory semantics and Pi admission boundaries",()=>{
-  const {report,errors}=buildSemanticKnowledge();
+  const {report,errors}=buildSemanticKnowledge({reuiExamples:baseline.entries.map(x=>({
+    id:x.exampleId,family:x.family,sourcePath:x.sourcePath,decision:x.semanticDecision,
+  }))});
   assert.deepEqual(errors,[]);
   assert.equal(report.coverage.curatedOverlays,39);
   assert.equal(report.coverage.reuiFamilies,31);
