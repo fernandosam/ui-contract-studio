@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 1,
+  "component": "DropdownMenu",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/dropdown-menu",
+    "reviewedOn": "2026-10-26",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Dropdown Menu?",
+      "Why Use Shadcn Dropdown Menu?",
+      "Shadcn Dropdown Menu Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Oferecer ações secundárias e opções contextuais a partir de um botão explícito, mantendo a interface principal desobstruída e a decisão do usuário associada ao contexto atual.",
+  "rationale": [
+    "Concentrar comandos frequentes ou secundários em um acionador previsível, sem usar um diálogo para cada escolha.",
+    "Agrupar escolhas curtas e ações relacionadas, com hierarquia e indicação de comandos perigosos; o menu não substitui validação, autorização ou confirmação.",
+    "Separar a visualização de ações do efeito executado: o contrato Pi atual emite somente select, sem identificador do item ou navegação/persistência automáticas."
+  ],
+  "whenUse": [
+    "Ações contextuais de um cartão, registro ou linha de tabela, como editar, duplicar e compartilhar, desde que a operação seja implementada e autorizada fora do menu.",
+    "Menu de conta ou de visualização acionado por botão identificável, com poucas ações ou escolhas relacionadas.",
+    "Um nível de submenu para agrupar ações secundárias e checkboxes de preferência apenas local quando a representação no contrato atual for suficiente."
+  ],
+  "whenNotUse": [
+    "Menu disparado exclusivamente por clique direito ou toque prolongado: preferir ContextMenu.",
+    "Navegação principal, rotas de aplicação ou links com destino declarado: preferir Link, navegação dedicada ou composição aprovada; o DropdownMenu Pi não possui href por item.",
+    "Listas pesquisáveis ou seleção de valor de formulário: preferir Combobox ou Select; o menu não é substituto semântico de entrada de dados.",
+    "Ação destrutiva irreversível sem confirmação adequada: preferir AlertDialog após a seleção e autorização do comando.",
+    "Troca persistida de workspace, conta, perfil, estado de presença, notificações ou modelo de IA sem fonte de dados, autorização e handler aprovados.",
+    "Hierarquias com mais de um nível de submenu, radio group ou seleção controlada externamente: não estão expostas pela API DropdownMenu Pi atual."
+  ],
+  "agentNotes": [
+    "Base UI utiliza DropdownMenuTrigger render={<Button .../>}; Radix usa asChild. Não misturar as APIs: a primitiva local importa Menu de @base-ui/react/menu (src/components/ui/dropdown-menu.tsx).",
+    "No Base UI, ações de itens são acionadas por onClick; não presuma onSelect de Radix. O adaptador atual emite apenas select, sem valor do item, payload, href, permissão ou execução remota.",
+    "O contrato tipado atual admite itens leaf, separator, label, checkbox com defaultChecked local e submenu com uma única lista de menuLeaf (máximo de 12); não há submenus recursivos nem radio group no Pi.",
+    "Checkbox usa estado React local e emite select, mas não fornece binding externo, valor da escolha no evento, sincronização ou persistência. Não usar como configuração de segurança.",
+    "disabled de menu/item e variant='destructive' são affordances visuais/interativas, não controle de acesso; revalidar autorização no backend ou controlador de ação aprovado, inclusive contra disparo direto.",
+    "O campo shortcut é apenas dica visual; não cria atalhos globais ou handlers de teclado.",
+    "A variante Base UI exige DropdownMenuLabel dentro de DropdownMenuGroup/DropdownMenuRadioGroup. O adaptador do catálogo hoje renderiza label diretamente em DropdownMenuContent; verificar/corrigir em tarefa funcional antes de anunciar grupos rotulados como estáveis.",
+    "Para navegar, usar Link aprovado em composição ou acionar roteamento por mecanismo explicitamente autorizado; não converter automaticamente item.value em URL e não inventar href/onSelect em Pi.",
+    "Acesso por teclado, foco inicial/retorno ao gatilho, Escape, leitura por leitores de tela, disposição do submenu e interação móvel exigem testes em navegador; a estrutura Base UI não certifica o fluxo.",
+    "Os exemplos ReUI são referências visuais, não contrato Pi nem comprovação de operação. Ver também https://ui.shadcn.com/docs/components/base/dropdown-menu e https://base-ui.com/react/components/menu.",
+    "O enriquecimento é consultivo: não concede tipos, propriedades, eventos, handlers, efeitos colaterais nem permissões adicionais no catálogo Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "trigger-and-actions",
+      "description": "Exibe botão disparador e itens de ação simples com rótulos declarativos.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "render={<ShadcnButton type=\"button\" variant=\"outline\" disabled={props.disabled}/>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const renderLeaf=(item:any)=><DropdownMenuItem"
+        }
+      ],
+      "testRequirements": [
+        "Abrir menu pelo botão e conferir opções simples sem disparo antecipado."
+      ]
+    },
+    {
+      "id": "select-signal",
+      "description": "Aciona exclusivamente o evento local select para clique em item simples; o evento não carrega o value/identificador da opção.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onClick={()=>notify(emit,\"select\")}"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"select\"]"
+        }
+      ],
+      "testRequirements": [
+        "Selecionar item habilitado; confirmar emissão de select sem payload de item nem efeitos remotos implícitos."
+      ]
+    },
+    {
+      "id": "disabled-items",
+      "description": "Respeita propriedade disabled do menu e de itens declarativos, como restrição de interação na interface.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={item.disabled}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={props.disabled}"
+        }
+      ],
+      "testRequirements": [
+        "Itens/menu desabilitados não devem aceitar seleção via ponteiro ou teclado; verificar que isso não substitui autorização."
+      ]
+    },
+    {
+      "id": "separators",
+      "description": "Exibe separadores entre grupos de ações declarativas.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "if(item.type===\"separator\")return <DropdownMenuSeparator key={item.value}/>"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar grupos separados sem tornar o separador selecionável."
+      ]
+    },
+    {
+      "id": "single-level-submenu",
+      "description": "Aceita exatamente um nível de submenu com opções-folha tipadas, limitado a 12 opções filhas.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "items:z.array(menuLeaf).min(1).max(12)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<DropdownMenuSubTrigger>{item.label}</DropdownMenuSubTrigger>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<DropdownMenuSubContent>{item.items.map(renderLeaf)}</DropdownMenuSubContent>"
+        }
+      ],
+      "testRequirements": [
+        "Abrir submenu, selecionar uma opção-folha e validar limite estrutural de um nível."
+      ]
+    },
+    {
+      "id": "local-checkbox",
+      "description": "Exibe checkbox no menu com defaultChecked e alteração de estado local, emitindo select sem payload tipado de estado.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "const [checks,setChecks]=useState<Record<string,boolean>>({});"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onCheckedChange={(next:boolean)=>{setChecks(previous=>({...previous,[item.value]:next}));notify(emit,\"select\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Alternar checkbox, reabrir menu e verificar estado local enquanto montado; não inferir persistência."
+      ]
+    },
+    {
+      "id": "destructive-presentation",
+      "description": "Diferencia visualmente uma ação destrutiva sem executar exclusão nem exigir confirmação automaticamente.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "variant={item.variant??\"default\"}"
+        },
+        {
+          "path": "src/components/ui/dropdown-menu.tsx",
+          "contains": "data-[variant=destructive]:text-destructive"
+        }
+      ],
+      "testRequirements": [
+        "Comparar contraste e destaque de destructive; confirmar ausência de exclusão implícita."
+      ]
+    },
+    {
+      "id": "shortcut-hint",
+      "description": "Apresenta texto de atalho próximo ao item, sem cadastrar shortcut executável.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "item.shortcut&&<DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>"
+        }
+      ],
+      "testRequirements": [
+        "Conferir alinhamento e leitura do atalho; pressionar a tecla sem presumir ação automática."
+      ]
+    },
+    {
+      "id": "popup-placement",
+      "description": "Permite alinhamento e lado do conteúdo via props align/side previstas no contrato.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "side={props.side??\"bottom\"} align={props.align??\"start\"}"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "align:z.enum([\"start\",\"center\",\"end\"]).optional()"
+        }
+      ],
+      "testRequirements": [
+        "Verificar align e side nos limites da tela, sem concluir que o posicionamento responsivo foi certificado."
+      ]
+    },
+    {
+      "id": "nested-submenus",
+      "description": "Oferecer submenus recursivos ou com profundidade maior que um nível no contrato Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Quando a hierarquia maior for aprovada, validar profundidade, foco, limites e escopo dos comandos."
+      ]
+    },
+    {
+      "id": "radio-or-exclusive-choice",
+      "description": "Disponibilizar DropdownMenuRadioGroup/RadioItem e seleção exclusiva persistente pelo contrato Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Quando houver schema aprovado, validar exclusão mútua, estado inicial, atualizações e acessibilidade."
+      ]
+    },
+    {
+      "id": "controlled-selection",
+      "description": "Controlar checkboxes/seleção do menu por binding externo com valor tipado e persistência.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após admissão, testar sincronização, reset, persistência autorizada e retorno do valor ao controlador."
+      ]
+    },
+    {
+      "id": "item-link-navigation",
+      "description": "Expor destino href/rota e semântica de link por item do DropdownMenu no contrato Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após contrato de navegação aprovado, validar destinos internos permitidos, histórico, foco e URLs rejeitadas."
+      ]
+    },
+    {
+      "id": "action-permission-policy",
+      "description": "Aplicar permissões/roles por ação e validar efeitos no backend no próprio contrato DropdownMenu Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após aprovação do fluxo, validar estados de permissão, negação no servidor e ausência de operações não autorizadas por dispatch direto."
+      ]
+    },
+    {
+      "id": "group-label-semantics",
+      "description": "Garantir grupos rotulados válidos em Base UI; a montagem atual usa GroupLabel sem Group correspondente no adaptador.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar item type=label em navegador com console limpo e verificar se existe exceção Base UI; não afirmar suporte sem corrigir/validar."
+      ]
+    },
+    {
+      "id": "keyboard-focus-a11y",
+      "description": "Confirmar navegação por setas, Enter/Espaço, Escape, foco ao abrir/fechar e retorno ao disparador, inclusive submenus.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Executar navegação real com teclado e tecnologia assistiva; checar itens disabled e rotulagem do disparador."
+      ]
+    },
+    {
+      "id": "mobile-and-overflow",
+      "description": "Confirmar legibilidade, toque, posicionamento e ausência de recortes em viewport móvel, inclusive submenus.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Inspecionar larguras móveis e zoom com menu/submenu em extremidades da viewport."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Button",
+      "relationship": "visible-trigger",
+      "reason": "Botão com nome acessível abre menu e estabelece alvo previsível."
+    },
+    {
+      "component": "AlertDialog",
+      "relationship": "destructive-confirmation-candidate",
+      "reason": "Ações de alto impacto precisam de confirmação separada e posterior autorização do efeito."
+    },
+    {
+      "component": "Link",
+      "relationship": "navigation-alternative",
+      "reason": "Link tipado é a alternativa para destino de navegação declarado e aprovado, não prop nativa do item Pi."
+    },
+    {
+      "component": "Badge",
+      "relationship": "selection-summary-candidate",
+      "reason": "Exibir contagem ou estado de preferências fora do menu exige fonte e sincronização explícitas."
+    },
+    {
+      "component": "ContextMenu",
+      "relationship": "invocation-alternative",
+      "reason": "Ações de clique direito ou toque prolongado são interação contextual sem botão gatilho."
+    },
+    {
+      "component": "Select",
+      "relationship": "form-selection-alternative",
+      "reason": "Valores de formulário e escolha única usam controle de seleção, não ações sem payload."
+    },
+    {
+      "component": "Sonner",
+      "relationship": "async-feedback-candidate",
+      "reason": "Comunicar resultado de operação autorizada após handler externo, sem presumir execução do menu."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "DropdownMenu pode executar editar, excluir ou sair?",
+      "guidance": "O contrato só emite select sem payload do item. Não inferir comando executável pela label/value; requer handler específico autorizado, com validação da operação fora do componente."
+    },
+    {
+      "question": "Quando preferir ContextMenu?",
+      "guidance": "Se a abertura depende de clique direito/toque longo numa superfície, usar ContextMenu; para acionador visível, DropdownMenu."
+    },
+    {
+      "question": "Como representar navegação por itens?",
+      "guidance": "O contrato Pi atual não contém href nem rota por item. Preferir Link ou composição de navegação aprovada; não transformar value em URL nem executar roteamento não autorizado."
+    },
+    {
+      "question": "Submenus e opções de seleção são completos?",
+      "guidance": "Somente submenu de um nível (até 12 folhas) e checkbox local estão tipados. Radio groups, submenus recursivos e seleção controlada estão fora do contrato."
+    },
+    {
+      "question": "Checkbox altera configuração ou permissão persistida?",
+      "guidance": "Não. O checkbox tem estado local e emite select genérico; integração persistente demanda binding, payload e autorização aprovados."
+    },
+    {
+      "question": "Basta marcar disabled ou destructive para proteger ação?",
+      "guidance": "Não. disabled impede interação prevista na UI, destructive é apresentação; autorização é revalidada no executor/backend, e consequências graves exigem confirmação."
+    },
+    {
+      "question": "Como usar labels de grupo na variante Base UI?",
+      "guidance": "DropdownMenuLabel deve estar dentro de DropdownMenuGroup ou RadioGroup; o renderizador Pi atual não envolve item type=label em grupo, portanto exige correção/revisão funcional antes de afirmar funcionamento."
+    },
+    {
+      "question": "Atalhos, teclado e foco já estão certificados?",
+      "guidance": "O campo shortcut só exibe uma dica. Navegação de teclado/foco vem da primitiva, mas precisa de teste E2E e acessibilidade com a montagem atual."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "trigger-and-basic-action",
+      "kind": "integration",
+      "description": "Abrir pelo botão, clicar em folha habilitada e observar apenas select; nenhum payload value, navegação ou exclusão deve ser inferido.",
+      "capabilities": [
+        "trigger-and-actions",
+        "select-signal"
+      ]
+    },
+    {
+      "id": "disabled-and-destructive",
+      "kind": "integration",
+      "description": "Validar menu desabilitado e folha desabilitada com ponteiro/teclado; confirmar que destructive é estilo sem permissão de backend.",
+      "capabilities": [
+        "disabled-items",
+        "destructive-presentation"
+      ]
+    },
+    {
+      "id": "one-level-submenu",
+      "kind": "integration",
+      "description": "Renderizar submenu com até 12 folhas, abrir e selecionar uma; rejeitar estrutura aninhada no contrato em teste específico de schema.",
+      "capabilities": [
+        "single-level-submenu"
+      ]
+    },
+    {
+      "id": "checkbox-local-state",
+      "kind": "integration",
+      "description": "Alternar checkbox, reabrir e comparar estado local; conferir somente evento select e nenhuma persistência ou binding automático.",
+      "capabilities": [
+        "local-checkbox"
+      ]
+    },
+    {
+      "id": "group-label-base-ui-regression",
+      "kind": "manual-a11y",
+      "description": "Renderizar type=label, verificar ausência de exceções de GroupLabel e semântica anunciada; registrar bloqueio atual se grupo não existir.",
+      "capabilities": [
+        "group-label-semantics"
+      ]
+    },
+    {
+      "id": "keyboard-and-submenu-a11y",
+      "kind": "manual-a11y",
+      "description": "Percorrer trigger/itens/submenu com setas, Enter, Espaço e Escape; verificar foco, retorno, leitura e itens desabilitados.",
+      "capabilities": [
+        "keyboard-focus-a11y",
+        "single-level-submenu",
+        "disabled-items"
+      ]
+    },
+    {
+      "id": "overflow-and-shortcuts",
+      "kind": "visual",
+      "description": "Testar alinhamento, side, rótulos longos, atalhos e submenu em desktop e mobile, inclusive junto às bordas da viewport.",
+      "capabilities": [
+        "popup-placement",
+        "shortcut-hint",
+        "mobile-and-overflow"
+      ]
+    },
+    {
+      "id": "restricted-navigation-and-permissions",
+      "kind": "candidate-not-executable",
+      "description": "Após evolução funcional aprovada, garantir destinos seguros, negação de ação por permissão e revalidação no backend inclusive em disparo direto.",
+      "capabilities": [
+        "item-link-navigation",
+        "action-permission-policy"
+      ]
+    },
+    {
+      "id": "controlled-radio-and-nested-proposals",
+      "kind": "candidate-not-executable",
+      "description": "Somente após schema/renderer aprovados, validar radio exclusivo, estado externo de seleção e submenus de maior profundidade.",
+      "capabilities": [
+        "controlled-selection",
+        "radio-or-exclusive-choice",
+        "nested-submenus"
+      ]
+    }
+  ]
+}
