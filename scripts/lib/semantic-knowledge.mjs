@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve, sep } from "node:path";
+import {buildCapabilityGapAudit} from "./semantic-capability-audit.mjs";
 
 const readJson = file => JSON.parse(readFileSync(file, "utf8"));
 const uniq = values => [...new Set(values)].sort((a,b) => a.localeCompare(b));
@@ -161,6 +162,14 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
         contractDependencies:dependencies,
       };
     });
+  const capabilityAudit=buildCapabilityGapAudit(records,{root});
+  for(const profile of records){
+    profile.implementationGaps=capabilityAudit.gaps
+      .filter(x=>x.component===profile.component)
+      .map(x=>({id:x.capability,description:x.description,state:x.state,
+        availability:x.availability,reason:x.reason,source:x.source,
+        evidenceChecks:x.evidenceChecks}));
+  }
   const byName=new Map(records.map(x=>[x.component,x]));
   const associatedExamples=reuiExamples.map(x=>({
     exampleId:x.id,family:x.family,source:x.sourcePath,profile:x.family,
@@ -178,6 +187,7 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
         semanticContracts:Object.keys(semantics).length,curatedOverlays:curated.length,
         coveredExamples:associatedExamples.length},
       profiles:records,
+      capabilityAudit,
       reuiExampleProfiles:associatedExamples,
     },
     errors:uniq(errors),
