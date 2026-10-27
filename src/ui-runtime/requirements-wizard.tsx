@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {SpecScreen} from "./spec-screen";
-import {RegistrationFlowDemo} from "../ui-catalog/extensions/composites/registration-flow-demo";
+import {DeclarativeFormFlow} from "../ui-catalog/extensions/composites/proposals/DeclarativeFormFlow";
+import {proposeFormFlow} from "../ui-requirements/form-proposal";
 import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow} from "../ui-requirements/engine";
 import {planInterface} from "../ui-requirements/planner";
 import {generateRegistrationScreen} from "../ui-requirements/generator";
@@ -41,6 +42,7 @@ export function RequirementsWizard(){
   const blocked=!recognized||plan.blockers.length>0;
   const preview=showPreview&&!blocked?generateRegistrationScreen(requirements):null;
   const trace=preview?traceRegistration(requirements,preview):null;
+  const localCandidate=preview?proposeFormFlow(requirements):null;
   const update=(id:string,value:Answer)=>{setProvided(previous=>({...previous,[id]:value}));setShowPreview(false);};
   const copy=(kind:"requirements"|"screen")=>{
     const value=kind==="requirements"?requirements:preview;
@@ -93,7 +95,8 @@ export function RequirementsWizard(){
           <span className="block text-muted-foreground">Origem: {item.origin}; nós: {item.nodeIds.join(", ")||"nenhum"}</span>
         </li>)}</ul>
       </details>}
-      <RegistrationFlowDemo key={JSON.stringify(requirements.answers)} requirements={requirements}/>
+      {localCandidate&&<DeclarativeFormFlow key={JSON.stringify(localCandidate)} props={localCandidate}/>}
+      <p className="text-xs text-muted-foreground">O formulário funcional acima é uma proposta React/Zod em avaliação. Ele ainda não integra o catálogo Pi estável ou experimental.</p>
     </div>}
   </section>;
 }
