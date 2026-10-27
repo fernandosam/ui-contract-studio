@@ -38,6 +38,12 @@ test('full E2E is exclusively manual on main, and certification has isolated wri
  assert.doesNotMatch(manual,/pull_request:|\n {2}push:/);
  const first=manual.split('  certify:\n')[0],second=manual.split('  certify:\n')[1];
  assert.match(first,/permissions:\s*\n\s*contents: read/);
+ assert.match(first,/npm run pi:zod-schema/);
+ assert.ok(first.indexOf('npm run pi:zod-schema')<first.indexOf('npm run validate'),
+  'Must export current Pi schemas before validating the manual E2E source');
+ assert.ok(first.indexOf('npm run validate')<first.indexOf('npm run test:e2e'),
+  'Must validate before executing the complete E2E suite');
+ assert.match(first,/npm run admission:evidence:reset/);
  assert.match(first,/npm run test:e2e/);
  assert.match(first,/npm run admission:evidence:report/);
  assert.doesNotMatch(first,/contents: write|GH_TOKEN/);
