@@ -97,3 +97,33 @@ test("T19: report preserves advisory semantics and Pi admission boundaries",()=>
   assert.deepEqual(selectAgentSemanticAdvice(report,candidates),[],
     "Candidate records are never admitted merely by semantic enrichment");
 });
+
+test("T19: bilingual coverage matrices are traceable to versioned source counts",()=>{
+  const counts=new Map(reuiFamilies.map(name=>[name,
+    baseline.entries.filter(x=>x.family===name).length,
+  ]));
+  const source=new Map(records.map(x=>[x.record.component,x.record]));
+  for(const file of [
+    "docs/semantic-knowledge-coverage-t19.md",
+    "docs/semantic-knowledge-coverage-t19.pt-BR.md",
+  ]){
+    const md=readFileSync(file,"utf8");
+    const rowPattern=/^\\| \\[([A-Z][A-Za-z0-9]+)\\]\\(\\.\\.\\/src\\/ui-catalog\\/knowledge\\/([a-z-]+)\\.json\\) \\| (\\d+) \\| (\\d+)\\/(\\d+)\\/(\\d+) \\| (\\d+) \\|$/gm;
+    const rows=[...md.matchAll(rowPattern)];
+    assert.equal(rows.length,31,`${file}: expected 31 ReUI-family rows`);
+    assert.deepEqual(rows.map(x=>x[1]).sort(),reuiFamilies);
+    for(const [,name,filename,examples,implemented,documented,runtime,cases] of rows){
+      assert.equal(filename,slug(name),name);
+      const doc=source.get(name);
+      assert.ok(doc,`${name}: missing overlay`);
+      assert.equal(Number(examples),counts.get(name),name);
+      assert.equal(Number(implemented),doc.capabilities.filter(x=>x.state==="implemented-static-evidence").length,name);
+      assert.equal(Number(documented),doc.capabilities.filter(x=>x.state==="documented-not-implemented").length,name);
+      assert.equal(Number(runtime),doc.capabilities.filter(x=>x.state==="runtime-review-required").length,name);
+      assert.equal(Number(cases),doc.derivedTestCases.length,name);
+    }
+    assert.match(md,/\\*\\*559\\*\\* \\| \\*\\*181\\/103\\/72\\*\\* \\| \\*\\*257\\*\\*/);
+  }
+  assert.equal(records.reduce((n,x)=>n+x.record.capabilities.length,0),444);
+  assert.equal(records.reduce((n,x)=>n+x.record.derivedTestCases.length,0),315);
+});
