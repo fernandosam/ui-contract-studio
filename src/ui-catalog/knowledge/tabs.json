@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 1,
+  "component": "Tabs",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/tabs",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Tabs?",
+      "Why Use Shadcn Tabs?",
+      "Shadcn Tabs Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Alternar entre visões paralelas e relacionadas no mesmo contexto sem navegar para outra página; apenas um painel permanece selecionado por vez.",
+  "rationale": [
+    "Reduzir navegação repetida entre categorias equivalentes (visões de dashboard, detalhes e configurações) e explicitar a seção ativa.",
+    "Concentrar poucas seções com ações distintas, preservando rótulos de orientação; não transformar uma sequência obrigatória em abas.",
+    "Manter a seleção visual separada de validação, navegação por URL, persistência ou autorização, que exigem integrações próprias."
+  ],
+  "whenUse": [
+    "Separar duas a poucas visões irmãs, como visão geral, atividade e configurações de um mesmo objeto.",
+    "Alternar métricas ou detalhes relacionados sem trocar de rota quando o usuário precisa comparar contextos.",
+    "Usar orientação vertical apenas quando houver espaço para gatilhos claros e painel associado; revisar em viewport móvel."
+  ],
+  "whenNotUse": [
+    "Conteúdo hierárquico, navegação principal ou seções que precisam de URL/Voltar e compartilhamento por link: preferir navegação/rotas.",
+    "Mostrar e ocultar respostas opcionais em uma FAQ: usar Accordion ou Collapsible.",
+    "Etapas obrigatórias de cadastro que exigem bloqueio, progresso e validação: adotar fluxo wizard/formulário dedicado, não presumir Tabs como wizard.",
+    "Grande quantidade de abas com títulos extensos, ou painéis essenciais que não devem ficar ocultos sem indicação clara.",
+    "Presumir persistência de formulário ou execução remota ao mudar de aba; o contrato atual não as fornece."
+  ],
+  "agentNotes": [
+    "O shadcn instalado usa @base-ui/react/tabs, não a API Radix da introdução ReUI. Conferir semântica de ativação por teclado e montagem em navegador na variante Base UI; não copiar garantias Radix para o runtime local.",
+    "A API JSON/Pi Tabs aprovada recebe tabs [{label,value,disabled?,content?}], value/defaultValue, orientation, disabled, listVariant e fullWidth; emite change sem payload. Não inventar children JSX, onValueChange, href, keepMounted, lazy ou URL como props Pi.",
+    "Cada value de aba deve ser único/estável e combinar com um painel; label e content são texto. O adaptador usa items[0]?.value como padrão, mesmo se essa primeira aba estiver desabilitada: testar esse caso antes de depender de fallback.",
+    "value prevalece sobre defaultValue na inicialização; o adaptador usa useValue com bindings?.value. O evento change apenas notifica; não confundir com transporte do ID selecionado ou submissão.",
+    "onValueChange no adaptador troca o estado local via setCurrent(v) e notifica change; não realiza sincronização com rotas, consulta ou validação dos campos no painel.",
+    "A orientação horizontal/vertical, listVariant='default'|'line', fullWidth e disabled por item ou global estão no contrato. O estilo line fica em TabsList, não em TabsRoot.",
+    "TabsContent do catálogo recebe apenas item.content (texto limitado a 3000 caracteres); Field, Input, Table, Card, Badge e formulários ricos dos exemplos requerem composição React revisada ou contrato composto próprio.",
+    "Trocar de aba não garante preservação dos valores de campos não montados; estados de formulário devem viver fora do painel ou ter política de persistência, e a montagem inativa precisa de E2E.",
+    "ReUI relata diferença entre ativação com Enter/Space em Base UI e seleção por foco em Radix; verificar a versão instalada com setas, Home/End, foco visível, disabled e leitor de tela antes de declarar suporte operacional.",
+    "A documentação e eventuais composições candidatas são consultivas; nenhum enriquecimento habilita schemas Zod, handlers, Pi, acesso a dados ou homologação E2E."
+  ],
+  "capabilities": [
+    {
+      "id": "text-tab-panels",
+      "description": "Renderiza gatilhos e painéis a partir de labels, valores e conteúdo estritamente textuais do contrato Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Tabs: { props: obj({ tabs: z.array(obj({label:z.string(),value:z.string()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{item.label}</TabsTrigger>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{item.content&&<p className=\"p-3 text-sm\">{item.content}</p>}"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar duas abas com valores distintos e textos diferentes; verificar correspondência do gatilho com painel, sem interpretar conteúdo como JSX."
+      ]
+    },
+    {
+      "id": "selected-value-and-default",
+      "description": "Seleciona aba por value, defaultValue ou primeiro item e permite binding de valor no adaptador.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue<string>(props.value??props.defaultValue??items[0]?.value??\"\",bindings?.value)"
+        }
+      ],
+      "testRequirements": [
+        "Testar value, defaultValue, binding e fallback do primeiro item, inclusive seleção inicial inválida/desabilitada."
+      ]
+    },
+    {
+      "id": "local-change-notification",
+      "description": "Ao mudar a aba selecionada, altera estado local e emite change sem payload no contrato JSON/Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"change\"]"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onValueChange={(v:string)=>{setCurrent(v);notify(emit,\"change\");}}"
+        }
+      ],
+      "testRequirements": [
+        "Trocar A→B e verificar evento change e painel visível; não esperar ID enviado pelo evento nem efeito remoto."
+      ]
+    },
+    {
+      "id": "orientation-and-list-appearance",
+      "description": "Suporta layout horizontal/vertical, lista default/line e largura completa opcional.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "orientation:z.enum([\"horizontal\",\"vertical\"])"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "listVariant:z.enum([\"default\",\"line\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "orientation={props.orientation??\"horizontal\"}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<TabsList variant={props.listVariant??\"default\"} className={props.fullWidth?\"w-full\":undefined}>"
+        }
+      ],
+      "testRequirements": [
+        "Combinar duas orientações e duas variantes, conferir alinhamento, indicador e fullWidth sem corte."
+      ]
+    },
+    {
+      "id": "disabled-set-and-items",
+      "description": "Impede ativação de TabsTrigger quando disabled é aplicado ao conjunto ou item.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "disabled:z.boolean().optional(),content:z.string().max(3000).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "disabled={props.disabled||item.disabled}"
+        }
+      ],
+      "testRequirements": [
+        "Verificar item disabled e grupo disabled, incluindo foco e seleção prévia; não depender de clique bloqueado como regra de autorização."
+      ]
+    },
+    {
+      "id": "base-ui-tab-anatomy",
+      "description": "A primitiva instalada compõe Root, List, Tab e Panel do Base UI com estilos de estado ativo e foco.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "contains": "import { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\""
+        },
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "contains": "<TabsPrimitive.Root"
+        },
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "contains": "<TabsPrimitive.List"
+        },
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "contains": "<TabsPrimitive.Tab"
+        },
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "contains": "<TabsPrimitive.Panel"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar DOM para tablist/tab/tabpanel, seleção, ids associados, foco e visual de tab ativo."
+      ]
+    },
+    {
+      "id": "url-synchronization",
+      "description": "Persistir aba ativa em querystring, histórico ou navegação compartilhável; ausente do contrato Tabs Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em evolução futura, testar URL inicial, atualização, deep link, refresh, Voltar/Avançar e rota inválida."
+      ]
+    },
+    {
+      "id": "rich-panel-form-composition",
+      "description": "Formulários, validação e ações independentes em painéis React não são children suportados no array textual Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após aprovar composto, testar validação ao sair da aba, erros em painéis ocultos, salvamento e falha assíncrona."
+      ]
+    },
+    {
+      "id": "persist-or-keep-inactive-mounted",
+      "description": "Configuração de keepMounted, preservação de input e política de carregamento diferido não expostas no contrato Tabs Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Compor retenção externa de estado e verificar reentrada em formulário; não afirmar preservação automática."
+      ]
+    },
+    {
+      "id": "keyboard-focus-and-announcements",
+      "description": "Setas, Home/End, Enter/Espaço, foco visível, ordem de tabulação e anúncios ARIA dependem de execução Base UI.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar teclado completo em ambas orientações, tab disabled e leitor de tela; conferir modo real de ativação."
+      ]
+    },
+    {
+      "id": "inactive-panel-runtime",
+      "description": "Montagem, visibilidade e preservação de estado dos painéis não ativos dependem da primitiva e da composição em runtime.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar montagem/desmontagem com alternância de abas e estado de input em composição React; não depender do exemplo Radix."
+      ]
+    },
+    {
+      "id": "mobile-layout-and-zoom",
+      "description": "Usabilidade de abas verticais/horizontais, títulos extensos e painel em 320 px/zoom exige verificação visual.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Ensaiar overflow, toque, 320 px, zoom 200%, direção RTL e não sobreposição de gatilhos."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Card",
+      "relationship": "candidate-panel-container",
+      "reason": "Contêiner visual para painel com métricas ou detalhes; requer composição além do conteúdo textual Pi."
+    },
+    {
+      "component": "Table",
+      "relationship": "candidate-tabular-panel",
+      "reason": "Tabela em uma visão de dashboard, mas não um filho estruturado disponível em tabs[].content do Pi."
+    },
+    {
+      "component": "Accordion",
+      "relationship": "alternative-optional-disclosure",
+      "reason": "Quando o objetivo é expandir respostas independentes em vez de alternar uma visão selecionada."
+    },
+    {
+      "component": "Button",
+      "relationship": "candidate-panel-actions",
+      "reason": "Ações de salvar ou exportar exigem handlers e autorização próprios, não executados ao trocar de aba."
+    },
+    {
+      "component": "Field",
+      "relationship": "candidate-form-grouping",
+      "reason": "Separar conjuntos de campos por assunto em composição revisada com estado externo e validação."
+    },
+    {
+      "component": "Input",
+      "relationship": "candidate-form-input",
+      "reason": "Campos dentro de painéis React exigem política explícita para preservar valores na troca."
+    },
+    {
+      "component": "Badge",
+      "relationship": "candidate-trigger-status",
+      "reason": "Contagens/status podem ajudar a identificar abas, sem autorização para inserir nós ricos no label Pi."
+    },
+    {
+      "component": "Alert",
+      "relationship": "candidate-validation-feedback",
+      "reason": "Mostrar erro/sucesso de validação em cada painel; nenhum evento de troca implica submit."
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "candidate-disabled-reason",
+      "reason": "Explicação de indisponibilidade deve ser acessível, não substitui rotulagem e não existe como prop Pi."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Tabs ou Accordion para organizar conteúdo?",
+      "guidance": "Tabs para visões paralelas com uma seleção ativa; Accordion para detalhes opcionais expansíveis. Se a informação não pode ficar oculta, evitar os dois como único meio."
+    },
+    {
+      "question": "value e defaultValue têm o mesmo papel?",
+      "guidance": "Não. value define seleção atual/inicial no adaptador (com binding opcional); defaultValue é fallback de inicialização. Revisar descompasso entre ID selecionado e tabs[].value."
+    },
+    {
+      "question": "O evento change envia o valor ou salva automaticamente?",
+      "guidance": "Não. O adaptador chama notify(emit,'change') sem payload; não há persistência nem autorização backend."
+    },
+    {
+      "question": "A aba acompanha URL e botão Voltar?",
+      "guidance": "Não no contrato Pi atual. Para deep links, implementar sincronização de rota/query em fluxo separado revisado."
+    },
+    {
+      "question": "Posso colocar form, Table ou ícone nas abas?",
+      "guidance": "Na primitiva React a composição pode ser feita. O contrato Pi atual limita content e label a strings: criar composição revisada, não inserir JSX ou novos campos no JSON."
+    },
+    {
+      "question": "O estado de um formulário persiste ao alternar?",
+      "guidance": "Não há garantia. ReUI descreve painéis não ativos desmontados; testar a Base UI instalada e guardar estado fora do painel quando necessário."
+    },
+    {
+      "question": "Como funciona a ativação pelo teclado?",
+      "guidance": "Difere conforme Base UI/Radix. O projeto usa Base UI; ensaiar setas, Home/End, Enter/Espaço, foco e anúncios ARIA em navegador/leitor de tela."
+    },
+    {
+      "question": "Tabs podem servir como etapas obrigatórias de wizard?",
+      "guidance": "Não por si: avançar, bloquear etapas, validar e recuperar estado requer fluxo de formulário/wizard com contrato próprio."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "selected-value-precedence",
+      "kind": "integration",
+      "description": "Cobrir value/defaultValue/binding, troca de painel e fallback para primeiro tab; ensaiar IDs duplicados e primeira aba disabled.",
+      "capabilities": [
+        "selected-value-and-default",
+        "text-tab-panels"
+      ]
+    },
+    {
+      "id": "tab-change-event",
+      "kind": "integration",
+      "description": "Validar onValueChange com evento change local sem payload ou chamada remota; reconfirmar painel ativo.",
+      "capabilities": [
+        "local-change-notification"
+      ]
+    },
+    {
+      "id": "orientation-variants",
+      "kind": "visual",
+      "description": "Validar horizontal e vertical com variantes default/line e fullWidth, indicação ativa e contraste.",
+      "capabilities": [
+        "orientation-and-list-appearance"
+      ]
+    },
+    {
+      "id": "disabled-tab-behavior",
+      "kind": "integration",
+      "description": "Testar disabled global/por item e impossibilidade de ativação pelo usuário via mouse/teclado.",
+      "capabilities": [
+        "disabled-set-and-items"
+      ]
+    },
+    {
+      "id": "base-ui-keyboard-a11y",
+      "kind": "manual-a11y",
+      "description": "Inspecionar ARIA, associação tab/panel, setas/Home/End/Enter/Space, Tab/Shift+Tab, foco e leitor de tela.",
+      "capabilities": [
+        "base-ui-tab-anatomy",
+        "keyboard-focus-and-announcements"
+      ]
+    },
+    {
+      "id": "inactive-panel-state-runtime",
+      "kind": "integration",
+      "description": "Em composição React de ensaio, mudar abas e inspecionar se painel é desmontado e se inputs mantêm valor.",
+      "capabilities": [
+        "inactive-panel-runtime"
+      ]
+    },
+    {
+      "id": "narrow-and-zoomed-tabs",
+      "kind": "visual",
+      "description": "Rever layout vertical/horizontal, alvos de toque, rótulos longos e overflow em 320 px e zoom 200%.",
+      "capabilities": [
+        "mobile-layout-and-zoom"
+      ]
+    },
+    {
+      "id": "url-sync-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Quando houver integração URL, verificar deep link, mudança, refresh, Voltar/Avançar e aba inexistente.",
+      "capabilities": [
+        "url-synchronization"
+      ]
+    },
+    {
+      "id": "form-panels-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se o contrato composto for aprovado, testar validação, foco do erro, valores preservados e submit autorizado.",
+      "capabilities": [
+        "rich-panel-form-composition",
+        "persist-or-keep-inactive-mounted"
+      ]
+    }
+  ]
+}
