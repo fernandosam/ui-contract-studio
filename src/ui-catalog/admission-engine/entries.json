@@ -68,7 +68,7 @@
       "example": "pi-catalog/experimental-examples/DeclarativeFormFlow.json",
       "events": [],
       "sourceLicense": "MIT (local composition)",
-      "e2eProtocol": null
+      "e2eProtocol": "declarative-form-desktop-mobile"
     }
   ]
 }

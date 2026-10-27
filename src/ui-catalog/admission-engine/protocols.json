@@ -46,6 +46,18 @@
         "keyboard-local-only"
       ],
       "evidenceRoot": "reports/composition-validation/admission/button-copy"
+    },
+    "form-declarative": {
+      "target": "DeclarativeFormFlow",
+      "protocol": "declarative-form-desktop-mobile",
+      "cases": [
+        "required-errors-and-focus",
+        "confirmation-cancel-reopen",
+        "keyboard-accessibility",
+        "responsive-optional-fields",
+        "no-validation-local-only"
+      ],
+      "evidenceRoot": "reports/composition-validation/admission/form-declarative"
     }
   }
 }

@@ -78,3 +78,13 @@ A segunda etapa registra `DeclarativeFormFlow` **somente no canal experimental d
 A demonstração no assistente passa a usar `SpecScreen channel="experimental"`, exercitando o renderizador Pi real. Há um exemplo serializado em `pi-catalog/experimental-examples/DeclarativeFormFlow.json` e verificações que rejeitam atributos arbitrários e recusam a spec no canal estável.
 
 **Ainda não homologado:** `validation.e2e=pending`, sem elegibilidade à promoção automática. Evidências de navegador local e auditoria de acessibilidade não equivalem à certificação independente exigida pelo workflow manual do Admission Engine. Nenhuma permissão de backend é concedida.
+
+## T35 — Protocolo independente de evidências para DeclarativeFormFlow (2026-10-27)
+
+O novo protocolo `declarative-form-desktop-mobile` cria cinco provas por viewport (desktop + mobile; dez execuções), com captura PNG e resultado JSON em `reports/composition-validation/admission/form-declarative/`, e associação obrigatória a `sourceDigest`, nome do protocolo e SHA exato de `main`.
+
+Casos: (1) campos obrigatórios e erro de e-mail com foco/ARIA, (2) confirmação, Escape e cancelamento sem conclusão, (3) Tab/Enter, rótulos e retorno ao campo inválido, (4) duas colunas desktop/uma mobile com campos opcionais, (5) conclusão local com validação explicitamente desabilitada. Os testes rejeitam qualquer `fetch`/`xhr` após o início das interações e verificam que nenhum registro foi salvo.
+
+A política `e2eEligible` **não atribui** `status=passed`, certificados, eventos ou ações ao Pi; o contrato continua experimental e o catálogo estável não o aceita. A prévia e o E2E por PR não bastam para a promoção: é necessário executar manualmente o workflow `E2E manual (main)` depois da revisão do PR. Esse workflow verifica a versão da main, reinicia provas antigas, executa os casos reais, exige os resumos e screenshots compatíveis e certifica no job separado. Acessibilidade por leitor de tela e revisão manual de segurança permanecem explicitamente pendentes; testes automatizados de teclado/ARIA não equivalem a uma auditoria humana completa.
+
+Não interpretar evidência sintética de testes de unidade como prova de navegador; nunca forjar ou pré-gravar `certifications.json`. Mudança de digest, protocolo ou revisão invalida a certificação anterior.
