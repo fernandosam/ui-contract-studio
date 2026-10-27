@@ -1,0 +1,322 @@
+{
+  "schemaVersion": 1,
+  "component": "Combobox",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "admission": "candidate-not-admitted",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/combobox",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Combobox?",
+      "Why Use Shadcn Combobox?",
+      "Shadcn Combobox Features",
+      "Integrating With Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Selecionar uma ou várias opções pesquisáveis em um campo, distinguindo valor confirmado, texto de busca e ações externas.",
+  "rationale": [
+    "Reduzir o custo de localizar itens em listas médias ou extensas por filtragem textual, preservando a identidade das opções.",
+    "Oferecer composições de seleção múltipla com chips e opção de limpar, sem induzir o agente a implementar persistência automaticamente.",
+    "Manter rigor entre primitiva React instalada, orientação semântica e admissão no contrato Pi: não existe tipo Combobox aprovado em contracts.lock.json/pi-catalog/contracts.json."
+  ],
+  "whenUse": [
+    "Campo de formulário com valores selecionáveis e pesquisa por digitação, como país, time ou responsável.",
+    "Seleção de múltiplas etiquetas ou integrantes com chips em composição React revisada.",
+    "Opções organizadas por grupos com mensagem explícita de lista vazia."
+  ],
+  "whenNotUse": [
+    "Lista curta e fixa que dispensa busca: preferir Select.",
+    "Entrada livre que pode aceitar texto sem escolha obrigatória: usar Input ou Autocomplete específico, não validar como opção selecionada.",
+    "Paleta de comandos e navegação orientada a ações: preferir Command (também candidato), sem confundir escolha de dado com execução.",
+    "Conceder acesso, criar tags remotamente ou atualizar o backend só porque o usuário selecionou um item."
+  ],
+  "agentNotes": [
+    "STATUS TRIPLO: documentação revisada (ReUI 2026-10-27); primitiva React Base UI instalada em src/components/ui/combobox.tsx; admissão Pi ausente. O marcador candidate-not-admitted não gera contrato, schema, evento, adapter nem permissão.",
+    "A primitiva Combobox reexporta ComboboxPrimitive.Root. As props React do Base UI não constituem a API JSON/Zod/Pi; não inferir multiple, value, onValueChange, items ou itemToStringValue como autorizadas no Pi.",
+    "O ReUI alerta que filtragem com children estáticos não funciona como filtragem da renderização por função de ComboboxList; validar estrutura e consistência de itens antes de produzir UI.",
+    "Em objetos, itemToStringValue e itemToStringLabel podem divergir quanto a valor submetido/rótulo pesquisado; documentar política e testar com labels duplicadas, acentos e valor nulo antes de implementar.",
+    "ComboboxInput aceita showTrigger (padrão true), showClear (padrão false) e disabled na primitiva local; não transportar essas props para o catálogo Pi sem admissão separada.",
+    "Chips com remoção dependem de showRemove e da composição de estado; em seleção obrigatória, não apagar valores protegidos apenas escondendo o controle visual.",
+    "Dropdown e chips baseiam-se em Base UI e render, não em asChild de exemplos Radix; as garantias de foco/ARIA e de performance requerem E2E e avaliação assistiva.",
+    "Integração com Form/Field, Sonner, fontes assíncronas ou criação de tags é proposta, não implementação end-to-end nem mutação autorizada."
+  ],
+  "capabilities": [
+    {
+      "id": "base-ui-root-and-parts",
+      "description": "Existe primitiva React Combobox baseada em @base-ui/react, com Input/List/Item; não é contrato Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "const Combobox = ComboboxPrimitive.Root"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "<ComboboxPrimitive.Item"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar exports e montar Combobox, Input, List e Item fora do Pi, sem assumir workflow de negócio."
+      ]
+    },
+    {
+      "id": "input-trigger-and-clear",
+      "description": "A implementação React oferece trigger opcional, clear opcional e disabled no campo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "showTrigger = true"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "showClear = false"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "{showClear && <ComboboxClear disabled={disabled} />}"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar combinações de showTrigger/showClear/disabled e verificar visibilidade e cliques."
+      ]
+    },
+    {
+      "id": "popup-positioner",
+      "description": "O conteúdo usa Portal e Positioner com side/align/offset configuráveis na API React.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "<ComboboxPrimitive.Portal>"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "sideOffset = 6"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "align = \"start\""
+        }
+      ],
+      "testRequirements": [
+        "Revisar posicionamento em bordas do viewport e sobreposição com Dialog."
+      ]
+    },
+    {
+      "id": "groups-empty-and-indicator",
+      "description": "A primitiva expõe Group, GroupLabel, Collection, Empty, Separator e indicador de item.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "<ComboboxPrimitive.GroupLabel"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "<ComboboxPrimitive.Empty"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "<ComboboxPrimitive.ItemIndicator"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar grupos, opção selecionada e busca sem resultados; conferir indicador e texto visível."
+      ]
+    },
+    {
+      "id": "chips-and-optional-remove",
+      "description": "Há chips com botão de remoção condicional e input dedicado na primitiva React.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "showRemove = true"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "{showRemove && ("
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "contains": "data-slot=\"combobox-chip-input\""
+        }
+      ],
+      "testRequirements": [
+        "Testar chips editáveis e não removíveis, remoção, overflow e nomes acessíveis."
+      ]
+    },
+    {
+      "id": "pi-selection-contract",
+      "description": "Não existe schema/adapter Pi admitido para Combobox, inclusive multiple, value, evento de mudança ou binding de formulário.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se houver proposta de admissão, formalizar props/eventos permitidos, validar valores e criar testes de conformidade separados."
+      ]
+    },
+    {
+      "id": "async-and-user-tags",
+      "description": "Busca assíncrona, criação de tags de usuário, feedback remoto e persistência não estão implementados como contrato Combobox Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em composição futura aprovada, testar debounce, cancelamento, stale results, duplicidade, falha e autorização de criação."
+      ]
+    },
+    {
+      "id": "keyboard-aria-and-search-runtime",
+      "description": "Filtragem por digitação, navegação por setas, leitura ARIA, foco e política de seleção precisam de validação em execução.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar setas, Enter, Escape, Tab, leitor de tela e filhos estáticos versus function-child."
+      ]
+    },
+    {
+      "id": "mobile-multiple-and-performance",
+      "description": "Usabilidade dos chips e popup, teclado móvel e listas muito extensas requerem medição real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Revisar 320px, zoom 200%, múltiplos chips, centenas de opções, toque e latência."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Field",
+      "relationship": "field-label-validation",
+      "reason": "Rótulos, indicação de obrigatório e mensagens de erro em formulário futuro."
+    },
+    {
+      "component": "InputGroup",
+      "relationship": "search-input-affordance",
+      "reason": "Agrupar controle de entrada e ações de limpar/expandir (já usado na primitiva React)."
+    },
+    {
+      "component": "Select",
+      "relationship": "fixed-options-alternative",
+      "reason": "Escolha sem filtro em lista curta; alternativa de seleção já admitida."
+    },
+    {
+      "component": "Dialog",
+      "relationship": "modal-selection",
+      "reason": "Seleção em overlay com contexto adicional mediante composição explícita."
+    },
+    {
+      "component": "Popover",
+      "relationship": "inline-selection-panel",
+      "reason": "Painel contextual não modal candidato."
+    },
+    {
+      "component": "Badge",
+      "relationship": "selection-summary",
+      "reason": "Contar seleções sem inferir confirmação/persistência."
+    },
+    {
+      "component": "Sonner",
+      "relationship": "async-status-candidate",
+      "reason": "Feedback assíncrono após operação autorizada; não integrado pela primitiva."
+    },
+    {
+      "component": "Command",
+      "relationship": "action-menu-alternative",
+      "reason": "Paleta orientada a ações, não substituto de campo de seleção."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Combobox já pode ser emitido por agentes Pi?",
+      "guidance": "Não. Só há primitiva React; a documentação revisada não cria tipo aprovado em contracts.lock.json nem pi-catalog/contracts.json."
+    },
+    {
+      "question": "Quando preferir Select, Input ou Command?",
+      "guidance": "Select para lista curta sem busca, Input para texto livre, Combobox para valor selecionado com pesquisa, Command para executar ação."
+    },
+    {
+      "question": "O input sempre filtra itens estáticos?",
+      "guidance": "Não. Segundo ReUI, itens estáticos permanecem listados; usar estrutura de lista adequada e confirmar no runtime."
+    },
+    {
+      "question": "A seleção múltipla salva ou cria novas tags?",
+      "guidance": "Não. Chips fazem parte da primitiva, mas estado de negócio, criação de opções e persistência exigem composição e autorização próprias."
+    },
+    {
+      "question": "Posso tratar suporte upstream a itemToStringValue como prop Pi?",
+      "guidance": "Não. O Base UI pode aceitar a prop em React, mas só um contrato formal com testes habilita sua exposição Pi."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "primitive-selection-and-clear",
+      "kind": "integration",
+      "description": "Montar a primitiva React isolada, validar seleção, disabled e controles trigger/clear, sem Pi.",
+      "capabilities": [
+        "base-ui-root-and-parts",
+        "input-trigger-and-clear"
+      ]
+    },
+    {
+      "id": "grouped-empty-options",
+      "kind": "visual",
+      "description": "Renderizar grupos, separadores, item selecionado e lista vazia em tema claro/escuro.",
+      "capabilities": [
+        "groups-empty-and-indicator"
+      ]
+    },
+    {
+      "id": "chips-removal",
+      "kind": "integration",
+      "description": "Verificar chips com showRemove true/false, mudanças locais e bloqueio de remoção em caso protegido.",
+      "capabilities": [
+        "chips-and-optional-remove"
+      ]
+    },
+    {
+      "id": "popup-position-overlays",
+      "kind": "visual",
+      "description": "Validar lados, alinhamento e sobreposição junto de Dialog e viewport estreito.",
+      "capabilities": [
+        "popup-positioner"
+      ]
+    },
+    {
+      "id": "keyboard-filter-a11y",
+      "kind": "manual-a11y",
+      "description": "Testar filtragem, setas, Escape, Tab, anúncio de opções e tecla móvel com leitor de tela.",
+      "capabilities": [
+        "keyboard-aria-and-search-runtime"
+      ]
+    },
+    {
+      "id": "mobile-and-list-load",
+      "kind": "visual",
+      "description": "Inspecionar 320px, zoom e desempenho com opções numerosas e chips.",
+      "capabilities": [
+        "mobile-multiple-and-performance"
+      ]
+    },
+    {
+      "id": "pi-admission-negative",
+      "kind": "candidate-not-executable",
+      "description": "Em proposta futura, impedir emissão de Combobox Pi antes da aprovação e validar schema/eventos e bindings.",
+      "capabilities": [
+        "pi-selection-contract"
+      ]
+    },
+    {
+      "id": "remote-tag-creation",
+      "kind": "candidate-not-executable",
+      "description": "Em composição autorizada, simular busca remota, tag nova, duplicidade, falha e acesso negado.",
+      "capabilities": [
+        "async-and-user-tags"
+      ]
+    }
+  ]
+}
