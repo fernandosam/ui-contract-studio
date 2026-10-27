@@ -73,9 +73,9 @@ type CuratedOverlay = {
 
 /** Deliberately small rollout: these are reviewed records, not all ReUI families. */
 const curated = new Map<string, CuratedOverlay>([
-  ["AlertDialog", {source:"src/ui-catalog/knowledge/alert-dialog.json", ...alertKnowledge}],
-  ["Accordion", {source:"src/ui-catalog/knowledge/accordion.json", ...accordionKnowledge}],
-  ["Button", {source:"src/ui-catalog/knowledge/button.json", ...buttonKnowledge}],
+  ["AlertDialog", {...alertKnowledge, source:"src/ui-catalog/knowledge/alert-dialog.json"}],
+  ["Accordion", {...accordionKnowledge, source:"src/ui-catalog/knowledge/accordion.json"}],
+  ["Button", {...buttonKnowledge, source:"src/ui-catalog/knowledge/button.json"}],
 ]);
 const capabilitiesFor = (family: string) =>
   new Map((curated.get(family)?.capabilities ?? []).map(item => [item.id, item]));
