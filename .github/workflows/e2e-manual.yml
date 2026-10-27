@@ -23,6 +23,8 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup-deps
       - uses: ./.github/actions/setup-chromium
+      - name: Export current Pi Zod schemas before validation
+        run: npm run pi:zod-schema
       - name: Verify source before running full E2E
         run: npm run validate && npm run build
       - name: Clear stale candidate evidence
