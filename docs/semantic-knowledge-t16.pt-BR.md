@@ -1,3 +1,5 @@
+[English](semantic-knowledge-t16.md) | [Português](semantic-knowledge-t16.pt-BR.md)
+
 # T16 — Entrega 3 (P2): Collapsible, Carousel e Rating
 
 **Revisão semântica:** 2026-10-27. Referência: [checklist T01](semantic-knowledge-checklist.pt-BR.md), `src/ui-catalog/knowledge/alert-dialog.json` e fontes ReUI oficiais [Collapsible](https://reui.io/components/collapsible), [Carousel](https://reui.io/components/carousel), [Rating](https://reui.io/components/rating).
@@ -30,8 +32,8 @@ npm run docs:check
 npm run test:offline
 ```
 
-**Status inicial da revisão:** 59/59 evidências literais encontradas no código versionado; validação estrutural de IDs, relações e cobertura dos casos derivados realizada durante a elaboração dos overlays. **Os comandos npm dependem de execução no job de CI e só podem ser marcados como aprovados após conclusão real do workflow.** O relatório `reports/composition-analysis/semantic-knowledge.json` é derivado e ignorado no Git, não um manifesto de admissão.
+**Status inicial da revisão:** 59/59 evidências literais encontradas no código versionado; validação estrutural de IDs, relações e cobertura dos casos derivados realizada durante a elaboração dos overlays. **A primeira execução de CI aprovou semantic:check e semantic:report; a suíte offline apontou necessidade do par documental inglês e ajuste do inventário de guias, corrigidos nesta revisão. A aprovação integral depende da conclusão do workflow de correção.** O relatório `reports/composition-analysis/semantic-knowledge.json` é derivado e ignorado no Git, não um manifesto de admissão.
 
 ## Escopo e segurança
 
-Esta entrega modifica somente três overlays JSON, três testes offline por componente e este registro documental. Não altera `catalog.ts`, `extensions/catalog.ts`, `contracts.lock.json`, schemas Zod, permissões Pi, `pi-catalog/`, admissão, componentes React ou ações de backend. Os estados `documented-not-implemented` têm testes `candidate-not-executable`; os estados `runtime-review-required` exigem navegador/leitor de tela e não são promovidos por prova textual. Integrações são candidatas `advisory-only`, sem permissão ou admissão implícita.
+Esta entrega modifica somente três overlays JSON, três testes offline por componente, este registro bilíngue de auditoria e a contagem explícita de guias no teste de documentação bilíngue. Não altera `catalog.ts`, `extensions/catalog.ts`, `contracts.lock.json`, schemas Zod, permissões Pi, `pi-catalog/`, admissão, componentes React ou ações de backend. Os estados `documented-not-implemented` têm testes `candidate-not-executable`; os estados `runtime-review-required` exigem navegador/leitor de tela e não são promovidos por prova textual. Integrações são candidatas `advisory-only`, sem permissão ou admissão implícita.
