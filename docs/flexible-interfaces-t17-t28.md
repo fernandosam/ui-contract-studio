@@ -82,3 +82,11 @@ Cases verify required/error focus and ARIA, cancel/Escape/reopen confirmation, T
 Adding `e2eEligible` does **not** certify or stabilize the Pi type. It remains experimental and stable Pi rejects it. Passing PR tests only establishes a provisional runtime review; promotion requires the independently initiated `E2E manual (main)` workflow after PR approval, which rechecks main SHA, resets stale evidence, verifies every desktop/mobile case, and certifies in a separate job. Screen reader accessibility and manual security review remain pending unless independently completed.
 
 Synthetic test screenshots are never production-browser proof. Do not prefill `certifications.json`; source digest, protocol or revision drift invalidates existing evidence.
+
+## T32 — Authorized submission gateway (reviewed 2026-10-27)
+
+\`createSubmissionGateway\` is a **trusted server-only boundary**: a host must explicitly inject allowed services and obtain user, tenant, authorization and CSRF context from a trusted server session. \`defaultSubmissionGateway\` accepts no services. \`createInMemoryDemoService\` is an isolated test fixture accepting name/email only, not production persistence.
+
+The gateway validates payload shape, prevents concurrent duplicates and conflicting reuse of idempotency keys, bounds timeouts with \`AbortSignal\` and returns sanitized adapter errors. **In-memory idempotency and abortion alone are not durable, transactional guarantees.** Production requires a separately approved backend, persistent idempotency, logging, authenticated identity and security review.
+
+No URL/SQL/JS, new Pi permission, browser submission route or remote data operation is added. Tests cover authorized success, conflicts, isolation, timeout, retry and failure. Browser E2E for real persistence remains out of scope without an authorized service.

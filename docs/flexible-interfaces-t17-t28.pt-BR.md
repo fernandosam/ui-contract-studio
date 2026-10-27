@@ -88,3 +88,11 @@ Casos: (1) campos obrigatórios e erro de e-mail com foco/ARIA, (2) confirmaçã
 A política `e2eEligible` **não atribui** `status=passed`, certificados, eventos ou ações ao Pi; o contrato continua experimental e o catálogo estável não o aceita. A prévia e o E2E por PR não bastam para a promoção: é necessário executar manualmente o workflow `E2E manual (main)` depois da revisão do PR. Esse workflow verifica a versão da main, reinicia provas antigas, executa os casos reais, exige os resumos e screenshots compatíveis e certifica no job separado. Acessibilidade por leitor de tela e revisão manual de segurança permanecem explicitamente pendentes; testes automatizados de teclado/ARIA não equivalem a uma auditoria humana completa.
 
 Não interpretar evidência sintética de testes de unidade como prova de navegador; nunca forjar ou pré-gravar `certifications.json`. Mudança de digest, protocolo ou revisão invalida a certificação anterior.
+
+## T32 — Gateway de submissão autorizada (revisado em 2026-10-27)
+
+\`createSubmissionGateway\` é uma **fronteira exclusivamente de servidor confiável**: o hospedeiro precisa injetar serviços autorizados e obter usuário, tenant, permissões e verificação CSRF de sessão segura. \`defaultSubmissionGateway\` não aceita serviço algum. \`createInMemoryDemoService\` é uma fixture de teste isolada que aceita somente nome/e-mail, não persistência de produção.
+
+O gateway verifica entradas, evita duplicação concorrente e reutilização conflitante de chaves de idempotência, usa timeout com \`AbortSignal\` e devolve erros sanitizados. **Idempotência em memória e cancelamento não oferecem garantia transacional durável.** Produção exige backend aprovado à parte, idempotência persistente, autenticação, logs e revisão de segurança.
+
+Nenhuma URL/SQL/JS, permissão Pi, rota de browser ou operação remota foi acrescentada. Os testes cobrem sucesso, conflitos, isolamento, timeout, tentativa posterior e falhas. E2E de persistência real permanece fora do escopo sem serviço autorizado.
