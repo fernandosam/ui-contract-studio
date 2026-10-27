@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "component": "Field",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "shadcn",
+    "url": "https://ui.shadcn.com/docs/components/base/field",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "Usage",
+      "Composition",
+      "Anatomy",
+      "Responsive Layout",
+      "Validation and Errors",
+      "Accessibility",
+      "API Reference"
+    ]
+  },
+  "purpose": "Agrupar um controle já aprovado, seu título e uma descrição de apoio em uma unidade de formulário visualmente coerente, usando um único slot JSON permitido.",
+  "rationale": [
+    "Padroniza agrupamento, orientação e texto auxiliar de controles sem transferir JSX, funções ou estilos arbitrários ao agente.",
+    "Diferencia contexto visual/estado inválido da validação real: o adaptador não interpreta dados, não envia formulários e não cria mensagens de erro.",
+    "Permite compor controles aprovados preservando seus contratos específicos; o guia completo de shadcn não se transforma na API JSON restrita."
+  ],
+  "whenUse": [
+    "Associar um título e instrução curta a um Input, Select, Checkbox, Switch ou outro controle autorizado no slot default.",
+    "Organizar um campo vertical (padrão), horizontal ou responsivo conforme contexto e largura do contêiner.",
+    "Sinalizar visualmente invalid quando um fluxo já avaliou o dado em outra camada."
+  ],
+  "whenNotUse": [
+    "Esperar um formulário completo com submit, validação, obrigatoriedade, name, value ou mensagens automáticas: Field não expõe essas props.",
+    "Exigir HTML label ligado por htmlFor/id ou FieldError ao controle: o contrato atual só utiliza FieldTitle e FieldDescription.",
+    "Construir FieldSet/FieldGroup/FieldLegend aninhados ou inserir filhos não aprovados como JSX arbitrário: tais APIs da documentação não pertencem ao slot JSON.",
+    "Repetir múltiplos campos como tabela ou lista de registros: preferir composição de layout ou DataTable conforme a tarefa."
+  ],
+  "agentNotes": [
+    "Contrato aprovado 1.0.0: label obrigatório, description nullable; orientation opcional vertical|horizontal|responsive e invalid opcional boolean; slot apenas default; nenhum evento.",
+    "O wrapper usa FieldTitle (div) e não FieldLabel com htmlFor; a presença de título visual NÃO prova associação acessível ao controle filho. Exigir nome acessível no controle aprovado e validar com leitor de tela.",
+    "orientation='responsive' aplica CSS baseado em contêiner na primitiva; conferir o comportamento na composição real e em viewport estreito.",
+    "invalid marca data-invalid no wrapper para estilo; não aplica aria-invalid ao filho, não avalia regra de negócio nem renderiza FieldError.",
+    "Um filho do slot deve respeitar o catálogo/contratos Pi existentes; não inferir children arbitrários, render props, JSX, novos slots ou integração automática com biblioteca de formulários.",
+    "Capacidade documentada pela shadcn (FieldSet, FieldGroup, FieldLabel, FieldError) exige extensão revisada antes de ser ofertada como prop ou ação Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "approved-default-slot",
+      "description": "Recebe filhos apenas pelo slot default aprovado, sem JSX arbitrário na API.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "slots: [\"default\"]"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/field.tsx",
+          "contains": "children?:ReactNode"
+        }
+      ],
+      "testRequirements": [
+        "Verificar composição de um controle permitido e rejeição de slot/props extras na validação do contrato."
+      ]
+    },
+    {
+      "id": "title-and-description",
+      "description": "Apresenta título por FieldTitle e descrição opcional por FieldDescription.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/field.tsx",
+          "contains": "<FieldTitle>{props.label}</FieldTitle>"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/field.tsx",
+          "contains": "{props.description && <FieldDescription>{props.description}</FieldDescription>}"
+        }
+      ],
+      "testRequirements": [
+        "Renderizar com e sem descrição; verificar ordem e legibilidade do título."
+      ]
+    },
+    {
+      "id": "orientation-options",
+      "description": "Oferece orientação vertical, horizontal ou responsive, com vertical por padrão.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/catalog.ts",
+          "contains": "orientation: z.enum([\"vertical\", \"horizontal\", \"responsive\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/field.tsx",
+          "contains": "orientation={props.orientation ?? \"vertical\"}"
+        },
+        {
+          "path": "src/components/ui/field.tsx",
+          "contains": "@md/field-group:flex-row"
+        }
+      ],
+      "testRequirements": [
+        "Conferir três orientações em diferentes larguras e contêineres."
+      ]
+    },
+    {
+      "id": "invalid-wrapper-state",
+      "description": "Marca estado visual inválido no wrapper, sem validação automática do controle.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/field.tsx",
+          "contains": "data-invalid={props.invalid || undefined}"
+        },
+        {
+          "path": "src/components/ui/field.tsx",
+          "contains": "data-[invalid=true]:text-destructive"
+        }
+      ],
+      "testRequirements": [
+        "Conferir mudança visual, garantindo que o filho não recebe aria-invalid automaticamente."
+      ]
+    },
+    {
+      "id": "group-semantics",
+      "description": "A primitiva usada no adaptador produz uma região role=group.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/field.tsx",
+          "contains": "role=\"group\""
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/field.tsx",
+          "contains": "<ShadcnField orientation="
+        }
+      ],
+      "testRequirements": [
+        "Verificar role=group no DOM e se o controle possui nome acessível próprio."
+      ]
+    },
+    {
+      "id": "native-label-binding",
+      "description": "A associação automática FieldLabel/htmlFor a um input não integra o wrapper JSON atual.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em proposta funcional separada, associar label/id e verificar nome acessível sem duplicidade."
+      ]
+    },
+    {
+      "id": "field-error-mapping",
+      "description": "FieldError e mensagens dinâmicas de validação não são renderizados pelo adaptador Field.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em futura API revisada, mostrar erros com relação aria-describedby e aria-invalid no controle."
+      ]
+    },
+    {
+      "id": "fieldset-and-fieldgroup",
+      "description": "FieldSet, FieldLegend, FieldGroup e FieldSeparator da documentação não são novos slots ou props disponíveis em Field.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura requer revisão de nós/slots e validação de grupos complexos antes da admissão."
+      ]
+    },
+    {
+      "id": "accessible-control-association-runtime",
+      "description": "Comprovar em execução associação título-controle, leitura de descrição, foco e anúncio de erro na composição escolhida.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Testar teclado, leitor de tela e acessibilidade com controles reais, inclusive estado invalid."
+      ]
+    },
+    {
+      "id": "responsive-layout-runtime",
+      "description": "Comprovar layout horizontal/responsive sem sobreposição, perda de foco ou rótulo truncado.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Revisar breakpoints e container queries em mobile, desktop e zoom 200%."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Input",
+      "relationship": "form-control-slot",
+      "reason": "Envolver entrada textual autorizada; nome e erro precisam permanecer no controle."
+    },
+    {
+      "component": "Select",
+      "relationship": "choice-control-slot",
+      "reason": "Oferecer contexto e descrição para escolha; seleção continua no contrato do Select."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "boolean-control-slot",
+      "reason": "Agrupar uma opção binária; associação acessível exige teste do filho."
+    },
+    {
+      "component": "Switch",
+      "relationship": "toggle-control-slot",
+      "reason": "Compor opção habilitar/desabilitar, respeitando o próprio evento e estado do Switch."
+    },
+    {
+      "component": "RadioGroup",
+      "relationship": "choice-group-slot",
+      "reason": "Complementar agrupamento visual sem presumir fieldset/legend automático."
+    },
+    {
+      "component": "DatePicker",
+      "relationship": "date-control-slot",
+      "reason": "Dar contexto a um seletor de data sem duplicar rótulo ou validação."
+    },
+    {
+      "component": "Button",
+      "relationship": "form-action-candidate",
+      "reason": "Ação de formulário adjacente, não emitida pelo Field e sem submit implícito."
+    },
+    {
+      "component": "Alert",
+      "relationship": "validation-summary-candidate",
+      "reason": "Mostrar resumo de erro em composição aprovada, não gerado por Field."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Field é um formulário ou realiza submit?",
+      "guidance": "Não. É wrapper de um slot aprovado; não oferece eventos, value, name, submit ou persistência."
+    },
+    {
+      "question": "label garante associação do título ao input?",
+      "guidance": "Não. O adaptador usa FieldTitle (div) sem htmlFor/id. O filho precisa fornecer nome acessível próprio e o conjunto exige teste."
+    },
+    {
+      "question": "invalid valida valores ou anuncia erro automaticamente?",
+      "guidance": "Não. invalid só adiciona data-invalid visual. aria-invalid, regras e feedback devem pertencer a um fluxo explicitamente aprovado."
+    },
+    {
+      "question": "Posso usar FieldError, FieldSet e FieldLabel do exemplo oficial?",
+      "guidance": "A biblioteca base os possui, mas o contrato JSON aprovado não os exporta como props/slots de Field."
+    },
+    {
+      "question": "Quando escolher orientação horizontal/responsive?",
+      "guidance": "Vertical por padrão para leitura simples; horizontal para rótulos curtos; responsive somente após conferir container queries em uso real."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "approved-slot-and-strict-api",
+      "kind": "integration",
+      "description": "Validar somente props aprovadas e slot default; impedir novo campo, evento ou filho não autorizado.",
+      "capabilities": [
+        "approved-default-slot"
+      ]
+    },
+    {
+      "id": "helper-title-and-invalid",
+      "kind": "visual",
+      "description": "Verificar título, descrição nullable e data-invalid com/sem controle autorizado.",
+      "capabilities": [
+        "title-and-description",
+        "invalid-wrapper-state"
+      ]
+    },
+    {
+      "id": "orientation-viewport-matrix",
+      "kind": "visual",
+      "description": "Inspecionar três orientações em desktop, mobile e zoom, com textos longos.",
+      "capabilities": [
+        "orientation-options",
+        "responsive-layout-runtime"
+      ]
+    },
+    {
+      "id": "group-label-and-keyboard",
+      "kind": "manual-a11y",
+      "description": "Inspecionar role=group, associação de nome/descrição do controle, ordem Tab e anúncio de erro em leitor de tela.",
+      "capabilities": [
+        "group-semantics",
+        "accessible-control-association-runtime"
+      ]
+    },
+    {
+      "id": "native-label-and-errors-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Em mudança funcional futura, validar FieldLabel/FieldError/aria-invalid e vínculo com id sem novas APIs implícitas.",
+      "capabilities": [
+        "native-label-binding",
+        "field-error-mapping"
+      ]
+    },
+    {
+      "id": "fieldset-groups-proposal",
+      "kind": "candidate-not-executable",
+      "description": "Se houver futura admissão, verificar FieldSet/Legend/Group/Separator e slots permitidos com testes próprios.",
+      "capabilities": [
+        "fieldset-and-fieldgroup"
+      ]
+    }
+  ]
+}
