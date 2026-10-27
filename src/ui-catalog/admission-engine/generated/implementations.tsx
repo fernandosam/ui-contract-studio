@@ -16,4 +16,4 @@ export const experimentalImplementations = {
   TeamMemberAccordion: ({props}:{props:TeamMemberAccordionProps}) => <TeamMemberAccordion props={props}/>,
   CopyFeedbackButton: ({props}:{props:CopyFeedbackButtonProps}) => <CopyFeedbackButton props={props}/>,
   DeclarativeFormFlow: ({props}:{props:DeclarativeFormFlowProps}) => <DeclarativeFormFlow props={props}/>,
-}
+};
