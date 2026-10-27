@@ -108,7 +108,8 @@
     "requirements:audit": "tsx scripts/audit-requirements-scenarios.ts",
     "requirements:patterns:audit": "tsx scripts/audit-pattern-requirements.ts",
     "requirements:impact": "tsx scripts/audit-requirements-impact.ts",
-    "requirements:browser:report": "tsx scripts/verify-requirements-browser-evidence.ts"
+    "requirements:browser:report": "tsx scripts/verify-requirements-browser-evidence.ts",
+    "requirements:browser:prepare": "tsx scripts/prepare-requirements-browser-evidence.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

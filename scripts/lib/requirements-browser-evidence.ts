@@ -8,21 +8,10 @@ import {readFileSync,existsSync,writeFileSync,mkdirSync} from "node:fs";
 import {join} from "node:path";
 import {resolvePattern,generatePatternPreview} from "../../src/ui-requirements/patterns";
 import {tracePattern} from "../../src/ui-requirements/traceability";
+import {patternEvidenceCases,patternEvidenceRoot,browserProjects,type PatternEvidenceCase} from "./pattern-evidence-cases";
+export {patternEvidenceCases,patternEvidenceRoot,browserProjects,type PatternEvidenceCase} from "./pattern-evidence-cases";
 const lock=JSON.parse(readFileSync(new URL("../../src/ui-catalog/contracts.lock.json",import.meta.url),"utf8")) as {schemaVersion:number};
 
-export const patternEvidenceCases=[
- {id:"login-default",flow:"login",answers:{},checked:["identifier","remember","showHelp"]},
- {id:"login-user",flow:"login",answers:{identifier:"username",remember:true,showHelp:true},checked:["identifier","remember","showHelp"]},
- {id:"search-default",flow:"search",answers:{},checked:["dateFilter"]},
- {id:"search-dates",flow:"search",answers:{dateFilter:true},checked:["dateFilter"]},
- {id:"list-default",flow:"list",answers:{},checked:["title","compact","showSummary"]},
- {id:"list-compact",flow:"list",answers:{title:"Clientes",compact:true,showSummary:true},checked:["title","compact","showSummary"]},
- {id:"dashboard-kpis",flow:"dashboard",answers:{view:"kpis"},checked:["view","density","showFootnote"]},
- {id:"dashboard-graphs",flow:"dashboard",answers:{view:"graphs",showFootnote:true},checked:["view","showFootnote"]}
-] as const;
-export type PatternEvidenceCase=(typeof patternEvidenceCases)[number];
-export const patternEvidenceRoot="reports/requirements-browser";
-export const browserProjects=["desktop","mobile"] as const;
 const hash=(data:Buffer|string)=>createHash("sha256").update(data).digest("hex");
 const sha=/^[0-9a-f]{40}$/;
 const pngSignature=Buffer.from([137,80,78,71,13,10,26,10]);
@@ -33,6 +22,12 @@ export function specFingerprint(item:PatternEvidenceCase){
 function fail(reason:string):never{throw Error("Requirement browser evidence: "+reason);}
 export function verifyPatternBrowserEvidence(root:string,revision:string){
  if(!sha.test(revision))fail("invalid source revision");
+ const manifestPath=join(root,patternEvidenceRoot,"expected.json");
+ if(!existsSync(manifestPath))fail("missing source-bound preflight manifest");
+ let manifest:Record<string,unknown>;
+ try{manifest=JSON.parse(readFileSync(manifestPath,"utf8")) as Record<string,unknown>;}catch{fail("invalid preflight manifest");}
+ if(manifest.schemaVersion!==1||manifest.sourceRevision!==revision||!Array.isArray(manifest.cases)||manifest.cases.length!==patternEvidenceCases.length)
+  fail("stale or incomplete preflight manifest");
  const cases=[];
  for(const item of patternEvidenceCases){
   const spec=generatePatternPreview(resolvePattern(item.flow,item.answers));
@@ -41,6 +36,10 @@ export function verifyPatternBrowserEvidence(root:string,revision:string){
   const tracked=new Set(trace.requirements.map(t=>t.id));
   for(const id of item.checked)if(!tracked.has(id))fail(item.id+": undeclared requirement "+id);
   const fingerprint=specFingerprint(item);
+  const expected=(manifest.cases as Array<Record<string,unknown>>).find(c=>c.caseId===item.id);
+  if(!expected||expected.flow!==item.flow||expected.specFingerprint!==fingerprint||
+    JSON.stringify(expected.checkedRequirementIds)!==JSON.stringify(item.checked))
+   fail(item.id+": preflight fingerprint mismatch");
   const projects=[];
   for(const project of browserProjects){
    const base=join(root,patternEvidenceRoot,project,item.id);

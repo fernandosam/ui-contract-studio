@@ -93,6 +93,8 @@ jobs:
       - uses: ./.github/actions/setup-chromium
       - name: Clear evidence from earlier runs
         run: npm run admission:evidence:reset
+      - name: Prepare fingerprint manifest for actual browser tests
+        run: npm run requirements:browser:prepare
       - name: Verify admission compositions and requirements wizard on desktop/mobile
         run: |
           npx playwright test \

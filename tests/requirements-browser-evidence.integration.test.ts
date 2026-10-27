@@ -12,6 +12,10 @@ import {
 const revision="a".repeat(40);
 function setup(){
  const root=mkdtempSync(join(tmpdir(),"requirements-browser-synthetic-"));
+ const folder=join(root,patternEvidenceRoot);
+ mkdirSync(folder,{recursive:true});
+ writeFileSync(join(folder,"expected.json"),JSON.stringify({schemaVersion:1,sourceRevision:revision,
+  cases:patternEvidenceCases.map(c=>({caseId:c.id,flow:c.flow,specFingerprint:specFingerprint(c),checkedRequirementIds:c.checked}))}));
  for(const item of patternEvidenceCases)for(const project of browserProjects){
   const dir=join(root,patternEvidenceRoot,project);
   mkdirSync(dir,{recursive:true});

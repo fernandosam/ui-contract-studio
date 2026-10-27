@@ -1,9 +1,7 @@
 import {test,expect,type Locator} from "@playwright/test";
-import {mkdirSync,writeFileSync} from "node:fs";
+import {mkdirSync,writeFileSync,readFileSync} from "node:fs";
 import {join} from "node:path";
-import {
- patternEvidenceCases,patternEvidenceRoot,specFingerprint
-} from "../../scripts/lib/requirements-browser-evidence";
+import {patternEvidenceCases,patternEvidenceRoot} from "../../scripts/lib/pattern-evidence-cases";
 
 /** Real browser assertions. Captures are never pre-populated or replayed. */
 async function openPatternPreview(page:import("@playwright/test").Page,item:(typeof patternEvidenceCases)[number]){
@@ -95,10 +93,13 @@ test.afterEach(async({page},info)=>{
   await page.screenshot({path:screenshot,fullPage:true,animations:"disabled"});
   screenshotStatus=info.status==="passed"?"captured":"captured-failure";
  }catch{/* Verifier refuses absent captures. */}
+ const preflight=JSON.parse(readFileSync(join(process.cwd(),patternEvidenceRoot,"expected.json"),"utf8"));
+ const expected=preflight.cases?.find((c:{caseId:string})=>c.caseId===item.id);
+ if(!expected)throw Error("Missing expected browser case from trusted preflight");
  const payload={
   schemaVersion:1,caseId:item.id,flow:item.flow,project,
   sourceRevision:process.env.GITHUB_SHA??"",
-  specFingerprint:specFingerprint(item),checkedRequirementIds:item.checked,
+  specFingerprint:expected.specFingerprint,checkedRequirementIds:item.checked,
   status:info.status,expectedStatus:info.expectedStatus,retry:info.retry,
   screenshotStatus,errors:info.errors.map(err=>err.message??"unknown")
  };
