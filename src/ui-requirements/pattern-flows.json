@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "flows": [
+    {
+      "id": "login",
+      "title": "Login demonstrativo",
+      "intentKeywords": [
+        "login",
+        "entrar",
+        "autenticação"
+      ],
+      "questions": [
+        {
+          "id": "identifier",
+          "label": "Identificação",
+          "type": "select",
+          "required": true,
+          "default": "email",
+          "options": [
+            {
+              "value": "email",
+              "label": "E-mail"
+            },
+            {
+              "value": "username",
+              "label": "Usuário"
+            }
+          ]
+        },
+        {
+          "id": "remember",
+          "label": "Exibir opção lembrar-me?",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "title": "Busca e filtros",
+      "intentKeywords": [
+        "busca",
+        "pesquisa",
+        "filtro"
+      ],
+      "questions": [
+        {
+          "id": "dateFilter",
+          "label": "Mostrar filtros de datas?",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "id": "selection",
+          "label": "Habilitar seleção de linhas?",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "id": "pageSize",
+          "label": "Registros por página",
+          "type": "select",
+          "required": true,
+          "default": "5",
+          "options": [
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "10",
+              "label": "10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "list",
+      "title": "Lista CRUD demonstrativa",
+      "intentKeywords": [
+        "lista",
+        "crud",
+        "listagem"
+      ],
+      "questions": [
+        {
+          "id": "compact",
+          "label": "Usar tabela compacta?",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "id": "title",
+          "label": "Título da lista",
+          "type": "text",
+          "required": true,
+          "default": "Lista de usuários"
+        }
+      ]
+    },
+    {
+      "id": "dashboard",
+      "title": "Dashboard",
+      "intentKeywords": [
+        "dashboard",
+        "painel",
+        "indicadores",
+        "gráficos"
+      ],
+      "questions": [
+        {
+          "id": "view",
+          "label": "Quais indicadores apresentar?",
+          "type": "select",
+          "required": true,
+          "default": "kpis",
+          "options": [
+            {
+              "value": "kpis",
+              "label": "Indicadores KPI"
+            },
+            {
+              "value": "graphs",
+              "label": "Gráficos"
+            }
+          ]
+        },
+        {
+          "id": "density",
+          "label": "Quantidade de indicadores?",
+          "type": "select",
+          "required": true,
+          "default": "4",
+          "options": [
+            {
+              "value": "2",
+              "label": "Dois"
+            },
+            {
+              "value": "4",
+              "label": "Quatro"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
