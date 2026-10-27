@@ -1,7 +1,7 @@
 import {createHash} from "node:crypto";
 import {readFileSync} from "node:fs";
 import {join} from "node:path";
-import lock from "../ui-catalog/contracts.lock.json";
+const lock=JSON.parse(readFileSync(new URL("../ui-catalog/contracts.lock.json",import.meta.url),"utf8")) as {schemaVersion:number};
 import {resolvePattern,generatePatternPreview} from "./patterns";
 import {tracePattern} from "./traceability";
 import {catalog} from "../ui-catalog/catalog";
