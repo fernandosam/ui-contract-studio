@@ -1,12 +1,18 @@
 #!/usr/bin/env node
-import {mkdirSync,writeFileSync} from "node:fs";
+import {mkdirSync,writeFileSync,readFileSync} from "node:fs";
 import {dirname} from "node:path";
 import {buildSemanticKnowledge} from "./lib/semantic-knowledge.mjs";
 
 const args=process.argv.slice(2);
 const component=args.find(x=>x.startsWith("--component="))?.slice("--component=".length);
 const write=args.includes("--write");
-const {report,errors}=buildSemanticKnowledge();
+// The same versioned baseline used by the ReUI audit gives the CLI report its
+// real example coverage; guidance remains advisory and never admits a Pi type.
+const baseline=JSON.parse(readFileSync(new URL("../src/ui-catalog/reui-primitive-source-baseline.json",import.meta.url),"utf8"));
+const reuiExamples=baseline.entries.map(x=>({
+  id:x.exampleId,family:x.family,sourcePath:x.sourcePath,decision:x.semanticDecision,
+}));
+const {report,errors}=buildSemanticKnowledge({reuiExamples});
 if(errors.length){
   errors.forEach(message=>console.error("✗ "+message));
   process.exit(1);
