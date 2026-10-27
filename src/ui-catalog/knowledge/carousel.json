@@ -1,0 +1,468 @@
+{
+  "schemaVersion": 1,
+  "component": "Carousel",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/carousel",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Carousel?",
+      "Why Use Shadcn Carousel?",
+      "Shadcn Carousel Features",
+      "Integrating With Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Percorrer sequencialmente cartões ou conteúdos relacionados em uma região limitada, com navegação explícita por setas e, opcionalmente, indicadores de posição.",
+  "rationale": [
+    "Economizar espaço em vitrines pequenas sem expor dezenas de itens ao mesmo tempo.",
+    "Permitir exploração sequencial com indicação de posição e limites de navegação.",
+    "Evitar prometer mídia, autoplay, miniaturas e APIs Embla do React direto como propriedades do contrato JSON/Pi."
+  ],
+  "whenUse": [
+    "Exibir poucos destaques ou cartões com título e descrição curtos e navegáveis.",
+    "Mostrar um ou mais cartões por breakpoint com orientação horizontal ou vertical controlada.",
+    "Expor indicadores quando o conjunto é curto e a posição atual importa."
+  ],
+  "whenNotUse": [
+    "Conteúdo essencial ou dados que precisam ser vistos/comparados simultaneamente: preferir Grid, Table ou lista.",
+    "Galeria real de fotos, thumbnails, overlays, alt text e autoplay: exigir composição React/contrato específico, não usar o Carousel Pi textual.",
+    "Passos obrigatórios de um formulário: usar wizard/Stepper com progresso e regras, não slide simples.",
+    "Depender de teclado ArrowUp/ArrowDown na orientação vertical: o wrapper atual só intercepta esquerda/direita.",
+    "Exibir grande lista contínua ou streaming sem política de foco, navegação, acessibilidade ou carregamento."
+  ],
+  "agentNotes": [
+    "Contrato Pi aprovado: items de {title?,description?} até 50, orientation horizontal/vertical, loop, showArrows, showIndicators, slidesPerView 1|2|3 e ariaLabel. Sem URL, image, alt, plugins, autoplay, setApi, thumbnails, onSlideChange ou JSX livre.",
+    "Cada slide no adaptador é um Card textual; os 11 exemplos ReUI em TSX com picsum.photos, plugins, overlays ou miniaturas não provam suporte de mídia no JSON/Pi.",
+    "Com slidesPerView=2/3 a densidade é responsiva conforme classes lg/sm, e em vertical o adaptador aplica basis-full; não extrapolar 2/3 visíveis em vertical.",
+    "O loop é repassado a opts do Embla, mas em coleções pequenas o comportamento real precisa de navegador. O adaptador não emite evento de mudança de slide.",
+    "As setas do contrato são visíveis por padrão; podem ser ocultadas por showArrows=false, enquanto indicadores são opcionais e usam Embla.scrollSnapList, não necessariamente um ponto por item com múltiplos cards.",
+    "No adaptador Pi, Previous e Next recebem classes e styles de posicionamento estático, apesar de o primitive Carousel posicioná-las de modo absoluto por padrão.",
+    "O wrapper Carousel instala captura de ArrowLeft e ArrowRight mesmo com orientação vertical; testar conflito com foco em botões, leitura do conteúdo e navegação dentro de cards.",
+    "O wrapper expõe role=region/aria-roledescription=carousel e itens role=group/aria-roledescription=slide; ariaLabel vem do Pi ou fallback. Validar anúncio real e labels das setas em pt-BR.",
+    "O pacote embla-carousel-react está instalado, mas embla-carousel-autoplay não está declarado; não habilitar plugin ao Pi por documentação do fornecedor.",
+    "Orientações ReUI sobre autoplay, thumbnails, arrasto e reduced-motion são hipóteses de integração ou runtime, não certificação E2E.",
+    "Esta curadoria não altera contracts.lock.json, catálogo Zod, schemas, estado autorizado, plugins ou permissões Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "text-card-slides",
+      "description": "Renderiza até 50 slides definidos exclusivamente por título/descrição textuais do contrato.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Carousel: { props: obj({ items:z.array(obj({title:optionalText,description:optionalText})).max(50)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "(props.items??[]).map((item:any,i:number)=><CarouselItem"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnCard className="
+        }
+      ],
+      "testRequirements": [
+        "Renderizar vários slides textuais e confirmar que nenhum campo de mídia arbitrária se torna conteúdo executável."
+      ]
+    },
+    {
+      "id": "embla-local-carousel",
+      "description": "Monta engine Embla no wrapper React e expõe o eixo baseado em orientation.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "contains": "from \"embla-carousel-react\""
+        },
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "contains": "useEmblaCarousel("
+        },
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "contains": "axis: orientation === \"horizontal\" ? \"x\" : \"y\""
+        }
+      ],
+      "testRequirements": [
+        "Confirmar que a API Embla está ativa no navegador e mantém seleção com axis correto."
+      ]
+    },
+    {
+      "id": "orientation-and-loop",
+      "description": "Encaminha orientação horizontal/vertical e loop opcional ao wrapper do Carousel.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "orientation:z.enum([\"horizontal\",\"vertical\"])"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "loop:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnCarousel orientation={props.orientation??\"horizontal\"} opts={{loop:props.loop??false}}"
+        }
+      ],
+      "testRequirements": [
+        "Testar horizontal/vertical e loop com coleções suficientemente grandes; aferir setas nos limites."
+      ]
+    },
+    {
+      "id": "arrows-and-boundaries",
+      "description": "Exibe controles anterior/próximo por padrão e os desabilita conforme Embla canScrollPrev/Next.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.showArrows!==false"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<CarouselPrevious className="
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<CarouselNext className="
+        },
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "contains": "disabled={!canScrollPrev}"
+        },
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "contains": "disabled={!canScrollNext}"
+        }
+      ],
+      "testRequirements": [
+        "Testar setas visíveis/ocultas, disabled nas extremidades e loop em conjunto suficiente."
+      ]
+    },
+    {
+      "id": "selectable-dot-indicators",
+      "description": "Constrói indicadores pelos snap points; clique chama scrollTo e marca o atual.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "api.scrollSnapList().map((_,i)=><button"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onClick={()=>api.scrollTo(i)}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-current={i===selected?\"true\":undefined}"
+        }
+      ],
+      "testRequirements": [
+        "Habilitar indicadores e selecionar um snap; conferir aria-current e sincronização após setas."
+      ]
+    },
+    {
+      "id": "responsive-density",
+      "description": "Permite slidesPerView 1, 2 ou 3; classes Tailwind ajustam basis por breakpoint.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "slidesPerView:z.union([z.literal(1),z.literal(2),z.literal(3)])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.slidesPerView===2?\"basis-full lg:basis-1/2\""
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.slidesPerView===3?\"basis-full sm:basis-1/2 lg:basis-1/3\""
+        }
+      ],
+      "testRequirements": [
+        "Capturar mobile/tablet/desktop para 1, 2, 3; testar clipping e orientação vertical."
+      ]
+    },
+    {
+      "id": "aria-region-and-slide-roles",
+      "description": "O wrapper marca região/slide, e o Pi fornece ariaLabel ou fallback textual.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "ariaLabel:z.string().min(1).max(120)"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-label={props.ariaLabel??\"Carrossel de componentes\"}"
+        },
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "contains": "aria-roledescription=\"carousel\""
+        },
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "contains": "aria-roledescription=\"slide\""
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar nomes e papéis; leitor de tela ainda exige revisão em runtime."
+      ]
+    },
+    {
+      "id": "autoplay-plugin-pi",
+      "description": "Oferecer autoplay, temporização, pause-on-hover e política reduced-motion como props Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se aprovado, instalar plugin e testar pausa em foco, hover, interação e reduced-motion."
+      ]
+    },
+    {
+      "id": "rich-media-slides",
+      "description": "Permitir imagens com alt, vídeos, overlays, CTAs e fontes externas no Carousel JSON.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se aprovado, definir allowlist de mídia, alt obrigatório, fallback de carregamento e CTA autorizado."
+      ]
+    },
+    {
+      "id": "thumbnail-and-center-navigation",
+      "description": "Navegação sincronizada por miniaturas, alinhamento center e plugin API declarativa no Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Em evolução contratual, validar dois carrosséis, sincronização, slides parciais e foco."
+      ]
+    },
+    {
+      "id": "slide-events-and-remote-loading",
+      "description": "Expor evento Pi de slide selecionado e carregar slides de API/stream sem admissão própria.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "No futuro, certificar payload de eventos, carregamento, erros e autorização do backend."
+      ]
+    },
+    {
+      "id": "keyboard-focus-review",
+      "description": "Verificar captura de ArrowLeft/ArrowRight, foco de controles e conflitos em slides interativos, inclusive no eixo vertical.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "E2E teclado com foco em setas, dots e conteúdo; provar que setas verticais não são assumidas."
+      ]
+    },
+    {
+      "id": "touch-and-small-layout",
+      "description": "Validar gesto de swipe, rolagem, clipping e alvos de toque em mobile.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Executar device em viewport mobile e touch real/simulado com coleções curtas e longas."
+      ]
+    },
+    {
+      "id": "screen-reader-announcements",
+      "description": "Confirmar anúncio de carousel/slide, total, posição, labels dos controles e mudanças dinâmicas.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Inspecionar Accessibility Tree e testar leitor de tela, incluindo tradução das labels padrão."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Card",
+      "relationship": "slide-content",
+      "reason": "Cartões textuais da implementação Pi atual."
+    },
+    {
+      "component": "Button",
+      "relationship": "navigation-controls",
+      "reason": "Setas nativas e CTAs apenas em composições revisadas."
+    },
+    {
+      "component": "Badge",
+      "relationship": "optional-slide-tag",
+      "reason": "Etiquetas visuais requerem composição estática não prevista no item textual."
+    },
+    {
+      "component": "AspectRatio",
+      "relationship": "rich-media-candidate",
+      "reason": "Proporção estável para imagens de futura galeria rica."
+    },
+    {
+      "component": "Skeleton",
+      "relationship": "loading-candidate",
+      "reason": "Placeholder enquanto mídia de composição aprovada carrega."
+    },
+    {
+      "component": "Image",
+      "relationship": "media-candidate",
+      "reason": "Slides com URL/alt dependem de contrato próprio."
+    },
+    {
+      "component": "Tabs",
+      "relationship": "alternative-parallel-content",
+      "reason": "Quando o usuário precisa selecionar seções irmãs por rótulo estável, usar Tabs."
+    },
+    {
+      "component": "Table",
+      "relationship": "alternative-comparison",
+      "reason": "Quando itens precisam de comparação tabular e acesso simultâneo."
+    },
+    {
+      "component": "Rating",
+      "relationship": "review-candidate",
+      "reason": "Compor feedback em cards revisados, sem presumir suporte de JSX no item Pi."
+    },
+    {
+      "component": "Progress",
+      "relationship": "optional-status-candidate",
+      "reason": "Progresso de onboarding deve ter semântica própria em vez de inferir avanço pelo snap."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "O Carousel Pi pode mostrar imagens do ReUI?",
+      "guidance": "Não: items contêm title/description textuais; imgs com alt e placeholders estão em composições TSX separadas."
+    },
+    {
+      "question": "Qual mecanismo move os slides?",
+      "guidance": "O wrapper React usa embla-carousel-react; opts.loop e axis chegam ao Embla, mas resultados de touch e snap exigem runtime."
+    },
+    {
+      "question": "Posso adicionar autoplay via plugins?",
+      "guidance": "A primitiva React recebe plugins, mas o contrato Pi não; autoplay e controle de movimento exigem evolução separada."
+    },
+    {
+      "question": "Os dots representam cada item?",
+      "guidance": "Não necessariamente: são criados a partir de scrollSnapList(); em apresentação multislide, contagem de snaps pode ser diferente."
+    },
+    {
+      "question": "Como funciona a navegação vertical pelo teclado?",
+      "guidance": "O wrapper intercepta ArrowLeft e ArrowRight mesmo em vertical; ArrowUp/ArrowDown não é atalho declarado do Pi."
+    },
+    {
+      "question": "Setas somem nos extremos?",
+      "guidance": "O wrapper desabilita conforme canScrollPrev/Next; comportamento em loop depende de snaps suficientes e conferência runtime."
+    },
+    {
+      "question": "A API informa o slide selecionado ao agente?",
+      "guidance": "Não: não há evento change nem binding de slide no catálogo Carousel, embora indicadores acompanhem posição local."
+    },
+    {
+      "question": "Quando não usar Carousel?",
+      "guidance": "Preferir Grid/Table para conteúdo essencial e comparação, Tabs para categorias irmãs e componente especializado para galeria multimídia."
+    },
+    {
+      "question": "As labels e indicadores são acessíveis?",
+      "guidance": "Há atributos estáticos; leitor de tela, foco e contraste são critérios de E2E/manual, não capacidade certificada."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "static-text-cards",
+      "kind": "integration",
+      "description": "Instanciar cards textuais, verificar ordenação e rejeição de props de imagem não autorizadas.",
+      "capabilities": [
+        "text-card-slides"
+      ]
+    },
+    {
+      "id": "orientation-loop-axis",
+      "kind": "integration",
+      "description": "Executar eixo horizontal/vertical, loop true/false e limites de setas.",
+      "capabilities": [
+        "embla-local-carousel",
+        "orientation-and-loop",
+        "arrows-and-boundaries"
+      ]
+    },
+    {
+      "id": "dots-snap-selection",
+      "kind": "integration",
+      "description": "Exercitar scrollTo via dots e aria-current; distinguir snap de quantidade total de cards.",
+      "capabilities": [
+        "selectable-dot-indicators",
+        "responsive-density"
+      ]
+    },
+    {
+      "id": "responsive-density-matrix",
+      "kind": "visual",
+      "description": "Comparar slidesPerView 1/2/3 em mobile/tablet/desktop e vertical sem clipping.",
+      "capabilities": [
+        "responsive-density",
+        "touch-and-small-layout"
+      ]
+    },
+    {
+      "id": "keyboard-controls-a11y",
+      "kind": "manual-a11y",
+      "description": "Testar captura de ArrowLeft/ArrowRight, foco, labels e eixo vertical sem supor ArrowUp/Down.",
+      "capabilities": [
+        "keyboard-focus-review",
+        "aria-region-and-slide-roles"
+      ]
+    },
+    {
+      "id": "touch-swipe",
+      "kind": "integration",
+      "description": "Testar swipe e botões em touch, com loop curto e longa lista, sem perder foco.",
+      "capabilities": [
+        "touch-and-small-layout",
+        "arrows-and-boundaries"
+      ]
+    },
+    {
+      "id": "screenreader-slide-position",
+      "kind": "manual-a11y",
+      "description": "Inspecionar região, slide, posição, nome e anúncio de mudança em tecnologia assistiva.",
+      "capabilities": [
+        "screen-reader-announcements",
+        "aria-region-and-slide-roles"
+      ]
+    },
+    {
+      "id": "future-autoplay-safety",
+      "kind": "candidate-not-executable",
+      "description": "Após contrato e dependência aprovados, testar pausa/reduced-motion e consentimento de autoplay.",
+      "capabilities": [
+        "autoplay-plugin-pi"
+      ]
+    },
+    {
+      "id": "future-rich-media",
+      "kind": "candidate-not-executable",
+      "description": "Após contrato próprio, validar imagem alt, links, overlays e proteção de URLs.",
+      "capabilities": [
+        "rich-media-slides"
+      ]
+    },
+    {
+      "id": "future-thumbnails-center",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão, testar miniaturas sincronizadas, alinhamento e plugins.",
+      "capabilities": [
+        "thumbnail-and-center-navigation"
+      ]
+    },
+    {
+      "id": "future-slide-events",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão, validar payload de seleção e permissões de carregamento remoto.",
+      "capabilities": [
+        "slide-events-and-remote-loading"
+      ]
+    }
+  ]
+}
