@@ -33,6 +33,8 @@ test("semantic knowledge covers existing ReUI and shadcn guidance without creati
   assert.equal(alert.documentationReview,"reviewed-documentation");
   assert.equal(alert.approvedPiType,true);
   assert.ok(alert.capabilities.some(x=>x.id==="confirm-signal"&&x.state==="implemented-static-evidence"));
+  assert.ok(alert.capabilities.some(x=>x.id==="explicit-cancel"&&x.state==="implemented-static-evidence"));
+  assert.ok(alert.capabilities.some(x=>x.id==="small-size-footer"&&x.state==="implemented-static-evidence"));
   assert.ok(alert.implementationGaps.some(x=>x.id==="checkbox-gating"));
   assert.ok(alert.implementationGaps.some(x=>x.id==="focus-and-keyboard"));
   assert.equal(alert.integrationCandidates.find(x=>x.component==="Button").implementedDependency,true);
@@ -60,6 +62,8 @@ test("curated ReUI behavioral assertions require traceable first-party evidence"
   const folder=mkdtempSync(join(tmpdir(),"ui-semantic-evidence-"));
   try{
     write(folder,path,old);
+    write(folder,"src/components/ui/alert-dialog.tsx",
+      readFileSync("src/components/ui/alert-dialog.tsx","utf8"));
     write(folder,"src/ui-catalog/extensions/catalog.ts",
       readFileSync("src/ui-catalog/extensions/catalog.ts","utf8"));
     assert.deepEqual(validateSemanticOverlay(seed,folder),[]);
@@ -142,4 +146,21 @@ test("UI explorer renders curated semantics as advisory capability/test panels",
   assert.match(shell,/Regras de decisão e dúvidas frequentes/);
   assert.match(shell,/Testes recomendados/);
   assert.match(shell,/não novas permissões/);
+});
+
+test("semantic:check and semantic:report validate the overlay and generate an advisory-only report",()=>{
+  const script="scripts/analyze-semantic-knowledge.mjs";
+  const check=spawnSync(process.execPath,[script,"--check"],{encoding:"utf8"});
+  assert.equal(check.status,0,check.stderr||check.stdout);
+  const generated=spawnSync(process.execPath,[script,"--write"],{encoding:"utf8"});
+  assert.equal(generated.status,0,generated.stderr||generated.stdout);
+  const report=read("reports/composition-analysis/semantic-knowledge.json");
+  assert.equal(report.disclaimer,"Documentation guidance and code evidence do not authorize new props, events, backend actions, or Pi contracts.");
+  const profile=report.profiles.find(x=>x.component==="AlertDialog");
+  assert.equal(profile.provenance.reviewedOn,"2026-10-26");
+  assert.equal(profile.documentationReview,"reviewed-documentation");
+  assert.ok(profile.capabilities.some(x=>x.id==="small-size-footer"));
+  assert.ok(profile.implementationGaps.some(x=>x.id==="typed-confirmation"));
+  assert.ok(profile.derivedTestCases.some(x=>x.id==="cancel-no-confirm"));
+  assert.ok(profile.integrationCandidates.every(x=>x.admission==="advisory-only"));
 });

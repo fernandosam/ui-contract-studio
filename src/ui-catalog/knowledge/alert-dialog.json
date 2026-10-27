@@ -19,7 +19,8 @@
   "purpose": "Obter confirmação explícita para decisões críticas, com conteúdo de impacto e ações de confirmar/cancelar.",
   "rationale": [
     "Evitar operações irreversíveis acidentais.",
-    "Exigir atenção ao contexto antes de uma ação sensível; não usar para avisos sem decisão."
+    "Exigir atenção ao contexto antes de uma ação sensível; não usar para avisos sem decisão.",
+    "Separar confirmação visual de autorização e execução: o evento local confirm não concede acesso ao backend."
   ],
   "whenUse": [
     "Confirmações críticas e potencialmente irreversíveis, quando a decisão precisa ser explícita.",
@@ -34,7 +35,9 @@
     "No shadcn Base UI, Trigger compõe botão via render; variantes Radix usam asChild.",
     "Na variante Base UI, AlertDialogAction não deve ser presumido como fechamento automático: coordenar estado e fechamento explicitamente.",
     "A opção size='sm' pede atenção ao rodapé de duas ações.",
-    "As regras documentadas são orientação, não adição de props, efeitos colaterais ou permissões ao contrato Pi."
+    "As regras documentadas são orientação, não adição de props, efeitos colaterais ou permissões ao contrato Pi.",
+    "Uma composição experimental independente, como TypedConfirmationDialog, não adiciona confirmação digitada à API do AlertDialog básico.",
+    "A variante destructive define apresentação da ação, não autorização para excluir dados."
   ],
   "capabilities": [
     {
@@ -81,6 +84,42 @@
       ],
       "testRequirements": [
         "Verificar contraste e hierarquia com variante destrutiva."
+      ]
+    },
+    {
+      "id": "explicit-cancel",
+      "description": "Exibe controle de cancelamento ligado ao fechamento da primitiva Base UI; não usa a ação de confirmação.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/alert-dialog.tsx",
+          "contains": "<AlertDialogCancel>"
+        },
+        {
+          "path": "src/components/ui/alert-dialog.tsx",
+          "contains": "<AlertDialogPrimitive.Close"
+        }
+      ],
+      "testRequirements": [
+        "Cancelar com botão, retornar à interface de origem e verificar que confirm não foi emitido."
+      ]
+    },
+    {
+      "id": "small-size-footer",
+      "description": "Oferece a variante visual pequena, com rodapé de duas colunas na primitiva Base UI.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/extensions/components/alert-dialog.tsx",
+          "contains": "size={props.size??\"default\"}"
+        },
+        {
+          "path": "src/components/ui/alert-dialog.tsx",
+          "contains": "group-data-[size=sm]/alert-dialog-content:grid-cols-2"
+        }
+      ],
+      "testRequirements": [
+        "Testar size='sm' com exatamente duas ações, inclusive viewport móvel, sem corte ou sobreposição."
       ]
     },
     {
@@ -169,6 +208,10 @@
     {
       "question": "A ação destrutiva é executada pelo componente?",
       "guidance": "Não; o contrato atual apenas emite o evento confirm. Autorizações e persistência exigem handler autorizado."
+    },
+    {
+      "question": "A confirmação fecha sozinha na variante Base UI?",
+      "guidance": "Não presuma fechamento automático: no adaptador do catálogo, AlertDialogAction é botão comum e setOpen(false) é invocado explicitamente. Cancel usa a primitiva Close; testar os dois caminhos."
     }
   ],
   "derivedTestCases": [
@@ -204,6 +247,25 @@
       "capabilities": [
         "checkbox-gating",
         "typed-confirmation"
+      ]
+    },
+    {
+      "id": "cancel-no-confirm",
+      "kind": "integration",
+      "description": "Abrir e cancelar pelo controle explícito; verificar fechamento sem emissão do evento confirm.",
+      "capabilities": [
+        "explicit-cancel",
+        "confirm-signal"
+      ]
+    },
+    {
+      "id": "small-footer-and-destructive",
+      "kind": "visual",
+      "description": "Inspecionar size='sm' com duas ações, variante destrutiva, hierarquia, contraste e mobile.",
+      "capabilities": [
+        "small-size-footer",
+        "destructive-variant",
+        "mobile-dialog"
       ]
     }
   ]
