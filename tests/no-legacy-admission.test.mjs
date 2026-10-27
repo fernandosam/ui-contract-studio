@@ -25,7 +25,7 @@ test("v3 manifest defines one lifecycle per component, independent of source tie
   assert.equal(Object.hasOwn(entry,"lifecycle"),false);
   assert.equal(Object.hasOwn(entry,"exposedToPiExperimental"),false);
   assert.equal(official.components.find(item=>item.type===entry.type)?.sourceDigest,entry.sourceDigest);
-  assert.equal(protocols[entry.id]?.protocol,entry.e2eProtocol);
+  assert.equal(protocols[entry.id]?.protocol??null,entry.e2eProtocol);
  }
 });
 test("all four browser protocols share one verifier and obsolete approval paths are absent",()=>{

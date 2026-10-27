@@ -37,7 +37,8 @@ function requireFiles(path){return requireDir(path).filter(f=>f.endsWith('.json'
 import {readdirSync as requireDir} from 'node:fs';
 test('Pi publica apenas os 102 contratos ativos e rejeita nomes aposentados',()=>{
  const pi=read('pi-catalog/contracts.json');
- assert.equal(pi.components.length,106);
+ const entries=read('src/ui-catalog/admission-engine/entries.json').entries;
+ assert.equal(pi.components.length,lock.components.length+entries.length);
  assert.deepEqual(new Set(pi.components.filter(x=>x.tier!=='composition').map(x=>x.type)),new Set(lock.components.map(c=>c.name)));
  for(const contract of pi.components) assert.ok(!originals.has(contract.type));
 });
