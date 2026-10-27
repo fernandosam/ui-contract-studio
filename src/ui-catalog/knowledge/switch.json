@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "component": "Switch",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/switch",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "Shadcn Switch: Toggle Control for React Forms",
+      "What is Shadcn Switch?",
+      "Why Use Shadcn Switch?",
+      "Shadcn Switch Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Expressar e alterar uma preferência booleana ligada/desligada de forma reconhecível, com estado local imediato; a atualização de configuração remota depende de autorização e integração específicas.",
+  "rationale": [
+    "Distinguir liga/desliga de consentimento e de seleção entre alternativas, evitando ambiguidades de semântica.",
+    "Permitir contextualizar uma preferência com label e descrição curta, inclusive se ela estiver desabilitada.",
+    "Evitar promessa de salvamento automático: change não é confirmação de backend, e o estado pode exigir reversão em caso de erro."
+  ],
+  "whenUse": [
+    "Preferências booleanas em painéis de configuração: notificações, privacidade, modo de exibição ou recurso local.",
+    "Alternância de função ligada/desligada quando a mudança pode ser refletida pelo estado e o efeito foi implementado/autorizado.",
+    "Controle com rótulo explicativo, descrição e tamanho sm/default na superfície Pi existente."
+  ],
+  "whenNotUse": [
+    "Aceite de termos, declaração de consentimento, checklist de envio: usar Checkbox.",
+    "Escolha de uma dentre várias alternativas: Radio (primitiva React RadioGroup) ou Select.",
+    "Ativar operações destrutivas, pagamentos ou alteração sensível no ato do toggle sem confirmação e autorização de backend.",
+    "Agrupamento de vários botões pressionados e seleção de modo: preferir ToggleGroup.",
+    "Validação avançada, formulários com múltiplos campos ou painel Settings completo: composições não aprovadas automaticamente."
+  ],
+  "agentNotes": [
+    "Contrato Pi Switch: checked boolean|null, defaultChecked boolean, disabled, size sm/default, name e description; o schema não oferece required nem invalid.",
+    "O adaptador contém required={props.required}, mas a prop required NÃO é aceita pelo schema Pi Switch. Não inferir permissão do código do renderer para fora do contrato Zod.",
+    "ShadcnSwitch recebe checked de useValue e emite change após onCheckedChange. Não há chamada remota nem resultado de persistência; não anunciar 'Salvo' no evento local.",
+    "O wrapper instalado é Base UI, importado de @base-ui/react/switch, com Root e Thumb e estilos data-checked / data-unchecked; não confundir com trechos Radix usados em exemplos externos.",
+    "Label htmlFor/id e aria-describedby vinculam texto de apoio. Recomendação: descrever claramente consequências de ligar/desligar e não depender somente de cor.",
+    "size='sm' altera a geometria no wrapper React e está permitido pelo contrato Pi, mas requer revisão de alvo de toque, foco e legibilidade em mobile.",
+    "Para alteração remota assíncrona, criar fora do Switch um fluxo com pending, sucesso, erro, reversão/rollback e políticas de autorização; não inventar onSave, loading ou optimisticUpdate como props Pi.",
+    "Uma configuração desabilitada deve explicar o motivo via texto; disabled não é uma regra de acesso e backend deve fazer enforcement independente.",
+    "name é encaminhado no renderer, mas FormData e valores submitted on/off ainda exigem form real. Não confundir serialização com salvamento remoto.",
+    "O catálogo documental não concede schemas, tipos, eventos além de change, permissões Pi ou certificação E2E."
+  ],
+  "capabilities": [
+    {
+      "id": "local-checked-and-default",
+      "description": "O contrato aceita checked/defaultChecked, e o adaptador inicializa boolean com fallback false ou binding checked.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "checked:z.boolean().nullable().optional(),defaultChecked:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "useValue(props.checked??props.defaultChecked??false,bindings?.checked)"
+        }
+      ],
+      "testRequirements": [
+        "Cobrir checked true/false/null, defaultChecked e binding; verificar comportamento após interações."
+      ]
+    },
+    {
+      "id": "local-change-event",
+      "description": "O estado muda localmente e emite somente change, não efetiva alteração externa.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "onCheckedChange={(v:boolean)=>{setChecked(v===true);notify(emit,\"change\");}}"
+        },
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "events:[\"change\"],description:\"Switch ReUI:"
+        }
+      ],
+      "testRequirements": [
+        "Acionar e inspecionar evento único local, sem action externa automática."
+      ]
+    },
+    {
+      "id": "pi-size-sm-default",
+      "description": "size sm/default é aceita pelo contrato e encaminhada ao componente React com dimensões distintas.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "size:z.enum([\"sm\",\"default\"]).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "size={props.size??\"default\"}"
+        },
+        {
+          "path": "src/components/ui/switch.tsx",
+          "contains": "data-size={size}"
+        }
+      ],
+      "testRequirements": [
+        "Comparar sm/default no navegador e inspecionar tamanho real e alvo de toque."
+      ]
+    },
+    {
+      "id": "name-disabled-and-description",
+      "description": "Encaminha name, disabled e aria-describedby; exibe descrição referenciada quando fornecida.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "name={props.name} checked={checked} size={props.size??\"default\"} disabled={props.disabled}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-describedby={props.description?`${id}-help`:undefined}"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar HTML/a11y, name, associação da descrição e disabled."
+      ]
+    },
+    {
+      "id": "label-id-association",
+      "description": "O Switch renderiza Label ligado ao id estável produzido por useId.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnSwitch id={id} name={props.name}"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnLabel htmlFor={id}>{props.label}</ShadcnLabel>"
+        }
+      ],
+      "testRequirements": [
+        "Clicar no rótulo em grupos de Switch e validar IDs não duplicados."
+      ]
+    },
+    {
+      "id": "baseui-root-thumb",
+      "description": "O wrapper React usa Base UI Root e Thumb com estados CSS data-checked/data-unchecked.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/switch.tsx",
+          "contains": "import { Switch as SwitchPrimitive } from \"@base-ui/react/switch\""
+        },
+        {
+          "path": "src/components/ui/switch.tsx",
+          "contains": "<SwitchPrimitive.Root"
+        },
+        {
+          "path": "src/components/ui/switch.tsx",
+          "contains": "<SwitchPrimitive.Thumb"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar visual ligado/desligado, foco e contraste nos dois tamanhos."
+      ]
+    },
+    {
+      "id": "required-and-invalid-pi",
+      "description": "O contrato Pi não expõe required nem invalid para Switch, ainda que a primitiva React tenha possibilidades adicionais.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta futura: revisar schema, validação e mensagens de erro com testes dedicados."
+      ]
+    },
+    {
+      "id": "async-setting-persistence",
+      "description": "Salvar preferências com loading/erro/sucesso, rollback, debouncing e permissão externa a partir do change.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta: action explicitamente autorizada, idempotência, proteção de acesso e reconciliação com servidor."
+      ]
+    },
+    {
+      "id": "switch-group-or-rich-card",
+      "description": "Compor grupos tipados, cartões de configuração com iconografia e condicionais entre vários Switch.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Proposta de composto: definir dependências, dados e interação sem JSX arbitrário."
+      ]
+    },
+    {
+      "id": "native-form-serialization",
+      "description": "Validar FormData e semântica required/unchecked/name do Base UI Switch dentro de um form real.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "E2E: submit de Switch nomeado checked/unchecked/disabled, reset e ausência de informação falsa."
+      ]
+    },
+    {
+      "id": "keyboard-a11y-and-touch",
+      "description": "Confirmar papel acessível, anúncio on/off, Space/Enter, retorno de foco e alvo de toque em sm/mobile.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Teste manual de teclado/leitor de tela, toque e viewport responsivo."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Label",
+      "relationship": "control-label",
+      "reason": "Associação htmlFor/id já existe no adaptador e deve ser mantida."
+    },
+    {
+      "component": "Field",
+      "relationship": "description-and-errors-candidate",
+      "reason": "Ajuda, mensagens e grupos demandam composição de formulário."
+    },
+    {
+      "component": "Form",
+      "relationship": "form-state-candidate",
+      "reason": "Serialização, required e commit não são consequência do change local."
+    },
+    {
+      "component": "Checkbox",
+      "relationship": "consent-alternative",
+      "reason": "Aceite/documentação formal pede Checkbox, não uma preferência on/off."
+    },
+    {
+      "component": "RadioGroup",
+      "relationship": "exclusive-choice-alternative",
+      "reason": "Escolha exclusiva entre estados alternativos pede RadioGroup React/Radio Pi."
+    },
+    {
+      "component": "ToggleGroup",
+      "relationship": "multi-mode-alternative",
+      "reason": "Vários modos são escolhas de grupo, não booleanos independentes."
+    },
+    {
+      "component": "Card",
+      "relationship": "settings-card-candidate",
+      "reason": "Exibição de preferência, descrição e razão de disabled em bloco visual."
+    },
+    {
+      "component": "Alert",
+      "relationship": "save-feedback-candidate",
+      "reason": "Feedback de erro e sucesso de persistência após confirmação real do backend."
+    },
+    {
+      "component": "Button",
+      "relationship": "retry-or-confirm-candidate",
+      "reason": "Retry e ações com consequência devem ser explícitas após falha ou alerta."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Switch ou Checkbox?",
+      "guidance": "Switch para preferência on/off; Checkbox para aceite, escolha independente ou consentimento submetido."
+    },
+    {
+      "question": "A alteração do Switch já está salva?",
+      "guidance": "Não. O adaptador só mantém boolean local e notifica change; não há integração backend autorizada."
+    },
+    {
+      "question": "Posso informar required ou invalid no JSON Switch?",
+      "guidance": "Não no schema Pi: apenas o código React é capaz de recebê-los em outras composições; o contrato público Switch não os permite."
+    },
+    {
+      "question": "Quando usar Switch pequeno?",
+      "guidance": "size sm está permitido, mas mantenha rótulo e verifique alvo de toque, foco e acessibilidade em runtime."
+    },
+    {
+      "question": "Como evitar que toggle remoto falhe silenciosamente?",
+      "guidance": "Implementar em tarefa própria estado pending, erro, reversão e servidor autorizado; nunca tratar mudança local como confirmação."
+    },
+    {
+      "question": "Como tratar configurações dependentes ou perigosa?",
+      "guidance": "Usar composto/controlador aprovado e, se destrutiva, confirmação apropriada; disabled visual não substitui permissão."
+    },
+    {
+      "question": "name integra com FormData?",
+      "guidance": "É encaminhado ao wrapper; o formato da submissão e valores on/off devem ser verificados em form real."
+    },
+    {
+      "question": "Switch oferece multisseleção ou navegação em grupo?",
+      "guidance": "Não como contrato de grupo; múltiplos switches são independentes. ToggleGroup/RadioGroup resolvem escolhas exclusivas ou de modos."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "default-checked-binding",
+      "kind": "integration",
+      "description": "Cobrir checked/defaultChecked/null/binding e mudança local sem persistência.",
+      "capabilities": [
+        "local-checked-and-default",
+        "local-change-event"
+      ]
+    },
+    {
+      "id": "label-description-name",
+      "kind": "integration",
+      "description": "Verificar name, id, htmlFor, descrição e disabled em instâncias múltiplas.",
+      "capabilities": [
+        "name-disabled-and-description",
+        "label-id-association"
+      ]
+    },
+    {
+      "id": "size-and-color-states",
+      "kind": "visual",
+      "description": "Comparar sm/default, on/off, disabled, ring visível e overflow de rótulos longos.",
+      "capabilities": [
+        "pi-size-sm-default",
+        "baseui-root-thumb"
+      ]
+    },
+    {
+      "id": "name-formdata-runtime",
+      "kind": "integration",
+      "description": "Submeter form nomeado com checked/unchecked e disabled, e revisar valores no FormData.",
+      "capabilities": [
+        "native-form-serialization",
+        "name-disabled-and-description"
+      ]
+    },
+    {
+      "id": "keyboard-mobile-switch",
+      "kind": "manual-a11y",
+      "description": "Exercitar Tab, Space/Enter, rótulo, tela pequena, toque e anúncios on/off.",
+      "capabilities": [
+        "keyboard-a11y-and-touch",
+        "label-id-association"
+      ]
+    },
+    {
+      "id": "pi-unavailable-required-invalid",
+      "kind": "integration",
+      "description": "Rejeitar required/invalid em contrato Pi sem usar possibilidade do wrapper para ampliar autorização.",
+      "capabilities": [
+        "required-and-invalid-pi"
+      ]
+    },
+    {
+      "id": "future-remote-setting",
+      "kind": "candidate-not-executable",
+      "description": "Somente após integração autorizada testar pending, erro, rollback, salvamento e permissão backend.",
+      "capabilities": [
+        "async-setting-persistence"
+      ]
+    },
+    {
+      "id": "future-settings-composite",
+      "kind": "candidate-not-executable",
+      "description": "Validar cards e grupos de configuração após contrato composto próprio.",
+      "capabilities": [
+        "switch-group-or-rich-card"
+      ]
+    }
+  ]
+}
