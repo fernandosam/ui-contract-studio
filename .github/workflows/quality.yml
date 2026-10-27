@@ -44,6 +44,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Validate semantic evidence and generate advisory report
+        run: npm run semantic:check && npm run semantic:report
       - name: Verify docs and offline invariants
         run: npm run docs:check && npm run test:offline
       - name: Check reviewed API changes against PR base
