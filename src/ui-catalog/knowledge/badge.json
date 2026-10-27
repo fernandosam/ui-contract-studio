@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "component": "Badge",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/badge",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Badge?",
+      "Why Use Shadcn Badge?",
+      "Shadcn Badge Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Comunicar estado, categoria, papel ou contagem curta sem sugerir uma ação inexistente.",
+  "rationale": [
+    "Facilitar leitura de registros e cartões por meio de rótulos concisos.",
+    "Fornecer redundância textual para tons e indicadores de estado.",
+    "Diferenciar a API do Badge shadcn local das variantes ReUI e do contrato Pi."
+  ],
+  "whenUse": [
+    "Status e severidade acompanhados de palavra legível.",
+    "Contagem curta ou etiqueta de função em listagem.",
+    "Etiqueta de recurso, papel ou categoria no cabeçalho de card."
+  ],
+  "whenNotUse": [
+    "Executar ação ou link: usar Button ou Link.",
+    "Fornecer ajuda por hover/foco: usar Tooltip.",
+    "Comunicar mensagem detalhada: preferir Alert ou Field.",
+    "Usar dot e cor como únicos portadores de significado."
+  ],
+  "agentNotes": [
+    "Badge Pi exige label e limita variant a default, secondary, destructive e outline; tone, appearance, size e dot são as outras opções admitidas.",
+    "A primitiva React possui variantes adicionais ghost e link e usa useRender; não inferir estas opções, radius ou href no contrato Pi.",
+    "No playground, informar tone ou appearance força variant outline e aplica classes de cor; não presumir que variant fornecido tenha precedência.",
+    "dot é aria-hidden; o texto de label precisa comunicar estado para tecnologias assistivas.",
+    "A capacidade React de render polimórfico não torna Badge Pi clicável nem concede evento press/remove.",
+    "Rótulos extensos, contraste e combinações de tema exigem teste visual; curadoria não altera Zod, links ou permissões."
+  ],
+  "capabilities": [
+    {
+      "id": "label-and-limited-variants",
+      "description": "Renderiza label e variantes do enum aprovado.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Badge: { props: obj({label:z.string(),variant:z.enum([\"default\",\"secondary\",\"destructive\",\"outline\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.label}"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar label obrigatório e variantes permitidas."
+      ]
+    },
+    {
+      "id": "tone-appearance-precedence",
+      "description": "Aplica tons e aparências por classes com precedência de tone/appearance.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "tone:z.enum([\"neutral\",\"success\",\"info\",\"warning\",\"error\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.tone||props.appearance?\"outline\":props.variant??\"default\""
+        }
+      ],
+      "testRequirements": [
+        "Matriz dos tons com variant conflitante."
+      ]
+    },
+    {
+      "id": "sizing-and-dot",
+      "description": "Ajusta tipografia/padding e fornece ponto decorativo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "size:z.enum([\"sm\",\"md\",\"lg\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.dot&&<span aria-hidden=\"true\""
+        }
+      ],
+      "testRequirements": [
+        "Conferir 3 tamanhos com e sem dot."
+      ]
+    },
+    {
+      "id": "static-react-span",
+      "description": "Primitiva React usa span por padrão e suporta composição render local.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/badge.tsx",
+          "contains": "defaultTagName: \"span\""
+        },
+        {
+          "path": "src/components/ui/badge.tsx",
+          "contains": "useRender({"
+        }
+      ],
+      "testRequirements": [
+        "Checar elemento padrão sem comportamento de botão."
+      ]
+    },
+    {
+      "id": "interactive-chip-or-link",
+      "description": "Badge Pi não admite href, remover tag ou clique, mesmo com exemplos ReUI de chips interativos.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após admissão, testar foco, teclado, destino e handler autorizado."
+      ]
+    },
+    {
+      "id": "extra-reui-styles",
+      "description": "Badge Pi não admite radius nem variantes ghost/link da primitiva React.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se novos estilos forem aprovados, verificar enums e variações reais."
+      ]
+    },
+    {
+      "id": "color-contrast-and-overflow",
+      "description": "Contraste e rótulos longos em cores/temas diferentes dependem de renderização.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Revisar contraste, zoom e truncamento em todos os tons."
+      ]
+    },
+    {
+      "id": "status-screen-reader",
+      "description": "O significado de status não pode depender do ponto/cor e precisa de leitura assistiva.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Conferir label falado, dot ignorado e mensagens de severidade."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Avatar",
+      "relationship": "role-or-presence",
+      "reason": "Mostrar papel junto à identificação."
+    },
+    {
+      "component": "Table",
+      "relationship": "status-cell",
+      "reason": "Exibir status textual de linha."
+    },
+    {
+      "component": "Card",
+      "relationship": "metadata-tag",
+      "reason": "Rotular status ou categoria."
+    },
+    {
+      "component": "Button",
+      "relationship": "action-alternative",
+      "reason": "Reservar Button para ações."
+    },
+    {
+      "component": "Tooltip",
+      "relationship": "extra-context",
+      "reason": "Usar ajuda adicional em controle separado."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Badge aciona uma ação?",
+      "guidance": "Não, o Badge Pi é etiqueta estática; ações requerem outro contrato autorizado."
+    },
+    {
+      "question": "tone substitui variant?",
+      "guidance": "No playground, tone ou appearance força outline e aplica classes próprias."
+    },
+    {
+      "question": "Posso usar ghost/link e radius do ReUI?",
+      "guidance": "Não: o contrato Pi não admite esses estilos e props."
+    },
+    {
+      "question": "Como sinalizar severidade?",
+      "guidance": "Sempre comunicar no label e usar cor ou dot apenas como reforço."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "badge-visual-matrix",
+      "kind": "visual",
+      "description": "Revisar tone, appearance, variant, tamanho e contraste.",
+      "capabilities": [
+        "label-and-limited-variants",
+        "tone-appearance-precedence",
+        "sizing-and-dot",
+        "color-contrast-and-overflow"
+      ]
+    },
+    {
+      "id": "badge-aria",
+      "kind": "manual-a11y",
+      "description": "Validar leitura do label e ocultação do ponto.",
+      "capabilities": [
+        "status-screen-reader",
+        "sizing-and-dot"
+      ]
+    },
+    {
+      "id": "badge-native-span",
+      "kind": "integration",
+      "description": "Confirmar span não interativo e ausência de evento Pi.",
+      "capabilities": [
+        "static-react-span"
+      ]
+    },
+    {
+      "id": "badge-actions-future",
+      "kind": "candidate-not-executable",
+      "description": "Testar links/remoção apenas após admissão.",
+      "capabilities": [
+        "interactive-chip-or-link"
+      ]
+    },
+    {
+      "id": "badge-styles-future",
+      "kind": "candidate-not-executable",
+      "description": "Testar ghost/link/radius só após admissão.",
+      "capabilities": [
+        "extra-reui-styles"
+      ]
+    }
+  ]
+}
