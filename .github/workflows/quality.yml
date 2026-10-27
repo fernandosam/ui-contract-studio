@@ -106,6 +106,8 @@ jobs:
             tests/e2e/declarative-form-pi.spec.ts \
             tests/e2e/declarative-form-certification.spec.ts \
             --project=desktop --project=mobile
+      - name: Verify source-bound requirements browser evidence
+        run: npx tsx scripts/verify-requirements-browser-evidence.ts
       - name: Check all five fingerprint-bound browser evidence reports
         run: npm run admission:evidence:report
       - name: Preserve browser evidence for review
@@ -115,6 +117,7 @@ jobs:
           name: admission-browser-evidence
           path: |
             reports/composition-validation/
+            reports/requirements/browser-evidence/
             test-results/
           if-no-files-found: warn
           retention-days: 14

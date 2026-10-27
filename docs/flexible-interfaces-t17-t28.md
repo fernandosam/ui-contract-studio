@@ -106,3 +106,9 @@ The audit also measures first-pass acceptance on 12 registration and 12 pattern 
 ## T33 — Three choices in each pattern (2026-10-27)
 
 Each pattern now declares three bounded UI decisions: login optionally shows access help, lists can show a fictional-data summary, and dashboards can display a data disclaimer. The search flow already has three questions. All variants use existing Text/Card/Table/Metric/Grid contracts. Answers are tracked with provenance and checked against generated nodes. These presentation decisions never enable authentication, remote search, mutations or persistence.
+
+## T34 — Independent source-bound pattern-browser reports (2026-10-27)
+
+Playwright now records four representative pattern previews on desktop and mobile (eight browser results), each with the actual screenshot hash, commit SHA, GitHub run ID, pattern-spec fingerprint and requirement IDs. The focused PR workflow verifies these results in the **same GitHub Actions job** and uploads the artifacts; missing, failed, stale or tampered records fail closed. A result is called \`tested\` only in that verified CI evidence report.
+
+This is not a cryptographically signed artifact or an attestation independent from the workflow. It cannot certify other variants or replace the full manual E2E, authentication, persistence, screen-reader review or stable Pi admission. Outside CI, the audit still reports static-only coverage.

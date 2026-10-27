@@ -112,3 +112,9 @@ A auditoria mede a aprovação inicial de 12 variantes de cadastro e 12 variante
 ## T33 — Três decisões por padrão (2026-10-27)
 
 Cada fluxo declara pelo menos três decisões de interface: o login pode mostrar ajuda, a listagem exibir um resumo de dados fictícios e o dashboard uma nota sobre os valores. A busca já possuía três perguntas. Todas as variações reutilizam contratos Text/Card/Table/Metric/Grid aprovados. As respostas mantêm proveniência e são verificadas na árvore gerada. As novas decisões visuais não habilitam autenticação, busca remota, mutações ou persistência.
+
+## T34 — Relatórios de navegador vinculados ao código (2026-10-27)
+
+O Playwright agora registra prévias dos quatro padrões em desktop e mobile (oito resultados), com SHA-256 da captura, SHA do commit, ID da execução GitHub, fingerprint da spec e IDs dos requisitos. O workflow de PR verifica esses resultados **no mesmo job GitHub Actions** e publica os artefatos; resultados ausentes, falhos, antigos ou adulterados bloqueiam a verificação. O estado \`tested\` existe apenas no relatório conferido pelo CI.
+
+O artefato não é criptograficamente assinado nem constitui atestado independente do workflow. Não certifica outras variantes nem substitui o E2E manual completo, autenticação, persistência, revisão com leitor de tela ou admissão Pi estável. Fora do CI, a auditoria continua indicando somente cobertura estática.
