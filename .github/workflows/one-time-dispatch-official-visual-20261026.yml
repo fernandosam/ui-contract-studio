@@ -1,0 +1,21 @@
+name: One-time dispatch of independent official visual audit
+on:
+  push:
+    branches:
+      - ci/dispatch-official-visual-20261026
+permissions:
+  contents: read
+  actions: write
+jobs:
+  dispatch:
+    if: github.repository == 'fernandosam/ui-contract-studio'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Start official visual audit on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh workflow run official-visual-manual.yml --ref main --repo "$GITHUB_REPOSITORY"
+          echo "Independent official visual audit dispatched on main."
