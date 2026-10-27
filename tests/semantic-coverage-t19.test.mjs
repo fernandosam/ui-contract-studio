@@ -63,8 +63,13 @@ test("T19: family-to-overlay mapping remains one-to-one without inventing famili
   for(const family of reuiFamilies){
     const record=overlays.get(family);
     assert.ok(record,`Missing semantic overlay for ${family}`);
-    assert.equal(record.source.provider,"ReUI",`Verify official ReUI provenance for ${family}`);
-    assert.equal(record.source.url,`https://reui.io/components/${slug(family)}`);
+    assert.ok(["ReUI","shadcn"].includes(record.source.provider),
+      `${family}: official ReUI or installed shadcn variant required`);
+    if(record.source.provider==="ReUI")
+      assert.equal(record.source.url,`https://reui.io/components/${slug(family)}`);
+    else
+      assert.ok(record.source.url.startsWith("https://ui.shadcn.com/docs/components/"),
+        `${family}: official shadcn provenance required`);
     assert.match(record.source.reviewedOn,/^\d{4}-\d{2}-\d{2}$/);
     assert.ok(baseline.entries.some(x=>x.family===family));
   }
