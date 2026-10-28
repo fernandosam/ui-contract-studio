@@ -200,7 +200,10 @@ export function selectAgentSemanticAdvice(report,selectedTypes) {
     .map(x=>({
       type:x.component,whenUse:x.whenUse,whenNotUse:x.whenNotUse,
       agentNotes:x.agentNotes,
-      verifiedStaticCapabilities:x.capabilities.filter(c=>c.state==="implemented-static-evidence")
+      verifiedStaticCapabilities:x.capabilities.filter(c=>
+        report.capabilityAudit?.entries.some(entry=>
+          entry.component===x.component && entry.capability===c.id &&
+          entry.availability==="verified-static"))
         .map(c=>({id:c.id,description:c.description})),
       implementationGaps:x.implementationGaps,
       integrationCandidates:x.integrationCandidates.map(i=>({
