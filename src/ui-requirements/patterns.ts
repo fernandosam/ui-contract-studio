@@ -4,6 +4,7 @@ import dashboardKpis from "../ui-patterns/dashboard-kpis.json";
 import dashboardGraphs from "../ui-patterns/dashboard-analytics.json";
 import listTemplate from "../ui-patterns/crud-list.json";
 import {validateFlow,validAnswer,type Answers} from "./schema";
+import {planPatternLayout} from "./pattern-layout";
 
 const flows=flowDocument.flows.map(flow=>validateFlow({schemaVersion:1,...flow}));
 export const supportedPatterns=flows.map(f=>({id:f.id,title:f.title}));
@@ -77,11 +78,12 @@ const removeOrphans=(spec:PatternScreen):PatternScreen=>{
 export function generatePatternPreview(spec:PatternRequirements):PatternScreen{
  if(spec.missing.length)throw Error("Respostas obrigatórias: "+spec.missing.join(", "));
  const a=spec.answers;
+ const semantic=planPatternLayout(spec);
  if(spec.flow==="login"){
   const kind=a.identifier==="username"?"text":"email";
   const children=["identifier","password"];
   const elements:PatternScreen["elements"]={
-   root:{type:"Card",props:{title:"Acesso (demonstração)",description:"Sem autenticação ou envio real."},children:["fields","action","notice"]},
+   root:{type:"Card",props:{title:"Acesso (demonstração)",description:"Sem autenticação ou envio real.",maxWidth:semantic?.maxWidth,centered:semantic?.centered},children:semantic!.regions},
    fields:{type:"Stack",props:{direction:"vertical",gap:"md"},children},
    identifier:{type:"Input",props:{label:kind==="email"?"E-mail":"Usuário",name:"login",type:kind,placeholder:null,value:null,required:true,checks:null},children:[]},
    password:{type:"Input",props:{label:"Senha",name:"password",type:"password",placeholder:null,value:null,required:true,checks:null},children:[]},
@@ -89,12 +91,13 @@ export function generatePatternPreview(spec:PatternRequirements):PatternScreen{
    notice:{type:"Text",props:{text:"Exemplo visual; autenticação requer backend autorizado.",variant:"muted"},children:[]}
   };
   if(a.remember===true){elements.remember={type:"Checkbox",props:{label:"Lembrar-me (local)",name:"remember",checked:false},children:[]};children.push("remember");}
-  if(a.showHelp===true){elements.help={type:"Text",props:{text:"Use credenciais de demonstração. Nenhuma autenticação será realizada.",variant:"muted"},children:[]};elements.root.children.push("help");}
+  if(a.showHelp===true){elements.help={type:"Text",props:{text:"Use credenciais de demonstração. Nenhuma autenticação será realizada.",variant:"muted"},children:[]};/* Help is already positioned before the action by the semantic layout plan. */}
   return {root:"root",elements};
  }
  if(spec.flow==="search"){
   const view=copy(searchTemplate);
-  view.elements.root.children=a.dateFilter===true?["header","table","dates","required-date"]:["header","table"];
+  view.elements.root.children=semantic!.regions;
+  if(a.dateFilter===true)view.elements.filters={type:"Stack",props:{direction:"vertical",gap:"md",align:"stretch",justify:"start"},children:["dates","required-date"]};
   view.elements.table.props.selectable=a.selection===true;
   view.elements.table.props.pageSize=Number(a.pageSize);
   return removeOrphans(view);
@@ -116,13 +119,19 @@ export function generatePatternPreview(spec:PatternRequirements):PatternScreen{
    view.elements.stats.children=["m1-card","m2-card"];
    view.elements.stats.props.columns=2;
   }
-  if(a.view==="graphs"&&a.density==="2"){
-   view.elements.graph_grid.props.columns=2;
+  if(a.view==="kpis"){
+   view.elements.stats.props.gap="md";
+   view.elements["overview-title"]={type:"Heading",props:{text:"Visão geral · Indicadores demonstrativos",level:"h2"},children:[]};
+   view.elements.dashboard={type:"Stack",props:{direction:"vertical",gap:"lg",align:"stretch",justify:"start"},children:semantic!.regions};
+   view.root="dashboard";
+  }else{
+   view.elements.graph_grid.props.columns=semantic!.gridColumns;
+   view.elements.graphs.props.maxWidth="full";
+   view.elements.graphs.props.centered=false;
   }
   if(a.showFootnote===true){
    view.elements.footnote={type:"Text",props:{text:"Valores fictícios, sem atualização automática.",variant:"muted"},children:[]};
-   if(a.view==="graphs")view.elements[view.root].children.push("footnote");
-   else view.elements["m1-card"].children.push("footnote");
+   // Both variants append the note after the visual content (never inside a metric).
   }
   return removeOrphans(view);
  }
