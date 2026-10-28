@@ -39,7 +39,7 @@ function parseScreen(value:unknown):Screen|null{
  return {root:value.root,elements:nodes};
 }
 function graphSummary(screen:Screen){
- const visited=new Set<string>(),active=new Set<string>();
+ const visited=new Set<string>(),active=new Set<string>(),parents=new Map<string,number>();
  let sound=true;
  const walk=(id:string)=>{
   if(active.has(id)){sound=false;return;}
@@ -47,7 +47,12 @@ function graphSummary(screen:Screen){
   const node=screen.elements[id];
   if(!node){sound=false;return;}
   visited.add(id);active.add(id);
-  for(const child of node.children)walk(child);
+  for(const child of node.children){
+   const count=(parents.get(child)??0)+1;
+   parents.set(child,count);
+   if(count>1||child===screen.root)sound=false;
+   walk(child);
+  }
   active.delete(id);
  };
  walk(screen.root);
