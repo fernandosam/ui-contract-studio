@@ -81,6 +81,17 @@ test("T24 rejects forged provenance, permissions, target and dependency even whe
   p.target="TypedConfirmationDialog";data.entries.entries[0].e2eProtocol="different";
   assert.equal(review(data).evaluations[0].decision,"blocked-admission-integrity");
 });
+test("T24 keeps documented-only candidates out of the Admission Engine registry",()=>{
+  const data=fixture();
+  data.semanticCandidates=[{component:"Combobox",curatedSource:"src/ui-catalog/knowledge/combobox.json",
+    documentationReview:"reviewed-documentation"}];
+  const out=review(data);
+  assert.equal(out.summary.documentedCandidates,1);
+  assert.equal(out.documentedCandidates[0].decision,"documentation-only");
+  assert.equal(out.documentedCandidates[0].mayPublishNewPiType,false);
+  data.semanticCandidates[0].component="Button";
+  assert.equal(review(data).documentedCandidates[0].decision,"blocked-catalog-collision");
+});
 test("T24 reuses the official policy gate and never treats T23 as a bypass",()=>{
   const data=fixture();
   data.scenarios.scenarios[0].dependencies.push("NotApproved");
@@ -98,6 +109,12 @@ test("T24 evaluates live T23 gaps without creating an API or changing Pi",()=>{
   assert.equal(report.authority,"evaluation-only");
   assert.ok(report.summary.proposals>0);
   assert.ok(report.summary.uncoveredGaps>0);
+  for(const type of ["Combobox","Command","Sheet"]){
+    const candidate=report.documentedCandidates.find(x=>x.type===type);
+    assert.ok(candidate,type+" requires an explicit diagnostic row");
+    assert.equal(candidate.decision,"documentation-only");
+    assert.equal(candidate.mayActivateFromSemantics,false);
+  }
   assert.ok(report.summary.allowlistedWithoutT23Proposal.includes("form-declarative"));
   for(const row of report.evaluations){
     assert.equal(row.mayActivateFromSemantics,false);
