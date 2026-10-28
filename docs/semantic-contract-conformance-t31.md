@@ -61,3 +61,9 @@ Use `decision` to record a reviewable disposition for a gap. Supported `disposit
 Static local behavior does not need a fabricated public prop/event binding. `pi:context` now attaches the audited projection to `selected[].semantic` while retaining the backward-compatible `semanticAdvice` field. `propsSchema`, action definitions, maturity channels, and permissions remain authoritative and unchanged.
 
 The audit **does not automatically implement** capabilities, change React/Zod, bump lock versions, or admit compositions. For AlertDialog, the existing `confirm` event, `confirmVariant` and `size` props are mapped; checkbox gating and typed confirmation remain proposals for independently reviewed composition contracts.
+
+## T32 — AlertDialog first component remediation
+
+The approved AlertDialog API remains unchanged. Its existing React adapter now constrains popup width to the available viewport and height to the dynamic viewport, allowing internal scrolling instead of clipping actions on small/short devices. The primitive still provides a local `confirm` event and explicit cancellation; neither action requests backend access.
+
+The dedicated `tests/alert-dialog-semantic-t32.test.mjs` prevents accidental Zod/Pi expansion and checks that typed/checkbox gating stays an independent proposal. `tests/e2e/alert-dialog-semantic-t32.spec.ts` exercises Enter, Escape, focus restoration, cancellation, confirm closure, no network requests, and the small destructive presentation on desktop/mobile. The focused existing CI browser job includes this suite; the manual E2E workflow also picks it up. Tests are not automatically a certification or a semantic state promotion. Do not change `focus-and-keyboard` or `mobile-dialog` from `runtime-review-required` without independently reviewing the captured browser evidence.
