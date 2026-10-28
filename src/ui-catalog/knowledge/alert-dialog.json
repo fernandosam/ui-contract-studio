@@ -156,7 +156,13 @@
         "disposition": "propose-composition",
         "target": "AcknowledgedActionDialog",
         "reason": "A confirmação condicionada tem estado próprio e não deve alterar automaticamente a API do AlertDialog."
-      }
+      },
+      "contractBindings": [
+        {
+          "kind": "prop",
+          "name": "unapprovedSemanticGate"
+        }
+      ]
     },
     {
       "id": "typed-confirmation",
