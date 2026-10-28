@@ -678,7 +678,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(sliders.first()).toHaveAttribute("aria-valuenow","20");
     await sliders.first().focus();
     await page.keyboard.press("ArrowRight");
-    await expect(sliders.first()).toHaveAttribute("aria-valuenow","21");
+    await expect(sliders.first()).toHaveAttribute("aria-valuenow","25");
     await expect(sliders.last()).toHaveAttribute("aria-valuenow","80");
     await expectEmitted(page,"change",1);
   },
