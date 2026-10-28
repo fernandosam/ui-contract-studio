@@ -114,12 +114,12 @@ export function verifyCiAdmissionPolicy(root=rootDefault) {
   const schema=readFileSync(join(root,"scripts/composition-codegen/recipes",id+".schema.ts.txt"),"utf8");
   // License/proposal comments may mention prohibited operations as warnings.
   // Only executable source is subject to the static dangerous-API rule.
-  const executableSource=source.replace(/\\/\\*[\\s\\S]*?\\*\\//g,"").replace(/\\/\\/[^\\n]*/g,"");
-  const executableSchema=schema.replace(/\\/\\*[\\s\\S]*?\\*\\//g,"").replace(/\\/\\/[^\\n]*/g,"");
+  const executableSource=source.replace(/\/\*[\s\S]*?\*\//g,"").replace(/\/\/[^\n]*/g,"");
+  const executableSchema=schema.replace(/\/\*[\s\S]*?\*\//g,"").replace(/\/\/[^\n]*/g,"");
   if(!source.includes("PROPOSAL ONLY") || !schema.includes("REVIEW-ONLY") ||
      !schema.includes(".strict()") ||
-     /\\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB|eval|Function)\\b|navigator\\.clipboard|window\\.location|dangerouslySetInnerHTML|https?:\\/\\//.test(executableSource) ||
-     /\\b(?:onSuccess|onError|endpoint|backendUrl|callback|handler)\\b/.test(executableSchema))
+     /\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB|eval|Function)\b|navigator\.clipboard|window\.location|dangerouslySetInnerHTML|https?:\/\//.test(executableSource) ||
+     /\b(?:onSuccess|onError|endpoint|backendUrl|callback|handler)\b/.test(executableSchema))
    fail(id+": unsafe or expanded API; needs manual contract review");
  }
  return candidates.map(([id])=>id);
