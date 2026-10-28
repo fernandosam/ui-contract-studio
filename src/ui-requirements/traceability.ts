@@ -2,6 +2,7 @@ import {catalog,stableComponentDefinitions,stableComponentEventDescriptors,actio
 import {graphErrors} from "../../scripts/lib/spec-invariants.mjs";
 import type {RequirementSpec} from "./schema";
 import registrationLayout from "./registration-layout.json";
+import patternLayouts from "./pattern-layouts.json";
 import type {PatternRequirements} from "./patterns";
 
 type Node={type:string;props:Record<string,unknown>;children:string[]};
@@ -153,6 +154,17 @@ export function tracePattern(spec:PatternRequirements,generated:unknown):Traceab
  const emit=(id:string,nodeIds:string[],passes:boolean,explanation:string,needsRuntime=false)=>
   add(entries,{id,questionId:id,origin:source(spec.provenance,id),nodeIds,passes,explanation,needsRuntime});
  if(spec.flow==="login"){
+  const rule=patternLayouts.flows.login;
+  const desired=rule.order.filter(id=>id!=="help"||answer.showHelp===true);
+  const fields=answer.remember===true?["identifier","password","remember"]:["identifier","password"];
+  const wrapper=nodes.root,credentials=nodes.fields;
+  emit("layout",["root","fields",...desired],wrapper?.type==="Card"&&
+   wrapper.props.maxWidth===rule.maxWidth&&wrapper.props.centered===rule.centered&&
+   JSON.stringify(wrapper.children)===JSON.stringify(desired)&&
+   credentials?.type==="Stack"&&credentials.props.direction==="vertical"&&credentials.props.gap==="md"&&
+   JSON.stringify(credentials.children)===JSON.stringify(fields)&&
+   nodes.action?.type==="Button"&&nodes.notice?.type==="Text",
+   "Credenciais, ajuda opcional, ação e aviso em ordem semântica e cartão compacto");
   const kind=answer.identifier==="username"?"text":"email";
   emit("identifier",["identifier","password"],
    nodes.identifier?.type==="Input"&&nodes.identifier.props.type===kind&&
@@ -165,11 +177,22 @@ export function tracePattern(spec:PatternRequirements,generated:unknown):Traceab
    "Texto opcional de orientação, sem autenticação real");
  }else if(spec.flow==="search"){
   const table=nodes.table,root=nodes.root;
-  const dateIds=["dates","required-date"];
-  emit("dateFilter",answer.dateFilter===true?dateIds:[],
-   root?.type==="Stack"&&dateIds.every(id=>answer.dateFilter===true?
-    root.children.includes(id)&&nodes[id]?.type==="DatePicker":!root.children.includes(id)&&!nodes[id]),
-   "Filtros declarados; comportamento de filtragem de resultados exige runtime",answer.dateFilter===true);
+  const rule=patternLayouts.flows.search, dateIds=[...rule.filterChildren];
+  const withDates=answer.dateFilter===true;
+  const required=rule.order.filter(id=>id!=="filters"||withDates);
+  const filters=nodes.filters;
+  const correctFilters=withDates?
+   filters?.type==="Stack"&&filters.props.direction==="vertical"&&
+   JSON.stringify(filters.children)===JSON.stringify(dateIds)&&
+   dateIds.every(id=>nodes[id]?.type==="DatePicker"):
+   !filters&&dateIds.every(id=>!nodes[id]);
+  emit("layout",["root","header",...(withDates?["filters"]:[]),"table"],
+   root?.type==="Stack"&&root.props.direction==="vertical"&&root.props.gap==="lg"&&
+   JSON.stringify(root.children)===JSON.stringify(required)&&
+   nodes.header?.type==="Heading"&&table?.type==="DataTable"&&correctFilters,
+   "Título, filtros opcionais antes dos resultados e tabela em ordem de leitura");
+  emit("dateFilter",withDates?dateIds:[],Boolean(correctFilters),
+   "Filtros declarados antes da tabela; filtragem real ainda exige runtime",withDates);
   emit("selection",["table"],table?.type==="DataTable"&&table.props.selectable===answer.selection,
    "Configuração da seleção no DataTable",true);
   emit("pageSize",["table"],table?.type==="DataTable"&&table.props.pageSize===Number(answer.pageSize),
@@ -185,6 +208,27 @@ export function tracePattern(spec:PatternRequirements,generated:unknown):Traceab
    "Resumo demonstrativo sem ligação a API externa");
  }else if(spec.flow==="dashboard"){
   const isGraph=answer.view==="graphs";
+  const rule=isGraph?patternLayouts.flows.dashboard.graphs:patternLayouts.flows.dashboard.kpis;
+  const expected=rule.order.filter(id=>id!=="footnote"||answer.showFootnote===true);
+  const root=nodes[rule.root], grid=nodes[rule.grid];
+  const columns=isGraph?2:Number(answer.density);
+  const cards=isGraph?["graph_bar","graph_line"]:
+   columns===2?["m1-card","m2-card"]:["m1-card","m2-card","m3-card","m4-card"];
+  const layoutValid=!!root&&root.type===rule.container&&
+   JSON.stringify(root.children)===JSON.stringify(expected)&&
+   grid?.type==="Grid"&&grid.props.columns===columns&&
+   JSON.stringify(grid.children)===JSON.stringify(cards)&&
+   (isGraph?
+    root.props.title==="Gráficos"&&
+    root.props.maxWidth==="full"&&
+    nodes.graph_bar?.type==="BarGraph"&&nodes.graph_line?.type==="LineGraph":
+    root.props.direction==="vertical"&&root.props.gap==="lg"&&
+    nodes["overview-title"]?.type==="Heading"&&
+    nodes["overview-title"].props.text===patternLayouts.flows.dashboard.kpis.heading&&
+    nodes["overview-title"].props.level==="h2")&&
+   (answer.showFootnote===true?nodes.footnote?.type==="Text":!nodes.footnote);
+  emit("layout",[rule.root,rule.grid,...expected],layoutValid,
+   "Hierarquia visual, densidade declarada e nota posterior aos indicadores, sem dependência remota");
   const n=Object.values(nodes);
   emit("view",isGraph?["graph_bar","graph_line"]:["m1","m2","m3","m4"],
    isGraph?n.some(x=>x.type==="BarGraph")&&n.some(x=>x.type==="LineGraph")&&!n.some(x=>x.type==="Metric"):

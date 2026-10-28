@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "status": "semantic-guidance",
+  "reviewedOn": "2026-10-28",
+  "admission": "does-not-authorize-pi-contracts-actions-or-permissions",
+  "purpose": "Ordenar a hierarquia visual de login, busca e dashboard com componentes já admitidos, preservando a intenção, o foco de leitura e o caráter demonstrativo.",
+  "responsive": {
+    "mobileColumns": 1,
+    "maxGridColumns": 4,
+    "compactMaxGridColumns": 2,
+    "preserveDomReadingOrder": true
+  },
+  "flows": {
+    "login": {
+      "root": "root",
+      "container": "Card",
+      "maxWidth": "md",
+      "centered": true,
+      "order": [
+        "fields",
+        "help",
+        "action",
+        "notice"
+      ],
+      "optional": [
+        "help"
+      ],
+      "fields": [
+        "identifier",
+        "password",
+        "remember"
+      ],
+      "title": "Acesso (demonstração)",
+      "notes": [
+        "Credenciais antes da ação",
+        "Orientação de ajuda opcional antes da ação",
+        "Não inferir autenticação, sessão ou endpoints"
+      ]
+    },
+    "search": {
+      "root": "root",
+      "container": "Stack",
+      "order": [
+        "header",
+        "filters",
+        "table"
+      ],
+      "optional": [
+        "filters"
+      ],
+      "filterChildren": [
+        "dates",
+        "required-date"
+      ],
+      "notes": [
+        "Filtros explícitos precedem resultados",
+        "Busca e paginação permanecem dentro do DataTable existente",
+        "Nunca inferir API de busca ou exportação"
+      ]
+    },
+    "dashboard": {
+      "kpis": {
+        "root": "dashboard",
+        "container": "Stack",
+        "order": [
+          "overview-title",
+          "stats",
+          "footnote"
+        ],
+        "optional": [
+          "footnote"
+        ],
+        "grid": "stats",
+        "columns": [
+          2,
+          4
+        ],
+        "heading": "Visão geral · Indicadores demonstrativos",
+        "notes": [
+          "Título antes dos indicadores",
+          "Grid dimensionado pela densidade explícita",
+          "Notas após os indicadores, não dentro do primeiro cartão"
+        ]
+      },
+      "graphs": {
+        "root": "graphs",
+        "container": "Card",
+        "order": [
+          "graph_grid",
+          "footnote"
+        ],
+        "optional": [
+          "footnote"
+        ],
+        "grid": "graph_grid",
+        "columns": [
+          2
+        ],
+        "notes": [
+          "Gráficos no conteúdo principal do cartão",
+          "Nota após o conjunto de gráficos",
+          "Sem fontes de dados externas"
+        ]
+      }
+    }
+  },
+  "evidence": [
+    {
+      "path": "src/ui-requirements/patterns.ts",
+      "contains": "generatePatternPreview"
+    },
+    {
+      "path": "src/ui-requirements/traceability.ts",
+      "contains": "tracePattern"
+    },
+    {
+      "path": "src/ui-catalog/components/playground.tsx",
+      "contains": "Grid: ({props,children})"
+    }
+  ],
+  "tests": [
+    "login-hierarchy",
+    "search-filter-before-results",
+    "dashboard-density-and-notes",
+    "schema-valid-drift",
+    "no-remote-actions",
+    "impact-mapping"
+  ]
+}

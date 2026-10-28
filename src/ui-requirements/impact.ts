@@ -11,13 +11,14 @@ const families={
  registration:{sources:["src/ui-requirements/flows/registration.json","src/ui-requirements/generator.ts",
   "src/ui-requirements/form-proposal.ts","src/ui-requirements/registration-layout.json",
   "src/ui-requirements/registration-layout.ts"],components:["Input","Button","AlertDialog","Grid","Stack","Heading","Card"]},
- login:{sources:["src/ui-requirements/pattern-flows.json","src/ui-requirements/patterns.ts"],components:["Input","Button","Checkbox","Stack","Card"]},
+ login:{sources:["src/ui-requirements/pattern-flows.json","src/ui-requirements/patterns.ts","src/ui-requirements/pattern-layouts.json","src/ui-requirements/pattern-layout.ts"],components:["Input","Button","Checkbox","Stack","Card"]},
  search:{sources:["src/ui-patterns/search-and-filters.json","src/ui-requirements/pattern-flows.json",
-  "src/ui-requirements/patterns.ts"],components:["DataTable","DatePicker","Stack"]},
+  "src/ui-requirements/patterns.ts","src/ui-requirements/pattern-layouts.json","src/ui-requirements/pattern-layout.ts"],components:["DataTable","DatePicker","Stack","Heading"]},
  list:{sources:["src/ui-patterns/crud-list.json","src/ui-requirements/pattern-flows.json",
   "src/ui-requirements/patterns.ts"],components:["Table","Card"]},
  dashboard:{sources:["src/ui-patterns/dashboard-kpis.json","src/ui-patterns/dashboard-analytics.json",
-  "src/ui-requirements/pattern-flows.json","src/ui-requirements/patterns.ts"],components:["Metric","BarGraph","LineGraph","Grid"]},
+  "src/ui-requirements/pattern-flows.json","src/ui-requirements/patterns.ts",
+  "src/ui-requirements/pattern-layouts.json","src/ui-requirements/pattern-layout.ts"],components:["Metric","BarGraph","LineGraph","Grid","Heading","Stack","Card"]},
 } as const;
 type Family=keyof typeof families;
 const allFamilies=Object.keys(families) as Family[];
