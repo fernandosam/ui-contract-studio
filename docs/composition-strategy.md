@@ -141,3 +141,32 @@ npm run admission:evidence:report
 
 The unified verifier checks all 28 desktop/mobile cases (10 typed confirmation plus 18 other cases), screenshot integrity, tested revision and source digest. Focused PR CI is **not** stable certification. Only a complete manual E2E on main can record approved certificates. Remote actions remain forbidden; browser automation does not imply manual accessibility or security certification.
 
+
+
+## T22 — Automatic semantic capability gap audit (Delivery 4/P1)
+
+The audit inspects **all curated records** in `src/ui-catalog/knowledge/` without expanding the T20/T21 recommendation pilot. It reuses the recommendation engine's availability vocabulary and the existing `buildSemanticKnowledge` report. **Missing evidence is not proof of missing code.**
+
+| Availability | Auditable condition | Meaning |
+| --- | --- | --- |
+| `verified-static` | Reviewed `implemented-static-evidence` record and **every** first-party `src/` file/literal fragment matches | Static evidence only; neither runtime certification nor Pi admission |
+| `not-implemented` | Reviewed `documented-not-implemented` record without contradictory evidence | Declared gap, not an available API |
+| `missing-evidence` | Unsafe reference, missing path/fragment, empty evidence, conflicting or unreviewed state | Insufficient evidence; investigate instead of claiming code is absent |
+| `runtime-review-required` | Browser/assistive technology review is pending | Not certified by documentation |
+| `missing-record` | Requested capability lacks a reviewed record (recommendation fallback) | Missing record, not a statement about code |
+
+`npm run semantic:check` validates records and code fragments without writing outputs. `npm run semantic:report` produces `reports/composition-analysis/semantic-knowledge.json` (now including `capabilityAudit`) and `reports/composition-analysis/semantic-capability-gaps.json`. The latter includes category and per-component counts, stable sorted `entries` for **all** capabilities, and filtered `gaps` for unverified items. Every entry links component, capability, source, declared state, separate Pi status, rationale, suggested tests, and per-fragment result (`matched`, `missing-fragment`, `missing-file`, `unsafe-reference`).
+
+Examples: Button `local-press-event` has code evidence; `copy-or-external-action` is documented only; AlertDialog `focus-and-keyboard` awaits runtime testing. Combobox has React primitives present in code, yet `pi-selection-contract` is neither implemented nor admitted. Code evidence never grants Pi authority.
+
+Run the existing gates plus focused tests and record actual logs:
+
+```bash
+node --test tests/semantic-capability-audit.test.mjs
+npx tsx --test tests/composition-recommender.integration.test.ts
+npm run semantic:check
+npm run semantic:report
+npm run composites:recommend:check
+```
+
+These reports are advisory, **not E2E certificates**. Existing Zod schemas, `contracts.lock.json`, admitted contracts, the Admission Engine and Pi permissions remain authoritative and unchanged.

@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "component": "Avatar",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/avatar",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Avatar?",
+      "Why Use Shadcn Avatar?",
+      "Shadcn Avatar Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Identificar visualmente uma pessoa com iniciais e, quando houver integração aprovada, fotografia e presença, preservando identidade compreensível.",
+  "rationale": [
+    "Reduzir perda de contexto em listas de colaboradores e cartões de perfil.",
+    "Manter fallback inteligível e não depender apenas da cor para sinalizar presença.",
+    "Não confundir o src aceito pelo schema com carregamento de imagem efetivo no renderizador Pi."
+  ],
+  "whenUse": [
+    "Autores de comentários, membros de equipe ou seletores de conta acompanhados de nome.",
+    "Indicar presença informada pela aplicação com texto equivalente.",
+    "Reservar representação compacta de pessoa em linhas de tabela ou cartão."
+  ],
+  "whenNotUse": [
+    "Menu de ações de conta: usar DropdownMenu.",
+    "Diretório com papéis, convites e gestão: usar tabela ou composição especializada.",
+    "Carregamento remoto de fotos, upload, autenticação ou monitoramento de presença não implementados no Avatar Pi."
+  ],
+  "agentNotes": [
+    "O contrato Pi permite name obrigatório, src opcional, size, shape, status e statusPosition; o renderizador atual apenas monta AvatarFallback, sem AvatarImage ou uso de src.",
+    "As iniciais são derivadas dos dois primeiros segmentos de name por split; não copiar iniciais de exemplos e revisar nomes atípicos em runtime.",
+    "O indicador de status é span com role img e aria-label textual; não há assinatura, polling nem atualização remota.",
+    "O adaptador usa classes de tamanho size-8/10/12, não a prop size da primitiva shadcn; shape square arredonda raiz e fallback, mas a pseudoborda ::after da primitiva continua arredondada.",
+    "AvatarGroup, AvatarGroupCount e AvatarBadge existem na biblioteca React, mas não são propriedades nem slots do contrato Pi Avatar.",
+    "Um recurso citado na documentação ReUI não constitui autorização para novos handlers, URL externa ou API Pi."
+  ],
+  "capabilities": [
+    {
+      "id": "fallback-from-name",
+      "description": "Deriva duas letras de name e as insere em AvatarFallback.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Avatar: { props: obj({src:optionalText,name:z.string()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "String(props.name).split(\" \").map((x:string)=>x[0]).slice(0,2).join(\"\").toUpperCase()"
+        }
+      ],
+      "testRequirements": [
+        "Validar iniciais de nomes curtos e compostos."
+      ]
+    },
+    {
+      "id": "size-and-shape",
+      "description": "Oferece tamanhos e formato visual via classes no adaptador.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "shape:z.enum([\"circle\",\"square\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "props.size===\"lg\"?\"size-12\":props.size===\"sm\"?\"size-8\":\"size-10\""
+        }
+      ],
+      "testRequirements": [
+        "Revisar círculos e quadrados em sm/md/lg."
+      ]
+    },
+    {
+      "id": "presence-indicator",
+      "description": "Exibe estado de presença declarado nos quatro cantos, com aria-label descritivo.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "statusPosition:z.enum([\"bottom-right\",\"bottom-left\",\"top-right\",\"top-left\"])"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "{props.status&&<span role=\"img\" aria-label={`Presença:"
+        }
+      ],
+      "testRequirements": [
+        "Validar posições e rótulos de todos os estados."
+      ]
+    },
+    {
+      "id": "react-group-primitives",
+      "description": "A biblioteca React oferece agrupamento, contador e badge como primitivas locais, sem expor estes como props Pi.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/avatar.tsx",
+          "contains": "function AvatarGroup("
+        },
+        {
+          "path": "src/components/ui/avatar.tsx",
+          "contains": "function AvatarGroupCount("
+        },
+        {
+          "path": "src/components/ui/avatar.tsx",
+          "contains": "function AvatarBadge("
+        }
+      ],
+      "testRequirements": [
+        "Confirmar exportações e separar o uso React da API Pi."
+      ]
+    },
+    {
+      "id": "pi-image-rendering",
+      "description": "src é aceito pelo contrato, mas a montagem de imagem e tratamento de falha não aparecem no adaptador Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se proposto, testar src permitido, alt, erro e fallback."
+      ]
+    },
+    {
+      "id": "profile-workflow",
+      "description": "Upload, crop, navegação de conta e presença remota não fazem parte de Avatar Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se aprovado, testar autorização, armazenamento e atualização de status."
+      ]
+    },
+    {
+      "id": "square-pseudo-border",
+      "description": "A borda ::after circular da primitiva pode conflitar com shape square aplicado à raiz.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar borda em square nos temas e tamanhos."
+      ]
+    },
+    {
+      "id": "fallback-and-presence-accessibility",
+      "description": "Nomes em branco/atípicos e leitura de status exigem teste no navegador e leitor de tela.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Inspecionar nomes, contraste e anúncio de presença."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Badge",
+      "relationship": "role-chip",
+      "reason": "Combinar papel ou contagem com a pessoa."
+    },
+    {
+      "component": "DropdownMenu",
+      "relationship": "account-action-trigger",
+      "reason": "Separar identificação das ações de conta."
+    },
+    {
+      "component": "Card",
+      "relationship": "profile-card",
+      "reason": "Apresentar pessoa e dados resumidos."
+    },
+    {
+      "component": "Skeleton",
+      "relationship": "loading-profile",
+      "reason": "Reservar espaço antes de dados chegarem."
+    },
+    {
+      "component": "Table",
+      "relationship": "team-row",
+      "reason": "Associar pessoa a linhas com informação textual."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "O contrato Pi carrega src?",
+      "guidance": "Não: o adaptador monta apenas AvatarFallback; imagem remota exige implementação independente."
+    },
+    {
+      "question": "Presença é em tempo real?",
+      "guidance": "Não. status é um valor visual informado; exigir fonte confiável e rótulo equivalente."
+    },
+    {
+      "question": "Posso usar AvatarGroup em Pi?",
+      "guidance": "A primitiva React existe, mas não foi admitida como slot ou prop do Avatar Pi."
+    },
+    {
+      "question": "shape square funciona integralmente?",
+      "guidance": "A pseudoborda circular permanece na primitiva; verificar o efeito visual."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "fallback-shape",
+      "kind": "visual",
+      "description": "Verificar fallback, tamanhos e borda dos dois formatos.",
+      "capabilities": [
+        "fallback-from-name",
+        "size-and-shape",
+        "square-pseudo-border"
+      ]
+    },
+    {
+      "id": "presence-a11y",
+      "kind": "manual-a11y",
+      "description": "Checar quatro posições, nomes atípicos e anúncio com leitor de tela.",
+      "capabilities": [
+        "presence-indicator",
+        "fallback-and-presence-accessibility"
+      ]
+    },
+    {
+      "id": "group-react",
+      "kind": "integration",
+      "description": "Checar primitivas de grupo no React sem inferir novas props Pi.",
+      "capabilities": [
+        "react-group-primitives"
+      ]
+    },
+    {
+      "id": "future-image",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão, testar carga, segurança e fallback de foto.",
+      "capabilities": [
+        "pi-image-rendering"
+      ]
+    },
+    {
+      "id": "future-profile",
+      "kind": "candidate-not-executable",
+      "description": "Após admissão, testar fluxo de edição e status remoto.",
+      "capabilities": [
+        "profile-workflow"
+      ]
+    }
+  ]
+}

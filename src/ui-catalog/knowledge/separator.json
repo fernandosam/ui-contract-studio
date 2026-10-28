@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "component": "Separator",
+  "language": "pt-BR",
+  "status": "reviewed-documentation",
+  "source": {
+    "provider": "ReUI",
+    "url": "https://reui.io/components/separator",
+    "reviewedOn": "2026-10-27",
+    "sections": [
+      "For AI Agents",
+      "What is Shadcn Separator?",
+      "Why Use Shadcn Separator?",
+      "Shadcn Separator Features",
+      "Integrating with Other Components",
+      "Frequently Asked Questions"
+    ]
+  },
+  "purpose": "Delimitar visualmente regiões de conteúdo e, quando adequado, comunicar uma separação semântica não interativa.",
+  "rationale": [
+    "Melhorar organização visual sem criar navegação ou ações.",
+    "Distinguir divisória puramente decorativa de marcador com legenda.",
+    "Evitar inferir comportamento da variante Radix a partir da primitiva Base UI instalada."
+  ],
+  "whenUse": [
+    "Separar cabeçalho, corpo e rodapé de cartão.",
+    "Dividir itens adjacentes com regra vertical em linha de altura conhecida.",
+    "Exibir pausa horizontal com legenda curta como 'ou'."
+  ],
+  "whenNotUse": [
+    "Representar trilha de navegação: usar Breadcrumb.",
+    "Indicar etapas de workflow/log: usar componentes próprios de etapas ou Marker.",
+    "Substituir headings ou grupos semânticos de formulário.",
+    "Presumir legenda vertical ou separador clicável."
+  ],
+  "agentNotes": [
+    "O contrato Pi aceita orientation horizontal/vertical, decorative boolean e label de no máximo 80 caracteres; não tem prop de cor, espessura ou evento.",
+    "No caminho simples, o adaptador passa aria-hidden={decorative!==false} à primitiva Base UI; sem decorative o separador fica oculto para tecnologia assistiva.",
+    "Com label e orientation diferente de vertical, o playground cria div com role=separator e aria-label, duas linhas aria-hidden e um span com texto.",
+    "Quando orientation=vertical, label não é renderizado; não anunciar funcionalidade de legenda vertical.",
+    "A primitiva local usa @base-ui/react/separator, orientação horizontal por padrão e data-vertical:self-stretch; a regra vertical precisa de altura definida pelo layout.",
+    "A ReUI menciona variantes Base UI/Radix com diferentes defaults de decorative; verificar versão instalada e DOM, sem importar semântica Radix indiscriminadamente.",
+    "Separador não navega nem emite evento; revisar contraste/zoom e leitor de tela em runtime."
+  ],
+  "capabilities": [
+    {
+      "id": "orientation-base-ui",
+      "description": "Contrato Pi define eixo e a implementação usa primitiva Base UI.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "Separator: { props: obj({orientation:z.enum([\"horizontal\",\"vertical\"])"
+        },
+        {
+          "path": "src/components/ui/separator.tsx",
+          "contains": "@base-ui/react/separator"
+        },
+        {
+          "path": "src/components/ui/separator.tsx",
+          "contains": "orientation = \"horizontal\""
+        }
+      ],
+      "testRequirements": [
+        "Conferir eixos horizontal e vertical no DOM."
+      ]
+    },
+    {
+      "id": "decorative-simple-path",
+      "description": "No caminho sem legenda, decorative determina aria-hidden; padrão é oculto.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "decorative:z.boolean().optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<ShadcnSeparator orientation={props.orientation??\"horizontal\"} aria-hidden={props.decorative!==false}/>"
+        }
+      ],
+      "testRequirements": [
+        "Testar decorative omitido/true/false, por teclado e leitor de tela."
+      ]
+    },
+    {
+      "id": "horizontal-labeled-break",
+      "description": "Com label horizontal, há wrapper semântico e duas linhas decorativas.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/ui-catalog/catalog.ts",
+          "contains": "label:z.string().max(80).optional()"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "? <div className=\"flex items-center gap-3\" role=\"separator\" aria-label={props.label}>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "<span className=\"whitespace-nowrap text-xs text-muted-foreground\">{props.label}</span>"
+        }
+      ],
+      "testRequirements": [
+        "Inspecionar label='ou', sua leitura e a ocultação de linhas internas."
+      ]
+    },
+    {
+      "id": "vertical-stretch",
+      "description": "A linha vertical usa largura de 1px e altura self-stretch.",
+      "state": "implemented-static-evidence",
+      "evidence": [
+        {
+          "path": "src/components/ui/separator.tsx",
+          "contains": "data-vertical:w-px data-vertical:self-stretch"
+        }
+      ],
+      "testRequirements": [
+        "Conferir altura útil em layout flex row e grid."
+      ]
+    },
+    {
+      "id": "vertical-labeled-break",
+      "description": "label não é aplicado na orientação vertical do renderizador Pi.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Se nova composição for aprovada, testar legenda vertical sem perda de legibilidade."
+      ]
+    },
+    {
+      "id": "custom-line-tokens",
+      "description": "Pi não expõe espessura, largura ou estilo tracejado por props.",
+      "state": "documented-not-implemented",
+      "evidence": [],
+      "testRequirements": [
+        "Após aprovação, validar tokens e variantes tipadas."
+      ]
+    },
+    {
+      "id": "separator-semantic-runtime",
+      "description": "Role/aria-hidden e anúncio de label variam conforme o caminho; teste de leitor de tela é necessário.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Verificar DOM e VoiceOver/NVDA em todos os ramos."
+      ]
+    },
+    {
+      "id": "responsive-visibility",
+      "description": "Regra vertical pode desaparecer sem altura e legenda pode transbordar em viewport estreito.",
+      "state": "runtime-review-required",
+      "evidence": [],
+      "testRequirements": [
+        "Validar altura flex, zoom, mobile e rótulo longo."
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "component": "Card",
+      "relationship": "content-sections",
+      "reason": "Delimitar seções do card."
+    },
+    {
+      "component": "ButtonGroup",
+      "relationship": "toolbar-divider",
+      "reason": "Separar grupos visuais de ações."
+    },
+    {
+      "component": "Table",
+      "relationship": "group-boundary",
+      "reason": "Indicar seções de informações tabeladas."
+    },
+    {
+      "component": "Breadcrumb",
+      "relationship": "navigation-alternative",
+      "reason": "Usar Breadcrumb quando o intuito for navegação."
+    },
+    {
+      "component": "Text",
+      "relationship": "labelled-section",
+      "reason": "Acrescentar semântica textual em uma divisão horizontal."
+    }
+  ],
+  "faqDecisions": [
+    {
+      "question": "Separator padrão é anunciado?",
+      "guidance": "No caminho simples do adaptador Pi, decorative omitido resulta em aria-hidden=true."
+    },
+    {
+      "question": "label funciona na orientação vertical?",
+      "guidance": "Não, o adaptador ignora label quando orientation=vertical."
+    },
+    {
+      "question": "Por que minha linha vertical não aparece?",
+      "guidance": "A classe self-stretch depende de altura do contêiner; usar flex/grid adequado."
+    },
+    {
+      "question": "Separator é um comando?",
+      "guidance": "Não possui interação, link ou evento Pi."
+    }
+  ],
+  "derivedTestCases": [
+    {
+      "id": "orientation-visual",
+      "kind": "visual",
+      "description": "Inspecionar eixos, label, decorative, altura e responsividade.",
+      "capabilities": [
+        "orientation-base-ui",
+        "decorative-simple-path",
+        "horizontal-labeled-break",
+        "vertical-stretch",
+        "responsive-visibility"
+      ]
+    },
+    {
+      "id": "separator-aria",
+      "kind": "manual-a11y",
+      "description": "Validar aria-hidden e role/label em leitor de tela nos ramos.",
+      "capabilities": [
+        "separator-semantic-runtime",
+        "horizontal-labeled-break",
+        "decorative-simple-path"
+      ]
+    },
+    {
+      "id": "vertical-caption-future",
+      "kind": "candidate-not-executable",
+      "description": "Testar legendas verticais somente após contrato explícito.",
+      "capabilities": [
+        "vertical-labeled-break"
+      ]
+    },
+    {
+      "id": "line-token-future",
+      "kind": "candidate-not-executable",
+      "description": "Testar estilos de linha apenas se admitidos.",
+      "capabilities": [
+        "custom-line-tokens"
+      ]
+    }
+  ]
+}

@@ -107,8 +107,16 @@ The audit also measures first-pass acceptance on 12 registration and 12 pattern 
 
 Each pattern now declares three bounded UI decisions: login optionally shows access help, lists can show a fictional-data summary, and dashboards can display a data disclaimer. The search flow already has three questions. All variants use existing Text/Card/Table/Metric/Grid contracts. Answers are tracked with provenance and checked against generated nodes. These presentation decisions never enable authentication, remote search, mutations or persistence.
 
-## T34 — Independent source-bound pattern-browser reports (2026-10-27)
+## T34 — Per-requirement browser evidence, bound to the spec and commit (2026-10-27)
 
-Playwright now records four representative pattern previews on desktop and mobile (eight browser results), each with the actual screenshot hash, commit SHA, GitHub run ID, pattern-spec fingerprint and requirement IDs. The focused PR workflow verifies these results in the **same GitHub Actions job** and uploads the artifacts; missing, failed, stale or tampered records fail closed. A result is called \`tested\` only in that verified CI evidence report.
+The PR browser job independently runs eight representative pattern variants on both desktop and mobile, checking actual rendered fields, labels, optional elements and visible rows. Each real Playwright attempt emits a PNG and JSON bound to the source SHA, GitHub workflow run ID, exact generated Pi-spec fingerprint, test case, asserted requirement IDs and browser project. The fail-closed report command \`npm run requirements:browser:report\` verifies all 16 records before writing \`reports/requirements-browser/summary.json\` to the CI artifact.
 
-This is not a cryptographically signed artifact or an attestation independent from the workflow. It cannot certify other variants or replace the full manual E2E, authentication, persistence, screen-reader review or stable Pi admission. Outside CI, the audit still reports static-only coverage.
+The report marks only those **specific render assertions** as \`tested-render\`; other requirements retain \`covered-static\` or \`runtime-review-required\`. This is not automatic proof of functional filtering, authentication, CRUD, form submission, screen-reader compatibility, or visual fidelity. A report from another SHA/spec, a failed/retried test, missing screenshot, absent requirement or mismatched browser project is rejected. Synthetic verifier unit tests do not themselves count as browser evidence.
+
+PR evidence is a code-review artifact, not independent production certification. No Pi admission or permissions are changed.
+
+## T32 — Controlled HTTP demo boundary (2026-10-27)
+
+The optional \`createControlledDemoHttpHandler\` is a **Node RequestListener only**. It does not start a server. An explicitly trusted host must inject authentication, allowed service IDs, session-scoped user/tenant and CSRF token, and may bind the listener to **loopback only** for demonstrations. The sole test endpoint \`POST /__demo__/submit\` requires exact allowed Origin, Bearer auth, CSRF, JSON and allowlisted service ID. Requests are size-bounded and return sanitized errors. Test-specific sessions are ephemeral; fixtures persist **in server memory only**. Unknown origins, services, sessions and fields fail closed; duplicates and timeouts are independently tested.
+
+A browser E2E test proves that the Pi form **never submits automatically** even after validation and confirmation, while a *separate, explicit, test-host-only HTTP request* can save a temporary test record. The two are intentionally not wired together. There is no production identity provider, durable persistence, production deployment, arbitrary URL, added Pi action or expanded Zod contract. A real application host must supply independently authorized identity, service, storage and admission policy before real data submission can be implemented.

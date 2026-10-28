@@ -14,11 +14,16 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Admission Engine](admission-engine.md) | Experimental publication and post-E2E distribution |
 | [Composition strategy](composition-strategy.md) | Dependency map, semantic classification and new ReUI examples |
 | [Component semantic checklist](semantic-knowledge-checklist.md) | Per-component knowledge review, code evidence, gaps, and validation |
+| [Semantic enrichment priority (T25)](semantic-enrichment-priority-t25.md) | Deterministic, advisory-only scores and evidence for AI composition review |
+| [Semantic enrichment workflow (T30)](semantic-enrichment-workflow.md) | Repeatable shadcn/ReUI process with priority, code evidence, CI and E2E |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Development](development.md) | Environment, tests, CI, and E2E |
 | [Governance](governance.md) | Review and ongoing audits of the public repository |
 
 ## Specialized references
+
+- [T19 semantic coverage audit of the 31 ReUI families](semantic-knowledge-coverage-t19.md) — 31/559/39 matrix and T01 checklist
+- [T17 semantic review (Alert, Card, Textarea, Progress)](semantic-knowledge-t17.md)
 
 - [T14 integrated semantic validation (forms and candidates)](semantic-knowledge-integration-t14.md)
 - [T08 prior semantic integration](semantic-knowledge-integration-t08.md)

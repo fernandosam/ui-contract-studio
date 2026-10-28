@@ -29,8 +29,12 @@ jobs:
         run: npm run validate && npm run build
       - name: Clear stale candidate evidence
         run: npm run admission:evidence:reset
+      - name: Prepare source-bound pattern requirement browser expectations
+        run: npm run requirements:browser:prepare
       - name: Execute complete E2E suite
         run: npm run test:e2e
+      - name: Verify T34 render assertions before certification
+        run: npm run requirements:browser:report
       - name: Verify all desktop/mobile admission evidence
         run: npm run admission:evidence:report
       - name: Bundle immutable proof for the separate certification job
@@ -55,6 +59,7 @@ jobs:
             reports/auth-layout/
             reports/structure-fidelity/
             reports/composition-validation/
+            reports/requirements-browser/
           if-no-files-found: warn
           retention-days: 14
 

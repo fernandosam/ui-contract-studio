@@ -113,8 +113,16 @@ A auditoria mede a aprovação inicial de 12 variantes de cadastro e 12 variante
 
 Cada fluxo declara pelo menos três decisões de interface: o login pode mostrar ajuda, a listagem exibir um resumo de dados fictícios e o dashboard uma nota sobre os valores. A busca já possuía três perguntas. Todas as variações reutilizam contratos Text/Card/Table/Metric/Grid aprovados. As respostas mantêm proveniência e são verificadas na árvore gerada. As novas decisões visuais não habilitam autenticação, busca remota, mutações ou persistência.
 
-## T34 — Relatórios de navegador vinculados ao código (2026-10-27)
+## T34 — Evidências de navegador por requisito, vinculadas à spec e ao commit (2026-10-27)
 
-O Playwright agora registra prévias dos quatro padrões em desktop e mobile (oito resultados), com SHA-256 da captura, SHA do commit, ID da execução GitHub, fingerprint da spec e IDs dos requisitos. O workflow de PR verifica esses resultados **no mesmo job GitHub Actions** e publica os artefatos; resultados ausentes, falhos, antigos ou adulterados bloqueiam a verificação. O estado \`tested\` existe apenas no relatório conferido pelo CI.
+O job de revisão em navegador executa oito variantes representativas em desktop e mobile, verificando campos, rótulos, elementos opcionais e linhas visíveis. Cada execução Playwright real gera PNG e JSON com SHA de origem, ID da execução GitHub, impressão digital da spec Pi gerada, caso, IDs dos requisitos efetivamente verificados e projeto do navegador. O comando \`npm run requirements:browser:report\` rejeita evidências ausentes, incorretas ou obsoletas antes de gravar \`reports/requirements-browser/summary.json\` no artefato do CI.
 
-O artefato não é criptograficamente assinado nem constitui atestado independente do workflow. Não certifica outras variantes nem substitui o E2E manual completo, autenticação, persistência, revisão com leitor de tela ou admissão Pi estável. Fora do CI, a auditoria continua indicando somente cobertura estática.
+Somente as **afirmações específicas de renderização** recebem estado \`tested-render\`; os demais requisitos continuam \`covered-static\` ou \`runtime-review-required\`. Isso não certifica filtro funcional, autenticação, CRUD, envio de formulário, leitor de tela ou fidelidade visual. SHA/spec divergente, execução reprovada/repetida, captura ausente, requisito não declarado e navegador incorreto bloqueiam o relatório. Fixtures sintéticas de teste da verificação não são provas de navegador.
+
+Evidência de PR é auxiliar à revisão, não certificação independente de produção. Nenhum contrato ou permissão Pi é alterado.
+
+## T32 — Fronteira HTTP demonstrativa e controlada (2026-10-27)
+
+\`createControlledDemoHttpHandler\` é somente um **RequestListener Node**, sem iniciar servidor. Um hospedeiro confiável deve injetar autenticação, IDs de serviços permitidos, usuário/tenant e token CSRF da sessão e disponibilizá-lo **apenas em loopback** durante testes. O endpoint de teste fixo \`POST /__demo__/submit\` exige Origin exata, Bearer, CSRF, JSON e ID allowlisted; tamanho é limitado e erros são sanitizados. A identidade dos testes é efêmera; os registros são mantidos **somente em memória no servidor**. Origem, sessão, serviço e campos desconhecidos são bloqueados; duplicação e timeout são testados separadamente.
+
+O E2E comprova que o formulário Pi **não envia dados automaticamente**, mesmo após validação/confirmação, enquanto uma requisição HTTP de teste **explicitamente separada** salva um registro fictício temporário. Não existe integração direta entre esses fluxos, identidade de produção, banco durável, implantação, URL arbitrária, nova ação Pi ou expansão de contrato Zod. Um backend de produção depende de identidade, serviço, armazenamento e política de admissão revisados independentemente.

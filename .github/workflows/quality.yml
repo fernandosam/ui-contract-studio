@@ -44,8 +44,34 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate semantic evidence and generate advisory report
-        run: npm run semantic:check && npm run semantic:report
+      - name: Validate semantic evidence (blocking)
+        id: semantic-check
+        shell: bash
+        run: |
+          mkdir -p reports/composition-analysis
+          npm run semantic:check 2>&1 | tee reports/composition-analysis/semantic-check.log
+      # Run after a failed check too: the CLI writes an explicitly invalid
+      # diagnostic JSON and still exits nonzero for missing/invalid evidence.
+      - name: Generate semantic coverage and freshness report
+        id: semantic-report
+        if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
+        shell: bash
+        run: |
+          npm run semantic:report 2>&1 | tee reports/composition-analysis/semantic-report.log
+      - name: Summarize semantic diagnostics
+        if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
+        run: node scripts/semantic-ci-summary.mjs
+      - name: Preserve semantic report and failure logs
+        if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: semantic-knowledge-report
+          path: |
+            reports/composition-analysis/semantic-knowledge.json
+            reports/composition-analysis/semantic-check.log
+            reports/composition-analysis/semantic-report.log
+          if-no-files-found: error
+          retention-days: 14
       - name: Verify docs and offline invariants
         run: npm run docs:check && npm run test:offline
       - name: Check reviewed API changes against PR base
@@ -93,21 +119,26 @@ jobs:
       - uses: ./.github/actions/setup-chromium
       - name: Clear evidence from earlier runs
         run: npm run admission:evidence:reset
+      - name: Prepare fingerprint manifest for actual browser tests
+        run: npm run requirements:browser:prepare
       - name: Verify admission compositions and requirements wizard on desktop/mobile
         run: |
-          NODE_OPTIONS="--import tsx" npx playwright test \
+          npx playwright test \
             tests/e2e/typed-confirmation-pilot.spec.ts \
             tests/e2e/admission-candidates.spec.ts \
             tests/e2e/admission-catalog.spec.ts \
+            tests/e2e/semantic-risk-t29.spec.ts \
             tests/e2e/requirements-wizard.spec.ts \
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
+            tests/e2e/requirements-coverage-evidence.spec.ts \
             tests/e2e/requirements-intent.spec.ts \
             tests/e2e/declarative-form-pi.spec.ts \
+            tests/e2e/submission-controlled-http.spec.ts \
             tests/e2e/declarative-form-certification.spec.ts \
             --project=desktop --project=mobile
-      - name: Verify source-bound requirements browser evidence
-        run: npx tsx scripts/verify-requirements-browser-evidence.ts
+      - name: Verify T34 requirement-to-browser evidence (fail closed)
+        run: npm run requirements:browser:report
       - name: Check all five fingerprint-bound browser evidence reports
         run: npm run admission:evidence:report
       - name: Preserve browser evidence for review
@@ -117,7 +148,8 @@ jobs:
           name: admission-browser-evidence
           path: |
             reports/composition-validation/
-            reports/requirements/browser-evidence/
+            reports/requirements-browser/
+            reports/semantic-e2e/
             test-results/
           if-no-files-found: warn
           retention-days: 14

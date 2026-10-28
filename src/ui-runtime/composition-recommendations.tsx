@@ -7,6 +7,7 @@ import {
   recommendFromRequirement,
   type PilotFamily,
   type Strategy,
+  type CompositionKind,
 } from "@/ui-catalog/recommendations/engine";
 
 // Fixed, reviewed recipe sources: display only, never evaluated as JSX or imported as Pi code.
@@ -17,13 +18,28 @@ const recipeSource=(id:string,kind:"component.tsx"|"schema.ts")=>
   recipeSources["../../scripts/composition-codegen/recipes/"+id+"."+kind+".txt"]??"";
 const strategyLabels:Record<Strategy,string>={
   "reuse-contract":"Reutilizar contrato aprovado",
+  "declarative-composition":"Propor composição declarativa JSON",
   "react-candidate":"Propor componente React composto",
   "review-required":"Revisão de autorização necessária",
 };
+const approachLabels:Record<CompositionKind,string>={
+  primitive:"Primitiva ou tipo Pi direto",
+  "declarative-composition":"Composição declarativa (árvore JSON)",
+  "react-composition":"Composição React com API tipada",
+  "authorization-review":"Bloqueada para revisão de autorização",
+};
+const statusLabels:Record<string,string>={
+  "available-approved-contract":"Contrato existente aprovado; sem nova autorização",
+  "proposal-existing-contracts":"Proposta estrutural usando contratos aprovados; árvore sujeita ao validador Pi",
+  "candidate-needs-admission":"Candidato React: não admitido automaticamente",
+  "blocked-review":"Sem recomendação executável até revisão independente",
+};
 const evidenceLabels:Record<string,string>={
-  "implemented-static-evidence":"Presente no código (evidência estática)",
-  "documented-not-implemented":"Documentado, mas ainda não implementado",
-  "runtime-review-required":"Validação em navegador pendente",
+  "verified-static":"Disponível com evidência estática (não é certificação funcional)",
+  "not-implemented":"Apenas documentado — não disponível no contrato",
+  "runtime-review-required":"Comportamento pendente de validação no navegador",
+  "missing-evidence":"Sem evidência de implementação verificável",
+  "missing-record":"Sem registro semântico revisado",
 };
 const modeLabels:Record<string,string>={
   integration:"Teste de integração",
@@ -87,10 +103,29 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
         <p className="text-sm font-semibold">{strategyLabels[result.decision]}
           {result.target&&<span className="ml-1 font-mono">· {result.target}</span>}</p>
         <p className="text-sm">{result.scenario.reason}</p>
+        <p className="text-xs font-semibold" data-testid="recommendation-approach">
+          Abordagem: {approachLabels[result.selection.kind]}
+        </p>
+        <p className="text-xs text-muted-foreground" data-testid="recommendation-admission-status">
+          {statusLabels[result.selection.status]}
+        </p>
         <p className="text-xs text-muted-foreground">
           {result.targetApproved?"O alvo já é um contrato Pi aprovado.":
-            "O alvo ainda não é um contrato Pi aprovado para esta finalidade."}
+            result.selection.kind==="declarative-composition"
+              ?"As dependências são contratos existentes; a composição proposta não é novo tipo Pi. A recomendação não concede autorização Pi; consulte o catálogo oficial e sua certificação independente."
+              :"Nenhum novo contrato Pi é autorizado para esta finalidade. A recomendação não concede autorização Pi; consulte o catálogo oficial e sua certificação independente."}
         </p>
+      </div>
+      <div className="space-y-2 rounded-md border p-3" data-testid="recommendation-criteria">
+        <h5 className="text-sm font-medium">Critérios de escolha e referências verificáveis</h5>
+        <ul className="list-disc space-y-2 pl-4 text-xs">
+          {result.selection.criteria.map((criterion,index)=><li key={index}>
+            <span>{criterion.rule}</span>
+            <span className="block break-all font-mono text-[11px] text-muted-foreground">
+              {criterion.reference}
+            </span>
+          </li>)}
+        </ul>
       </div>
       <div className="grid gap-3 lg:grid-cols-2">
         <div className="space-y-2 rounded-md border p-3">
@@ -101,10 +136,17 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
               <span className="text-muted-foreground"> · {dep.piApproved?"Tipo aprovado":"Não aprovado"}</span>
             </li>)}
           </ul>
-          {result.evidence.map(item=><p key={item.capability} className="text-xs">
-            <strong>{item.capability}:</strong> <span className="text-muted-foreground">{evidenceLabels[item.state]??item.state}</span>
-          </p>)}
-          {result.gaps.length===0&&<p className="text-xs text-muted-foreground">Nenhuma lacuna de capacidade foi declarada para este cenário. Isso não certifica a execução.</p>}
+          {result.evidence.map(item=><div key={item.capability} className="text-xs">
+            <strong>{item.capability}:</strong> <span className="text-muted-foreground">{evidenceLabels[item.availability]??item.state}</span>
+            {item.availability==="verified-static"&&<p className="mt-1 break-all text-[11px] text-muted-foreground">
+              Fonte: {item.source} · {item.codeEvidence.map(source=>source.path).join(", ")}
+            </p>}
+          </div>)}
+          {result.gaps.length>0&&<p className="text-xs text-muted-foreground">
+            {result.gaps.length} capacidade(s) pendente(s): não confundir documentação ou revisão de runtime com implementação disponível.
+          </p>}
+          {result.evidence.length===0&&<p className="text-xs text-muted-foreground">Sem capacidades vinculadas ao cenário; a aprovação do alvo depende exclusivamente do catálogo Pi.</p>}
+          {result.gaps.length===0&&result.evidence.length>0&&<p className="text-xs text-muted-foreground">Todas as capacidades vinculadas têm evidência estática. Execução e acessibilidade exigem testes próprios.</p>}
         </div>
         <div className="space-y-2 rounded-md border p-3">
           <h5 className="text-sm font-medium">Riscos e limites</h5>
@@ -113,6 +155,33 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
           </ul>
         </div>
       </div>
+      {result.gapProposals.length>0&&<section className="space-y-3 rounded-md border p-3"
+        data-testid="recommendation-gap-proposals" aria-label="Propostas derivadas de lacunas semânticas">
+        <h5 className="text-sm font-semibold">Propostas candidatas a partir das lacunas T22</h5>
+        <p className="text-xs text-muted-foreground">Diagnóstico e plano de revisão, nunca um novo contrato Pi. Evidências estáticas exigem semantic:check; testes de runtime e admissão são independentes.</p>
+        {result.gapProposals.map(proposal=><div className="space-y-2 rounded-md border p-3 text-xs" key={proposal.id}>
+          <p className="font-medium">{proposal.title} · {proposal.status}
+            {proposal.target&&<span className="font-mono"> · {proposal.target}</span>}</p>
+          <p className="text-muted-foreground">Origem auditável: {proposal.originGaps.map(gap=>
+            gap.component+"/"+gap.capability+" ("+gap.availability+")").join(", ")}</p>
+          <ul className="list-disc space-y-1 pl-4">
+            {proposal.originGaps.map(gap=><li key={gap.component+"/"+gap.capability}>
+              <span>{gap.description}</span>
+              <span className="block break-all font-mono text-[11px] text-muted-foreground">{gap.source??"Sem registro"} · {gap.reason}</span>
+            </li>)}
+          </ul>
+          <p>Capacidades necessárias: {proposal.requiredCapabilities.map(x=>x.capability+" ["+x.availability+"]").join(", ")}</p>
+          <p>Evidências disponíveis: {proposal.evidence.length?
+            proposal.evidence.map(x=>x.capability+" — "+(x.source??"sem fonte")).join("; "):
+            "nenhuma capacidade vinculada verificada estaticamente"}</p>
+          <p>Dependências: {proposal.dependencies.map(x=>x.name+" ("+(x.approvedPiType?"Pi aprovado":"sem admissão")+")").join(", ")}</p>
+          <ul className="list-disc pl-4 text-muted-foreground">
+            {[...proposal.implementationLimitations,...proposal.admissionLimitations].map((limit,index)=>
+              <li key={index}>{limit}</li>)}
+          </ul>
+          <p className="font-semibold">Admissão: candidata, bloqueada para uso Pi.</p>
+        </div>)}
+      </section>}
       <div className="space-y-2 rounded-md border p-3">
         <h5 className="text-sm font-medium">Plano de testes sugerido</h5>
         <p className="text-xs text-muted-foreground">Critérios de validação planejados; não executados automaticamente.</p>
