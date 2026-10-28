@@ -1,3 +1,5 @@
+[English](semantic-composition-proposals-t23.md) | [Português](semantic-composition-proposals-t23.pt-BR.md)
+
 # T23 — Propostas de composição a partir de lacunas semânticas
 
 A T23 reutiliza a auditoria T22 (`buildSemanticKnowledge().report.capabilityAudit`) e os cenários revisados do recomendador em `src/ui-catalog/recommendations/scenarios.json`. Uma proposta é criada **somente quando** um cenário revisado exige explicitamente uma capacidade classificada como lacuna na T22. As demais aparecem em `uncoveredGaps`, sem inferência de API ou implementação.
