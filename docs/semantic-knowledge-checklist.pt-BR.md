@@ -55,3 +55,16 @@ Marque cada item só depois de inspecionar as fontes e a implementação corresp
 5. Registre resultados reais, limites e caminhos modificados na entrega/PR. Revisão documental e testes estáticos **não** substituem E2E ou homologação estável. Não edite resultados derivados nem o catálogo Pi para fazer o relatório passar.
 
 **Critério de pronto da T01:** AlertDialog auditado contra implementação e fontes, checklist versionado e descobrível neste índice, `semantic:check` e `semantic:report` executados com resultados registrados, nenhum schema Zod/permissão Pi modificado.
+
+## T26 — Relatório único e auditável de cobertura semântica (27/10/2026)
+
+`npm run semantic:check` valida as fontes e os trechos literais de evidência em `src/`, sem escrever relatório. `npm run semantic:report` valida novamente e atualiza o **mesmo arquivo derivado existente**, `reports/composition-analysis/semantic-knowledge.json` (ignorado pelo Git); não cria relatórios concorrentes. O job `offline-policy` da CI executa ambos, e `tests/semantic-coverage-t26.test.mjs` integra `npm run test:offline`.
+
+Consulte `semanticCoverage` no JSON gerado:
+
+- `sourcePaths` identifica o inventário versionado ReUI, a orientação por família, os overlays e `profiles[].capabilities[].evidence[]`, com os pares literais `path`/`contains`. `reuiExampleProfiles[]` relaciona cada ID do inventário ao caminho real do código.
+- `totals` separa famílias e componentes com overlays revisados dos perfis apenas orientativos; conta separadamente capacidades com **evidência estática no código**, **documentadas mas não implementadas** e **pendentes de revisão em execução**. `implementationGaps` conta somente as não implementadas; `insufficientRuntimeEvidence` conta as que precisam de revisão em runtime. Nenhuma dessas contagens concede autorização.
+- `families[]` é derivado das famílias **reais** do inventário/orientações ReUI e informa `inventoryExampleIds` ordenados, contagens e arquivos dos overlays. Overlay ausente constitui **lacuna documental**, não prova de ausência de implementação. AlertDialog e os demais overlays adicionais não são inventados como famílias ReUI.
+- `components[]` inclui registros enriquecidos e perfis só com orientação. Os IDs de capacidades apontam para `profiles[].capabilities[]`, com descrições, estados e trechos exatos verificados no código. `piContractListed` apenas reflete o lock existente, enquanto `authorization: not-granted-by-semantic-coverage` não admite APIs, permissões ou contratos.
+
+**Base de reconciliação (T19, 27/10/2026):** 31 famílias ReUI, 559 exemplos versionados, 39 overlays (31 famílias e oito componentes adicionais), 230 capacidades com evidência estática, 126 documentadas e não implementadas e 88 pendentes de revisão em execução. T26 recalcula esses números a partir das fontes, sem constantes fixas. O novo teste compara inventário, componentes, estados e evidências literais com os arquivos originais, além de verificar casos de lacunas e a regeneração pelo CLI. Testes estáticos não comprovam E2E, acessibilidade, admissão ou permissões Pi.

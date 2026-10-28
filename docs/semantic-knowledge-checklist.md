@@ -53,3 +53,16 @@
 5. Document what truly ran and any limitations in the PR. Neither documentation approval nor static testing replaces browser E2E or stable admission. Do not manually edit generated reports or Pi contracts to make checks pass.
 
 **T01 done:** AlertDialog compared against original sources and local code; checklist committed and linked from documentation index; `semantic:check` and `semantic:report` run with real results; no Zod schema or Pi permission modifications.
+
+## T26 — One auditable semantic coverage report (2026-10-27)
+
+`npm run semantic:check` validates the curated sources and literal `src/` code needles without writing a report. `npm run semantic:report` reruns validation and writes the **same existing** derived file, `reports/composition-analysis/semantic-knowledge.json` (gitignored); it does **not** generate a second coverage report. The `offline-policy` CI job runs both commands and `tests/semantic-coverage-t26.test.mjs` is part of `npm run test:offline`.
+
+Inspect `semanticCoverage` in the generated JSON:
+
+- `sourcePaths` identifies the versioned ReUI baseline, family guidance, overlays and `profiles[].capabilities[].evidence[]` holding literal `path`/`contains` evidence. `reuiExampleProfiles[]` maps inventory example IDs to real source paths.
+- `totals` distinguishes families and components with curated overlays from guidance-only profiles, and separates **static-code-evidenced**, **documented-not-implemented**, and **runtime-review-required** capabilities. `implementationGaps` counts only not-implemented capabilities; `insufficientRuntimeEvidence` counts runtime-review-required capabilities. Neither is an authorization metric.
+- `families[]` is indexed by **real** ReUI inventory/guidance families and provides sorted `inventoryExampleIds`, exact counts and overlay paths; missing overlays are **documentation gaps**, not proof of missing implementation. Separate overlays such as AlertDialog do not invent ReUI inventory families.
+- `components[]` includes curated and guidance-only profiles. Capability ID arrays resolve back to `profiles[].capabilities[]` for full descriptions, implementation states and exact checked code needles. `piContractListed` only reflects the existing lock; `authorization: not-granted-by-semantic-coverage` never grants an API, permission, or admission.
+
+**Reconciliation baseline (T19, 2026-10-27):** 31 ReUI families, 559 versioned examples, 39 curated overlays (31 families plus eight distinct additional components), 230 static-code-evidenced capabilities, 126 documented-not-implemented and 88 awaiting runtime review. These figures are recomputed, not hard-coded, by T26. The new test verifies every family/example count, component/overlay relation, capability state and literal source evidence against the files, plus CLI regeneration and negative coverage cases. Passing static checks cannot establish E2E behavior, accessibility certification, Pi admission, or permission.

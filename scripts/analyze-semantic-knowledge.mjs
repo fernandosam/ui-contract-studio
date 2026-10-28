@@ -38,6 +38,16 @@ if(component){
   console.log("✓ Semantic guidance validated: "+JSON.stringify(report.coverage));
   console.log("  Capability audit: "+JSON.stringify(report.capabilityAudit.summary));
   console.log("  T23 composition proposals: "+JSON.stringify(compositionProposals.summary));
+  const coverage=report.semanticCoverage.totals;
+  console.log("  ReUI families with curated overlays: "+coverage.curatedFamilies+"/"+coverage.inventoryFamilies);
+  console.log("  Components with curated overlays: "+coverage.curatedComponents+"/"+coverage.indexedComponents);
+  console.log("  Capabilities (static code evidence / not implemented / runtime review): "+
+    coverage.capabilities.implementedStaticEvidence+" / "+
+    coverage.capabilities.documentedNotImplemented+" / "+
+    coverage.capabilities.runtimeReviewRequired);
+  console.log("  Evidence insufficient (runtime): "+coverage.insufficientRuntimeEvidence+
+    "; documentary gaps (families/components): "+
+    coverage.familiesWithDocumentationGaps+"/"+coverage.componentsWithDocumentationGaps);
   console.log("  Documentary suggestions and unverified requirements are advisory only.");
 }
 if(write){
