@@ -148,3 +148,74 @@ npm run admission:evidence:report
 
 O mesmo verificador confere 28 execuções desktop/mobile dos quatro protocolos (10 do TypedConfirmationDialog e 18 dos demais), resultados e capturas, origem da implementação e revisão testada. A CI da PR valida os cenários focados, mas **não certifica** contratos para o canal estável. Somente o E2E manual completo na main pode gerar certificados. A ausência de chamada remota e as demais restrições de segurança permanecem obrigatórias. Revisão manual de acessibilidade não é inferida dos testes.
 
+
+## T20 — Capacidades verificadas nas recomendações (Entrega 4/P1)
+
+O piloto do recomendador (`src/ui-catalog/recommendations/engine.ts`) consulta **três overlays revisados**: AlertDialog, Accordion e Button. Não exige cobertura de todas as famílias ReUI. As capacidades dos cenários são buscadas **somente no registro da própria família**, sem inferência de equivalência com outros contratos.
+
+| Classificação no motor | Critério | Efeito |
+| --- | --- | --- |
+| `verified-static` | Registro revisado, estado `implemented-static-evidence` e ao menos um trecho de código próprio com caminho/agulha válidos; CI confirma o trecho real | Pode ser descrito como disponível **com evidência estática**, não como teste funcional ou autorização |
+| `not-implemented` | `documented-not-implemented` | Lacuna/proposta; não pode ser requisito de cenário `reuse-contract` |
+| `runtime-review-required` | `runtime-review-required` | Validação pendente; nunca descrito como certificado |
+| `missing-evidence` / `missing-record` | Evidência vazia, inválida ou ID não revisado | Não é recomendado como disponível; IDs ausentes bloqueiam a política |
+
+Os cenários iniciais vinculam FAQ expansível, estrutura rica candidata, evento local e loading de Button, ação de cópia candidata e revisão de teclado/foco. Os cenários que usam contratos diferentes da família (OnboardingChecklist, Collapsible, ButtonGroup e Toggle) não herdam capacidades dessa outra implementação por suposição. A recomendação de reutilização continua dependente de `contracts.lock.json`; o enriquecimento **não altera** Zod, Pi, admissões ou autorizações.
+
+Verificações locais solicitadas: `npx tsx --test tests/composition-recommender.integration.test.ts`, `npm run composites:recommend:check`, `npm run semantic:check` e `npm run semantic:report`. A verificação do recomendador também exige que cada trecho fonte mencionado como `verified-static` exista literalmente no repositório; o validador semântico independente cobre todos os registros. O relatório gerado é `reports/composition-analysis/semantic-knowledge.json`, orientação documental, não certificado E2E.
+
+
+## T21 — Seleção entre primitiva, composição declarativa e React (Entrega 4/P1)
+
+O recomendador faz **duas decisões separadas**: `decision` mantém a decisão de curadoria do cenário (`reuse-contract`, `declarative-composition`, `react-candidate` ou `review-required`), enquanto `selection.kind` descreve a implementação. `selection.status` informa a fronteira de admissão; a UI exibe critérios e caminhos das fontes verificáveis. Nenhuma dessas decisões cria um contrato Pi.
+
+| Abordagem | Quando selecionar | Regra de admissão | Cenários |
+| --- | --- | --- | --- |
+| **Primitiva/contrato direto** | Um tipo aprovado já resolve a necessidade, com capacidades necessárias verificadas estaticamente ou comportamento de runtime destacado como pendente | `contracts.lock.json` deve marcar o alvo como `approved`; capacidade ausente, sem evidência ou não implementada **bloqueia reuso** | `button-loading`, `accordion-faq`, `alert-simple` |
+| **Composição declarativa** | Somente organização estática de nós/slots já aprovados, sem coordenação de estado ou eventos novos | Todas as dependências devem estar `approved`, capacidade de suporte `verified-static`, nenhum novo alvo Pi; a árvore JSON ainda exige validação normal do catálogo | `button-actions-layout` usa `Stack` + dois `Button`, cada um com `press` local |
+| **Composição React** | Estado/validação/feedback coordenados, comportamento sem cobertura no contrato simples ou reuso de um composto semântico React **já aprovado** | Candidato exige schema Zod estrito, implementação, revisão e admissão *separados*. Contrato React aprovado pode ser reutilizado sem nova admissão | `alert-typed` / `button-copy` (candidatos), `accordion-onboarding` (OnboardingChecklist já aprovado) |
+| **Revisão obrigatória (bloqueio)** | Efeitos remotos, autorização, dependência não admitida ou evidência inadequada | Sem execução, sem alvo aprovado por inferência | `alert-remote`; fallback conservador para evidência insuficiente |
+
+As fontes são `src/ui-catalog/recommendations/scenarios.json` (intenção revisada), os overlays `src/ui-catalog/knowledge/{alert-dialog,accordion,button}.json` (capacidades **da própria família**), `src/ui-catalog/contracts.lock.json` (admissão), `src/ui-catalog/composition-policy.json` (reuso React aprovado), `src/ui-catalog/catalog.ts` (slots/props) e `pi-catalog/examples/Field.json` (árvore JSON com filhos). **ReUI documentado não equivale a capacidade implementada.** `runtime-review-required` é mostrado como pendência, não como certificado de acessibilidade. Não há transição implícita de candidato experimental para API estável.
+
+O cenário declarativo não atribui comportamento de seleção aos botões: ButtonGroup tem estado próprio e não é substituído por Stack para o caso de seleção. Também não vincula `press` a exclusão, clipboard, rede ou persistência. A composição proposta é apenas orientativa e não fornece um novo tipo ou evento. Com descrição livre desconhecida ou ambígua, continua necessária a seleção explícita do cenário.
+
+### Verificações de T21
+
+```bash
+npx tsx --test tests/composition-recommender.integration.test.ts
+npm run composites:recommend:check
+npm run semantic:check
+npm run semantic:report
+```
+
+Os testes da T21 cobrem caminho direto, layout JSON, React aprovado e candidato, ausência de evidência, capacidade não implementada, dependência não admitida e bloqueio de autorização; conferem também schemas Zod existentes contra novas props arbitrárias. O verificador de recomendações confere referências e evidências estáticas presentes em disco. O relatório `reports/composition-analysis/semantic-knowledge.json` é evidência de cobertura documental, não aprovação do comportamento no navegador. Resultados de execução devem ser registrados com o commit/CI correspondente; não declarar sucesso sem log do comando.
+
+
+## T22 — Auditoria automática de lacunas de capacidade (Entrega 4/P1)
+
+A auditoria percorre **todos os registros curados** em `src/ui-catalog/knowledge/`, sem ampliar o piloto de recomendações T20/T21. Ela reutiliza o vocabulário de disponibilidade do recomendador e o relatório `buildSemanticKnowledge`. **Ausência de evidência não prova ausência de código.**
+
+| Disponibilidade | Critério auditável | Interpretação |
+| --- | --- | --- |
+| `verified-static` | Registro revisado declara `implemented-static-evidence` e **todos** os caminhos/trechos literais em `src/` conferem | Presença estática, não certificação de runtime nem admissão Pi |
+| `not-implemented` | Registro declara `documented-not-implemented`, sem evidência contraditória | Lacuna declarada, nunca API disponível |
+| `missing-evidence` | Referência insegura, arquivo/trecho ausente, evidência vazia, estado contraditório ou documento não revisado | **Evidência insuficiente**, requer investigação, sem inferir ausência de código |
+| `runtime-review-required` | Revisão de navegador/tecnologia assistiva pendente | Não equivale a capacidade homologada |
+| `missing-record` | ID solicitado sem registro semântico revisado (fallback do motor) | Registro ausente, sem alegar ausência de implementação |
+
+`npm run semantic:check` valida registros e trechos reais sem escrever artefatos. `npm run semantic:report` grava `reports/composition-analysis/semantic-knowledge.json` com `capabilityAudit` e o relatório dedicado `reports/composition-analysis/semantic-capability-gaps.json`. O último apresenta contagens por categoria e componente, `entries` com **todas** as capacidades e `gaps` com apenas as não verificadas. Cada entrada traz componente, ID, fonte, estado, aprovação Pi distinta, justificativa, testes propostos e resultado de cada trecho (`matched`, `missing-fragment`, `missing-file`, `unsafe-reference`). A ordenação é estável para revisão e comparação.
+
+Exemplos: Button `local-press-event` possui prova estática; `copy-or-external-action` é somente documentado; AlertDialog `focus-and-keyboard` depende de testes em runtime. Combobox possui primitivas React presentes no código, mas `pi-selection-contract` continua não implementado/admitido. Uma evidência positiva não autoriza automaticamente o uso pelo Pi.
+
+Validação rastreável:
+
+```bash
+node --test tests/semantic-capability-audit.test.mjs
+npx tsx --test tests/composition-recommender.integration.test.ts
+npm run semantic:check
+npm run semantic:report
+npm run composites:recommend:check
+```
+
+Os relatórios são **consultivos**, não certificados E2E. Os schemas Zod, `contracts.lock.json`, contratos admitidos, Admission Engine e permissões Pi permanecem normativos e inalterados; os resultados devem ser registrados com logs e revisão correspondente.

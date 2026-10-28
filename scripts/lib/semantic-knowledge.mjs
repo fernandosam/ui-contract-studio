@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve, sep } from "node:path";
+import {buildCapabilityGapAudit} from "./semantic-capability-audit.mjs";
 import { buildSemanticCoverage } from "./semantic-coverage.mjs";
 import { auditSemanticFreshness } from "./semantic-freshness.mjs";
 
@@ -163,6 +164,14 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
         contractDependencies:dependencies,
       };
     });
+  const capabilityAudit=buildCapabilityGapAudit(records,{root});
+  for(const profile of records){
+    profile.implementationGaps=capabilityAudit.gaps
+      .filter(x=>x.component===profile.component)
+      .map(x=>({id:x.capability,description:x.description,state:x.state,
+        availability:x.availability,reason:x.reason,source:x.source,
+        evidenceChecks:x.evidenceChecks}));
+  }
   const byName=new Map(records.map(x=>[x.component,x]));
   const associatedExamples=reuiExamples.map(x=>({
     exampleId:x.id,family:x.family,source:x.sourcePath,profile:x.family,
@@ -180,10 +189,11 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
         semanticContracts:Object.keys(semantics).length,curatedOverlays:curated.length,
         coveredExamples:associatedExamples.length},
       profiles:records,
-      reuiExampleProfiles:associatedExamples,
+      capabilityAudit,
       semanticCoverage:buildSemanticCoverage({
         profiles:records,reuiExamples,reuiFamilies:Object.keys(reui),
       }),
+      reuiExampleProfiles:associatedExamples,
       semanticFreshness:auditSemanticFreshness({root,profiles:records}),
     },
     errors:uniq(errors),
@@ -196,7 +206,10 @@ export function selectAgentSemanticAdvice(report,selectedTypes) {
     .map(x=>({
       type:x.component,whenUse:x.whenUse,whenNotUse:x.whenNotUse,
       agentNotes:x.agentNotes,
-      verifiedStaticCapabilities:x.capabilities.filter(c=>c.state==="implemented-static-evidence")
+      verifiedStaticCapabilities:x.capabilities.filter(c=>
+        report.capabilityAudit?.entries.some(entry=>
+          entry.component===x.component && entry.capability===c.id &&
+          entry.availability==="verified-static"))
         .map(c=>({id:c.id,description:c.description})),
       implementationGaps:x.implementationGaps,
       integrationCandidates:x.integrationCandidates.map(i=>({
