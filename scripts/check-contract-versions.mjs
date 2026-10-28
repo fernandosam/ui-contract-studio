@@ -10,6 +10,8 @@ const errors=[];
 const approved = current.map(entry => {
   const known=prior[entry.name];
   if (!known) errors.push(`${entry.name}: contrato novo requer entrada versionada e revisão humana.`);
+  if (known && (!/^(experimental|beta|stable|deprecated)$/.test(known.stability) || !/^\\d+\\.\\d+\\.\\d+$/.test(known.version))) errors.push(`${entry.name}: estabilidade ou versão inválida no contrato.`);
+  if (known && known.stability==='stable' && known.status!=='approved') errors.push(`${entry.name}: stable requer contrato aprovado.`);
   if (known && known.tier!==entry.tier) errors.push(`${entry.name}: tier base/extension alterado.`);
   if (known && known.semanticFingerprint!==entry.semanticFingerprint) errors.push(`${entry.name}: semântica alterada; eleve a versão e revise os contratos.`);
   return known ? {...known, semanticFingerprint:entry.semanticFingerprint} : entry;
