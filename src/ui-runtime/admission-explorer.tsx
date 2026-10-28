@@ -11,7 +11,7 @@ const entries=official.components;
 export function AdmissionExplorer({compositionOnly=false}:{compositionOnly?:boolean}) {
  const [query,setQuery]=useState("");
  const [filter,setFilter]=useState("all");
- const [channel,setChannel]=useState<"stable"|"experimental">(compositionOnly?"experimental":"stable");
+ const [channel,setChannel]=useState<"stable"|"experimental">("stable");
  const [formVariant,setFormVariant]=useState<"standard"|ExperimentalFormScenario>("standard");
  const [selected,setSelected]=useState<string>("TypedConfirmationDialog");
  const visible=useMemo(()=>entries.filter(entry=>{
