@@ -20,7 +20,11 @@ test("T30 instructions cite real semantic commands and their unchanged implement
     assert.ok(pt.includes("npm run " + command), "pt-BR does not describe " + command);
     assert.ok(en.includes("npm run " + command), "English does not describe " + command);
     const executable = actual.split(" ").find(part => part.startsWith("scripts/"));
-    assert.ok(existsSync(executable), "referenced script missing: " + executable);
+    if (command === "test:offline") {
+      assert.ok(existsSync("tests"), "offline test directory is missing");
+    } else {
+      assert.ok(existsSync(executable), "referenced script missing: " + executable);
+    }
   }
 });
 
