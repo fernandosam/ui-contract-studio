@@ -4,7 +4,7 @@ test('catalog navigation is consolidated while legacy admission deep links still
  await page.goto('/?screen=explorador-primitivos');
  await expect(page.getByRole('heading',{name:'Primitivas',exact:true}).first()).toBeVisible();
  await expect(page.getByRole('link',{name:'Catálogo Pi'})).toHaveCount(0);
- await page.getByRole('button',{name:'Contrato',exact:true}).click();
+ await page.getByRole('tab',{name:'Contrato',exact:true}).click();
  await expect(page.getByTestId('component-contract')).toBeVisible();
  await expect(page.getByTestId('component-contract')).toContainText('Fingerprint SHA-256');
  await page.goto('/?screen=explorador-compostos');
