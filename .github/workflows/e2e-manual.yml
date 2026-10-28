@@ -1,19 +1,7 @@
-name: E2E manual (main)
+name: E2E manual (diagnostic only)
 
 on:
   workflow_dispatch:
-    inputs:
-      candidate:
-        description: "Only the explicitly reviewed experimental candidate will be proposed"
-        type: choice
-        required: true
-        options:
-          - form-declarative
-      certify_confirm:
-        description: "I authorize creating a DRAFT certification PR (never direct main push)"
-        type: boolean
-        required: true
-        default: false
 
 permissions:
   contents: read
@@ -25,7 +13,7 @@ concurrency:
 jobs:
   e2e:
     name: Complete E2E (read-only)
-    if: github.ref == 'refs/heads/main' && inputs.certify_confirm == true
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
@@ -47,13 +35,13 @@ jobs:
         run: npm run test:e2e
       - name: Verify T34 render assertions before certification
         run: npm run requirements:browser:report
-      - name: Verify all desktop/mobile admission evidence
+      - name: Verify all desktop/mobile admission evidence (diagnostics only)
         run: npm run admission:evidence:report
-      - name: Bundle immutable proof for the separate certification job
+      - name: Bundle E2E diagnostics
         run: |
           test -d reports/composition-validation
           tar -czf "$RUNNER_TEMP/admission-evidence.tar.gz" -C reports composition-validation
-      - name: Upload evidence required for certification
+      - name: Upload independent browser evidence
         uses: actions/upload-artifact@v4
         with:
           name: admission-proof-${{ github.run_id }}
@@ -75,118 +63,3 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-  certify:
-    name: Source-bound promotion (write isolated)
-    needs: e2e
-    if: github.ref == 'refs/heads/main' && inputs.certify_confirm == true
-    permissions:
-      contents: write
-      pull-requests: write
-      actions: write
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.sha }}
-          persist-credentials: false
-      - uses: ./.github/actions/setup-deps
-      - name: Reject certification if main advanced during the E2E
-        run: |
-          git fetch --quiet origin main
-          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" || {
-            echo "::error::Main advanced during E2E; no stale certification";
-            exit 1;
-          }
-      - name: Download the exact prior job's browser evidence
-        uses: actions/download-artifact@v4
-        with:
-          name: admission-proof-${{ github.run_id }}
-          path: ${{ runner.temp }}/admission-proof
-      - name: Restore evidence under the expected canonical paths
-        run: |
-          mkdir -p reports
-          tar -xzf "$RUNNER_TEMP/admission-proof/admission-evidence.tar.gz" -C reports
-      - name: Verify all proof again and build ONLY the selected candidate
-        env:
-          ADMISSION_CANDIDATE: ${{ inputs.candidate }}
-        run: |
-          npm run admission:evidence:report
-          npm run admission:promote -- --candidate="$ADMISSION_CANDIDATE"
-      - name: Prepare ONLY the selected candidate's source-bound certificate
-        env:
-          ADMISSION_CERTIFY_CONFIRM: 'yes'
-          ADMISSION_CANDIDATE: ${{ inputs.candidate }}
-        run: npm run admission:certify -- --candidate="$ADMISSION_CANDIDATE"
-      - name: Publish the post-E2E stable artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: admission-stable-${{ github.sha }}
-          path: dist/admission/stable/
-          if-no-files-found: error
-          retention-days: 90
-      # GitHub_TOKEN-created PRs do not trigger pull_request CI. Explicit
-      # workflow_dispatch (the GitHub documented exception) runs the same
-      # quality.yml jobs for the exact certification branch commit.
-      - name: Open a draft certification PR; never push main
-        env:
-          GH_TOKEN: ${{ github.token }}
-          ADMISSION_CANDIDATE: ${{ inputs.candidate }}
-          ADMISSION_SOURCE_SHA: ${{ github.sha }}
-          ADMISSION_RUN_ID: ${{ github.run_id }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          git fetch --quiet origin main
-          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" || {
-            echo "::error::Main advanced during certification; refusing to publish stale evidence";
-            exit 1;
-          }
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/ui-catalog/admission-engine/certifications.json pi-catalog/contracts.json
-          if git diff --cached --quiet; then
-            echo "::error::No certificate changes were produced; refusing to create an empty PR"
-            exit 1
-          fi
-          test "$(git diff --cached --name-only | sort)" = "$(printf '%s\n' pi-catalog/contracts.json src/ui-catalog/admission-engine/certifications.json)" || {
-            echo "::error::Certification may change only the certificate and official Pi manifest"
-            exit 1
-          }
-          branch="admission/certify-${ADMISSION_CANDIDATE}-${ADMISSION_RUN_ID}"
-          git switch -c "$branch"
-          git commit -m "chore(admission): propose ${ADMISSION_CANDIDATE} E2E certification"
-          # Only push a new, isolated proposal branch; protected main is never a target.
-          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin "HEAD:refs/heads/$branch"
-          body_file="$RUNNER_TEMP/admission-certification-pr.md"
-          cat >"$body_file" <<EOF
-          ## T36 — Human review required for one candidate
-
-          - **Candidate:** \`$ADMISSION_CANDIDATE\`
-          - **Tested source revision:** \`$ADMISSION_SOURCE_SHA\`
-          - **Full independent E2E run:** https://github.com/$GITHUB_REPOSITORY/actions/runs/$ADMISSION_RUN_ID
-          - **Protocol and browser evidence:** \`admission-proof-$ADMISSION_RUN_ID\` (same run)
-          - **Source digest:** see the single new certification record and the reviewed registry entry
-
-          ### Mandatory human verification
-          - [ ] Compare the candidate/source fingerprint, protocol, E2E execution count and evidence digest.
-          - [ ] Check keyboard, focus, error correction, cancel/confirm, responsive behavior and no remote writes.
-          - [ ] Confirm only \`$ADMISSION_CANDIDATE\` changes lifecycle; all other certificates are unchanged.
-          - [ ] Inspect the two-file diff and required CI checks; document explicit approval before marking ready.
-          - [ ] Verify no permissions, arbitrary callbacks, URLs or Pi Zod APIs were added.
-
-          **Draft only.** CI success is not approval. Do not merge without human review.
-          EOF
-          gh pr create --draft --base main --head "$branch" \
-            --title "chore(admission): review ${ADMISSION_CANDIDATE} certification (T36)" \
-            --body-file "$body_file" || {
-              echo "::error::Cannot open a draft PR. Enable Settings > Actions > General > Allow GitHub Actions to create and approve pull requests. Branch remains available for manual PR creation."
-              exit 1
-            }
-          # The workflow's own GITHUB_TOKEN does not emit pull_request CI.
-          # Dispatch the existing quality workflow against exactly this head commit.
-          gh workflow run quality.yml --ref "$branch" || {
-            echo "::error::Cannot dispatch quality CI for the draft PR; do not mark ready or merge"
-            exit 1
-          }
-          echo "Draft PR created; independent review and successful status checks required. No main push."
