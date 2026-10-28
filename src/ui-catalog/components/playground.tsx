@@ -117,7 +117,7 @@ export const playgroundImplementations = {
           className={framed?"rounded-lg border px-3":highlighted?"px-3 data-open:bg-muted/50":"px-1"}>
           <AccordionTrigger className={indicator==="chevron"?"":"[&_[data-slot=accordion-trigger-icon]]:hidden"}>
             {indicator==="arrow-left"&&<ChevronRight aria-hidden="true" className="mr-2 size-4 shrink-0 transition-transform group-aria-expanded/accordion-trigger:rotate-90"/>}
-            <span className="flex-1 text-left">{item.title}</span>
+            <span className="min-w-0 flex-1 break-words text-left [overflow-wrap:anywhere]">{item.title}</span>
             {indicator==="plus-minus"&&<span aria-hidden="true" className="ml-auto text-muted-foreground"><span className="group-aria-expanded/accordion-trigger:hidden">+</span><span className="hidden group-aria-expanded/accordion-trigger:inline">−</span></span>}
           </AccordionTrigger>
           <AccordionContent>{item.content}</AccordionContent>
@@ -261,7 +261,7 @@ export const playgroundImplementations = {
     const glyph=Icon?<Icon aria-hidden="true" data-icon={props.iconPosition==="end"?"inline-end":"inline-start"} className="size-4"/>:null;
     const busy=props.loading??false;
     return <ShadcnButton variant={props.variant??"default"} size={props.size??"default"} type={props.type??"button"}
-       aria-label={props.ariaLabel||props.label} aria-invalid={props.invalid||undefined}
+       aria-label={props.ariaLabel||props.label} aria-invalid={props.invalid||undefined} aria-busy={busy||undefined}
        className={props.fullWidth?"w-full":undefined}
        disabled={props.disabled||busy} onClick={()=>notify(emit,"press")}>
        {busy?<LoaderCircle aria-hidden="true" className="size-4 animate-spin"/>:props.iconPosition!=="end"&&glyph}
