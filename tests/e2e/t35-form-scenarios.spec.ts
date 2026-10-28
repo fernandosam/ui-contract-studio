@@ -8,8 +8,8 @@ async function openVariant(page:Page,variant:"minimal"|"standard"|"corporate"){
  await catalog.getByLabel("Buscar componente").fill("DeclarativeFormFlow");
  await catalog.getByRole("button",{name:/DeclarativeFormFlow/}).click();
  const preview=catalog.getByRole("region",{name:"Prévia do contrato"});
- await expect(preview.getByTestId("registration-flow-demo")).toHaveCount(0);
- await expect(preview.getByText("Selecione o canal experimental", {exact:false})).toBeVisible();
+ await expect(preview.getByTestId("registration-flow-demo")).toBeVisible();
+ // The same approved source is available in stable; variants remain a local demo selector.
  await catalog.getByLabel("Canal Pi").selectOption("experimental");
  await catalog.getByLabel("Variação do formulário").selectOption(variant);
  const form=preview.getByTestId("registration-flow-demo");
