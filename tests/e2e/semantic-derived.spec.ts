@@ -81,7 +81,7 @@ for(const entry of registered) {
     throw new Error("No reviewed Playwright implementation for "+entry.component+"/"+entry.id);
 }
 
-test.afterEach(async(_fixtures,info)=>{
+test.afterEach(async({},info)=>{
   const entry=registered.find(item=>info.title==="semantic: "+item.component+"/"+item.id);
   if(!entry)return;
   const directory=join("reports/semantic-tests",info.project.name);
