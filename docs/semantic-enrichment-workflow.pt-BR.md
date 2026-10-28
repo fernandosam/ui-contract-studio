@@ -99,3 +99,25 @@ No PR, registre: **SHA testado e branch/base**, componentes/famílias/IDs ReUI, 
 ## T31 — Auditoria de aderência obrigatória em toda alteração semântica
 
 Qualquer alteração em `src/ui-catalog/knowledge/*.json`, inclusive `capabilities[]`, vínculos, lacunas, revisão ou decisões, **deve executar `npm run semantic:check`**. O mesmo analisador sempre realiza a auditoria de aderência Zod/Pi por `auditSemanticContractConformance`, inclusive em `semantic:report`, `semantic:context` e `pi:context`. O job `offline-policy` da CI não filtra arquivos: o relatório e eventuais falhas são preservados no artefato semântico existente. Revise `semanticConformance` no relatório antes de alterar o contrato, e nunca declare uma propriedade/evento autorizado por documentação. Procedimento, campos opcionais `contractBindings` e `decision` e testes: [T31](semantic-contract-conformance-t31.pt-BR.md).
+
+
+## Automação dos testes derivados do conhecimento semântico
+
+O campo opcional `derivedTestCases[].automation` registra somente uma receita **revisada e executável**, por exemplo:
+
+~~~json
+"automation": {"runner": "playwright", "recipe": "accordion.single-multiple"}
+~~~
+
+O catálogo de receitas e o inventário são mantidos em `scripts/lib/semantic-test-automation.mjs`; a suíte `tests/e2e/semantic-derived.spec.ts` descobre novos casos automaticamente a partir dos overlays, sem gerar ou executar código a partir de texto livre. Cada receita é uma implementação Playwright explícita. Ao acrescentar um teste, reutilize uma receita compatível (component, kind e capacidades exigidas), ou implemente/revise uma nova receita. `semantic:check` bloqueia receitas desconhecidas, incompatíveis, malformadas ou aplicadas a capacidades não implementadas. Um cenário sem receita permanece `pending-recipe` no relatório, não conta como execução, e exige implementação antes de alegar cobertura automatizada. Cenários `candidate-not-executable` ficam bloqueados até revisão de implementação/admissão independente. Receitas parciais identificam explicitamente as verificações que ainda dependem de evidência manual ou instrumental.
+
+Comandos:
+
+~~~bash
+npm run semantic:check
+npm run semantic:report
+node --test tests/semantic-test-automation.test.mjs
+npm run semantic:test:e2e
+~~~
+
+A contagem `semanticTestAutomation` integra o relatório existente `reports/composition-analysis/semantic-knowledge.json` (registrado/parcial/pendente/bloqueado/inválido). **Registrado significa apenas preparado, nunca aprovado ou executado.** A execução Playwright grava evidências por cenário e viewport em `reports/semantic-tests/`, com hash da fonte e status; no CI do PR ela acompanha o E2E focado existente e no workflow manual acompanha a suíte completa. Os primeiros exemplos são `AlertDialog/cancel-no-confirm`, `Button/press-event-and-disabled` (cobertura parcial) e `Accordion/single-versus-multiple`. Nenhum desses relatórios certifica conformidade de leitor de tela, admissão Pi, Zod ou permissão remota.

@@ -24,6 +24,7 @@ export function renderSemanticCiSummary(report) {
   const freshness = report.semanticFreshness?.summary ?? {};
   const coverage = report.semanticCoverage?.totals ?? {};
   const conformance = report.semanticConformance?.summary ?? {};
+  const testAutomation = report.semanticTestAutomation?.summary ?? {};
   const diagnostics = report.semanticFreshness?.diagnostics ?? [];
   const lines = [
     "## Semantic quality (T28)", "",
@@ -39,6 +40,10 @@ export function renderSemanticCiSummary(report) {
     "- Contract conformance (static / Zod bindings / pending decisions / blocking): " +
       [conformance.verifiedStatic, conformance.schemaBound, conformance.decisionsPending,
         conformance.blockingErrors].map(x=>x??"?").join(" / "),
+    "- Derived tests (registered / partial / pending / blocked / invalid): " +
+      [testAutomation.registered,testAutomation.partial,testAutomation.pending,
+        testAutomation.blocked,testAutomation.invalid].map(x=>x??"?").join(" / ") +
+      ". Registered means not yet executed.",
     "- Artifact: " + cell(reportPath) + " (with both command logs).", "",
   ];
   if (errors.length) {

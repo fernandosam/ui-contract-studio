@@ -359,7 +359,11 @@
       "capabilities": [
         "local-press-event",
         "loading-and-disabled"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "button.press-disabled"
+      }
     },
     {
       "id": "form-type-behavior",

@@ -340,7 +340,11 @@
       "description": "Abrir A e depois B: somente B em single, A+B em multiple; conferir estado local após interação.",
       "capabilities": [
         "single-multiple-expansion"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "accordion.single-multiple"
+      }
     },
     {
       "id": "initial-open-precedence",
