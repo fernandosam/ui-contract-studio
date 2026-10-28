@@ -2,6 +2,15 @@
 import {readFileSync,writeFileSync,existsSync,mkdirSync} from 'node:fs';
 const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const lock=read('src/ui-catalog/contracts.lock.json');const sources=read('src/ui-catalog/sources.json');
+// The reviewed lock, not the Pi projection, owns base contract maturity.
+for(const contract of lock.components){
+ if(!/^(experimental|beta|stable|deprecated)$/.test(contract.stability) ||
+    !/^\d+\.\d+\.\d+$/.test(contract.version) ||
+    !/^[a-f0-9]{64}$/.test(contract.semanticFingerprint))
+  throw new Error('Invalid version, stability or fingerprint: '+contract.name);
+ if(contract.stability==='stable' && contract.status!=='approved')
+  throw new Error('Unapproved stable contract: '+contract.name);
+}
 const configs=read('src/ui-catalog/composite-content-fields.json').components;
 const semanticGuidance=read('src/ui-catalog/semantic-contract-guidance.json').contracts;
 const composed=read('src/ui-catalog/extensions/composites/generated-manifest.json').components;
@@ -67,15 +76,20 @@ const experimentalContracts=experimentalEntries.map(entry=>{
     example:entry.example,capability:'local-interactive',
     sourceDigest:entry.sourceDigest,e2eProtocol:entry.e2eProtocol,
     validation:{static:'passed',e2e:certified?'passed':ciApproved?'ci-required':'pending'},
-    interactionBoundary:'Somente UI local: sem chamadas remotas nem permissões adicionais'};
+    interactionBoundary:'Somente UI local: sem chamadas remotas nem permissões adicionais',
+    stability:verified?'stable':'experimental',fingerprint:entry.sourceDigest};
 });
 // A single authoritative collection: maturity is a property of each contract,
 // never an implication of which array happens to contain it.
 const components=[
-  ...contracts.map(contract=>({...contract,lifecycle:'stable',
-    validation:{static:'approved',e2e:'not-recorded'}})),
+  ...contracts.map(contract=>({...contract,lifecycle:lock.components.find(c=>c.name===contract.type).stability,
+    validation:{static:lock.components.find(c=>c.name===contract.type).stability==='stable'?'approved':'pending',e2e:'not-recorded'},
+    stability:lock.components.find(c=>c.name===contract.type).stability,fingerprint:lock.components.find(c=>c.name===contract.type).semanticFingerprint})),
   ...experimentalContracts,
 ];
+// A stable contract is automatically exposed; experimental entries remain preview-only.
+if(components.some(c=>c.lifecycle==='stable' && c.stability!=='stable'))
+ throw new Error('Stable Pi contract without stable contract metadata');
 const names=components.map(c=>c.type);
 if(new Set(names).size!==names.length)throw Error('Duplicated Pi component type');
 const manifest={schemaVersion:3,projectVersion:read('package.json').version,
