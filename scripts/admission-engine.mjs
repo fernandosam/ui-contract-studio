@@ -97,15 +97,25 @@ export function publish(root = rootDefault, revision = process.env.GITHUB_SHA) {
   return catalog;
 }
 
+/** A single explicitly selected, allowlisted candidate. No implicit bulk promotion. */
+export function selectPromotionCandidateIds(policy,candidateId) {
+ if(typeof candidateId!=="string" || !/^[a-z]+(?:-[a-z]+)*$/.test(candidateId))
+  fail("Promotion requires --candidate=<reviewed-scenario-id>; bulk selection is forbidden");
+ if(!policy.allowedScenarios.includes(candidateId) || !policy.e2eEligible.includes(candidateId))
+  fail(candidateId+": candidate is not explicitly reviewed and E2E eligible");
+ return [candidateId];
+}
+
 /** All promotion decisions are independently verified before any stable artifact is written. */
-export function promoteAll(root = rootDefault,revision = process.env.GITHUB_SHA) {
+export function promoteAll(root = rootDefault,revision = process.env.GITHUB_SHA,candidateId) {
  const {policy,protocols}=input(root);
  if(process.env.GITHUB_ACTIONS==="true" &&
    (process.env.GITHUB_REF!=="refs/heads/main" || process.env.GITHUB_EVENT_NAME!=="workflow_dispatch"))
   fail("E2E promotion is restricted to manual workflow_dispatch on main");
  const published=publish(root,revision);
  const entries=json(root,"src/ui-catalog/admission-engine/entries.json").entries;
- const promoted=policy.e2eEligible.map(id=>{
+ const selected=selectPromotionCandidateIds(policy,candidateId);
+ const promoted=selected.map(id=>{
   const candidate=published.candidates.find(entry=>entry.id===id);
   const entry=entries.find(row=>row.id===id);
   const protocol=protocols.candidates[id];
@@ -134,14 +144,15 @@ export function promoteAll(root = rootDefault,revision = process.env.GITHUB_SHA)
 }
 
 /** Write an auditable certificate only after a genuine, trusted main-branch E2E run. */
-export function certify(root = rootDefault,revision = process.env.GITHUB_SHA) {
+export function certify(root = rootDefault,revision = process.env.GITHUB_SHA,candidateId) {
  if(process.env.GITHUB_ACTIONS!=="true" ||
     process.env.GITHUB_EVENT_NAME!=="workflow_dispatch" ||
     process.env.GITHUB_REF!=="refs/heads/main" ||
     process.env.ADMISSION_CERTIFY_CONFIRM!=="yes" ||
-    !/^\d+$/.test(process.env.GITHUB_RUN_ID??""))
+    !/^\d+$/.test(process.env.GITHUB_RUN_ID??"") ||
+    process.env.GITHUB_SHA!==revision)
   fail("Certificate recording requires a trusted, explicit manual main-branch GitHub Actions run");
- const stable=promoteAll(root,revision);
+ const stable=promoteAll(root,revision,candidateId);
  const filename=join(root,"src/ui-catalog/admission-engine/certifications.json");
  const doc=JSON.parse(readFileSync(filename,"utf8"));
  if(doc.schemaVersion!==1||!doc.components||Array.isArray(doc.components))
@@ -169,9 +180,16 @@ function main() {
   const args = process.argv.slice(2);
   const mode = args[0];
   const revision = args.find(entry => entry.startsWith("--revision="))?.slice(11) ?? process.env.GITHUB_SHA;
+  const selections=args.filter(entry=>entry.startsWith("--candidate="));
+  const revisionArgs=args.filter(entry=>entry.startsWith("--revision="));
+  const candidateId=selections[0]?.slice("--candidate=".length);
   if (!["--check", "--publish", "--promote", "--certify"].includes(mode) ||
-      args.slice(1).some(entry => !/^--revision=[0-9a-f]{40}$/.test(entry)))
-    fail("Use --check, --publish or --promote [--revision=<40-char SHA>]");
+      args.slice(1).some(entry => !/^--revision=[0-9a-f]{40}$/.test(entry) &&
+        !/^--candidate=[a-z]+(?:-[a-z]+)*$/.test(entry)) ||
+      revisionArgs.length>1 || selections.length>1 ||
+      (["--promote","--certify"].includes(mode)!==(selections.length===1)))
+    fail("Use --check, --publish or --promote/--certify --candidate=<reviewed-scenario-id> [--revision=<40-char SHA>]");
+
   if (mode === "--check") {
     const data = input(rootDefault);
     runGenerator(rootDefault, "--check");
@@ -184,10 +202,10 @@ function main() {
     console.log("✓ Experimental admission artifact: " + manifest.candidates.length + " official Pi candidates");
   } else {
     if(mode==="--certify"){
-      const certificates=certify(rootDefault,revision);
+      const certificates=certify(rootDefault,revision,candidateId);
       console.log("✓ Official Pi certificates recorded: "+Object.keys(certificates).length);
     }else{
-      const manifest=promoteAll(rootDefault,revision);
+      const manifest=promoteAll(rootDefault,revision,candidateId);
       console.log("✓ Post-E2E stable artifact: "+manifest.candidates.length+" candidates, commit "+manifest.sourceRevision);
     }
   }
