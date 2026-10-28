@@ -299,7 +299,8 @@ function ComponentExplorer({kind}:{kind:Kind}){
  const [tab,setTab]=useState<ContractTab>('preview');
  const [type,setType]=useState(available[0]??'Card');
  const filtered=useMemo(()=>available.filter(t=>t.toLowerCase().includes(search.toLowerCase())&&(stability==='all'||versions.get(t)?.stability===stability)),[search,available,stability]);
- const sample=samples[type];
+ const selectedType=filtered.includes(type)?type:(filtered[0]??null);
+ const sample=selectedType?samples[selectedType]:undefined;
  const spec=sample?extractBranch(sample.spec,sample.id):undefined;
  return <section className="min-w-0 space-y-5" aria-label={kind==='primitive'?'Explorador de primitivos shadcn':'Explorador de componentes compostos'}>
   <header><h2 className="text-lg font-semibold">{kind==='primitive'?'Primitivas':'Compostos'}</h2>
@@ -307,7 +308,7 @@ function ComponentExplorer({kind}:{kind:Kind}){
   {kind==='primitive' && <nav aria-label="Pilotos de recomendação semântica" className="flex flex-wrap items-center gap-2">
    <span className="text-xs text-muted-foreground">Analisar composição:</span>
    {pilotFamilies.map(family=><button type="button" key={family}
-    aria-current={type===family?'true':undefined}
+    aria-current={selectedType===family?'true':undefined}
     onClick={()=>{setType(family);setSearch('');}}
     className={`rounded-md border px-3 py-1.5 text-xs ${type===family?'bg-secondary font-semibold':'hover:bg-muted'}`}>
     {family}
@@ -322,22 +323,23 @@ function ComponentExplorer({kind}:{kind:Kind}){
      <option value="all">Todas</option><option value="stable">Estável</option><option value="beta">Beta</option><option value="experimental">Experimental</option><option value="deprecated">Descontinuado</option>
     </select>
     <p role="status" className="mb-2 text-xs text-muted-foreground">{filtered.length} de {available.length} componentes</p>
-    <div className="space-y-1" aria-label="Componentes registrados">{filtered.map(name=><button type="button" key={name} aria-current={name===type?'true':undefined} onClick={()=>{setType(name);setTab('preview');}} className={`block w-full rounded-md px-3 py-2 text-left text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${name===type?'bg-secondary font-semibold':'hover:bg-muted'}`}>{name}</button>)}</div>
+    <div className="space-y-1" aria-label="Componentes registrados">{filtered.map(name=><button type="button" key={name} aria-current={name===selectedType?'true':undefined} onClick={()=>{setType(name);setTab('preview');}} className={`block w-full rounded-md px-3 py-2 text-left text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${name===selectedType?'bg-secondary font-semibold':'hover:bg-muted'}`}>{name}</button>)}</div>
     {!filtered.length&&<p className="text-sm text-muted-foreground">Nenhum componente encontrado.</p>}
    </aside>
    <div className="min-w-0 space-y-4">
-    <div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">{type}</h3>
-    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(type)?.version??'—'}</span>{kind==='primitive'&&<PrimitiveSourceViewer key={type} type={type} example={spec}/>}</div></div>
-    <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[type as keyof typeof componentDefinitions]?.description}</p>
-    <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(type).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
+    {!selectedType ? <p role="status" className="rounded-lg border bg-card p-5 text-sm text-muted-foreground">Nenhum componente corresponde aos filtros. Limpe a busca ou altere a estabilidade.</p> : <><div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">{selectedType}</h3>
+    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(selectedType)?.version??'—'}</span>{kind==='primitive'&&<PrimitiveSourceViewer key={selectedType} type={selectedType} example={spec}/>}</div></div>
+    <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[selectedType as keyof typeof componentDefinitions]?.description}</p>
+    <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(selectedType).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
     <div role="tablist" aria-label="Detalhes do componente" className="flex flex-wrap gap-1 rounded-lg border bg-muted/25 p-1">
      {([['preview','Prévia e propriedades'],['contract','Contrato'],['semantics','Semântica e testes']] as const).map(([value,label])=><button key={value} type="button" role="tab" aria-selected={tab===value} onClick={()=>setTab(value)} className={`rounded-md px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-ring ${tab===value?'bg-background font-semibold shadow-sm':'hover:bg-muted'}`}>{label}</button>)}
     </div>
-    {tab==='contract' ? <ContractDetails type={type}/> : tab==='semantics' ? <div className="space-y-4">
-     {kind==='primitive' && <ReuiGuidance type={type}/>}
-     <SemanticKnowledgePanel type={type}/>
-     {kind==='primitive' && pilotFamilies.some(family=>family===type) && <CompositionRecommendationPanel key={type} family={type as (typeof pilotFamilies)[number]}/>}
-    </div> : spec ? <LivePropsEditor key={`${kind}:${type}`} type={type} original={spec} source={sample?.source??''}/> : <p role="status" className="rounded-lg border p-4 text-sm text-muted-foreground">Exemplo não disponível para este componente.</p>}
+    {tab==='contract' ? <ContractDetails type={selectedType}/> : tab==='semantics' ? <div className="space-y-4">
+     {kind==='primitive' && <ReuiGuidance type={selectedType}/>}
+     <SemanticKnowledgePanel type={selectedType}/>
+     {kind==='primitive' && pilotFamilies.some(family=>family===selectedType) && <CompositionRecommendationPanel key={selectedType} family={selectedType as (typeof pilotFamilies)[number]}/>}
+    </div> : spec ? <LivePropsEditor key={`${kind}:${selectedType}`} type={selectedType} original={spec} source={sample?.source??''}/> : <p role="status" className="rounded-lg border p-4 text-sm text-muted-foreground">Exemplo não disponível para este componente.</p>}
+   </>}
    </div>
   </div>
  </section>;
