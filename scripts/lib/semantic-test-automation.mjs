@@ -5,6 +5,55 @@ import {resolve} from "node:path";
 // A new semantic case opts in by naming an existing recipe. The remaining
 // prose requirements are visible as pending; they are never silently "passed".
 export const semanticTestRecipes=Object.freeze({
+  "checkbox.toggle-local":Object.freeze({
+    component:"Checkbox",kind:"integration",
+    capabilities:["controlled-boolean-initialization","local-checked-change"],coverage:"partial",
+  }),
+  "checkbox.label-help":Object.freeze({
+    component:"Checkbox",kind:"integration",
+    capabilities:["label-description-association"],coverage:"partial",
+  }),
+  "checkbox.disabled-invalid":Object.freeze({
+    component:"Checkbox",kind:"integration",
+    capabilities:["name-required-disabled-forwarding","invalid-aria-visual"],coverage:"partial",
+  }),
+  "input.change-enter":Object.freeze({
+    component:"Input",kind:"integration",
+    capabilities:["local-value-binding-and-change","focus-blur-and-enter-signal"],coverage:"partial",
+  }),
+  "input.label-help":Object.freeze({
+    component:"Input",kind:"integration",
+    capabilities:["label-name-and-help"],coverage:"partial",
+  }),
+  "input.native-states":Object.freeze({
+    component:"Input",kind:"integration",
+    capabilities:["native-state-and-length","required-check-forwarding","invalid-aria-state"],coverage:"partial",
+  }),
+  "select.simple-object-options":Object.freeze({
+    component:"Select",kind:"integration",
+    capabilities:["single-select-text-options","placeholder-value-slot","value-defaultvalue-and-change"],coverage:"partial",
+  }),
+  "select.disabled-options":Object.freeze({
+    component:"Select",kind:"integration",
+    capabilities:["disabled-field-and-options","value-defaultvalue-and-change"],coverage:"partial",
+  }),
+  "dialog.trigger-content":Object.freeze({
+    component:"Dialog",kind:"integration",
+    capabilities:["automatic-trigger","title-description-and-children"],coverage:"partial",
+  }),
+  "dialog.escape-close":Object.freeze({
+    component:"Dialog",kind:"integration",
+    capabilities:["escape-and-backdrop-dismissal","controlled-open-and-event","overlay-and-close-control"],coverage:"partial",
+  }),
+  "tabs.select-panel":Object.freeze({
+    component:"Tabs",kind:"integration",
+    capabilities:["selected-value-and-default","text-tab-panels"],coverage:"partial",
+  }),
+  "tabs.disabled":Object.freeze({
+    component:"Tabs",kind:"integration",
+    capabilities:["disabled-set-and-items"],coverage:"partial",
+  }),
+
   "dialog.cancel-without-confirm":Object.freeze({
     component:"AlertDialog",kind:"integration",
     capabilities:["explicit-cancel","confirm-signal"],coverage:"partial",
@@ -46,6 +95,7 @@ export function buildSemanticTestAutomation(profiles) {
         capabilityStates:states,recipe:selected?.recipe??null,
         runner:selected?.runner??null,coverage:null,
         status:"pending-recipe",execution:"not-run",
+        action:"implement-reviewed-recipe-and-run-browser",
       };
       const issue=message=>{errors.push(key+": "+message);entry.status="invalid";};
       if(seen.has(key))issue("duplicate derived test ID");
@@ -53,6 +103,7 @@ export function buildSemanticTestAutomation(profiles) {
       if(scenario.kind==="candidate-not-executable" ||
          states.some(cap=>cap.state==="documented-not-implemented")) {
         entry.status="blocked-not-implemented";
+        entry.action="review-implementation-before-automation";
         if(selected!==undefined)issue("unimplemented/candidate behavior cannot register a runnable recipe");
       } else if(selected!==undefined) {
         if(!selected || typeof selected!=="object" || Array.isArray(selected) ||
@@ -70,6 +121,7 @@ export function buildSemanticTestAutomation(profiles) {
             issue("unknown capability referenced by runnable test");
           else {
             entry.status="registered";
+            entry.action="run-registered-playwright-recipe";
             entry.coverage=recipe.coverage;
           }
         }

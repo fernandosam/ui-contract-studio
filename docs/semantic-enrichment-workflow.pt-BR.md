@@ -121,3 +121,15 @@ npm run semantic:test:e2e
 ~~~
 
 A contagem `semanticTestAutomation` integra o relatório existente `reports/composition-analysis/semantic-knowledge.json` (registrado/parcial/pendente/bloqueado/inválido). **Registrado significa apenas preparado, nunca aprovado ou executado.** A execução Playwright grava evidências por cenário e viewport em `reports/semantic-tests/`, com hash da fonte e status; no CI do PR ela acompanha o E2E focado existente e no workflow manual acompanha a suíte completa. Os primeiros exemplos são `AlertDialog/cancel-no-confirm`, `Button/press-event-and-disabled` (cobertura parcial) e `Accordion/single-versus-multiple`. Nenhum desses relatórios certifica conformidade de leitor de tela, admissão Pi, Zod ou permissão remota.
+
+
+### Piloto de cobertura automática por risco — 28/10/2026
+
+A ampliação após a integração do PR #104 reutiliza o inventário e o runner existentes. Ordem de prioridade (estados, risco de composição por IA e uso em formulários):
+1. **Checkbox e Input**: estado marcado/valor, disabled, readOnly, required, invalid, associação acessível de rótulo/ajuda. Alvos de toque e limites do viewport são verificados em desktop e mobile.
+2. **Select e Dialog**: opções simples/objetos, opções disabled, acionamento/fechamento por teclado, título/descrição e contenção do modal no viewport. Nunca inferir envio remoto ou confirmação crítica a partir da prévia.
+3. **Tabs**: precedência de seleção, painel ativo, estado disabled e contenção no viewport.
+
+As 12 novas receitas são cadastradas em `semanticTestRecipes` e conectadas a cenários que **já estavam** em `derivedTestCases`. Requisitos não demonstrados (propagação real de eventos, múltiplas instâncias, validação de formulário nativo, leitor de tela, zoom de 200% e integração remota) mantêm a marca `coverage: "partial"`. O relatório `semanticTestAutomation.entries[].action` distingue como agir: implementar receita revisada, revisar implementação antes de automatizar ou executar o teste Playwright registrado. Os campos de estado e autorização existentes permanecem a única fonte normativa.
+
+A rotina de PR continua a executar automaticamente `tests/e2e/semantic-derived.spec.ts` nos projetos desktop e mobile; não há novo workflow ou camada de aprovação. A suíte completa continua manual em etapa posterior. Consulte o relatório JSON e as evidências em `reports/semantic-tests/{desktop,mobile}` antes de declarar sucesso.

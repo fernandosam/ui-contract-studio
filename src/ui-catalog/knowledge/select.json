@@ -459,7 +459,11 @@
         "single-select-text-options",
         "placeholder-value-slot",
         "value-defaultvalue-and-change"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "select.simple-object-options"
+      }
     },
     {
       "id": "grouping-and-bounds",
@@ -477,7 +481,11 @@
       "capabilities": [
         "disabled-field-and-options",
         "value-defaultvalue-and-change"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "select.disabled-options"
+      }
     },
     {
       "id": "change-binding-and-event",

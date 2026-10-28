@@ -319,7 +319,11 @@
       "capabilities": [
         "selected-value-and-default",
         "text-tab-panels"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "tabs.select-panel"
+      }
     },
     {
       "id": "tab-change-event",
@@ -343,7 +347,11 @@
       "description": "Testar disabled global/por item e impossibilidade de ativação pelo usuário via mouse/teclado.",
       "capabilities": [
         "disabled-set-and-items"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "tabs.disabled"
+      }
     },
     {
       "id": "base-ui-keyboard-a11y",

@@ -295,7 +295,11 @@
       "capabilities": [
         "controlled-boolean-initialization",
         "local-checked-change"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "checkbox.toggle-local"
+      }
     },
     {
       "id": "label-and-description",
@@ -303,7 +307,11 @@
       "description": "Conferir htmlFor/id, clique no texto, descrição e name em múltiplos controles.",
       "capabilities": [
         "label-description-association"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "checkbox.label-help"
+      }
     },
     {
       "id": "disabled-required-invalid",
@@ -312,7 +320,11 @@
       "capabilities": [
         "name-required-disabled-forwarding",
         "invalid-aria-visual"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "checkbox.disabled-invalid"
+      }
     },
     {
       "id": "native-checkbox-formdata",
