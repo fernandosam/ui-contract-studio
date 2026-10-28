@@ -44,6 +44,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Guard mandatory semantic audit policy (blocking)
+        run: npm run semantic:enforcement
       # Always runs, including when src/ui-catalog/knowledge/** changes.
       # semantic:check includes the Zod/Pi conformance audit; no separate workflow.
       - name: Validate semantic evidence and contract conformance (blocking)
