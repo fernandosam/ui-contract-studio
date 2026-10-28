@@ -81,7 +81,7 @@ for(const entry of registered) {
     throw new Error("No reviewed Playwright implementation for "+entry.component+"/"+entry.id);
 }
 
-test.afterEach(async({},info)=>{
+test.afterEach(async({page},info)=>{
   const entry=registered.find(item=>info.title==="semantic: "+item.component+"/"+item.id);
   if(!entry)return;
   const directory=join("reports/semantic-tests",info.project.name);
@@ -92,7 +92,7 @@ test.afterEach(async({},info)=>{
     recipe:entry.recipe,source:entry.source,sourceSha256:digest,
     capabilities:entry.capabilities,coverage:entry.coverage,
     sourceRevision:process.env.GITHUB_SHA??null,
-    project:info.project.name,status:info.status,expectedStatus:info.expectedStatus,
+    project:info.project.name,pageUrl:page.url(),status:info.status,expectedStatus:info.expectedStatus,
     retry:info.retry,errors:info.errors.map(error=>error.message??"unknown"),
     certification:"not-granted",
   },null,2)+"\n");
