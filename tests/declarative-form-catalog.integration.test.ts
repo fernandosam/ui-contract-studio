@@ -13,11 +13,11 @@ test("T35: Pi availability follows the signed-off lifecycle rather than the prot
  assert.deepEqual(graphErrors(example,Object.keys(unifiedComponentDefinitions),
   {allowedActions:Object.keys(actionDefinitions),allowedEvents:experimentalComponentEventDescriptors}),[]);
 });
-test("T35: experimental form never extends action permissions",()=>{
+test("T35: CI-admitted local form never extends action permissions",()=>{
  const manifest=JSON.parse(readFileSync("pi-catalog/contracts.json","utf8"));
  const entry=manifest.components.find((c:{type:string})=>c.type==="DeclarativeFormFlow");
  assert.ok(["experimental","stable"].includes(entry.lifecycle));
- assert.equal(entry.validation.e2e,entry.lifecycle==="stable"?"passed":"pending");
+ assert.equal(entry.validation.e2e,entry.lifecycle==="stable"?"ci-required":"pending");
  assert.equal(entry.e2eProtocol,"declarative-form-desktop-mobile");
  assert.equal(manifest.actions.includes("submitRemote"),false);
  assert.equal(entry.interactionBoundary.includes("sem chamadas remotas"),true);
