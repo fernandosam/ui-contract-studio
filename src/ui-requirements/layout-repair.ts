@@ -8,6 +8,8 @@ import type {RequirementSpec} from "./schema";
 import type {PatternRequirements} from "./patterns";
 
 type Context=RequirementSpec|PatternRequirements;
+const isRegistration=(context:Context):context is RequirementSpec=>
+ context.flow==="registration"&&"fields" in context;
 type Node={type:string;props:Record<string,unknown>;children:string[]};
 type Screen={root:string;elements:Record<string,Node>;[key:string]:unknown};
 type EditableProp="direction"|"gap"|"columns"|"maxWidth"|"centered";
@@ -76,7 +78,7 @@ export function improveLayoutQuality(requirements:Context,generated:unknown):Lay
   for(const [key,value] of Object.entries(values))
    replaceProp(id,type,key as EditableProp,value,reason);
  };
- if(requirements.flow==="registration"){
+ if(isRegistration(requirements)){
   let plan:ReturnType<typeof planRegistrationLayout>;
   try{plan=planRegistrationLayout(requirements.fields,requirements.answers.layout);}
   catch{return finish(generated,"not-applicable",[],"Plano de cadastro inválido.");}
@@ -136,7 +138,7 @@ export function improveLayoutQuality(requirements:Context,generated:unknown):Lay
     allowedActions:Object.keys(actionDefinitions),allowedEvents:stableComponentEventDescriptors
    }).length)
   return finish(generated,"not-applicable",[],"Candidato não passou nos contratos Pi.");
- const trace=requirements.flow==="registration"?
+ const trace=isRegistration(requirements)?
   traceRegistration(requirements,candidate):tracePattern(requirements,candidate);
  if(!trace.structurallyValid)
   return finish(generated,"not-applicable",[],
