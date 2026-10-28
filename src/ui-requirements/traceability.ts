@@ -113,7 +113,7 @@ export function traceRegistration(spec:RequirementSpec,generated:unknown):Tracea
  const validation=spec.answers.validation;
  const fieldTraces=entries.filter(x=>x.id.startsWith("field:"));
  add(entries,{id:"validation",questionId:"validation",origin:source(spec.provenance,"validation"),
-  nodeIds:children,passes:validation!=="business"&&fieldTraces.every(x=>x.status!=="blocked"),
+  nodeIds:expectedAllFieldIds,passes:validation!=="business"&&fieldTraces.every(x=>x.status!=="blocked"),
   needsRuntime:validation==="native",explanation:validation==="native"?
   "Regras presentes na spec; execução, foco e bloqueio do envio exigem verificação em navegador":
   validation==="none"?"Nenhuma regra adicional solicitada":"Validação de negócio ainda não admitida"});
