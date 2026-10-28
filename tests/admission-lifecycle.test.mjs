@@ -38,7 +38,7 @@ test("unsupported and corrupted registry generation is rejected",()=>{
  assert.equal(run.status,0,run.stderr);
 });
 test("certificate recording cannot be triggered outside trusted GitHub Actions",()=>{
- const run=spawnSync(process.execPath,["scripts/admission-engine.mjs","--certify","--revision="+"f".repeat(40)],
+ const run=spawnSync(process.execPath,["scripts/admission-engine.mjs","--certify","--candidate=form-declarative","--revision="+"f".repeat(40)],
    {encoding:"utf8",env:{...process.env,GITHUB_ACTIONS:"false",ADMISSION_CERTIFY_CONFIRM:"no"}});
  assert.notEqual(run.status,0);
  assert.match(run.stderr,/trusted, explicit manual main-branch/);
