@@ -71,9 +71,14 @@ export function auditSemanticContractConformance({
           binding.kind==="event" &&
           !(schemas.events?.[name]??[]).includes(binding.name)) {
           status="not-in-zod-schema";
+        } else if(!(cap.evidence??[]).some(ref=>
+          typeof ref.path==="string" && /\\.(?:tsx|jsx)$/.test(ref.path) &&
+          typeof ref.contains==="string" && ref.contains.includes(binding.name))) {
+          status="implementation-binding-unverified";
         }
         bindings.push({kind:binding.kind,name:binding.name,status});
-        if(status==="unauthorized-binding" || status==="not-in-zod-schema") {
+        if(["unauthorized-binding","not-in-zod-schema",
+          "implementation-binding-unverified"].includes(status)) {
           errors.push(name+"#"+cap.id+": "+label+" "+status+
             "; guidance cannot grant props/events");
         } else if(status==="schema-unavailable") {
