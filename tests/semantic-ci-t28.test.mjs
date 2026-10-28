@@ -157,6 +157,6 @@ test("T28: existing quality workflow fails closed while publishing reports on fa
   assert.match(offline, /semantic-knowledge\.json/);
   assert.match(offline, /semantic-ci-summary\.mjs/);
   assert.match(offline, /npm run docs:check && npm run test:offline/);
-  assert.match(yaml, /  integration:/);
-  assert.match(yaml, /  admission-browser:/);
+  assert.match(yaml, / {2}integration:/);
+  assert.match(yaml, / {2}admission-browser:/);
 });
