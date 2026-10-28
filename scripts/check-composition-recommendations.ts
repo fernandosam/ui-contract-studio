@@ -1,3 +1,4 @@
+import {existsSync,readFileSync} from "node:fs";
 import {recommendationScenarios,validateRecommendationPolicy,getCompositionRecommendation,recommendFromRequirement} from "../src/ui-catalog/recommendations/engine";
 
 const errors=validateRecommendationPolicy();
@@ -16,6 +17,15 @@ for(const scenario of recommendationScenarios){
     result.tests.length===0 || result.tests.some(x=>x.status!=="planned-not-executed")){
    console.error("✗ Recommendation evidence or plan invalid: "+scenario.id);
    process.exit(1);
+ }
+ for(const capability of result.evidence){
+   if(capability.availability!=="verified-static")continue;
+   if(!capability.codeEvidence.length || capability.codeEvidence.some(source=>
+     !source.path.startsWith("src/") || source.path.includes("..") ||
+     !existsSync(source.path) || !readFileSync(source.path,"utf8").includes(source.contains))){
+     console.error("✗ Static evidence missing or stale: "+scenario.id+" / "+capability.capability);
+     process.exit(1);
+   }
  }
  if(result.decision!=="reuse-contract" && result.targetApproved){
    console.error("✗ Candidate cannot become approved automatically: "+scenario.id);

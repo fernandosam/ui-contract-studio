@@ -21,9 +21,11 @@ const strategyLabels:Record<Strategy,string>={
   "review-required":"Revisão de autorização necessária",
 };
 const evidenceLabels:Record<string,string>={
-  "implemented-static-evidence":"Presente no código (evidência estática)",
-  "documented-not-implemented":"Documentado, mas ainda não implementado",
-  "runtime-review-required":"Validação em navegador pendente",
+  "verified-static":"Disponível com evidência estática (não é certificação funcional)",
+  "not-implemented":"Apenas documentado — não disponível no contrato",
+  "runtime-review-required":"Comportamento pendente de validação no navegador",
+  "missing-evidence":"Sem evidência de implementação verificável",
+  "missing-record":"Sem registro semântico revisado",
 };
 const modeLabels:Record<string,string>={
   integration:"Teste de integração",
@@ -101,10 +103,17 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
               <span className="text-muted-foreground"> · {dep.piApproved?"Tipo aprovado":"Não aprovado"}</span>
             </li>)}
           </ul>
-          {result.evidence.map(item=><p key={item.capability} className="text-xs">
-            <strong>{item.capability}:</strong> <span className="text-muted-foreground">{evidenceLabels[item.state]??item.state}</span>
-          </p>)}
-          {result.gaps.length===0&&<p className="text-xs text-muted-foreground">Nenhuma lacuna de capacidade foi declarada para este cenário. Isso não certifica a execução.</p>}
+          {result.evidence.map(item=><div key={item.capability} className="text-xs">
+            <strong>{item.capability}:</strong> <span className="text-muted-foreground">{evidenceLabels[item.availability]??item.state}</span>
+            {item.availability==="verified-static"&&<p className="mt-1 break-all text-[11px] text-muted-foreground">
+              Fonte: {item.source} · {item.codeEvidence.map(source=>source.path).join(", ")}
+            </p>}
+          </div>)}
+          {result.gaps.length>0&&<p className="text-xs text-muted-foreground">
+            {result.gaps.length} capacidade(s) pendente(s): não confundir documentação ou revisão de runtime com implementação disponível.
+          </p>}
+          {result.evidence.length===0&&<p className="text-xs text-muted-foreground">Sem capacidades vinculadas ao cenário; a aprovação do alvo depende exclusivamente do catálogo Pi.</p>}
+          {result.gaps.length===0&&result.evidence.length>0&&<p className="text-xs text-muted-foreground">Todas as capacidades vinculadas têm evidência estática. Execução e acessibilidade exigem testes próprios.</p>}
         </div>
         <div className="space-y-2 rounded-md border p-3">
           <h5 className="text-sm font-medium">Riscos e limites</h5>

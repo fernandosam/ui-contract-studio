@@ -2,6 +2,8 @@ import { z } from "zod";
 import raw from "./scenarios.json";
 import lock from "../contracts.lock.json";
 import alertKnowledge from "../knowledge/alert-dialog.json";
+import accordionKnowledge from "../knowledge/accordion.json";
+import buttonKnowledge from "../knowledge/button.json";
 import reuiGuidance from "../reui-guidance.json";
 import shadcnGuidance from "../shadcn-guidance.json";
 
@@ -38,8 +40,8 @@ export type Recommendation = Readonly<{
   targetApproved: boolean;
   proposedOnly: boolean;
   dependencies: readonly { name: string; piApproved: boolean }[];
-  evidence: readonly { capability: string; description: string; state: string; source: string }[];
-  gaps: readonly { capability: string; description: string; state: string }[];
+  evidence: readonly { capability: string; description: string; state: string; source: string; availability: CapabilityAvailability; codeEvidence: readonly {path: string; contains: string}[] }[];
+  gaps: readonly { capability: string; description: string; state: string; availability: CapabilityAvailability }[];
   tests: readonly { mode: string; description: string; status: "planned-not-executed" }[];
   provenance: readonly string[];
   authorization: "advisory-only";
@@ -49,7 +51,54 @@ const file = documentSchema.parse(raw);
 export const recommendationScenarios: readonly Scenario[] = file.scenarios;
 const byId = new Map(recommendationScenarios.map(item => [item.id, item]));
 const approved = new Set(lock.components.filter(x => x.status === "approved").map(x => x.name));
-const features = new Map(alertKnowledge.capabilities.map(item => [item.id, item]));
+export type CapabilityAvailability =
+  | "verified-static"
+  | "not-implemented"
+  | "runtime-review-required"
+  | "missing-evidence"
+  | "missing-record";
+
+type CuratedCapability = {
+  id: string;
+  description: string;
+  state: string;
+  evidence: readonly {path: string; contains: string}[];
+};
+type CuratedOverlay = {
+  source: string;
+  component: string;
+  status: string;
+  capabilities: readonly CuratedCapability[];
+};
+
+/** Deliberately small rollout: these are reviewed records, not all ReUI families. */
+const curated = new Map<string, CuratedOverlay>([
+  ["AlertDialog", {...alertKnowledge, source:"src/ui-catalog/knowledge/alert-dialog.json"}],
+  ["Accordion", {...accordionKnowledge, source:"src/ui-catalog/knowledge/accordion.json"}],
+  ["Button", {...buttonKnowledge, source:"src/ui-catalog/knowledge/button.json"}],
+]);
+const capabilitiesFor = (family: string) =>
+  new Map((curated.get(family)?.capabilities ?? []).map(item => [item.id, item]));
+
+/**
+ * Only first-party static evidence is eligible for an "available" suggestion.
+ * semantic:check checks the literal needles against source files on every CI run.
+ * A proposed feature or a pending browser review is never promoted by this helper.
+ */
+export function classifySemanticCapability(
+  capability?: Pick<CuratedCapability, "state" | "evidence">,
+): CapabilityAvailability {
+  if (!capability) return "missing-record";
+  if (capability.state === "documented-not-implemented") return "not-implemented";
+  if (capability.state === "runtime-review-required") return "runtime-review-required";
+  if (capability.state !== "implemented-static-evidence") return "missing-evidence";
+  if (!Array.isArray(capability.evidence) || capability.evidence.length === 0 ||
+    capability.evidence.some(item =>
+      typeof item.path !== "string" || !/^src\/[a-zA-Z0-9_./-]+$/.test(item.path) ||
+      item.path.includes("..") || typeof item.contains !== "string" || !item.contains.trim()))
+    return "missing-evidence";
+  return "verified-static";
+}
 const normalized = (text: string): string => text.toLocaleLowerCase("pt-BR")
   .normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim();
 
@@ -68,13 +117,20 @@ export function validateRecommendationPolicy(): string[] {
       errors.push(item.id + ": review-required must not grant a target");
     for (const dependency of item.dependencies)
       if (!approved.has(dependency)) errors.push(item.id + ": unapproved dependency " + dependency);
-    if (item.requiredCapabilities.length && item.family !== "AlertDialog")
-      errors.push(item.id + ": unverified capabilities can only be referenced in curated overlay");
+
+    const overlay = curated.get(item.family);
+    if (item.requiredCapabilities.length && (!overlay || overlay.status !== "reviewed-documentation" ||
+      overlay.component !== item.family))
+      errors.push(item.id + ": capabilities require a reviewed family overlay");
+    const familyCapabilities = capabilitiesFor(item.family);
     for (const capability of item.requiredCapabilities) {
-      const known = features.get(capability);
-      if (!known) errors.push(item.id + ": capability not in curated overlay: " + capability);
-      else if (known.state === "documented-not-implemented" && item.strategy === "reuse-contract")
-        errors.push(item.id + ": may not reuse contract for missing capability " + capability);
+      const known = familyCapabilities.get(capability);
+      const availability = classifySemanticCapability(known);
+      if (!known) errors.push(item.id + ": capability not in reviewed family overlay: " + capability);
+      else if (availability === "missing-evidence")
+        errors.push(item.id + ": implemented capability lacks usable code evidence: " + capability);
+      else if (availability === "not-implemented" && item.strategy === "reuse-contract")
+        errors.push(item.id + ": cannot reuse the target for missing capability " + capability);
     }
     if (new Set(item.keywords.map(normalized)).size !== item.keywords.length)
       errors.push(item.id + ": duplicate normalized keywords");
@@ -93,15 +149,23 @@ export function validateRecommendationPolicy(): string[] {
 export function getCompositionRecommendation(id: string): Recommendation | null {
   const scenario = byId.get(id);
   if (!scenario) return null;
-  const evidence = scenario.requiredCapabilities.flatMap(capability => {
-    const item = features.get(capability);
-    return item ? [{
-      capability, description: item.description, state: item.state,
-      source: "src/ui-catalog/knowledge/alert-dialog.json",
-    }] : [];
+
+  const overlay = curated.get(scenario.family);
+  const familyCapabilities = capabilitiesFor(scenario.family);
+  const evidence = scenario.requiredCapabilities.map(capability => {
+    const item = familyCapabilities.get(capability);
+    return {
+      capability,
+      description: item?.description ?? "Sem registro semântico revisado para esta capacidade.",
+      state: item?.state ?? "missing-record",
+      source: overlay?.source ?? "",
+      availability: classifySemanticCapability(item),
+      codeEvidence: item?.evidence ?? [],
+    };
   });
-  const gaps = evidence.filter(item => item.state !== "implemented-static-evidence")
-    .map(({capability, description, state}) => ({capability, description, state}));
+  const gaps = evidence.filter(item => item.availability !== "verified-static")
+    .map(({capability, description, state, availability}) =>
+      ({capability, description, state, availability}));
   const tests = scenario.tests.map(([mode,description]) => ({
     mode, description, status: "planned-not-executed" as const,
   }));
@@ -112,14 +176,16 @@ export function getCompositionRecommendation(id: string): Recommendation | null 
     proposedOnly: scenario.strategy !== "reuse-contract",
     dependencies: scenario.dependencies.map(name => ({name,piApproved:approved.has(name)})),
     evidence, gaps, tests,
+
     provenance: scenario.family === "Form"
       ? ["src/ui-catalog/extensions/composites/proposals/DeclarativeFormFlow.schema.ts",
          "src/ui-catalog/contracts.lock.json"]
-      : scenario.family === "AlertDialog"
-      ? ["src/ui-catalog/knowledge/alert-dialog.json", "src/ui-catalog/shadcn-guidance.json",
-        "src/ui-catalog/contracts.lock.json"]
-      : ["src/ui-catalog/reui-guidance.json", "src/ui-catalog/contracts.lock.json",
-        ...(scenario.target === "OnboardingChecklist" ? ["src/ui-catalog/semantic-contract-guidance.json"] : [])],
+      : [ ...(overlay ? [overlay.source] : []),
+        scenario.family === "AlertDialog"
+          ? "src/ui-catalog/shadcn-guidance.json" : "src/ui-catalog/reui-guidance.json",
+        "src/ui-catalog/contracts.lock.json",
+        ...(scenario.target === "OnboardingChecklist"
+          ? ["src/ui-catalog/semantic-contract-guidance.json"] : [])],
     authorization: "advisory-only",
   };
 }

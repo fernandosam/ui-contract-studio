@@ -6,6 +6,7 @@ import {
   getCompositionRecommendation,
   recommendFromRequirement,
   validateRecommendationPolicy,
+  classifySemanticCapability,
 } from "../src/ui-catalog/recommendations/engine";
 import {playgroundDefinitions} from "../src/ui-catalog/catalog";
 import {extensionDefinitions} from "../src/ui-catalog/extensions/catalog";
@@ -116,4 +117,45 @@ test("explorer makes the pilot accessible and shows tests and approval boundarie
   assert.match(panel,/Plano de testes sugerido/);
   assert.match(panel,/Não há correspondência segura/);
   assert.match(panel,/Nenhum contrato Pi é criado/);
+});
+
+test("verified static capabilities are scoped to their own reviewed family",()=>{
+  const faq=getCompositionRecommendation("accordion-faq");
+  const loading=getCompositionRecommendation("button-loading");
+  const action=getCompositionRecommendation("button-action");
+  assert.ok(faq&&loading&&action);
+  assert.equal(faq.evidence.find(x=>x.capability==="textual-items")?.availability,"verified-static");
+  assert.ok(faq.evidence.some(x=>x.capability==="keyboard-and-aria"&&
+    x.availability==="runtime-review-required"));
+  assert.ok(faq.provenance.includes("src/ui-catalog/knowledge/accordion.json"));
+  assert.equal(loading.evidence.find(x=>x.capability==="loading-and-disabled")?.availability,"verified-static");
+  assert.ok(loading.evidence.every(x=>x.source==="src/ui-catalog/knowledge/button.json"));
+  assert.ok(loading.evidence.every(x=>x.codeEvidence.length>0));
+  assert.equal(action.gaps.find(x=>x.capability==="focus-and-keyboard-runtime")?.availability,"runtime-review-required");
+});
+
+test("not implemented capabilities stay candidates, never Pi availability",()=>{
+  const team=getCompositionRecommendation("accordion-members");
+  const copy=getCompositionRecommendation("button-copy");
+  assert.ok(team&&copy);
+  assert.equal(team.evidence.find(x=>x.capability==="rich-structured-content")?.availability,"not-implemented");
+  assert.equal(copy.evidence.find(x=>x.capability==="copy-or-external-action")?.availability,"not-implemented");
+  assert.equal(team.targetApproved,false);
+  assert.equal(copy.targetApproved,false);
+  assert.equal(copy.evidence.find(x=>x.capability==="local-press-event")?.availability,"verified-static");
+});
+
+test("absent, empty, unsafe and undocumented evidence never imply implementation",()=>{
+  assert.equal(classifySemanticCapability(undefined),"missing-record");
+  assert.equal(classifySemanticCapability({state:"implemented-static-evidence",evidence:[]}),"missing-evidence");
+  assert.equal(classifySemanticCapability({state:"implemented-static-evidence",
+    evidence:[{path:"docs/guidance.md",contains:"hello"}]}),"missing-evidence");
+  assert.equal(classifySemanticCapability({state:"implemented-static-evidence",
+    evidence:[{path:"src/../escape.ts",contains:"x"}]}),"missing-evidence");
+  assert.equal(classifySemanticCapability({state:"implemented-static-evidence",
+    evidence:[{path:"src/a.ts",contains:""}]}),"missing-evidence");
+  assert.equal(classifySemanticCapability({state:"documented-not-implemented",evidence:[]}),"not-implemented");
+  assert.equal(classifySemanticCapability({state:"runtime-review-required",evidence:[]}),"runtime-review-required");
+  assert.equal(classifySemanticCapability({state:"implemented-static-evidence",
+    evidence:[{path:"src/a.ts",contains:"export const a"}]}),"verified-static");
 });

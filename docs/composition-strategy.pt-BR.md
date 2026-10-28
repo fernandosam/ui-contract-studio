@@ -148,3 +148,18 @@ npm run admission:evidence:report
 
 O mesmo verificador confere 28 execuções desktop/mobile dos quatro protocolos (10 do TypedConfirmationDialog e 18 dos demais), resultados e capturas, origem da implementação e revisão testada. A CI da PR valida os cenários focados, mas **não certifica** contratos para o canal estável. Somente o E2E manual completo na main pode gerar certificados. A ausência de chamada remota e as demais restrições de segurança permanecem obrigatórias. Revisão manual de acessibilidade não é inferida dos testes.
 
+
+## T20 — Capacidades verificadas nas recomendações (Entrega 4/P1)
+
+O piloto do recomendador (`src/ui-catalog/recommendations/engine.ts`) consulta **três overlays revisados**: AlertDialog, Accordion e Button. Não exige cobertura de todas as famílias ReUI. As capacidades dos cenários são buscadas **somente no registro da própria família**, sem inferência de equivalência com outros contratos.
+
+| Classificação no motor | Critério | Efeito |
+| --- | --- | --- |
+| `verified-static` | Registro revisado, estado `implemented-static-evidence` e ao menos um trecho de código próprio com caminho/agulha válidos; CI confirma o trecho real | Pode ser descrito como disponível **com evidência estática**, não como teste funcional ou autorização |
+| `not-implemented` | `documented-not-implemented` | Lacuna/proposta; não pode ser requisito de cenário `reuse-contract` |
+| `runtime-review-required` | `runtime-review-required` | Validação pendente; nunca descrito como certificado |
+| `missing-evidence` / `missing-record` | Evidência vazia, inválida ou ID não revisado | Não é recomendado como disponível; IDs ausentes bloqueiam a política |
+
+Os cenários iniciais vinculam FAQ expansível, estrutura rica candidata, evento local e loading de Button, ação de cópia candidata e revisão de teclado/foco. Os cenários que usam contratos diferentes da família (OnboardingChecklist, Collapsible, ButtonGroup e Toggle) não herdam capacidades dessa outra implementação por suposição. A recomendação de reutilização continua dependente de `contracts.lock.json`; o enriquecimento **não altera** Zod, Pi, admissões ou autorizações.
+
+Verificações locais solicitadas: `npx tsx --test tests/composition-recommender.integration.test.ts`, `npm run composites:recommend:check`, `npm run semantic:check` e `npm run semantic:report`. A verificação do recomendador também exige que cada trecho fonte mencionado como `verified-static` exista literalmente no repositório; o validador semântico independente cobre todos os registros. O relatório gerado é `reports/composition-analysis/semantic-knowledge.json`, orientação documental, não certificado E2E.
