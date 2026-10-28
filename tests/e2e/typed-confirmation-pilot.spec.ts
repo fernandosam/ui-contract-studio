@@ -9,6 +9,7 @@ const root="reports/composition-validation/typed-confirmation";
 const load=async page=>{
  await page.goto("/?screen=explorador-primitivos");
  await page.getByRole("button",{name:"AlertDialog",exact:true}).first().click();
+ await page.getByRole("tab",{name:"Semântica e testes"}).click();
  const panel=page.getByTestId("composition-recommendations");
  await expect(panel).toBeVisible();
  await panel.getByLabel("Situação funcional").selectOption("alert-typed");
