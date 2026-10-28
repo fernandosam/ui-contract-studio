@@ -63,7 +63,7 @@ test("unknown, mismatched, malformed and unimplemented recipes fail closed",()=>
     (_r,s)=>{s.automation.recipe="dialog.cancel-without-confirm";},
     (_r,s)=>{s.automation.runner="node";},
     (_r,s)=>{s.capabilities=["local-press-event"];},
-    (r,_s)=>{r.capabilities.find(x=>x.id==="loading-and-disabled").state="documented-not-implemented";},
+    (r)=>{r.capabilities.find(x=>x.id==="loading-and-disabled").state="documented-not-implemented";},
   ]) {
     const audit=mutate(change);
     assert.ok(audit.errors.length>0);
