@@ -44,10 +44,13 @@ if(errors.length) {
     ...profile,
     codeFreshness:freshness.components.find(x=>x.component===component)??null,
     codeFreshnessDiagnostics:freshness.diagnostics.filter(x=>x.component===component),
+    contractConformance:report.semanticConformance.components.find(x=>x.component===component)??null,
+    contractConformanceCapabilities:report.semanticConformance.entries.filter(x=>x.component===component),
   },null,2));
 } else {
   console.log("✓ Semantic guidance validated: "+JSON.stringify(report.coverage));
   console.log("  Capability audit: "+JSON.stringify(report.capabilityAudit.summary));
+  console.log("  Contract conformance (mandatory): "+JSON.stringify(report.semanticConformance.summary));
   console.log("  T23 composition proposals: "+JSON.stringify(compositionProposals.summary));
   const coverage=report.semanticCoverage.totals;
   console.log("  ReUI families with curated overlays: "+coverage.curatedFamilies+"/"+coverage.inventoryFamilies);
