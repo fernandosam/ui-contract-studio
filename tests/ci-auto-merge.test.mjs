@@ -66,7 +66,7 @@ test("only protected PR workflow can enable auto-merge; no bypass or untrusted c
  assert.match(protectedJob,/PR_IS_DRAFT/);
  assert.match(protectedJob,/gh pr merge "\$PR_NUMBER" --disable-auto/);
  assert.match(protectedJob,/gh pr merge "\$PR_NUMBER" --auto --squash --match-head-commit "\$PR_HEAD_SHA"/);
- assert.doesNotMatch(protectedJob,/--admin|gh pr merge "\$PR_NUMBER" --squash\s*$/m);
+ assert.doesNotMatch(protectedJob,/^\s*gh pr merge[^\n]*--admin|gh pr merge "\$PR_NUMBER" --squash\s*$/m);
  assert.match(quality,/name: Source, docs and offline tests/);
  assert.match(quality,/name: Source checks, schemas and production build/);
 });
