@@ -83,3 +83,21 @@ Somente capacidades `implemented-static-evidence` com evidências literais em `s
 `source.reviewedOn` é uma **data de revisão da documentação oficial**, reutilizada como referência conservadora de precisão diária para mudanças no código; **não** comprova revisão da implementação. Mudanças no mesmo dia não podem ser ordenadas pela data. A detecção por arquivo pode produzir falsos positivos por alterações não relacionadas e não prova comportamento. Alertas de revisão não mudam estados nem falham o comando. Evidência textual ausente continua provocando falha no validador já existente. Capacidades `documented-not-implemented` e `runtime-review-required` têm evidências intencionalmente vazias e **não** são classificadas como arquivos ausentes.
 
 Os testes `node --test tests/semantic-freshness-t27.test.mjs` incluem mudança commitada preservando o trecho, exclusão de arquivo/trecho, evidência ainda válida, alteração local e histórico indisponível. Em checkout completo, executar `npm run semantic:check && npm run semantic:report && npm run test:offline`; o job `offline-policy` da CI repete as verificações. Registrar os resultados reais na PR; nem relatório nem teste estático equivalem a E2E, admissão ou autorização Pi.
+
+## T28 — Controle de qualidade semântica no CI e preservação de evidências (27/10/2026)
+
+O [workflow de qualidade](../.github/workflows/quality.yml) existente executa as verificações no job **Source, docs and offline tests**, em PRs e pushes para `main`. São os **mesmos comandos** da T26/T27, sem workflow paralelo:
+
+```bash
+npm run semantic:check
+npm run semantic:report
+node scripts/semantic-ci-summary.mjs
+npm run docs:check
+npm run test:offline
+```
+
+`semantic:check` continua **bloqueante** para registro incompleto, arquivo de implementação ausente ou trecho literal removido. `semantic:report` é executado **mesmo após falha do check** e preserva o caminho único `reports/composition-analysis/semantic-knowledge.json`. Quando há erros, o relatório recebe `validation: { status: "failed", errors: [...] }` e o comando mantém retorno diferente de zero: **trata-se de diagnóstico, não de relatório validado**. Quando válido, o formato original é preservado. Os estados `review-required` (código alterado após revisão) e `history-unavailable` continuam avisos, sem autorizar implementações ou admissões.
+
+Em cada execução, o CI publica o artefato **`semantic-knowledge-report`** (JSON, `semantic-check.log` e `semantic-report.log`) por 14 dias, além de um resumo do job com contagens, falhas e diagnósticos rastreáveis overlay → componente/capacidade → evidência no código e ação. O Bash utiliza `pipefail` para impedir que o `tee` oculte falhas. Verificação documental, testes offline, checks de implementação, build, admissão e E2E manual continuam independentes.
+
+Para reproduzir os cenários execute `node --test tests/semantic-ci-t28.test.mjs`: casos **válidos**, **incompletos**, **alterados com evidência presente** e **sem evidência** são avaliados pelos comandos reais do analisador. `npm run test:offline` inclui essa regressão. Use checkout com histórico completo (`fetch-depth: 0`) para avaliar datas. Não atualize datas de revisão, schemas, permissões Pi ou estados de admissão automaticamente para eliminar avisos.
