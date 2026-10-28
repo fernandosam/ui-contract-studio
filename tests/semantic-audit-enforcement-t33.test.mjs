@@ -44,6 +44,17 @@ test("T33: direct catalog check and guard registration cannot be silently remove
  assert.ok(results.some(x=>x.includes("registered in npm")));
 });
 
+test("T33: semantic-derived browser recipes cannot be removed from the required integration job",()=>{
+ const missing=workflow.replace(
+  "tests/e2e/declarative-form-certification.spec.ts tests/e2e/semantic-derived.spec.ts",
+  "tests/e2e/declarative-form-certification.spec.ts");
+ assert.ok(semanticAuditEnforcementViolations({workflow:missing})
+   .some(message=>message.includes("Required integration job")));
+ const skipped=workflow.replace("  integration:\n","  integration:\n    if: github.event_name == 'push'\n");
+ assert.ok(semanticAuditEnforcementViolations({workflow:skipped})
+   .some(message=>message.includes("Required integration job")));
+});
+
 test("T33: semantic reporting and artifact retention remain mandatory",()=>{
  const invalid=workflow.replace("npm run semantic:report 2>&1 | tee","echo skipped 2>&1 | tee");
  assert.ok(semanticAuditEnforcementViolations({workflow:invalid})

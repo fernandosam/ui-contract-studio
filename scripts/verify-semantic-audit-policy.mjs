@@ -47,6 +47,16 @@ export function semanticAuditEnforcementViolations({
     !analyzer.includes("auditSemanticContractConformance({root,profiles:records,capabilityAudit})") ||
     !analyzer.includes("errors.push(...semanticConformance.errors)"))
     errors.push("Full checks and semantic analyzer must enforce contract conformance.");
+  // The existing required integration check must execute derived browser
+  // recipes, since the separate focused browser job is not a ruleset gate.
+  const integration=workflow.split(/^ {2}integration:\s*$/m)[1]
+    ?.split(/^ {2}[a-z][a-z-]+:\s*$/m)[0]??"";
+  if(!integration || /^ {4}if:/m.test(integration) ||
+     !/tests\/e2e\/declarative-form-certification\.spec\.ts/.test(integration) ||
+     !/tests\/e2e\/semantic-derived\.spec\.ts/.test(integration) ||
+     !integration.includes("--project=desktop --project=mobile") ||
+     /continue-on-error:\s*true|\|\|\s*true|set \+e/.test(integration))
+    errors.push("Required integration job must execute semantic-derived browser tests on desktop/mobile without bypass.");
   const changedKnowledge=["src/ui-catalog/knowledge/alert-dialog.json"];
   if(isDocumentationOnly(changedKnowledge) || !browserRequired(changedKnowledge))
     errors.push("Knowledge edits must never be classified as prose-only changes.");
