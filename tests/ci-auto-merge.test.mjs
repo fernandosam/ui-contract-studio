@@ -47,6 +47,8 @@ test("renames, pagination and malformed/missing file metadata fail closed",()=>{
  assert.equal(rename.eligible,false);
  assert.match(rename.reason,/\.github\/workflows/);
  assert.equal(autoMergeEligibility([[row("docs/good.md")],null]).eligible,false);
+ assert.equal(autoMergeEligibility([Array.from({length:3000},(_,i)=>row(`docs/safe-${i}.md`))]).eligible,false);
+
 });
 
 test("only protected PR workflow can enable auto-merge; no bypass or untrusted checkout",()=>{
