@@ -34,3 +34,21 @@ A prioridade de correção pode partir dos diagnósticos de menor pontuação. *
 ## Limites explícitos
 
 A pontuação não captura geometria real, overflow, cor, contraste, alinhamento de pixels, breakpoints executados, teclado ou acessibilidade. “Responsividade” significa compatibilidade **inferida** da árvore declarativa com o CSS responsivo já existente, não aprovação visual. E2E, inspeção no navegador e revisão humana permanecem evidências separadas quando necessárias. A avaliação não adiciona tipos/props ao Zod, não admite novos componentes, não autoriza actions e não amplia permissões Pi. Mesmo 100/100 não constitui certificação de produção.
+
+## Próxima evolução: ciclo conservador de autocorreção
+
+A função `improveLayoutQuality(requirements, generated)`, em `src/ui-requirements/layout-repair.ts`, executa uma tentativa **limitada a 12 alterações** sobre uma cópia em memória do JSON gerado. Os dois assistentes de prévia e as auditorias existentes usam a mesma função, sem novo botão, etapa de aprovação, workflow ou critério de merge. A proposta é exclusivamente uma melhoria de composição visual; não altera o pedido ou a semântica funcional.
+
+**Mudanças permitidas:** reordenar exclusivamente filhos já existentes e com a mesma composição de IDs; restaurar propriedades **já presentes** de `direction`, `gap`, `columns`, `maxWidth` e `centered`, com os valores previstos pelos perfis semânticos revisados. Não são inseridos/removidos nós, não há troca de tipos, criação de props, alteração de conteúdo, rótulos, eventos, ações, fontes de dados, permissões ou código React. Campos ausentes, conteúdo conflitante e layouts sem perfil específico não são “inventados”.
+
+**Política de aceitação técnica, não aprovação:** um candidato somente substitui a prévia em memória quando o JSON inicial passou nas invariantes do catálogo, o candidato passou no **Zod Pi + grafo + rastreabilidade independente dos requisitos**, a nota total aumentou e nenhuma das quatro notas piorou. Se qualquer verificação falhar, a prévia original é preservada. A saída registra `status: unchanged | improved | not-applicable`, pontuação antes/depois, motivo e lista de caminhos alterados. A mesma entrada produz o mesmo resultado e uma segunda execução não repete alterações.
+
+```sh
+npx tsx --test tests/layout-repair.integration.test.ts tests/layout-quality.integration.test.ts
+npm run requirements:audit
+npm run requirements:patterns:audit
+npm run typecheck
+npm run build
+```
+
+A verificação automática de integridade **não é** uma nova aprovação de produto, componente ou PR; ela impede que uma correção visual burle controles que já existiam. A nota 100 não certifica renderização, acessibilidade ou E2E, que continuam exigindo evidência própria quando aplicável.
