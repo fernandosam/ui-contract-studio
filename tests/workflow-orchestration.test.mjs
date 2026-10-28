@@ -59,7 +59,14 @@ test('full E2E is exclusively manual on main, and certification has isolated wri
  assert.match(second,/actions\/download-artifact@v4/);
  assert.match(second,/npm run admission:certify/);
  assert.match(second,/git fetch --quiet origin main/);
- assert.match(second,/git push origin HEAD:main|push origin HEAD:main/);
+ assert.doesNotMatch(second,/git push origin HEAD:main|push origin HEAD:main|HEAD:refs\/heads\/main/);
+ assert.match(second,/gh pr create --draft --base main/);
+ assert.match(second,/gh workflow run quality\.yml --ref/);
+ assert.match(second,/push origin "HEAD:refs\/heads\/\$branch"/);
+ assert.match(second,/npm run admission:certify -- --candidate=/);
+ assert.match(manual,/certify_confirm:/);
+ assert.match(manual,/form-declarative/);
+ assert.match(quality,/workflow_dispatch:/);
  assert.match(second,/http\.https:\/\/github\.com\/\.extraheader/);
  assert.match(manual,/cancel-in-progress: false/);
 });
