@@ -29,6 +29,8 @@ test('Pi context carrega schemas por seleção, com actions e sem extravasar tip
   mkdirSync(join(cwd,'pi-catalog/examples'),{recursive:true});
   const manifest=read('pi-catalog/contracts.json');
   cpSync('pi-catalog/contracts.json',join(cwd,'pi-catalog/contracts.json'));
+  mkdirSync(join(cwd,'src/ui-catalog'),{recursive:true});
+  cpSync('src/ui-catalog/contracts.lock.json',join(cwd,'src/ui-catalog/contracts.lock.json'));
   const desired=['Card','SiteCardsPaymentMethod'];
   for(const name of desired)cpSync(`pi-catalog/examples/${name}.json`,join(cwd,`pi-catalog/examples/${name}.json`));
   const schemas={schemaVersion:3,projectVersion:manifest.projectVersion,types:{},actions:{buttonClick:{type:'object',additionalProperties:false}},events:{}};
