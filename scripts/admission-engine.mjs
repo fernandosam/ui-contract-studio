@@ -9,55 +9,15 @@ import { dirname, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { inspectEvidence } from "./admission-evidence.mjs";
+import { evaluatePolicy } from "./lib/admission-policy.mjs";
+import { reviewSemanticAdmissionsAtRoot } from "./lib/semantic-admission-review.mjs";
+export { evaluatePolicy } from "./lib/admission-policy.mjs";
 
 const rootDefault = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const hash = value => createHash("sha256").update(value).digest("hex");
 const json = (root, path) => JSON.parse(readFileSync(join(root, path), "utf8"));
 const revisionPattern = /^[0-9a-f]{40}$/;
 const fail = message => { throw new Error("Admission Engine: " + message); };
-
-export function evaluatePolicy({ policy, recipes, scenarios, lock, pi, sources, protocols }) {
-  const errors = [];
-  if (policy.schemaVersion !== 1 || policy.mode !== "opt-in-experimental" ||
-      !Array.isArray(policy.allowedScenarios) || !Array.isArray(policy.e2eEligible))
-    errors.push("Invalid policy format");
-  const allowed = policy.allowedScenarios ?? [];
-  const recipeById = new Map(recipes.recipes.map(entry => [entry.id, entry]));
-  const scenarioById = new Map(scenarios.scenarios.map(entry => [entry.id, entry]));
-  const approved = new Set(lock.components.filter(entry => entry.status === "approved").map(entry => entry.name));
-  const exported = new Set(pi.components.filter(entry => entry.tier!=='composition').map(entry => entry.type));
-  const sourced = new Set(sources.components.map(entry => entry.name));
-  if (new Set(allowed).size !== allowed.length) errors.push("Duplicate allowlisted scenario");
-  if (new Set(policy.e2eEligible ?? []).size !== (policy.e2eEligible ?? []).length)
-    errors.push("Duplicate E2E eligibility");
-  for (const id of allowed) {
-    const recipe = recipeById.get(id), scenario = scenarioById.get(id);
-    if (!/^[a-z]+(?:-[a-z]+)*$/.test(id) || !recipe || !scenario ||
-        recipe.review !== "required" || scenario.strategy !== "react-candidate" ||
-        recipe.target !== scenario.target || !/^[A-Z][A-Za-z0-9]+$/.test(recipe.target)) {
-      errors.push(id + ": unknown, unreviewed or invalid recipe");
-      continue;
-    }
-    if (approved.has(recipe.target) || exported.has(recipe.target) || sourced.has(recipe.target))
-      errors.push(id + ": already present in the authoritative stable Pi catalog");
-    if (!Array.isArray(scenario.dependencies) ||
-        scenario.dependencies.some(dependency => !approved.has(dependency)))
-      errors.push(id + ": unapproved primitive dependency");
-  }
-  for (const id of policy.e2eEligible ?? []) {
-    const protocol=protocols.candidates?.[id];
-    const recipe=recipeById.get(id);
-    if (!allowed.includes(id) || !protocol || protocol.target!==recipe?.target ||
-      !/^[a-z]+(?:-[a-z]+)*$/.test(id) ||
-      !/^[a-z]+(?:-[a-z]+)*$/.test(protocol.protocol??"") ||
-      !Array.isArray(protocol.cases) || protocol.cases.length<3 ||
-      new Set(protocol.cases).size!==protocol.cases.length ||
-      protocol.cases.some(caseId=>!/^[a-z]+(?:-[a-z]+)*$/.test(caseId)))
-      errors.push(id + ": no verified browser evidence protocol");
-  }
-  if (!allowed.length) errors.push("No explicit allowlisted candidates");
-  return errors;
-}
 
 export function verifyE2eEvidence(root,candidate) {
   const protocol=json(root,"src/ui-catalog/admission-engine/protocols.json").candidates?.[candidate.id];
@@ -131,6 +91,9 @@ export function publish(root = rootDefault, revision = process.env.GITHUB_SHA) {
     policy: "official Pi v3 experimental lane; stable channel blocked until certified", candidates
   };
   writeFileSync(join(target, "catalog.json"), JSON.stringify(catalog, null, 2) + "\n");
+  // Diagnostic sidecar only: NOT part of the Pi manifest or executable catalog.
+  const review = reviewSemanticAdmissionsAtRoot(root);
+  writeFileSync(join(target, "semantic-review.json"), JSON.stringify(review, null, 2) + "\n");
   return catalog;
 }
 
@@ -212,6 +175,9 @@ function main() {
   if (mode === "--check") {
     const data = input(rootDefault);
     runGenerator(rootDefault, "--check");
+    const review = reviewSemanticAdmissionsAtRoot(rootDefault);
+    console.log("✓ T24 semantic admission review: " + review.summary.proposals +
+      " proposals evaluated; no types, permissions or certificates added.");
     console.log("✓ Admission policy and " + data.policy.allowedScenarios.length + " reviewed recipes validated");
   } else if (mode === "--publish") {
     const manifest = publish(rootDefault, revision);
