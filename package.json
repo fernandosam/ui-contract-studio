@@ -109,7 +109,8 @@
     "requirements:impact": "tsx scripts/audit-requirements-impact.ts",
     "requirements:browser:report": "tsx scripts/verify-requirements-browser-evidence.ts",
     "requirements:evidence:verify": "tsx scripts/verify-requirements-browser-evidence.ts",
-    "requirements:browser:prepare": "tsx scripts/prepare-requirements-browser-evidence.ts"
+    "requirements:browser:prepare": "tsx scripts/prepare-requirements-browser-evidence.ts",
+    "semantic:test:e2e": "playwright test tests/e2e/semantic-derived.spec.ts --project=desktop --project=mobile"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

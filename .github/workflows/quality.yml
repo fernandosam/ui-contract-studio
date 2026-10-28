@@ -155,6 +155,7 @@ jobs:
             tests/e2e/semantic-risk-t29.spec.ts \
             tests/e2e/alert-dialog-semantic-t32.spec.ts \
             tests/e2e/button-accordion-semantic-t32.spec.ts \
+            tests/e2e/semantic-derived.spec.ts \
             tests/e2e/requirements-wizard.spec.ts \
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
@@ -178,6 +179,7 @@ jobs:
             reports/composition-validation/
             reports/requirements-browser/
             reports/semantic-e2e/
+            reports/semantic-tests/
             test-results/
           if-no-files-found: warn
           retention-days: 14

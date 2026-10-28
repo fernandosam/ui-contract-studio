@@ -99,3 +99,16 @@ Record **tested SHA and branch/base**, component/family/ReUI IDs, priority ratio
 ## T31 — Mandatory conformance audit for every semantic edit
 
 Every edit to `src/ui-catalog/knowledge/*.json`, including capability claims, gap decisions, bindings and review metadata, **must run `npm run semantic:check`**. The analyzer always invokes `auditSemanticContractConformance` to compare the semantic overlay with Zod/Pi, also when running `semantic:report`, `semantic:context`, or `pi:context`. The CI `offline-policy` job runs unconditionally, preserving failure logs and the single semantic report. Inspect `semanticConformance` before proposing an API change; a document never grants a prop/event. See the [T31 instructions](semantic-contract-conformance-t31.md) for `contractBindings`, `decision` and tests.
+
+
+## Executable tests derived from semantic knowledge
+
+The optional `derivedTestCases[].automation` field selects a **reviewed** recipe, for example:
+
+~~~json
+"automation": {"runner": "playwright", "recipe": "accordion.single-multiple"}
+~~~
+
+The registry and inventory live in `scripts/lib/semantic-test-automation.mjs`. The `tests/e2e/semantic-derived.spec.ts` suite discovers registered cases from curated overlays automatically, without generating or executing code from natural-language descriptions. Each recipe requires an explicit Playwright implementation. New cases may reuse compatible recipes (component, kind and required capabilities), or require a new reviewed implementation. `semantic:check` rejects unknown, malformed, incompatible, and unimplemented/candidate recipes. Unmapped prose cases remain `pending-recipe`, not passed; candidates remain blocked until separately implemented and authorized. Partial browser coverage is not represented as full a11y coverage.
+
+Run `npm run semantic:check`, `npm run semantic:report`, `node --test tests/semantic-test-automation.test.mjs`, and `npm run semantic:test:e2e`. The existing `reports/composition-analysis/semantic-knowledge.json` adds `semanticTestAutomation` inventory and summary; **registered never means executed**. Browser results with source SHA-256, coverage scope and no-admission marker are written to `reports/semantic-tests/` per project. CI PR focused E2E and the full manual E2E include this suite. The initial recipes cover AlertDialog cancellation, Button click/disabled/loading (partial) and Accordion single/multiple expansion. No documentation or test recipe grants Zod props, Pi admission, remote permissions or screen-reader certification.

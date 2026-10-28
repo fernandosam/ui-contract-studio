@@ -44,6 +44,7 @@ if(errors.length) {
     ...profile,
     codeFreshness:freshness.components.find(x=>x.component===component)??null,
     codeFreshnessDiagnostics:freshness.diagnostics.filter(x=>x.component===component),
+    testAutomation:report.semanticTestAutomation.entries.filter(x=>x.component===component),
     contractConformance:report.semanticConformance.components.find(x=>x.component===component)??null,
     contractConformanceCapabilities:report.semanticConformance.entries.filter(x=>x.component===component),
   },null,2));
@@ -52,6 +53,8 @@ if(errors.length) {
   console.log("  Capability audit: "+JSON.stringify(report.capabilityAudit.summary));
   console.log("  Contract conformance (mandatory): "+JSON.stringify(report.semanticConformance.summary));
   console.log("  T23 composition proposals: "+JSON.stringify(compositionProposals.summary));
+  console.log("  Derived test automation (registered / partial / pending / blocked / invalid): "+
+    JSON.stringify(report.semanticTestAutomation.summary));
   const coverage=report.semanticCoverage.totals;
   console.log("  ReUI families with curated overlays: "+coverage.curatedFamilies+"/"+coverage.inventoryFamilies);
   console.log("  Components with curated overlays: "+coverage.curatedComponents+"/"+coverage.indexedComponents);

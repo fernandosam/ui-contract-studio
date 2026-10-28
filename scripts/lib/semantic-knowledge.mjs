@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve, sep } from "node:path";
 import {buildCapabilityGapAudit} from "./semantic-capability-audit.mjs";
+import {buildSemanticTestAutomation} from "./semantic-test-automation.mjs";
 import { buildSemanticCoverage } from "./semantic-coverage.mjs";
 import { auditSemanticFreshness } from "./semantic-freshness.mjs";
 import { rankSemanticEnrichment } from "./semantic-priority.mjs";
@@ -177,6 +178,8 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
   }
   const semanticConformance=auditSemanticContractConformance({root,profiles:records,capabilityAudit});
   errors.push(...semanticConformance.errors);
+  const semanticTestAutomation=buildSemanticTestAutomation(records);
+  errors.push(...semanticTestAutomation.errors);
   const byName=new Map(records.map(x=>[x.component,x]));
   const associatedExamples=reuiExamples.map(x=>({
     exampleId:x.id,family:x.family,source:x.sourcePath,profile:x.family,
@@ -196,6 +199,7 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
       profiles:records,
       capabilityAudit,
       semanticConformance,
+      semanticTestAutomation,
       semanticCoverage:buildSemanticCoverage({
         profiles:records,reuiExamples,reuiFamilies:Object.keys(reui),
       }),

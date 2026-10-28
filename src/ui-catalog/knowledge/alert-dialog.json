@@ -288,7 +288,11 @@
       "capabilities": [
         "explicit-cancel",
         "confirm-signal"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dialog.cancel-without-confirm"
+      }
     },
     {
       "id": "small-footer-and-destructive",
