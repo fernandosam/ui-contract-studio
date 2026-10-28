@@ -112,10 +112,14 @@ export function verifyCiAdmissionPolicy(root=rootDefault) {
    fail(id+": stale or unsafe auto-admission; require a separate reviewed change");
   const source=readFileSync(join(root,"scripts/composition-codegen/recipes",id+".component.tsx.txt"),"utf8");
   const schema=readFileSync(join(root,"scripts/composition-codegen/recipes",id+".schema.ts.txt"),"utf8");
+  // License/proposal comments may mention prohibited operations as warnings.
+  // Only executable source is subject to the static dangerous-API rule.
+  const executableSource=source.replace(/\\/\\*[\\s\\S]*?\\*\\//g,"").replace(/\\/\\/[^\\n]*/g,"");
+  const executableSchema=schema.replace(/\\/\\*[\\s\\S]*?\\*\\//g,"").replace(/\\/\\/[^\\n]*/g,"");
   if(!source.includes("PROPOSAL ONLY") || !schema.includes("REVIEW-ONLY") ||
      !schema.includes(".strict()") ||
-     /\\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB|eval|Function)\\b|navigator\\.clipboard|window\\.location|dangerouslySetInnerHTML|https?:\\/\\//.test(source) ||
-     /\\b(?:onSuccess|onError|endpoint|backendUrl|callback|handler)\\b/.test(schema))
+     /\\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB|eval|Function)\\b|navigator\\.clipboard|window\\.location|dangerouslySetInnerHTML|https?:\\/\\//.test(executableSource) ||
+     /\\b(?:onSuccess|onError|endpoint|backendUrl|callback|handler)\\b/.test(executableSchema))
    fail(id+": unsafe or expanded API; needs manual contract review");
  }
  return candidates.map(([id])=>id);
