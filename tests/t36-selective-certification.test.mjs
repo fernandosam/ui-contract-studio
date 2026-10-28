@@ -30,7 +30,7 @@ test("T36: no CLI path permits bulk certification, duplicate flag or implicit so
  for(const args of attempts){
   const result=spawnSync(process.execPath,["scripts/admission-engine.mjs",...args,"--revision="+"f".repeat(40)],{encoding:"utf8"});
   assert.notEqual(result.status,0,args.join(" "));
-  assert.match(result.stderr,/requires --candidate|Use --check|not explicitly reviewed/);
+  assert.match(result.stderr,/requires --candidate|Use --check|not explicitly reviewed|trusted, explicit manual main-branch/);
  }
  const outside=spawnSync(process.execPath,[
   "scripts/admission-engine.mjs","--certify","--candidate=form-declarative","--revision="+"f".repeat(40)
