@@ -190,3 +190,32 @@ npm run semantic:report
 ```
 
 Os testes da T21 cobrem caminho direto, layout JSON, React aprovado e candidato, ausência de evidência, capacidade não implementada, dependência não admitida e bloqueio de autorização; conferem também schemas Zod existentes contra novas props arbitrárias. O verificador de recomendações confere referências e evidências estáticas presentes em disco. O relatório `reports/composition-analysis/semantic-knowledge.json` é evidência de cobertura documental, não aprovação do comportamento no navegador. Resultados de execução devem ser registrados com o commit/CI correspondente; não declarar sucesso sem log do comando.
+
+
+## T22 — Auditoria automática de lacunas de capacidade (Entrega 4/P1)
+
+A auditoria percorre **todos os registros curados** em `src/ui-catalog/knowledge/`, sem ampliar o piloto de recomendações T20/T21. Ela reutiliza o vocabulário de disponibilidade do recomendador e o relatório `buildSemanticKnowledge`. **Ausência de evidência não prova ausência de código.**
+
+| Disponibilidade | Critério auditável | Interpretação |
+| --- | --- | --- |
+| `verified-static` | Registro revisado declara `implemented-static-evidence` e **todos** os caminhos/trechos literais em `src/` conferem | Presença estática, não certificação de runtime nem admissão Pi |
+| `not-implemented` | Registro declara `documented-not-implemented`, sem evidência contraditória | Lacuna declarada, nunca API disponível |
+| `missing-evidence` | Referência insegura, arquivo/trecho ausente, evidência vazia, estado contraditório ou documento não revisado | **Evidência insuficiente**, requer investigação, sem inferir ausência de código |
+| `runtime-review-required` | Revisão de navegador/tecnologia assistiva pendente | Não equivale a capacidade homologada |
+| `missing-record` | ID solicitado sem registro semântico revisado (fallback do motor) | Registro ausente, sem alegar ausência de implementação |
+
+`npm run semantic:check` valida registros e trechos reais sem escrever artefatos. `npm run semantic:report` grava `reports/composition-analysis/semantic-knowledge.json` com `capabilityAudit` e o relatório dedicado `reports/composition-analysis/semantic-capability-gaps.json`. O último apresenta contagens por categoria e componente, `entries` com **todas** as capacidades e `gaps` com apenas as não verificadas. Cada entrada traz componente, ID, fonte, estado, aprovação Pi distinta, justificativa, testes propostos e resultado de cada trecho (`matched`, `missing-fragment`, `missing-file`, `unsafe-reference`). A ordenação é estável para revisão e comparação.
+
+Exemplos: Button `local-press-event` possui prova estática; `copy-or-external-action` é somente documentado; AlertDialog `focus-and-keyboard` depende de testes em runtime. Combobox possui primitivas React presentes no código, mas `pi-selection-contract` continua não implementado/admitido. Uma evidência positiva não autoriza automaticamente o uso pelo Pi.
+
+Validação rastreável:
+
+```bash
+node --test tests/semantic-capability-audit.test.mjs
+npx tsx --test tests/composition-recommender.integration.test.ts
+npm run semantic:check
+npm run semantic:report
+npm run composites:recommend:check
+```
+
+Os relatórios são **consultivos**, não certificados E2E. Os schemas Zod, `contracts.lock.json`, contratos admitidos, Admission Engine e permissões Pi permanecem normativos e inalterados; os resultados devem ser registrados com logs e revisão correspondente.

@@ -23,6 +23,7 @@ if(component){
   console.log(JSON.stringify(profile,null,2));
 }else{
   console.log("✓ Semantic guidance validated: "+JSON.stringify(report.coverage));
+  console.log("  Capability audit: "+JSON.stringify(report.capabilityAudit.summary));
   console.log("  Documentary suggestions and unverified requirements are advisory only.");
 }
 if(write){
@@ -30,4 +31,7 @@ if(write){
   mkdirSync(dirname(path),{recursive:true});
   writeFileSync(path,JSON.stringify(report,null,2)+"\n");
   console.log("✓ Wrote "+path);
+  const auditPath="reports/composition-analysis/semantic-capability-gaps.json";
+  writeFileSync(auditPath,JSON.stringify(report.capabilityAudit,null,2)+"\n");
+  console.log("✓ Wrote "+auditPath);
 }
