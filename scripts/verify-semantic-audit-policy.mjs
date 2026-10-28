@@ -18,14 +18,14 @@ export function semanticAuditEnforcementViolations({
 }={}) {
   const errors=[];
   const trigger=(workflow.split(/^permissions:/m)[0]??"");
-  if(!/^on:\s*$/m.test(trigger) || !/^  pull_request:\s*$/m.test(trigger) ||
-    !/^  push:\s*$/m.test(trigger) ||
+  if(!/^on:\s*$/m.test(trigger) || !/^ {2}pull_request:\s*$/m.test(trigger) ||
+    !/^ {2}push:\s*$/m.test(trigger) ||
     (trigger.match(/branches: \[main\]/g)??[]).length<2)
     errors.push("Quality must run for PRs and main pushes.");
   if(/^\s*(?:paths|paths-ignore):/m.test(trigger))
     errors.push("Path-filtered quality workflow can skip semantic knowledge changes.");
-  const job=workflow.split(/^  offline-policy:\s*$/m)[1]?.split(/^  [a-z][a-z-]+:\s*$/m)[0]??"";
-  if(!job || /^    if:/m.test(job))
+  const job=workflow.split(/^ {2}offline-policy:\s*$/m)[1]?.split(/^ {2}[a-z][a-z-]+:\s*$/m)[0]??"";
+  if(!job || /^ {4}if:/m.test(job))
     errors.push("offline-policy must be unconditional.");
   if(!/npm run semantic:check 2>&1 \| tee reports\/composition-analysis\/semantic-check\.log/.test(job) ||
     !/id: semantic-check/.test(job))
