@@ -33,7 +33,7 @@ const fixture=t=>{
     documentationReview:"reviewed-documentation",
     capabilities:[
       {id:"click",state:"implemented-static-evidence",
-        evidence:[{path:"src/ui-catalog/extensions/components/demo.tsx",contains:"emit"}],
+        evidence:[{path:"src/ui-catalog/extensions/components/demo.tsx",contains:'emit?.("click")'}],
         contractBindings:[{kind:"event",name:"click"}],
         testRequirements:["Click exactly once."]},
       {id:"future",state:"documented-not-implemented",
@@ -74,6 +74,13 @@ test("T31: false public prop claims are blocking even with matching source evide
   assert.equal(result.summary.blockingErrors,1);
   assert.match(result.errors[0],/not-in-zod-schema/);
   assert.equal(result.entries[0].bindings[0].status,"not-in-zod-schema");
+});
+
+test("T31: a public Zod binding needs matching first-party React evidence",t=>{
+  const item=fixture(t);
+  item.profile.capabilities[0].evidence=[];
+  const result=audit(item);
+  assert.ok(result.errors.some(x=>x.includes("implementation-binding-unverified")));
 });
 
 test("T31: stale lock / Pi manifest mismatch is blocking, never an automatic admission",t=>{
