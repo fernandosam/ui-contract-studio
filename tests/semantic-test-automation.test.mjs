@@ -137,3 +137,14 @@ test("seven next-priority families register only reviewed, non-candidate recipes
   }
   assert.ok(audit.entries.filter(x=>x.kind==="candidate-not-executable").every(x=>x.status!=="registered"));
 });
+
+test("semantic event observer is opt-in DEV-only and does not extend Pi",()=>{
+ const playground=readFileSync("src/ui-catalog/components/playground.tsx","utf8");
+ const runner=readFileSync("tests/e2e/semantic-derived.spec.ts","utf8");
+ assert.match(playground,/import\.meta\.env\.DEV/);
+ assert.match(playground,/semanticProbe/);
+ assert.match(playground,/__uiContractSemanticEvents/);
+ assert.match(playground,/return emit\?\.\(event\)/);
+ assert.match(runner,/expectEmitted/);
+ assert.doesNotMatch(playground,/window\.fetch\(|XMLHttpRequest\(|localStorage\.setItem\(/);
+});

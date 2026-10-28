@@ -43,7 +43,22 @@ const lucideIcons = { MapPin, Mail, Globe, Calendar, Star, Heart, Check, X, Arro
  Phone, Building, Clock, Shield, Zap, Users, Eye, Download, Upload, Search, Filter,
  Settings, Bell, ChevronRight, ExternalLink, Info, AlertTriangle, CheckCircle, XCircle };
 type ComponentArgs = { props: any; children?: ReactNode; bindings?: any; emit?: any };
-const notify = (emit: ComponentArgs["emit"], event: string) => emit?.(event);
+// Test-only observation: records attempts at an already-authorized emit, never
+// introduces an event, action, payload, network request or production API.
+// Vite drops this branch from production builds (DEV=false). It is opt-in in
+// the local browser preview, and must not be treated as Pi action completion.
+const notify = (emit: ComponentArgs["emit"], event: string) => {
+  if(import.meta.env.DEV && typeof window!=="undefined" &&
+     new URLSearchParams(window.location.search).get("semanticProbe")==="1") {
+    const target=window as Window & {
+      __uiContractSemanticEvents?:Array<{event:string;emitterAvailable:boolean}>;
+    };
+    (target.__uiContractSemanticEvents??=[]).push({
+      event,emitterAvailable:typeof emit==="function",
+    });
+  }
+  return emit?.(event);
+};
 const clamp = (value: number, low: number, high: number) => Math.min(high, Math.max(low,value));
 
 function useValue<T>(initial: T, statePath?: string) {

@@ -141,3 +141,11 @@ Foram selecionados **25 cenários existentes** de `derivedTestCases`, distribuí
 Todas as novas receitas foram marcadas `coverage:"partial"`: não demonstram execução de callbacks Pi, leitor de tela real, acessibilidade completa, responsividade em todos os tamanhos ou persistência remota. Mesmo cenários do tipo `visual` verificam apenas propriedades observáveis do DOM ou limites básicos de viewport, **não** aprovam revisão visual abrangente. Execução e relatório permanecem nos mesmos módulos: `scripts/lib/semantic-test-automation.mjs`, `tests/e2e/semantic-derived.spec.ts` e `semantic:report`.
 
 O job obrigatório `Source checks, schemas and production build` roda o Playwright semântico em desktop/mobile juntamente com o protocolo de admissão. O relatório de cobertura apenas registra receitas; a única evidência de execução vem dos resultados Playwright. Os cenários não implementados não recebem receita automaticamente e Zod, Pi e estados de admissão não são ampliados.
+
+### Instrumentação estritamente de teste para observação de eventos — 28/10/2026
+
+O explorador em modo de desenvolvimento aceita `?semanticProbe=1` como **opt-in de diagnóstico local**. Quando ativo, o `notify(emit,event)` já existente registra em memória volátil `window.__uiContractSemanticEvents` o nome de cada evento emitido e se um emissor estava disponível, antes de encaminhar o evento como sempre. Não há alteração de payload, autorização Pi, persistência ou chamada remota. A ramificação é excluída do build de produção por `import.meta.env.DEV`.
+
+`tests/e2e/semantic-derived.spec.ts` observa a contagem dos eventos `press`, `change`, `openChange`, `focus`, `blur`, `submit` e `select` em receitas revisadas. Trata-se da **tentativa de emissão local**: não certifica execução do handler Pi, durabilidade de estado nem efeito externo. O registro reinicia em cada navegação, não coleta dados de usuário e a existência de eventos não altera a classificação de cobertura para `full` sem os demais requisitos.
+
+O mesmo job obrigatório de integração continua a executar os testes desktop/mobile. O trabalho sobre casos pendentes deve conservar a distinção entre avaliação de viabilidade documental, teste de navegador e avaliação manual de acessibilidade/visual.

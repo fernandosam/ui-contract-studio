@@ -13,11 +13,22 @@ if(audit.errors.length)throw new Error("Invalid semantic test recipes: "+audit.e
 const registered=audit.entries.filter(item=>item.status==="registered");
 
 async function preview(page:Page,component:string) {
-  await page.goto("/?screen=explorador-primitivos");
+  await page.goto("/?screen=explorador-primitivos&semanticProbe=1");
   await page.getByRole("button",{name:component,exact:true}).first().click();
   const container=page.getByTestId("catalog-live-preview");
   await expect(container).toBeVisible();
   return container;
+}
+// Observes only notify(emit, event) calls in the DEV preview, not delivery
+// to Pi handlers or persistence. Counts are reset naturally on page.goto().
+async function expectEmitted(page:Page,event:string,count:number) {
+  await expect.poll(()=>page.evaluate((name)=>{
+    const probe=window as Window & {
+      __uiContractSemanticEvents?:Array<{event:string;emitterAvailable:boolean}>;
+    };
+    return (probe.__uiContractSemanticEvents??[])
+      .filter(item=>item.event===name).length;
+  },event)).toBe(count);
 }
 function networkRequests(page:Page) {
   const requests:string[]=[];
@@ -69,6 +80,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(button).toBeEnabled();
     await button.focus();
     await page.keyboard.press("Enter");
+    await expectEmitted(page,"press",2);
     expect(remote).toEqual([]);
     // Press event counts are not observable here; this is partial coverage.
   },
@@ -102,6 +114,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await checkbox.click();
     await expect(checkbox).toBeChecked();
     await withinViewport(page,checkbox);
+    await expectEmitted(page,"change",2);
     expect(remote).toEqual([]);
     // Binding propagation is not observable in this isolated catalog preview.
   },
@@ -130,6 +143,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(checkbox).toBeDisabled();
     await page.locator("#property-Checkbox-disabled").selectOption("false");
     await expect(checkbox).toBeEnabled();
+    await expectEmitted(page,"change",0);
     expect(remote).toEqual([]);
     // Required forwarding is checked statically; no real form submission here.
   },
@@ -144,6 +158,10 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await input.blur();
     await expect(input).toHaveValue("Teste local");
     await withinViewport(page,input);
+    await expectEmitted(page,"change",1);
+    await expectEmitted(page,"focus",1);
+    await expectEmitted(page,"blur",1);
+    await expectEmitted(page,"submit",1);
     expect(remote).toEqual([]);
     // The explorer does not expose change/focus/blur/submit event counts.
   },
@@ -191,6 +209,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await trigger.click();
     await page.locator('[data-slot="select-item"]').filter({hasText:"Em análise"}).click();
     await expect(trigger).toContainText("Em análise");
+    await expectEmitted(page,"change",2);
     await withinViewport(page,trigger);
     expect(remote).toEqual([]);
     // The explorer does not publish a 'change' event counter.
@@ -211,6 +230,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(trigger).toBeDisabled();
     await page.locator("#property-Select-disabled").selectOption("false");
     await expect(trigger).toBeEnabled();
+    await expectEmitted(page,"change",1);
     // Keyboard interaction and full screen reader behavior remain to review.
   },
   "dialog.trigger-content":async page=>{
@@ -227,6 +247,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await withinViewport(page,dialog);
     await dialog.getByRole("button",{name:"Close"}).click();
     await expect(dialog).toBeHidden();
+    await expectEmitted(page,"openChange",2);
     expect(remote).toEqual([]);
   },
   "dialog.escape-close":async page=>{
@@ -245,6 +266,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await dialog.getByRole("button",{name:"Close"}).click();
     await expect(dialog).toBeHidden();
     expect(remote).toEqual([]);
+    await expectEmitted(page,"openChange",4);
     // Backdrop dismissal and openChange event counts remain pending.
   },
   "tabs.select-panel":async page=>{
@@ -259,6 +281,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     ]));
     await details.click();
     await expect(details).toHaveAttribute("aria-selected","true");
+    await expectEmitted(page,"change",1);
     await expect(container.getByText("Conteúdo de detalhes")).toBeVisible();
     await expect(overview).toHaveAttribute("aria-selected","false");
     await page.locator("#property-Tabs-defaultValue").fill("settings");
@@ -298,6 +321,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await page.locator("#property-Switch-checked").selectOption("true");
     await expect(control).toBeChecked();
     expect(outbound).toEqual([]);
+    await expectEmitted(page,"change",1);
   },
   "switch.label-help":async page=>{
     const panel=await preview(page,"Switch");
@@ -343,6 +367,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     const high=panel.getByRole("radio",{name:"Alta"});
     await high.click();
     await expect(high).toBeChecked();
+    await expectEmitted(page,"change",1);
     await page.locator("#property-Radio-value").fill("Baixa");
     await expect(panel.getByRole("radio",{name:"Baixa"})).toBeChecked();
     expect(outbound).toEqual([]);
@@ -399,6 +424,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await field.blur();
     await expect(field).toHaveValue("Notas registradas localmente.");
     expect(outbound).toEqual([]);
+    await expectEmitted(page,"change",1);
   },
   "textarea.native-states":async page=>{
     const panel=await preview(page,"Textarea");
@@ -438,6 +464,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await thumb.focus();
     await page.keyboard.press("ArrowRight");
     await expect(thumb).toHaveAttribute("aria-valuenow","60");
+    await expectEmitted(page,"change",1);
     await page.locator("#property-Slider-disabled").selectOption("true");
     await expect(thumb).toBeDisabled();
   },
@@ -460,6 +487,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await page.keyboard.press("Escape");
     await expect(popup).toBeHidden();
     await expect(trigger).toBeFocused();
+    await expectEmitted(page,"openChange",2);
   },
   "popover.open-default":async page=>{
     const panel=await preview(page,"Popover");
@@ -520,6 +548,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(menu).toBeVisible();
     await menu.getByRole("menuitem",{name:"Editar"}).click();
     await expect(menu).toBeHidden();
+    await expectEmitted(page,"select",1);
     expect(outbound).toEqual([]);
   },
   "dropdown.disabled-destructive":async page=>{
