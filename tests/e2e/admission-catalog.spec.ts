@@ -4,7 +4,7 @@ test("official catalog distinguishes pending E2E and only previews it after opt-
  await page.goto("/?screen=catalogo-pi");
  const catalog=page.getByTestId("admission-catalog");
  await expect(catalog).toBeVisible();
- await expect(catalog.getByText(/102 contratos base.extensão e 5 composições adicionais/)).toBeVisible();
+ await expect(catalog.getByText(/5 composições candidatas com contratos/)).toBeVisible();
  await catalog.getByLabel("Buscar componente").fill("TypedConfirmationDialog");
  const member=catalog.getByRole("button",{name:/TypedConfirmationDialog/});
  await expect(member).toBeVisible();
