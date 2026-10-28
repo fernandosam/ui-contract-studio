@@ -1,3 +1,5 @@
+[English](semantic-composition-proposals-t23.md) | [Português](semantic-composition-proposals-t23.pt-BR.md)
+
 # T23 — Semantic-gap composition candidates
 
 T23 reuses the verified T22 audit (`buildSemanticKnowledge().report.capabilityAudit`) and the reviewed recommendation scenarios in `src/ui-catalog/recommendations/scenarios.json`. A proposal is emitted **only if** a reviewed scenario explicitly requires a capability listed as a T22 gap. Other gaps appear in `uncoveredGaps` with an explicit no-inference explanation, not in a fabricated API.
