@@ -5,6 +5,22 @@ import {resolve} from 'node:path';
 import {buildSemanticKnowledge,selectAgentSemanticAdvice} from './lib/semantic-knowledge.mjs';
 const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const all=read('pi-catalog/contracts.json');
+const reviewed=new Map(read('src/ui-catalog/contracts.lock.json').components.map(c=>[c.name,c]));
+// Fail closed if a generated Pi projection is edited without updating its reviewed contract.
+for(const entry of all.components){
+ const source=reviewed.get(entry.type);
+ if(source){
+  if(entry.version!==source.version || entry.fingerprint!==source.semanticFingerprint ||
+     entry.stability!==source.stability || (entry.lifecycle==='stable')!==(source.stability==='stable') ||
+     (source.stability==='stable' && source.status!=='approved')){
+   console.error('Pi projection diverges from reviewed contract: '+entry.type);process.exit(1);
+  }
+ }else if(entry.fingerprint!==entry.sourceDigest || entry.stability!==entry.lifecycle ||
+          (entry.lifecycle==='stable' && !['passed','ci-required'].includes(entry.validation?.e2e))){
+  console.error('Unverified Pi composition: '+entry.type);process.exit(1);
+ }
+}
+
 const option=process.argv.find(x=>x.startsWith('--types='));
 if(!option){console.error('Uso: npm run pi:context -- --types=Card,Button,Dashboard01 [--stdout] [--metadata-only]');process.exit(2)}
 const names=[...new Set(option.slice('--types='.length).split(',').map(s=>s.trim()).filter(Boolean))];
@@ -26,7 +42,7 @@ if(schema&&(schema.schemaVersion!==3||schema.projectVersion!==all.projectVersion
 const selected=[];
 for(const name of names){
  const entry=all.components.find(x=>x.type===name);
- const contract=entry && (channel==='experimental'||entry.lifecycle==='stable')?entry:null;
+ const contract=entry && (channel==='experimental'||(entry.lifecycle==='stable' && entry.stability==='stable'))?entry:null;
  if(!contract){console.error(`Tipo indisponível no canal ${channel}: ${name}. Consulte pi-catalog/contracts.json.`);process.exit(1)}
  const shape=schema?.types[name];
  if(schema&&!shape){console.error(`${name}: schema ausente/desatualizado. Execute npm run pi:zod-schema.`);process.exit(1)}
