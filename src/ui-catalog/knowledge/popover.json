@@ -334,7 +334,11 @@
       "description": "Montar Popover Pi com trigger/content textuais, abrir e conferir conteúdo e botão; ausência de injeção JSX.",
       "capabilities": [
         "text-trigger-and-content"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "popover.text"
+      }
     },
     {
       "id": "open-change-and-default",
@@ -343,7 +347,11 @@
       "capabilities": [
         "controlled-open-change",
         "default-open"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "popover.open-default"
+      }
     },
     {
       "id": "position-matrix",
@@ -352,7 +360,11 @@
       "capabilities": [
         "side-and-align",
         "portal-and-positioner"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "popover.position"
+      }
     },
     {
       "id": "keyboard-and-dismiss",

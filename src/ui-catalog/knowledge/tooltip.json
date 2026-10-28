@@ -257,7 +257,11 @@
         "pi-text-content-and-trigger",
         "four-sides-position",
         "allowlisted-icon-and-shortcut-text"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "tooltip.text-icon"
+      }
     },
     {
       "id": "tooltip-provider-portal",
@@ -266,7 +270,11 @@
       "capabilities": [
         "base-provider-portal-role",
         "provider-default-delay"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "tooltip.portal"
+      }
     },
     {
       "id": "tooltip-focus-escape-screenreader",

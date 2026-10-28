@@ -291,7 +291,11 @@
         "multi-thumb-arrays",
         "normalized-base-ui-thumb-count",
         "local-change-and-binding"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "slider.scalar-range"
+      }
     },
     {
       "id": "step-limits-disabled",
@@ -300,7 +304,11 @@
       "capabilities": [
         "min-max-and-step",
         "orientation-and-disabled"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "slider.limits-disabled"
+      }
     },
     {
       "id": "value-output-and-label",
@@ -309,7 +317,11 @@
       "capabilities": [
         "visible-current-output",
         "multi-thumb-arrays"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "slider.value-output"
+      }
     },
     {
       "id": "multithumb-keyboard-reader",

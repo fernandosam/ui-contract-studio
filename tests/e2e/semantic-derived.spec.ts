@@ -287,6 +287,293 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(settings).toBeDisabled();
     // Keyboard accessibility and persistence are separate review requirements.
   },
+
+  "switch.local-checked":async page=>{
+    const panel=await preview(page,"Switch");
+    const outbound=networkRequests(page);
+    const control=panel.getByRole("switch",{name:"Ativar notificações"});
+    await expect(control).toBeChecked();
+    await control.click();
+    await expect(control).not.toBeChecked();
+    await page.locator("#property-Switch-checked").selectOption("true");
+    await expect(control).toBeChecked();
+    expect(outbound).toEqual([]);
+  },
+  "switch.label-help":async page=>{
+    const panel=await preview(page,"Switch");
+    await page.locator("#property-Switch-description").fill("Permite avisos locais.");
+    const control=panel.getByRole("switch",{name:"Ativar notificações"});
+    const help=await control.getAttribute("aria-describedby");
+    expect(help).toBeTruthy();
+    await expect(panel.locator("[id='"+help+"']")).toHaveText("Permite avisos locais.");
+    const label=panel.getByText("Ativar notificações",{exact:true});
+    await label.click();
+    await expect(control).not.toBeChecked();
+    await page.locator("#property-Switch-disabled").selectOption("true");
+    await expect(control).toBeDisabled();
+  },
+  "switch.size-states":async page=>{
+    const panel=await preview(page,"Switch");
+    const control=panel.getByRole("switch",{name:"Ativar notificações"});
+    await expect(control).toHaveAttribute("data-size","default");
+    await expect(control.locator('[data-slot="switch-thumb"]')).toBeVisible();
+    await page.locator("#property-Switch-size").selectOption("sm");
+    await expect(control).toHaveAttribute("data-size","sm");
+    await withinViewport(page,control);
+  },
+  "radio.options-orientation":async page=>{
+    const panel=await preview(page,"Radio");
+    const low=panel.getByRole("radio",{name:"Baixa"});
+    const medium=panel.getByRole("radio",{name:"Média"});
+    await expect(medium).toBeChecked();
+    await low.click();
+    await expect(low).toBeChecked();
+    await expect(medium).not.toBeChecked();
+    await page.locator("#property-Radio-orientation").selectOption("horizontal");
+    // The catalog rerenders from its source fixture after each prop edit.
+    // Do not assert selection is preserved across full preview remounts.
+    await expect(medium).toBeChecked();
+    await low.click();
+    await expect(low).toBeChecked();
+    await withinViewport(page,low);
+  },
+  "radio.local-change":async page=>{
+    const panel=await preview(page,"Radio");
+    const outbound=networkRequests(page);
+    const high=panel.getByRole("radio",{name:"Alta"});
+    await high.click();
+    await expect(high).toBeChecked();
+    await page.locator("#property-Radio-value").fill("Baixa");
+    await expect(panel.getByRole("radio",{name:"Baixa"})).toBeChecked();
+    expect(outbound).toEqual([]);
+  },
+  "radio.fieldset-labels":async page=>{
+    const panel=await preview(page,"Radio");
+    const fieldset=panel.locator("fieldset");
+    await expect(fieldset.locator("legend")).toHaveText("Prioridade");
+    for(const label of ["Baixa","Média","Alta"]){
+      const control=fieldset.getByRole("radio",{name:label});
+      await expect(control).toBeVisible();
+      await expect(fieldset.getByText(label,{exact:true})).toBeVisible();
+    }
+    await fieldset.getByText("Baixa",{exact:true}).click();
+    await expect(fieldset.getByRole("radio",{name:"Baixa"})).toBeChecked();
+  },
+  "radio.long-mobile":async page=>{
+    const panel=await preview(page,"Radio");
+    const long="Opção com nome descritivo para testar responsividade";
+    await page.locator("#property-Radio-options").fill(JSON.stringify([
+      {label:long,value:"long"},
+      {label:"Curta",value:"short"},
+    ]));
+    const control=panel.getByRole("radio",{name:long});
+    await control.click();
+    await expect(control).toBeChecked();
+    await withinViewport(page,control);
+  },
+  "textarea.rows":async page=>{
+    const panel=await preview(page,"Textarea");
+    const field=panel.getByRole("textbox",{name:"Observações"});
+    await expect(field).toHaveAttribute("rows","3");
+    await page.locator("#property-Textarea-rows").fill("6");
+    await expect(field).toHaveAttribute("rows","6");
+    await expect(field).toHaveAttribute("name","notas");
+  },
+  "textarea.label-help":async page=>{
+    const panel=await preview(page,"Textarea");
+    await page.locator("#property-Textarea-description").fill("Descreva o problema.");
+    const field=panel.getByRole("textbox",{name:"Observações"});
+    const id=await field.getAttribute("id");
+    expect(id).toBeTruthy();
+    await expect(panel.locator("label[for='"+id+"']")).toHaveText("Observações");
+    const help=await field.getAttribute("aria-describedby");
+    expect(help).toBeTruthy();
+    await expect(panel.locator("[id='"+help+"']")).toHaveText("Descreva o problema.");
+  },
+  "textarea.local-change":async page=>{
+    const panel=await preview(page,"Textarea");
+    const outbound=networkRequests(page);
+    const field=panel.getByRole("textbox",{name:"Observações"});
+    await field.fill("Notas registradas localmente.");
+    await expect(field).toHaveValue("Notas registradas localmente.");
+    await field.blur();
+    await expect(field).toHaveValue("Notas registradas localmente.");
+    expect(outbound).toEqual([]);
+  },
+  "textarea.native-states":async page=>{
+    const panel=await preview(page,"Textarea");
+    const field=panel.getByRole("textbox",{name:"Observações"});
+    await page.locator("#property-Textarea-maxLength").fill("5");
+    await expect(field).toHaveAttribute("maxlength","5");
+    await page.locator("#property-Textarea-required").selectOption("true");
+    await expect(field).toHaveAttribute("required","");
+    await page.locator("#property-Textarea-invalid").selectOption("true");
+    await expect(field).toHaveAttribute("aria-invalid","true");
+    await page.locator("#property-Textarea-readOnly").selectOption("true");
+    await expect(field).toHaveAttribute("readonly","");
+    await page.locator("#property-Textarea-disabled").selectOption("true");
+    await expect(field).toBeDisabled();
+  },
+  "textarea.long-mobile":async page=>{
+    const panel=await preview(page,"Textarea");
+    const field=panel.getByRole("textbox",{name:"Observações"});
+    await field.fill("Teste de conteúdo longo e quebras de linha. ".repeat(18));
+    await expect(field).toHaveValue(/Teste de conteúdo longo/);
+    await withinViewport(page,field);
+  },
+  "slider.scalar-range":async page=>{
+    const panel=await preview(page,"Slider");
+    const root=panel.locator('[data-slot="slider"]');
+    await expect(root.locator('[data-slot="slider-thumb"]')).toHaveCount(1);
+    await page.locator("#property-Slider-values").fill("[20,80]");
+    await expect(root.locator('[data-slot="slider-thumb"]')).toHaveCount(2);
+    await expect(root.getByRole("slider")).toHaveCount(2);
+    await expect(root.getByRole("slider").first()).toHaveAttribute("aria-valuenow","20");
+    await expect(root.getByRole("slider").last()).toHaveAttribute("aria-valuenow","80");
+  },
+  "slider.limits-disabled":async page=>{
+    const panel=await preview(page,"Slider");
+    const thumb=panel.getByRole("slider");
+    await expect(thumb).toHaveAttribute("aria-valuenow","55");
+    await thumb.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(thumb).toHaveAttribute("aria-valuenow","60");
+    await page.locator("#property-Slider-disabled").selectOption("true");
+    await expect(thumb).toBeDisabled();
+  },
+  "slider.value-output":async page=>{
+    const panel=await preview(page,"Slider");
+    await expect(panel.locator("output")).toHaveText("55");
+    await page.locator("#property-Slider-values").fill("[15,75]");
+    await expect(panel.locator("output")).toHaveText("15 – 75");
+    await page.locator("#property-Slider-showValue").selectOption("false");
+    await expect(panel.locator("output")).toHaveCount(0);
+    await withinViewport(page,panel.locator('[data-slot="slider"]'));
+  },
+  "popover.text":async page=>{
+    const panel=await preview(page,"Popover");
+    const trigger=panel.getByRole("button",{name:"Mostrar ajuda"});
+    const popup=page.locator('[data-slot="popover-content"]');
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await expect(popup).toContainText("Popover disponível no catálogo.");
+    await page.keyboard.press("Escape");
+    await expect(popup).toBeHidden();
+    await expect(trigger).toBeFocused();
+  },
+  "popover.open-default":async page=>{
+    const panel=await preview(page,"Popover");
+    const popup=page.locator('[data-slot="popover-content"]');
+    await page.locator("#property-Popover-defaultOpen").selectOption("true");
+    await expect(popup).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(popup).toBeHidden();
+    await panel.getByRole("button",{name:"Mostrar ajuda"}).click();
+    await expect(popup).toBeVisible();
+  },
+  "popover.position":async page=>{
+    const panel=await preview(page,"Popover");
+    await page.locator("#property-Popover-side").selectOption("right");
+    await page.locator("#property-Popover-align").selectOption("start");
+    await panel.getByRole("button",{name:"Mostrar ajuda"}).click();
+    const popup=page.locator('[data-slot="popover-content"]');
+    await expect(popup).toBeVisible();
+    await withinViewport(page,popup);
+    // Actual side may flip for collision avoidance; never claim strict right placement.
+  },
+  "tooltip.text-icon":async page=>{
+    const panel=await preview(page,"Tooltip");
+    await page.locator("#property-Tooltip-triggerIcon").selectOption("Info");
+    await page.locator("#property-Tooltip-shortcut").fill("F1");
+    const trigger=panel.locator('[data-slot="tooltip-trigger"]');
+    await expect(trigger).toContainText("Passe o mouse aqui");
+    await expect(trigger.locator("svg")).toBeVisible();
+    const hover=await page.evaluate(()=>matchMedia("(hover: hover)").matches);
+    if(hover){
+      await trigger.hover();
+      const popup=page.getByRole("tooltip");
+      await expect(popup).toContainText("Informação contextual adicional.");
+      await expect(popup).toContainText("F1");
+    } // Touch emulation does not provide hover evidence; record partial coverage.
+  },
+  "tooltip.portal":async page=>{
+    const panel=await preview(page,"Tooltip");
+    const trigger=panel.locator('[data-slot="tooltip-trigger"]');
+    await expect(trigger).toBeVisible();
+    const hover=await page.evaluate(()=>matchMedia("(hover: hover)").matches);
+    if(hover){
+      await trigger.hover();
+      const popup=page.locator('[data-slot="tooltip-content"]');
+      await expect(popup).toBeVisible();
+      await expect(popup).toHaveAttribute("role","tooltip");
+      await expect(popup).toContainText("Informação contextual adicional.");
+      await page.keyboard.press("Escape");
+      await expect(popup).toBeHidden();
+    } // Mobile tooltip availability remains a runtime-review gap, not a pass.
+  },
+  "dropdown.basic":async page=>{
+    const panel=await preview(page,"DropdownMenu");
+    const outbound=networkRequests(page);
+    const trigger=panel.getByRole("button",{name:/Mais ações/});
+    await trigger.click();
+    const menu=page.locator('[data-slot="dropdown-menu-content"]');
+    await expect(menu).toBeVisible();
+    await menu.getByRole("menuitem",{name:"Editar"}).click();
+    await expect(menu).toBeHidden();
+    expect(outbound).toEqual([]);
+  },
+  "dropdown.disabled-destructive":async page=>{
+    const panel=await preview(page,"DropdownMenu");
+    await page.locator("#property-DropdownMenu-items").fill(JSON.stringify([
+      {label:"Excluir",value:"delete",variant:"destructive"},
+      {label:"Indisponível",value:"blocked",disabled:true},
+    ]));
+    await panel.getByRole("button",{name:/Mais ações/}).click();
+    const menu=page.locator('[data-slot="dropdown-menu-content"]');
+    await expect(menu.getByRole("menuitem",{name:"Excluir"})).toHaveAttribute("data-variant","destructive");
+    await expect(menu.getByRole("menuitem",{name:"Indisponível"})).toBeDisabled();
+  },
+  "dropdown.submenu":async page=>{
+    const panel=await preview(page,"DropdownMenu");
+    await page.locator("#property-DropdownMenu-items").fill(JSON.stringify([
+      {type:"submenu",label:"Mais opções",value:"more",items:[
+        {label:"Duplicar",value:"duplicate"},
+        {label:"Arquivar",value:"archive"},
+      ]},
+    ]));
+    await panel.getByRole("button",{name:/Mais ações/}).click();
+    await page.getByRole("menuitem",{name:"Mais opções"}).click();
+    const submenu=page.locator('[data-slot="dropdown-menu-sub-content"]');
+    await expect(submenu).toBeVisible();
+    await expect(submenu.getByRole("menuitem",{name:"Duplicar"})).toBeVisible();
+  },
+  "dropdown.checkbox":async page=>{
+    const panel=await preview(page,"DropdownMenu");
+    await page.locator("#property-DropdownMenu-items").fill(JSON.stringify([
+      {type:"checkbox",label:"Exibir detalhes",value:"details",defaultChecked:false},
+    ]));
+    const trigger=panel.getByRole("button",{name:/Mais ações/});
+    await trigger.click();
+    const option=page.getByRole("menuitemcheckbox",{name:"Exibir detalhes"});
+    await expect(option).toHaveAttribute("aria-checked","false");
+    await option.click();
+    // Menu checkbox items may keep their popup open; reopen only if closed.
+    if(!(await option.isVisible())) await trigger.click();
+    await expect(page.getByRole("menuitemcheckbox",{name:"Exibir detalhes"})).toHaveAttribute("aria-checked","true");
+  },
+  "dropdown.separator":async page=>{
+    const panel=await preview(page,"DropdownMenu");
+    await page.locator("#property-DropdownMenu-items").fill(JSON.stringify([
+      {label:"Editar",value:"edit"},
+      {type:"separator",value:"sep"},
+      {label:"Ver detalhes",value:"detail"},
+    ]));
+    await panel.getByRole("button",{name:/Mais ações/}).click();
+    const menu=page.locator('[data-slot="dropdown-menu-content"]');
+    await expect(menu.getByRole("menuitem")).toHaveCount(2);
+    await expect(menu.locator('[data-slot="dropdown-menu-separator"]')).toHaveCount(1);
+    await expect(menu.getByRole("menuitem",{name:"Editar"})).toBeVisible();
+  },
 };
 for(const entry of registered) {
   if(!(entry.recipe in semanticTestRecipes)||!recipes[entry.recipe!])

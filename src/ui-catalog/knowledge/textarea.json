@@ -311,7 +311,11 @@
       "description": "Validar rows 2/3/15, quebras de linha, recusa de rows fora do schema e edição de texto.",
       "capabilities": [
         "native-multiline-with-rows"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "textarea.rows"
+      }
     },
     {
       "id": "label-description-link",
@@ -319,7 +323,11 @@
       "description": "Verificar label/htmlFor, name, aria-describedby e ausência da referência quando descrição não existe.",
       "capabilities": [
         "label-name-and-help"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "textarea.label-help"
+      }
     },
     {
       "id": "change-without-submit",
@@ -327,7 +335,11 @@
       "description": "Digitar e colar; verificar binding e change sem enviar dados nem emitir submit.",
       "capabilities": [
         "local-controlled-value-and-change"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "textarea.local-change"
+      }
     },
     {
       "id": "state-and-native-limit",
@@ -337,7 +349,11 @@
         "disabled-required-readonly",
         "native-maxlength",
         "invalid-and-focus-styles"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "textarea.native-states"
+      }
     },
     {
       "id": "textarea-a11y-runtime",
@@ -354,7 +370,11 @@
       "description": "Testar colagem de texto longo, crescimento intrínseco CSS, quebra de linha e zoom em telas estreitas.",
       "capabilities": [
         "long-text-resizing-runtime"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "textarea.long-mobile"
+      }
     },
     {
       "id": "character-count-proposal",
