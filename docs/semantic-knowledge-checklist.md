@@ -81,3 +81,21 @@ Only `implemented-static-evidence` capabilities with literal `src/` evidence par
 `source.reviewedOn` is an **official-documentation review date**, reused as a conservative day-resolution proxy for code freshness; it is **not** proof of a code review. Same-day edits cannot be ordered from a date alone; the audit does not claim they are validated. File-level change detection can produce false positives for unrelated edits and cannot prove runtime semantics. Review warnings are advisory and do not fail the command or modify state. Missing literal evidence remains a hard failure under the existing validator. `documented-not-implemented` and `runtime-review-required` have intentionally empty evidence and are **not** counted as missing files.
 
 The automated regression suite `node --test tests/semantic-freshness-t27.test.mjs` exercises later committed changes with unchanged needles, deleted files/needles, valid historical evidence, uncommitted changes and unavailable history. Run `npm run semantic:check && npm run semantic:report && npm run test:offline` in a full checkout; the CI `offline-policy` job repeats this validation. Report actual command/check outcomes in the PR; never mistake the generated artifact or a static pass for E2E, contract admission or Pi authorization.
+
+## T28 — CI semantic-quality gate and retained evidence (2026-10-27)
+
+The existing [quality workflow](../.github/workflows/quality.yml) runs semantic checks in its **Source, docs and offline tests** job on pull requests and pushes to `main`. It uses the same T26/T27 commands and **does not create a separate workflow**:
+
+```bash
+npm run semantic:check
+npm run semantic:report
+node scripts/semantic-ci-summary.mjs
+npm run docs:check
+npm run test:offline
+```
+
+`semantic:check` remains the blocking gate for incomplete records, missing code files and missing literal evidence. `semantic:report` runs **even when the check fails**, preserving the existing `reports/composition-analysis/semantic-knowledge.json` output path. A failed report is explicitly tagged `validation: { status: "failed", errors: [...] }` and still exits nonzero; **it is a diagnostic artifact, not a validated semantic report**. A successful report retains the original format. `review-required` (code changed after the review date) and `history-unavailable` are advisory and do not grant implementation status or authorization.
+
+Every run uploads the **`semantic-knowledge-report` artifact** (the JSON plus `semantic-check.log` and `semantic-report.log`) with 14-day retention and adds a GitHub job summary listing counts, blocking errors and actionable overlay → component/capability → code evidence diagnostics. Both commands use Bash `pipefail` so logging cannot mask real failures. The existing docs/offline tests, source checks, build, admission and manual E2E gates remain independent.
+
+To reproduce the regression cases run `node --test tests/semantic-ci-t28.test.mjs`. It exercises **valid**, **incomplete**, **changed-but-present** and **missing-evidence** fixtures against the actual analyzer CLI; `npm run test:offline` includes these cases. Use a full-history checkout (`fetch-depth: 0`) when auditing timestamps. Do not update review dates, schemas, Pi permissions or admission states merely to silence a warning.

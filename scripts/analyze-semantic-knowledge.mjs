@@ -35,11 +35,9 @@ for(const d of freshness.diagnostics) {
     " -> "+d.evidencePath+" (reviewed "+d.reviewedOn+
     (d.changedAt?", code "+d.changedAt:"")+") "+d.reason+"; "+d.action);
 }
-if(errors.length){
+if(errors.length) {
   errors.forEach(message=>console.error("✗ "+message));
-  process.exit(1);
-}
-if(component){
+} else if(component) {
   const profile=report.profiles.find(x=>x.component===component);
   if(!profile){console.error("Unknown semantic profile: "+component);process.exit(2)}
   console.log(JSON.stringify({
@@ -47,7 +45,7 @@ if(component){
     codeFreshness:freshness.components.find(x=>x.component===component)??null,
     codeFreshnessDiagnostics:freshness.diagnostics.filter(x=>x.component===component),
   },null,2));
-}else{
+} else {
   console.log("✓ Semantic guidance validated: "+JSON.stringify(report.coverage));
   console.log("  Capability audit: "+JSON.stringify(report.capabilityAudit.summary));
   console.log("  T23 composition proposals: "+JSON.stringify(compositionProposals.summary));
@@ -66,11 +64,17 @@ if(component){
     freshness.summary.missingEvidence+" / "+freshness.summary.historyUnavailable);
   console.log("  Documentary suggestions and unverified requirements are advisory only.");
 }
-if(write){
+if(write) {
   const path="reports/composition-analysis/semantic-knowledge.json";
+  // Keep the T26 report path and the T27 checks. Failed validation is still
+  // exit code 1, but the diagnostic artifact remains inspectable in CI.
+  // Consumers MUST reject reports explicitly marked as failed.
+  const output=errors.length ? {
+    ...report,validation:{status:"failed",errors},
+  } : report;
   mkdirSync(dirname(path),{recursive:true});
-  writeFileSync(path,JSON.stringify(report,null,2)+"\n");
-  console.log("✓ Wrote "+path);
+  writeFileSync(path,JSON.stringify(output,null,2)+"\n");
+  console.log((errors.length?"✗ Wrote INVALID diagnostic report: ":"✓ Wrote ")+path);
   const auditPath="reports/composition-analysis/semantic-capability-gaps.json";
   writeFileSync(auditPath,JSON.stringify(report.capabilityAudit,null,2)+"\n");
   console.log("✓ Wrote "+auditPath);
@@ -78,3 +82,4 @@ if(write){
   writeFileSync(proposalPath,JSON.stringify(compositionProposals,null,2)+"\n");
   console.log("✓ Wrote "+proposalPath);
 }
+if(errors.length)process.exitCode=1;
