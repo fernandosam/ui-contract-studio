@@ -68,9 +68,9 @@ export function traceRegistration(spec:RequirementSpec,generated:unknown):Tracea
  const layout=nodes.form_fields;
  const expectedSections=registrationLayout.groups.flatMap(group=>{
   const indexes=spec.fields.flatMap((field,i)=>{
-   const known=("fields" in group&&group.fields.includes(field.name))||false;
+   const known=("fields" in group&&group.fields?.includes(field.name))||false;
    const fallback=group.id==="additional"&&!registrationLayout.groups.some(
-    g=>"fields" in g&&g.fields.includes(field.name));
+    g=>"fields" in g&&g.fields?.includes(field.name));
    return known||fallback?[i]:[];
   });
   return indexes.length?[{id:group.id,label:group.label,indexes}]:[];
