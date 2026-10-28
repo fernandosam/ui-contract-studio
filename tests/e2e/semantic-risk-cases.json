@@ -82,7 +82,7 @@
       "capabilities": [
         "typed-confirmation"
       ],
-      "risk": "Experimental preview might bypass the stable-channel opt-in and source-bound E2E certification."
+      "risk": "Advisory recommendations must never change Pi lifecycle; stable status requires an independent source-bound certificate."
     },
     {
       "id": "T29-R08",
