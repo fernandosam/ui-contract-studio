@@ -10,7 +10,7 @@ test('only primitives and composites are independent component catalog routes',(
  assert.match(app,/slug:'explorador-primitivos',title:'Primitivas'/);
  assert.match(app,/slug:'explorador-compostos',title:'Compostos'/);
  assert.doesNotMatch(app,/slug:'catalogo-pi',title:/);
- assert.match(app,/query === 'catalogo-pi' ? 'explorador-compostos'/);
+ assert.ok(app.includes("query === 'catalogo-pi' ? 'explorador-compostos'"));
  assert.doesNotMatch(app,/tool.slug==='catalogo-pi'/);
 });
 test('both component catalogs expose versioned metadata and maturity-based selection',()=>{
