@@ -314,7 +314,11 @@
       "capabilities": [
         "automatic-trigger",
         "title-description-and-children"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dialog.trigger-content"
+      }
     },
     {
       "id": "close-without-submit",
@@ -366,7 +370,11 @@
         "escape-and-backdrop-dismissal",
         "controlled-open-and-event",
         "overlay-and-close-control"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dialog.escape-close"
+      }
     },
     {
       "id": "mobile-scroll-and-actions",

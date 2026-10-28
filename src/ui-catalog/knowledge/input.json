@@ -330,7 +330,11 @@
       "description": "Renderizar dois Input com ajuda; inspecionar htmlFor, id, aria-describedby e name sem colisão.",
       "capabilities": [
         "label-name-and-help"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "input.label-help"
+      }
     },
     {
       "id": "local-change-and-enter",
@@ -339,7 +343,11 @@
       "capabilities": [
         "local-value-binding-and-change",
         "focus-blur-and-enter-signal"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "input.change-enter"
+      }
     },
     {
       "id": "required-readonly-disabled-length",
@@ -349,7 +357,11 @@
         "native-state-and-length",
         "required-check-forwarding",
         "invalid-aria-state"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "input.native-states"
+      }
     },
     {
       "id": "formdata-html-validity",

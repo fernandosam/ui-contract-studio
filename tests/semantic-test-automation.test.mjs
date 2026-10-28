@@ -14,16 +14,17 @@ const one=record=>buildSemanticTestAutomation([record]);
 test("registered semantic tests are discovered, traceable and never marked executed",()=>{
   const audit=buildSemanticTestAutomation(fixtures);
   assert.deepEqual(audit.errors,[]);
-  assert.equal(audit.summary.registered,3);
+  assert.equal(audit.summary.registered,15);
   assert.ok(audit.summary.pending>0);
   assert.ok(audit.summary.blocked>0);
   assert.equal(audit.summary.invalid,0);
-  assert.equal(audit.summary.partial,2);
+  assert.equal(audit.summary.partial,14);
   for(const entry of audit.entries.filter(x=>x.status==="registered")){
     assert.equal(entry.execution,"not-run");
     assert.ok(entry.source.startsWith("src/ui-catalog/knowledge/"));
     assert.ok(semanticTestRecipes[entry.recipe]);
     assert.equal(entry.runner,"playwright");
+    assert.equal(entry.action,"run-registered-playwright-recipe");
   }
   const report=buildSemanticKnowledge().report;
   assert.deepEqual(report.semanticTestAutomation.summary,audit.summary);
@@ -90,4 +91,25 @@ test("every registered recipe has an explicit reviewed runtime assertion",()=>{
   assert.match(source,/certification:"not-granted"/);
   assert.match(source,/sourceSha256/);
   assert.doesNotMatch(source,/admission:publish|admission:sync|pi:api --write/);
+});
+
+test("pilot recipes cover all five prioritized primitives without unimplemented capabilities",()=>{
+  const audit=buildSemanticTestAutomation(fixtures);
+  assert.deepEqual(audit.errors,[]);
+  const pilot=["Checkbox","Input","Select","Dialog","Tabs"];
+  for(const family of pilot){
+    const entries=audit.entries.filter(x=>x.component===family&&x.status==="registered");
+    assert.ok(entries.length>=2,family+" must have two or more reviewed recipes");
+    for(const entry of entries){
+      assert.equal(entry.kind,"integration");
+      assert.equal(entry.coverage,"partial");
+      assert.equal(entry.action,"run-registered-playwright-recipe");
+      assert.ok(entry.capabilityStates.every(x=>x.state!=="documented-not-implemented"));
+    }
+  }
+  const pending=audit.entries.filter(x=>x.status==="pending-recipe");
+  assert.ok(pending.length>0);
+  assert.ok(pending.every(x=>x.action==="implement-reviewed-recipe-and-run-browser"));
+  assert.ok(audit.entries.filter(x=>x.status==="blocked-not-implemented")
+    .every(x=>x.action==="review-implementation-before-automation"));
 });
