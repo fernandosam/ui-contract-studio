@@ -7,6 +7,7 @@ import buttonKnowledge from "../knowledge/button.json";
 import reuiGuidance from "../reui-guidance.json";
 import shadcnGuidance from "../shadcn-guidance.json";
 import compositionPolicy from "../composition-policy.json";
+import {buildSemanticCompositionProposals, type SemanticCompositionProposal} from "./semantic-gap-proposals.mjs";
 
 export const pilotFamilies = ["AlertDialog", "Accordion", "Button"] as const;
 const familySchema = z.enum([...pilotFamilies, "Form"] as const);
@@ -53,6 +54,8 @@ export type Recommendation = Readonly<{
   tests: readonly { mode: string; description: string; status: "planned-not-executed" }[];
   provenance: readonly string[];
   authorization: "advisory-only";
+  /** T23 review-only plans, each linked to audited-family gaps; never Pi contracts. */
+  gapProposals: readonly SemanticCompositionProposal[];
 }>;
 
 const file = documentSchema.parse(raw);
@@ -71,6 +74,7 @@ type CuratedCapability = {
   description: string;
   state: string;
   evidence: readonly {path: string; contains: string}[];
+  testRequirements?: readonly string[];
 };
 type CuratedOverlay = {
   source: string;
@@ -272,6 +276,31 @@ export function getCompositionRecommendation(id: string): Recommendation | null 
     .map(({capability, description, state, availability}) =>
       ({capability, description, state, availability}));
   const selection = selectCompositionApproach(scenario, evidence);
+  // Browser recommendations use curated overlay metadata; T22's Node report is
+  // authoritative for checked source fragments. Do not fake a browser audit.
+  const entries = evidence.map(item => ({
+    component: scenario.family, capability: item.capability,
+    description: item.description, state: item.state,
+    availability: item.availability, source: item.source || null,
+    reason: item.availability === "not-implemented"
+      ? "Reviewed semantic record explicitly declares nonimplementation."
+      : item.availability === "runtime-review-required"
+        ? "Runtime/browser validation remains pending."
+        : item.availability === "verified-static"
+          ? "Static source cited by curated overlay; verify with semantic:check."
+          : "Missing or insufficient implementation evidence.",
+    evidenceChecks: item.codeEvidence.map(source => ({
+      ...source, status: "not-verified-in-browser",
+    })),
+    testRequirements: familyCapabilities.get(item.capability)?.testRequirements ?? [],
+  }));
+  const gapProposals = buildSemanticCompositionProposals({
+    capabilityAudit: {
+      entries,
+      gaps: entries.filter(item => item.availability !== "verified-static"),
+    },
+    scenarios: [scenario], approvedPiTypes: approved,
+  }).proposals;
   const tests = scenario.tests.map(([mode,description]) => ({
     mode, description, status: "planned-not-executed" as const,
   }));
@@ -281,7 +310,7 @@ export function getCompositionRecommendation(id: string): Recommendation | null 
     targetApproved: selection.status === "available-approved-contract",
     proposedOnly: selection.status !== "available-approved-contract",
     dependencies: scenario.dependencies.map(name => ({name,piApproved:approved.has(name)})),
-    evidence, gaps, tests,
+    evidence, gaps, tests, gapProposals,
 
     provenance: scenario.family === "Form"
       ? ["src/ui-catalog/extensions/composites/proposals/DeclarativeFormFlow.schema.ts",
