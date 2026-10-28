@@ -91,7 +91,7 @@ export function evaluateLayoutQuality(requirements:Context,generated:unknown):La
  const noOverrides=Object.values(nodes).every(n=>!["className","style","width","minWidth"].some(k=>Object.hasOwn(n.props,k)));
  const allVertical=Object.values(nodes).every(n=>n.type!=="Stack"||n.props.direction==="vertical");
  const allGrids=Object.values(nodes).filter(n=>n.type==="Grid");
- const gridColumnsValid=allGrids.every(n=>Number.isInteger(n.props.columns)&&Number(n.props.columns)>=1&&Number(n.props.columns)<=4);
+ const gridColumnsValid=allGrids.every(n=>Number.isInteger(Number(n.props.columns))&&Number(n.props.columns)>=1&&Number(n.props.columns)<=4);
  const properlyLinked=graph.sound&&Object.values(nodes).every(n=>new Set(n.children).size===n.children.length);
 
  if(flow==="registration"){
