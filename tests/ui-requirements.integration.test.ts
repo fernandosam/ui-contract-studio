@@ -59,7 +59,10 @@ test("T23/T24: composition varies without changing schemas, actions or registry"
   const simple=generateRegistrationScreen(resolveAnswers({persistence:"local-demo"}));
   const wide=generateRegistrationScreen(resolveAnswers({persistence:"local-demo",layout:"two-columns",fields:["name","email","company"]}));
   assert.equal(simple.elements.form_fields.type,"Stack");
-  assert.equal(wide.elements.form_fields.type,"Grid");
+  assert.equal(wide.elements.form_fields.type,"Stack");
+  assert.equal(wide.elements.group_identity_fields.type,"Grid");
+  assert.deepEqual(wide.elements.group_identity_fields.children,["field_0","field_2"]);
+  assert.equal(wide.elements.group_contact_fields.type,"Stack");
   assert.equal(wide.elements.field_2.type,"Input");
   assert.equal(Object.values(wide.elements).some(x=>x.type==="AlertDialog"),false);
   assert.equal(Object.values(generateRegistrationScreen(resolveAnswers({persistence:"local-demo",confirmation:true})).elements).some(x=>x.type==="AlertDialog"),true);

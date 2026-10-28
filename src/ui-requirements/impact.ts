@@ -9,7 +9,8 @@ import {catalog} from "../ui-catalog/catalog";
 
 const families={
  registration:{sources:["src/ui-requirements/flows/registration.json","src/ui-requirements/generator.ts",
-  "src/ui-requirements/form-proposal.ts"],components:["Input","Button","AlertDialog","Grid","Stack","Card"]},
+  "src/ui-requirements/form-proposal.ts","src/ui-requirements/registration-layout.json",
+  "src/ui-requirements/registration-layout.ts"],components:["Input","Button","AlertDialog","Grid","Stack","Heading","Card"]},
  login:{sources:["src/ui-requirements/pattern-flows.json","src/ui-requirements/patterns.ts"],components:["Input","Button","Checkbox","Stack","Card"]},
  search:{sources:["src/ui-patterns/search-and-filters.json","src/ui-requirements/pattern-flows.json",
   "src/ui-requirements/patterns.ts"],components:["DataTable","DatePicker","Stack"]},
@@ -68,11 +69,11 @@ export function measureStaticCoverage(registrationCases:readonly {id:string;answ
  const samples:{id:string;family:string;valid:boolean;fingerprint:string;requirements:number;runtimeEvidence:"not-executed"}[]=[];
  const approved=new Set(stableLock.components.filter(c=>c.status==="approved").map(c=>c.name));
  const sha=(x:unknown)=>createHash("sha256").update(JSON.stringify(x)).digest("hex");
- function capture(id:string,family:string,requirements:number,screen:{root:string;elements:Record<string,{type:string}>},valid:boolean){
+ function capture(id:string,family:string,requirements:number,screen:{root:string;elements:Record<string,{type:string}>},valid:boolean,semanticChoice:string|null=null){
   eligible++;
   if(valid)firstPassValid++;
   unapprovedComponents+=Object.values(screen.elements).filter(x=>!approved.has(x.type)).length;
-  samples.push({id,family,valid,fingerprint:sha({family,screen,lock:stableLock.schemaVersion}),requirements,runtimeEvidence:"not-executed"});
+  samples.push({id,family,valid,fingerprint:sha({family,screen,semanticChoice,lock:stableLock.schemaVersion}),requirements,runtimeEvidence:"not-executed"});
  }
  for(const scenario of registrationCases){
   const req=resolveAnswers(scenario.answers);
@@ -86,7 +87,7 @@ export function measureStaticCoverage(registrationCases:readonly {id:string;answ
   const screen=generateRegistrationScreen(req);
   const trace=traceRegistration(req,screen);
   capture(scenario.id,"registration",trace.requirements.length,screen,
-   catalog.validate(screen).success&&trace.structurallyValid);
+   catalog.validate(screen).success&&trace.structurallyValid,String(req.answers.layout));
  }
  for(const [flow,answers] of patternCases){
   const req=resolvePattern(flow,answers);

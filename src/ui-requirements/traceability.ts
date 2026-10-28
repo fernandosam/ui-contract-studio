@@ -1,6 +1,7 @@
 import {catalog,stableComponentDefinitions,stableComponentEventDescriptors,actionDefinitions} from "../ui-catalog/catalog";
 import {graphErrors} from "../../scripts/lib/spec-invariants.mjs";
 import type {RequirementSpec} from "./schema";
+import registrationLayout from "./registration-layout.json";
 import type {PatternRequirements} from "./patterns";
 
 type Node={type:string;props:Record<string,unknown>;children:string[]};
@@ -65,17 +66,54 @@ export function traceRegistration(spec:RequirementSpec,generated:unknown):Tracea
    nodeIds:[id],passes,explanation:"Nome, tipo, rótulo e exigência do campo no contrato Input"});
  }
  const layout=nodes.form_fields;
- const expectedType=spec.answers.layout==="two-columns"?"Grid":"Stack";
- const children=spec.fields.map((_,i)=>"field_"+i);
+ const expectedSections=registrationLayout.groups.flatMap(group=>{
+  const indexes=spec.fields.flatMap((field,i)=>{
+   const known=("fields" in group&&group.fields?.includes(field.name))||false;
+   const fallback=group.id==="additional"&&!registrationLayout.groups.some(
+    g=>"fields" in g&&g.fields?.includes(field.name));
+   return known||fallback?[i]:[];
+  });
+  return indexes.length?[{id:group.id,label:group.label,indexes}]:[];
+ });
+ const expectedGroups=expectedSections.map(x=>"group_"+x.id);
+ const expectedAllFieldIds=spec.fields.map((_,i)=>"field_"+i);
+ const actualGroups=layout?.children??[];
+ let semanticPass=!!layout&&layout.type==="Stack"&&layout.props.direction==="vertical"&&
+  layout.props.gap==="lg"&&JSON.stringify(actualGroups)===JSON.stringify(expectedGroups);
+ for(const section of expectedSections){
+  const header=nodes["heading_"+section.id];
+  const controls=nodes["group_"+section.id+"_fields"];
+  const wrapper=nodes["group_"+section.id];
+  const wantedColumns=spec.answers.layout==="two-columns"&&section.indexes.length>=
+   registrationLayout.responsive.desktopMinFields?2:1;
+  const correctType=wantedColumns===2?"Grid":"Stack";
+  const correctProps=correctType==="Grid"?controls?.props.columns===2:
+   controls?.props.direction==="vertical";
+  semanticPass=semanticPass&&!!wrapper&&wrapper.type==="Stack"&&
+   JSON.stringify(wrapper.children)===JSON.stringify(["heading_"+section.id,"group_"+section.id+"_fields"])&&
+   header?.type==="Heading"&&header.props.text===section.label&&header.props.level==="h3"&&
+   controls?.type===correctType&&correctProps&&
+   JSON.stringify(controls.children)===JSON.stringify(section.indexes.map(i=>"field_"+i));
+ }
+ // No hidden, duplicated or ungrouped field nodes; preserve the reading order
+ // represented by the DOM tree even when columns change at the breakpoint.
+ const allActualFields=expectedSections.flatMap(section=>
+  nodes["group_"+section.id+"_fields"]?.children??[]);
+ semanticPass=semanticPass&&allActualFields.length===expectedAllFieldIds.length&&
+  new Set(allActualFields).size===expectedAllFieldIds.length&&
+  expectedAllFieldIds.every(x=>allActualFields.includes(x))&&
+  Object.keys(nodes).filter(x=>x.startsWith("group_")).length===expectedSections.length*2;
+ const rootNode=screen?nodes[screen.root]:null;
+ semanticPass=semanticPass&&!!rootNode&&rootNode.type==="Card"&&
+  rootNode.props.maxWidth===registrationLayout.container.maxWidth&&
+  rootNode.props.centered===registrationLayout.container.centered;
  add(entries,{id:"layout",questionId:"layout",origin:source(spec.provenance,"layout"),
-  nodeIds:["form_fields"],passes:!!layout&&layout.type===expectedType&&
-  JSON.stringify(layout.children)===JSON.stringify(children)&&
-  (expectedType!=="Grid"||layout.props.columns===2),
-  explanation:"Agrupamento e ordem dos campos na árvore JSON"});
+  nodeIds:["form_fields",...expectedGroups],passes:semanticPass,
+  explanation:"Contrato semântico: largura controlada, títulos, grupos, ordem de leitura e colunas responsivas"});
  const validation=spec.answers.validation;
  const fieldTraces=entries.filter(x=>x.id.startsWith("field:"));
  add(entries,{id:"validation",questionId:"validation",origin:source(spec.provenance,"validation"),
-  nodeIds:children,passes:validation!=="business"&&fieldTraces.every(x=>x.status!=="blocked"),
+  nodeIds:expectedAllFieldIds,passes:validation!=="business"&&fieldTraces.every(x=>x.status!=="blocked"),
   needsRuntime:validation==="native",explanation:validation==="native"?
   "Regras presentes na spec; execução, foco e bloqueio do envio exigem verificação em navegador":
   validation==="none"?"Nenhuma regra adicional solicitada":"Validação de negócio ainda não admitida"});

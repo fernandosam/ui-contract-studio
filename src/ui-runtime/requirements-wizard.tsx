@@ -67,6 +67,14 @@ export function RequirementsWizard(){
     <div className="rounded-lg border bg-card p-4 space-y-3">
       <h2 className="text-lg font-semibold">Plano e limites</h2>
       <p className="text-sm">Componentes propostos: {plan.components.join(", ")}</p>
+      <div data-testid="registration-layout-plan" className="rounded-md border p-3 space-y-2 text-sm">
+        <p className="font-medium">Contrato semântico do layout: cadastro</p>
+        <p className="text-muted-foreground">Cartão centralizado, grupos ordenados e largura limitada. No celular, uma coluna; em telas maiores, até duas por grupo.</p>
+        <ol className="list-decimal pl-5 space-y-1">{plan.layout.groups.map(group=><li key={group.id}>
+          {group.label} — {group.fieldIndexes.length} campo(s), {group.columns} coluna(s) em telas maiores
+        </li>)}</ol>
+        <p className="text-xs text-muted-foreground">Orientação de composição, não aprovação de novos contratos, ações ou integrações.</p>
+      </div>
       <ul className="list-disc pl-5 text-sm space-y-1">
         {plan.coverage.map(item=><li key={item.id}><strong>{item.id}:</strong> {item.detail}</li>)}
       </ul>
@@ -95,8 +103,8 @@ export function RequirementsWizard(){
           <span className="block text-muted-foreground">Origem: {item.origin}; nós: {item.nodeIds.join(", ")||"nenhum"}</span>
         </li>)}</ul>
       </details>}
-      {localCandidate&&<SpecScreen channel="experimental" spec={{root:"form",elements:{form:{type:"DeclarativeFormFlow",props:localCandidate,children:[]}}}}/>}
-      <p className="text-xs text-muted-foreground">O formulário funcional acima usa o Pi experimental, com contrato revisável e sem persistência. Não está autorizado no Pi estável.</p>
+      {localCandidate&&<SpecScreen spec={{root:"form",elements:{form:{type:"DeclarativeFormFlow",props:localCandidate,children:[]}}}}/>}
+      <p className="text-xs text-muted-foreground">O formulário funcional usa o contrato Pi local já admitido, sem persistência nem chamadas externas. O perfil de layout não altera essa autorização.</p>
     </div>}
   </section>;
 }

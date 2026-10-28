@@ -39,6 +39,12 @@
   grid-template-columns: repeat(var(--columns, 1), minmax(0, 1fr));
 }
 .pg-grid > * { min-width: 0; }
+/* Semantic registration: declared two-column grids collapse to a single readable
+ * column on compact viewports, without injecting a new Pi layout property. */
+@media (max-width: 639px) {
+  .pg-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
 
 /* Only the non-shadcn primitives use these text/placeholder classes. */
 .pg-heading { font-weight: 650; letter-spacing: -.025em; color: var(--foreground); }

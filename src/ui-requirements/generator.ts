@@ -20,9 +20,19 @@ export function generateRegistrationScreen(requirements:RequirementSpec) {
       checks,
     });
   });
-  const layout=requirements.answers.layout==="two-columns"?"Grid":"Stack";
-  const layoutProps=layout==="Grid"?{columns:2,gap:"md"}:{direction:"vertical",gap:"md",align:"stretch",justify:"start"};
-  add("form_fields",layout,layoutProps,items);
+  // Render the semantic plan with EXISTING admitted Card/Stack/Grid/Heading
+  // contracts; the profile never introduces custom Pi props or actions.
+  const sections=plan.layout.groups.map(group=>{
+    const title=add("heading_"+group.id,"Heading",{text:group.label,level:"h3"});
+    const groupType=group.columns===2?"Grid":"Stack";
+    const groupProps=groupType==="Grid"?{columns:2,gap:"md"}:
+      {direction:"vertical",gap:"md",align:"stretch",justify:"start"};
+    const controls=add("group_"+group.id+"_fields",groupType,groupProps,
+      group.fieldIndexes.map(index=>items[index]));
+    return add("group_"+group.id,"Stack",
+      {direction:"vertical",gap:"sm",align:"stretch",justify:"start"},[title,controls]);
+  });
+  add("form_fields","Stack",{direction:"vertical",gap:"lg",align:"stretch",justify:"start"},sections);
   const description="Prévia declarativa. Sem gravação de dados; valide requisitos funcionais antes de publicar.";
   const children=["form_fields"];
   if(requirements.answers.confirmation===true){
@@ -34,6 +44,6 @@ export function generateRegistrationScreen(requirements:RequirementSpec) {
   }else{
     children.push(add("preview_note","Text",{text:"Prévia sem envio de dados.",variant:"muted"}));
   }
-  add("root","Card",{title:"Cadastro de usuários",description},children);
+  add("root","Card",{title:"Cadastro de usuários",description,maxWidth:plan.layout.container.maxWidth,centered:plan.layout.container.centered},children);
   return {root:"root",elements};
 }

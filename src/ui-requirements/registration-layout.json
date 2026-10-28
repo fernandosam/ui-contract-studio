@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "id": "registration",
+  "status": "semantic-guidance",
+  "reviewedOn": "2026-10-28",
+  "purpose": "Organizar cadastros declarativos locais por hierarquia, relações semânticas, ordem de leitura e largura responsiva.",
+  "admission": "does-not-authorize-pi-contracts-actions-or-permissions",
+  "container": {
+    "component": "Card",
+    "title": "Cadastro de usuários",
+    "maxWidth": "md",
+    "centered": true
+  },
+  "hierarchy": [
+    "card-title-and-description",
+    "identity",
+    "contact",
+    "credentials",
+    "additional",
+    "confirmation-or-local-notice"
+  ],
+  "groups": [
+    {
+      "id": "identity",
+      "label": "Dados de identificação",
+      "fields": [
+        "name",
+        "document",
+        "company"
+      ]
+    },
+    {
+      "id": "contact",
+      "label": "Informações de contato",
+      "fields": [
+        "email",
+        "phone",
+        "city"
+      ]
+    },
+    {
+      "id": "credentials",
+      "label": "Dados de acesso",
+      "fields": [
+        "password"
+      ]
+    },
+    {
+      "id": "additional",
+      "label": "Outras informações",
+      "prefix": "extra"
+    }
+  ],
+  "responsive": {
+    "mobileColumns": 1,
+    "desktopMaxColumns": 2,
+    "desktopMinFields": 2,
+    "gap": "md",
+    "preserveDomReadingOrder": true
+  },
+  "constraints": [
+    "Do not infer persistence, endpoints or callbacks",
+    "Never place confirmation before fields",
+    "Preserve explicit field labels, types and required state",
+    "Do not infer invisible field spans, tabs, steps or new Pi APIs",
+    "Group headings express hierarchy, not additional form controls"
+  ],
+  "evidence": [
+    {
+      "path": "src/ui-requirements/generator.ts",
+      "contains": "generateRegistrationScreen"
+    },
+    {
+      "path": "src/ui-requirements/traceability.ts",
+      "contains": "traceRegistration"
+    },
+    {
+      "path": "src/ui-catalog/components/playground.tsx",
+      "contains": "Grid: ({props,children})"
+    }
+  ],
+  "tests": [
+    "semantic-group-order",
+    "responsive-one-column",
+    "field-traceability",
+    "no-remote-permissions"
+  ]
+}
