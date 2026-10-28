@@ -5,7 +5,7 @@ const lock=read('src/ui-catalog/contracts.lock.json');const sources=read('src/ui
 // The reviewed lock, not the Pi projection, owns base contract maturity.
 for(const contract of lock.components){
  if(!/^(experimental|beta|stable|deprecated)$/.test(contract.stability) ||
-    !/^\\d+\\.\\d+\\.\\d+$/.test(contract.version) ||
+    !/^\d+\.\d+\.\d+$/.test(contract.version) ||
     !/^[a-f0-9]{64}$/.test(contract.semanticFingerprint))
   throw new Error('Invalid version, stability or fingerprint: '+contract.name);
  if(contract.stability==='stable' && contract.status!=='approved')
@@ -82,8 +82,8 @@ const experimentalContracts=experimentalEntries.map(entry=>{
 // A single authoritative collection: maturity is a property of each contract,
 // never an implication of which array happens to contain it.
 const components=[
-  ...contracts.map(contract=>({...contract,lifecycle:'stable',
-    validation:{static:'approved',e2e:'not-recorded'},
+  ...contracts.map(contract=>({...contract,lifecycle:contract.stability,
+    validation:{static:contract.stability==='stable'?'approved':'pending',e2e:'not-recorded'},
     stability:contract.stability,fingerprint:lock.components.find(c=>c.name===contract.type).semanticFingerprint})),
   ...experimentalContracts,
 ];
