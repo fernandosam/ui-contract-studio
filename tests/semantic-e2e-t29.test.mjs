@@ -18,14 +18,14 @@ test("T29 matrix covers high-impact cases and every browser case has a source re
  assert.equal(matrix.schemaVersion,1);
  const ids=new Set();
  for(const item of matrix.cases){
-  assert.match(item.id,/^T29-R\\d{2}$/);
+  assert.match(item.id,/^T29-R[0-9]{2}$/);
   assert.ok(!ids.has(item.id),item.id+" duplicate");
   ids.add(item.id);
   assert.ok(["P0","P1"].includes(item.priority),item.id);
   assert.ok(item.risk.length>35,item.id+" missing impact");
   assert.ok(existsSync(item.source),item.id+" missing source: "+item.source);
   assert.ok(item.scenarioIds.length>0,item.id);
-  assert.match(spec,new RegExp('test\\("'+item.id+' @semantic-risk:'),item.id+" absent in E2E");
+  assert.ok(spec.includes(`test("${item.id} @semantic-risk:`),item.id+" absent in E2E");
   for(const id of item.scenarioIds){
    assert.ok(scenarios.has(id),item.id+" references unknown recommendation "+id);
   }
@@ -71,12 +71,12 @@ test("T29 capability risks reconcile with current semantic coverage and evidence
 });
 
 test("T29 is included in existing focused and full E2E paths, without permission changes",()=>{
- assert.match(quality,/tests\\/e2e\\/semantic-risk-t29\\.spec\\.ts/);
- assert.match(quality,/reports\\/semantic-e2e\\//);
- assert.match(manual,/npm run test:e2e/);
- assert.match(manual,/github.ref == 'refs\\/heads\\/main'/);
+ assert.ok(quality.includes("tests/e2e/semantic-risk-t29.spec.ts"));
+ assert.ok(quality.includes("reports/semantic-e2e/"));
+ assert.ok(manual.includes("npm run test:e2e"));
+ assert.ok(manual.includes("refs/heads/main"));
  assert.match(spec,/certification:"not-granted"/);
  assert.match(spec,/matrixSha256/);
- assert.match(spec,/sourceRevision:process\\.env\\.GITHUB_SHA\\?\\?null/);
+ assert.ok(spec.includes("sourceRevision:process.env.GITHUB_SHA??null"));
  assert.doesNotMatch(spec,/admission:promote|admission:certify|pi:api --write/);
 });
