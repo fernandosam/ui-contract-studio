@@ -82,9 +82,9 @@ const experimentalContracts=experimentalEntries.map(entry=>{
 // A single authoritative collection: maturity is a property of each contract,
 // never an implication of which array happens to contain it.
 const components=[
-  ...contracts.map(contract=>({...contract,lifecycle:contract.stability,
-    validation:{static:contract.stability==='stable'?'approved':'pending',e2e:'not-recorded'},
-    stability:contract.stability,fingerprint:lock.components.find(c=>c.name===contract.type).semanticFingerprint})),
+  ...contracts.map(contract=>({...contract,lifecycle:lock.components.find(c=>c.name===contract.type).stability,
+    validation:{static:lock.components.find(c=>c.name===contract.type).stability==='stable'?'approved':'pending',e2e:'not-recorded'},
+    stability:lock.components.find(c=>c.name===contract.type).stability,fingerprint:lock.components.find(c=>c.name===contract.type).semanticFingerprint})),
   ...experimentalContracts,
 ];
 // A stable contract is automatically exposed; experimental entries remain preview-only.
