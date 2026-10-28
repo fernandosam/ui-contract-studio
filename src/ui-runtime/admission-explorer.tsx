@@ -52,7 +52,7 @@ export function AdmissionExplorer() {
        className={"flex w-full items-center justify-between gap-2 rounded-md p-2 text-left text-sm hover:bg-muted "+(current?.type===entry.type?"bg-muted font-semibold":"")}>
        <span className="min-w-0 truncate">{entry.type}</span>
        <span className={"shrink-0 rounded-full border px-2 py-0.5 text-[10px] "+(entry.lifecycle==="experimental"?"border-amber-500/30 text-amber-700 dark:text-amber-400":"text-emerald-700 dark:text-emerald-400")}>
-        {entry.lifecycle==="experimental"?"Experimental":entry.validation.e2e==="passed"?"E2E aprovado":"Estável"}
+        {entry.lifecycle==="experimental"?"Experimental":entry.validation.e2e==="passed"?"E2E aprovado":entry.validation.e2e==="ci-required"?"E2E no CI":"Estável"}
        </span>
       </button>)}
      </div>
@@ -62,7 +62,7 @@ export function AdmissionExplorer() {
       <article className="space-y-3 rounded-xl border bg-card p-4">
        <div className="flex flex-wrap items-center gap-2">
         <h3 className="text-base font-semibold">{current.type}</h3>
-        <span className="rounded-full border px-2 py-0.5 text-xs">{current.lifecycle==="experimental"?"E2E pendente":current.validation.e2e==="passed"?"E2E aprovado":"E2E não registrado"}</span>
+        <span className="rounded-full border px-2 py-0.5 text-xs">{current.lifecycle==="experimental"?"E2E pendente":current.validation.e2e==="passed"?"E2E aprovado":current.validation.e2e==="ci-required"?"E2E obrigatório no CI":"E2E não registrado"}</span>
        </div>
        <p className="text-xs text-muted-foreground">Versão: {current.version} · Disponível no Pi experimental: sim · Pi estável: {current.lifecycle==='stable'?"sim":"não"}</p>
        {"sourceDigest" in current&&typeof current.sourceDigest==="string"&&
