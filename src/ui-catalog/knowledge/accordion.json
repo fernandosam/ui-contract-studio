@@ -186,7 +186,12 @@
       "evidence": [],
       "testRequirements": [
         "Qualquer evolução de children ricos requer contrato/composição própria com revisão Zod/Pi, não apenas JSON."
-      ]
+      ],
+      "decision": {
+        "disposition": "propose-composition",
+        "reason": "O contrato Accordion primitivo continua textual. Revisar composição separada e executar testes antes de qualquer promoção.",
+        "target": "RichContentAccordion"
+      }
     },
     {
       "id": "onboarding-status-in-basic-contract",
@@ -195,7 +200,12 @@
       "evidence": [],
       "testRequirements": [
         "Reutilizar OnboardingChecklist separado para status existentes; não atribuir progressão ou persistência ao Accordion básico."
-      ]
+      ],
+      "decision": {
+        "disposition": "reuse-composition",
+        "reason": "O contrato Accordion primitivo continua textual. Revisar composição separada e executar testes antes de qualquer promoção.",
+        "target": "OnboardingChecklist"
+      }
     },
     {
       "id": "keep-mounted-ssr",
@@ -204,7 +214,11 @@
       "evidence": [],
       "testRequirements": [
         "Antes de depender de indexação/SSR, projetar e revisar estratégia de montagem/renderização com fonte HTML real."
-      ]
+      ],
+      "decision": {
+        "disposition": "out-of-scope",
+        "reason": "O contrato Accordion primitivo continua textual. Revisar composição separada e executar testes antes de qualquer promoção."
+      }
     },
     {
       "id": "keyboard-and-aria",
