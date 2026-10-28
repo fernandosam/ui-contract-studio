@@ -20,12 +20,20 @@ Use Node.js **22+** and dependencies verified by `package-lock.json`. The [READM
 
 `docs:check` works without network access. Documentation-only changes should run `docs:check` and `test:offline`; code changes require their specific checks and, where available, `validate` and `build`.
 
+## Native auto-merge for ordinary pull requests
+
+The existing [quality workflow](../.github/workflows/quality.yml) automatically requests GitHub's **native squash auto-merge** on opening or updating a non-draft PR targeting `main`, **only when its head branch belongs to this repository**. It does not create another PR or skip any required checks. GitHub itself waits for the protected `main` status checks (semantic/offline + integration/build, including the source-bound form browser protocol).
+
+The small [eligibility guard](../scripts/ci-auto-merge-policy.mjs), executed **from the trusted base commit**, examines every file in the GitHub API PR diff. Workflow/action, CI-policy, dependency, contract-lock, Zod/Pi admission, permissions and backend changes require ordinary manual review and are **not enrolled**. Renaming a sensitive file is treated as sensitive too. Drafts are not enrolled; if a later revision becomes sensitive or is converted into a draft, the workflow attempts to disable auto-merge. Fork PRs are excluded. The isolated job does not execute PR code with its write-scoped token and never uses `--admin`.
+
+**Operational prerequisites:** repository Settings → General → Pull Requests → Allow auto-merge enabled; Actions permissions must allow the scoped job to update PRs. When eligible, the job uses `gh pr merge --auto --squash --match-head-commit`. If GitHub rejects the request, the CI job reports the error and the PR remains for manual action; no protection is bypassed. The focused browser-review job is currently additional (not a mandatory ruleset status); the two required checks still include the local form's browser admission proof.
+
 ## CI and browser testing
 
 - [Quality](../.github/workflows/quality.yml): runs on PRs and pushes to `main`, splitting no-install offline tests from immutable `npm ci`, Pi schema, lint, integration and build checks. Focused Playwright checks are skipped for documentation-only PRs; source, config, dependency and workflow changes continue to run them.
 The existing **Source, docs and offline tests** job also gates semantic quality using `semantic:check` and `semantic:report`. It uploads the `semantic-knowledge-report` artifact (coverage/freshness JSON and failure logs) even when semantic validation fails, and writes an actionable job summary. Failed JSON is explicitly marked `validation.status: failed`; code-change review warnings are advisory. See [semantic checklist T28](semantic-knowledge-checklist.md) for commands and regression scenarios.
 
-- [Manual E2E (main)](../.github/workflows/e2e-manual.yml): **manual and main-only**. A read-only job executes full E2E; a separate write-scoped job downloads proof from the same run, verifies the tested SHA and alone records certificates. Moving `main` blocks stale certification.
+- [Manual E2E (main)](../.github/workflows/e2e-manual.yml): **diagnostic only**. Runs the full source-bound E2E suite on `main`, retains evidence and has read-only permissions. It does not create a certification PR or change Pi permissions.
 - [Official visual audit](../.github/workflows/bootstrap-visual.yml): a dedicated manual bootstrap and screenshot-comparison workflow, without repeating functional full E2E.
 
 Screenshots prove only what was rendered and observed. Pixel differences between demos with different data/states are diagnostic, **not automatic fidelity criteria**. See [visual review](revisao-visual-shadcn.md) and the [official audit](official-component-visual-audit.md).
