@@ -3,6 +3,7 @@ name: UI Contract Studio quality
 on:
   pull_request:
     branches: [main]
+    types: [opened, reopened, synchronize, ready_for_review, converted_to_draft]
   push:
     branches: [main]
 permissions:
@@ -180,3 +181,60 @@ jobs:
             test-results/
           if-no-files-found: warn
           retention-days: 14
+
+  auto-merge:
+    name: Request native safe squash auto-merge (PR only)
+    # Never check out untrusted PR code in a write-scoped job. Fork PRs are
+    # not auto-enrolled. GitHub still enforces the protected-main checks.
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Read trusted auto-merge policy from PR base, never PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - name: Activate native auto-merge for ordinary non-draft PRs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_IS_DRAFT: ${{ github.event.pull_request.draft }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Fetch ALL files, including rename origins, not a truncated first page.
+          gh api --paginate --slurp "repos/$GH_REPO/pulls/$PR_NUMBER/files?per_page=100" > "$RUNNER_TEMP/auto-merge-pr-files.json"
+          decision="$(node scripts/ci-auto-merge-policy.mjs "$RUNNER_TEMP/auto-merge-pr-files.json")"
+          existing="$(gh pr view "$PR_NUMBER" --json autoMergeRequest --jq '.autoMergeRequest != null')"
+          if [[ "$PR_IS_DRAFT" == "true" || "$decision" == "review-required" ]]; then
+            if [[ "$existing" == "true" ]]; then
+              gh pr merge "$PR_NUMBER" --disable-auto
+              echo "Disabled existing auto-merge: draft or sensitive PR"
+            else
+              echo "Auto-merge not enabled: draft or sensitive PR"
+            fi
+            exit 0
+          fi
+          test "$decision" = "eligible" || {
+            echo "::error::Auto-merge eligibility is not a recognized safe decision"
+            exit 1
+          }
+          current_sha="$(gh pr view "$PR_NUMBER" --json headRefOid --jq '.headRefOid')"
+          test "$current_sha" = "$PR_HEAD_SHA" || {
+            echo "::error::PR head changed while evaluating; wait for its synchronize event"
+            exit 1
+          }
+          if [[ "$existing" == "true" ]]; then
+            echo "Native auto-merge already enabled for this PR"
+            exit 0
+          fi
+          # --auto obeys branch protections; --match-head-commit prevents a
+          # stale event from enabling it on a different revision. No --admin.
+          gh pr merge "$PR_NUMBER" --auto --squash --match-head-commit "$PR_HEAD_SHA"
+          echo "Native squash auto-merge enabled; required main checks still gate merging"
