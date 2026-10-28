@@ -23,6 +23,8 @@ Use Node.js **22+** and dependencies verified by `package-lock.json`. The [READM
 ## CI and browser testing
 
 - [Quality](../.github/workflows/quality.yml): runs on PRs and pushes to `main`, splitting no-install offline tests from immutable `npm ci`, Pi schema, lint, integration and build checks. Focused Playwright checks are skipped for documentation-only PRs; source, config, dependency and workflow changes continue to run them.
+The existing **Source, docs and offline tests** job also gates semantic quality using `semantic:check` and `semantic:report`. It uploads the `semantic-knowledge-report` artifact (coverage/freshness JSON and failure logs) even when semantic validation fails, and writes an actionable job summary. Failed JSON is explicitly marked `validation.status: failed`; code-change review warnings are advisory. See [semantic checklist T28](semantic-knowledge-checklist.md) for commands and regression scenarios.
+
 - [Manual E2E (main)](../.github/workflows/e2e-manual.yml): **manual and main-only**. A read-only job executes full E2E; a separate write-scoped job downloads proof from the same run, verifies the tested SHA and alone records certificates. Moving `main` blocks stale certification.
 - [Official visual audit](../.github/workflows/bootstrap-visual.yml): a dedicated manual bootstrap and screenshot-comparison workflow, without repeating functional full E2E.
 
