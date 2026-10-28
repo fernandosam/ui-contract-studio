@@ -128,6 +128,7 @@ export function generatePatternPreview(spec:PatternRequirements):PatternScreen{
    view.elements.graph_grid.props.columns=semantic!.gridColumns;
    view.elements.graphs.props.maxWidth="full";
    view.elements.graphs.props.centered=false;
+   view.elements.graphs.children=semantic!.regions;
   }
   if(a.showFootnote===true){
    view.elements.footnote={type:"Text",props:{text:"Valores fictícios, sem atualização automática.",variant:"muted"},children:[]};
