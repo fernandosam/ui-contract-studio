@@ -52,7 +52,9 @@ test("T25 scoring is reproducible, evidence-backed and sorted by score then stab
 test("T25 partial knowledge is explicit uncertainty, never invented runtime or implementation evidence",() => {
   const results=rankSemanticEnrichment([
     {component:"Sparse",integrationCandidates:[]},
-    profile("Complete",{approvedPiType:true}),
+    profile("Complete",{approvedPiType:true,
+      capabilities:[{id:"known",state:"implemented-static-evidence",evidence:[{path:"src/example.ts",contains:"example"}]}],
+      derivedTestCases:[{id:"check",kind:"integration"}]}),
   ]).entries;
   const sparse=results.find(x=>x.component==="Sparse");
   assert.equal(sparse.score,20);
