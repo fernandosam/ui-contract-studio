@@ -2,11 +2,11 @@ import {test,expect,type Page} from "@playwright/test";
 import {createHash} from "node:crypto";
 import {mkdirSync,readFileSync,writeFileSync} from "node:fs";
 import {join} from "node:path";
-import risks from "./semantic-risk-cases.json";
 
 // T29: each browser assertion is tied to the audited overlay, recommendation,
 // source-only proposal or separate admission record. Browser proof is NOT Pi certification.
 const read=(path:string)=>JSON.parse(readFileSync(path,"utf8"));
+const risks=read("tests/e2e/semantic-risk-cases.json") as {cases:{id:string;priority:string;source:string;scenarioIds:string[];capabilities:string[]}[]};
 const overlay=read("src/ui-catalog/knowledge/alert-dialog.json");
 const scenarios=read("src/ui-catalog/recommendations/scenarios.json").scenarios;
 const official=read("pi-catalog/contracts.json").components;
