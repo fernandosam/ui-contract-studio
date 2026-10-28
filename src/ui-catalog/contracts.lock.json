@@ -8,7 +8,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "39f3c4ebea8e3e937f9b64d3fda3dd0c5c9422e153f419a3b403c5e7cda0c0d8"
+      "semanticFingerprint": "39f3c4ebea8e3e937f9b64d3fda3dd0c5c9422e153f419a3b403c5e7cda0c0d8",
+      "stability": "stable"
     },
     {
       "name": "Stack",
@@ -16,7 +17,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "f7ace5856e6390e8627d3120f7f34a838dd2bda1218b88ede0734cac7f686216"
+      "semanticFingerprint": "f7ace5856e6390e8627d3120f7f34a838dd2bda1218b88ede0734cac7f686216",
+      "stability": "stable"
     },
     {
       "name": "Grid",
@@ -24,7 +26,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "5a7292faf727b54b6ce84580795ca2179143f3ee6f253053945a7cc71a1fc88d"
+      "semanticFingerprint": "5a7292faf727b54b6ce84580795ca2179143f3ee6f253053945a7cc71a1fc88d",
+      "stability": "stable"
     },
     {
       "name": "Separator",
@@ -32,7 +35,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "0488d3683ade9e6887b109424cc8d023796f692e05cf55768e04a410879a1358"
+      "semanticFingerprint": "0488d3683ade9e6887b109424cc8d023796f692e05cf55768e04a410879a1358",
+      "stability": "stable"
     },
     {
       "name": "Tabs",
@@ -40,7 +44,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "824f2d2863d53d1fced877dbcee2e57bb23054afdab1dbaefa39bfb7a8a8fa92"
+      "semanticFingerprint": "824f2d2863d53d1fced877dbcee2e57bb23054afdab1dbaefa39bfb7a8a8fa92",
+      "stability": "stable"
     },
     {
       "name": "Accordion",
@@ -48,7 +53,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "fa794010d1dfbef79a87d9ec491ddd7aa2782b6116453e16373c9dac73db8c98"
+      "semanticFingerprint": "fa794010d1dfbef79a87d9ec491ddd7aa2782b6116453e16373c9dac73db8c98",
+      "stability": "stable"
     },
     {
       "name": "Collapsible",
@@ -56,7 +62,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "10b7279d39d639cd5654fdc391b06732c4e9c7b546cb0310a09258f7a7a470e6"
+      "semanticFingerprint": "10b7279d39d639cd5654fdc391b06732c4e9c7b546cb0310a09258f7a7a470e6",
+      "stability": "stable"
     },
     {
       "name": "Dialog",
@@ -64,7 +71,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "e13c46d6a682ae288a5a29610843ad66e7163d090201725ce64e432fff3fdcf0"
+      "semanticFingerprint": "e13c46d6a682ae288a5a29610843ad66e7163d090201725ce64e432fff3fdcf0",
+      "stability": "stable"
     },
     {
       "name": "Drawer",
@@ -72,7 +80,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "240df2528bd6108ecec05eeca5b1bfdb25da84f0491c79c4c0c02f2ef582ac33"
+      "semanticFingerprint": "240df2528bd6108ecec05eeca5b1bfdb25da84f0491c79c4c0c02f2ef582ac33",
+      "stability": "stable"
     },
     {
       "name": "Carousel",
@@ -80,7 +89,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "8527a2b1dcd02969a490ea11d705efe4a1ddbff0525ef381aa3878cddc432d3b"
+      "semanticFingerprint": "8527a2b1dcd02969a490ea11d705efe4a1ddbff0525ef381aa3878cddc432d3b",
+      "stability": "stable"
     },
     {
       "name": "Table",
@@ -88,7 +98,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "4d5eb3579a8928b8b39b3c2091f74db784e95e2ace2c1bd2dee72d52d207fcd4"
+      "semanticFingerprint": "4d5eb3579a8928b8b39b3c2091f74db784e95e2ace2c1bd2dee72d52d207fcd4",
+      "stability": "stable"
     },
     {
       "name": "Heading",
@@ -96,7 +107,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "8733d76294f56e476fab0c80598005684afaf8d5deecfe0e5531a483dedfbd6d"
+      "semanticFingerprint": "8733d76294f56e476fab0c80598005684afaf8d5deecfe0e5531a483dedfbd6d",
+      "stability": "stable"
     },
     {
       "name": "Text",
@@ -104,7 +116,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "00e031077d467658b280b722947a2635a23b778aefbd09377342197bd7e672c8"
+      "semanticFingerprint": "00e031077d467658b280b722947a2635a23b778aefbd09377342197bd7e672c8",
+      "stability": "stable"
     },
     {
       "name": "Image",
@@ -112,7 +125,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "42230acc32e9914b6782698d697ebe81619bea362926da871fa717f5b43de42f"
+      "semanticFingerprint": "42230acc32e9914b6782698d697ebe81619bea362926da871fa717f5b43de42f",
+      "stability": "stable"
     },
     {
       "name": "Icon",
@@ -120,7 +134,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "eed0391b1124877325d355aa7dde48c5e64d2edff36f837f8cb95592370eee97"
+      "semanticFingerprint": "eed0391b1124877325d355aa7dde48c5e64d2edff36f837f8cb95592370eee97",
+      "stability": "stable"
     },
     {
       "name": "Avatar",
@@ -128,7 +143,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "4d16f1fbd94a3e282b147ffe36b471fea64c136f919ebec519c07f638a532e83"
+      "semanticFingerprint": "4d16f1fbd94a3e282b147ffe36b471fea64c136f919ebec519c07f638a532e83",
+      "stability": "stable"
     },
     {
       "name": "Badge",
@@ -136,7 +152,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "0704a31c2cf0790237c9ca915e2e9a7a5c20c6dee69454b3f77d3acb862dd1ba"
+      "semanticFingerprint": "0704a31c2cf0790237c9ca915e2e9a7a5c20c6dee69454b3f77d3acb862dd1ba",
+      "stability": "stable"
     },
     {
       "name": "Alert",
@@ -144,7 +161,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "8bb63ef1009dc14c619adc8bea27fabc2c1fdcef880ca55233fff2e713a42bc6"
+      "semanticFingerprint": "8bb63ef1009dc14c619adc8bea27fabc2c1fdcef880ca55233fff2e713a42bc6",
+      "stability": "stable"
     },
     {
       "name": "Progress",
@@ -152,7 +170,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "d7934260aba18e0705ccd353d7289281273db64c041ff8382d7495337155ab34"
+      "semanticFingerprint": "d7934260aba18e0705ccd353d7289281273db64c041ff8382d7495337155ab34",
+      "stability": "stable"
     },
     {
       "name": "Skeleton",
@@ -160,7 +179,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "a919fbae39b65baa026cef82d95edaf443e9e90488b685ad423efcee3a62832d"
+      "semanticFingerprint": "a919fbae39b65baa026cef82d95edaf443e9e90488b685ad423efcee3a62832d",
+      "stability": "stable"
     },
     {
       "name": "Spinner",
@@ -168,7 +188,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "4824bc939a23b3efaf48a145da3ec552759294d8126956568991c89c23acadda"
+      "semanticFingerprint": "4824bc939a23b3efaf48a145da3ec552759294d8126956568991c89c23acadda",
+      "stability": "stable"
     },
     {
       "name": "Tooltip",
@@ -176,7 +197,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "590b3d62250d7ffe476cbc74138f1fb7ef4b58619333a5b4305dd21c31c006bd"
+      "semanticFingerprint": "590b3d62250d7ffe476cbc74138f1fb7ef4b58619333a5b4305dd21c31c006bd",
+      "stability": "stable"
     },
     {
       "name": "Popover",
@@ -184,7 +206,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "c3cec89ea8ace734f4d6abc86ca8539531e4635989221b9f2618b68598b4c3dc"
+      "semanticFingerprint": "c3cec89ea8ace734f4d6abc86ca8539531e4635989221b9f2618b68598b4c3dc",
+      "stability": "stable"
     },
     {
       "name": "Rating",
@@ -192,7 +215,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "595dc72d69524e10d2d6a4cb81096ba37e6cc36224929e331a1415e01dbdd187"
+      "semanticFingerprint": "595dc72d69524e10d2d6a4cb81096ba37e6cc36224929e331a1415e01dbdd187",
+      "stability": "stable"
     },
     {
       "name": "Metric",
@@ -200,7 +224,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "70335fffb5813e4f47432989d59886315259bbdbc79d050d26e74780af411a8e"
+      "semanticFingerprint": "70335fffb5813e4f47432989d59886315259bbdbc79d050d26e74780af411a8e",
+      "stability": "stable"
     },
     {
       "name": "BarGraph",
@@ -208,7 +233,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "dad7103530b94c0e49409d22b491a69d51f41bfa595528483037b0c698457cb8"
+      "semanticFingerprint": "dad7103530b94c0e49409d22b491a69d51f41bfa595528483037b0c698457cb8",
+      "stability": "stable"
     },
     {
       "name": "LineGraph",
@@ -216,7 +242,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "f485774f0bf2502fc020ac25bf26002ef6bb20cf79c81e70b759640c62bdb19c"
+      "semanticFingerprint": "f485774f0bf2502fc020ac25bf26002ef6bb20cf79c81e70b759640c62bdb19c",
+      "stability": "stable"
     },
     {
       "name": "Input",
@@ -224,7 +251,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "d8a18e5a6c807eaa5bb09cc7c741fe4ebd7351edc00e0338309eee57e352a958"
+      "semanticFingerprint": "d8a18e5a6c807eaa5bb09cc7c741fe4ebd7351edc00e0338309eee57e352a958",
+      "stability": "stable"
     },
     {
       "name": "Textarea",
@@ -232,7 +260,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "c8973ddd47c89f0aacc6a62a57d932633cb75f3c359ea324afb170e59bb33ab2"
+      "semanticFingerprint": "c8973ddd47c89f0aacc6a62a57d932633cb75f3c359ea324afb170e59bb33ab2",
+      "stability": "stable"
     },
     {
       "name": "Select",
@@ -240,7 +269,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "7712c7b6f2bf7da901799c56c26837fcab2d154e6f559a19a40c3889f71923e1"
+      "semanticFingerprint": "7712c7b6f2bf7da901799c56c26837fcab2d154e6f559a19a40c3889f71923e1",
+      "stability": "stable"
     },
     {
       "name": "Checkbox",
@@ -248,7 +278,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "a65d5883121e465208687851b90d119ce2fcaa42112ad7fe36b33455c2086db8"
+      "semanticFingerprint": "a65d5883121e465208687851b90d119ce2fcaa42112ad7fe36b33455c2086db8",
+      "stability": "stable"
     },
     {
       "name": "Radio",
@@ -256,7 +287,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "127f4a6dbfa9d8eb9dd02745ad3e81edf6cc1d118c5aa92bcec9c16eadc57146"
+      "semanticFingerprint": "127f4a6dbfa9d8eb9dd02745ad3e81edf6cc1d118c5aa92bcec9c16eadc57146",
+      "stability": "stable"
     },
     {
       "name": "Switch",
@@ -264,7 +296,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "fb837fdb1a678e8205459da16cf79150087c54f5b2fc1add292e3d829d26511e"
+      "semanticFingerprint": "fb837fdb1a678e8205459da16cf79150087c54f5b2fc1add292e3d829d26511e",
+      "stability": "stable"
     },
     {
       "name": "Slider",
@@ -272,7 +305,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "f0045b2853dff0f6de0ba5847d7d598853e0a7b16f37f24061f9ae5de29fad4b"
+      "semanticFingerprint": "f0045b2853dff0f6de0ba5847d7d598853e0a7b16f37f24061f9ae5de29fad4b",
+      "stability": "stable"
     },
     {
       "name": "Button",
@@ -280,7 +314,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "9a8db5b1f66321cdc68e47aaf728018f5538f3eacf2440a253bcf83f82f0f672"
+      "semanticFingerprint": "9a8db5b1f66321cdc68e47aaf728018f5538f3eacf2440a253bcf83f82f0f672",
+      "stability": "stable"
     },
     {
       "name": "Link",
@@ -288,7 +323,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "f7922764457ccc4a6946ec1461cfd834904b3fe9ee434acc08054cb35b730603"
+      "semanticFingerprint": "f7922764457ccc4a6946ec1461cfd834904b3fe9ee434acc08054cb35b730603",
+      "stability": "stable"
     },
     {
       "name": "DropdownMenu",
@@ -296,7 +332,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "96fef6fb3095602f832ae3d7a2c01ba908b1b250c8260fc19eda5ee0b483883c"
+      "semanticFingerprint": "96fef6fb3095602f832ae3d7a2c01ba908b1b250c8260fc19eda5ee0b483883c",
+      "stability": "stable"
     },
     {
       "name": "Toggle",
@@ -304,7 +341,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "2599a354f315f14decef47d3ef1a92607c0b1ccc7dc2b66a678a0415c9b29d19"
+      "semanticFingerprint": "2599a354f315f14decef47d3ef1a92607c0b1ccc7dc2b66a678a0415c9b29d19",
+      "stability": "stable"
     },
     {
       "name": "ToggleGroup",
@@ -312,7 +350,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "8b4be74c592157052abc2aeba4b032b7d3af62da7944daa13145da54b22db20e"
+      "semanticFingerprint": "8b4be74c592157052abc2aeba4b032b7d3af62da7944daa13145da54b22db20e",
+      "stability": "stable"
     },
     {
       "name": "ButtonGroup",
@@ -320,7 +359,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "858933cbfc51c7e396a4ec65bc5c25bb4cc34fdefefa8561a3e1aa43c6fef14b"
+      "semanticFingerprint": "858933cbfc51c7e396a4ec65bc5c25bb4cc34fdefefa8561a3e1aa43c6fef14b",
+      "stability": "stable"
     },
     {
       "name": "Pagination",
@@ -328,7 +368,8 @@
       "tier": "base",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "0786e24b4dc3bdb06264d9829a6fb2417a4b61ac822dbf72ad494f41620150a1"
+      "semanticFingerprint": "0786e24b4dc3bdb06264d9829a6fb2417a4b61ac822dbf72ad494f41620150a1",
+      "stability": "stable"
     },
     {
       "name": "DataTable",
@@ -344,7 +385,8 @@
         "data-source",
         "column-types"
       ],
-      "semanticFingerprint": "1874535edc36998b2ce8448e6f7034177fe31be66b409c376e16537497c5d559"
+      "semanticFingerprint": "1874535edc36998b2ce8448e6f7034177fe31be66b409c376e16537497c5d559",
+      "stability": "stable"
     },
     {
       "name": "DatePicker",
@@ -356,7 +398,8 @@
         "required",
         "date-range-validation"
       ],
-      "semanticFingerprint": "badc9fced2cc9c57241674894c7a556432196edcc075998ed9c096a8164fb839"
+      "semanticFingerprint": "badc9fced2cc9c57241674894c7a556432196edcc075998ed9c096a8164fb839",
+      "stability": "stable"
     },
     {
       "name": "Field",
@@ -368,7 +411,8 @@
         "orientation",
         "helper-text"
       ],
-      "semanticFingerprint": "3849e395d90dd387f617e6c073f1778908b7a3761dcf837c9d4965ad9d5e4a9c"
+      "semanticFingerprint": "3849e395d90dd387f617e6c073f1778908b7a3761dcf837c9d4965ad9d5e4a9c",
+      "stability": "stable"
     },
     {
       "name": "BlockSidebar",
@@ -376,7 +420,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "9a311dcd14620b48ed682d84dee15e4eb5863b64d73bc9cf71eee9bf404c060b"
+      "semanticFingerprint": "9a311dcd14620b48ed682d84dee15e4eb5863b64d73bc9cf71eee9bf404c060b",
+      "stability": "stable"
     },
     {
       "name": "Dashboard01",
@@ -385,7 +430,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "c235a8de7d6ab3fe06196a57ec93251e410c4d76f1fccaa27baf815401aa632e",
-      "semanticFingerprint": "f60a93adb79eb0362cfd2e431cac84a5fce79e54d5e6ba0759630ef5dd83abf8"
+      "semanticFingerprint": "f60a93adb79eb0362cfd2e431cac84a5fce79e54d5e6ba0759630ef5dd83abf8",
+      "stability": "stable"
     },
     {
       "name": "Login01",
@@ -394,7 +440,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "824972e114c68a7840102c20f738809e03a60d7eabb37564371d10eb4852ab57",
-      "semanticFingerprint": "f1ecc00c30a1f44e4bf878c2572635eff1984b70470182db6d8fefd086ce161a"
+      "semanticFingerprint": "f1ecc00c30a1f44e4bf878c2572635eff1984b70470182db6d8fefd086ce161a",
+      "stability": "stable"
     },
     {
       "name": "Login02",
@@ -403,7 +450,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "59664de83240da49b82a3e9e2845da9fc12dfa38c3031885e35616cf2af05057",
-      "semanticFingerprint": "23a34a0aee5b6ad860bda8332f08f52f5068e8c5ae2eef8ecb4572f1380002da"
+      "semanticFingerprint": "23a34a0aee5b6ad860bda8332f08f52f5068e8c5ae2eef8ecb4572f1380002da",
+      "stability": "stable"
     },
     {
       "name": "Login03",
@@ -412,7 +460,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "b1cdc0d099099aabba2a5e34795f986af4acb6fdac82a92922229ec53d26b6a5",
-      "semanticFingerprint": "489bace1799f30befc231681dc5f0432c2c8dd1321b583ecf4b52354bc336bd8"
+      "semanticFingerprint": "489bace1799f30befc231681dc5f0432c2c8dd1321b583ecf4b52354bc336bd8",
+      "stability": "stable"
     },
     {
       "name": "Login04",
@@ -421,7 +470,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "25c9fde71f609ffe524a79c846db9015d221351bbfde6565fd727306d7cfd892",
-      "semanticFingerprint": "82a9ff66e767d4a9bb135c5ff53442f35f9964098c184e0e6a994a9ef1abd816"
+      "semanticFingerprint": "82a9ff66e767d4a9bb135c5ff53442f35f9964098c184e0e6a994a9ef1abd816",
+      "stability": "stable"
     },
     {
       "name": "Login05",
@@ -430,7 +480,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "ae124395e859fe462bd39f5497924904a5e4b4791ad310bf5e0aea501f937a0c",
-      "semanticFingerprint": "3285cf60f5ed28f9196a8f66b6747fb38d74fb1a1af386690ab7dd418b4e9b5d"
+      "semanticFingerprint": "3285cf60f5ed28f9196a8f66b6747fb38d74fb1a1af386690ab7dd418b4e9b5d",
+      "stability": "stable"
     },
     {
       "name": "Signup01",
@@ -439,7 +490,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "3dc337ffd0b9443318b01f9bb223012f1f41df6b6093cdc669aeaec44ae0a69c",
-      "semanticFingerprint": "c3705369b5f72c3260ab04be4629a28559943f5bca4b03947b1e40dd96d01ef4"
+      "semanticFingerprint": "c3705369b5f72c3260ab04be4629a28559943f5bca4b03947b1e40dd96d01ef4",
+      "stability": "stable"
     },
     {
       "name": "Signup02",
@@ -448,7 +500,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "cd3ddae8bcbce5d29f3e03eb93e3c3a736ab17d845e937520db9d65609cfe663",
-      "semanticFingerprint": "b4a3122003677804737e2e4644702f9c990b8260342efbb11f305702f8e3c613"
+      "semanticFingerprint": "b4a3122003677804737e2e4644702f9c990b8260342efbb11f305702f8e3c613",
+      "stability": "stable"
     },
     {
       "name": "Signup03",
@@ -457,7 +510,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "049ad288406864f013e16a1e03db8b579f1ece2a4029d17e089f7e5cd6bda226",
-      "semanticFingerprint": "f282a65fb12d2151be00db203a4df303cb0327adb82610b4f2f1e8f7a54a1d71"
+      "semanticFingerprint": "f282a65fb12d2151be00db203a4df303cb0327adb82610b4f2f1e8f7a54a1d71",
+      "stability": "stable"
     },
     {
       "name": "Signup04",
@@ -466,7 +520,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "53e88f00754e224bd8d32ca24f383df6caaaa399b4db5fbdd8f899ce90d6a654",
-      "semanticFingerprint": "74ed31c7f6b979f9201e43a08173abdc4ded344ec4bf64944967db44230bb36b"
+      "semanticFingerprint": "74ed31c7f6b979f9201e43a08173abdc4ded344ec4bf64944967db44230bb36b",
+      "stability": "stable"
     },
     {
       "name": "Signup05",
@@ -475,7 +530,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "1f0cd609a926f1d695ed7c0dda26d96bbf6058c608cc05fe31c86040427b113d",
-      "semanticFingerprint": "af9cd1946da8470c43a4307c6322aca6cb049979a0118d0dc4fc8f486ae77e5e"
+      "semanticFingerprint": "af9cd1946da8470c43a4307c6322aca6cb049979a0118d0dc4fc8f486ae77e5e",
+      "stability": "stable"
     },
     {
       "name": "Sidebar01",
@@ -484,7 +540,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "7ae74ae0cffb536082a082506432f1ea0782eb1382c9448462c4505867bd94f3",
-      "semanticFingerprint": "44e0994657da9a3352e428b42a40773fedf0ae766fe9f3d551adc598aa8db80d"
+      "semanticFingerprint": "44e0994657da9a3352e428b42a40773fedf0ae766fe9f3d551adc598aa8db80d",
+      "stability": "stable"
     },
     {
       "name": "Sidebar02",
@@ -493,7 +550,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "0cbe215e5d9ffa8afaee03cb0111e948ef2d40466837028404709a8767abe966",
-      "semanticFingerprint": "a34913426b6c4e22468431b34fa62f73953ce31016da3495dc8945038182aced"
+      "semanticFingerprint": "a34913426b6c4e22468431b34fa62f73953ce31016da3495dc8945038182aced",
+      "stability": "stable"
     },
     {
       "name": "Sidebar03",
@@ -502,7 +560,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "b643ae3e6ed76c64ec5ebb525ae76826a7a1f26b447f44ebbca7570e1b6c9c3e",
-      "semanticFingerprint": "9857b624aed6ac89fd561e73fa83af37349edbb57960d6a1b5b8b9376fccce97"
+      "semanticFingerprint": "9857b624aed6ac89fd561e73fa83af37349edbb57960d6a1b5b8b9376fccce97",
+      "stability": "stable"
     },
     {
       "name": "Sidebar04",
@@ -511,7 +570,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "1eab0f25585e84ae62865f82dd026dab34288af01903020ad6bfe0d4c278bca9",
-      "semanticFingerprint": "e0e51b24a5ba3a94d961bbdb5bc74674fc31bdc2bcbc4061d83be78b07f2eb54"
+      "semanticFingerprint": "e0e51b24a5ba3a94d961bbdb5bc74674fc31bdc2bcbc4061d83be78b07f2eb54",
+      "stability": "stable"
     },
     {
       "name": "Sidebar05",
@@ -520,7 +580,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "0fcb93b2a0e4ad1960797babe77e5df5b96809da02c84d7fa1bc79d4359058f4",
-      "semanticFingerprint": "3740b7fbeb785678bd948575fab3ed897b4f7fb1304e4e8bcfe1df09109694e2"
+      "semanticFingerprint": "3740b7fbeb785678bd948575fab3ed897b4f7fb1304e4e8bcfe1df09109694e2",
+      "stability": "stable"
     },
     {
       "name": "Sidebar06",
@@ -529,7 +590,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "6027485f3155622951a625c4848eada996c56e09be311816d476514a19edc3d4",
-      "semanticFingerprint": "e72201595a353689da5538b15a29ee240aa77ce420f770a17834fbfecd49626a"
+      "semanticFingerprint": "e72201595a353689da5538b15a29ee240aa77ce420f770a17834fbfecd49626a",
+      "stability": "stable"
     },
     {
       "name": "Sidebar07",
@@ -538,7 +600,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "89f27c82c8fad267e109e35d4eaddcc934a12ad53547b30a50ea4edd70a1504a",
-      "semanticFingerprint": "f90fc623fe01322b83cd4ed02808cea7db56cb9a29386b1589fcec6a38d8878d"
+      "semanticFingerprint": "f90fc623fe01322b83cd4ed02808cea7db56cb9a29386b1589fcec6a38d8878d",
+      "stability": "stable"
     },
     {
       "name": "Sidebar08",
@@ -547,7 +610,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "14de7cb404a684d7c91c614a031abcbcdec44055cf6f9352ccc78c5ead22c03d",
-      "semanticFingerprint": "49a8f9021526e29a5eaba87b466cffe4d3c5771a2f34fb9ed78627db1fe90685"
+      "semanticFingerprint": "49a8f9021526e29a5eaba87b466cffe4d3c5771a2f34fb9ed78627db1fe90685",
+      "stability": "stable"
     },
     {
       "name": "Sidebar09",
@@ -556,7 +620,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "42d2b000670434fcfac1d975b8ce8e857144a763e43778d7bf137e581b1eb562",
-      "semanticFingerprint": "40e88dd7f1eca13e037e265a9dbb475d1dc36f75cbb7ceebcfd5f17acb6c0d1c"
+      "semanticFingerprint": "40e88dd7f1eca13e037e265a9dbb475d1dc36f75cbb7ceebcfd5f17acb6c0d1c",
+      "stability": "stable"
     },
     {
       "name": "Sidebar10",
@@ -565,7 +630,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "8fdf624515fa21d33bb3e98aac619743db1b7c1263bb107f928266f79b2e7e76",
-      "semanticFingerprint": "d118d5453ef7850b453e9dd0bbdae0d821cff0b7127eecb59c9e67c332e8b908"
+      "semanticFingerprint": "d118d5453ef7850b453e9dd0bbdae0d821cff0b7127eecb59c9e67c332e8b908",
+      "stability": "stable"
     },
     {
       "name": "Sidebar11",
@@ -574,7 +640,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "3099a7b9f1b4a885678e49d67e46bc4422e70543ce7428c8a05a0110b289eae0",
-      "semanticFingerprint": "0a3b92a528db0d2ba44b808b94587e65f312c3fba175bbc3e0a46a4926fe81c9"
+      "semanticFingerprint": "0a3b92a528db0d2ba44b808b94587e65f312c3fba175bbc3e0a46a4926fe81c9",
+      "stability": "stable"
     },
     {
       "name": "Sidebar12",
@@ -583,7 +650,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "4f62cae4ad2124dcdeb9e7691fc5b6d4f745db0c77255d49ab676d9bcaee1029",
-      "semanticFingerprint": "9110da6e8aaa2ba807fd52159eb4112c6742bff6090d2c2acb1722ae0a3db982"
+      "semanticFingerprint": "9110da6e8aaa2ba807fd52159eb4112c6742bff6090d2c2acb1722ae0a3db982",
+      "stability": "stable"
     },
     {
       "name": "Sidebar13",
@@ -592,7 +660,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "52658db900415dd0ffd31261da45d7e0f78112a97c031a368097f3ab5abb2636",
-      "semanticFingerprint": "493ab5013538cc7e90202d301fb3ff895fc697f9b7bf67402d8f4d45c4df6393"
+      "semanticFingerprint": "493ab5013538cc7e90202d301fb3ff895fc697f9b7bf67402d8f4d45c4df6393",
+      "stability": "stable"
     },
     {
       "name": "Sidebar14",
@@ -601,7 +670,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "51668d167c1a7a916767d014c2e2bb7c53ad370ecbb0a8df01136253055507de",
-      "semanticFingerprint": "c62a725b5ac85198f470c5f86783ab933c363bb9d050bbf41cbc3f8aa63a9d31"
+      "semanticFingerprint": "c62a725b5ac85198f470c5f86783ab933c363bb9d050bbf41cbc3f8aa63a9d31",
+      "stability": "stable"
     },
     {
       "name": "Sidebar15",
@@ -610,7 +680,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "ee421d61717a358635fe2b36ab4f72381ba774d0807dc163e5c98ac987a98e0e",
-      "semanticFingerprint": "105914f2e77b76436dcb2d151d4d5f64aa3d70ad72b67c1d68a17b1305e81f54"
+      "semanticFingerprint": "105914f2e77b76436dcb2d151d4d5f64aa3d70ad72b67c1d68a17b1305e81f54",
+      "stability": "stable"
     },
     {
       "name": "Sidebar16",
@@ -619,7 +690,8 @@
       "status": "approved",
       "capabilities": [],
       "compositionHash": "5716d3cbed8efe5e0329a7826cee453b80e3f36c059c991bea2aa4953e778e27",
-      "semanticFingerprint": "e4bd9a5514b5625dce4343b03a0406274b234041ee47081290dbdb7719a97be5"
+      "semanticFingerprint": "e4bd9a5514b5625dce4343b03a0406274b234041ee47081290dbdb7719a97be5",
+      "stability": "stable"
     },
     {
       "name": "SiteColorPalette",
@@ -631,7 +703,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "63bed340e0c7514f1c94d19ee4aac1445d995e36a13b344eeaab3475c10f2f2f",
-      "semanticFingerprint": "68794ae3db28a8aca78893cdd4b2e5fe7775dff6d944b068d5be0f0cf12ac91a"
+      "semanticFingerprint": "68794ae3db28a8aca78893cdd4b2e5fe7775dff6d944b068d5be0f0cf12ac91a",
+      "stability": "stable"
     },
     {
       "name": "SiteCommandMenu",
@@ -643,7 +716,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "78ea9ce832c32c16d8d9602f9a3393e658e62b9e44b1ea91f223da39ac293c45",
-      "semanticFingerprint": "99524711102204bdfc960df151fa947a53529444017bd52e13fb0aeb9ecac494"
+      "semanticFingerprint": "99524711102204bdfc960df151fa947a53529444017bd52e13fb0aeb9ecac494",
+      "stability": "stable"
     },
     {
       "name": "SiteDirectoryList",
@@ -655,7 +729,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "ee1647ecc5ecdd8d5a51a6fe46afbab4fddda3d6aa0624548e45e4b2c1744298",
-      "semanticFingerprint": "ff01bae70e30dd6882e95446da09a8d89d3fcdd72a315597288e9c4b09d4a390"
+      "semanticFingerprint": "ff01bae70e30dd6882e95446da09a8d89d3fcdd72a315597288e9c4b09d4a390",
+      "stability": "stable"
     },
     {
       "name": "SiteNavUser",
@@ -667,7 +742,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "15da136a472dc20ea240be70de518a6ed236c86d93c93f9fde6b35fe828e72c6",
-      "semanticFingerprint": "62531c314d80291b2b669fb3b6d5f8b007979b9dd17f9eea95cdc9a7afa251c7"
+      "semanticFingerprint": "62531c314d80291b2b669fb3b6d5f8b007979b9dd17f9eea95cdc9a7afa251c7",
+      "stability": "stable"
     },
     {
       "name": "SiteThemeCustomizer",
@@ -679,7 +755,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "8461c79c64e285878a111be2e72c32088aea73d29a3a85ded6c5a5b9c3055c51",
-      "semanticFingerprint": "8cf87de3813bbf05881965899aec68322461f7e5097dd8b9500d7840cc117ab4"
+      "semanticFingerprint": "8cf87de3813bbf05881965899aec68322461f7e5097dd8b9500d7840cc117ab4",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsActivityGoal",
@@ -691,7 +768,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "1520705b0c8558634b7a7eba9231436c5e9099b823a1b5d05097f8574da104ab",
-      "semanticFingerprint": "8528791337928a7ecdd6d8f2fe3d44be580dd2ab875a5d2ba94484b77ca9e70d"
+      "semanticFingerprint": "8528791337928a7ecdd6d8f2fe3d44be580dd2ab875a5d2ba94484b77ca9e70d",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsChat",
@@ -703,7 +781,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "3eb2834679dcf0a7c1b7aed88132c6f27e32a093b71a7f0996e0fa90cec1de79",
-      "semanticFingerprint": "483b66d44e1876e359dc70ca6d66f73bd0b174172ec3231abcac876710008031"
+      "semanticFingerprint": "483b66d44e1876e359dc70ca6d66f73bd0b174172ec3231abcac876710008031",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsCookieSettings",
@@ -715,7 +794,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "da9ae88c2f1977df3f88833742990bcdaf97e9cafb723ccba86d6f36fe050e2a",
-      "semanticFingerprint": "82987bf7c906e2556219d9d2675702650f872a3ce00c2dd0bd41fc255c69ec43"
+      "semanticFingerprint": "82987bf7c906e2556219d9d2675702650f872a3ce00c2dd0bd41fc255c69ec43",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsCreateAccount",
@@ -727,7 +807,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "3154553a83f81f44044b97daa70ce842fd301142fd5783da54f18c73ced73738",
-      "semanticFingerprint": "59c0f30fa34c03eed9f9398444d4c7bf4f9235be3ed065082e5ae632bdd1dd3c"
+      "semanticFingerprint": "59c0f30fa34c03eed9f9398444d4c7bf4f9235be3ed065082e5ae632bdd1dd3c",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsForms",
@@ -739,7 +820,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "b32096ce491d7cad62d824ab0c8281096a307e078fccc0d0f33a81fded390fb1",
-      "semanticFingerprint": "4124409753b6f6ec12b0cc78251406cd1d2495eed3df1e0cae05eccb34dda9d6"
+      "semanticFingerprint": "4124409753b6f6ec12b0cc78251406cd1d2495eed3df1e0cae05eccb34dda9d6",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsPaymentMethod",
@@ -751,7 +833,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "4729f8e6262392133a3cbed47d05cbb457e69cb6956ed0f032dfd958bc94286d",
-      "semanticFingerprint": "577693d40f37f1234783bc565faef38240cb7d26b2e78f10fbd414bea66c7a2e"
+      "semanticFingerprint": "577693d40f37f1234783bc565faef38240cb7d26b2e78f10fbd414bea66c7a2e",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsReportIssue",
@@ -763,7 +846,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "75467c3efb3be459e6f4fd20c898503614137219b666c35fddd8f75304cc7902",
-      "semanticFingerprint": "3a3641f99d6155cdc9eccb9706455e64ab9300d64bc198a27584a524bf1bb910"
+      "semanticFingerprint": "3a3641f99d6155cdc9eccb9706455e64ab9300d64bc198a27584a524bf1bb910",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsShare",
@@ -775,7 +859,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "84f86a7b16359ec3c78d1120e50c3ec459a2586d2f23a3de532d63f4da7b356b",
-      "semanticFingerprint": "2a37f49dc0eff870bb874b9fef7b8dcf774e94e295bbabb5e5549449efd231da"
+      "semanticFingerprint": "2a37f49dc0eff870bb874b9fef7b8dcf774e94e295bbabb5e5549449efd231da",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsStats",
@@ -787,7 +872,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "c9950592036c4ba64c8be0ab83bd4aa631911f81dc0729b8bc87e6f3f8dea236",
-      "semanticFingerprint": "b4e34c9aff502a2d4ccc213dbaea6bed5e94c37ec946e2f6e8ab9063fd35f49e"
+      "semanticFingerprint": "b4e34c9aff502a2d4ccc213dbaea6bed5e94c37ec946e2f6e8ab9063fd35f49e",
+      "stability": "stable"
     },
     {
       "name": "SiteCardsTeamMembers",
@@ -799,7 +885,8 @@
         "safe-demonstration"
       ],
       "compositionHash": "d4d70aead2093a2a48c8f8212d1555d90060384f20ac95b091694e12a35d48e9",
-      "semanticFingerprint": "6b0afc9d4d51dbec6b0612890fab52b8f043f6c96402e15877d4499d6625b557"
+      "semanticFingerprint": "6b0afc9d4d51dbec6b0612890fab52b8f043f6c96402e15877d4499d6625b557",
+      "stability": "stable"
     },
     {
       "name": "AspectRatio",
@@ -807,7 +894,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "18b320a2b6b8124b61238d440f0aa8316ae5a3597a9ae2733ae1f4cf29fa8205"
+      "semanticFingerprint": "18b320a2b6b8124b61238d440f0aa8316ae5a3597a9ae2733ae1f4cf29fa8205",
+      "stability": "stable"
     },
     {
       "name": "Kbd",
@@ -815,7 +903,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "422664caa07c33c278edcf584b2b0cad9d64b89449e7dbc762f34e73fc2ba812"
+      "semanticFingerprint": "422664caa07c33c278edcf584b2b0cad9d64b89449e7dbc762f34e73fc2ba812",
+      "stability": "stable"
     },
     {
       "name": "Empty",
@@ -823,7 +912,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "3b9527108d8806fddba137061522996beaf94cd50883a3eae626ed7547bf7882"
+      "semanticFingerprint": "3b9527108d8806fddba137061522996beaf94cd50883a3eae626ed7547bf7882",
+      "stability": "stable"
     },
     {
       "name": "ScrollArea",
@@ -831,7 +921,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "67881520aacbb3fa92680454f3d5551107806dac59dfd8fe518f9df10b053416"
+      "semanticFingerprint": "67881520aacbb3fa92680454f3d5551107806dac59dfd8fe518f9df10b053416",
+      "stability": "stable"
     },
     {
       "name": "AlertDialog",
@@ -839,7 +930,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "4dfd49201c25d8ae956519ea6acb7d6729cc68d42a0db7dae1ae5016e9bbaa06"
+      "semanticFingerprint": "4dfd49201c25d8ae956519ea6acb7d6729cc68d42a0db7dae1ae5016e9bbaa06",
+      "stability": "stable"
     },
     {
       "name": "Attachment",
@@ -847,7 +939,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "8fc378fb75acf0fd46a26909fe06a49aaa02207f03cdd92a43f110719d0e2d35"
+      "semanticFingerprint": "8fc378fb75acf0fd46a26909fe06a49aaa02207f03cdd92a43f110719d0e2d35",
+      "stability": "stable"
     },
     {
       "name": "Bubble",
@@ -855,7 +948,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "840c7ede8d5d6ddda8349cb01ad2946f934247b7868a4f1c4692b0f74f036a28"
+      "semanticFingerprint": "840c7ede8d5d6ddda8349cb01ad2946f934247b7868a4f1c4692b0f74f036a28",
+      "stability": "stable"
     },
     {
       "name": "ContextMenu",
@@ -863,7 +957,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "6d1ae4311dcfff5a30567954394cf0414c206c32107989f16f8e665db2052b61"
+      "semanticFingerprint": "6d1ae4311dcfff5a30567954394cf0414c206c32107989f16f8e665db2052b61",
+      "stability": "stable"
     },
     {
       "name": "HoverCard",
@@ -871,7 +966,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "fe623412110a8a2359114cb99b9f05d22d3a997d0580ecc251cc46eb9515c34a"
+      "semanticFingerprint": "fe623412110a8a2359114cb99b9f05d22d3a997d0580ecc251cc46eb9515c34a",
+      "stability": "stable"
     },
     {
       "name": "Item",
@@ -879,7 +975,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "1f4324e2c60e569895a47373c2af91217560a5bf4bd46e0e21507c205f62e5cb"
+      "semanticFingerprint": "1f4324e2c60e569895a47373c2af91217560a5bf4bd46e0e21507c205f62e5cb",
+      "stability": "stable"
     },
     {
       "name": "Marker",
@@ -887,7 +984,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "8555e2f42d84750b07b4985dd12af10d481c6502065f4fcfa40e628b2d315f18"
+      "semanticFingerprint": "8555e2f42d84750b07b4985dd12af10d481c6502065f4fcfa40e628b2d315f18",
+      "stability": "stable"
     },
     {
       "name": "Message",
@@ -895,7 +993,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "d52019fc0cec20afc14377840898ec58078d89779a3d29a3b5c5270aae23c854"
+      "semanticFingerprint": "d52019fc0cec20afc14377840898ec58078d89779a3d29a3b5c5270aae23c854",
+      "stability": "stable"
     },
     {
       "name": "OnboardingChecklist",
@@ -903,7 +1002,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "89755cb47b8e5c0ffd82ab72f8d9df5067659bcc0f29a4dd81077c4777afd376"
+      "semanticFingerprint": "89755cb47b8e5c0ffd82ab72f8d9df5067659bcc0f29a4dd81077c4777afd376",
+      "stability": "stable"
     },
     {
       "name": "RatingDistribution",
@@ -911,7 +1011,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "725a30650e02fff1df9ab054af1ba4f4e1970a48db372d6f8b2165590080d5c3"
+      "semanticFingerprint": "725a30650e02fff1df9ab054af1ba4f4e1970a48db372d6f8b2165590080d5c3",
+      "stability": "stable"
     },
     {
       "name": "CharacterCountTextarea",
@@ -919,7 +1020,8 @@
       "tier": "extension",
       "status": "approved",
       "capabilities": [],
-      "semanticFingerprint": "413efe84adc391b6499af66033bf40d40860b6ebce7a871051a82b1a29079a96"
+      "semanticFingerprint": "413efe84adc391b6499af66033bf40d40860b6ebce7a871051a82b1a29079a96",
+      "stability": "stable"
     }
   ],
   "semanticFingerprintVersion": 2
