@@ -136,6 +136,10 @@
         {
           "path": "src/ui-catalog/components/playground.tsx",
           "contains": "{busy?<LoaderCircle aria-hidden=\"true\" className=\"size-4 animate-spin\"/>"
+        },
+        {
+          "path": "src/ui-catalog/components/playground.tsx",
+          "contains": "aria-busy={busy||undefined}"
         }
       ],
       "testRequirements": [
@@ -207,7 +211,12 @@
       "evidence": [],
       "testRequirements": [
         "Criar cenário com duas ativações rápidas, falha e sucesso; garantir apenas uma requisição autorizada por vez, recuperação do estado e feedback consistente."
-      ]
+      ],
+      "decision": {
+        "disposition": "propose-composition",
+        "target": "AsyncActionButton",
+        "reason": "Manter a capacidade fora da primitiva; usar apenas composição independente revisada e sujeita aos controles de admissão."
+      }
     },
     {
       "id": "post-action-success-error",
@@ -216,7 +225,12 @@
       "evidence": [],
       "testRequirements": [
         "Em composição futura, simular sucesso e falha, confirmar mensagens contextuais acessíveis e retorno à ação disponível."
-      ]
+      ],
+      "decision": {
+        "disposition": "propose-composition",
+        "target": "AsyncActionButton",
+        "reason": "Manter a capacidade fora da primitiva; usar apenas composição independente revisada e sujeita aos controles de admissão."
+      }
     },
     {
       "id": "copy-or-external-action",
@@ -225,7 +239,12 @@
       "evidence": [],
       "testRequirements": [
         "Se existir composição autorizada, verificar permissões, destino, feedback e ausência de efeitos ao apenas renderizar Button."
-      ]
+      ],
+      "decision": {
+        "disposition": "reuse-composition",
+        "target": "CopyFeedbackButton",
+        "reason": "Manter a capacidade fora da primitiva; usar apenas composição independente revisada e sujeita aos controles de admissão."
+      }
     },
     {
       "id": "focus-and-keyboard-runtime",
