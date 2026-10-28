@@ -12608,7 +12608,7 @@
       "type": "DeclarativeFormFlow",
       "version": "0.1.0",
       "tier": "composition",
-      "lifecycle": "experimental",
+      "lifecycle": "stable",
       "sourceUrl": null,
       "zodSource": "src/ui-catalog/admission-engine/generated/DeclarativeFormFlow.schema.ts",
       "example": "pi-catalog/experimental-examples/DeclarativeFormFlow.json",
@@ -12617,7 +12617,7 @@
       "e2eProtocol": "declarative-form-desktop-mobile",
       "validation": {
         "static": "passed",
-        "e2e": "pending"
+        "e2e": "ci-required"
       },
       "interactionBoundary": "Somente UI local: sem chamadas remotas nem permissões adicionais"
     }
