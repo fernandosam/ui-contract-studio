@@ -3,6 +3,7 @@ import { resolve, sep } from "node:path";
 import {buildCapabilityGapAudit} from "./semantic-capability-audit.mjs";
 import { buildSemanticCoverage } from "./semantic-coverage.mjs";
 import { auditSemanticFreshness } from "./semantic-freshness.mjs";
+import { rankSemanticEnrichment } from "./semantic-priority.mjs";
 
 const readJson = file => JSON.parse(readFileSync(file, "utf8"));
 const uniq = values => [...new Set(values)].sort((a,b) => a.localeCompare(b));
@@ -195,6 +196,7 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
       }),
       reuiExampleProfiles:associatedExamples,
       semanticFreshness:auditSemanticFreshness({root,profiles:records}),
+      enrichmentPriorities:rankSemanticEnrichment(records,associatedExamples),
     },
     errors:uniq(errors),
   };
