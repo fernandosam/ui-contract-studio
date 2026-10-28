@@ -103,6 +103,16 @@ test("T31: not implemented / non-admitted capability can never claim a Zod bindi
     .some(x=>x.includes("only verified implementation")));
 });
 
+test("T31: attempted reuse of an unadmitted composition is blocking",t=>{
+  const item=fixture(t);
+  item.profile.capabilities[1].decision={
+    disposition:"reuse-composition",target:"UnadmittedDialog",
+    reason:"Would otherwise bypass admission.",
+  };
+  const result=audit(item);
+  assert.ok(result.errors.some(x=>x.includes("is not admitted in the stable Pi channel")));
+});
+
 test("T31: invalid or duplicate bindings and unreviewed composition targets are rejected",()=>{
   assert.ok(validateSemanticContractDecision({
     state:"implemented-static-evidence",
