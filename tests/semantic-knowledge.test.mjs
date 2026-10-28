@@ -389,7 +389,7 @@ test("T08 integrated evidence and checklist across six components",()=>{
     derived+=doc.derivedTestCases.length;
   }
   assert.deepEqual(totalStates,[43,24,18]);
-  assert.deepEqual({proofs,integrations,faq,derived},{proofs:108,integrations:61,faq:51,derived:63});
+  assert.deepEqual({proofs,integrations,faq,derived},{proofs:109,integrations:61,faq:51,derived:63});
 });
 
 test("T08 semantic advice does not elevate capabilities or grant Pi admission",()=>{
