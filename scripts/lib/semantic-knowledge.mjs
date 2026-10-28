@@ -4,6 +4,7 @@ import {buildCapabilityGapAudit} from "./semantic-capability-audit.mjs";
 import { buildSemanticCoverage } from "./semantic-coverage.mjs";
 import { auditSemanticFreshness } from "./semantic-freshness.mjs";
 import { rankSemanticEnrichment } from "./semantic-priority.mjs";
+import {auditSemanticContractConformance,validateSemanticContractDecision} from "./semantic-contract-conformance.mjs";
 
 const readJson = file => JSON.parse(readFileSync(file, "utf8"));
 const uniq = values => [...new Set(values)].sort((a,b) => a.localeCompare(b));
@@ -54,6 +55,7 @@ export function validateSemanticOverlay(record, root = process.cwd()) {
       err("claimed implemented capability needs first-party evidence "+cap.id);
     if(cap.state!=="implemented-static-evidence" && cap.evidence?.length)
       err("unverified capability may not claim implementation evidence "+cap.id);
+    for(const issue of validateSemanticContractDecision(cap))err(cap.id+": "+issue);
     for(const source of cap.evidence??[]){
       if(!hasContent(source.path)||!hasContent(source.contains)||source.contains.length>500||
          !source.path.startsWith("src/")||source.path.includes("..")||
@@ -173,6 +175,8 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
         availability:x.availability,reason:x.reason,source:x.source,
         evidenceChecks:x.evidenceChecks}));
   }
+  const semanticConformance=auditSemanticContractConformance({root,profiles:records,capabilityAudit});
+  errors.push(...semanticConformance.errors);
   const byName=new Map(records.map(x=>[x.component,x]));
   const associatedExamples=reuiExamples.map(x=>({
     exampleId:x.id,family:x.family,source:x.sourcePath,profile:x.family,
@@ -191,6 +195,7 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
         coveredExamples:associatedExamples.length},
       profiles:records,
       capabilityAudit,
+      semanticConformance,
       semanticCoverage:buildSemanticCoverage({
         profiles:records,reuiExamples,reuiFamilies:Object.keys(reui),
       }),

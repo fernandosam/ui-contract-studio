@@ -94,3 +94,8 @@ Record **tested SHA and branch/base**, component/family/ReUI IDs, priority ratio
 **Done:** human review of semantics/evidence; recorded `semantic:check`/`semantic:report` results, `docs:check` and targeted tests; coverage reconciled against inventory; traceable CI; risk-proportionate E2E. Do **not** change `src/ui-catalog/catalog.ts`, `src/ui-catalog/extensions/catalog.ts`, Zod schemas, `pi-catalog/`, contract locks, admitted APIs or Pi permissions **through documentary enrichment**. Runtime/admission changes require an independent review and gates.
 
 **Integration status as of 2026-10-27:** T26–T29 are in the open [PR #88](https://github.com/fernandosam/ui-contract-studio/pull/88), not yet on `main`. T25 is in separate open [PR #84](https://github.com/fernandosam/ui-contract-studio/pull/84). Check actual merge status before expecting `semanticCoverage`, `semanticFreshness`, T28 CI summary, T29 E2E or `enrichmentPriorities` on other branches. This guide does **not** claim these PRs are merged.
+
+
+## T31 — Mandatory conformance audit for every semantic edit
+
+Every edit to `src/ui-catalog/knowledge/*.json`, including capability claims, gap decisions, bindings and review metadata, **must run `npm run semantic:check`**. The analyzer always invokes `auditSemanticContractConformance` to compare the semantic overlay with Zod/Pi, also when running `semantic:report`, `semantic:context`, or `pi:context`. The CI `offline-policy` job runs unconditionally, preserving failure logs and the single semantic report. Inspect `semanticConformance` before proposing an API change; a document never grants a prop/event. See the [T31 instructions](semantic-contract-conformance-t31.md) for `contractBindings`, `decision` and tests.

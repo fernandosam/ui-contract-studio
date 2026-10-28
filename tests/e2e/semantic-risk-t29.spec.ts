@@ -74,8 +74,8 @@ test("T29-R01 @semantic-risk: static confirm signal is not runtime or backend pr
  const decision=panel.getByTestId("recommendation-decision");
  await expect(decision).toContainText("Reutilizar contrato aprovado");
  await expect(decision).toContainText("O alvo já é um contrato Pi aprovado");
- await expect(panel).toContainText("Presente no código (evidência estática)");
- await expect(panel).toContainText("Validação em navegador pendente");
+ await expect(panel).toContainText("confirm-signal: verified-static");
+ await expect(panel).toContainText("focus-and-keyboard: runtime-review-required");
  await expect(panel).toContainText("Evento confirm não autoriza exclusão");
  await expect(panel).toContainText("Evidências consultadas:");
 });
@@ -85,7 +85,7 @@ test("T29-R02 @semantic-risk: documented typed confirmation does not add a primi
  const panel=await recommendation(page,"AlertDialog","alert-typed");
  await expect(page.getByTestId("semantic-knowledge")).toContainText("Exigir texto exato");
  await expect(panel.getByTestId("recommendation-decision")).toContainText("Propor componente React composto");
- await expect(panel).toContainText("Documentado, mas ainda não implementado");
+ await expect(panel).toContainText("not-implemented (não comprova disponibilidade no contrato)");
  await expect(panel).toContainText("A recomendação não concede autorização Pi");
  await expect(panel.getByTestId("generated-code-proposal")).toBeVisible();
 });
@@ -94,7 +94,7 @@ test("T29-R03 @semantic-risk: checkbox gate stays a distinct reviewable composit
  trace("T29-R03","alert-checkbox","checkbox-gating","documented-not-implemented");
  const panel=await recommendation(page,"AlertDialog","alert-checkbox");
  await expect(panel.getByTestId("recommendation-decision")).toContainText("Propor componente React composto");
- await expect(panel).toContainText("Documentado, mas ainda não implementado");
+ await expect(panel).toContainText("not-implemented (não comprova disponibilidade no contrato)");
  await expect(panel).toContainText("Contrato candidato precisa de aprovação humana");
  await expect(panel).toContainText("A recomendação não concede autorização Pi");
  await expect(panel.getByTestId("typed-confirmation-pilot")).toHaveCount(0);

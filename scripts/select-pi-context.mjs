@@ -37,6 +37,9 @@ if(semantic.errors.length){
  semantic.errors.forEach(e=>console.error('✗ '+e));process.exit(1);
 }
 const semanticAdvice=selectAgentSemanticAdvice(semantic.report,names.filter(x=>all.components.some(c=>c.type===x&&c.tier!=='composition')));
+const adviceByType=new Map(semanticAdvice.map(x=>[x.type,x]));
+const conformanceByType=new Map(semantic.report.semanticConformance.components.map(x=>[x.component,x]));
+const conformanceCapabilities=semantic.report.semanticConformance.entries;
 const pack={schemaVersion:3,catalogVersion:all.projectVersion,channel,metadataOnly,rules:[
  channel==='experimental'?'EXPERIMENTAL: tipos experimentais somente para preview/sandbox local; não conceda operações externas.':'ESTÁVEL: não utilize tipos experimentais pendentes de E2E.',
  'Retorne somente JSON com root e elements; todos os nós DEVEM conter children como array, mesmo sem filhos.',
@@ -46,7 +49,21 @@ const pack={schemaVersion:3,catalogVersion:all.projectVersion,channel,metadataOn
  'nodeProps permite dados estruturados (listas, gráficos, tabelas, opções e navegação) somente nas chaves previstas por propsSchema.properties.nodeProps. NÃO altere type, children, on, name, href, src ou sourceId.',
  'Não invente JSX, URLs remotas, credenciais, dados privados, operações externas ou backend.',
  'Antes de aplicar, valide com npm run pi:validate -- --file=<spec.json>. Corrija caminhos informados em issues[].pointer.',
- ], actions:all.actions, ...(schema?{actionSchemas:schema.actions}:{}),selected, semanticAdvice, semanticAdvicePolicy:"Advisory only; no new props, type, event, external action, data source or permission. propsSchema and actionSchemas remain authoritative."};
+ ], actions:all.actions, ...(schema?{actionSchemas:schema.actions}:{}),selected:selected.map(item=>({
+   ...item,
+   ...(adviceByType.has(item.contract.type)?{
+     semantic:{
+       ...adviceByType.get(item.contract.type),
+       conformance:conformanceByType.get(item.contract.type)??null,
+       capabilities:conformanceCapabilities
+         .filter(x=>x.component===item.contract.type)
+         .map(x=>({id:x.capability,availability:x.availability,
+           bindings:x.bindings,decision:x.decision,
+           testRequirements:x.testRequirements,
+           authority:"advisory-only"})),
+     },
+   }:{}),
+ })), semanticAdvice, semanticAdvicePolicy:"Advisory only; no new props, type, event, external action, data source or permission. propsSchema and actionSchemas remain authoritative."};
 const output=JSON.stringify(pack,null,2)+'\n';
 const dest=process.argv.find(x=>x.startsWith('--out='))?.slice(6)??'reports/pi-context/selected.json';
 if(process.argv.includes('--stdout')) process.stdout.write(output);
