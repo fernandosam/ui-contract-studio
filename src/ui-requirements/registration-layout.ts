@@ -43,7 +43,7 @@ export function planRegistrationLayout(fields:readonly RequirementField[],prefer
  profile.groups.forEach(group=>collected.set(group.id,[]));
  for(const [index,field] of fields.entries()){
   if(!/^[a-z][a-zA-Z0-9]*$/.test(field.name))throw Error("Invalid registration field name");
-  const found=profile.groups.find(group=>"fields" in group&&group.fields.includes(field.name));
+  const found=profile.groups.find(group=>"fields" in group&&group.fields?.includes(field.name));
   const id=found?.id??"additional";
   collected.get(id)!.push(index);
  }
