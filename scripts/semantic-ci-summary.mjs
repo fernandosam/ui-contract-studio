@@ -23,6 +23,7 @@ export function renderSemanticCiSummary(report) {
   const invalid = report.validation?.status === "failed";
   const freshness = report.semanticFreshness?.summary ?? {};
   const coverage = report.semanticCoverage?.totals ?? {};
+  const conformance = report.semanticConformance?.summary ?? {};
   const diagnostics = report.semanticFreshness?.diagnostics ?? [];
   const lines = [
     "## Semantic quality (T28)", "",
@@ -35,6 +36,9 @@ export function renderSemanticCiSummary(report) {
     "- Freshness (current / review required / missing evidence / history unavailable): " +
       [freshness.current, freshness.reviewRequired, freshness.missingEvidence,
         freshness.historyUnavailable].map(x => x ?? "?").join(" / "),
+    "- Contract conformance (static / Zod bindings / pending decisions / blocking): " +
+      [conformance.verifiedStatic, conformance.schemaBound, conformance.decisionsPending,
+        conformance.blockingErrors].map(x=>x??"?").join(" / "),
     "- Artifact: " + cell(reportPath) + " (with both command logs).", "",
   ];
   if (errors.length) {
