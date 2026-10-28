@@ -11,7 +11,7 @@ const dispositions = new Set([
   "retain-primitive","evolve-primitive","reuse-composition",
   "propose-composition","out-of-scope",
 ]);
-const sort = (a,b) => a.localeCompare(b);
+const sort = (a,b) => String(a).localeCompare(String(b));
 
 /**
  * T31: compare curated knowledge, verified source evidence and the published
@@ -60,9 +60,13 @@ export function auditSemanticContractConformance({
       const declaredBindings=Array.isArray(cap.contractBindings)?cap.contractBindings:[];
       const bindings=[];
       for(const binding of declaredBindings) {
-        const label=binding.kind+":"+binding.name;
+        const kind=binding?.kind??"<invalid>";
+        const bindingName=binding?.name??"<invalid>";
+        const label=kind+":"+bindingName;
         let status="verified-schema";
-        if(!approved || !piAvailable || availability!=="verified-static") {
+        if(!bindingKinds.has(kind) || typeof bindingName!=="string" ||
+          !/^[A-Za-z][A-Za-z0-9]*$/.test(bindingName) ||
+          !approved || !piAvailable || availability!=="verified-static") {
           status="unauthorized-binding";
         } else if(!schemas?.types?.[name]) {
           status="schema-unavailable";
@@ -76,7 +80,7 @@ export function auditSemanticContractConformance({
           typeof ref.contains==="string" && ref.contains.includes(binding.name))) {
           status="implementation-binding-unverified";
         }
-        bindings.push({kind:binding.kind,name:binding.name,status});
+        bindings.push({kind,name:bindingName,status});
         if(["unauthorized-binding","not-in-zod-schema",
           "implementation-binding-unverified"].includes(status)) {
           errors.push(name+"#"+cap.id+": "+label+" "+status+
@@ -87,6 +91,12 @@ export function auditSemanticContractConformance({
         }
       }
       const decision=cap.decision??null;
+      if(decision?.disposition==="reuse-composition" &&
+        (!published.get(decision.target) ||
+          published.get(decision.target).lifecycle!=="stable")) {
+        errors.push(name+"#"+cap.id+": composition "+decision.target+
+          " is not admitted in the stable Pi channel; record a proposal instead");
+      }
       if(availability==="not-implemented" && !decision) {
         diagnostics.push({component:name,capability:cap.id,status:"decision-required",
           action:"Review primitive evolution, approved composition or explicit exclusion."});
