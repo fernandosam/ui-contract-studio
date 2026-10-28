@@ -29,17 +29,24 @@ test("official Pi v3 exposes one authoritative collection with lifecycle gates",
   const cert=certifications[entry.type];
   const valid=Boolean(cert && cert.status==="passed" && cert.sourceDigest===entry.sourceDigest &&
     cert.protocol===entry.e2eProtocol && entry.e2eProtocol);
-  assert.equal(item.lifecycle,valid?"stable":"experimental");
-  assert.equal(item.validation.e2e,valid?"passed":"pending");
+  const ciAuto=read("src/ui-catalog/admission-engine/policy.json").ciAutoAdmit??{};
+  const pinned=ciAuto[entry.id]===entry.sourceDigest &&
+    entry.events.length===0 && Boolean(entry.e2eProtocol);
+  assert.equal(item.lifecycle,valid||pinned?"stable":"experimental");
+  assert.equal(item.validation.e2e,valid?"passed":pinned?"ci-required":"pending");
  }
 });
 test("unsupported and corrupted registry generation is rejected",()=>{
  const run=spawnSync(process.execPath,["scripts/sync-admission-catalog.mjs","--check"],{encoding:"utf8"});
  assert.equal(run.status,0,run.stderr);
 });
-test("certificate recording cannot be triggered outside trusted GitHub Actions",()=>{
- const run=spawnSync(process.execPath,["scripts/admission-engine.mjs","--certify","--candidate=form-declarative","--revision="+"f".repeat(40)],
-   {encoding:"utf8",env:{...process.env,GITHUB_ACTIONS:"false",ADMISSION_CERTIFY_CONFIRM:"no"}});
+test("the previous manual certificate CLI is retired; CI proof is mandatory",()=>{
+ const run=spawnSync(process.execPath,["scripts/admission-engine.mjs","--certify"],{encoding:"utf8"});
  assert.notEqual(run.status,0);
- assert.match(run.stderr,/trusted, explicit manual main-branch/);
+ assert.match(run.stderr,/Use --check/);
+ const verify=spawnSync(process.execPath,["scripts/admission-engine.mjs","--ci-verify"],{
+  encoding:"utf8",env:{...process.env,GITHUB_ACTIONS:"false"}
+ });
+ assert.notEqual(verify.status,0);
+ assert.match(verify.stderr,/authentic source-bound/);
 });

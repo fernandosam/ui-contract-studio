@@ -33,41 +33,21 @@ test('quality avoids repeating the complete offline suite in npm-based integrati
  assert.match(quality,/setup-chromium/);
  assert.match(quality,/admission:evidence:report/);
 });
-test('full E2E is exclusively manual on main, and certification has isolated write privilege',()=>{
+test('single PR quality CI is the only local admission gate; manual E2E is diagnostic',()=>{
+ assert.match(quality,/pull_request:/);
+ assert.match(quality,/name: Source checks, schemas and production build/);
+ assert.match(quality,/tests\/e2e\/declarative-form-certification\.spec\.ts/);
+ assert.match(quality,/--project=desktop --project=mobile/);
+ assert.match(quality,/admission-evidence\.mjs --report --candidate=form-declarative/);
+ assert.match(quality,/admission-engine\.mjs --ci-verify/);
+ const required=quality.split('  integration:\n')[1]?.split('  admission-browser:\n')[0]??'';
+ assert.match(required,/setup-chromium/);
+ assert.match(required,/admission-engine\.mjs --ci-verify/);
  assert.match(manual,/workflow_dispatch:/);
- assert.doesNotMatch(manual,/pull_request:|\n {2}push:/);
- const first=manual.split('  certify:\n')[0],second=manual.split('  certify:\n')[1];
- assert.match(first,/permissions:\s*\n\s*contents: read/);
- assert.match(first,/npm run pi:zod-schema/);
- assert.ok(first.indexOf('npm run pi:zod-schema')<first.indexOf('npm run validate'),
-  'Must export current Pi schemas before validating the manual E2E source');
- assert.ok(first.indexOf('npm run validate')<first.indexOf('npm run test:e2e'),
-  'Must validate before executing the complete E2E suite');
- assert.match(first,/npm run admission:evidence:reset/);
- assert.match(first,/npm run requirements:browser:prepare/);
- assert.match(first,/npm run requirements:browser:report/);
- assert.ok(first.indexOf('npm run requirements:browser:prepare')<first.indexOf('npm run test:e2e'),
-  'Fail closed: prepare source-bound fingerprints before complete browser E2E');
- assert.ok(first.indexOf('npm run test:e2e')<first.indexOf('npm run requirements:browser:report'),
-  'Fail closed: only attest real browser evidence after complete test execution');
- assert.match(first,/reports\/requirements-browser\//);
- assert.match(first,/npm run test:e2e/);
- assert.match(first,/npm run admission:evidence:report/);
- assert.doesNotMatch(first,/contents: write|GH_TOKEN/);
- assert.match(second,/needs: e2e/);
- assert.match(second,/contents: write/);
- assert.match(second,/actions\/download-artifact@v4/);
- assert.match(second,/npm run admission:certify/);
- assert.match(second,/git fetch --quiet origin main/);
- assert.doesNotMatch(second,/git push origin HEAD:main|push origin HEAD:main|HEAD:refs\/heads\/main/);
- assert.match(second,/gh pr create --draft --base main/);
- assert.match(second,/gh workflow run quality\.yml --ref/);
- assert.match(second,/push origin "HEAD:refs\/heads\/\$branch"/);
- assert.match(second,/npm run admission:certify -- --candidate=/);
- assert.match(manual,/certify_confirm:/);
- assert.match(manual,/form-declarative/);
- assert.match(quality,/workflow_dispatch:/);
- assert.match(second,/http\.https:\/\/github\.com\/\.extraheader/);
+ assert.match(manual,/npm run test:e2e/);
+ assert.match(manual,/npm run admission:evidence:report/);
+ assert.doesNotMatch(manual,/certify:|certify_confirm:|gh pr create|contents: write|GH_TOKEN|admission:certify|admission:promote/);
+ assert.doesNotMatch(quality,/gh pr create|admission:certify|admission:promote/);
  assert.match(manual,/cancel-in-progress: false/);
 });
 test('manual visual audit and paid Pi evaluation are separated from the E2E promotion',()=>{

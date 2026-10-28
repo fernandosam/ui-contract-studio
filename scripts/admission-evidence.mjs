@@ -56,10 +56,18 @@ export function inspectEvidence(root,id,entry,protocol,revision=null){
 
 function main(){
  const mode=process.argv[2];
- if(!["--reset","--report"].includes(mode)||process.argv.length!==3)fail("Use --reset or --report");
+ const selection=process.argv[3];
+ if(!["--reset","--report"].includes(mode) ||
+    (mode==="--reset"&&process.argv.length!==3) ||
+    (mode==="--report"&&process.argv.length>4) ||
+    (selection && !/^--candidate=[a-z]+(?:-[a-z]+)*$/.test(selection)))
+  fail("Use --reset or --report [--candidate=<reviewed-scenario-id>]");
  const root=rootDefault;
  const protocols=load(root,"src/ui-catalog/admission-engine/protocols.json").candidates;
- const candidateIds=Object.keys(protocols);
+ const requested=selection?.slice("--candidate=".length);
+ if(requested && !Object.hasOwn(protocols,requested))
+  fail("Unknown candidate: "+requested);
+ const candidateIds=requested?[requested]:Object.keys(protocols);
  if(mode==="--reset"){
   for(const id of candidateIds){
    const dir=join(root,protocols[id].evidenceRoot);

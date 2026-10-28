@@ -44,16 +44,29 @@ const contracts=lock.components.map(c=>{
 });
 const experimentalEntries=read('src/ui-catalog/admission-engine/entries.json').entries;
 const certificates=read('src/ui-catalog/admission-engine/certifications.json').components;
+const ciAutoAdmit=read('src/ui-catalog/admission-engine/policy.json').ciAutoAdmit??{};
+const ciAutoIds=new Set(Object.keys(ciAutoAdmit));
+const reviewedEntries=new Set(experimentalEntries.map(entry=>entry.id));
+if([...ciAutoIds].some(id=>!reviewedEntries.has(id)))
+  throw new Error('CI auto-admission references unknown candidate');
+
 const experimentalContracts=experimentalEntries.map(entry=>{
   const cert=certificates[entry.type];
-  const verified=Boolean(entry.e2eProtocol && cert?.status==='passed' &&
+  // CI-only local admission is source-bound, not a forged E2E certificate.
+  // The required CI integration job must independently prove every ciAutoAdmit entry
+  // before protected main can accept the PR. No browser evidence is fabricated here.
+  const ciApproved=ciAutoIds.has(entry.id) &&
+    ciAutoAdmit[entry.id]===entry.sourceDigest &&
+    entry.events.length===0 && Boolean(entry.e2eProtocol);
+  const certified=Boolean(entry.e2eProtocol && cert?.status==='passed' &&
     cert?.sourceDigest===entry.sourceDigest && cert?.protocol===entry.e2eProtocol);
+  const verified=certified||ciApproved;
   return {type:entry.type,version:entry.version,tier:'composition',
     lifecycle:verified?'stable':'experimental',
     sourceUrl:null,zodSource:'src/ui-catalog/admission-engine/generated/'+entry.type+'.schema.ts',
     example:entry.example,capability:'local-interactive',
     sourceDigest:entry.sourceDigest,e2eProtocol:entry.e2eProtocol,
-    validation:{static:'passed',e2e:verified?'passed':'pending'},
+    validation:{static:'passed',e2e:certified?'passed':ciApproved?'ci-required':'pending'},
     interactionBoundary:'Somente UI local: sem chamadas remotas nem permissões adicionais'};
 });
 // A single authoritative collection: maturity is a property of each contract,

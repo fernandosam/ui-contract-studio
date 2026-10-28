@@ -15,5 +15,8 @@
     "button-copy",
     "form-declarative"
   ],
-  "explanation": "All five local-only proposals have independent desktop/mobile browser protocols. Eligibility does not certify a component: DeclarativeFormFlow remains experimental until a trusted manual main-branch E2E run produces source-bound evidence and the separate certificate is reviewed."
+  "explanation": "Local-only candidate admission is declared in this source-controlled policy and becomes stable only through the existing protected PR CI: strict source digest, independent desktop/mobile browser evidence and mandatory checks. Sensitive/new capabilities fail closed. No extra certification workflow or PR.",
+  "ciAutoAdmit": {
+    "form-declarative": "e1915c4a98271a982d01fff2251174f1c036e06c660ca3a6c1f1694118f8b066"
+  }
 }
