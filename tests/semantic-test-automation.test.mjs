@@ -38,7 +38,7 @@ test("new supported derived test is automatically registered without editing Pla
   const audit=one(record);
   assert.deepEqual(audit.errors,[]);
   assert.equal(audit.entries.find(x=>x.id===derived.id).status,"registered");
-  assert.equal(audit.summary.registered,2);
+  assert.equal(audit.summary.registered,3);
 });
 
 test("new prose-only executable test is pending rather than asserted to have passed",()=>{
