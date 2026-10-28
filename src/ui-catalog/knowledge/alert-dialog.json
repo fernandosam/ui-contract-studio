@@ -70,6 +70,12 @@
       ],
       "testRequirements": [
         "Confirmar uma vez e garantir ausência de operação destrutiva implícita."
+      ],
+      "contractBindings": [
+        {
+          "kind": "event",
+          "name": "confirm"
+        }
       ]
     },
     {
@@ -84,6 +90,12 @@
       ],
       "testRequirements": [
         "Verificar contraste e hierarquia com variante destrutiva."
+      ],
+      "contractBindings": [
+        {
+          "kind": "prop",
+          "name": "confirmVariant"
+        }
       ]
     },
     {
@@ -120,6 +132,12 @@
       ],
       "testRequirements": [
         "Testar size='sm' com exatamente duas ações, inclusive viewport móvel, sem corte ou sobreposição."
+      ],
+      "contractBindings": [
+        {
+          "kind": "prop",
+          "name": "size"
+        }
       ]
     },
     {
@@ -129,7 +147,12 @@
       "evidence": [],
       "testRequirements": [
         "Não permitir confirmação antes da seleção; reabilitar depois da seleção."
-      ]
+      ],
+      "decision": {
+        "disposition": "propose-composition",
+        "target": "AcknowledgedActionDialog",
+        "reason": "A confirmação condicionada tem estado próprio e não deve alterar automaticamente a API do AlertDialog."
+      }
     },
     {
       "id": "typed-confirmation",
@@ -138,7 +161,12 @@
       "evidence": [],
       "testRequirements": [
         "Validar texto esperado; confirmação bloqueada em caso de divergência."
-      ]
+      ],
+      "decision": {
+        "disposition": "propose-composition",
+        "target": "TypedConfirmationDialog",
+        "reason": "O fluxo de confirmação digitada deve permanecer em composição distinta, sujeita ao canal experimental e admissão independente."
+      }
     },
     {
       "id": "focus-and-keyboard",
