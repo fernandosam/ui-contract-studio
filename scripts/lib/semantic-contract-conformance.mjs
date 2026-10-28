@@ -72,7 +72,7 @@ export function auditSemanticContractConformance({
           !(schemas.events?.[name]??[]).includes(binding.name)) {
           status="not-in-zod-schema";
         } else if(!(cap.evidence??[]).some(ref=>
-          typeof ref.path==="string" && /\\.(?:tsx|jsx)$/.test(ref.path) &&
+          typeof ref.path==="string" && /\.(?:tsx|jsx)$/.test(ref.path) &&
           typeof ref.contains==="string" && ref.contains.includes(binding.name))) {
           status="implementation-binding-unverified";
         }
