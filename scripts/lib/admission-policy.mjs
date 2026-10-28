@@ -38,6 +38,18 @@ export function evaluatePolicy({ policy, recipes, scenarios, lock, pi, sources, 
       protocol.cases.some(caseId=>!/^[a-z]+(?:-[a-z]+)*$/.test(caseId)))
       errors.push(id + ": no verified browser evidence protocol");
   }
+  // CI admission is intentionally narrow: only the existing, no-event,
+  // locally validated form candidate can be promoted without manual review.
+  const automatic=policy.ciAutoAdmit??{};
+  if(!automatic || typeof automatic!=="object" || Array.isArray(automatic))
+    errors.push("Invalid CI auto-admission policy");
+  else for(const [id,digest] of Object.entries(automatic)){
+    const recipe=recipeById.get(id),protocol=protocols.candidates?.[id];
+    if(id!=="form-declarative" || !allowed.includes(id) ||
+       !(policy.e2eEligible??[]).includes(id) || recipe?.target!=="DeclarativeFormFlow" ||
+       protocol?.target!==recipe?.target || !/^[a-f0-9]{64}$/.test(digest))
+      errors.push(id+": CI auto-admission is restricted to a reviewed local-only form and fingerprint");
+  }
   if (!allowed.length) errors.push("No explicit allowlisted candidates");
   return errors;
 }
