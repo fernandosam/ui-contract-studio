@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {SpecScreen} from "./spec-screen";
 import {tracePattern} from "../ui-requirements/traceability";
+import {planPatternLayout} from "../ui-requirements/pattern-layout";
 import {getPatternFlow,activePatternQuestions,inferPattern,supportedPatterns,resolvePattern,generatePatternPreview} from "../ui-requirements/patterns";
 import type {Answers,Answer} from "../ui-requirements/schema";
 
@@ -16,6 +17,7 @@ export function PatternWizard(){
  const inferredFlow=intent.trim()?inferPattern(intent):null;
  const preview=show&&!requirements.missing.length?generatePatternPreview(requirements):null;
  const trace=preview?tracePattern(requirements,preview):null;
+ const semanticLayout=planPatternLayout(requirements);
  const answer=(id:string,value:Answer)=>{setProvided(p=>({...p,[id]:value}));setShow(false);};
  return <section data-testid="pattern-wizard" className="space-y-4">
   <label className="block space-y-2 text-sm font-medium">Descreva a interface
@@ -48,6 +50,11 @@ export function PatternWizard(){
       <input aria-label={q.label} className="w-full rounded-md border bg-background p-2"
        value={String(requirements.answers[q.id]??"")} maxLength={120} onChange={e=>answer(q.id,e.target.value)}/>}
    </label>)}
+   {semanticLayout&&<div data-testid="pattern-layout-plan" className="rounded-md border p-3 space-y-1 text-sm">
+    <p className="font-medium">Contrato semântico: {semanticLayout.flow}</p>
+    <p className="text-muted-foreground">Ordem visual: {semanticLayout.regions.join(" → ")}.</p>
+    <p className="text-muted-foreground">Leitura em coluna única no celular; grids somente com densidade admitida. Orientação semântica não autoriza novas APIs.</p>
+   </div>}
    <p className="text-sm text-muted-foreground">Somente visualização demonstrativa. Não há autenticação, gravação ou operações CRUD remotas.</p>
    {requirements.missing.length>0&&<p role="alert">Respostas pendentes: {requirements.missing.join(", ")}</p>}
    <button type="button" disabled={requirements.missing.length>0}
