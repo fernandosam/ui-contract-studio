@@ -20,7 +20,7 @@ const decisions=[
 
 export function evaluateSemanticAdmissionReview({
   proposalReport, capabilityAudit, policy, recipes, scenarios, lock, pi,
-  entries, protocols, sources, policyErrors,
+  entries, protocols, policyErrors,
 }) {
   if(!Array.isArray(policyErrors))
     throw Error("T24 requires the authoritative Admission Engine policy decision");
