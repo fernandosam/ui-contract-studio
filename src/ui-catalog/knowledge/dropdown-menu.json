@@ -359,7 +359,11 @@
       "capabilities": [
         "trigger-and-actions",
         "select-signal"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dropdown.basic"
+      }
     },
     {
       "id": "disabled-and-destructive",
@@ -368,7 +372,11 @@
       "capabilities": [
         "disabled-items",
         "destructive-presentation"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dropdown.disabled-destructive"
+      }
     },
     {
       "id": "one-level-submenu",
@@ -376,7 +384,11 @@
       "description": "Renderizar submenu com até 12 folhas, abrir e selecionar uma; rejeitar estrutura aninhada no contrato em teste específico de schema.",
       "capabilities": [
         "single-level-submenu"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dropdown.submenu"
+      }
     },
     {
       "id": "checkbox-local-state",
@@ -384,7 +396,11 @@
       "description": "Alternar checkbox, reabrir e comparar estado local; conferir somente evento select e nenhuma persistência ou binding automático.",
       "capabilities": [
         "local-checkbox"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dropdown.checkbox"
+      }
     },
     {
       "id": "group-label-base-ui-regression",
@@ -439,7 +455,11 @@
       "description": "Renderizar grupos divididos por separador e verificar que o elemento separador não recebe foco nem dispara evento select ao clicar ou usar teclado.",
       "capabilities": [
         "separators"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dropdown.separator"
+      }
     }
   ]
 }

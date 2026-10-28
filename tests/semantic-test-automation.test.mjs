@@ -14,11 +14,11 @@ const one=record=>buildSemanticTestAutomation([record]);
 test("registered semantic tests are discovered, traceable and never marked executed",()=>{
   const audit=buildSemanticTestAutomation(fixtures);
   assert.deepEqual(audit.errors,[]);
-  assert.equal(audit.summary.registered,15);
+  assert.equal(audit.summary.registered,40);
   assert.ok(audit.summary.pending>0);
   assert.ok(audit.summary.blocked>0);
   assert.equal(audit.summary.invalid,0);
-  assert.equal(audit.summary.partial,14);
+  assert.equal(audit.summary.partial,39);
   for(const entry of audit.entries.filter(x=>x.status==="registered")){
     assert.equal(entry.execution,"not-run");
     assert.ok(entry.source.startsWith("src/ui-catalog/knowledge/"));
@@ -112,4 +112,28 @@ test("pilot recipes cover all five prioritized primitives without unimplemented 
   assert.ok(pending.every(x=>x.action==="implement-reviewed-recipe-and-run-browser"));
   assert.ok(audit.entries.filter(x=>x.status==="blocked-not-implemented")
     .every(x=>x.action==="review-implementation-before-automation"));
+});
+
+test("seven next-priority families register only reviewed, non-candidate recipes",()=>{
+  const audit=buildSemanticTestAutomation(fixtures);
+  const families=["Switch","Radio","Textarea","Slider","Popover","Tooltip","DropdownMenu"];
+  const expected={"Switch":3,"Radio":4,"Textarea":5,"Slider":3,"Popover":3,"Tooltip":2,"DropdownMenu":5};
+  assert.deepEqual(audit.errors,[]);
+  assert.equal(audit.summary.total,315);
+  assert.equal(audit.summary.registered,40);
+  assert.equal(audit.summary.partial,39);
+  assert.equal(audit.summary.pending,172);
+  assert.equal(audit.summary.blocked,103);
+  assert.equal(audit.summary.invalid,0);
+  for(const family of families){
+    const entries=audit.entries.filter(x=>x.component===family&&x.status==="registered");
+    assert.equal(entries.length,expected[family]);
+    for(const entry of entries){
+      assert.equal(entry.coverage,"partial");
+      assert.equal(entry.runner,"playwright");
+      assert.equal(entry.execution,"not-run");
+      assert.ok(entry.capabilityStates.every(x=>x.state!=="documented-not-implemented"));
+    }
+  }
+  assert.ok(audit.entries.filter(x=>x.kind==="candidate-not-executable").every(x=>x.status!=="registered"));
 });

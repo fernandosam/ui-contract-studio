@@ -299,7 +299,11 @@
       "capabilities": [
         "local-checked-and-default",
         "local-change-event"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "switch.local-checked"
+      }
     },
     {
       "id": "label-description-name",
@@ -308,7 +312,11 @@
       "capabilities": [
         "name-disabled-and-description",
         "label-id-association"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "switch.label-help"
+      }
     },
     {
       "id": "size-and-color-states",
@@ -317,7 +325,11 @@
       "capabilities": [
         "pi-size-sm-default",
         "baseui-root-thumb"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "switch.size-states"
+      }
     },
     {
       "id": "name-formdata-runtime",

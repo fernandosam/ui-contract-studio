@@ -5,6 +5,32 @@ import {resolve} from "node:path";
 // A new semantic case opts in by naming an existing recipe. The remaining
 // prose requirements are visible as pending; they are never silently "passed".
 export const semanticTestRecipes=Object.freeze({
+  "switch.local-checked":Object.freeze({component:"Switch",kind:"integration",capabilities:["local-checked-and-default","local-change-event"],coverage:"partial"}),
+  "switch.label-help":Object.freeze({component:"Switch",kind:"integration",capabilities:["name-disabled-and-description","label-id-association"],coverage:"partial"}),
+  "switch.size-states":Object.freeze({component:"Switch",kind:"visual",capabilities:["pi-size-sm-default","baseui-root-thumb"],coverage:"partial"}),
+  "radio.options-orientation":Object.freeze({component:"Radio",kind:"integration",capabilities:["pi-radio-options","radio-react-composition","orientation-and-disabled"],coverage:"partial"}),
+  "radio.local-change":Object.freeze({component:"Radio",kind:"integration",capabilities:["value-default-binding-change"],coverage:"partial"}),
+  "radio.fieldset-labels":Object.freeze({component:"Radio",kind:"integration",capabilities:["fieldset-legend-and-item-label"],coverage:"partial"}),
+  "radio.long-mobile":Object.freeze({component:"Radio",kind:"visual",capabilities:["form-mobile-runtime","fieldset-legend-and-item-label"],coverage:"partial"}),
+  "textarea.rows":Object.freeze({component:"Textarea",kind:"integration",capabilities:["native-multiline-with-rows"],coverage:"partial"}),
+  "textarea.label-help":Object.freeze({component:"Textarea",kind:"integration",capabilities:["label-name-and-help"],coverage:"partial"}),
+  "textarea.local-change":Object.freeze({component:"Textarea",kind:"integration",capabilities:["local-controlled-value-and-change"],coverage:"partial"}),
+  "textarea.native-states":Object.freeze({component:"Textarea",kind:"integration",capabilities:["disabled-required-readonly","native-maxlength","invalid-and-focus-styles"],coverage:"partial"}),
+  "textarea.long-mobile":Object.freeze({component:"Textarea",kind:"visual",capabilities:["long-text-resizing-runtime"],coverage:"partial"}),
+  "slider.scalar-range":Object.freeze({component:"Slider",kind:"integration",capabilities:["single-scalar-value","multi-thumb-arrays","normalized-base-ui-thumb-count","local-change-and-binding"],coverage:"partial"}),
+  "slider.limits-disabled":Object.freeze({component:"Slider",kind:"integration",capabilities:["min-max-and-step","orientation-and-disabled"],coverage:"partial"}),
+  "slider.value-output":Object.freeze({component:"Slider",kind:"visual",capabilities:["visible-current-output","multi-thumb-arrays"],coverage:"partial"}),
+  "popover.text":Object.freeze({component:"Popover",kind:"integration",capabilities:["text-trigger-and-content"],coverage:"partial"}),
+  "popover.open-default":Object.freeze({component:"Popover",kind:"integration",capabilities:["controlled-open-change","default-open"],coverage:"partial"}),
+  "popover.position":Object.freeze({component:"Popover",kind:"visual",capabilities:["side-and-align","portal-and-positioner"],coverage:"partial"}),
+  "tooltip.text-icon":Object.freeze({component:"Tooltip",kind:"integration",capabilities:["pi-text-content-and-trigger","four-sides-position","allowlisted-icon-and-shortcut-text"],coverage:"partial"}),
+  "tooltip.portal":Object.freeze({component:"Tooltip",kind:"integration",capabilities:["base-provider-portal-role","provider-default-delay"],coverage:"partial"}),
+  "dropdown.basic":Object.freeze({component:"DropdownMenu",kind:"integration",capabilities:["trigger-and-actions","select-signal"],coverage:"partial"}),
+  "dropdown.disabled-destructive":Object.freeze({component:"DropdownMenu",kind:"integration",capabilities:["disabled-items","destructive-presentation"],coverage:"partial"}),
+  "dropdown.submenu":Object.freeze({component:"DropdownMenu",kind:"integration",capabilities:["single-level-submenu"],coverage:"partial"}),
+  "dropdown.checkbox":Object.freeze({component:"DropdownMenu",kind:"integration",capabilities:["local-checkbox"],coverage:"partial"}),
+  "dropdown.separator":Object.freeze({component:"DropdownMenu",kind:"integration",capabilities:["separators"],coverage:"partial"}),
+
   "checkbox.toggle-local":Object.freeze({
     component:"Checkbox",kind:"integration",
     capabilities:["controlled-boolean-initialization","local-checked-change"],coverage:"partial",

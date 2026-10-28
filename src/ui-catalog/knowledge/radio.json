@@ -305,7 +305,11 @@
         "pi-radio-options",
         "radio-react-composition",
         "orientation-and-disabled"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "radio.options-orientation"
+      }
     },
     {
       "id": "binding-change-is-local",
@@ -313,7 +317,11 @@
       "description": "Alterar value/defaultValue/binding e verificar change sem persistência.",
       "capabilities": [
         "value-default-binding-change"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "radio.local-change"
+      }
     },
     {
       "id": "fieldset-names-and-ids",
@@ -321,7 +329,11 @@
       "description": "Renderizar dois grupos e inspecionar legends, ids e associações de itens.",
       "capabilities": [
         "fieldset-legend-and-item-label"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "radio.fieldset-labels"
+      }
     },
     {
       "id": "keyboard-exclusive-and-disabled",
@@ -348,7 +360,11 @@
       "capabilities": [
         "form-mobile-runtime",
         "fieldset-legend-and-item-label"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "radio.long-mobile"
+      }
     },
     {
       "id": "future-radio-form",
