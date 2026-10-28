@@ -5,10 +5,6 @@ on:
     branches: [main]
   push:
     branches: [main]
-  # The GITHUB_TOKEN that creates a T36 draft PR does not trigger pull_request.
-  # A trusted workflow_dispatch on its exact branch produces the same required checks.
-  workflow_dispatch:
-
 permissions:
   contents: read
 
@@ -107,6 +103,27 @@ jobs:
         run: npx tsx --test tests/*.integration.test.ts
       - name: Typecheck and production build
         run: npm run build
+      # Required status: a local-only admission is NEVER accepted on semantic
+      # documentation or a generated fixture alone. Prove it in a real browser.
+      - uses: ./.github/actions/setup-chromium
+      - name: Reset browser evidence for CI-admitted local forms
+        run: npm run admission:evidence:reset
+      - name: Exercise independent form protocol on desktop/mobile (blocking)
+        run: npx playwright test tests/e2e/declarative-form-certification.spec.ts --project=desktop --project=mobile
+      - name: Verify fingerprint-bound live browser evidence before admission (blocking)
+        run: |
+          node scripts/admission-evidence.mjs --report --candidate=form-declarative
+          node scripts/admission-engine.mjs --ci-verify
+      - name: Preserve admission proof for audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-local-admission-proof
+          path: |
+            reports/composition-validation/admission/form-declarative/
+            test-results/
+          if-no-files-found: warn
+          retention-days: 14
       - name: Verify experimental distribution artifacts
         run: npm run admission:publish
       - name: Verify actual Pi spec validation
