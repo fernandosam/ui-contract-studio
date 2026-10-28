@@ -97,118 +97,76 @@ export function publish(root = rootDefault, revision = process.env.GITHUB_SHA) {
   return catalog;
 }
 
-/** A single explicitly selected, allowlisted candidate. No implicit bulk promotion. */
-export function selectPromotionCandidateIds(policy,candidateId) {
- if(typeof candidateId!=="string" || !/^[a-z]+(?:-[a-z]+)*$/.test(candidateId))
-  fail("Promotion requires --candidate=<reviewed-scenario-id>; bulk selection is forbidden");
- if(!policy.allowedScenarios.includes(candidateId) || !policy.e2eEligible.includes(candidateId))
-  fail(candidateId+": candidate is not explicitly reviewed and E2E eligible");
- return [candidateId];
-}
-
-/** All promotion decisions are independently verified before any stable artifact is written. */
-export function promoteAll(root = rootDefault,revision = process.env.GITHUB_SHA,candidateId) {
+/** One existing source-controlled CI decision, never a second certificate/PR. */
+export function verifyCiAdmissionPolicy(root=rootDefault) {
  const {policy,protocols}=input(root);
- if(process.env.GITHUB_ACTIONS==="true" &&
-   (process.env.GITHUB_REF!=="refs/heads/main" || process.env.GITHUB_EVENT_NAME!=="workflow_dispatch"))
-  fail("E2E promotion is restricted to manual workflow_dispatch on main");
- const published=publish(root,revision);
  const entries=json(root,"src/ui-catalog/admission-engine/entries.json").entries;
- const selected=selectPromotionCandidateIds(policy,candidateId);
- const promoted=selected.map(id=>{
-  const candidate=published.candidates.find(entry=>entry.id===id);
-  const entry=entries.find(row=>row.id===id);
-  const protocol=protocols.candidates[id];
-  if(!candidate||!entry||!protocol||entry.e2eProtocol!==protocol.protocol)
-   fail(id+": no matching official registry entry or E2E protocol");
-  const screenshots=verifyE2eEvidence(root,{id,target:candidate.type,revision});
-  return {candidate,entry,protocol,screenShots:screenshots};
- });
- const dir=join(root,"dist/admission/stable");
- rmSync(dir,{recursive:true,force:true});
- mkdirSync(dir,{recursive:true});
- for(const record of promoted){
-  cpSync(join(root,"dist/admission/experimental",record.candidate.id),
-    join(dir,record.candidate.id),{recursive:true});
+ const candidates=Object.entries(policy.ciAutoAdmit??{});
+ for(const [id,digest] of candidates){
+  const entry=entries.find(item=>item.id===id);
+  const protocol=protocols.candidates?.[id];
+  if(id!=="form-declarative" || !entry || entry.type!=="DeclarativeFormFlow" ||
+     entry.sourceDigest!==digest || !entry.e2eProtocol ||
+     entry.e2eProtocol!==protocol?.protocol || entry.events.length!==0 ||
+     !policy.allowedScenarios.includes(id) || !policy.e2eEligible.includes(id))
+   fail(id+": stale or unsafe auto-admission; require a separate reviewed change");
+  const source=readFileSync(join(root,"scripts/composition-codegen/recipes",id+".component.tsx.txt"),"utf8");
+  const schema=readFileSync(join(root,"scripts/composition-codegen/recipes",id+".schema.ts.txt"),"utf8");
+  if(!source.includes("PROPOSAL ONLY") || !schema.includes("REVIEW-ONLY") ||
+     !schema.includes(".strict()") ||
+     /\\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB|eval|Function)\\b|navigator\\.clipboard|window\\.location|dangerouslySetInnerHTML|https?:\\/\\//.test(source) ||
+     /\\b(?:onSuccess|onError|endpoint|backendUrl|callback|handler)\\b/.test(schema))
+   fail(id+": unsafe or expanded API; needs manual contract review");
  }
- const stable={schemaVersion:1,channel:"stable",status:"e2e-homologated",
-  sourceRevision:revision,
-  piRegistryPromotion:"fingerprint-bound-certification-required",
-  candidates:promoted.map(({candidate,entry,protocol,screenShots})=>({
-   ...candidate,stage:"stable",sourceDigest:entry.sourceDigest,
-   evidence:{protocol:protocol.protocol,executions:screenShots.length,screenshots:screenShots}
-  }))
- };
- writeFileSync(join(dir,"catalog.json"),JSON.stringify(stable,null,2)+"\n");
- return stable;
+ return candidates.map(([id])=>id);
 }
 
-/** Write an auditable certificate only after a genuine, trusted main-branch E2E run. */
-export function certify(root = rootDefault,revision = process.env.GITHUB_SHA,candidateId) {
+/** Independently verify the live browser protocol in the already-required CI.
+ * No certificate file is changed; the PR and its required status checks are
+ * the evidence and admission boundary for local-only, fingerprint-pinned cases.
+ */
+export function verifyCiAdmission(root=rootDefault,revision=process.env.GITHUB_SHA) {
  if(process.env.GITHUB_ACTIONS!=="true" ||
-    process.env.GITHUB_EVENT_NAME!=="workflow_dispatch" ||
-    process.env.GITHUB_REF!=="refs/heads/main" ||
-    process.env.ADMISSION_CERTIFY_CONFIRM!=="yes" ||
-    !/^\d+$/.test(process.env.GITHUB_RUN_ID??"") ||
-    process.env.GITHUB_SHA!==revision)
-  fail("Certificate recording requires a trusted, explicit manual main-branch GitHub Actions run");
- const stable=promoteAll(root,revision,candidateId);
- const filename=join(root,"src/ui-catalog/admission-engine/certifications.json");
- const doc=JSON.parse(readFileSync(filename,"utf8"));
- if(doc.schemaVersion!==1||!doc.components||Array.isArray(doc.components))
-  fail("Invalid certificates");
- for(const candidate of stable.candidates){
-  const entry=json(root,"src/ui-catalog/admission-engine/entries.json").entries.find(x=>x.type===candidate.type);
-  if(!entry||!entry.sourceDigest||entry.sourceDigest!==candidate.sourceDigest||
-     entry.e2eProtocol!==candidate.evidence.protocol)
-   fail("Official source digest or protocol changed before certification");
-  doc.components[candidate.type]={
-   status:"passed",protocol:candidate.evidence.protocol,
-   sourceDigest:entry.sourceDigest,sourceRevision:revision,
-   githubRunId:process.env.GITHUB_RUN_ID,
-   evidenceDigest:hash(JSON.stringify(candidate.evidence))
-  };
+    !["pull_request","push"].includes(process.env.GITHUB_EVENT_NAME) ||
+    !revisionPattern.test(revision??"") ||
+    revision!==process.env.GITHUB_SHA)
+  fail("CI admission requires an authentic source-bound PR/main GitHub Actions run");
+ const ids=verifyCiAdmissionPolicy(root);
+ const pi=json(root,"pi-catalog/contracts.json").components;
+ const entries=json(root,"src/ui-catalog/admission-engine/entries.json").entries;
+ for(const id of ids){
+  const entry=entries.find(x=>x.id===id);
+  const contract=pi.find(x=>x.type===entry.type);
+  if(contract?.lifecycle!=="stable" || contract?.validation?.e2e!=="ci-required")
+   fail(id+": Pi manifest not synchronized with exact source-bound CI policy");
+  const screens=verifyE2eEvidence(root,{id,target:entry.type,revision});
+  if(screens.length<6)fail(id+": incomplete independent desktop/mobile browser evidence");
+  console.log("✓ CI admission: "+id+", "+screens.length+" independent browser proofs, source digest "+entry.sourceDigest);
  }
- writeFileSync(filename,JSON.stringify(doc,null,2)+"\n");
- const result=spawnSync(process.execPath,["scripts/build-pi-api.mjs","--write"],
-  {cwd:root,encoding:"utf8"});
- if(result.status!==0)
-  fail("Unable to regenerate the official Pi manifest: "+(result.stderr||result.stdout));
- return doc.components;
+ return ids;
 }
-function main() {
-  const args = process.argv.slice(2);
-  const mode = args[0];
-  const revision = args.find(entry => entry.startsWith("--revision="))?.slice(11) ?? process.env.GITHUB_SHA;
-  const selections=args.filter(entry=>entry.startsWith("--candidate="));
-  const revisionArgs=args.filter(entry=>entry.startsWith("--revision="));
-  const candidateId=selections[0]?.slice("--candidate=".length);
-  if (!["--check", "--publish", "--promote", "--certify"].includes(mode) ||
-      args.slice(1).some(entry => !/^--revision=[0-9a-f]{40}$/.test(entry) &&
-        !/^--candidate=[a-z]+(?:-[a-z]+)*$/.test(entry)) ||
-      revisionArgs.length>1 || selections.length>1 ||
-      (["--promote","--certify"].includes(mode)!==(selections.length===1)))
-    fail("Use --check, --publish or --promote/--certify --candidate=<reviewed-scenario-id> [--revision=<40-char SHA>]");
 
-  if (mode === "--check") {
-    const data = input(rootDefault);
-    runGenerator(rootDefault, "--check");
-    const review = reviewSemanticAdmissionsAtRoot(rootDefault);
-    console.log("✓ T24 semantic admission review: " + review.summary.proposals +
-      " proposals evaluated; no types, permissions or certificates added.");
-    console.log("✓ Admission policy and " + data.policy.allowedScenarios.length + " reviewed recipes validated");
-  } else if (mode === "--publish") {
-    const manifest = publish(rootDefault, revision);
-    console.log("✓ Experimental admission artifact: " + manifest.candidates.length + " official Pi candidates");
-  } else {
-    if(mode==="--certify"){
-      const certificates=certify(rootDefault,revision,candidateId);
-      console.log("✓ Official Pi certificates recorded: "+Object.keys(certificates).length);
-    }else{
-      const manifest=promoteAll(rootDefault,revision,candidateId);
-      console.log("✓ Post-E2E stable artifact: "+manifest.candidates.length+" candidates, commit "+manifest.sourceRevision);
-    }
-  }
+function main() {
+ const args=process.argv.slice(2);
+ const mode=args[0];
+ if(!["--check","--publish","--ci-verify"].includes(mode) ||
+    (mode==="--publish"
+       ? args.slice(1).some(arg=>!/^--revision=[0-9a-f]{40}$/.test(arg)) || args.length>2
+       : args.length!==1))
+  fail("Use --check, --publish --revision=<40-character SHA> or --ci-verify");
+ if(mode==="--check"){
+  const data=input(rootDefault);
+  runGenerator(rootDefault,"--check");
+  const ids=verifyCiAdmissionPolicy(rootDefault);
+  const review=reviewSemanticAdmissionsAtRoot(rootDefault);
+  console.log("✓ Admission policy and "+data.policy.allowedScenarios.length+
+   " reviewed recipes; source-sealed CI admissions: "+ids.join(", "));
+  console.log("✓ T24 semantic review: "+review.summary.proposals+" non-authorizing proposals");
+ }else if(mode==="--publish"){
+  const revision=args[1]?.slice("--revision=".length)??process.env.GITHUB_SHA;
+  const manifest=publish(rootDefault,revision);
+  console.log("✓ Experimental artifact: "+manifest.candidates.length+" candidates");
+ }else verifyCiAdmission(rootDefault);
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try { main(); } catch (error) { console.error("✗ " + error.message); process.exit(1); }
