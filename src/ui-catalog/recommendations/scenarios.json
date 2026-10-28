@@ -160,7 +160,11 @@
       "dependencies": [
         "Accordion"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "textual-items",
+        "single-multiple-expansion",
+        "keyboard-and-aria"
+      ],
       "reason": "O contrato Accordion aprovado representa itens textuais expansíveis; não é necessário introduzir outro composto para uma FAQ simples.",
       "risks": [
         "Não ocultar informações críticas apenas em painéis fechados.",
@@ -255,7 +259,9 @@
         "Avatar",
         "Badge"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "rich-structured-content"
+      ],
       "reason": "O Accordion JSON aprova itens textuais; avatar e crachá por item precisam de API semântica e implementação específica, sem JSX arbitrário.",
       "risks": [
         "Evitar callback e URL de imagem livres.",
@@ -287,7 +293,10 @@
       "dependencies": [
         "Button"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "local-press-event",
+        "focus-and-keyboard-runtime"
+      ],
       "reason": "Button já permite label, variantes, tamanhos e evento press; nenhuma composição adicional é necessária.",
       "risks": [
         "Evento press não concede execução de operação externa.",
@@ -315,7 +324,9 @@
       "dependencies": [
         "Button"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "loading-and-disabled"
+      ],
       "reason": "O contrato Button já inclui loading e o renderizador desabilita o botão quando ocupado; orquestração assíncrona não é implícita.",
       "risks": [
         "O próprio Button não inicia requisições remotas.",
@@ -344,7 +355,10 @@
         "Button",
         "Tooltip"
       ],
-      "requiredCapabilities": [],
+      "requiredCapabilities": [
+        "local-press-event",
+        "copy-or-external-action"
+      ],
       "reason": "O Button atual fornece press, mas não controla clipboard, confirmação temporária nem tratamento de falha; é comportamento composto.",
       "risks": [
         "Clipboard depende de permissão do navegador e gesto de usuário.",
@@ -358,6 +372,42 @@
         [
           "manual-a11y",
           "Anunciar resultado para leitores de tela."
+        ]
+      ]
+    },
+    {
+      "id": "button-actions-layout",
+      "family": "Button",
+      "title": "Duas ações independentes em um layout declarativo",
+      "need": "Organizar duas ações locais independentes lado a lado, sem seleção, coordenação de estado ou efeitos externos.",
+      "keywords": [
+        "duas ações independentes",
+        "barra simples de ações",
+        "botões lado a lado"
+      ],
+      "strategy": "declarative-composition",
+      "target": null,
+      "dependencies": [
+        "Stack",
+        "Button"
+      ],
+      "requiredCapabilities": [
+        "local-press-event"
+      ],
+      "reason": "Stack com slot default pode organizar nós Button admitidos em uma árvore JSON sem lógica adicional; o evento press é somente um sinal local e não concede ações de negócio.",
+      "risks": [
+        "Não confundir layout de botões com ButtonGroup que gerencia seleção interna.",
+        "Cada press precisa de ação permitida pelo catálogo; a composição não cria handlers, callbacks ou efeitos de rede.",
+        "Árvore declarativa proposta ainda exige validação pelo schema Pi atual."
+      ],
+      "tests": [
+        [
+          "integration",
+          "Validar uma árvore Pi com Stack e dois Button em seus slots e rejeitar props, ações e tipos não permitidos."
+        ],
+        [
+          "manual-a11y",
+          "Verificar navegação por Tab, ordem dos botões e nomes acessíveis, inclusive layout estreito."
         ]
       ]
     },
