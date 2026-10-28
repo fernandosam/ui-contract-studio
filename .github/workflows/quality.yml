@@ -109,8 +109,9 @@ jobs:
       - uses: ./.github/actions/setup-chromium
       - name: Reset browser evidence for CI-admitted local forms
         run: npm run admission:evidence:reset
-      - name: Exercise independent form protocol on desktop/mobile (blocking)
-        run: npx playwright test tests/e2e/declarative-form-certification.spec.ts --project=desktop --project=mobile
+      - name: Exercise admission protocol and semantic recipes on desktop/mobile (blocking)
+        run: |
+          npx playwright test tests/e2e/declarative-form-certification.spec.ts tests/e2e/semantic-derived.spec.ts --project=desktop --project=mobile
       - name: Verify fingerprint-bound live browser evidence before admission (blocking)
         run: |
           node scripts/admission-evidence.mjs --report --candidate=form-declarative
@@ -155,7 +156,6 @@ jobs:
             tests/e2e/semantic-risk-t29.spec.ts \
             tests/e2e/alert-dialog-semantic-t32.spec.ts \
             tests/e2e/button-accordion-semantic-t32.spec.ts \
-            tests/e2e/semantic-derived.spec.ts \
             tests/e2e/requirements-wizard.spec.ts \
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
