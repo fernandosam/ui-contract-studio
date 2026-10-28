@@ -126,7 +126,7 @@
         },
         {
           "path": "src/ui-catalog/components/playground.tsx",
-          "contains": "<ShadcnSelect value={value} disabled={props.disabled} required={props.required}"
+          "contains": "<ShadcnSelect items={labelItems} value={value} disabled={props.disabled} required={props.required}"
         }
       ],
       "testRequirements": [
@@ -214,7 +214,7 @@
         },
         {
           "path": "src/ui-catalog/components/playground.tsx",
-          "contains": "<ShadcnSelect value={value} disabled={props.disabled} required={props.required}"
+          "contains": "<ShadcnSelect items={labelItems} value={value} disabled={props.disabled} required={props.required}"
         }
       ],
       "testRequirements": [
