@@ -8,14 +8,14 @@ import {declarativeFormFlowSchema,validateDeclarativeValues} from "../src/ui-cat
 const standard=JSON.parse(readFileSync("pi-catalog/experimental-examples/DeclarativeFormFlow.json","utf8"));
 const cases=[["minimal",experimentalFormScenarios.minimal],["standard",standard],["corporate",experimentalFormScenarios.corporate]] as const;
 
-test("T35: three different forms reuse one strict experimental contract, never stable",()=>{
+test("T35: three different forms reuse one strict contract promoted by required CI",()=>{
  const sizes=[1,3,5];
  cases.forEach(([name,spec],i)=>{
   const props=spec.elements[spec.root].props;
   assert.equal(props.fields.length,sizes[i],name);
   assert.equal(declarativeFormFlowSchema.safeParse(props).success,true,name);
   assert.equal(experimentalCatalog.validate(spec).success,true,name);
-  assert.equal(catalog.validate(spec).success,false,name+" must not enter stable Pi");
+  assert.equal(catalog.validate(spec).success,true,name+" is available in stable Pi after required CI");
   assert.equal(spec.elements[spec.root].type,"DeclarativeFormFlow");
  });
 });
@@ -42,5 +42,5 @@ test("T35: no unreviewed props, endpoints or duplicate field names",()=>{
  const entry=entries.find((x:{type:string})=>x.type==="DeclarativeFormFlow");
  assert.equal(entry?.tier,"composition");
  const manifest=JSON.parse(readFileSync("pi-catalog/contracts.json","utf8")).components;
- assert.equal(manifest.find((x:{type:string})=>x.type==="DeclarativeFormFlow")?.lifecycle,"experimental");
+ assert.equal(manifest.find((x:{type:string})=>x.type==="DeclarativeFormFlow")?.lifecycle,"stable");
 });
