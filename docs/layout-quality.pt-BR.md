@@ -37,7 +37,7 @@ A pontuação não captura geometria real, overflow, cor, contraste, alinhamento
 
 ## Próxima evolução: ciclo conservador de autocorreção
 
-A função `improveLayoutQuality(requirements, generated)`, em `src/ui-requirements/layout-repair.ts`, executa uma tentativa **limitada a 12 alterações** sobre uma cópia em memória do JSON gerado. Os dois assistentes de prévia e as auditorias existentes usam a mesma função, sem novo botão, etapa de aprovação, workflow ou critério de merge. A proposta é exclusivamente uma melhoria de composição visual; não altera o pedido ou a semântica funcional.
+A função `improveLayoutQuality(requirements, generated)`, em `src/ui-requirements/layout-repair.ts`, executa uma tentativa **limitada a 12 alterações** sobre uma cópia em memória do JSON gerado. Os dois assistentes de prévia e as auditorias existentes usam a mesma função, sem nova aprovação, botão, workflow ou critério de merge. A proposta é exclusivamente uma melhoria de composição visual; não altera o pedido ou a semântica funcional.
 
 **Mudanças permitidas:** reordenar exclusivamente filhos já existentes e com a mesma composição de IDs; restaurar propriedades **já presentes** de `direction`, `gap`, `columns`, `maxWidth` e `centered`, com os valores previstos pelos perfis semânticos revisados. Não são inseridos/removidos nós, não há troca de tipos, criação de props, alteração de conteúdo, rótulos, eventos, ações, fontes de dados, permissões ou código React. Campos ausentes, conteúdo conflitante e layouts sem perfil específico não são “inventados”.
 
