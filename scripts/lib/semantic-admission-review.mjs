@@ -8,6 +8,7 @@
 import {readFileSync} from "node:fs";
 import {join} from "node:path";
 import {buildSemanticKnowledge} from "./semantic-knowledge.mjs";
+import {evaluatePolicy} from "./admission-policy.mjs";
 import {buildSemanticCompositionProposals} from "../../src/ui-catalog/recommendations/semantic-gap-proposals.mjs";
 
 const read=(root,path)=>JSON.parse(readFileSync(join(root,path),"utf8"));
@@ -19,8 +20,10 @@ const decisions=[
 
 export function evaluateSemanticAdmissionReview({
   proposalReport, capabilityAudit, policy, recipes, scenarios, lock, pi,
-  entries, protocols, policyErrors=[],
+  entries, protocols, sources, policyErrors,
 }) {
+  if(!Array.isArray(policyErrors))
+    throw Error("T24 requires the authoritative Admission Engine policy decision");
   if(proposalReport?.schemaVersion!==1 || proposalReport.authority!=="advisory-only" ||
      !Array.isArray(proposalReport.proposals) || !Array.isArray(capabilityAudit?.gaps))
     throw Error("T24 requires a reviewed T23 advisory report and T22 audit");
@@ -151,12 +154,16 @@ export function reviewSemanticAdmissionsAtRoot(root) {
   if(proposals.summary.coveredGaps+proposals.summary.uncoveredGaps!==
       proposals.summary.auditGaps)
     throw Error("T24 T22/T23 audit coverage mismatch");
+  const policy=read(root,"src/ui-catalog/admission-engine/policy.json");
+  const recipes=read(root,"scripts/composition-codegen/recipes.json");
+  const pi=read(root,"pi-catalog/contracts.json");
+  const sources=read(root,"src/ui-catalog/sources.json");
+  const protocols=read(root,"src/ui-catalog/admission-engine/protocols.json");
+  const policyErrors=evaluatePolicy({policy,recipes,scenarios,lock,pi,sources,protocols});
   return evaluateSemanticAdmissionReview({
-    proposalReport:proposals,capabilityAudit:report.capabilityAudit,scenarios,lock,
-    policy:read(root,"src/ui-catalog/admission-engine/policy.json"),
-    recipes:read(root,"scripts/composition-codegen/recipes.json"),
-    pi:read(root,"pi-catalog/contracts.json"),
+    policyErrors,proposalReport:proposals,capabilityAudit:report.capabilityAudit,scenarios,lock,
+    policy,recipes,pi,sources,
     entries:read(root,"src/ui-catalog/admission-engine/entries.json"),
-    protocols:read(root,"src/ui-catalog/admission-engine/protocols.json"),
+    protocols,
   });
 }
