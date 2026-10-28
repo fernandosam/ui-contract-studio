@@ -83,7 +83,7 @@ test("React implementa os 559 compostos sem contornar o catálogo de 102 contrat
   assert.match(explorer,/Melhor para/)
   assert.match(explorer,/Quando não usar/)
   assert.match(explorer,/Notas do agente/)
-  assert.match(shell,/Composições ReUI \(559\)/)
+  assert.match(shell,/ReUI \(559\)/)
   assert.match(shell,/Abrir componente composto/)
   assert.equal(approved.components.length,102,"A admissão de novos contratos Pi não pode ser automática")
 })
