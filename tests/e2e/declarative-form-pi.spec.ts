@@ -1,12 +1,12 @@
 import {test,expect} from "@playwright/test";
-test("T35 experimental Pi renders validated local form but stable catalog hides it",async({page})=>{
+test("T35 CI-admitted local form renders in stable Pi without remote requests",async({page})=>{
  const requests:string[]=[];
  page.on("request",request=>{if(["xhr","fetch"].includes(request.resourceType()))requests.push(request.url());});
  await page.goto("/?screen=catalogo-pi");
  const catalog=page.getByTestId("admission-catalog");
  await expect(catalog).toBeVisible();
  await catalog.getByLabel("Buscar componente").fill("DeclarativeFormFlow");
- await catalog.getByLabel("Canal Pi").selectOption("experimental");
+ await expect(catalog.getByLabel("Canal Pi")).toHaveValue("stable");
  const preview=catalog.getByRole("region",{name:"Prévia do contrato"});
  await expect(preview).toBeVisible();
  const form=preview.getByTestId("registration-flow-demo");
