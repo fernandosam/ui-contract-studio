@@ -125,3 +125,9 @@ The existing `semanticTestAutomation.entries[].action` field points to a reviewe
 Register **25 existing derived cases**: Switch (3), Radio (4), Textarea (5), Slider (3), Popover (3), Tooltip (2), DropdownMenu (5). This extends coverage to **40 registered recipes** across the catalog's 315 recommendations. The remaining 172 pending recipes and 103 blocked candidates stay distinct; inventory alone is **not** runtime evidence.
 
 Every added recipe uses `coverage:"partial"`: it only asserts observable DOM behavior or elementary viewport constraints. In particular, visual examples are not comprehensive visual reviews, no screen-reader run or remote persistence is claimed, and local Pi callback emissions are not certified by the catalog preview. The existing `semantic:check`, `semantic:report`, Node regressions and required integration Playwright desktop/mobile remain the only validation route. No new workflow, schema Zod, Pi authorization or approval gate is introduced.
+
+### Pending-case executable feasibility audit — 2026-10-28
+
+The **172 formerly pending scenarios** each receive a deterministic Node feasibility test (implementation evidence, capability references, provenance and state). Twelve reviewed scenarios additionally receive explicit desktop/mobile Playwright recipes; others remain pending for browser, manual accessibility or visual review. The original 172 are verified as a baseline by combining still-pending records with the twelve newly registered recipes. This is **not 172 E2E tests**.
+
+The existing semantic report includes per-pending-case `review` classification and counts by kind/runtime evidence need, always `certification:"not-granted"`. The existing mandatory integration check runs reviewed recipes and the opt-in DEV event observer without new Pi events, Zod changes or admission permissions. All new keyboard/a11y and interaction cases remain `coverage:"partial"`.

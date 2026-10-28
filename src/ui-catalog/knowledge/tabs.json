@@ -331,7 +331,11 @@
       "description": "Validar onValueChange com evento change local sem payload ou chamada remota; reconfirmar painel ativo.",
       "capabilities": [
         "local-change-notification"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "tabs.change-event"
+      }
     },
     {
       "id": "orientation-variants",

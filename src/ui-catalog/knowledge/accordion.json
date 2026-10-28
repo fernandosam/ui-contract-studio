@@ -395,7 +395,11 @@
       "capabilities": [
         "keyboard-and-aria",
         "disabled-items"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "accordion.keyboard-disclosure"
+      }
     },
     {
       "id": "mobile-long-faq",

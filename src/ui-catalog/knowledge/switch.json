@@ -347,7 +347,11 @@
       "capabilities": [
         "keyboard-a11y-and-touch",
         "label-id-association"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "switch.keyboard-activation"
+      }
     },
     {
       "id": "pi-unavailable-required-invalid",

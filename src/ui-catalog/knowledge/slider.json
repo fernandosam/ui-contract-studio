@@ -329,7 +329,11 @@
       "description": "Teclado e leitor de tela para identificação das alças, foco, orientação e limites.",
       "capabilities": [
         "keyboard-a11y-multithumb"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "slider.multithumb-keyboard"
+      }
     },
     {
       "id": "touch-and-thumb-collision",

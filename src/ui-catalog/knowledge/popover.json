@@ -372,7 +372,11 @@
       "description": "Com teclado e mouse, testar Tab, Shift+Tab, Escape, clique fora e retorno do foco ao gatilho.",
       "capabilities": [
         "focus-keyboard-dismiss"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "popover.keyboard-dismiss"
+      }
     },
     {
       "id": "small-viewport-collision",
