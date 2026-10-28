@@ -89,7 +89,7 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
         <p className="text-sm">{result.scenario.reason}</p>
         <p className="text-xs text-muted-foreground">
           {result.targetApproved?"O alvo já é um contrato Pi aprovado.":
-            "O alvo ainda não é um contrato Pi aprovado para esta finalidade."}
+            "A recomendação não concede autorização Pi; consulte o catálogo oficial e sua certificação independente."}
         </p>
       </div>
       <div className="grid gap-3 lg:grid-cols-2">
