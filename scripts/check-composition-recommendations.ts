@@ -28,6 +28,23 @@ for(const scenario of recommendationScenarios){
      process.exit(1);
    }
  }
+ for(const proposal of result.gapProposals){
+   if(proposal.canUseInPi || proposal.approval!=="candidate-not-admitted" ||
+      proposal.scenarioId!==scenario.id || !proposal.originGaps.length ||
+      proposal.originGaps.some(gap=>
+        !result.gaps.some(x=>x.capability===gap.capability&&
+          x.availability===gap.availability) ||
+        !gap.source || !existsSync(gap.source)) ||
+      proposal.requiredCapabilities.some(cap=>
+        !scenario.requiredCapabilities.includes(cap.capability))){
+     console.error("✗ T23 gap proposal lacks provenance or bypasses Pi: "+scenario.id);
+     process.exit(1);
+   }
+   if(proposal.status==="candidate-review-only" && scenario.strategy!=="react-candidate"){
+     console.error("✗ T23 reviewable candidate is not React: "+scenario.id);
+     process.exit(1);
+   }
+ }
  selectedKinds.add(result.selection.kind);
  for(const criterion of result.selection.criteria){
    if(!criterion.rule.trim() || !criterion.reference.trim() ||

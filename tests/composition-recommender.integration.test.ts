@@ -239,3 +239,29 @@ test("T21 fails closed when an apparent reusable contract loses admission or cap
   // Documentation must not create a new Pi event or capability on the primitive.
   assert.equal(playgroundDefinitions.Button.props.safeParse({label:"Copiar",clipboard:true}).success,false);
 });
+
+test("T23 exposes only traceable, review-only plans in the existing recommendation flow",()=>{
+  const typed=getCompositionRecommendation("alert-typed");
+  const copy=getCompositionRecommendation("button-copy");
+  const runtime=getCompositionRecommendation("alert-simple");
+  const implemented=getCompositionRecommendation("button-loading");
+  assert.ok(typed&&copy&&runtime&&implemented);
+  assert.equal(typed.gapProposals.length,1);
+  const proposal=typed.gapProposals[0];
+  assert.equal(proposal.status,"candidate-review-only");
+  assert.equal(proposal.scenarioId,"alert-typed");
+  assert.equal(proposal.target,"TypedConfirmationDialog");
+  assert.equal(proposal.canUseInPi,false);
+  assert.ok(proposal.originGaps.some(x=>x.capability==="typed-confirmation"&&
+    x.source==="src/ui-catalog/knowledge/alert-dialog.json"));
+  assert.ok(proposal.requiredCapabilities.some(x=>x.capability==="focus-and-keyboard"&&
+    x.availability==="runtime-review-required"));
+  assert.ok(proposal.admissionLimitations.some(x=>x.includes("schema Zod")));
+  assert.equal(copy.gapProposals[0].status,"candidate-review-only");
+  assert.equal(runtime.gapProposals[0].status,"runtime-review-required");
+  assert.equal(implemented.gapProposals.length,0);
+  const panel=readFileSync("src/ui-runtime/composition-recommendations.tsx","utf8");
+  assert.match(panel,/data-testid="recommendation-gap-proposals"/);
+  assert.match(panel,/result\.gapProposals\.map/);
+  assert.match(panel,/Propostas candidatas a partir das lacunas T22/);
+});

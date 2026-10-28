@@ -2,6 +2,7 @@
 import {mkdirSync,writeFileSync,readFileSync} from "node:fs";
 import {dirname} from "node:path";
 import {buildSemanticKnowledge} from "./lib/semantic-knowledge.mjs";
+import {buildSemanticCompositionProposals} from "../src/ui-catalog/recommendations/semantic-gap-proposals.mjs";
 
 const args=process.argv.slice(2);
 const component=args.find(x=>x.startsWith("--component="))?.slice("--component=".length);
@@ -13,6 +14,18 @@ const reuiExamples=baseline.entries.map(x=>({
   id:x.exampleId,family:x.family,sourcePath:x.sourcePath,decision:x.semanticDecision,
 }));
 const {report,errors}=buildSemanticKnowledge({reuiExamples});
+const scenarios=JSON.parse(readFileSync(new URL("../src/ui-catalog/recommendations/scenarios.json",import.meta.url),"utf8")).scenarios;
+const approved=JSON.parse(readFileSync(new URL("../src/ui-catalog/contracts.lock.json",import.meta.url),"utf8"))
+  .components.filter(x=>x.status==="approved").map(x=>x.name);
+const compositionProposals=buildSemanticCompositionProposals({
+  capabilityAudit:report.capabilityAudit,scenarios,approvedPiTypes:approved,
+});
+// Unmapped gaps remain diagnostic; they are not synthetic admitted types.
+if(compositionProposals.summary.coveredGaps+compositionProposals.summary.uncoveredGaps!==
+   compositionProposals.summary.auditGaps ||
+   compositionProposals.proposals.some(x=>x.canUseInPi!==false ||
+     x.approval!=="candidate-not-admitted" || !x.originGaps.length))
+  errors.push("T23 semantic composition proposal traceability failed");
 if(errors.length){
   errors.forEach(message=>console.error("✗ "+message));
   process.exit(1);
@@ -24,6 +37,7 @@ if(component){
 }else{
   console.log("✓ Semantic guidance validated: "+JSON.stringify(report.coverage));
   console.log("  Capability audit: "+JSON.stringify(report.capabilityAudit.summary));
+  console.log("  T23 composition proposals: "+JSON.stringify(compositionProposals.summary));
   console.log("  Documentary suggestions and unverified requirements are advisory only.");
 }
 if(write){
@@ -34,4 +48,7 @@ if(write){
   const auditPath="reports/composition-analysis/semantic-capability-gaps.json";
   writeFileSync(auditPath,JSON.stringify(report.capabilityAudit,null,2)+"\n");
   console.log("✓ Wrote "+auditPath);
+  const proposalPath="reports/composition-analysis/semantic-composition-proposals.json";
+  writeFileSync(proposalPath,JSON.stringify(compositionProposals,null,2)+"\n");
+  console.log("✓ Wrote "+proposalPath);
 }

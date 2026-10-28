@@ -155,6 +155,33 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
           </ul>
         </div>
       </div>
+      {result.gapProposals.length>0&&<section className="space-y-3 rounded-md border p-3"
+        data-testid="recommendation-gap-proposals" aria-label="Propostas derivadas de lacunas semânticas">
+        <h5 className="text-sm font-semibold">Propostas candidatas a partir das lacunas T22</h5>
+        <p className="text-xs text-muted-foreground">Diagnóstico e plano de revisão, nunca um novo contrato Pi. Evidências estáticas exigem semantic:check; testes de runtime e admissão são independentes.</p>
+        {result.gapProposals.map(proposal=><div className="space-y-2 rounded-md border p-3 text-xs" key={proposal.id}>
+          <p className="font-medium">{proposal.title} · {proposal.status}
+            {proposal.target&&<span className="font-mono"> · {proposal.target}</span>}</p>
+          <p className="text-muted-foreground">Origem auditável: {proposal.originGaps.map(gap=>
+            gap.component+"/"+gap.capability+" ("+gap.availability+")").join(", ")}</p>
+          <ul className="list-disc space-y-1 pl-4">
+            {proposal.originGaps.map(gap=><li key={gap.component+"/"+gap.capability}>
+              <span>{gap.description}</span>
+              <span className="block break-all font-mono text-[11px] text-muted-foreground">{gap.source??"Sem registro"} · {gap.reason}</span>
+            </li>)}
+          </ul>
+          <p>Capacidades necessárias: {proposal.requiredCapabilities.map(x=>x.capability+" ["+x.availability+"]").join(", ")}</p>
+          <p>Evidências disponíveis: {proposal.evidence.length?
+            proposal.evidence.map(x=>x.capability+" — "+(x.source??"sem fonte")).join("; "):
+            "nenhuma capacidade vinculada verificada estaticamente"}</p>
+          <p>Dependências: {proposal.dependencies.map(x=>x.name+" ("+(x.approvedPiType?"Pi aprovado":"sem admissão")+")").join(", ")}</p>
+          <ul className="list-disc pl-4 text-muted-foreground">
+            {[...proposal.implementationLimitations,...proposal.admissionLimitations].map((limit,index)=>
+              <li key={index}>{limit}</li>)}
+          </ul>
+          <p className="font-semibold">Admissão: candidata, bloqueada para uso Pi.</p>
+        </div>)}
+      </section>}
       <div className="space-y-2 rounded-md border p-3">
         <h5 className="text-sm font-medium">Plano de testes sugerido</h5>
         <p className="text-xs text-muted-foreground">Critérios de validação planejados; não executados automaticamente.</p>
