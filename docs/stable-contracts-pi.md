@@ -1,3 +1,5 @@
+[English](stable-contracts-pi.md) | [Português](stable-contracts-pi.pt-BR.md)
+
 # Stable contracts and Pi auto-discovery
 
 The reviewed `src/ui-catalog/contracts.lock.json` is the source of truth for each base/extension contract's `version`, `semanticFingerprint`, and `stability` (`experimental`, `beta`, `stable`, `deprecated`). A contract must also have `status: approved` before it can be stable.
