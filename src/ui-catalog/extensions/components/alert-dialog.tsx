@@ -6,7 +6,7 @@ export function AlertDialog({props,emit}:{props:AlertDialogProps;emit?:(name:"co
  const [open,setOpen]=useState(false);
  return <Root open={open} onOpenChange={setOpen}>
   <AlertDialogTrigger render={<Button variant="outline" />}>{props.trigger}</AlertDialogTrigger>
-  <AlertDialogContent size={props.size??"default"} className="max-w-md gap-4 rounded-xl border bg-background p-6 text-foreground shadow-xl">
+  <AlertDialogContent size={props.size??"default"} className="max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md gap-4 overflow-y-auto rounded-xl border bg-background p-6 text-foreground shadow-xl">
    <AlertDialogHeader className="space-y-2"><AlertDialogTitle className="text-lg font-semibold">{props.title}</AlertDialogTitle><AlertDialogDescription className="text-sm text-muted-foreground">{props.description}</AlertDialogDescription></AlertDialogHeader>
    <AlertDialogFooter className="mt-4"><AlertDialogCancel>{props.cancelLabel??"Cancelar"}</AlertDialogCancel><AlertDialogAction variant={props.confirmVariant??"default"} onClick={()=>{setOpen(false);emit?.("confirm");}}>{props.confirmLabel??"Continuar"}</AlertDialogAction></AlertDialogFooter>
   </AlertDialogContent>

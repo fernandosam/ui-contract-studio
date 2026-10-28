@@ -63,3 +63,9 @@ As entradas sem `contractBindings` continuam válidas para capacidades de estado
 ## Limite da implementação
 
 A T31 não modifica React, Zod, lock, fingerprints ou a política de admissão automaticamente. Exemplo: `AlertDialog` já expõe `confirm`, `size` e `confirmVariant`; confirmação por checkbox ou texto exige composição independente, revisão e testes próprios. Evoluções funcionais posteriores deverão alterar React, Zod, registry, versões, fixtures e testes de maneira coordenada e passar pela política de admissão. Documentação semanticamente completa não significa homologação de runtime.
+
+## T32 — Primeira evolução por componente: AlertDialog
+
+A API aprovada de AlertDialog permanece inalterada. O adaptador React agora limita a largura ao viewport e a altura ao viewport dinâmico, permitindo rolagem interna em telas pequenas ou baixas sem cortar ações. O evento local `confirm` e o cancelamento explícito não concedem acesso ao backend.
+
+O teste `tests/alert-dialog-semantic-t32.test.mjs` protege contra ampliação acidental de Zod/Pi e mantém confirmação digitada e por checkbox como propostas independentes. `tests/e2e/alert-dialog-semantic-t32.spec.ts` verifica Enter, Escape, retorno de foco, cancelamento, fechamento após confirmação, ausência de requisições remotas e a variante pequena destrutiva em desktop/mobile. O job de navegador existente inclui esses cenários. Os testes não promovem capacidades ou certificam contratos automaticamente. Mantenha `focus-and-keyboard` e `mobile-dialog` como `runtime-review-required` até a revisão independente das evidências reais de navegador.
