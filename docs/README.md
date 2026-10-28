@@ -16,6 +16,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Component semantic checklist](semantic-knowledge-checklist.md) | Per-component knowledge review, code evidence, gaps, and validation |
 | [Semantic enrichment priority (T25)](semantic-enrichment-priority-t25.md) | Deterministic, advisory-only scores and evidence for AI composition review |
 | [Semantic enrichment workflow (T30)](semantic-enrichment-workflow.md) | Repeatable shadcn/ReUI process with priority, code evidence, CI and E2E |
+| [Semantic contract conformance audit (T31)](semantic-contract-conformance-t31.md) | Zod/Pi bindings, gap decisions and mandatory audit for knowledge edits |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Development](development.md) | Environment, tests, CI, and E2E |
 | [Governance](governance.md) | Review and ongoing audits of the public repository |
