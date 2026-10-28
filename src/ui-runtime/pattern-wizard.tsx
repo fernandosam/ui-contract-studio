@@ -19,7 +19,7 @@ export function PatternWizard(){
  const inferredFlow=intent.trim()?inferPattern(intent):null;
  const generated=show&&!requirements.missing.length?generatePatternPreview(requirements):null;
  const refinement=generated?improveLayoutQuality(requirements,generated):null;
- const preview=refinement?.screen??null;
+ const preview=generated?(refinement?.screen as NonNullable<typeof generated>):null;
  const trace=preview?tracePattern(requirements,preview):null;
  const quality=refinement?.after??null;
  const semanticLayout=planPatternLayout(requirements);
