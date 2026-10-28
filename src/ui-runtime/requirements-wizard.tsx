@@ -44,7 +44,7 @@ export function RequirementsWizard(){
   const blocked=!recognized||plan.blockers.length>0;
   const generated=showPreview&&!blocked?generateRegistrationScreen(requirements):null;
   const refinement=generated?improveLayoutQuality(requirements,generated):null;
-  const preview=refinement?.screen??null;
+  const preview=generated?(refinement?.screen as NonNullable<typeof generated>):null;
   const trace=preview?traceRegistration(requirements,preview):null;
   const quality=refinement?.after??null;
   const localCandidate=preview?proposeFormFlow(requirements):null;
