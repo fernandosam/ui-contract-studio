@@ -47,7 +47,7 @@ const watched=(page:Page)=>{
 };
 
 test.afterEach(async({page},info)=>{
- const id=info.title.match(/T29-R\\d{2}/)?.[0];
+ const id=info.title.match(/T29-R\d{2}/)?.[0];
  const risk=risks.cases.find(item=>item.id===id);
  if(!risk)return;
  const folder=join("reports/semantic-e2e",info.project.name);
@@ -64,7 +64,7 @@ test.afterEach(async({page},info)=>{
   project:info.project.name,status:info.status,expectedStatus:info.expectedStatus,
   retry:info.retry,screenshotStatus,certification:"not-granted",
   errors:info.errors.map(error=>error.message??"unknown"),
- },null,2)+"\\n");
+ },null,2)+"\n");
 });
 
 test("T29-R01 @semantic-risk: static confirm signal is not runtime or backend proof",async({page})=>{
