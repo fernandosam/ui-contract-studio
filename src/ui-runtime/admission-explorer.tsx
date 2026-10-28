@@ -1,6 +1,7 @@
 import {useMemo,useState} from "react";
 import official from "../../pi-catalog/contracts.json";
 import {SpecScreen} from "./spec-screen";
+import {experimentalFormScenarios,type ExperimentalFormScenario} from "../ui-catalog/admission-engine/form-scenarios";
 
 const stableExamples=import.meta.glob("../../pi-catalog/examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
 const experimentalExamples=import.meta.glob("../../pi-catalog/experimental-examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
@@ -11,6 +12,7 @@ export function AdmissionExplorer() {
  const [query,setQuery]=useState("");
  const [filter,setFilter]=useState("all");
  const [channel,setChannel]=useState<"stable"|"experimental">("stable");
+ const [formVariant,setFormVariant]=useState<"standard"|ExperimentalFormScenario>("standard");
  const [selected,setSelected]=useState<string>("TypedConfirmationDialog");
  const visible=useMemo(()=>entries.filter(entry=>{
   const status=entry.lifecycle==="experimental"?"experimental":"stable";
@@ -19,6 +21,8 @@ export function AdmissionExplorer() {
  const current=visible.find(entry=>entry.type===selected)??visible[0];
  const sample=current?examples["../../"+current.example]:undefined;
  const canPreview=Boolean(current && (current.lifecycle==='stable'||channel==="experimental"));
+ const activeSample=current?.type==="DeclarativeFormFlow" && channel==="experimental" && formVariant!=="standard"
+  ? experimentalFormScenarios[formVariant] : sample;
  return <section aria-label="Catálogo oficial de contratos Pi" className="space-y-4" data-testid="admission-catalog">
    <header className="rounded-xl border bg-card p-5">
     <h2 className="text-lg font-semibold">Catálogo oficial · maturidade dos contratos</h2>
@@ -70,12 +74,22 @@ export function AdmissionExplorer() {
          <option value="experimental">Experimental (opt-in)</option>
         </select>
        </label>
+       {current.type==="DeclarativeFormFlow" && channel==="experimental" && <label className="grid max-w-sm gap-1 text-xs font-medium">
+        Variação demonstrativa do formulário
+        <select aria-label="Variação do formulário" value={formVariant} onChange={event=>setFormVariant(event.target.value as "standard"|ExperimentalFormScenario)}
+         className="rounded-md border bg-background px-3 py-2 text-sm">
+         <option value="minimal">Contato — 1 campo</option>
+         <option value="standard">Cadastro — 3 campos</option>
+         <option value="corporate">Corporativo — 5 campos</option>
+        </select>
+        <span className="font-normal text-muted-foreground">Apenas prévias locais validadas no canal experimental. Não admite contratos nem executa requisições.</span>
+       </label>}
       </article>
       <section className="min-w-0 rounded-xl border bg-card p-4" aria-label="Prévia do contrato">
        <h4 className="mb-3 text-sm font-semibold">Prévia com contrato Zod real</h4>
        {!canPreview?<p role="status" className="rounded-md border border-amber-400/30 p-3 text-sm">
         Este componente ainda não passou pelo E2E completo. Selecione o canal experimental para testá-lo localmente.
-       </p>:sample?<SpecScreen key={current.type+"-"+channel} spec={sample} channel={channel}/>:
+       </p>:activeSample?<SpecScreen key={current.type+"-"+channel+"-"+formVariant} spec={activeSample} channel={channel}/>:
         <p className="text-sm text-muted-foreground">Exemplo não disponível.</p>}
       </section>
      </div>:<p className="rounded-xl border p-6 text-sm text-muted-foreground">Nenhum contrato corresponde à busca.</p>}
