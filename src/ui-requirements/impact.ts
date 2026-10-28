@@ -25,7 +25,7 @@ const allFamilies=Object.keys(families) as Family[];
 const sharedSources=[
  "src/ui-catalog/contracts.lock.json","pi-catalog/contracts.json",
  "src/ui-requirements/schema.ts","src/ui-requirements/traceability.ts",
- "src/ui-requirements/layout-quality.ts",
+ "src/ui-requirements/layout-quality.ts","src/ui-requirements/layout-repair.ts",
  "src/ui-catalog/catalog.ts","src/ui-catalog/extensions/catalog.ts",
 ];
 function normalized(path:string){

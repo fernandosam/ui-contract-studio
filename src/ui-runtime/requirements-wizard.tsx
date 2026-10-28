@@ -6,7 +6,7 @@ import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow
 import {planInterface} from "../ui-requirements/planner";
 import {generateRegistrationScreen} from "../ui-requirements/generator";
 import {traceRegistration} from "../ui-requirements/traceability";
-import {evaluateLayoutQuality} from "../ui-requirements/layout-quality";
+import {improveLayoutQuality} from "../ui-requirements/layout-repair";
 import {LayoutQualityPanel} from "./layout-quality-panel";
 import type {Answers,Answer,Question} from "../ui-requirements/schema";
 
@@ -42,9 +42,11 @@ export function RequirementsWizard(){
   const plan=planInterface(requirements);
   const recognized=inferFlow(intent)==="registration";
   const blocked=!recognized||plan.blockers.length>0;
-  const preview=showPreview&&!blocked?generateRegistrationScreen(requirements):null;
+  const generated=showPreview&&!blocked?generateRegistrationScreen(requirements):null;
+  const refinement=generated?improveLayoutQuality(requirements,generated):null;
+  const preview=generated?(refinement?.screen as NonNullable<typeof generated>):null;
   const trace=preview?traceRegistration(requirements,preview):null;
-  const quality=preview?evaluateLayoutQuality(requirements,preview):null;
+  const quality=refinement?.after??null;
   const localCandidate=preview?proposeFormFlow(requirements):null;
   const update=(id:string,value:Answer)=>{setProvided(previous=>({...previous,[id]:value}));setShowPreview(false);};
   const copy=(kind:"requirements"|"screen")=>{
@@ -98,7 +100,7 @@ export function RequirementsWizard(){
       <h2 className="text-lg font-semibold">Prévia do catálogo aprovado</h2>
       <p className="text-sm text-muted-foreground">Demonstração sem persistência. Validação funcional e acessibilidade ainda exigem execução de testes.</p>
       <SpecScreen spec={preview}/>
-      {quality&&<LayoutQualityPanel report={quality}/>}
+      {quality&&<LayoutQualityPanel report={quality} refinement={refinement??undefined}/>}
       {trace&&<details data-testid="requirements-traceability" className="rounded-md border p-3 text-sm">
         <summary className="cursor-pointer font-medium">Rastreabilidade dos requisitos (somente verificação estática)</summary>
         <p className="mt-2 text-muted-foreground">Estado da spec: {trace.structurallyValid?"estrutura válida":"estrutura inconsistente"}. Testes de execução: não comprovados por este relatório.</p>

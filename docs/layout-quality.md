@@ -34,3 +34,21 @@ Agents may prioritize corrections by the lowest dimension scores. **No minimum s
 ## Limitations
 
 This is not a measurement of actual geometry, overflow, pixel alignment, contrast, color, accessibility or breakpoint behavior. “Responsiveness” is **inferred** from the declarative tree and existing responsive CSS, not browser certification. Browser tests, E2E and human review remain separate evidence when needed. The evaluator never extends Zod types/props, admits components, authorizes actions or broadens Pi permissions. Even 100/100 does not certify production readiness.
+
+## Next step: bounded automatic repair loop
+
+`improveLayoutQuality(requirements, generated)` in `src/ui-requirements/layout-repair.ts` performs up to **12 safe in-memory edits** on a copy of a generated JSON screen. Both existing preview wizards and the existing audits call the same function. It adds no button, approval workflow, merge criterion or new Pi permission. It only improves layout composition; it never changes the functional requirements.
+
+**Allowed edits:** reorder only existing child IDs with identical membership, or restore **already-declared** `direction`, `gap`, `columns`, `maxWidth` and `centered` props to the reviewed semantic plan. It cannot add/remove nodes, change component types, introduce props, alter content/labels, events, actions, data sources, permissions or React code. Missing fields, contradictory content and unprofiled layouts are never invented.
+
+**Technical safety, not an approval stage:** a candidate replaces the in-memory preview only if the original JSON satisfies the admitted catalog/graph checks, the candidate passes **Pi Zod + graph invariants + independent requirements trace**, the total score improves and no dimension deteriorates. Otherwise the original stays intact. The result records `status: unchanged | improved | not-applicable`, before/after score, reason and exact edited paths. Processing is deterministic and idempotent.
+
+```sh
+npx tsx --test tests/layout-repair.integration.test.ts tests/layout-quality.integration.test.ts
+npm run requirements:audit
+npm run requirements:patterns:audit
+npm run typecheck
+npm run build
+```
+
+Safety rechecks are **not** a new product or PR approval. They ensure visual repairs cannot bypass existing contract constraints. A score of 100 still does not certify rendered layout, accessibility or E2E, which require independent evidence when relevant.
