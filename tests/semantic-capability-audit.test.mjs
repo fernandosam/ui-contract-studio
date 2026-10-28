@@ -6,7 +6,7 @@ import {tmpdir} from "node:os";
 import {
   inspectCodeEvidence, auditSemanticCapability, buildCapabilityGapAudit,
 } from "../scripts/lib/semantic-capability-audit.mjs";
-import {buildSemanticKnowledge} from "../scripts/lib/semantic-knowledge.mjs";
+import {buildSemanticKnowledge,selectAgentSemanticAdvice} from "../scripts/lib/semantic-knowledge.mjs";
 
 const good = {id:"local-action",description:"Action exists",state:"implemented-static-evidence",
   evidence:[{path:"src/components/ui/button.tsx",contains:"function Button"}],
@@ -101,4 +101,21 @@ test("T22 cross-references real knowledge records with source and keeps candidat
     x.availability==="not-implemented"&&x.source==="src/ui-catalog/knowledge/button.json"));
   assert.ok(button.implementationGaps.every(x=>x.availability!=="verified-static"));
   assert.match(audit.disclaimer,/not runtime certification or Pi admission/);
+});
+
+test("T22 Pi agent advice never promotes an unaudited documentary assertion",()=>{
+  const fake={
+    profiles:[{component:"Button",approvedPiType:true,
+      capabilities:[{id:"claimed",description:"Documented source",state:"implemented-static-evidence"}],
+      implementationGaps:[],integrationCandidates:[]}],
+    capabilityAudit:{entries:[{component:"Button",capability:"claimed",availability:"missing-evidence"}]},
+  };
+  const pending=selectAgentSemanticAdvice(fake,["Button"]);
+  assert.equal(pending.length,1);
+  assert.deepEqual(pending[0].verifiedStaticCapabilities,[]);
+  fake.capabilityAudit.entries[0].availability="verified-static";
+  assert.deepEqual(selectAgentSemanticAdvice(fake,["Button"])[0].verifiedStaticCapabilities,
+    [{id:"claimed",description:"Documented source"}]);
+  fake.profiles[0].approvedPiType=false;
+  assert.deepEqual(selectAgentSemanticAdvice(fake,["Button"]),[]);
 });
