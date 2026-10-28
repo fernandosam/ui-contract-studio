@@ -60,6 +60,7 @@ test("only protected PR workflow can enable auto-merge; no bypass or untrusted c
  assert.match(protectedJob,/ref: \$\{\{ github\.event\.pull_request\.base\.sha \}\}/);
  assert.doesNotMatch(protectedJob,/ref: \$\{\{ github\.event\.pull_request\.head\.sha \}\}/);
  assert.match(protectedJob,/pull-requests: write/);
+ assert.match(protectedJob,/! -f scripts\/ci-auto-merge-policy\.mjs/);
  assert.match(protectedJob,/gh api --paginate --slurp/);
  assert.match(protectedJob,/scripts\/ci-auto-merge-policy\.mjs/);
  assert.match(protectedJob,/PR_IS_DRAFT/);
