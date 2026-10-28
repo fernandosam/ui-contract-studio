@@ -50,11 +50,14 @@ export function auditSemanticContractConformance({
     if(schemas && pi && schemas.projectVersion!==pi.projectVersion) {
       errors.push(name+": generated Zod schema version differs from Pi manifest");
     }
+    if(approved && piAvailable && schemas && !schemas.types?.[name]) {
+      errors.push(name+": approved Pi type is missing from the generated Zod schemas");
+    }
     const start=entries.length;
     for(const cap of [...(profile.capabilities??[])].sort((a,b)=>sort(a.id,b.id))) {
       const implementation=audited.get(name+"#"+cap.id);
       const availability=implementation?.availability??"missing-record";
-      const declaredBindings=cap.contractBindings??[];
+      const declaredBindings=Array.isArray(cap.contractBindings)?cap.contractBindings:[];
       const bindings=[];
       for(const binding of declaredBindings) {
         const label=binding.kind+":"+binding.name;
@@ -88,7 +91,11 @@ export function auditSemanticContractConformance({
           action:"Run the derived browser/a11y tests; static evidence is not certification."});
       }
       if(availability==="missing-evidence" || availability==="missing-record") {
-        errors.push(name+"#"+cap.id+": missing or insufficient implementation evidence");
+        const issue=name+"#"+cap.id+": missing or insufficient implementation evidence";
+        if(profile.documentationReview==="reviewed-documentation" &&
+          cap.state==="implemented-static-evidence") errors.push(issue);
+        else diagnostics.push({component:name,capability:cap.id,
+          status:"documentation-review-required",action:issue});
       }
       entries.push({
         component:name,capability:cap.id,source:profile.curatedSource,
@@ -138,7 +145,7 @@ export function validateSemanticContractDecision(cap) {
     if(!Array.isArray(cap.contractBindings) ||
       !cap.contractBindings.length) errors.push("contractBindings must be a nonempty array");
     const seen=new Set();
-    for(const item of cap.contractBindings??[]) {
+    for(const item of Array.isArray(cap.contractBindings)?cap.contractBindings:[]) {
       if(!bindingKinds.has(item?.kind) ||
         typeof item.name!=="string" ||
         !/^[A-Za-z][A-Za-z0-9]*$/.test(item.name) ||
