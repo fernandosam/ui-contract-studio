@@ -342,7 +342,11 @@
       "capabilities": [
         "exclusive-selection-keyboard",
         "orientation-and-disabled"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "radio.keyboard-exclusive"
+      }
     },
     {
       "id": "form-native-and-required-review",

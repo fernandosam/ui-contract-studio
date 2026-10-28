@@ -268,7 +268,11 @@
         "pressed-and-default-pressed",
         "local-change-event",
         "disabled-interaction"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "toggle.pressed-roundtrip"
+      }
     },
     {
       "id": "variants-icon-matrix",

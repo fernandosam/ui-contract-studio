@@ -305,7 +305,11 @@
       "description": "Abrir/fechar com open e defaultOpen, confirmar precedência, ligação de estado e evento openChange sem operações remotas.",
       "capabilities": [
         "controlled-open-and-event"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dialog.local-state-event"
+      }
     },
     {
       "id": "trigger-title-content",

@@ -603,6 +603,134 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(menu.locator('[data-slot="dropdown-menu-separator"]')).toHaveCount(1);
     await expect(menu.getByRole("menuitem",{name:"Editar"})).toBeVisible();
   },
+
+  "toggle.pressed-roundtrip":async page=>{
+    const panel=await preview(page,"Toggle");
+    const toggle=panel.getByRole("button",{name:"Favorito"});
+    await expect(toggle).toHaveAttribute("aria-pressed","false");
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-pressed","true");
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-pressed","false");
+    await expectEmitted(page,"change",2);
+    await page.locator("#property-Toggle-disabled").selectOption("true");
+    await expect(toggle).toBeDisabled();
+    await expectEmitted(page,"change",2);
+  },
+  "tabs.change-event":async page=>{
+    const panel=await preview(page,"Tabs");
+    const details=panel.getByRole("tab",{name:"Detalhes"});
+    await details.click();
+    await expect(details).toHaveAttribute("aria-selected","true");
+    await expectEmitted(page,"change",1);
+    await details.click();
+    await expectEmitted(page,"change",1);
+  },
+  "select.change-event":async page=>{
+    const panel=await preview(page,"Select");
+    const trigger=panel.locator('[data-slot="select-trigger"]');
+    await trigger.click();
+    await page.locator('[data-slot="select-item"]').filter({hasText:"Tecnologia"}).click();
+    await expect(trigger).toContainText("Tecnologia");
+    await expectEmitted(page,"change",1);
+    await withinViewport(page,trigger);
+  },
+  "dialog.local-state-event":async page=>{
+    const panel=await preview(page,"Dialog");
+    const trigger=panel.getByRole("button",{name:"Abrir: Ativar agente"});
+    await trigger.click();
+    const dialog=page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expectEmitted(page,"openChange",1);
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expectEmitted(page,"openChange",2);
+  },
+  "popover.keyboard-dismiss":async page=>{
+    const panel=await preview(page,"Popover");
+    const trigger=panel.getByRole("button",{name:"Mostrar ajuda"});
+    await trigger.focus();
+    await page.keyboard.press("Enter");
+    const content=page.locator('[data-slot="popover-content"]');
+    await expect(content).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(content).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await expectEmitted(page,"openChange",2);
+  },
+  "radio.keyboard-exclusive":async page=>{
+    const panel=await preview(page,"Radio");
+    const medium=panel.getByRole("radio",{name:"Média"});
+    const high=panel.getByRole("radio",{name:"Alta"});
+    await expect(medium).toBeChecked();
+    await medium.focus();
+    await page.keyboard.press("ArrowDown");
+    await expect(high).toBeChecked();
+    await expect(medium).not.toBeChecked();
+    await expectEmitted(page,"change",1);
+    // This checks browser keyboard behavior, not a screen reader run.
+  },
+  "slider.multithumb-keyboard":async page=>{
+    const panel=await preview(page,"Slider");
+    await page.locator("#property-Slider-values").fill("[20,80]");
+    const sliders=panel.getByRole("slider");
+    await expect(sliders).toHaveCount(2);
+    await expect(sliders.first()).toHaveAttribute("aria-valuenow","20");
+    await sliders.first().focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(sliders.first()).toHaveAttribute("aria-valuenow","21");
+    await expect(sliders.last()).toHaveAttribute("aria-valuenow","80");
+    await expectEmitted(page,"change",1);
+  },
+  "switch.keyboard-activation":async page=>{
+    const panel=await preview(page,"Switch");
+    const control=panel.getByRole("switch",{name:"Ativar notificações"});
+    await expect(control).toBeChecked();
+    await control.focus();
+    await page.keyboard.press("Space");
+    await expect(control).not.toBeChecked();
+    await expectEmitted(page,"change",1);
+    await page.locator("#property-Switch-disabled").selectOption("true");
+    await expect(control).toBeDisabled();
+    await expectEmitted(page,"change",1);
+  },
+  "button.keyboard-press":async page=>{
+    const panel=await preview(page,"Button");
+    const button=panel.getByRole("button",{name:"Testar ação local"});
+    await button.focus();
+    await page.keyboard.press("Enter");
+    await expectEmitted(page,"press",1);
+    await page.locator("#property-Button-disabled").selectOption("true");
+    await expect(button).toBeDisabled();
+    await expectEmitted(page,"press",1);
+    // Focus and keyboard observations are partial accessibility evidence.
+  },
+  "accordion.keyboard-disclosure":async page=>{
+    const panel=await preview(page,"Accordion");
+    const item=panel.getByRole("button",{name:"O que é um catálogo fechado?"});
+    await item.focus();
+    await page.keyboard.press("Enter");
+    await expect(item).toHaveAttribute("aria-expanded","true");
+    await page.keyboard.press("Enter");
+    await expect(item).toHaveAttribute("aria-expanded","false");
+    // Expanded state is locally observable; there is no Pi event exposed here.
+  },
+  "rating.local-press":async page=>{
+    const panel=await preview(page,"Rating");
+    const last=panel.getByRole("button",{name:"5 de 5 estrelas"});
+    await last.click();
+    await expect(last).toHaveAttribute("aria-pressed","true");
+    await expect(panel).toContainText("Nota 5 de 5 estrelas");
+    await expectEmitted(page,"change",1);
+  },
+  "pagination.change-event":async page=>{
+    const panel=await preview(page,"Pagination");
+    await expect(panel.getByRole("button",{name:"Página 2"})).toHaveAttribute("aria-current","page");
+    await panel.getByRole("button",{name:"Próximo"}).click();
+    await expect(panel.getByRole("button",{name:"Página 3"})).toHaveAttribute("aria-current","page");
+    await expectEmitted(page,"change",1);
+    await withinViewport(page,panel.getByRole("button",{name:"Página 3"}));
+  },
 };
 for(const entry of registered) {
   if(!(entry.recipe in semanticTestRecipes)||!recipes[entry.recipe!])

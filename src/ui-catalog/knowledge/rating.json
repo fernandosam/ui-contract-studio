@@ -382,7 +382,11 @@
       "capabilities": [
         "whole-star-press",
         "binding-and-local-change"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "rating.local-press"
+      }
     },
     {
       "id": "rating-half-click",

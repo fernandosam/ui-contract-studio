@@ -303,7 +303,11 @@
       "capabilities": [
         "page-change-signal",
         "page-boundaries"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "pagination.change-event"
+      }
     },
     {
       "id": "jump-number-validation",

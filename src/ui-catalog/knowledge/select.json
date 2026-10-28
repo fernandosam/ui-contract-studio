@@ -493,7 +493,11 @@
       "description": "Alternar value/defaultValue/binding e confirmar evento change sem permissão ou chamada remota implícita.",
       "capabilities": [
         "value-defaultvalue-and-change"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "select.change-event"
+      }
     },
     {
       "id": "option-text-and-long-labels",

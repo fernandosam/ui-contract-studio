@@ -14,11 +14,11 @@ const one=record=>buildSemanticTestAutomation([record]);
 test("registered semantic tests are discovered, traceable and never marked executed",()=>{
   const audit=buildSemanticTestAutomation(fixtures);
   assert.deepEqual(audit.errors,[]);
-  assert.equal(audit.summary.registered,40);
+  assert.equal(audit.summary.registered,52);
   assert.ok(audit.summary.pending>0);
   assert.ok(audit.summary.blocked>0);
   assert.equal(audit.summary.invalid,0);
-  assert.equal(audit.summary.partial,39);
+  assert.equal(audit.summary.partial,51);
   for(const entry of audit.entries.filter(x=>x.status==="registered")){
     assert.equal(entry.execution,"not-run");
     assert.ok(entry.source.startsWith("src/ui-catalog/knowledge/"));
@@ -117,12 +117,12 @@ test("pilot recipes cover all five prioritized primitives without unimplemented 
 test("seven next-priority families register only reviewed, non-candidate recipes",()=>{
   const audit=buildSemanticTestAutomation(fixtures);
   const families=["Switch","Radio","Textarea","Slider","Popover","Tooltip","DropdownMenu"];
-  const expected={"Switch":3,"Radio":4,"Textarea":5,"Slider":3,"Popover":3,"Tooltip":2,"DropdownMenu":5};
+  const expected={"Switch":4,"Radio":5,"Textarea":5,"Slider":4,"Popover":4,"Tooltip":2,"DropdownMenu":5};
   assert.deepEqual(audit.errors,[]);
   assert.equal(audit.summary.total,315);
-  assert.equal(audit.summary.registered,40);
-  assert.equal(audit.summary.partial,39);
-  assert.equal(audit.summary.pending,172);
+  assert.equal(audit.summary.registered,52);
+  assert.equal(audit.summary.partial,51);
+  assert.equal(audit.summary.pending,160);
   assert.equal(audit.summary.blocked,103);
   assert.equal(audit.summary.invalid,0);
   for(const family of families){

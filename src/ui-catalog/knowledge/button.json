@@ -408,7 +408,11 @@
       "capabilities": [
         "focus-and-keyboard-runtime",
         "loading-and-disabled"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "button.keyboard-press"
+      }
     },
     {
       "id": "touch-responsive",

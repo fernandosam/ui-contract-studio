@@ -5,6 +5,19 @@ import {resolve} from "node:path";
 // A new semantic case opts in by naming an existing recipe. The remaining
 // prose requirements are visible as pending; they are never silently "passed".
 export const semanticTestRecipes=Object.freeze({
+  "toggle.pressed-roundtrip":Object.freeze({component:"Toggle",kind:"integration",capabilities:["pressed-and-default-pressed","local-change-event","disabled-interaction"],coverage:"partial"}),
+  "tabs.change-event":Object.freeze({component:"Tabs",kind:"integration",capabilities:["local-change-notification"],coverage:"partial"}),
+  "select.change-event":Object.freeze({component:"Select",kind:"integration",capabilities:["value-defaultvalue-and-change"],coverage:"partial"}),
+  "dialog.local-state-event":Object.freeze({component:"Dialog",kind:"integration",capabilities:["controlled-open-and-event"],coverage:"partial"}),
+  "popover.keyboard-dismiss":Object.freeze({component:"Popover",kind:"manual-a11y",capabilities:["focus-keyboard-dismiss"],coverage:"partial"}),
+  "radio.keyboard-exclusive":Object.freeze({component:"Radio",kind:"manual-a11y",capabilities:["exclusive-selection-keyboard","orientation-and-disabled"],coverage:"partial"}),
+  "slider.multithumb-keyboard":Object.freeze({component:"Slider",kind:"manual-a11y",capabilities:["keyboard-a11y-multithumb"],coverage:"partial"}),
+  "switch.keyboard-activation":Object.freeze({component:"Switch",kind:"manual-a11y",capabilities:["keyboard-a11y-and-touch","label-id-association"],coverage:"partial"}),
+  "button.keyboard-press":Object.freeze({component:"Button",kind:"manual-a11y",capabilities:["focus-and-keyboard-runtime","loading-and-disabled"],coverage:"partial"}),
+  "accordion.keyboard-disclosure":Object.freeze({component:"Accordion",kind:"manual-a11y",capabilities:["keyboard-and-aria","disabled-items"],coverage:"partial"}),
+  "rating.local-press":Object.freeze({component:"Rating",kind:"integration",capabilities:["whole-star-press","binding-and-local-change"],coverage:"partial"}),
+  "pagination.change-event":Object.freeze({component:"Pagination",kind:"integration",capabilities:["page-change-signal","page-boundaries"],coverage:"partial"}),
+
   "switch.local-checked":Object.freeze({component:"Switch",kind:"integration",capabilities:["local-checked-and-default","local-change-event"],coverage:"partial"}),
   "switch.label-help":Object.freeze({component:"Switch",kind:"integration",capabilities:["name-disabled-and-description","label-id-association"],coverage:"partial"}),
   "switch.size-states":Object.freeze({component:"Switch",kind:"visual",capabilities:["pi-size-sm-default","baseui-root-thumb"],coverage:"partial"}),
@@ -156,6 +169,26 @@ export function buildSemanticTestAutomation(profiles) {
     }
   }
   entries.sort((a,b)=>a.component.localeCompare(b.component)||a.id.localeCompare(b.id));
+  // Pending cases receive an actionable feasibility classification, not a
+  // runtime certification. Reuses the single existing semantic report.
+  const pendingTracks={integration:0,visual:0,manualA11y:0,other:0,runtimeEvidenceNeeded:0};
+  for(const item of entries.filter(x=>x.status==="pending-recipe")){
+    const track=item.kind==="integration"?"integration":
+      item.kind==="visual"?"visual":
+      item.kind==="manual-a11y"?"manualA11y":"other";
+    const runtimeEvidenceNeeded=item.capabilityStates.some(x=>x.state==="runtime-review-required");
+    pendingTracks[track]++;
+    if(runtimeEvidenceNeeded)pendingTracks.runtimeEvidenceNeeded++;
+    item.review={
+      track,runtimeEvidenceNeeded,
+      evidence:"documentation-and-static-code-only",
+      requiredNextStep:track==="manualA11y"?"manual-accessibility-review":
+        track==="visual"?"visual-and-viewport-review":
+        runtimeEvidenceNeeded?"runtime-evidence-and-reviewed-playwright-recipe":
+          "reviewed-playwright-recipe",
+      certification:"not-granted",
+    };
+  }
   return {
     schemaVersion:1,
     disclaimer:"Registration is not execution evidence, full a11y verification, Zod support or Pi admission.",
@@ -166,6 +199,7 @@ export function buildSemanticTestAutomation(profiles) {
       pending:entries.filter(x=>x.status==="pending-recipe").length,
       blocked:entries.filter(x=>x.status==="blocked-not-implemented").length,
       invalid:entries.filter(x=>x.status==="invalid").length,
+      pendingTracks,
     },
     entries,errors,
   };
