@@ -26,6 +26,8 @@ export function autoMergeEligibility(pages){
     return {eligible:false,reason:"Missing paginated PR changes"};
   const rows=pages.flatMap(page=>Array.isArray(page)?page:[null]);
   if(!rows.length)return {eligible:false,reason:"Empty PR diff"};
+  // GitHub caps the PR-files API at 3,000 paths. Do not trust a truncated audit.
+  if(rows.length>=3000)return {eligible:false,reason:"PR diff may exceed GitHub file-list limit"};
   const files=[];
   for(const row of rows){
     if(!row||typeof row.filename!=="string"||
