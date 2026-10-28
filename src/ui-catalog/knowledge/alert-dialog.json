@@ -86,6 +86,10 @@
         {
           "path": "src/ui-catalog/extensions/catalog.ts",
           "contains": "confirmVariant:z.enum([\"default\",\"destructive\"])"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/alert-dialog.tsx",
+          "contains": "variant={props.confirmVariant??\"default\"}"
         }
       ],
       "testRequirements": [
