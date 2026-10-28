@@ -127,6 +127,7 @@ jobs:
             tests/e2e/typed-confirmation-pilot.spec.ts \
             tests/e2e/admission-candidates.spec.ts \
             tests/e2e/admission-catalog.spec.ts \
+            tests/e2e/semantic-risk-t29.spec.ts \
             tests/e2e/requirements-wizard.spec.ts \
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
@@ -148,6 +149,7 @@ jobs:
           path: |
             reports/composition-validation/
             reports/requirements-browser/
+            reports/semantic-e2e/
             test-results/
           if-no-files-found: warn
           retention-days: 14

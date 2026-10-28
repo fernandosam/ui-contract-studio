@@ -35,3 +35,5 @@ Capturas só comprovam o que foi renderizado e observado. Diferenças de pixels 
 Registre escopo, arquivos alterados, testes executados e limitações. Mudanças no schema requerem versão/lock, origem, exemplos e revisão independente; alterações visuais exigem validação proporcional ao risco. Não declare build, E2E, avaliação real do Pi ou revisão humana como concluídos sem evidência.
 
 Os workflows reutilizam `.github/actions/setup-deps` (Node 22, cache npm e `npm ci`) e `.github/actions/setup-chromium` (reaproveita navegador instalado e baixa Chromium apenas quando necessário). O workflow pago de [avaliação Pi](../.github/workflows/pi-evaluation.yml) é manual e limitado à `main`; nenhuma chamada paga faz parte da CI de PR.
+
+Os cenários E2E orientados por riscos semânticos (T29) estão em [riscos E2E semânticos](semantic-e2e-risks-t29.pt-BR.md). Eles usam o job de navegador existente para PRs e o E2E manual na main; os relatórios são consultivos, não certificações Pi automáticas.

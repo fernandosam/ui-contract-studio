@@ -112,8 +112,8 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
         <p className="text-xs text-muted-foreground">
           {result.targetApproved?"O alvo já é um contrato Pi aprovado.":
             result.selection.kind==="declarative-composition"
-              ?"As dependências são contratos existentes; a composição proposta não é novo tipo Pi."
-              :"Nenhum novo contrato Pi é autorizado para esta finalidade."}
+              ?"As dependências são contratos existentes; a composição proposta não é novo tipo Pi. A recomendação não concede autorização Pi; consulte o catálogo oficial e sua certificação independente."
+              :"Nenhum novo contrato Pi é autorizado para esta finalidade. A recomendação não concede autorização Pi; consulte o catálogo oficial e sua certificação independente."}
         </p>
       </div>
       <div className="space-y-2 rounded-md border p-3" data-testid="recommendation-criteria">

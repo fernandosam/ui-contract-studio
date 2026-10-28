@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "policy": "Risk-driven Playwright assertions are advisory evidence. They never grant Pi contracts, actions or stable certification.",
+  "cases": [
+    {
+      "id": "T29-R01",
+      "priority": "P1",
+      "scenarioIds": [
+        "alert-simple"
+      ],
+      "source": "src/ui-catalog/knowledge/alert-dialog.json",
+      "capabilities": [
+        "confirm-signal",
+        "focus-and-keyboard"
+      ],
+      "risk": "Static confirm signal may be mistaken for remote permission or verified keyboard behavior."
+    },
+    {
+      "id": "T29-R02",
+      "priority": "P0",
+      "scenarioIds": [
+        "alert-typed"
+      ],
+      "source": "src/ui-catalog/knowledge/alert-dialog.json",
+      "capabilities": [
+        "typed-confirmation"
+      ],
+      "risk": "A documented but unimplemented base capability may be advertised as an approved API."
+    },
+    {
+      "id": "T29-R03",
+      "priority": "P0",
+      "scenarioIds": [
+        "alert-checkbox"
+      ],
+      "source": "src/ui-catalog/knowledge/alert-dialog.json",
+      "capabilities": [
+        "checkbox-gating"
+      ],
+      "risk": "An optional confirmation gate may be mistaken for a primitive prop or stable API."
+    },
+    {
+      "id": "T29-R04",
+      "priority": "P0",
+      "scenarioIds": [
+        "alert-remote"
+      ],
+      "source": "src/ui-catalog/recommendations/scenarios.json",
+      "capabilities": [
+        "confirm-signal"
+      ],
+      "risk": "A local confirm event may be treated as authority to delete remote data."
+    },
+    {
+      "id": "T29-R05",
+      "priority": "P0",
+      "scenarioIds": [
+        "alert-typed",
+        "alert-checkbox"
+      ],
+      "source": "src/ui-catalog/recommendations/scenarios.json",
+      "capabilities": [],
+      "risk": "Unknown or ambiguous agent requirements may infer a new implementation or permission."
+    },
+    {
+      "id": "T29-R06",
+      "priority": "P1",
+      "scenarioIds": [
+        "button-copy"
+      ],
+      "source": "scripts/composition-codegen/recipes/button-copy.component.tsx.txt",
+      "capabilities": [],
+      "risk": "A review-only React/Zod proposal may be confused with a Pi admission."
+    },
+    {
+      "id": "T29-R07",
+      "priority": "P0",
+      "scenarioIds": [
+        "alert-typed"
+      ],
+      "source": "src/ui-catalog/admission-engine/entries.json",
+      "capabilities": [
+        "typed-confirmation"
+      ],
+      "risk": "Advisory recommendations must never change Pi lifecycle; stable status requires an independent source-bound certificate."
+    },
+    {
+      "id": "T29-R08",
+      "priority": "P0",
+      "scenarioIds": [
+        "alert-typed"
+      ],
+      "source": "src/ui-catalog/knowledge/alert-dialog.json",
+      "capabilities": [
+        "typed-confirmation"
+      ],
+      "risk": "Demo gate could enable a destructive confirmation early or silently call a backend."
+    },
+    {
+      "id": "T29-R09",
+      "priority": "P1",
+      "scenarioIds": [
+        "accordion-faq",
+        "accordion-members"
+      ],
+      "source": "src/ui-catalog/recommendations/scenarios.json",
+      "capabilities": [],
+      "risk": "Primitive reuse and React composition candidate may be conflated into an approved target."
+    }
+  ]
+}
