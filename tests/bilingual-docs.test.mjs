@@ -18,7 +18,7 @@ test("every Markdown guide has an English original and a Portuguese copy with a 
   ]
   const canonical = files.filter(name => !name.endsWith(".pt-BR.md"))
   const translations = files.filter(name => name.endsWith(".pt-BR.md"))
-  assert.equal(canonical.length, 46, "T25 adds a bilingual semantic enrichment ranking guide pair")
+  assert.equal(canonical.length, 49, "T23, T25, T29 and T30 add four distinct bilingual guide pairs")
   assert.equal(translations.length, canonical.length)
   for(const english of canonical) {
     const portuguese = english.replace(/\.md$/, ".pt-BR.md")

@@ -53,3 +53,49 @@
 5. Document what truly ran and any limitations in the PR. Neither documentation approval nor static testing replaces browser E2E or stable admission. Do not manually edit generated reports or Pi contracts to make checks pass.
 
 **T01 done:** AlertDialog compared against original sources and local code; checklist committed and linked from documentation index; `semantic:check` and `semantic:report` run with real results; no Zod schema or Pi permission modifications.
+
+## T26 — One auditable semantic coverage report (2026-10-27)
+
+`npm run semantic:check` validates the curated sources and literal `src/` code needles without writing a report. `npm run semantic:report` reruns validation and writes the **same existing** derived file, `reports/composition-analysis/semantic-knowledge.json` (gitignored); it does **not** generate a second coverage report. The `offline-policy` CI job runs both commands and `tests/semantic-coverage-t26.test.mjs` is part of `npm run test:offline`.
+
+Inspect `semanticCoverage` in the generated JSON:
+
+- `sourcePaths` identifies the versioned ReUI baseline, family guidance, overlays and `profiles[].capabilities[].evidence[]` holding literal `path`/`contains` evidence. `reuiExampleProfiles[]` maps inventory example IDs to real source paths.
+- `totals` distinguishes families and components with curated overlays from guidance-only profiles, and separates **static-code-evidenced**, **documented-not-implemented**, and **runtime-review-required** capabilities. `implementationGaps` counts only not-implemented capabilities; `insufficientRuntimeEvidence` counts runtime-review-required capabilities. Neither is an authorization metric.
+- `families[]` is indexed by **real** ReUI inventory/guidance families and provides sorted `inventoryExampleIds`, exact counts and overlay paths; missing overlays are **documentation gaps**, not proof of missing implementation. Separate overlays such as AlertDialog do not invent ReUI inventory families.
+- `components[]` includes curated and guidance-only profiles. Capability ID arrays resolve back to `profiles[].capabilities[]` for full descriptions, implementation states and exact checked code needles. `piContractListed` only reflects the existing lock; `authorization: not-granted-by-semantic-coverage` never grants an API, permission, or admission.
+
+**Reconciliation baseline (T19, 2026-10-27):** 31 ReUI families, 559 versioned examples, 39 curated overlays (31 families plus eight distinct additional components), 230 static-code-evidenced capabilities, 126 documented-not-implemented and 88 awaiting runtime review. These figures are recomputed, not hard-coded, by T26. The new test verifies every family/example count, component/overlay relation, capability state and literal source evidence against the files, plus CLI regeneration and negative coverage cases. Passing static checks cannot establish E2E behavior, accessibility certification, Pi admission, or permission.
+
+## T27 — Source freshness diagnostics (2026-10-27)
+
+T27 extends **the same** semantic-knowledge pipeline and report. Run `npm run semantic:check` for textual validation and actionable stderr diagnostics; `npm run semantic:report` validates again and writes `reports/composition-analysis/semantic-knowledge.json` with `semanticFreshness.summary`, `semanticFreshness.components[]` and `semanticFreshness.diagnostics[]`. Inspect one component with `npm run semantic:context -- --component=AlertDialog` (includes `codeFreshness` and diagnostics). No separate freshness report, contract snapshot or Pi permission is generated.
+
+Only `implemented-static-evidence` capabilities with literal `src/` evidence participate. Diagnostics link the curated overlay, component, capability ID, source path and exact needle, `source.reviewedOn`, last Git change and the required next action:
+
+- `review-required` (non-blocking): tracked source changed **after** the review day, or the working tree has local edits, even when the asserted code needle still exists. Review the affected behavior and derived tests manually before changing the reviewed date.
+- `missing-evidence` (blocking): source is missing/unreadable or the exact code needle disappeared; the existing `validateSemanticOverlay` gate still fails `semantic:check` and prevents publishing a supposedly valid report. Restore evidence or explicitly revise the capability classification; never update it automatically.
+- `history-unavailable` (non-blocking uncertainty): literal evidence is still present, but Git history is missing (for example, an unversioned checkout). Do not interpret this as `current`; rerun against a checkout with history.
+- `current`: literal evidence exists and no later tracked source change is detected; **not** certification of runtime behavior.
+
+`source.reviewedOn` is an **official-documentation review date**, reused as a conservative day-resolution proxy for code freshness; it is **not** proof of a code review. Same-day edits cannot be ordered from a date alone; the audit does not claim they are validated. File-level change detection can produce false positives for unrelated edits and cannot prove runtime semantics. Review warnings are advisory and do not fail the command or modify state. Missing literal evidence remains a hard failure under the existing validator. `documented-not-implemented` and `runtime-review-required` have intentionally empty evidence and are **not** counted as missing files.
+
+The automated regression suite `node --test tests/semantic-freshness-t27.test.mjs` exercises later committed changes with unchanged needles, deleted files/needles, valid historical evidence, uncommitted changes and unavailable history. Run `npm run semantic:check && npm run semantic:report && npm run test:offline` in a full checkout; the CI `offline-policy` job repeats this validation. Report actual command/check outcomes in the PR; never mistake the generated artifact or a static pass for E2E, contract admission or Pi authorization.
+
+## T28 — CI semantic-quality gate and retained evidence (2026-10-27)
+
+The existing [quality workflow](../.github/workflows/quality.yml) runs semantic checks in its **Source, docs and offline tests** job on pull requests and pushes to `main`. It uses the same T26/T27 commands and **does not create a separate workflow**:
+
+```bash
+npm run semantic:check
+npm run semantic:report
+node scripts/semantic-ci-summary.mjs
+npm run docs:check
+npm run test:offline
+```
+
+`semantic:check` remains the blocking gate for incomplete records, missing code files and missing literal evidence. `semantic:report` runs **even when the check fails**, preserving the existing `reports/composition-analysis/semantic-knowledge.json` output path. A failed report is explicitly tagged `validation: { status: "failed", errors: [...] }` and still exits nonzero; **it is a diagnostic artifact, not a validated semantic report**. A successful report retains the original format. `review-required` (code changed after the review date) and `history-unavailable` are advisory and do not grant implementation status or authorization.
+
+Every run uploads the **`semantic-knowledge-report` artifact** (the JSON plus `semantic-check.log` and `semantic-report.log`) with 14-day retention and adds a GitHub job summary listing counts, blocking errors and actionable overlay → component/capability → code evidence diagnostics. Both commands use Bash `pipefail` so logging cannot mask real failures. The existing docs/offline tests, source checks, build, admission and manual E2E gates remain independent.
+
+To reproduce the regression cases run `node --test tests/semantic-ci-t28.test.mjs`. It exercises **valid**, **incomplete**, **changed-but-present** and **missing-evidence** fixtures against the actual analyzer CLI; `npm run test:offline` includes these cases. Use a full-history checkout (`fetch-depth: 0`) when auditing timestamps. Do not update review dates, schemas, Pi permissions or admission states merely to silence a warning.
