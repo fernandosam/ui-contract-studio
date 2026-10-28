@@ -347,7 +347,7 @@ function ComponentExplorer({kind}:{kind:Kind}){
 export function PrimitiveExplorer(){return <ComponentExplorer kind="primitive"/>;}
 export function CompositeExplorer(){
  const [library,setLibrary]=useState<'approved'|'reui'|'candidates'>(()=>
-  new URLSearchParams(window.location.search).has('reui')?'reui':'approved');
+  new URLSearchParams(window.location.search).get('screen')==='catalogo-pi'?'candidates':new URLSearchParams(window.location.search).has('reui')?'reui':'approved');
  return <section className="min-w-0 space-y-4" aria-label="Explorador de componentes compostos">
   <div role="tablist" aria-label="Biblioteca de compostos" className="inline-flex max-w-full flex-wrap gap-1 rounded-md border bg-muted/25 p-1">
    <button type="button" role="tab" aria-selected={library==='approved'}
