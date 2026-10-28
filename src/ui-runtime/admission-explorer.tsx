@@ -8,26 +8,26 @@ const experimentalExamples=import.meta.glob("../../pi-catalog/experimental-examp
 const examples={...stableExamples,...experimentalExamples};
 const entries=official.components;
 
-export function AdmissionExplorer() {
+export function AdmissionExplorer({compositionOnly=false}:{compositionOnly?:boolean}) {
  const [query,setQuery]=useState("");
  const [filter,setFilter]=useState("all");
- const [channel,setChannel]=useState<"stable"|"experimental">("stable");
+ const [channel,setChannel]=useState<"stable"|"experimental">(compositionOnly?"experimental":"stable");
  const [formVariant,setFormVariant]=useState<"standard"|ExperimentalFormScenario>("standard");
  const [selected,setSelected]=useState<string>("TypedConfirmationDialog");
  const visible=useMemo(()=>entries.filter(entry=>{
   const status=entry.lifecycle==="experimental"?"experimental":"stable";
-  return (filter==="all"||status===filter)&&entry.type.toLowerCase().includes(query.toLowerCase().trim());
- }),[query,filter]);
+  return (!compositionOnly||entry.tier==="composition")&&(filter==="all"||status===filter)&&entry.type.toLowerCase().includes(query.toLowerCase().trim());
+ }),[query,filter,compositionOnly]);
  const current=visible.find(entry=>entry.type===selected)??visible[0];
  const sample=current?examples["../../"+current.example]:undefined;
  const canPreview=Boolean(current && (current.lifecycle==='stable'||channel==="experimental"));
  const activeSample=current?.type==="DeclarativeFormFlow" && channel==="experimental" && formVariant!=="standard"
   ? experimentalFormScenarios[formVariant] : sample;
- return <section aria-label="Catálogo oficial de contratos Pi" className="space-y-4" data-testid="admission-catalog">
+ return <section aria-label={compositionOnly?"Composições experimentais":"Catálogo oficial de contratos Pi"} className="space-y-4" data-testid="admission-catalog">
    <header className="rounded-xl border bg-card p-5">
-    <h2 className="text-lg font-semibold">Catálogo oficial · maturidade dos contratos</h2>
+    <h2 className="text-lg font-semibold">{compositionOnly?"Composições candidatas":"Catálogo oficial · maturidade dos contratos"}</h2>
     <p className="mt-1 text-sm text-muted-foreground">
-     {entries.filter(entry=>entry.tier!=="composition").length} contratos base/extensão e {entries.filter(entry=>entry.tier==="composition").length} composições adicionais no mesmo catálogo.
+     {compositionOnly?`${entries.filter(entry=>entry.tier==="composition").length} composições candidatas com contratos e evidências verificáveis.`:`${entries.filter(entry=>entry.tier!=="composition").length} contratos base/extensão e ${entries.filter(entry=>entry.tier==="composition").length} composições adicionais no mesmo catálogo.`}
      Componentes pendentes exigem habilitação explícita para testes locais.
     </p>
    </header>
@@ -40,7 +40,7 @@ export function AdmissionExplorer() {
      <label className="grid gap-1 text-xs font-medium">Maturidade
       <select value={filter} onChange={event=>setFilter(event.target.value)}
        className="rounded-md border bg-background px-3 py-2 text-sm">
-       <option value="all">Todos ({entries.length})</option>
+       <option value="all">Todos ({compositionOnly?entries.filter(entry=>entry.tier==="composition").length:entries.length})</option>
        <option value="stable">Estáveis (com ou sem E2E registrado)</option>
        <option value="experimental">Experimentais (E2E pendente)</option>
       </select>
