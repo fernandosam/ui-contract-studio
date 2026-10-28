@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve, sep } from "node:path";
+import { rankSemanticEnrichment } from "./semantic-priority.mjs";
 
 const readJson = file => JSON.parse(readFileSync(file, "utf8"));
 const uniq = values => [...new Set(values)].sort((a,b) => a.localeCompare(b));
@@ -179,6 +180,7 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
         coveredExamples:associatedExamples.length},
       profiles:records,
       reuiExampleProfiles:associatedExamples,
+      enrichmentPriorities:rankSemanticEnrichment(records,associatedExamples),
     },
     errors:uniq(errors),
   };
