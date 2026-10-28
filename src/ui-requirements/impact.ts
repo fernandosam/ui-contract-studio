@@ -69,11 +69,11 @@ export function measureStaticCoverage(registrationCases:readonly {id:string;answ
  const samples:{id:string;family:string;valid:boolean;fingerprint:string;requirements:number;runtimeEvidence:"not-executed"}[]=[];
  const approved=new Set(stableLock.components.filter(c=>c.status==="approved").map(c=>c.name));
  const sha=(x:unknown)=>createHash("sha256").update(JSON.stringify(x)).digest("hex");
- function capture(id:string,family:string,requirements:number,screen:{root:string;elements:Record<string,{type:string}>},valid:boolean){
+ function capture(id:string,family:string,requirements:number,screen:{root:string;elements:Record<string,{type:string}>},valid:boolean,semanticChoice:string|null=null){
   eligible++;
   if(valid)firstPassValid++;
   unapprovedComponents+=Object.values(screen.elements).filter(x=>!approved.has(x.type)).length;
-  samples.push({id,family,valid,fingerprint:sha({family,screen,lock:stableLock.schemaVersion}),requirements,runtimeEvidence:"not-executed"});
+  samples.push({id,family,valid,fingerprint:sha({family,screen,semanticChoice,lock:stableLock.schemaVersion}),requirements,runtimeEvidence:"not-executed"});
  }
  for(const scenario of registrationCases){
   const req=resolveAnswers(scenario.answers);
@@ -87,7 +87,7 @@ export function measureStaticCoverage(registrationCases:readonly {id:string;answ
   const screen=generateRegistrationScreen(req);
   const trace=traceRegistration(req,screen);
   capture(scenario.id,"registration",trace.requirements.length,screen,
-   catalog.validate(screen).success&&trace.structurallyValid);
+   catalog.validate(screen).success&&trace.structurallyValid,String(req.answers.layout));
  }
  for(const [flow,answers] of patternCases){
   const req=resolvePattern(flow,answers);
