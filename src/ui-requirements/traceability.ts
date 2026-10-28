@@ -224,7 +224,7 @@ export function tracePattern(spec:PatternRequirements,generated:unknown):Traceab
     nodes.graph_bar?.type==="BarGraph"&&nodes.graph_line?.type==="LineGraph":
     root.props.direction==="vertical"&&root.props.gap==="lg"&&
     nodes["overview-title"]?.type==="Heading"&&
-    nodes["overview-title"].props.text===rule.heading&&
+    nodes["overview-title"].props.text===patternLayouts.flows.dashboard.kpis.heading&&
     nodes["overview-title"].props.level==="h2")&&
    (answer.showFootnote===true?nodes.footnote?.type==="Text":!nodes.footnote);
   emit("layout",[rule.root,rule.grid,...expected],layoutValid,
