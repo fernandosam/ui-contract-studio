@@ -62,7 +62,7 @@ test("Portuguese documentation keeps internal links in pt-BR and the English swi
     ...readdirSync(".").filter(name => name.endsWith(".pt-BR.md")),
     ...["docs", ".pi", "sandbox"].flatMap(allMarkdown).filter(name => name.endsWith(".pt-BR.md")),
   ]
-  assert.equal(translated.length, 46)
+  assert.equal(translated.length, 49)
   for (const path of translated) {
     assert.deepEqual(checkLinks(process.cwd(), path), [], "Incorrect or broken link: " + path)
   }
