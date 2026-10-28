@@ -99,6 +99,7 @@ test.afterEach(async({page},info)=>{
  const payload={
   schemaVersion:1,caseId:item.id,flow:item.flow,project,
   sourceRevision:process.env.GITHUB_SHA??"",
+  runId:process.env.GITHUB_RUN_ID??"",
   specFingerprint:expected.specFingerprint,checkedRequirementIds:item.checked,
   status:info.status,expectedStatus:info.expectedStatus,retry:info.retry,
   screenshotStatus,errors:info.errors.map(err=>err.message??"unknown")

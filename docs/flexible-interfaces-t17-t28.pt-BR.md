@@ -115,7 +115,7 @@ Cada fluxo declara pelo menos três decisões de interface: o login pode mostrar
 
 ## T34 — Evidências de navegador por requisito, vinculadas à spec e ao commit (2026-10-27)
 
-O job de revisão em navegador executa oito variantes representativas em desktop e mobile, verificando campos, rótulos, elementos opcionais e linhas visíveis. Cada execução Playwright real gera PNG e JSON com SHA de origem, impressão digital da spec Pi gerada, caso, IDs dos requisitos efetivamente verificados e projeto do navegador. O comando \`npm run requirements:browser:report\` rejeita evidências ausentes, incorretas ou obsoletas antes de gravar \`reports/requirements-browser/summary.json\` no artefato do CI.
+O job de revisão em navegador executa oito variantes representativas em desktop e mobile, verificando campos, rótulos, elementos opcionais e linhas visíveis. Cada execução Playwright real gera PNG e JSON com SHA de origem, ID da execução GitHub, impressão digital da spec Pi gerada, caso, IDs dos requisitos efetivamente verificados e projeto do navegador. O comando \`npm run requirements:browser:report\` rejeita evidências ausentes, incorretas ou obsoletas antes de gravar \`reports/requirements-browser/summary.json\` no artefato do CI.
 
 Somente as **afirmações específicas de renderização** recebem estado \`tested-render\`; os demais requisitos continuam \`covered-static\` ou \`runtime-review-required\`. Isso não certifica filtro funcional, autenticação, CRUD, envio de formulário, leitor de tela ou fidelidade visual. SHA/spec divergente, execução reprovada/repetida, captura ausente, requisito não declarado e navegador incorreto bloqueiam o relatório. Fixtures sintéticas de teste da verificação não são provas de navegador.
 

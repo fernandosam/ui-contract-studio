@@ -109,7 +109,7 @@ Each pattern now declares three bounded UI decisions: login optionally shows acc
 
 ## T34 — Per-requirement browser evidence, bound to the spec and commit (2026-10-27)
 
-The PR browser job independently runs eight representative pattern variants on both desktop and mobile, checking actual rendered fields, labels, optional elements and visible rows. Each real Playwright attempt emits a PNG and JSON bound to the source SHA, exact generated Pi-spec fingerprint, test case, asserted requirement IDs and browser project. The fail-closed report command \`npm run requirements:browser:report\` verifies all 16 records before writing \`reports/requirements-browser/summary.json\` to the CI artifact.
+The PR browser job independently runs eight representative pattern variants on both desktop and mobile, checking actual rendered fields, labels, optional elements and visible rows. Each real Playwright attempt emits a PNG and JSON bound to the source SHA, GitHub workflow run ID, exact generated Pi-spec fingerprint, test case, asserted requirement IDs and browser project. The fail-closed report command \`npm run requirements:browser:report\` verifies all 16 records before writing \`reports/requirements-browser/summary.json\` to the CI artifact.
 
 The report marks only those **specific render assertions** as \`tested-render\`; other requirements retain \`covered-static\` or \`runtime-review-required\`. This is not automatic proof of functional filtering, authentication, CRUD, form submission, screen-reader compatibility, or visual fidelity. A report from another SHA/spec, a failed/retried test, missing screenshot, absent requirement or mismatched browser project is rejected. Synthetic verifier unit tests do not themselves count as browser evidence.
 

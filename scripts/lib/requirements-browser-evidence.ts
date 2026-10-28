@@ -20,13 +20,14 @@ export function specFingerprint(item:PatternEvidenceCase){
  return hash(JSON.stringify({family:item.flow,screen,lock:lock.schemaVersion}));
 }
 function fail(reason:string):never{throw Error("Requirement browser evidence: "+reason);}
-export function verifyPatternBrowserEvidence(root:string,revision:string){
+export function verifyPatternBrowserEvidence(root:string,revision:string,runId=process.env.GITHUB_RUN_ID??""){
+ if(!/^[0-9]+$/.test(runId))fail("invalid workflow run ID");
  if(!sha.test(revision))fail("invalid source revision");
  const manifestPath=join(root,patternEvidenceRoot,"expected.json");
  if(!existsSync(manifestPath))fail("missing source-bound preflight manifest");
  let manifest:Record<string,unknown>;
  try{manifest=JSON.parse(readFileSync(manifestPath,"utf8")) as Record<string,unknown>;}catch{fail("invalid preflight manifest");}
- if(manifest.schemaVersion!==1||manifest.sourceRevision!==revision||!Array.isArray(manifest.cases)||manifest.cases.length!==patternEvidenceCases.length)
+ if(manifest.schemaVersion!==1||manifest.sourceRevision!==revision||manifest.runId!==runId||!Array.isArray(manifest.cases)||manifest.cases.length!==patternEvidenceCases.length)
   fail("stale or incomplete preflight manifest");
  const cases=[];
  for(const item of patternEvidenceCases){
@@ -51,7 +52,7 @@ export function verifyPatternBrowserEvidence(root:string,revision:string){
    if(png.length<=pngSignature.length||!png.subarray(0,8).equals(pngSignature))
     fail(item.id+"/"+project+": invalid PNG capture");
    if(report?.schemaVersion!==1||report?.caseId!==item.id||report?.flow!==item.flow||
-      report?.project!==project||report?.sourceRevision!==revision||
+      report?.project!==project||report?.sourceRevision!==revision||report?.runId!==runId||
       report?.specFingerprint!==fingerprint||report?.status!=="passed"||
       report?.expectedStatus!=="passed"||report?.screenshotStatus!=="captured"||
       report?.retry!==0||!Array.isArray(report?.errors)||(report.errors as unknown[]).length||
@@ -68,13 +69,13 @@ export function verifyPatternBrowserEvidence(root:string,revision:string){
   cases.push({caseId:item.id,flow:item.flow,specFingerprint:fingerprint,
    requirements:observed,projects});
  }
- return {schemaVersion:1 as const,sourceRevision:revision,
+ return {schemaVersion:1 as const,sourceRevision:revision,runId,
   result:"passed" as const,executions:cases.length*browserProjects.length,
   evidenceScope:"CI browser render assertions, not backend behavior, functional certification, cross-browser testing or full accessibility audit",
   cases};
 }
-export function writeBrowserEvidenceSummary(root:string,revision:string){
- const summary=verifyPatternBrowserEvidence(root,revision);
+export function writeBrowserEvidenceSummary(root:string,revision:string,runId=process.env.GITHUB_RUN_ID??""){
+ const summary=verifyPatternBrowserEvidence(root,revision,runId);
  const file=join(root,patternEvidenceRoot,"summary.json");
  mkdirSync(join(root,patternEvidenceRoot),{recursive:true});
  writeFileSync(file,JSON.stringify(summary,null,2)+"\n");
