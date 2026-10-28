@@ -9,7 +9,8 @@ import {catalog} from "../ui-catalog/catalog";
 
 const families={
  registration:{sources:["src/ui-requirements/flows/registration.json","src/ui-requirements/generator.ts",
-  "src/ui-requirements/form-proposal.ts"],components:["Input","Button","AlertDialog","Grid","Stack","Card"]},
+  "src/ui-requirements/form-proposal.ts","src/ui-requirements/registration-layout.json",
+  "src/ui-requirements/registration-layout.ts"],components:["Input","Button","AlertDialog","Grid","Stack","Heading","Card"]},
  login:{sources:["src/ui-requirements/pattern-flows.json","src/ui-requirements/patterns.ts"],components:["Input","Button","Checkbox","Stack","Card"]},
  search:{sources:["src/ui-patterns/search-and-filters.json","src/ui-requirements/pattern-flows.json",
   "src/ui-requirements/patterns.ts"],components:["DataTable","DatePicker","Stack"]},
