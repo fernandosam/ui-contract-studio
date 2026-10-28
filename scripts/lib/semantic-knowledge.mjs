@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve, sep } from "node:path";
+import { buildSemanticCoverage } from "./semantic-coverage.mjs";
 
 const readJson = file => JSON.parse(readFileSync(file, "utf8"));
 const uniq = values => [...new Set(values)].sort((a,b) => a.localeCompare(b));
@@ -179,6 +180,9 @@ export function buildSemanticKnowledge({root=process.cwd(),contracts=[],reuiExam
         coveredExamples:associatedExamples.length},
       profiles:records,
       reuiExampleProfiles:associatedExamples,
+      semanticCoverage:buildSemanticCoverage({
+        profiles:records,reuiExamples,reuiFamilies:Object.keys(reui),
+      }),
     },
     errors:uniq(errors),
   };
