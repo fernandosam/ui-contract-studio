@@ -20,7 +20,7 @@ const decisions=[
 
 export function evaluateSemanticAdmissionReview({
   proposalReport, capabilityAudit, policy, recipes, scenarios, lock, pi,
-  entries, protocols, policyErrors,
+  entries, protocols, policyErrors, semanticCandidates=[],
 }) {
   if(!Array.isArray(policyErrors))
     throw Error("T24 requires the authoritative Admission Engine policy decision");
@@ -114,6 +114,21 @@ export function evaluateSemanticAdmissionReview({
     });
   }
   rows.sort((a,b)=>a.proposalId.localeCompare(b.proposalId));
+  // T13 candidates without reviewed T23 scenarios remain documentation only.
+  // No synthetic recipe, admission request or allowlist entry is constructed.
+  const documentedCandidates=semanticCandidates.map(profile=>{
+    const type=profile.component;
+    const collision=approved.has(type)||piByType.has(type);
+    return {
+      type,source:profile.curatedSource??null,
+      documentation:profile.documentationReview,
+      recommendation:"not-inferred",proposal:"none",
+      admission:"candidate-not-admitted",
+      decision:collision?"blocked-catalog-collision":"documentation-only",
+      mayActivateFromSemantics:false,mayPublishNewPiType:false,
+      mayCertifyE2e:false,
+    };
+  }).sort((a,b)=>a.type.localeCompare(b.type));
   return {
     schemaVersion:1,authority:"evaluation-only",activation:"none",
     disclaimer:"This review neither admits candidates nor changes the authoritative Pi catalog. Existing admission gates and manual, revision-bound E2E certification remain mandatory.",
@@ -126,11 +141,12 @@ export function evaluateSemanticAdmissionReview({
     ],
     summary:{
       proposals:rows.length,uncoveredGaps:proposalReport.uncoveredGaps?.length??0,
+      documentedCandidates:documentedCandidates.length,
       allowlistedWithoutT23Proposal:(policy.allowedScenarios??[]).filter(id=>
         !rows.some(row=>row.scenarioId===id)),
       byDecision:Object.fromEntries(decisions.map(d=>[d,rows.filter(r=>r.decision===d).length])),
     },
-    evaluations:rows,
+    evaluations:rows,documentedCandidates,
   };
 }
 
@@ -162,6 +178,7 @@ export function reviewSemanticAdmissionsAtRoot(root) {
   const policyErrors=evaluatePolicy({policy,recipes,scenarios,lock,pi,sources,protocols});
   return evaluateSemanticAdmissionReview({
     policyErrors,proposalReport:proposals,capabilityAudit:report.capabilityAudit,scenarios,lock,
+    semanticCandidates:report.profiles.filter(x=>x.knowledgeAdmission==="candidate-not-admitted"),
     policy,recipes,pi,sources,
     entries:read(root,"src/ui-catalog/admission-engine/entries.json"),
     protocols,
