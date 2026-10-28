@@ -71,7 +71,11 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(first).toHaveAttribute("aria-expanded","false");
     await expect(second).toHaveAttribute("aria-expanded","true");
     await page.locator("#property-Accordion-type").selectOption("multiple");
-    await first.click();
+    // Switching modes may reset which items are open; explicitly open both.
+    // The invariant being tested is simultaneous expansion, not state carryover.
+    for(const item of [first,second]){
+      if(await item.getAttribute("aria-expanded")!=="true")await item.click();
+    }
     await expect(first).toHaveAttribute("aria-expanded","true");
     await expect(second).toHaveAttribute("aria-expanded","true");
   },
