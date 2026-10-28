@@ -14,6 +14,7 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 | [Admission Engine](admission-engine.pt-BR.md) | Publicação experimental e distribuição pós-E2E |
 | [Estratégia de composições](composition-strategy.pt-BR.md) | Dependências, classificação semântica e novos exemplos ReUI |
 | [Checklist semântico de componentes](semantic-knowledge-checklist.pt-BR.md) | Revisão de conhecimento por componente, evidências, lacunas e validação |
+| [Prioridade de enriquecimento semântico (T25)](semantic-enrichment-priority-t25.pt-BR.md) | Pontuação determinística e consultiva para revisão de composições por IA |
 | [Agentes e Pi](agents.pt-BR.md) | Geração segura e validação de specs |
 | [Desenvolvimento](development.pt-BR.md) | Ambiente, testes, CI e E2E |
 | [Governança](governance.pt-BR.md) | Revisão e auditoria contínua do repositório público |
