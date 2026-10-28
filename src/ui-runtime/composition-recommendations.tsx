@@ -7,6 +7,7 @@ import {
   recommendFromRequirement,
   type PilotFamily,
   type Strategy,
+  type CompositionKind,
 } from "@/ui-catalog/recommendations/engine";
 
 // Fixed, reviewed recipe sources: display only, never evaluated as JSX or imported as Pi code.
@@ -17,8 +18,21 @@ const recipeSource=(id:string,kind:"component.tsx"|"schema.ts")=>
   recipeSources["../../scripts/composition-codegen/recipes/"+id+"."+kind+".txt"]??"";
 const strategyLabels:Record<Strategy,string>={
   "reuse-contract":"Reutilizar contrato aprovado",
+  "declarative-composition":"Propor composição declarativa JSON",
   "react-candidate":"Propor componente React composto",
   "review-required":"Revisão de autorização necessária",
+};
+const approachLabels:Record<CompositionKind,string>={
+  primitive:"Primitiva ou tipo Pi direto",
+  "declarative-composition":"Composição declarativa (árvore JSON)",
+  "react-composition":"Composição React com API tipada",
+  "authorization-review":"Bloqueada para revisão de autorização",
+};
+const statusLabels:Record<string,string>={
+  "available-approved-contract":"Contrato existente aprovado; sem nova autorização",
+  "proposal-existing-contracts":"Proposta estrutural usando contratos aprovados; árvore sujeita ao validador Pi",
+  "candidate-needs-admission":"Candidato React: não admitido automaticamente",
+  "blocked-review":"Sem recomendação executável até revisão independente",
 };
 const evidenceLabels:Record<string,string>={
   "verified-static":"Disponível com evidência estática (não é certificação funcional)",
@@ -89,10 +103,29 @@ export function CompositionRecommendationPanel({family}:{family:PilotFamily}){
         <p className="text-sm font-semibold">{strategyLabels[result.decision]}
           {result.target&&<span className="ml-1 font-mono">· {result.target}</span>}</p>
         <p className="text-sm">{result.scenario.reason}</p>
+        <p className="text-xs font-semibold" data-testid="recommendation-approach">
+          Abordagem: {approachLabels[result.selection.kind]}
+        </p>
+        <p className="text-xs text-muted-foreground" data-testid="recommendation-admission-status">
+          {statusLabels[result.selection.status]}
+        </p>
         <p className="text-xs text-muted-foreground">
           {result.targetApproved?"O alvo já é um contrato Pi aprovado.":
-            "O alvo ainda não é um contrato Pi aprovado para esta finalidade."}
+            result.selection.kind==="declarative-composition"
+              ?"As dependências são contratos existentes; a composição proposta não é novo tipo Pi."
+              :"Nenhum novo contrato Pi é autorizado para esta finalidade."}
         </p>
+      </div>
+      <div className="space-y-2 rounded-md border p-3" data-testid="recommendation-criteria">
+        <h5 className="text-sm font-medium">Critérios de escolha e referências verificáveis</h5>
+        <ul className="list-disc space-y-2 pl-4 text-xs">
+          {result.selection.criteria.map((criterion,index)=><li key={index}>
+            <span>{criterion.rule}</span>
+            <span className="block break-all font-mono text-[11px] text-muted-foreground">
+              {criterion.reference}
+            </span>
+          </li>)}
+        </ul>
       </div>
       <div className="grid gap-3 lg:grid-cols-2">
         <div className="space-y-2 rounded-md border p-3">

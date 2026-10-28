@@ -11,6 +11,7 @@ if(ids.size!==recommendationScenarios.length){
  console.error("✗ Duplicate scenario IDs");
  process.exit(1);
 }
+const selectedKinds=new Set<string>();
 for(const scenario of recommendationScenarios){
  const result=getCompositionRecommendation(scenario.id);
  if(!result || result.authorization!=="advisory-only" ||
@@ -27,6 +28,35 @@ for(const scenario of recommendationScenarios){
      process.exit(1);
    }
  }
+ selectedKinds.add(result.selection.kind);
+ for(const criterion of result.selection.criteria){
+   if(!criterion.rule.trim() || !criterion.reference.trim() ||
+      criterion.reference.includes("..") || !existsSync(criterion.reference)){
+     console.error("✗ Unsupported decision criterion/reference: "+scenario.id+" / "+criterion.reference);
+     process.exit(1);
+   }
+ }
+ if(result.selection.status==="available-approved-contract" &&
+    (result.decision!=="reuse-contract" || !result.targetApproved || !result.target)){
+   console.error("✗ Reuse selection must resolve a previously approved Pi type: "+scenario.id);
+   process.exit(1);
+ }
+ if(result.selection.kind==="declarative-composition" &&
+    (result.decision!=="declarative-composition" || result.target!==null ||
+      result.targetApproved || !result.dependencies.every(d=>d.piApproved) ||
+      result.evidence.length===0 || result.evidence.some(e=>e.availability!=="verified-static"))){
+   console.error("✗ Declarative path bypasses Pi/semantic evidence: "+scenario.id);
+   process.exit(1);
+ }
+ if(result.selection.status==="candidate-needs-admission" &&
+     (result.decision!=="react-candidate" || result.targetApproved)){
+   console.error("✗ React candidate bypasses admission: "+scenario.id);
+   process.exit(1);
+ }
+ if(result.selection.kind==="authorization-review" && result.targetApproved){
+   console.error("✗ Authorization review cannot approve contracts: "+scenario.id);
+   process.exit(1);
+ }
  if(result.decision!=="reuse-contract" && result.targetApproved){
    console.error("✗ Candidate cannot become approved automatically: "+scenario.id);
    process.exit(1);
@@ -37,4 +67,10 @@ for(const scenario of recommendationScenarios){
    process.exit(1);
  }
 }
-console.log("✓ "+recommendationScenarios.length+" deterministic recommendation scenarios validated; Pi admissions unchanged.");
+for(const kind of ["primitive","declarative-composition","react-composition","authorization-review"]){
+ if(!selectedKinds.has(kind)){
+   console.error("✗ Missing recommendation approach: "+kind);
+   process.exit(1);
+ }
+}
+console.log("✓ "+recommendationScenarios.length+" deterministic scenarios; primitive/declarative/React/review verified; Pi admissions unchanged.");

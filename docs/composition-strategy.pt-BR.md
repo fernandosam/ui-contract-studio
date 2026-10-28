@@ -163,3 +163,30 @@ O piloto do recomendador (`src/ui-catalog/recommendations/engine.ts`) consulta *
 Os cenários iniciais vinculam FAQ expansível, estrutura rica candidata, evento local e loading de Button, ação de cópia candidata e revisão de teclado/foco. Os cenários que usam contratos diferentes da família (OnboardingChecklist, Collapsible, ButtonGroup e Toggle) não herdam capacidades dessa outra implementação por suposição. A recomendação de reutilização continua dependente de `contracts.lock.json`; o enriquecimento **não altera** Zod, Pi, admissões ou autorizações.
 
 Verificações locais solicitadas: `npx tsx --test tests/composition-recommender.integration.test.ts`, `npm run composites:recommend:check`, `npm run semantic:check` e `npm run semantic:report`. A verificação do recomendador também exige que cada trecho fonte mencionado como `verified-static` exista literalmente no repositório; o validador semântico independente cobre todos os registros. O relatório gerado é `reports/composition-analysis/semantic-knowledge.json`, orientação documental, não certificado E2E.
+
+
+## T21 — Seleção entre primitiva, composição declarativa e React (Entrega 4/P1)
+
+O recomendador faz **duas decisões separadas**: `decision` mantém a decisão de curadoria do cenário (`reuse-contract`, `declarative-composition`, `react-candidate` ou `review-required`), enquanto `selection.kind` descreve a implementação. `selection.status` informa a fronteira de admissão; a UI exibe critérios e caminhos das fontes verificáveis. Nenhuma dessas decisões cria um contrato Pi.
+
+| Abordagem | Quando selecionar | Regra de admissão | Cenários |
+| --- | --- | --- | --- |
+| **Primitiva/contrato direto** | Um tipo aprovado já resolve a necessidade, com capacidades necessárias verificadas estaticamente ou comportamento de runtime destacado como pendente | `contracts.lock.json` deve marcar o alvo como `approved`; capacidade ausente, sem evidência ou não implementada **bloqueia reuso** | `button-loading`, `accordion-faq`, `alert-simple` |
+| **Composição declarativa** | Somente organização estática de nós/slots já aprovados, sem coordenação de estado ou eventos novos | Todas as dependências devem estar `approved`, capacidade de suporte `verified-static`, nenhum novo alvo Pi; a árvore JSON ainda exige validação normal do catálogo | `button-actions-layout` usa `Stack` + dois `Button`, cada um com `press` local |
+| **Composição React** | Estado/validação/feedback coordenados, comportamento sem cobertura no contrato simples ou reuso de um composto semântico React **já aprovado** | Candidato exige schema Zod estrito, implementação, revisão e admissão *separados*. Contrato React aprovado pode ser reutilizado sem nova admissão | `alert-typed` / `button-copy` (candidatos), `accordion-onboarding` (OnboardingChecklist já aprovado) |
+| **Revisão obrigatória (bloqueio)** | Efeitos remotos, autorização, dependência não admitida ou evidência inadequada | Sem execução, sem alvo aprovado por inferência | `alert-remote`; fallback conservador para evidência insuficiente |
+
+As fontes são `src/ui-catalog/recommendations/scenarios.json` (intenção revisada), os overlays `src/ui-catalog/knowledge/{alert-dialog,accordion,button}.json` (capacidades **da própria família**), `src/ui-catalog/contracts.lock.json` (admissão), `src/ui-catalog/composition-policy.json` (reuso React aprovado), `src/ui-catalog/catalog.ts` (slots/props) e `pi-catalog/examples/Field.json` (árvore JSON com filhos). **ReUI documentado não equivale a capacidade implementada.** `runtime-review-required` é mostrado como pendência, não como certificado de acessibilidade. Não há transição implícita de candidato experimental para API estável.
+
+O cenário declarativo não atribui comportamento de seleção aos botões: ButtonGroup tem estado próprio e não é substituído por Stack para o caso de seleção. Também não vincula `press` a exclusão, clipboard, rede ou persistência. A composição proposta é apenas orientativa e não fornece um novo tipo ou evento. Com descrição livre desconhecida ou ambígua, continua necessária a seleção explícita do cenário.
+
+### Verificações de T21
+
+```bash
+npx tsx --test tests/composition-recommender.integration.test.ts
+npm run composites:recommend:check
+npm run semantic:check
+npm run semantic:report
+```
+
+Os testes da T21 cobrem caminho direto, layout JSON, React aprovado e candidato, ausência de evidência, capacidade não implementada, dependência não admitida e bloqueio de autorização; conferem também schemas Zod existentes contra novas props arbitrárias. O verificador de recomendações confere referências e evidências estáticas presentes em disco. O relatório `reports/composition-analysis/semantic-knowledge.json` é evidência de cobertura documental, não aprovação do comportamento no navegador. Resultados de execução devem ser registrados com o commit/CI correspondente; não declarar sucesso sem log do comando.
