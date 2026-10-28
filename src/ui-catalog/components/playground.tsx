@@ -117,7 +117,7 @@ export const playgroundImplementations = {
           className={framed?"rounded-lg border px-3":highlighted?"px-3 data-open:bg-muted/50":"px-1"}>
           <AccordionTrigger className={indicator==="chevron"?"":"[&_[data-slot=accordion-trigger-icon]]:hidden"}>
             {indicator==="arrow-left"&&<ChevronRight aria-hidden="true" className="mr-2 size-4 shrink-0 transition-transform group-aria-expanded/accordion-trigger:rotate-90"/>}
-            <span className="min-w-0 flex-1 break-words text-left">{item.title}</span>
+            <span className="min-w-0 flex-1 break-words text-left [overflow-wrap:anywhere]">{item.title}</span>
             {indicator==="plus-minus"&&<span aria-hidden="true" className="ml-auto text-muted-foreground"><span className="group-aria-expanded/accordion-trigger:hidden">+</span><span className="hidden group-aria-expanded/accordion-trigger:inline">−</span></span>}
           </AccordionTrigger>
           <AccordionContent>{item.content}</AccordionContent>
