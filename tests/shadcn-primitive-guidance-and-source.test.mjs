@@ -34,7 +34,7 @@ test("a interface usa orientação pt-BR e preserva documentação de origem",()
   assert.match(explorer,/localizedPrimitiveDocs\[type\] \?\? shadcnDocs\[type\]/)
   assert.match(explorer,/lang="pt-BR"/)
   assert.ok(explorer.includes("const referenceUrl=officialUrl ?? (reuiDocs[type]?"))
-  assert.ok(explorer.includes("<PrimitiveSourceViewer key={type} type={type} example={spec}/>"))
+  assert.ok(explorer.includes("<PrimitiveSourceViewer key={selectedType} type={selectedType} example={spec}/>"))
 })
 test("botão Ver código abre Sheet com mesmo CodeBlock dos exemplos ReUI",()=>{
   const viewer=readFileSync("src/ui-catalog/extensions/composites/primitive-source-viewer.tsx","utf8")
