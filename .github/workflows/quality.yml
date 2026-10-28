@@ -5,6 +5,9 @@ on:
     branches: [main]
   push:
     branches: [main]
+  # The GITHUB_TOKEN that creates a T36 draft PR does not trigger pull_request.
+  # A trusted workflow_dispatch on its exact branch produces the same required checks.
+  workflow_dispatch:
 
 permissions:
   contents: read
