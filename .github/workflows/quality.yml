@@ -208,6 +208,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Bootstrap: on the initial installation PR, the trusted base
+          # does not contain the policy yet. Never execute the PR copy instead.
+          if [[ ! -f scripts/ci-auto-merge-policy.mjs ]]; then
+            echo "Auto-merge policy absent on trusted base; manual bootstrap merge required"
+            exit 0
+          fi
           # Fetch ALL files, including rename origins, not a truncated first page.
           gh api --paginate --slurp "repos/$GH_REPO/pulls/$PR_NUMBER/files?per_page=100" > "$RUNNER_TEMP/auto-merge-pr-files.json"
           decision="$(node scripts/ci-auto-merge-policy.mjs "$RUNNER_TEMP/auto-merge-pr-files.json")"
