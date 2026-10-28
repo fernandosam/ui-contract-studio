@@ -33,6 +33,7 @@ function trace(id:string,scenarioId:string,capabilityId?:string,state?:string){
 async function recommendation(page:Page,family:"AlertDialog"|"Accordion"|"Button",id:string){
  await page.goto("/?screen=explorador-primitivos");
  await page.getByRole("button",{name:family,exact:true}).first().click();
+ await page.getByRole("tab",{name:"Semântica e testes"}).click();
  const panel=page.getByTestId("composition-recommendations");
  await expect(panel).toBeVisible();
  await panel.getByLabel("Situação funcional").selectOption(id);
