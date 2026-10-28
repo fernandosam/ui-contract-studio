@@ -9,6 +9,8 @@ import primitiveGuidancePtBr from '@/ui-catalog/primitive-guidance.pt-BR.json';
 import compositionPolicy from '@/ui-catalog/composition-policy.json';
 import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
+import piManifest from '../../pi-catalog/contracts.json';
+import { AdmissionExplorer } from './admission-explorer';
 import {CompositionRecommendationPanel, pilotFamilies} from './composition-recommendations';
 
 // Ferramenta administrativa fixa; telas geradas e composições permanecem 100% declarativas.
@@ -266,20 +268,47 @@ function SemanticKnowledgePanel({type}:{type:string}){
 }
 
 type Kind='primitive'|'composite';
+type ContractTab='preview'|'contract'|'semantics';
+const piByType=new Map(piManifest.components.map(item=>[item.type,item]));
+function ContractDetails({type}:{type:string}){
+ const contract=versions.get(type);
+ const published=piByType.get(type);
+ const fingerprint=contract?.semanticFingerprint;
+ const maturity=contract?.stability??'experimental';
+ const available=maturity==='stable'&&published?.lifecycle==='stable'&&published?.stability==='stable'&&published?.fingerprint===fingerprint;
+ return <section aria-label={"Contrato "+type} className="rounded-xl border bg-card p-5 space-y-5" data-testid="component-contract">
+  <div className="flex flex-wrap items-center justify-between gap-3">
+   <div><h4 className="font-semibold">Contrato versionado</h4><p className="text-sm text-muted-foreground">Fonte de verdade: contracts.lock.json. Metadados do Pi são derivados.</p></div>
+   <span className="rounded-full border bg-muted/40 px-3 py-1 text-xs font-medium">{maturity}</span>
+  </div>
+  <dl className="grid gap-4 sm:grid-cols-2">
+   <div><dt className="text-xs text-muted-foreground">Versão</dt><dd className="mt-1 font-mono text-sm">{contract?.version??'—'}</dd></div>
+   <div><dt className="text-xs text-muted-foreground">Disponibilidade no Pi</dt><dd className="mt-1 text-sm font-medium">{available?'Disponível no canal estável':'Não disponível no canal estável'}</dd></div>
+   <div className="sm:col-span-2"><dt className="text-xs text-muted-foreground">Fingerprint SHA-256</dt><dd className="mt-1 break-all rounded-md bg-muted/40 p-3 font-mono text-xs">{fingerprint??'Não registrado'}</dd></div>
+   <div><dt className="text-xs text-muted-foreground">Integridade</dt><dd className="mt-1 text-sm">{published?.fingerprint===fingerprint?'Projeção consistente':'Requer sincronização/verificação'}</dd></div>
+   <div><dt className="text-xs text-muted-foreground">Capacidades declaradas</dt><dd className="mt-1 text-sm">{contract?.capabilities?.length?contract.capabilities.join(', '):'Sem capacidades adicionais declaradas'}</dd></div>
+  </dl>
+  <p className="text-xs text-muted-foreground">Disponibilidade para composição JSON não concede chamadas remotas, novas ações nem permissões de execução. A validade depende das verificações de CI.</p>
+ </section>;
+}
+
 function ComponentExplorer({kind}:{kind:Kind}){
  const available=kind==='primitive'?primitiveList:compositeList;
  const [search,setSearch]=useState('');
+ const [stability,setStability]=useState('all');
+ const [tab,setTab]=useState<ContractTab>('preview');
  const [type,setType]=useState(available[0]??'Card');
- const filtered=useMemo(()=>available.filter(t=>t.toLowerCase().includes(search.toLowerCase())),[search,available]);
- const sample=samples[type];
+ const filtered=useMemo(()=>available.filter(t=>t.toLowerCase().includes(search.toLowerCase())&&(stability==='all'||versions.get(t)?.stability===stability)),[search,available,stability]);
+ const selectedType=filtered.includes(type)?type:(filtered[0]??null);
+ const sample=selectedType?samples[selectedType]:undefined;
  const spec=sample?extractBranch(sample.spec,sample.id):undefined;
  return <section className="min-w-0 space-y-5" aria-label={kind==='primitive'?'Explorador de primitivos shadcn':'Explorador de componentes compostos'}>
-  <header><h2 className="text-lg font-semibold">{kind==='primitive'?'Primitivos shadcn':'Componentes compostos'}</h2>
+  <header><h2 className="text-lg font-semibold">{kind==='primitive'?'Primitivas':'Compostos'}</h2>
    <p className="text-sm text-muted-foreground">{available.length} contratos {kind==='primitive'?'de base e adaptadores oficiais':'com funcionalidades ou padrões reutilizáveis'} · edição local validada pelo Zod.</p></header>
   {kind==='primitive' && <nav aria-label="Pilotos de recomendação semântica" className="flex flex-wrap items-center gap-2">
    <span className="text-xs text-muted-foreground">Analisar composição:</span>
    {pilotFamilies.map(family=><button type="button" key={family}
-    aria-current={type===family?'true':undefined}
+    aria-current={selectedType===family?'true':undefined}
     onClick={()=>{setType(family);setSearch('');}}
     className={`rounded-md border px-3 py-1.5 text-xs ${type===family?'bg-secondary font-semibold':'hover:bg-muted'}`}>
     {family}
@@ -288,38 +317,48 @@ function ComponentExplorer({kind}:{kind:Kind}){
   <div className="grid min-w-0 gap-4 lg:grid-cols-[245px_minmax(0,1fr)]">
    <aside className="min-w-0 rounded-lg border border-border bg-card p-3 lg:max-h-[720px] lg:overflow-y-auto">
     <label htmlFor="catalog-search" className="mb-2 block text-xs font-medium">Buscar componente</label>
-    <input id="catalog-search" className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" placeholder="Nome do componente" value={search} onChange={e=>setSearch(e.target.value)}/>
-    <div className="space-y-1" aria-label="Componentes registrados">{filtered.map(name=><button type="button" key={name} aria-current={name===type?'true':undefined} onClick={()=>setType(name)} className={`block w-full rounded-md px-3 py-2 text-left text-sm ${name===type?'bg-secondary font-semibold':'hover:bg-muted'}`}>{name}</button>)}</div>
+    <input id="catalog-search" type="search" className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring" placeholder="Nome do componente" value={search} onChange={e=>setSearch(e.target.value)}/>
+    <label htmlFor="catalog-stability" className="mb-2 block text-xs font-medium">Estabilidade</label>
+    <select id="catalog-stability" className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={stability} onChange={e=>setStability(e.target.value)}>
+     <option value="all">Todas</option><option value="stable">Estável</option><option value="beta">Beta</option><option value="experimental">Experimental</option><option value="deprecated">Descontinuado</option>
+    </select>
+    <p role="status" className="mb-2 text-xs text-muted-foreground">{filtered.length} de {available.length} componentes</p>
+    <div className="space-y-1" aria-label="Componentes registrados">{filtered.map(name=><button type="button" key={name} aria-current={name===selectedType?'true':undefined} onClick={()=>{setType(name);setTab('preview');}} className={`block w-full rounded-md px-3 py-2 text-left text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${name===selectedType?'bg-secondary font-semibold':'hover:bg-muted'}`}>{name}</button>)}</div>
     {!filtered.length&&<p className="text-sm text-muted-foreground">Nenhum componente encontrado.</p>}
    </aside>
    <div className="min-w-0 space-y-4">
-    <div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">{type}</h3>
-    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(type)?.version??'—'}</span>{kind==='primitive'&&<PrimitiveSourceViewer key={type} type={type} example={spec}/>}</div></div>
-    <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[type as keyof typeof componentDefinitions]?.description}</p>
-    <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(type).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
-    {kind==='primitive' && <ReuiGuidance type={type}/>}
-    <SemanticKnowledgePanel type={type}/>
-    {kind==='primitive' && pilotFamilies.some(family=>family===type) &&
-      <CompositionRecommendationPanel key={type} family={type as (typeof pilotFamilies)[number]}/>}
-    {spec&&<LivePropsEditor key={`${kind}:${type}`} type={type} original={spec} source={sample?.source??''}/>}
+    {!selectedType ? <p role="status" className="rounded-lg border bg-card p-5 text-sm text-muted-foreground">Nenhum componente corresponde aos filtros. Limpe a busca ou altere a estabilidade.</p> : <><div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">{selectedType}</h3>
+    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(selectedType)?.version??'—'}</span>{kind==='primitive'&&<PrimitiveSourceViewer key={selectedType} type={selectedType} example={spec}/>}</div></div>
+    <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[selectedType as keyof typeof componentDefinitions]?.description}</p>
+    <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(selectedType).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
+    <div role="tablist" aria-label="Detalhes do componente" className="flex flex-wrap gap-1 rounded-lg border bg-muted/25 p-1">
+     {([['preview','Prévia e propriedades'],['contract','Contrato'],['semantics','Semântica e testes']] as const).map(([value,label])=><button key={value} type="button" role="tab" aria-selected={tab===value} onClick={()=>setTab(value)} className={`rounded-md px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-ring ${tab===value?'bg-background font-semibold shadow-sm':'hover:bg-muted'}`}>{label}</button>)}
+    </div>
+    {tab==='contract' ? <ContractDetails type={selectedType}/> : tab==='semantics' ? <div className="space-y-4">
+     {kind==='primitive' && <ReuiGuidance type={selectedType}/>}
+     <SemanticKnowledgePanel type={selectedType}/>
+     {kind==='primitive' && pilotFamilies.some(family=>family===selectedType) && <CompositionRecommendationPanel key={selectedType} family={selectedType as (typeof pilotFamilies)[number]}/>}
+    </div> : spec ? <LivePropsEditor key={`${kind}:${selectedType}`} type={selectedType} original={spec} source={sample?.source??''}/> : <p role="status" className="rounded-lg border p-4 text-sm text-muted-foreground">Exemplo não disponível para este componente.</p>}
+   </>}
    </div>
   </div>
  </section>;
 }
 export function PrimitiveExplorer(){return <ComponentExplorer kind="primitive"/>;}
 export function CompositeExplorer(){
- const [library,setLibrary]=useState<'approved'|'reui'>(()=>
-  new URLSearchParams(window.location.search).has('reui')?'reui':'approved');
+ const [library,setLibrary]=useState<'approved'|'reui'|'candidates'>(()=>
+  new URLSearchParams(window.location.search).get('screen')==='catalogo-pi'?'candidates':new URLSearchParams(window.location.search).has('reui')?'reui':'approved');
  return <section className="min-w-0 space-y-4" aria-label="Explorador de componentes compostos">
   <div role="tablist" aria-label="Biblioteca de compostos" className="inline-flex max-w-full flex-wrap gap-1 rounded-md border bg-muted/25 p-1">
    <button type="button" role="tab" aria-selected={library==='approved'}
     className={`rounded px-3 py-2 text-sm ${library==='approved'?'bg-background font-semibold shadow-sm':'hover:bg-background/60'}`}
-    onClick={()=>setLibrary('approved')}>Contratos aprovados</button>
+    onClick={()=>setLibrary('approved')}>Contratos</button>
    <button type="button" role="tab" aria-selected={library==='reui'}
     className={`rounded px-3 py-2 text-sm ${library==='reui'?'bg-background font-semibold shadow-sm':'hover:bg-background/60'}`}
-    onClick={()=>setLibrary('reui')}>Composições ReUI (559)</button>
+    onClick={()=>setLibrary('reui')}>ReUI (559)</button>
+   <button type="button" role="tab" aria-selected={library==='candidates'} className={`rounded px-3 py-2 text-sm ${library==='candidates'?'bg-background font-semibold shadow-sm':'hover:bg-background/60'}`} onClick={()=>setLibrary('candidates')}>Candidatos experimentais</button>
   </div>
-  {library==='approved'?<ComponentExplorer kind="composite"/>:<ReuiCompositeExplorer/>}
+  {library==='approved'?<ComponentExplorer kind="composite"/>:library==='reui'?<ReuiCompositeExplorer/>:<AdmissionExplorer compositionOnly/>}
  </section>;
 }
 export function ExamplesExplorer(){
