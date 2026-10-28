@@ -6,6 +6,8 @@ import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow
 import {planInterface} from "../ui-requirements/planner";
 import {generateRegistrationScreen} from "../ui-requirements/generator";
 import {traceRegistration} from "../ui-requirements/traceability";
+import {evaluateLayoutQuality} from "../ui-requirements/layout-quality";
+import {LayoutQualityPanel} from "./layout-quality-panel";
 import type {Answers,Answer,Question} from "../ui-requirements/schema";
 
 function QuestionControl({question,value,onChange}:{question:Question;value:Answer|undefined;onChange:(next:Answer)=>void}){
@@ -42,6 +44,7 @@ export function RequirementsWizard(){
   const blocked=!recognized||plan.blockers.length>0;
   const preview=showPreview&&!blocked?generateRegistrationScreen(requirements):null;
   const trace=preview?traceRegistration(requirements,preview):null;
+  const quality=preview?evaluateLayoutQuality(requirements,preview):null;
   const localCandidate=preview?proposeFormFlow(requirements):null;
   const update=(id:string,value:Answer)=>{setProvided(previous=>({...previous,[id]:value}));setShowPreview(false);};
   const copy=(kind:"requirements"|"screen")=>{
@@ -95,6 +98,7 @@ export function RequirementsWizard(){
       <h2 className="text-lg font-semibold">Prévia do catálogo aprovado</h2>
       <p className="text-sm text-muted-foreground">Demonstração sem persistência. Validação funcional e acessibilidade ainda exigem execução de testes.</p>
       <SpecScreen spec={preview}/>
+      {quality&&<LayoutQualityPanel report={quality}/>}
       {trace&&<details data-testid="requirements-traceability" className="rounded-md border p-3 text-sm">
         <summary className="cursor-pointer font-medium">Rastreabilidade dos requisitos (somente verificação estática)</summary>
         <p className="mt-2 text-muted-foreground">Estado da spec: {trace.structurallyValid?"estrutura válida":"estrutura inconsistente"}. Testes de execução: não comprovados por este relatório.</p>
