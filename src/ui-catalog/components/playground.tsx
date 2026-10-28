@@ -240,7 +240,9 @@ export const playgroundImplementations = {
   </div>;},
   Select: ({props,bindings,emit})=>{const id=useId();const [value,setValue]=useValue(props.value??props.defaultValue??"",bindings?.value);
     const item=(raw:any)=>{const option=typeof raw==="string"?{label:raw,value:raw}:raw;return <SelectItem key={option.value} value={option.value} disabled={option.disabled}>{option.label}{option.description&&<span className="ml-2 text-xs text-muted-foreground">{option.description}</span>}</SelectItem>};
-    return <div className="pg-field"><ShadcnLabel id={id}>{props.label}</ShadcnLabel><ShadcnSelect value={value} disabled={props.disabled} required={props.required} onValueChange={(v:string)=>{setValue(v);notify(emit,"change");}}><SelectTrigger aria-labelledby={id}><SelectValue placeholder={props.placeholder??"Selecione"}/></SelectTrigger>
+    const labelItems=[...props.options,...(props.groups??[]).flatMap((group:any)=>group.options)]
+      .map((raw:any)=>typeof raw==="string"?{value:raw,label:raw}:{value:raw.value,label:raw.label});
+    return <div className="pg-field"><ShadcnLabel id={id}>{props.label}</ShadcnLabel><ShadcnSelect items={labelItems} value={value} disabled={props.disabled} required={props.required} onValueChange={(v:string)=>{setValue(v);notify(emit,"change");}}><SelectTrigger aria-labelledby={id}><SelectValue placeholder={props.placeholder??"Selecione"}/></SelectTrigger>
       <SelectContent>{props.options.map(item)}{props.groups?.map((group:any,i:number)=><SelectGroup key={group.label}><SelectLabel>{group.label}</SelectLabel>{group.options.map(item)}{i<props.groups.length-1&&<SelectSeparator/>}</SelectGroup>)}</SelectContent>
     </ShadcnSelect></div>;
   },

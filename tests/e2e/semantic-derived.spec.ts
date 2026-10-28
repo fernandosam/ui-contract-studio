@@ -109,13 +109,14 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     const container=await preview(page,"Checkbox");
     await page.locator("#property-Checkbox-description").fill("Preferência local de notificações.");
     const checkbox=container.getByRole("checkbox",{name:"Receber notificações"});
-    const id=await checkbox.getAttribute("id");
-    expect(id).toBeTruthy();
-    await expect(container.locator("label[for='"+id+"']")).toHaveText("Receber notificações");
+    const label=container.locator("label").filter({hasText:"Receber notificações"});
+    await expect(label).toHaveAttribute("for",/\S+/);
+    // Base UI may assign a different generated id to its visual root and
+    // the associated native input. Check real labeling behavior, not id equality.
     const help=await checkbox.getAttribute("aria-describedby");
     expect(help).toBeTruthy();
     await expect(container.locator("[id='"+help+"']")).toHaveText("Preferência local de notificações.");
-    await container.locator("label[for='"+id+"']").click();
+    await label.click();
     await expect(checkbox).not.toBeChecked();
   },
   "checkbox.disabled-invalid":async page=>{
@@ -164,7 +165,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await page.locator("#property-Input-maxLength").fill("4");
     await expect(input).toHaveAttribute("maxlength","4");
     await page.locator("#property-Input-required").selectOption("true");
-    await expect(input).toBeRequired();
+    await expect(input).toHaveAttribute("required","");
     await page.locator("#property-Input-invalid").selectOption("true");
     await expect(input).toHaveAttribute("aria-invalid","true");
     await page.locator("#property-Input-readOnly").selectOption("true");
