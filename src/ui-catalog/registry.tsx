@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- Every public prop is restricted by the Zod catalog and validated specs. */
 import { defineRegistry } from "@json-render/react";
 import { toast } from "sonner";
 import { catalog, experimentalCatalog, certifiedExperimentalNames, actionDefinitions } from "./catalog";
