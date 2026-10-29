@@ -63,7 +63,7 @@ export function LayoutQualityPanel({report,refinement,surfaceRef}:{report:Layout
     </li>)}
    </ul>
   </details>:<p className="text-sm">Nenhuma divergência identificada pelas heurísticas estáticas.</p>}
-  {browser?<div data-testid="layout-runtime-quality" data-runtime-score={browser.score} className="rounded-md border p-3 space-y-2">
+  {browser?<div data-testid="layout-runtime-quality" data-runtime-score={browser.score} data-runtime-report={JSON.stringify(browser)} className="rounded-md border p-3 space-y-2">
    <h4 className="font-semibold">Medição executada no navegador: {browser.score}/100</h4>
    <p className="text-xs text-muted-foreground">Viewport {browser.viewport.width} × {browser.viewport.height} px; área da prévia {browser.viewport.surfaceWidth} px; {browser.checks.evaluated} verificações executadas, {browser.checks.notApplicable.length} não aplicáveis.</p>
    <div className="grid gap-2 sm:grid-cols-2">{(Object.keys(titles) as (keyof typeof titles)[]).map(key=><p key={key}>{titles[key]}: <strong>{browser.scores[key]}/25</strong></p>)}</div>
