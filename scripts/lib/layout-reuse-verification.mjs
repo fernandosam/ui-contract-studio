@@ -9,7 +9,7 @@ const ensure=(ok,message)=>{if(!ok)throw Error("E05 traceability: "+message);};
 const refKey=({layoutId,parentId,childId,relation,index})=>
  JSON.stringify([layoutId,parentId,childId,relation,index]);
 const gitBlobSha=raw=>createHash("sha1")
- .update("blob "+Buffer.byteLength(raw,"utf8")+"\\0").update(raw,"utf8").digest("hex");
+ .update("blob "+Buffer.byteLength(raw,"utf8")+String.fromCharCode(0)).update(raw,"utf8").digest("hex");
 const proposalRef=({layoutId,originScreen,sourcePath,parentId,childId,relation,index})=>({
  layoutId,originScreen,path:sourcePath,parentId,childId,relation,index
 });
