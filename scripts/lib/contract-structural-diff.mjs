@@ -58,12 +58,13 @@ function objectAt(tokens, start) {
 
 function objectSchema(tokens) {
   // Multiple union variants cannot be flattened safely into a single shape.
-  if (tokens.includes('union') || tokens.includes('discriminatedUnion')) return null;
+  const ambiguous=tokens.findIndex(t=>t==='union'||t==='discriminatedUnion');
   for (let i=0;i<tokens.length-2;i++) {
     const helper=['obj','strict'].includes(tokens[i]) && tokens[i+1]==='(' && tokens[i+2]==='{';
     const zod=tokens[i]==='z' && tokens[i+1]==='.' && tokens[i+2]==='object' &&
        tokens[i+3]==='(' && tokens[i+4]==='{';
     if(helper || zod) {
+      if(ambiguous>=0 && ambiguous<i) return null;
       const shape=objectAt(tokens,i+(helper?2:4));
       if(shape?.fields) return shape;
       return null;
