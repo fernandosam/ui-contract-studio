@@ -98,3 +98,22 @@ npm run semantic:report
 O validador reanalisa as telas JSON aprovadas com o **Zod real do catálogo estável Pi**, verifica as propriedades observadas com `componentDefinitions[type].props.safeParse` e compara os JSON Schemas exportados a `z.toJSONSchema` em execução. Confere evidências e ponteiros das propriedades, cardinalidade dos slots candidatos, versões/fingerprints das primitivas e o manifesto Pi v3. Reutiliza o `evaluatePolicy` do Admission Engine para rejeitar política inválida; IDs das propostas não podem colidir com allowlist, receitas, entradas, protocolos, admissão automática CI ou tipos publicados. Não cria nova decisão de aprovação nem protocolo.
 
 **Validação aprovada apenas confirma a coerência documental e contratual da proposta consultiva.** Não admite propriedades/slots de um novo composto, ações, execução React, E2E, acessibilidade ou promoção estável. Cada registro do relatório declara `canPublish: false`, `canExecuteAsComposite: false`, `canGrantPiPermissions: false` e `e2eCertification: not-performed`. Desvios de origem e política são bloqueados. O job de qualidade existente executa a validação com Zod instalado e preserva o relatório como artefato CI, sem nova camada de aprovação nem alteração no registro Pi.
+
+
+## E05 — Testes de equivalência funcional, regressão e rastreabilidade
+
+O verificador E05 cobre os cinco candidatos e as **16 ocorrências** observadas, confrontando os arquivos JSON aprovados, seus metadados, índices pai/filho, origens declaradas e referências às composições existentes. Os oito layouts aprovados e seus metadados possuem hashes Git SHA-1 versionados em [`layout-reuse-regression-baseline.json`](../src/ui-requirements/layout-reuse-regression-baseline.json). Uma modificação nesses arquivos bloqueia o check até revisão explícita do diff e atualização deliberada do hash. O CI não atualiza automaticamente essa referência.
+
+```sh
+npm run patterns:reuse:verify:check     # somente leitura; bloqueia deriva e proveniência inconsistente
+npm run patterns:reuse:verify:report    # grava reports/layout-reuse/traceability.json
+node --test tests/layout-reuse-verification-e05.test.mjs
+npm run semantic:check
+npm run semantic:report
+```
+
+O relatório registra proposta, arquivo, metadados, origem, IDs, relação e índice para cada ocorrência. Inclui fingerprints SHA-256 da árvore JSON, das propriedades/estado do par e das propriedades das primitivas, sem duplicar o conteúdo original no relatório. Os testes adversariais verificam alteração de propriedades, estado, conteúdo aninhado, ordem de filhos, referências ausentes/duplicadas, metadados falsificados, fonte modificada e alegações indevidas de autorização ou equivalência funcional. A verificação integra o `npm run check`, e o relatório acompanha os artefatos semânticos no workflow de qualidade existente.
+
+**Limite da equivalência:** aprovação dos testes garante apenas fidelidade declarativa rastreável às primitivas admitidas. Relações JSON semelhantes não tornam dois componentes funcionalmente intercambiáveis. Como ainda não existe um novo composto E05 executável, o resultado declara **zero equivalências funcionais certificadas**, `canReplaceExistingComponent: false` e nenhuma nova autorização. Comportamento em navegador, teclado, acessibilidade, responsividade e fidelidade visual dependem de implementação real e certificação independente. Nada altera Zod, contratos, Pi, permissões, templates ou Admission Engine.
+
+Para atualizar conscientemente a referência após alteração de JSON/metadados, revise o diff e atualize somente os hashes Git dos arquivos correspondentes (por exemplo, `git hash-object src/ui-patterns/<id>.json` e `<id>.meta.json`). Execute a verificação, `semantic:check` e `semantic:report` antes de aceitar. Atualizar o hash não equivale a aprovar comportamento.
