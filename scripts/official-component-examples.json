@@ -354,7 +354,7 @@
       "component": "attachment",
       "docPath": "/docs/components/base/attachment",
       "exampleId": "attachment-demo",
-      "style": "base-nova",
+      "style": "base-rhea",
       "capture": "component",
       "localType": "Attachment"
     },
@@ -362,7 +362,7 @@
       "component": "bubble",
       "docPath": "/docs/components/base/bubble",
       "exampleId": "bubble-demo",
-      "style": "base-nova",
+      "style": "base-rhea",
       "capture": "component",
       "localType": "Bubble"
     },
@@ -394,7 +394,7 @@
       "component": "marker",
       "docPath": "/docs/components/base/marker",
       "exampleId": "marker-demo",
-      "style": "base-nova",
+      "style": "base-rhea",
       "capture": "component",
       "localType": "Marker"
     },
@@ -402,7 +402,7 @@
       "component": "message",
       "docPath": "/docs/components/base/message",
       "exampleId": "message-demo",
-      "style": "base-nova",
+      "style": "base-rhea",
       "capture": "component",
       "localType": "Message"
     }

@@ -29,6 +29,7 @@ test("the twelve high-priority additions have their real existing Pi contract ma
   assert.ok(item,"Missing priority reference: "+slug);
   assert.equal(item.docPath,"/docs/components/base/"+slug);
   assert.equal(item.exampleId,slug+"-demo");
+  assert.equal(item.style,["attachment","bubble","marker","message"].includes(slug)?"base-rhea":"base-nova");
   assert.equal(item.localType,expected);
   assert.ok(available.has(expected),"Local Pi mapping not admitted: "+expected);
  }
