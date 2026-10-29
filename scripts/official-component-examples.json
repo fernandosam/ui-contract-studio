@@ -4,7 +4,7 @@
   "sourceRepository": "https://github.com/shadcn-ui/ui",
   "sourcePath": "apps/v4/content/docs/components/base",
   "sourceRef": "main",
-  "note": "38 referências oficiais selecionadas para a auditoria independente. As outras 12 primitivas estão registradas como pendentes de mapeamento e revisão, não como aprovadas visualmente. Somente contratos equivalentes existentes no Pi recebem captura local.",
+  "note": "50 referências oficiais selecionadas (41 com contrato Pi local, 9 somente referência). Coleta de evidências desktop/mobile e revisão humana continuam obrigatórias; seleção não é certificação visual.",
   "examples": [
     {
       "component": "button",
@@ -309,61 +309,108 @@
       "style": "base-nova",
       "capture": "component",
       "localType": "Carousel"
+    },
+    {
+      "component": "aspect-ratio",
+      "docPath": "/docs/components/base/aspect-ratio",
+      "exampleId": "aspect-ratio-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "AspectRatio"
+    },
+    {
+      "component": "kbd",
+      "docPath": "/docs/components/base/kbd",
+      "exampleId": "kbd-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Kbd"
+    },
+    {
+      "component": "empty",
+      "docPath": "/docs/components/base/empty",
+      "exampleId": "empty-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Empty"
+    },
+    {
+      "component": "scroll-area",
+      "docPath": "/docs/components/base/scroll-area",
+      "exampleId": "scroll-area-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "ScrollArea"
+    },
+    {
+      "component": "alert-dialog",
+      "docPath": "/docs/components/base/alert-dialog",
+      "exampleId": "alert-dialog-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "AlertDialog"
+    },
+    {
+      "component": "attachment",
+      "docPath": "/docs/components/base/attachment",
+      "exampleId": "attachment-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Attachment"
+    },
+    {
+      "component": "bubble",
+      "docPath": "/docs/components/base/bubble",
+      "exampleId": "bubble-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Bubble"
+    },
+    {
+      "component": "context-menu",
+      "docPath": "/docs/components/base/context-menu",
+      "exampleId": "context-menu-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "ContextMenu"
+    },
+    {
+      "component": "hover-card",
+      "docPath": "/docs/components/base/hover-card",
+      "exampleId": "hover-card-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "HoverCard"
+    },
+    {
+      "component": "item",
+      "docPath": "/docs/components/base/item",
+      "exampleId": "item-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Item"
+    },
+    {
+      "component": "marker",
+      "docPath": "/docs/components/base/marker",
+      "exampleId": "marker-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Marker"
+    },
+    {
+      "component": "message",
+      "docPath": "/docs/components/base/message",
+      "exampleId": "message-demo",
+      "style": "base-nova",
+      "capture": "component",
+      "localType": "Message"
     }
   ],
   "selectionPolicy": {
     "mode": "curated-official-examples",
-    "minimumSelected": 38,
+    "minimumSelected": 50,
     "reviewRequiredForExcluded": true
   },
-  "excludedComponents": [
-    {
-      "component": "aspect-ratio",
-      "reason": "Primitiva adicional instalada; captura oficial ainda aguarda mapeamento e revisão individual."
-    },
-    {
-      "component": "kbd",
-      "reason": "Primitiva adicional instalada; captura oficial ainda aguarda mapeamento e revisão individual."
-    },
-    {
-      "component": "empty",
-      "reason": "Primitiva adicional instalada; captura oficial ainda aguarda mapeamento e revisão individual."
-    },
-    {
-      "component": "scroll-area",
-      "reason": "Primitiva adicional instalada; captura oficial ainda aguarda mapeamento e revisão individual."
-    },
-    {
-      "component": "alert-dialog",
-      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
-    },
-    {
-      "component": "attachment",
-      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
-    },
-    {
-      "component": "bubble",
-      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
-    },
-    {
-      "component": "context-menu",
-      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
-    },
-    {
-      "component": "hover-card",
-      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
-    },
-    {
-      "component": "item",
-      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
-    },
-    {
-      "component": "marker",
-      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
-    },
-    {
-      "component": "message",
-      "reason": "Primitiva admitida recentemente; referência visual oficial ainda não foi selecionada nem revisada."
-    }
-  ]
+  "excludedComponents": []
 }

@@ -46,7 +46,9 @@ const result = {
         report: officialDocsPath,
       }
     : {status:'not-run',report:officialDocsPath},
-  visualApproval: missingLocal.length === 0 && missingReference.length === 0
+  visualApproval: officialDocs && officialDocs.expectedCases > 0 && officialDocs.missingCases === 0 &&
+    officialDocs.comparedCases + officialDocs.officialOnlyCases === officialDocs.expectedCases &&
+    missingLocal.length === 0 && missingReference.length === 0
     ? 'comparison-and-human-review-required' : 'pending',
   lockfileSha256: fingerprint,
   requiredPrimitiveCount: primitives.length,

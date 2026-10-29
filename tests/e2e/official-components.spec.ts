@@ -7,7 +7,7 @@ import { join } from 'node:path';
 // as the local json-render sample. Capture both; never auto-label pixel similarity as fidelity.
 type Example = { component: string; docPath: string; exampleId: string; style: string; capture: 'component' | 'block'; localType: string | null };
 const manifest = JSON.parse(readFileSync('scripts/official-component-examples.json', 'utf8')) as {
-  upstream: string; examples: Example[];
+  upstream: string; sourceRef: string; examples: Example[];
 };
 const plan = JSON.parse(readFileSync('shadcn-plan.json', 'utf8')) as { groups: Array<{ items: Array<{ name: string }> }> };
 const pi = JSON.parse(readFileSync('pi-catalog/contracts.json', 'utf8')) as {
@@ -60,6 +60,9 @@ test.describe('@official-docs referência pública versus Explorer local', () =>
         const preview = page.locator('[data-slot="component-preview"] [data-slot="preview"] .preview, [data-slot="component-preview"] [data-slot="preview"], [data-slot="component-preview"] .preview').first();
         await expect(preview, `Exemplo oficial não encontrado: ${example.exampleId}`).toBeVisible({ timeout: 14_000 });
         await page.evaluate(() => document.fonts.ready);
+        const bounds = await preview.boundingBox();
+        expect(bounds?.width, 'A referência oficial não pode ter largura zero').toBeGreaterThan(0);
+        expect(bounds?.height, 'A referência oficial não pode ter altura zero').toBeGreaterThan(0);
         await preview.screenshot({ path: join(officialDirectory, `${example.component}.png`), animations: 'disabled', timeout: 14_000 });
       }
 
@@ -67,7 +70,7 @@ test.describe('@official-docs referência pública versus Explorer local', () =>
       mkdirSync(detailDirectory, { recursive: true });
       const evidence: Record<string, unknown> = {
         component: example.component, documentationUrl: url, sourceExampleId: example.exampleId,
-        sourceViewUrl, upstreamStyle: example.style, sourceKind: example.capture, viewport: size,
+        sourceViewUrl, upstreamStyle: example.style, sourceKind: example.capture, sourceRef: manifest.sourceRef, viewport: size,
         observedAt: new Date().toISOString(),
         comparisonKind: 'different-demo-qualitative',
       };
