@@ -12,7 +12,7 @@ Siga as regras de [AGENTS.md](../../../AGENTS.pt-BR.md). Este documento é o pro
 ## Criar ou alterar uma tela
 
 1. Leia `pi-catalog/contracts.json`, `src/ui-catalog/contracts.lock.json`, `pi-catalog/retired-contracts.json` e `src/ui-patterns/`. Reutilize tipos aprovados e padrões antes de propor novidades.
-2. Selecione o contexto necessário: `npm run pi:zod-schema` e `npm run pi:context -- --types=Card,Button --stdout` (até 25 tipos). Consulte os exemplos em `pi-catalog/examples/`. Não use `--metadata-only` para geração.
+2. Para uma necessidade específica, execute antes `npm run pi:select -- --requirement="ação explícita com botão"` e avalie alternativas e justificativas. Respeite `whenNotUse`, lacunas e decisões `ambiguous`/`no-match`; IDs comuns são apenas documentais. Escolha explicitamente tipos aprovados e rode `npm run pi:zod-schema` e `npm run pi:context -- --types=Card,Button --requirement="ação explícita com botão" --stdout` (até 25 tipos). A seleção consultiva no contexto não amplia schemas nem permissões. Consulte `pi-catalog/examples/` e não use `--metadata-only` para gerar.
 3. Gere **apenas** `src/ui-screens/<slug>.json` e `src/ui-screen-meta/<slug>.json`; use os schemas Zod, props canônicas, slots, eventos e ações aprovadas. Não copie JSX de templates e não use URLs ou callbacks livres.
 4. Para compostos, altere somente `content` e `nodeProps` com chaves declaradas no contexto; preserve a árvore, os nomes de campos, o tipo de nó, ações e links.
 5. Execute `npm run pi:validate -- --file=<spec.json>`, corrija `issues[].pointer`, então rode `npm run patterns:check && npm run check:catalog && npm run validate && npm run build` quando disponível. Informe bloqueios e validações realmente realizadas.

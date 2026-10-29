@@ -10,8 +10,9 @@ Pi can generate **JSON specs only**, using types and properties published in the
 2. Generate real schemas and select **only the required types** (up to 25 per batch):
 
    ~~~bash
+   npm run pi:select -- --requirement="explicit button action" --types=Button,Card
    npm run pi:zod-schema
-   npm run pi:context -- --types=Card,Button --stdout
+   npm run pi:context -- --types=Card,Button --requirement="explicit button action" --stdout
    ~~~
 
 3. Use authorized `propsSchema`, examples, events, and actions. `semanticName` is only an auxiliary label; valid keys are defined in Zod. `--metadata-only` must not be used for generation.
