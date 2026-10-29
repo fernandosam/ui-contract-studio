@@ -44,8 +44,9 @@ export function graphErrors(spec, allowedTypes, { maxElements=300, maxDepth=30, 
             const path=handler?.params?.statePath;
             const segments=typeof path==="string"
               ? path.replaceAll("[",".").replaceAll("]","").replaceAll("/",".").split(".") : [];
-            if(typeof path!=="string" || !path ||
+            if(typeof path!=="string" || !path || path.length>256 ||
               Array.from(path).some(char=>char.charCodeAt(0)<32||char.charCodeAt(0)===127) ||
+              ["__proto__","constructor","prototype"].some(segment=>path.includes(segment)) ||
               segments.some(segment=>["__proto__","constructor","prototype"].includes(segment)))
               errors.push(`${id}: statePath não autorizado.`);
           }
