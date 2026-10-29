@@ -1,6 +1,6 @@
 import {useRef,useState} from "react";
 import {SpecScreen} from "./spec-screen";
-import {PreviewThemeSelector} from "../ui-theme/preview-theme";
+import {PreviewThemeSelector} from "./preview-theme";
 
 import {proposeFormFlow} from "../ui-requirements/form-proposal";
 import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow} from "../ui-requirements/engine";
