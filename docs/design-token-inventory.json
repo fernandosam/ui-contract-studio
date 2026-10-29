@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 1,
+  "snapshot": "2026-10-29",
+  "classification": "observed-source-inventory; no new contract or public API",
+  "sources": {
+    "theme": "src/globals.css",
+    "local": "src/index.css",
+    "fonts": "src/main.tsx",
+    "components": [
+      "src/components/ui/card.tsx",
+      "src/components/ui/button.tsx"
+    ],
+    "config": "components.json",
+    "quality": "src/ui-requirements/layout-quality.ts"
+  },
+  "colors": {
+    "semantic": {
+      "--background": {
+        "light": "oklch(0.9195 0.0169 88.0030)",
+        "dark": "oklch(0.1913 0 0)",
+        "tailwindAlias": "--color-background"
+      },
+      "--foreground": {
+        "light": "oklch(0.2350 0 0)",
+        "dark": "oklch(0.9173 0.0133 82.4015)",
+        "tailwindAlias": "--color-foreground"
+      },
+      "--card": {
+        "light": "oklch(0.9530 0.0156 86.4257)",
+        "dark": "oklch(0.2264 0 0)",
+        "tailwindAlias": "--color-card"
+      },
+      "--card-foreground": {
+        "light": "oklch(0.2350 0 0)",
+        "dark": "oklch(0.9173 0.0133 82.4015)",
+        "tailwindAlias": "--color-card-foreground"
+      },
+      "--popover": {
+        "light": "oklch(0.9530 0.0156 86.4257)",
+        "dark": "oklch(0.2264 0 0)",
+        "tailwindAlias": "--color-popover"
+      },
+      "--popover-foreground": {
+        "light": "oklch(0.2350 0 0)",
+        "dark": "oklch(0.9173 0.0133 82.4015)",
+        "tailwindAlias": "--color-popover-foreground"
+      },
+      "--primary": {
+        "light": "oklch(0.3012 0 0)",
+        "dark": "oklch(0.8520 0.0205 100.6306)",
+        "tailwindAlias": "--color-primary"
+      },
+      "--primary-foreground": {
+        "light": "oklch(0.9169 0.0175 99.6160)",
+        "dark": "oklch(0.3329 0 0)",
+        "tailwindAlias": "--color-primary-foreground"
+      },
+      "--secondary": {
+        "light": "oklch(0.8647 0.0201 87.5232)",
+        "dark": "oklch(0.2520 0 0)",
+        "tailwindAlias": "--color-secondary"
+      },
+      "--secondary-foreground": {
+        "light": "oklch(0.3012 0 0)",
+        "dark": "oklch(0.8520 0.0205 100.6306)",
+        "tailwindAlias": "--color-secondary-foreground"
+      },
+      "--muted": {
+        "light": "oklch(0.8340 0.0232 87.1630)",
+        "dark": "oklch(0.2850 0 0)",
+        "tailwindAlias": "--color-muted"
+      },
+      "--muted-foreground": {
+        "light": "oklch(0.4688 0.0136 84.5932)",
+        "dark": "oklch(0.7180 0.0113 81.7875)",
+        "tailwindAlias": "--color-muted-foreground"
+      },
+      "--accent": {
+        "light": "oklch(0.9169 0.0175 99.6160)",
+        "dark": "oklch(0.3329 0 0)",
+        "tailwindAlias": "--color-accent"
+      },
+      "--accent-foreground": {
+        "light": "oklch(0.3012 0 0)",
+        "dark": "oklch(0.8520 0.0205 100.6306)",
+        "tailwindAlias": "--color-accent-foreground"
+      },
+      "--destructive": {
+        "light": "oklch(0.5771 0.2152 27.3250)",
+        "dark": "oklch(0.7310 0.1810 25.3313)",
+        "tailwindAlias": "--color-destructive"
+      },
+      "--destructive-foreground": {
+        "light": "oklch(1.0000 0 0)",
+        "dark": "oklch(1.0000 0 0)",
+        "tailwindAlias": "--color-destructive-foreground"
+      },
+      "--border": {
+        "light": "oklch(0.8434 0.0231 87.1621)",
+        "dark": "oklch(0.2931 0 0)",
+        "tailwindAlias": "--color-border"
+      },
+      "--input": {
+        "light": "oklch(0.8434 0.0231 87.1621)",
+        "dark": "oklch(0.2931 0 0)",
+        "tailwindAlias": "--color-input"
+      },
+      "--ring": {
+        "light": "oklch(0.3012 0 0)",
+        "dark": "oklch(0.8520 0.0205 100.6306)",
+        "tailwindAlias": "--color-ring"
+      },
+      "--chart-1": {
+        "light": "oklch(0.6863 0.1743 34.2614)",
+        "dark": "oklch(0.6863 0.1743 34.2614)",
+        "tailwindAlias": "--color-chart-1"
+      },
+      "--chart-2": {
+        "light": "oklch(0.2350 0 0)",
+        "dark": "oklch(0.8590 0.0209 74.6369)",
+        "tailwindAlias": "--color-chart-2"
+      },
+      "--chart-3": {
+        "light": "oklch(0.4688 0.0136 84.5932)",
+        "dark": "oklch(0.6348 0.0113 81.7875)",
+        "tailwindAlias": "--color-chart-3"
+      },
+      "--chart-4": {
+        "light": "oklch(0.7057 0.0250 82.0932)",
+        "dark": "oklch(0.4681 0.0069 84.5829)",
+        "tailwindAlias": "--color-chart-4"
+      },
+      "--chart-5": {
+        "light": "oklch(0.8340 0.0232 87.1630)",
+        "dark": "oklch(0.3523 0 0)",
+        "tailwindAlias": "--color-chart-5"
+      },
+      "--sidebar": {
+        "light": "oklch(0.8985 0.0199 87.5195)",
+        "dark": "oklch(0.1730 0 0)",
+        "tailwindAlias": "--color-sidebar"
+      },
+      "--sidebar-foreground": {
+        "light": "oklch(0.2350 0 0)",
+        "dark": "oklch(0.9173 0.0133 82.4015)",
+        "tailwindAlias": "--color-sidebar-foreground"
+      },
+      "--sidebar-primary": {
+        "light": "oklch(0.3012 0 0)",
+        "dark": "oklch(0.8520 0.0205 100.6306)",
+        "tailwindAlias": "--color-sidebar-primary"
+      },
+      "--sidebar-primary-foreground": {
+        "light": "oklch(0.9169 0.0175 99.6160)",
+        "dark": "oklch(0.3329 0 0)",
+        "tailwindAlias": "--color-sidebar-primary-foreground"
+      },
+      "--sidebar-accent": {
+        "light": "oklch(0.9169 0.0175 99.6160)",
+        "dark": "oklch(0.3329 0 0)",
+        "tailwindAlias": "--color-sidebar-accent"
+      },
+      "--sidebar-accent-foreground": {
+        "light": "oklch(0.3012 0 0)",
+        "dark": "oklch(0.8520 0.0205 100.6306)",
+        "tailwindAlias": "--color-sidebar-accent-foreground"
+      },
+      "--sidebar-border": {
+        "light": "oklch(0.8434 0.0231 87.1621)",
+        "dark": "oklch(0.2931 0 0)",
+        "tailwindAlias": "--color-sidebar-border"
+      },
+      "--sidebar-ring": {
+        "light": "oklch(0.3012 0 0)",
+        "dark": "oklch(0.8520 0.0205 100.6306)",
+        "tailwindAlias": "--color-sidebar-ring"
+      }
+    },
+    "local": {
+      "--success": {
+        "light": "oklch(.48 .13 156)",
+        "dark": "oklch(.76 .12 156)"
+      },
+      "--warning": {
+        "light": "oklch(.53 .12 80)",
+        "dark": "oklch(.78 .11 85)"
+      }
+    },
+    "tailwindAliases": {
+      "--color-background": "var(--background)",
+      "--color-foreground": "var(--foreground)",
+      "--color-card": "var(--card)",
+      "--color-card-foreground": "var(--card-foreground)",
+      "--color-popover": "var(--popover)",
+      "--color-popover-foreground": "var(--popover-foreground)",
+      "--color-primary": "var(--primary)",
+      "--color-primary-foreground": "var(--primary-foreground)",
+      "--color-secondary": "var(--secondary)",
+      "--color-secondary-foreground": "var(--secondary-foreground)",
+      "--color-muted": "var(--muted)",
+      "--color-muted-foreground": "var(--muted-foreground)",
+      "--color-accent": "var(--accent)",
+      "--color-accent-foreground": "var(--accent-foreground)",
+      "--color-destructive": "var(--destructive)",
+      "--color-destructive-foreground": "var(--destructive-foreground)",
+      "--color-border": "var(--border)",
+      "--color-input": "var(--input)",
+      "--color-ring": "var(--ring)",
+      "--color-chart-1": "var(--chart-1)",
+      "--color-chart-2": "var(--chart-2)",
+      "--color-chart-3": "var(--chart-3)",
+      "--color-chart-4": "var(--chart-4)",
+      "--color-chart-5": "var(--chart-5)",
+      "--color-sidebar": "var(--sidebar)",
+      "--color-sidebar-foreground": "var(--sidebar-foreground)",
+      "--color-sidebar-primary": "var(--sidebar-primary)",
+      "--color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+      "--color-sidebar-accent": "var(--sidebar-accent)",
+      "--color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+      "--color-sidebar-border": "var(--sidebar-border)",
+      "--color-sidebar-ring": "var(--sidebar-ring)"
+    }
+  },
+  "typography": {
+    "families": {
+      "--font-sans": "\"Inter Variable\", \"Inter\", sans-serif",
+      "--font-mono": "\"JetBrains Mono Variable\", \"JetBrains Mono\", monospace",
+      "--font-serif": "\"Playfair Display Variable\", \"Playfair Display\", serif"
+    },
+    "tracking": {
+      "normal": "0.01em",
+      "aliases": {
+        "--tracking-tighter": "calc(var(--tracking-normal) - 0.05em)",
+        "--tracking-tight": "calc(var(--tracking-normal) - 0.025em)",
+        "--tracking-wide": "calc(var(--tracking-normal) + 0.025em)",
+        "--tracking-wider": "calc(var(--tracking-normal) + 0.05em)",
+        "--tracking-widest": "calc(var(--tracking-normal) + 0.1em)"
+      }
+    },
+    "localHeadingSizes": {
+      "h1": {
+        "size": "1.875rem",
+        "lineHeight": "1.2"
+      },
+      "h2": {
+        "size": "1.5rem",
+        "lineHeight": "1.25"
+      },
+      "h3": {
+        "size": "1.25rem",
+        "lineHeight": "1.3"
+      },
+      "h4": {
+        "size": "1rem",
+        "lineHeight": "1.5"
+      }
+    },
+    "localTextSizes": {
+      "base": ".875rem",
+      "caption": ".75rem",
+      "lead": "1rem"
+    }
+  },
+  "spacing": {
+    "source": "Tailwind CSS v4 scale (inherited, not redefined in src/globals.css)",
+    "declarativeGaps": {
+      "none": "0",
+      "sm": ".625rem",
+      "md": "1rem",
+      "lg": "1.5rem"
+    },
+    "gridFallback": "1rem",
+    "fieldGap": ".5rem",
+    "placeholderGap": ".25rem",
+    "card": {
+      "default": "--spacing(6)",
+      "sm": "--spacing(4)"
+    }
+  },
+  "borders": {
+    "semanticColors": [
+      "--border",
+      "--input",
+      "--ring"
+    ],
+    "placeholder": "1px dashed var(--border)",
+    "graph": "1px solid var(--border)",
+    "pagination": "1px solid var(--border)",
+    "globalWidthToken": null
+  },
+  "radii": {
+    "base": "0.5rem",
+    "aliases": {
+      "--radius-sm": "calc(var(--radius) - 4px)",
+      "--radius-md": "calc(var(--radius) - 2px)",
+      "--radius-lg": "var(--radius)",
+      "--radius-xl": "calc(var(--radius) + 4px)"
+    },
+    "placeholder": "var(--radius)",
+    "componentExamples": {
+      "button": "rounded-md",
+      "card": "rounded-xl"
+    }
+  },
+  "shadows": {
+    "--shadow-2xs": {
+      "light": "0px 4px 10px 0px hsl(0 0% 0% / 0.05)",
+      "dark": "0px 6px 15px 0px hsl(0 0% 0% / 0.15)"
+    },
+    "--shadow-xs": {
+      "light": "var(--shadow-2xs)",
+      "dark": "var(--shadow-2xs)"
+    },
+    "--shadow-sm": {
+      "light": "0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10)",
+      "dark": "0px 6px 15px 0px hsl(0 0% 0% / 0.30), 0px 1px 2px -1px hsl(0 0% 0% / 0.30)"
+    },
+    "--shadow": {
+      "light": "var(--shadow-sm)",
+      "dark": "var(--shadow-sm)"
+    },
+    "--shadow-md": {
+      "light": "0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 2px 4px -1px hsl(0 0% 0% / 0.10)",
+      "dark": "0px 6px 15px 0px hsl(0 0% 0% / 0.30), 0px 2px 4px -1px hsl(0 0% 0% / 0.30)"
+    },
+    "--shadow-lg": {
+      "light": "0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 4px 6px -1px hsl(0 0% 0% / 0.10)",
+      "dark": "0px 6px 15px 0px hsl(0 0% 0% / 0.30), 0px 4px 6px -1px hsl(0 0% 0% / 0.30)"
+    },
+    "--shadow-xl": {
+      "light": "0px 4px 10px 0px hsl(0 0% 0% / 0.10), 0px 8px 10px -1px hsl(0 0% 0% / 0.10)",
+      "dark": "0px 6px 15px 0px hsl(0 0% 0% / 0.30), 0px 8px 10px -1px hsl(0 0% 0% / 0.30)"
+    },
+    "--shadow-2xl": {
+      "light": "0px 4px 10px 0px hsl(0 0% 0% / 0.25)",
+      "dark": "0px 6px 15px 0px hsl(0 0% 0% / 0.75)"
+    }
+  },
+  "density": {
+    "globalDensityToken": null,
+    "cardSizes": [
+      "default",
+      "sm"
+    ],
+    "buttonSizes": [
+      "default",
+      "xs",
+      "sm",
+      "lg",
+      "icon",
+      "icon-xs",
+      "icon-sm",
+      "icon-lg"
+    ],
+    "layoutGapNames": [
+      "none",
+      "sm",
+      "md",
+      "lg"
+    ],
+    "gridColumns": "--columns (default 1); schema comment documents up to 6",
+    "localResponsiveMaxWidthsPx": [
+      639,
+      850,
+      520
+    ],
+    "note": "At widths 521–639px the later 850px query may override the earlier 639px one; requires separate responsive verification."
+  }
+}
