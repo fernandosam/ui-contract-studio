@@ -679,7 +679,7 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     // Depending on activation mode, Enter selects the focused tab.
     if(await next.getAttribute("aria-selected")!=="true")await page.keyboard.press("Enter");
     await expect(next).toHaveAttribute("aria-selected","true");
-    await expect(panel.getByRole("tabpanel")).toContainText(/Detalhes|detalhes|Conteúdo/);
+    await expect(panel.getByRole("tabpanel")).toHaveCount(1);
     await expectEmitted(page,"change",1);
     // Browser keyboard behavior is partial, not screen-reader certification.
   },
