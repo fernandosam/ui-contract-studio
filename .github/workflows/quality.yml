@@ -133,6 +133,15 @@ jobs:
         run: npm run check
       - name: Exercise fingerprint-bound legacy migration with real Zod validation
         run: npm run contracts:migrate -- --file=tests/fixtures/contract-migrations/legacy-reui-spec.json --versions=tests/fixtures/contract-migrations/legacy-reui-versions.json --out=reports/contract-migrations/reui-migrated.json
+      - name: Produce E05 Zod, contracts and Admission Engine validation report
+        run: npm run patterns:reuse:validate:report
+      - name: Preserve E05 non-admission diagnostic
+        uses: actions/upload-artifact@v7
+        with:
+          name: e05-proposal-validation
+          path: reports/layout-reuse/validation.json
+          if-no-files-found: error
+          retention-days: 14
       - name: Lint sources
         run: npm run lint
       - name: Run integration tests (offline tests run in their own job)
