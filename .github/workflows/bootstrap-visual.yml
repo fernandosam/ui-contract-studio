@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
       - name: Testes estruturais e seleção oficial
@@ -47,7 +47,7 @@ jobs:
       npm_config_strict_ssl: 'true'
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
           registry-url: https://registry.npmjs.org/
@@ -86,7 +86,7 @@ jobs:
         id: docs_capture
         continue-on-error: true
         run: npm run shadcn:official:capture -- --workers=3 --retries=1 --max-failures=8
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Instalar comparador de imagens

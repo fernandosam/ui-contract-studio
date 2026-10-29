@@ -41,7 +41,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
       - name: Audit committed secrets and CI artifact retention (blocking)
@@ -81,9 +81,24 @@ jobs:
       - name: Verify docs and offline invariants
         run: npm run docs:check && npm run test:offline
       - name: Check reviewed API changes against PR base
+        id: contract-diff
         env:
           CONTRACT_BASE_REF: ${{ github.event.pull_request.base.sha }}
         run: npm run contracts:diff
+      - name: Generate JSON screen, example, composition and Pi impact report
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.contract-diff.outcome != 'skipped' }}
+        run: npm run contracts:impact
+      - name: Preserve detailed contract change audit, including blocked changes
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.contract-diff.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-change-audit
+          path: |
+            reports/contract-diff/changes.json
+            reports/contract-diff/impact.json
+            reports/contract-diff/impact.md
+          if-no-files-found: warn
+          retention-days: 14
 
   integration:
     name: Source checks, schemas and production build
@@ -104,6 +119,8 @@ jobs:
         run: npm run doctor:strict && npm run shadcn:verify && npm run shadcn:integrity -- --strict
       - name: Verify generators, contracts and boundaries
         run: npm run check
+      - name: Exercise fingerprint-bound legacy migration with real Zod validation
+        run: npm run contracts:migrate -- --file=tests/fixtures/contract-migrations/legacy-reui-spec.json --versions=tests/fixtures/contract-migrations/legacy-reui-versions.json --out=reports/contract-migrations/reui-migrated.json
       - name: Lint sources
         run: npm run lint
       - name: Run integration tests (offline tests run in their own job)
@@ -163,6 +180,7 @@ jobs:
             tests/e2e/alert-dialog-semantic-t32.spec.ts \
             tests/e2e/button-accordion-semantic-t32.spec.ts \
             tests/e2e/requirements-wizard.spec.ts \
+            tests/e2e/layout-runtime-quality.spec.ts \
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
             tests/e2e/requirements-coverage-evidence.spec.ts \
@@ -184,6 +202,7 @@ jobs:
           path: |
             reports/composition-validation/
             reports/requirements-browser/
+            reports/layout-runtime/
             reports/semantic-e2e/
             reports/semantic-tests/
             test-results/

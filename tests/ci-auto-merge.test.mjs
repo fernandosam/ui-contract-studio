@@ -27,6 +27,8 @@ test("sensitive workflow, Pi, schema/permission, dependencies and policy changes
   "pi-catalog/contracts.json","pi-catalog/other.schema.json",
   "scripts/ci-auto-merge-policy.mjs","scripts/ci-change-impact.mjs",
   "scripts/admission-engine.mjs","scripts/build-pi-api.mjs",
+  "src/ui-requirements/submission-http.ts","src/ui-requirements/submission-confirmation.ts",
+  "src/ui-runtime/spec-screen.tsx","scripts/lib/spec-invariants.mjs",".pi/extensions/ui-guard.ts",
   "package.json","package-lock.json","server/routes.ts","backend/handler.ts"
  ]){
   const result=decision("docs/readme.md",file);

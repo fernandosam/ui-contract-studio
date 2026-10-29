@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useRef,useState} from "react";
 import {SpecScreen} from "./spec-screen";
 import {tracePattern} from "../ui-requirements/traceability";
 import {improveLayoutQuality} from "../ui-requirements/layout-repair";
@@ -9,6 +9,7 @@ import type {Answers,Answer} from "../ui-requirements/schema";
 
 /** Secondary safe authoring tool; pattern catalogs remain approved JSON trees. */
 export function PatternWizard(){
+ const qualitySurfaceRef=useRef<HTMLDivElement>(null);
  const [pattern,setPattern]=useState("login");
  const [intent,setIntent]=useState("");
  const [provided,setProvided]=useState<Answers>({});
@@ -67,8 +68,8 @@ export function PatternWizard(){
     Gerar interface do padrão</button>
   </div>
   {preview&&<div data-testid="pattern-preview" className="rounded-lg border bg-card p-4 space-y-3">
-    <h3 className="font-semibold">Prévia JSON com contratos admitidos</h3><SpecScreen spec={preview}/>
-    {quality&&<LayoutQualityPanel report={quality} refinement={refinement??undefined}/>}
+    <h3 className="font-semibold">Prévia JSON com contratos admitidos</h3><div ref={qualitySurfaceRef} data-testid="layout-quality-surface" className="min-w-0 w-full"><SpecScreen spec={preview}/></div>
+    {quality&&<LayoutQualityPanel report={quality} refinement={refinement??undefined} surfaceRef={qualitySurfaceRef}/>}
     {trace&&<details data-testid="pattern-traceability" className="rounded-md border p-3 text-sm">
       <summary className="cursor-pointer font-medium">Requisitos e verificações estáticas</summary>
       <p className="mt-2 text-muted-foreground">Estrutura: {trace.structurallyValid?"válida":"inconsistente"}. Interações ainda dependem de testes independentes.</p>

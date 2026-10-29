@@ -1,3 +1,5 @@
+import {useEffect,useState,type RefObject} from "react";
+import {evaluateRenderedLayout,type RuntimeLayoutQualityReport} from "./layout-runtime-quality";
 import type {LayoutQualityReport} from "../ui-requirements/layout-quality";
 import type {LayoutRepairResult} from "../ui-requirements/layout-repair";
 
@@ -6,7 +8,25 @@ const titles={
 } as const;
 
 /** Informational feedback, not a certification or an additional approval gate. */
-export function LayoutQualityPanel({report,refinement}:{report:LayoutQualityReport;refinement?:LayoutRepairResult}){
+export function LayoutQualityPanel({report,refinement,surfaceRef}:{report:LayoutQualityReport;refinement?:LayoutRepairResult;surfaceRef:RefObject<HTMLDivElement|null>}){
+ const [browser,setBrowser]=useState<RuntimeLayoutQualityReport|null>(null);
+ useEffect(()=>{
+  const surface=surfaceRef.current;
+  if(!surface)return;
+  let active=true,frame=0;
+  const measure=()=>{
+   if(!active)return;
+   const measured=evaluateRenderedLayout(surface);
+   setBrowser(previous=>JSON.stringify(previous)===JSON.stringify(measured)?previous:measured);
+  };
+  const schedule=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(measure);};
+  const observer=typeof ResizeObserver!=="undefined"?new ResizeObserver(schedule):null;
+  observer?.observe(surface);
+  window.addEventListener("resize",schedule);
+  schedule();
+  void document.fonts?.ready.then(schedule);
+  return ()=>{active=false;cancelAnimationFrame(frame);observer?.disconnect();window.removeEventListener("resize",schedule);};
+ },[surfaceRef,report.flow,report.score]);
  return <section data-testid="layout-quality" aria-label="Qualidade estimada do layout" className="rounded-md border p-3 space-y-3 text-sm">
   <div>
    <h3 className="font-semibold">Qualidade estimada do layout: {report.score}/100</h3>
@@ -43,6 +63,15 @@ export function LayoutQualityPanel({report,refinement}:{report:LayoutQualityRepo
     </li>)}
    </ul>
   </details>:<p className="text-sm">Nenhuma divergência identificada pelas heurísticas estáticas.</p>}
-  <p className="text-xs text-muted-foreground">Responsividade não foi medida no navegador. Nota consultiva: não certifica aparência, acessibilidade, E2E ou aprovação de contratos Pi.</p>
+  {browser?<div data-testid="layout-runtime-quality" data-runtime-score={browser.score} data-runtime-report={JSON.stringify(browser)} className="rounded-md border p-3 space-y-2">
+   <h4 className="font-semibold">Medição executada no navegador: {browser.score}/100</h4>
+   <p className="text-xs text-muted-foreground">Viewport {browser.viewport.width} × {browser.viewport.height} px; área da prévia {browser.viewport.surfaceWidth} px; {browser.checks.evaluated} verificações executadas, {browser.checks.notApplicable.length} não aplicáveis.</p>
+   <div className="grid gap-2 sm:grid-cols-2">{(Object.keys(titles) as (keyof typeof titles)[]).map(key=><p key={key}>{titles[key]}: <strong>{browser.scores[key]}/25</strong></p>)}</div>
+   {browser.findings.length>0?<details><summary className="cursor-pointer">Achados da renderização ({browser.findings.length})</summary>
+    <ul className="mt-2 list-disc pl-5 space-y-1">{browser.findings.map(item=><li key={item.code}><strong>{titles[item.dimension]}:</strong> {item.message} {item.suggestion} <span className="text-xs text-muted-foreground">({item.code})</span></li>)}</ul>
+   </details>:<p className="text-xs">Nenhuma divergência nas verificações aplicáveis deste viewport.</p>}
+   <p className="text-xs text-muted-foreground">Medição consultiva, somente do viewport atual. Não comprova outros breakpoints, aparência subjetiva, acessibilidade ou autorização Pi.</p>
+  </div>:<p data-testid="layout-runtime-unavailable" className="text-xs text-muted-foreground">Sem evidência geométrica executada nesta prévia.</p>}
+  <p className="text-xs text-muted-foreground">A nota declarativa acima é independente da medição no navegador. Nenhuma delas autoriza contratos, alterações de Zod ou aprovação automática.</p>
  </section>;
 }

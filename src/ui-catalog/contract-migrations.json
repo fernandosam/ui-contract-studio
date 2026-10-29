@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "migrations": [
+    {
+      "type": "Badge",
+      "from": "2.0.0",
+      "to": "2.1.0",
+      "sourceFingerprint": "bc60302e034b413f132793615418f283caf5f0f4ae586040bd91a55c1a4171a1",
+      "targetFingerprint": "0704a31c2cf0790237c9ca915e2e9a7a5c20c6dee69454b3f77d3acb862dd1ba",
+      "operations": [],
+      "note": "Reviewed ReUI upgrade added optional tone/appearance/size/dot; old Badge props need no rewrite."
+    },
+    {
+      "type": "Card",
+      "from": "2.0.0",
+      "to": "2.1.0",
+      "sourceFingerprint": "3346cd0cbd754ecae6df29c30575dd826a72814798c97b7a62626a075ac2f9fa",
+      "targetFingerprint": "39f3c4ebea8e3e937f9b64d3fda3dd0c5c9422e153f419a3b403c5e7cda0c0d8",
+      "operations": [],
+      "note": "Reviewed ReUI Card added optional footer; existing Card props/slots remain valid."
+    },
+    {
+      "type": "Input",
+      "from": "2.0.0",
+      "to": "2.1.0",
+      "sourceFingerprint": "81ace36634edae1ee381f434d9476d84cd97bcb21b89999499e2669a6fc4b1ad",
+      "targetFingerprint": "d8a18e5a6c807eaa5bb09cc7c741fe4ebd7351edc00e0338309eee57e352a958",
+      "operations": [],
+      "note": "Reviewed Input gained optional description/invalid/maxLength; no rewrite of old props or events."
+    }
+  ]
+}
