@@ -10,7 +10,7 @@ const core=[
   'check-dependency-compat.mjs','check-contract-versions.mjs','check-contract-migrations.mjs',
   'build-pi-api.mjs --check','build-pi-fixtures.mjs --check',
   'check-readiness.mjs','check-composite-pruning.mjs','check-screen-discovery.mjs',
-  'report-layout-reuse.mjs --check','report-layout-reuse-comparison.mjs --check','report-layout-composition-proposals.mjs --check',
+  'report-layout-reuse.mjs --check','report-layout-reuse-comparison.mjs --check','report-layout-composition-proposals.mjs --check','validate-layout-composition-proposals.mjs --check',
   'check-ui-catalog.ts','sync-admission-catalog.mjs --check','admission-engine.mjs --check','check-composition-recommendations.ts','generate-composition-proposals.mjs --check','analyze-semantic-knowledge.mjs --check','analyze-compositions.mjs','generate-composite-registry.mjs --check','generate-composite-node-props.mjs --check',
   'check-boundaries.ts',
 ];
@@ -25,7 +25,7 @@ const bin=resolve('node_modules/.bin/tsx');
 let done=0;
 for(const task of tasks){
  const [name,...params]=task.split(' ');
- const useTsx=name.endsWith('.ts');
+ const useTsx=name.endsWith('.ts')||name==='validate-layout-composition-proposals.mjs';
  if(useTsx&&!existsSync(bin)){
   console.error(`✗ ${name}: tsx não instalado (npm ci). Verificação não foi pulada.`);process.exit(1);
  }
