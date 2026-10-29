@@ -93,6 +93,11 @@ test('declared rename and default operations are deterministic, preserve handler
  assert.deepEqual(migrated.spec.elements.x.props,{label:'Submit',disabled:false});
  assert.deepEqual(migrated.spec.elements.x.on,{press:{action:'buttonClick',params:{message:'hello'}}});
  assert.equal(migrated.report.operations.length,3);
+ const missingEvent={root:'x',elements:{x:node('Widget',{oldLabel:'Submit'})}};
+ const withoutEvent=migrateContractSpec({spec:missingEvent,versions:syntheticVersions,
+  registry:syntheticRegistry,lock:syntheticLock});
+ assert.deepEqual(withoutEvent.spec.elements.x.props,{label:'Submit',disabled:false});
+ assert.equal(withoutEvent.spec.elements.x.on,undefined);
  assert.equal(original.elements.x.props.oldLabel,'Submit');
  const collision=structuredClone(original);collision.elements.x.props.label='Do not overwrite';
  assert.throws(()=>migrateContractSpec({spec:collision,versions:syntheticVersions,
