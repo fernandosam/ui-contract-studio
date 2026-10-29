@@ -83,7 +83,15 @@ export function evaluateRenderedLayout(surface:HTMLElement):RuntimeLayoutQuality
   if(item.contains(other)||other.contains(item))return false;
   return intersects(rect(item),rect(other));
  }));
- const outsideControls=controls.some(el=>!fits(rect(el),boundary));
+ const isScrollContained=(el:Element):boolean=>{
+  for(let parent=el.parentElement;parent&&parent!==surface;parent=parent.parentElement){
+   const overflow=getComputedStyle(parent).overflowX;
+   if((overflow==="auto"||overflow==="scroll") && parent.scrollWidth>parent.clientWidth+epsilon &&
+      fits(rect(parent),boundary) && !fits(rect(el),rect(parent)))return true;
+  }
+  return false;
+ };
+ const outsideControls=controls.some(el=>!fits(rect(el),boundary)&&!isScrollContained(el));
  const gridOutliers=grids.some(grid=>{
   const box=rect(grid);
   return directChildren(grid).some(child=>!fits(rect(child),box));
