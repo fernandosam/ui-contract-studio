@@ -36,11 +36,19 @@ Uma spec contém `root`, `elements` e opcionalmente `state`. Cada elemento é id
 A integração suportada é `applyPiTreePatch(spec, patch, "stable")` em `src/ui-runtime/tree-operations.ts`, que delega ao motor puro `scripts/lib/spec-tree-operations.mjs`. O canal `experimental` só pode ser escolhido por um chamador previamente autorizado; o patch não seleciona nem concede seu canal.
 
 1. Verifica JSON, campos estritos, versão v1, limite de 50 operações e chaves reservadas de poluição de protótipos. Rejeita dados não JSON e ciclos.
-2. Valida a árvore inicial **e após cada edição** com o **catálogo Zod real** do canal e com `graphErrors` (limites atuais: 300 elementos, profundidade 30). Rejeita explicitamente slots não declarados.
+2. Valida a árvore inicial **e após cada edição** com o **catálogo Zod real**, tipos/eventos/ações/slots autorizados e `graphErrors` (limites atuais: 300 elementos, profundidade 30). Rejeita slots não declarados e verifica regras estruturais e semânticas de layout antes de aceitar qualquer operação.
 3. Edita somente uma cópia. Qualquer erro retorna `{ok:false,spec:<original>,error:{opIndex,code,message}}`. Nenhuma alteração parcial é observável. Sucesso retorna `{ok:true,spec:<nova cópia>,changes:[...]}`. O resumo contém IDs, posições e chaves, não valores sensíveis.
 4. Não grava arquivos, renderiza, executa handlers, promove contratos nem concede permissões Pi. Publicação continua sujeita ao processo de validação e autorização existente.
 
 Essas operações **não são JSON Patch RFC 6902**: IDs estáveis e invariantes da árvore substituem caminhos posicionais cegos. Um patch inválido não libera JSX ou HTML arbitrário.
+
+## Validação de layout por operação
+
+O motor aplica sempre invariantes estruturais após Zod e integridade do grafo: `Text` e `Heading` não aceitam descendentes (seriam conteúdo invisível na renderização) e `Heading` deve possuir título não vazio. Uma árvore inicial inválida ou uma operação intermediária inválida retorna `layout_invalid` (com `opIndex: null` para a spec inicial). **O patch inteiro** é descartado, inclusive edições anteriores válidas.
+
+O chamador confiável pode fornecer o contrato semântico do fluxo sem alterar o formato do patch: `applyPiTreePatch(spec, patch, "stable", requirements)`, com `requirements` originado do mecanismo de requisitos para **cadastro, login, busca ou dashboard**. A checagem reutiliza `evaluateLayoutQuality` apenas para um conjunto fechado de **regras estruturais determinísticas**: ordem das regiões, agrupamento, pertencimento, densidade de grids, contêiner e ordem responsiva de leitura. Um contexto explícito de fluxo sem suporte é recusado.
+
+A **pontuação de qualidade visual** e as medidas geométricas do navegador continuam **consultivas**: não há limite de pontuação como gate de aprovação, nem certificação de breakpoints reais, acessibilidade ou screenshots. Sem contexto de fluxo, aplicam-se somente as invariantes transversais; **não se infere fluxo** por IDs ou JSON não confiável. O patch não pode fornecer ou alterar a política de validação. Falhas não concedem tipos, props Zod, handlers ou permissões Pi; os diagnósticos não exibem valores de props/state.
 
 ## Garantias de preservação
 
