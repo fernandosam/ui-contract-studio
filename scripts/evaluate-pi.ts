@@ -18,7 +18,8 @@ for(const scenario of suite.scenarios){
   const errors=graphErrors(spec,Object.keys(componentDefinitions),{allowedActions:Object.keys(actionDefinitions),allowedEvents:componentEventDescriptors});
   const types=new Set(Object.values(spec.elements??{}).map((el:unknown)=>(el as {type?:string}).type));
   const missing=scenario.requiredTypes.filter(type=>!types.has(type));
-  const issues=[...errors,...missing.map(type=>`Falta componente ${type}`),...(!validation.success?[validation.error?.message??'Validação estrutural inválida']:[])];
+  // Never persist raw graph/Zod diagnostics: they may echo generated user content.
+  const issues=[...(errors.length?[`Falhas estruturais: ${errors.length}`]:[]),...missing.map(type=>`Falta componente ${type}`),...(!validation.success?['Validação Zod inválida']:[])];
   let meta:Record<string,unknown>|null=null;
   if(existsSync(metaPath)){
    const metadata=JSON.parse(readFileSync(metaPath,'utf8')) as Record<string,unknown>;
@@ -44,14 +45,14 @@ for(const scenario of suite.scenarios){
     if(proof.source!=='pi-cli-jsonl'||proof.id!==scenario.id||proof.attempt!==2||proof.sha256!==hash)throw new Error('Hash/metadados do reparo inválidos');
     repaired=checked.success&&graph.length===0&&omitted.length===0;
     if(!repaired)issues.push('Tentativa de reparo não passou Zod/grafo/tipos exigidos');
-   }catch(err){issues.push(`Reparo inválido: ${String(err)}`)}
+   }catch{issues.push('Reparo inválido')}
   }
   results.push({id:scenario.id,status:firstPass||repaired?'pass':'fail',firstPass,repaired,repairAttempted,issues:repaired?[]:issues,types:types.size,
    durationMs:typeof meta?.durationMs==='number'?meta.durationMs:undefined,
    inputTokens:typeof meta?.inputTokens==='number'?meta.inputTokens:undefined,
    outputTokens:typeof meta?.outputTokens==='number'?meta.outputTokens:undefined,
-   model:typeof meta?.model==='string'?meta.model:undefined});
- }catch(error){results.push({id:scenario.id,status:'fail',issues:[String(error)]});}
+   model:typeof meta?.model==='string'&&/^[a-zA-Z0-9][a-zA-Z0-9_./:-]{0,99}$/.test(meta.model)?meta.model:undefined});
+ }catch{results.push({id:scenario.id,status:'fail',issues:['Erro interno na avaliação']});}
 }
 mkdirSync('reports',{recursive:true});
 const pass=results.filter(r=>r.status==='pass').length,missing=results.filter(r=>r.status==='not-run').length,failed=results.filter(r=>r.status==='fail').length;

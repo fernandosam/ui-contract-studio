@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "docs:check": "node scripts/check-docs.mjs",
+    "security:check": "node scripts/audit-security.mjs",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint .",
     "check:catalog": "tsx scripts/check-ui-catalog.ts",

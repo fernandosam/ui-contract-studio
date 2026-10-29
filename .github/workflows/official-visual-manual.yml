@@ -68,7 +68,7 @@ jobs:
             test-results/
             playwright-report/
           if-no-files-found: warn
-          retention-days: 21
+          retention-days: 14
       - name: Enforce complete evidence collection
         if: always()
         env:
