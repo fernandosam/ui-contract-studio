@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import {spawnSync} from 'node:child_process';
-import {readFileSync} from 'node:fs';
+import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
 import {catalogSegmentsFromContents} from './lib/contract-lock.mjs';
 import {classifyContractChanges} from './lib/contract-compatibility.mjs';
 
@@ -20,7 +20,19 @@ try{
   const oldSegments=new Map(catalogSegmentsFromContents(previous.get(paths[1]),previous.get(paths[2])).map(x=>[x.name,x.segment]));
   const newSegments=new Map(catalogSegmentsFromContents(readFileSync(paths[1],'utf8'),readFileSync(paths[2],'utf8')).map(x=>[x.name,x.segment]));
   const {errors,changes}=classifyContractChanges(oldLock,newLock,oldSegments,newSegments);
-  for(const c of changes)console.log(c.name+': '+c.level.toUpperCase()+' '+(c.previous??'novo')+' -> '+c.version+': '+c.reason);
+  const totals={property:0,state:0,event:0,structure:0,metadata:0};
+  for(const change of changes){
+    console.log(change.name+': '+change.level.toUpperCase()+' '+(change.previous??'novo')+
+      ' -> '+(change.version??'removido')+': '+change.reason);
+    for(const item of change.details??[]){
+      totals[item.category]=(totals[item.category]??0)+1;
+      console.log('  '+item.category+' '+item.kind+' '+item.path);
+    }
+  }
+  const report={schemaVersion:1,baseCommit:base,valid:errors.length===0,totals,changes,errors};
+  mkdirSync('reports/contract-diff',{recursive:true});
+  writeFileSync('reports/contract-diff/changes.json',JSON.stringify(report,null,2)+'\n');
+  console.log('Relatório: reports/contract-diff/changes.json');
   if(errors.length){
     for(const error of errors)console.error('✗ '+error);
     process.exitCode=1;
