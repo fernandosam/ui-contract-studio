@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { PreviewThemeSelector } from "../ui-theme/preview-theme"
+import { PreviewThemeSelector } from "./preview-theme"
 import {
   ReuiComposite,
   reuiCompositeCatalog,
