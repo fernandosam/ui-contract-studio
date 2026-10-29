@@ -70,3 +70,26 @@ test("real measured overflow decreases only advisory browser score",async({page}
  expect(report.findings.some((item:{code:string})=>item.code==="browser-horizontal-overflow")).toBe(true);
  await expect(preview.getByText("A interface foi bloqueada: especificação não autorizada.")).toHaveCount(0);
 });
+
+test("controls inside intentional horizontal scrollers do not trigger surface bounds errors",async({page})=>{
+ const preview=await openPreview(page,"login");
+ const panel=preview.getByTestId("layout-runtime-quality");
+ await expect(panel).toBeVisible();
+ const before=JSON.parse((await panel.getAttribute("data-runtime-report"))??"null");
+ const hasOverflowFinding=(report:{findings:{code:string}[]})=>
+  report.findings.some(item=>item.code==="browser-control-bounds");
+ await preview.getByTestId("layout-quality-surface").evaluate(surface=>{
+  const scroller=document.createElement("div");
+  scroller.style.cssText="width:100%;max-width:100%;overflow-x:auto";
+  const button=document.createElement("button");
+  button.textContent="Wide scrolling control";
+  button.style.cssText="display:block;width:3000px;height:32px";
+  scroller.appendChild(button);
+  surface.appendChild(scroller);
+  window.dispatchEvent(new Event("resize"));
+ });
+ await expect.poll(async()=>{
+  const current=JSON.parse((await panel.getAttribute("data-runtime-report"))??"null");
+  return hasOverflowFinding(current);
+ }).toBe(hasOverflowFinding(before));
+});
