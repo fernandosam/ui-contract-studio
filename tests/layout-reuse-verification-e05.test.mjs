@@ -14,10 +14,12 @@ const comparison=compareLayoutReuseWithCatalog(evidence,lock,
  read("src/ui-catalog/extensions/composites/generated-manifest.json"),read);
 const proposals=buildLayoutCompositionProposals(comparison,evidence,lock,
  read("pi-catalog/props-json-schema.json"),read);
+const baseline=read("src/ui-requirements/layout-reuse-regression-baseline.json");
+const readRaw=path=>readFileSync(path,"utf8");
 const allowedTypes=lock.components.filter(x=>x.status==="approved").map(x=>x.name);
 const inputs=()=>({evidence:structuredClone(evidence),
  comparison:structuredClone(comparison),proposals:structuredClone(proposals),
- allowedTypes,read});
+ allowedTypes,read,baseline:structuredClone(baseline),readRaw});
 const audit=(overrides={})=>auditE05Reuse({...inputs(),...overrides});
 
 test("E05: all 5 candidates and each of 16 JSON occurrences retain exact traceability",()=>{
@@ -111,6 +113,15 @@ test("E05: reordered children and changed edges fail, even if node types still e
  const wrong=inputs();
  wrong.proposals.proposals[0].evidence.reverse();
  assert.throws(()=>audit(wrong),/provenance mismatch/);
+});
+
+test("E05: reviewed baseline blocks silent property and metadata changes",()=>{
+ const path="src/ui-patterns/detail-view.json";
+ assert.throws(()=>audit({readRaw:file=>
+  file===path?readRaw(file)+" ":readRaw(file)}),/reviewed JSON\/metadata regression drift/);
+ const missing=inputs();
+ missing.baseline.layouts.pop();
+ assert.throws(()=>audit(missing),/regression baseline layout coverage drift/);
 });
 
 test("E05: metadata forgery, unrelated origin and incomplete evidence fail closed",()=>{
