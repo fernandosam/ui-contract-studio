@@ -79,7 +79,7 @@ function emit(map, category, path, tokens) {
 
 function walkSchema(map,path,tokens,depth=0) {
   if (depth>15) {emit(map,'structure',path+'.depth',tokens);return;}
-  const category=stateNames.test(path.split(/[.\[\]]/).filter(Boolean).at(-1)??'')?'state':'property';
+  const category=stateNames.test(path.replaceAll('[]','').split('.').at(-1)??'')?'state':'property';
   const shape=objectSchema(tokens);
   const normalized=shape
     ? [...tokens.slice(0,shape.start+1),'__fields__',...tokens.slice(shape.end)]
