@@ -22,7 +22,8 @@ const input=()=>({
  scenarios:read("src/ui-catalog/recommendations/scenarios.json"),
  sources:read("src/ui-catalog/sources.json"),
  protocols:read("src/ui-catalog/admission-engine/protocols.json"),
- entries:read("src/ui-catalog/admission-engine/entries.json")
+ entries:read("src/ui-catalog/admission-engine/entries.json"),
+ manifest:read("src/ui-catalog/extensions/composites/generated-manifest.json")
 });
 const validate=(report:unknown=build(),inputs=input())=>validateE05AdvisoryReport(report,inputs);
 
