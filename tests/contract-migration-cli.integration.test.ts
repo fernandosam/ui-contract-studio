@@ -100,3 +100,30 @@ test('CLI output bundle refuses overwrite and leaves existing artifacts untouche
   assert.equal(readFileSync(manifest,'utf8'),sentinel);
  }finally{cleanup([result,manifest,report]);rmSync(dir,{recursive:true,force:true});}
 });
+
+test('CLI rolls back a partially published bundle after an injected second-file failure',()=>{
+ const dir=scratch(),out=output(),files=siblings(out);
+ try{
+  const preload=join(dir,'fail-second-publish.mjs');
+  // Test-only fault injection into the Node built-in, before the CLI module loads.
+  // The first link publishes the spec; the second link fails deterministically.
+  writeFileSync(preload,[
+   "import fs from 'node:fs';",
+   "import {syncBuiltinESMExports} from 'node:module';",
+   "const link=fs.linkSync;",
+   "let writes=0;",
+   "fs.linkSync=(...args)=>{if(++writes===2)throw Error('injected second link failure');return link(...args)};",
+   "syncBuiltinESMExports();"
+  ].join('\\n')+'\\n');
+  const outcome=spawnSync(process.execPath,[
+   '--import='+preload,'scripts/migrate-contract-spec.mjs',
+   '--file='+fixture+'legacy-reui-spec.json',
+   '--versions='+fixture+'legacy-reui-versions.json','--out='+out
+  ],{cwd:root,encoding:'utf8',maxBuffer:1024*1024});
+  assert.notEqual(outcome.status,0);
+  assert.match(outcome.stderr,/injected second link failure/);
+  assert.equal(files.some(existsSync),false,'no partly published artifacts survive rollback');
+  assert.deepEqual(read(fixture+'legacy-reui-spec.json'),source);
+  assert.deepEqual(read(fixture+'legacy-reui-versions.json'),historical);
+ }finally{cleanup(files);rmSync(dir,{recursive:true,force:true});}
+});
