@@ -18,7 +18,7 @@ jobs:
     env:
       CI: 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-deps
       - name: Validate curated references and explicit pending-review set
         run: |
