@@ -44,6 +44,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Audit committed secrets and CI artifact retention (blocking)
+        run: npm run security:check
       - name: Guard mandatory semantic audit policy (blocking)
         run: npm run semantic:enforcement
       # Always runs, including when src/ui-catalog/knowledge/** changes.
@@ -92,6 +94,10 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup-deps
+      - name: Audit npm production high+ and all-dependency critical+ advisories (blocking)
+        run: |
+          npm audit --omit=dev --audit-level=high
+          npm audit --audit-level=critical
       - name: Export authoritative schemas for Pi
         run: npm run pi:zod-schema
       - name: Verify source provenance and upstream primitives

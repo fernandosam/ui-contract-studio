@@ -8,6 +8,11 @@ coverage/
 !.env.example
 .DS_Store
 *.log
+.npmrc
+*.pem
+*.p12
+*.pfx
+*.key
 
 /eval-results/
 /reports/

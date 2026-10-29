@@ -35,6 +35,7 @@ jobs:
         with:
           name: reui-preview-copy-pt-br
           if-no-files-found: warn
+          retention-days: 7
           path: src/ui-catalog/reui-preview-text.pt-BR.json
       - name: Commit localized catalog to feature branch
         if: success()

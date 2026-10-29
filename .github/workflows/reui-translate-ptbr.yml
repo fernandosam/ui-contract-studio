@@ -30,6 +30,7 @@ jobs:
         with:
           name: reui-example-pt-br
           if-no-files-found: warn
+          retention-days: 7
           path: src/ui-catalog/reui-example-guidance.pt-BR.json
       - name: Commit approved translations to feature branch
         if: success()
