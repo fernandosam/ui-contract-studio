@@ -9,6 +9,7 @@ import primitiveGuidancePtBr from '@/ui-catalog/primitive-guidance.pt-BR.json';
 import compositionPolicy from '@/ui-catalog/composition-policy.json';
 import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
+import { PreviewThemeSelector } from '../ui-theme/preview-theme';
 import { TreePatchWorkbench } from './tree-patch-workbench';
 import piManifest from '../../pi-catalog/contracts.json';
 import semanticGuidance from '@/ui-catalog/semantic-contract-guidance.json';
@@ -176,7 +177,7 @@ function LivePropsEditor({type,original,source,targetId}:{type:string;original:U
         </div>}
     </div>
     <div className="min-w-0 rounded-lg border border-border bg-card p-4">
-      <h4 className="mb-3 font-semibold">Prévia em tempo de execução</h4>
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h4 className="font-semibold">Prévia em tempo de execução</h4><PreviewThemeSelector /></div>
       <div className={`min-w-0 max-w-full overflow-x-auto ${type==='Separator'?'flex min-h-10 items-center':''}`} data-testid="catalog-live-preview">
         {validated.success ? <SpecScreen key={revision} spec={effective}/> : <p role="alert" className="text-destructive">Prévia bloqueada: contrato inválido.</p>}
       </div>
@@ -589,6 +590,7 @@ export function ReuiGallery(){
  const all=groups.flatMap(g=>g.items.map(item=>({...{kind:g.name},title:item[0],id:item[1]})));
  const visible=all.slice(0,limit);
  return <section aria-label="ReUI" className="min-w-0 space-y-5">
+   <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border bg-card p-3"><PreviewThemeSelector/><p className="text-xs text-muted-foreground">Tema compartilhado com as demais prévias; os exemplos originais não são modificados.</p></div>
   <div className="grid gap-3 rounded-lg border bg-card p-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
    <label className="grid gap-1 text-xs font-medium">Componente
     <select aria-label="Filtrar componente" className="w-full rounded-md border bg-background px-3 py-2 text-sm" value={component} onChange={e=>{setComponent(e.target.value);setLimit(12);}}>

@@ -1,5 +1,6 @@
 import {useRef,useState} from "react";
 import {SpecScreen} from "./spec-screen";
+import {PreviewThemeSelector} from "../ui-theme/preview-theme";
 import {tracePattern} from "../ui-requirements/traceability";
 import {improveLayoutQuality} from "../ui-requirements/layout-repair";
 import {LayoutQualityPanel} from "./layout-quality-panel";
@@ -68,7 +69,7 @@ export function PatternWizard(){
     Gerar interface do padrão</button>
   </div>
   {preview&&<div data-testid="pattern-preview" className="rounded-lg border bg-card p-4 space-y-3">
-    <h3 className="font-semibold">Prévia JSON com contratos admitidos</h3><div ref={qualitySurfaceRef} data-testid="layout-quality-surface" className="min-w-0 w-full"><SpecScreen spec={preview}/></div>
+    <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="font-semibold">Prévia JSON com contratos admitidos</h3><PreviewThemeSelector/></div><div ref={qualitySurfaceRef} data-testid="layout-quality-surface" className="min-w-0 w-full"><SpecScreen spec={preview}/></div>
     {quality&&<LayoutQualityPanel report={quality} refinement={refinement??undefined} surfaceRef={qualitySurfaceRef}/>}
     {trace&&<details data-testid="pattern-traceability" className="rounded-md border p-3 text-sm">
       <summary className="cursor-pointer font-medium">Requisitos e verificações estáticas</summary>

@@ -1,8 +1,7 @@
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Moon, Sun, CheckCircle2, LayoutGrid, Layers, ShieldCheck, Workflow, CalendarDays, Settings2, LogIn, UserPlus, PanelLeft, type LucideIcon } from "lucide-react";
 import type { ScreenEntry } from "./screen-registry";
-import themeManifest from "../ui-theme/themes.json";
-import {resolveTheme, validateThemeRegistry} from "../ui-theme/theme-policy.mjs";
+import {PreviewThemeProvider, usePreviewTheme} from "../ui-theme/preview-theme";
 import { Toaster } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,21 +19,14 @@ const GROUPS = [
   {label:"Ferramentas", accepts:(entry:ScreenEntry) => entry.section === "Ferramentas"},
 ];
 
-// Trusted registry only: generated JSON never carries classes or CSS values.
-const registeredThemes = validateThemeRegistry(themeManifest);
-
-export function PageShell({ title, subtitle, section, children, navigation, current }: { title: string; subtitle: string; section: string; children?: ReactNode; navigation: ScreenEntry[]; current: string }) {
-  const [theme, setTheme] = useState<"dark" | "light">(() =>
-    document.documentElement.classList.contains("light-theme") ? "light" : "dark"
-  );
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    document.documentElement.classList.remove("dark-theme", "light-theme");
-    const resolved = resolveTheme({...registeredThemes.defaultTheme, mode:next}, registeredThemes);
-    document.documentElement.classList.add(resolved.className);
-    try { localStorage.setItem("ui-contract-studio-theme", next); } catch { /* non-critical */ }
-    setTheme(next);
-  };
+// The application owns theme selection. Preview JSON and React examples cannot change it.
+type ShellProps = { title: string; subtitle: string; section: string; children?: ReactNode; navigation: ScreenEntry[]; current: string };
+export function PageShell(props: ShellProps) {
+  return <PreviewThemeProvider><PageShellContent {...props} /></PreviewThemeProvider>;
+}
+function PageShellContent({title, subtitle, section, children, navigation, current}: ShellProps) {
+  const {selection, toggleMode, canToggleMode} = usePreviewTheme();
+  const theme = selection.mode;
   return <SidebarProvider>
     <Sidebar collapsible="icon" variant="sidebar">
       <SidebarHeader><div className="flex items-center gap-3 p-2"><Workflow className="size-5 shrink-0"/><strong className="truncate group-data-[collapsible=icon]:hidden">ui-contract-studio</strong></div></SidebarHeader>
@@ -62,7 +54,7 @@ export function PageShell({ title, subtitle, section, children, navigation, curr
           <Breadcrumb><BreadcrumbList><BreadcrumbItem>UI Contract Studio</BreadcrumbItem><BreadcrumbSeparator/><BreadcrumbItem><BreadcrumbPage>{section}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
         </div>
         <div className="flex items-center gap-2"><CheckCircle2 className="size-4 text-muted-foreground"/>
-          <Button variant="ghost" size="icon" type="button" onClick={toggleTheme} aria-label={theme === "dark"?"Ativar tema claro":"Ativar tema escuro"}>
+          <Button variant="ghost" size="icon" type="button" onClick={toggleMode} disabled={!canToggleMode} aria-label={theme === "dark"?"Ativar tema claro":"Ativar tema escuro"}>
             {theme === "dark" ? <Sun className="size-4"/> : <Moon className="size-4"/>}
           </Button>
         </div>

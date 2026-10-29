@@ -1,4 +1,5 @@
 import { SpecScreen } from './spec-screen';
+import { PreviewThemeSelector } from '../ui-theme/preview-theme';
 import { PageShell } from './layout';
 import { navigation, screens } from './screen-registry';
 import { lazy, Suspense } from 'react';
@@ -26,6 +27,6 @@ export function App() {
   const entry = tool ?? (screens[requested] ?? explorerEntries.find(item=>item.slug==='reui') ?? navigation[0]);
   if (!entry) return <main role="alert">Nenhuma tela cadastrada.</main>;
   return <PageShell title={entry.title} subtitle={entry.subtitle} section={entry.section} navigation={[...navigation,...explorerEntries]} current={entry.slug}>
-    {tool ? <Suspense fallback={<p role="status">Carregando explorador…</p>}>{tool.slug==='criador-padroes'?<PatternWizard/>:tool.slug==='criador-interfaces'?<RequirementsWizard/>:tool.slug==='explorador-primitivos'?<PrimitiveExplorer/>:tool.slug==='explorador-compostos'?<CompositeExplorer/>:tool.slug==='reui'?<ReuiGallery/>:<ExamplesExplorer/>}</Suspense> : <SpecScreen spec={entry.spec} />}
+    {tool ? <Suspense fallback={<p role="status">Carregando explorador…</p>}>{tool.slug==='criador-padroes'?<PatternWizard/>:tool.slug==='criador-interfaces'?<RequirementsWizard/>:tool.slug==='explorador-primitivos'?<PrimitiveExplorer/>:tool.slug==='explorador-compostos'?<CompositeExplorer/>:tool.slug==='reui'?<ReuiGallery/>:<ExamplesExplorer/>}</Suspense> : <div className="space-y-3"><div className="flex flex-wrap justify-end"><PreviewThemeSelector /></div><SpecScreen spec={entry.spec} /></div>}
   </PageShell>;
 }

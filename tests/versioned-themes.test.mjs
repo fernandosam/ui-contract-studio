@@ -22,7 +22,8 @@ test("E06: host-owned themes are versioned and refer only to existing CSS classe
   for (const variable of ["--background:", "--primary:", "--border:", "--shadow-sm:", "--radius:"]) {
     assert.ok(css.includes(variable), variable);
   }
-  assert.match(read("src/ui-runtime/layout.tsx"), /resolveTheme/);
+  assert.match(read("src/ui-runtime/layout.tsx"), /PreviewThemeProvider/);
+  assert.match(read("src/ui-theme/preview-theme-policy.mjs"), /resolveTheme/);
 });
 
 test("E06: unknown fields, CSS strings and unapproved design choices fail closed", () => {

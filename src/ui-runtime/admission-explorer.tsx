@@ -1,6 +1,7 @@
 import {useMemo,useState} from "react";
 import official from "../../pi-catalog/contracts.json";
 import {SpecScreen} from "./spec-screen";
+import {PreviewThemeSelector} from "../ui-theme/preview-theme";
 import {experimentalFormScenarios,type ExperimentalFormScenario} from "../ui-catalog/admission-engine/form-scenarios";
 
 const stableExamples=import.meta.glob("../../pi-catalog/examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
@@ -86,7 +87,7 @@ export function AdmissionExplorer({compositionOnly=false}:{compositionOnly?:bool
        </label>}
       </article>
       <section className="min-w-0 rounded-xl border bg-card p-4" aria-label="Prévia do contrato">
-       <h4 className="mb-3 text-sm font-semibold">Prévia com contrato Zod real</h4>
+       <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h4 className="text-sm font-semibold">Prévia com contrato Zod real</h4><PreviewThemeSelector/></div>
        {!canPreview?<p role="status" className="rounded-md border border-amber-400/30 p-3 text-sm">
         Este componente ainda não passou pelo E2E completo. Selecione o canal experimental para testá-lo localmente.
        </p>:activeSample?<SpecScreen key={current.type+"-"+channel+"-"+formVariant} spec={activeSample} channel={channel}/>:

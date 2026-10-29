@@ -1,5 +1,6 @@
 import {useRef,useState} from "react";
 import {SpecScreen} from "./spec-screen";
+import {PreviewThemeSelector} from "../ui-theme/preview-theme";
 
 import {proposeFormFlow} from "../ui-requirements/form-proposal";
 import {registrationFlow,defaultAnswers,activeQuestions,resolveAnswers,inferFlow} from "../ui-requirements/engine";
@@ -98,7 +99,7 @@ export function RequirementsWizard(){
       </div>
     </div>
     {preview&&<div className="rounded-lg border bg-card p-4 space-y-3" data-testid="generated-preview">
-      <h2 className="text-lg font-semibold">Prévia do catálogo aprovado</h2>
+      <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-semibold">Prévia do catálogo aprovado</h2><PreviewThemeSelector/></div>
       <p className="text-sm text-muted-foreground">Demonstração sem persistência. Validação funcional e acessibilidade ainda exigem execução de testes.</p>
       <div ref={qualitySurfaceRef} data-testid="layout-quality-surface" className="min-w-0 w-full"><SpecScreen spec={preview}/></div>
       {quality&&<LayoutQualityPanel report={quality} refinement={refinement??undefined} surfaceRef={qualitySurfaceRef}/>}
