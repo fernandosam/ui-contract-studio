@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Moon, Sun, CheckCircle2, LayoutGrid, Layers, ShieldCheck, Workflow, CalendarDays, Settings2, LogIn, UserPlus, PanelLeft, type LucideIcon } from "lucide-react";
 import type { ScreenEntry } from "./screen-registry";
-import {PreviewThemeProvider, usePreviewTheme} from "../ui-theme/preview-theme";
+import {PreviewThemeProvider, usePreviewTheme} from "./preview-theme";
 import { Toaster } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
