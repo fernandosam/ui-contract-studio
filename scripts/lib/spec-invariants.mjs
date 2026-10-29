@@ -39,6 +39,13 @@ export function graphErrors(spec, allowedTypes, { maxElements=300, maxDepth=30, 
         if(allowedEvents[node.type] && !(allowed??[]).includes(event))errors.push(`${id}: evento não registrado (${event}).`);
         for(const handler of Array.isArray(handlers)?handlers:[handlers]){
           if(!handler || typeof handler!=="object" || !actions.has(handler.action))errors.push(`${id}: ação não permitida (${String(handler?.action)}).`);
+          // json-render state actions must never target prototype chains or control characters.
+          if(["setState","pushState","removeState"].includes(handler?.action)){
+            const path=handler?.params?.statePath;
+            if(typeof path!=="string" || !path || /[\\x00-\\x1f\\x7f]/.test(path) ||
+              path.split(/[.\\[\\]\\/]+/).some(segment=>["__proto__","constructor","prototype"].includes(segment)))
+              errors.push(`${id}: statePath não autorizado.`);
+          }
         }
       }
     }
