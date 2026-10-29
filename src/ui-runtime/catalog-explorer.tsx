@@ -9,6 +9,7 @@ import primitiveGuidancePtBr from '@/ui-catalog/primitive-guidance.pt-BR.json';
 import compositionPolicy from '@/ui-catalog/composition-policy.json';
 import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
+import { TreePatchWorkbench } from './tree-patch-workbench';
 import piManifest from '../../pi-catalog/contracts.json';
 import semanticGuidance from '@/ui-catalog/semantic-contract-guidance.json';
 import {discoverContracts,functionalGroups,type DiscoveryEntry} from './catalog-discovery';
@@ -562,6 +563,7 @@ export function ExamplesExplorer(){
     <div className="rounded-lg border border-border bg-card p-4"><h3 className="font-semibold">{sourceType==='screens'?selectedScreen?.title:meta.find(x=>x.id===selectedSource)?.title}</h3>
      <p className="mt-1 text-xs text-muted-foreground">{sourcePath} · {Object.keys(matched?.elements??{}).length} nós · o editor aplica alterações apenas na prévia.</p></div>
     {matched&&currentNode&&currentId&&<LivePropsEditor key={`${sourceType}:${selectedSource}:${currentId}`} type={currentNode.type} original={matched} targetId={currentId} source={sourcePath??''}/>}
+    {matched&&<TreePatchWorkbench key={`${sourceType}:${selectedSource}`} spec={matched} selectedId={currentId}/>}
    </div>
   </div>
  </section>;
