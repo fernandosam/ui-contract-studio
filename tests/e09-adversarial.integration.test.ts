@@ -43,13 +43,20 @@ test("E09 adversarial: injected system/tool text is data, not a catalog grant",(
   for(const action of ["shellExec","externalRequest","deleteDatabase"]){
    const modified=structuredClone(good);
    modified.elements.trigger.on.press.action=action;
-   assert.equal(catalog.validate(modified).success,false,action);
+   // The renderer requires BOTH Zod validation and graph policy. The graph
+   // (not the component-props schema) denies non-catalog action names.
+   const accepted=catalog.validate(modified).success&&
+    graphErrors(modified,Object.keys(stableComponentDefinitions),{
+     allowedActions:Object.keys(actionDefinitions),allowedEvents:stableComponentEventDescriptors
+    }).length===0;
+   assert.equal(accepted,false,action);
   }
   const forged=structuredClone(good) as unknown as {
    elements:{trigger:{props:Record<string,unknown>;on:{press:{action:string;params:Record<string,unknown>}}}}
   };
   forged.elements.trigger.on.press.params={message:label,endpoint:"https://invalid.example"};
-  assert.equal(catalog.validate(forged).success,false);
+  // Handler parameters are revalidated by action implementations at dispatch.
+  assert.equal(actionDefinitions.buttonClick.params.safeParse(forged.elements.trigger.on.press.params).success,false);
   forged.elements.trigger.props.permission="admin";
   assert.equal(catalog.validate(forged).success,false);
  }
