@@ -6,6 +6,8 @@ test('semantic discovery and category filtering preserve approved contract detai
  await search.fill('confirmação');
  const dialog=page.getByLabel('Componentes registrados').getByRole('button',{name:/AlertDialog/}).first();
  await expect(dialog).toBeVisible();
+ await expect(dialog).toHaveAccessibleName('AlertDialog');
+ await expect(dialog).toHaveAttribute('aria-description',/Pi disponível/);
  await page.getByLabel('Finalidade').selectOption('Confirmação e feedback');
  await expect(dialog).toBeVisible();
  await page.getByLabel('Disponibilidade ao Pi').selectOption('available');
