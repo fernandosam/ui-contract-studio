@@ -75,7 +75,7 @@
         },
         {
           "path": "src/ui-catalog/extensions/components/data-table.tsx",
-          "contains": "getFilteredRowModel:getFilteredRowModel()"
+          "contains": "getFilteredRowModel:getFilteredRowModel<DataRow>()"
         },
         {
           "path": "src/ui-catalog/extensions/components/data-table.tsx",
