@@ -114,7 +114,7 @@ test('CLI rolls back a partially published bundle after an injected second-file 
    "let writes=0;",
    "fs.linkSync=(...args)=>{if(++writes===2)throw Error('injected second link failure');return link(...args)};",
    "syncBuiltinESMExports();"
-  ].join('\\n')+'\\n');
+  ].join('\n')+'\n');
   const outcome=spawnSync(process.execPath,[
    '--import='+preload,'scripts/migrate-contract-spec.mjs',
    '--file='+fixture+'legacy-reui-spec.json',
