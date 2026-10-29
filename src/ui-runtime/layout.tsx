@@ -1,6 +1,8 @@
 import { useState, type ReactNode } from "react";
 import { Moon, Sun, CheckCircle2, LayoutGrid, Layers, ShieldCheck, Workflow, CalendarDays, Settings2, LogIn, UserPlus, PanelLeft, type LucideIcon } from "lucide-react";
 import type { ScreenEntry } from "./screen-registry";
+import themeManifest from "../ui-theme/themes.json";
+import {resolveTheme, validateThemeRegistry} from "../ui-theme/theme-policy.mjs";
 import { Toaster } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +20,9 @@ const GROUPS = [
   {label:"Ferramentas", accepts:(entry:ScreenEntry) => entry.section === "Ferramentas"},
 ];
 
+// Trusted registry only: generated JSON never carries classes or CSS values.
+const registeredThemes = validateThemeRegistry(themeManifest);
+
 export function PageShell({ title, subtitle, section, children, navigation, current }: { title: string; subtitle: string; section: string; children?: ReactNode; navigation: ScreenEntry[]; current: string }) {
   const [theme, setTheme] = useState<"dark" | "light">(() =>
     document.documentElement.classList.contains("light-theme") ? "light" : "dark"
@@ -25,7 +30,8 @@ export function PageShell({ title, subtitle, section, children, navigation, curr
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     document.documentElement.classList.remove("dark-theme", "light-theme");
-    document.documentElement.classList.add(next === "dark" ? "dark-theme" : "light-theme");
+    const resolved = resolveTheme({...registeredThemes.defaultTheme, mode:next}, registeredThemes);
+    document.documentElement.classList.add(resolved.className);
     try { localStorage.setItem("ui-contract-studio-theme", next); } catch { /* non-critical */ }
     setTheme(next);
   };
