@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { z } from 'zod';
 import { componentDefinitions, catalog } from '@/ui-catalog/catalog';
 import contractLock from '@/ui-catalog/contracts.lock.json';
@@ -10,6 +10,8 @@ import compositionPolicy from '@/ui-catalog/composition-policy.json';
 import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
 import piManifest from '../../pi-catalog/contracts.json';
+import semanticGuidance from '@/ui-catalog/semantic-contract-guidance.json';
+import {discoverContracts,functionalGroups,type DiscoveryEntry} from './catalog-discovery';
 import { AdmissionExplorer } from './admission-explorer';
 import {CompositionRecommendationPanel, pilotFamilies} from './composition-recommendations';
 
@@ -294,11 +296,42 @@ function ContractDetails({type}:{type:string}){
 
 function ComponentExplorer({kind}:{kind:Kind}){
  const available=kind==='primitive'?primitiveList:compositeList;
- const [search,setSearch]=useState('');
- const [stability,setStability]=useState('all');
+ const initial=new URLSearchParams(window.location.search);
+ const [search,setSearch]=useState(()=>initial.get('catalogSearch')??'');
+ const [stability,setStability]=useState(()=>initial.get('catalogStability')??'all');
+ const [group,setGroup]=useState(()=>initial.get('catalogGroup')??'all');
+ const [piFilter,setPiFilter]=useState(()=>initial.get('catalogPi')??'all');
  const [tab,setTab]=useState<ContractTab>('preview');
  const [type,setType]=useState(available[0]??'Card');
- const filtered=useMemo(()=>available.filter(t=>t.toLowerCase().includes(search.toLowerCase())&&(stability==='all'||versions.get(t)?.stability===stability)),[search,available,stability]);
+
+ const discoveryEntries=useMemo(()=>available.map(name=>{
+  const contract=versions.get(name);
+  const published=piByType.get(name);
+  const overlay=curatedSemanticByType[name] as SemanticOverlay|undefined;
+  const guide=localizedPrimitiveDocs[name]??shadcnDocs[name]??reuiDocs[name];
+  const extra=(semanticGuidance.contracts as Record<string,{whenUse?:string[]}>)[name];
+  return {
+   name,description:componentDefinitions[name as keyof typeof componentDefinitions]?.description,
+   purpose:overlay?.purpose,
+   whenUse:overlay?.whenUse??extra?.whenUse??guide?.whenUse??[],
+   maturity:contract?.stability??'experimental',
+   piAvailable:contract?.stability==='stable'&&contract.status==='approved'&&published?.stability==='stable'&&published.lifecycle==='stable'&&published.fingerprint===contract.semanticFingerprint&&published.version===contract.version,
+  } satisfies DiscoveryEntry;
+ }),[available]);
+ const results=useMemo(()=>discoverContracts(discoveryEntries,{query:search,group,maturity:stability,pi:piFilter}),[discoveryEntries,search,group,stability,piFilter]);
+ const filtered=results.map(item=>item.entry.name);
+ const grouped=useMemo(()=>{
+  const buckets=new Map<string,typeof results>();
+  for(const result of results)buckets.set(result.group,[...(buckets.get(result.group)??[]),result]);
+  return [...buckets.entries()];
+ },[results]);
+ useEffect(()=>{
+  const params=new URLSearchParams(window.location.search);
+  for(const [key,value] of [['catalogSearch',search],['catalogStability',stability],['catalogGroup',group],['catalogPi',piFilter]]){
+   if(!value||value==='all')params.delete(key);else params.set(key,value);
+  }
+  window.history.replaceState(window.history.state,'',window.location.pathname+'?'+params.toString()+window.location.hash);
+ },[search,stability,group,piFilter]);
  const selectedType=filtered.includes(type)?type:(filtered[0]??null);
  const sample=selectedType?samples[selectedType]:undefined;
  const spec=sample?extractBranch(sample.spec,sample.id):undefined;
@@ -309,7 +342,7 @@ function ComponentExplorer({kind}:{kind:Kind}){
    <span className="text-xs text-muted-foreground">Analisar composição:</span>
    {pilotFamilies.map(family=><button type="button" key={family}
     aria-current={selectedType===family?'true':undefined}
-    onClick={()=>{setType(family);setSearch('');}}
+    onClick={()=>{setType(family);setSearch('');setGroup('all');setPiFilter('all');setStability('all');setTab('semantics');}}
     className={`rounded-md border px-3 py-1.5 text-xs ${type===family?'bg-secondary font-semibold':'hover:bg-muted'}`}>
     {family}
    </button>)}
@@ -317,19 +350,37 @@ function ComponentExplorer({kind}:{kind:Kind}){
   <div className="grid min-w-0 gap-4 lg:grid-cols-[245px_minmax(0,1fr)]">
    <aside className="min-w-0 rounded-lg border border-border bg-card p-3 lg:max-h-[720px] lg:overflow-y-auto">
     <label htmlFor="catalog-search" className="mb-2 block text-xs font-medium">Buscar componente</label>
-    <input id="catalog-search" type="search" className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring" placeholder="Nome do componente" value={search} onChange={e=>setSearch(e.target.value)}/>
+    <input id="catalog-search" type="search" className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring" placeholder="Nome, finalidade ou comportamento" value={search} onChange={e=>setSearch(e.target.value)}/>
     <label htmlFor="catalog-stability" className="mb-2 block text-xs font-medium">Estabilidade</label>
     <select id="catalog-stability" className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={stability} onChange={e=>setStability(e.target.value)}>
      <option value="all">Todas</option><option value="stable">Estável</option><option value="beta">Beta</option><option value="experimental">Experimental</option><option value="deprecated">Descontinuado</option>
     </select>
-    <p role="status" className="mb-2 text-xs text-muted-foreground">{filtered.length} de {available.length} componentes</p>
-    <div className="space-y-1" aria-label="Componentes registrados">{filtered.map(name=><button type="button" key={name} aria-current={name===selectedType?'true':undefined} onClick={()=>{setType(name);setTab('preview');}} className={`block w-full rounded-md px-3 py-2 text-left text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${name===selectedType?'bg-secondary font-semibold':'hover:bg-muted'}`}>{name}</button>)}</div>
+    <label htmlFor="catalog-group" className="mb-2 block text-xs font-medium">Finalidade</label>
+    <select id="catalog-group" className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={group} onChange={e=>setGroup(e.target.value)}>
+      <option value="all">Todas as finalidades</option>{functionalGroups.map(value=><option key={value} value={value}>{value}</option>)}
+    </select>
+    <label htmlFor="catalog-pi" className="mb-2 block text-xs font-medium">Disponibilidade ao Pi</label>
+    <select id="catalog-pi" className="mb-3 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={piFilter} onChange={e=>setPiFilter(e.target.value)}>
+      <option value="all">Todos</option><option value="available">Disponível no Pi</option><option value="unavailable">Não disponível no Pi</option>
+    </select>
+    <div className="mb-3 flex items-center justify-between gap-2">
+      <p role="status" className="text-xs text-muted-foreground">{filtered.length} de {available.length} componentes</p>
+      <button type="button" className="rounded-md px-2 py-1 text-xs underline underline-offset-2 hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring" onClick={()=>{setSearch('');setStability('all');setGroup('all');setPiFilter('all');}}>Limpar filtros</button>
+    </div>
+    <div className="space-y-4" aria-label="Componentes registrados">{grouped.map(([category,items])=><section key={category} aria-label={category} className="space-y-1">
+      <h3 className="px-2 text-xs font-semibold text-muted-foreground">{category} <span className="font-normal">({items.length})</span></h3>
+      {items.map(({entry})=><button type="button" key={entry.name} aria-current={entry.name===selectedType?'true':undefined} onClick={()=>{setType(entry.name);setTab('preview');}} className={`block w-full rounded-md px-3 py-2 text-left text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${entry.name===selectedType?'bg-secondary font-semibold':'hover:bg-muted'}`}>
+       <span className="block truncate">{entry.name}</span><span className="block text-[11px] font-normal text-muted-foreground">{entry.maturity} · {entry.piAvailable?'Pi disponível':'Pi não disponível'}</span>
+      </button>)}
+    </section>)}</div>
     {!filtered.length&&<p className="text-sm text-muted-foreground">Nenhum componente encontrado.</p>}
    </aside>
    <div className="min-w-0 space-y-4">
     {!selectedType ? <p role="status" className="rounded-lg border bg-card p-5 text-sm text-muted-foreground">Nenhum componente corresponde aos filtros. Limpe a busca ou altere a estabilidade.</p> : <><div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">{selectedType}</h3>
     <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(selectedType)?.version??'—'}</span>{kind==='primitive'&&<PrimitiveSourceViewer key={selectedType} type={selectedType} example={spec}/>}</div></div>
     <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[selectedType as keyof typeof componentDefinitions]?.description}</p>
+    {discoveryEntries.find(item=>item.name===selectedType)?.whenUse?.length ? <p className="mt-2 text-sm"><span className="font-medium">Quando usar:</span> {discoveryEntries.find(item=>item.name===selectedType)?.whenUse?.[0]}</p> : null}
+    <p className="mt-1 text-xs text-muted-foreground">Orientações de descoberta são consultivas; apenas schemas e contratos revisados determinam o que o Pi pode executar.</p>
     <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(selectedType).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
     <div role="tablist" aria-label="Detalhes do componente" className="flex flex-wrap gap-1 rounded-lg border bg-muted/25 p-1">
      {([['preview','Prévia e propriedades'],['contract','Contrato'],['semantics','Semântica e testes']] as const).map(([value,label])=><button key={value} type="button" role="tab" aria-selected={tab===value} onClick={()=>setTab(value)} className={`rounded-md px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-ring ${tab===value?'bg-background font-semibold shadow-sm':'hover:bg-muted'}`}>{label}</button>)}
