@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Offline, explicit E07 migration. Never rewrites source specs or approvals. */
-import {readFileSync,writeFileSync,existsSync,mkdirSync,mkdtempSync,rmSync,renameSync} from 'node:fs';
+import {readFileSync,writeFileSync,existsSync,mkdirSync,mkdtempSync,rmSync,linkSync} from 'node:fs';
 import {resolve,join,dirname} from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {snapshotContractVersions,migrateContractSpec} from './lib/contract-migrations.mjs';
@@ -53,15 +53,23 @@ try{
    mkdirSync(dirname(output),{recursive:true});
    const values=snapshot?[result]:[result.spec,result.versions,result.report];
    // No in-place edits of screens, generated Pi contracts, lock or old files.
-   const temporary=[];
+   // Stage a full bundle first, then publish no-clobber hardlinks. A failing
+   // publish rolls back only files created by this invocation. Unlike rename,
+   // linkSync never overwrites a concurrent writer's existing report.
+   const stage=mkdtempSync('reports/contract-migrations/.publish-');
+   const published=[];
    try{
+     const staged=files.map((_,i)=>join(stage,i+'.json'));
+     for(let i=0;i<files.length;i++)
+       writeFileSync(staged[i],JSON.stringify(values[i],null,2)+'\n',{flag:'wx'});
      for(let i=0;i<files.length;i++){
-       const temp=files[i]+'.tmp-'+process.pid;
-       writeFileSync(temp,JSON.stringify(values[i],null,2)+'\n',{flag:'wx'});
-       temporary.push(temp);
+       linkSync(staged[i],files[i]);
+       published.push(files[i]);
      }
-     for(let i=0;i<files.length;i++)renameSync(temporary[i],files[i]);
-   }finally{for(const temp of temporary)if(existsSync(temp))rmSync(temp);}
+   }catch(error){
+     for(const created of published)rmSync(created,{force:true});
+     throw error;
+   }finally{rmSync(stage,{recursive:true,force:true});}
    console.log('Created: '+files.join(', '));
  }
 }catch(e){error(e.message);}
