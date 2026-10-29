@@ -91,3 +91,14 @@ npm run contracts:migrations:check
 Sem `--out`, imprime uma prévia determinística sem modificar os originais. Com `--out`, cria spec migrada, manifesto `.versions.json` e trilha `.report.json` exclusivamente em `reports/contract-migrations/`, recusando sobrescrita. **Executa a validação Zod real no canal estável antes de publicar a saída**, exigindo dependências instaladas. Rejeita versões desconhecidas, divergências de fingerprint, colisões e lacunas de cadeia.
 
 A gramática futura permite exclusivamente `rename-prop`, `rename-event` e `set-default-prop` por tipo/versão, sem executar código nem modificar tipos, ações ou permissões. A verificação existente de CI e os testes offline protegem o registro; mudanças sensíveis exigem revisão normal. Não habilita tipos aposentados ou experimentais. Revise sempre as saídas antes de substituir consumidores de produção.
+
+## E07 — Suíte de regressão de compatibilidade, reversão e falha segura
+
+A cobertura usa a infraestrutura de testes existente, **sem adicionar uma camada de aprovação ou promoção**:
+
+- `node --test tests/contract-migrations.test.mjs tests/contract-migration-safety.test.mjs` verifica fingerprints históricos por componente, mistura de versões antigas/atuais, encadeamento determinístico, idempotência, valores padrão seguros, colisões, tipos não admitidos, origens desconhecidas e adulteração do registro.
+- `npx tsx --test tests/contract-migration-cli.integration.test.ts` verifica o validador Zod real do canal estável, snapshot e reexecução, props inválidas, grafos incorretos, proveniência ausente ou conflitante e recusa de sobrescrita. Exige dependências instaladas e roda no **job de integração já existente**; os testes puros rodam no job offline.
+
+**Reversibilidade significa preservar a spec JSON original e o manifesto de proveniência histórica**, e não inventar uma migração inversa. Versões com inclusão de defaults não necessariamente permitem downgrade sem perda; mantenha os dois arquivos originais antes de utilizar a migração. A CLI nunca os edita no mesmo lugar. As saídas são preparadas integralmente antes da publicação, sem sobrescrever arquivos existentes. Havendo erro normal durante a publicação, são retirados apenas os arquivos que a invocação acabou de criar; uma interrupção abrupta não é uma transação atômica entre vários arquivos. Se houver interrupção, descarte os relatórios novos e execute novamente a partir dos originais intactos. `--snapshot` só deve ser usado quando já se sabe que a spec está atualizada; ele não identifica fingerprints históricos.
+
+Valores padrão exigem JSON estrito (sem `NaN`, infinito, undefined, arrays esparsos ou nomes de chave sensíveis ao protótipo). A suíte não amplia schemas Zod, estabilidade de contratos, ações ou eventos Pi.
