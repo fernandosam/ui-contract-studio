@@ -27,3 +27,7 @@
 - Componentes instalados herdam tema e CSS variables de `src/globals.css`; não substituir por tema padrão do CLI.
 - `src/ui-catalog/*` permanece o contrato da IA. Para uso em telas, a primitiva precisa de adapter e, quando novo tipo, schema Zod e aprovação.
 - Os 21 primitivas planejadas, instruções e status de instalação estão em `shadcn-plan.json` e [integracao-shadcn.md](integracao-shadcn.pt-BR.md).
+
+## Inventário de tokens (FASE 3 / E06)
+
+O [inventário dos tokens visuais](design-token-inventory.pt-BR.md) relaciona cores, tipografia, espaçamento, bordas, raios, sombras e densidade com os arquivos de origem. O [snapshot estruturado](design-token-inventory.json) registra valores por tema e é verificado por `node scripts/inventory-design-tokens.mjs --check`. O inventário não cria tokens nem altera contratos Pi.
