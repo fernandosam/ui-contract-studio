@@ -4,7 +4,7 @@ test('semantic discovery and category filtering preserve approved contract detai
  await page.goto('/?screen=explorador-primitivos');
  const search=page.getByRole('searchbox',{name:'Buscar componente'});
  await search.fill('confirmação');
- const dialog=page.getByRole('button',{name:/AlertDialog/}).first();
+ const dialog=page.getByLabel('Componentes registrados').getByRole('button',{name:/AlertDialog/}).first();
  await expect(dialog).toBeVisible();
  await page.getByLabel('Finalidade').selectOption('Confirmação e feedback');
  await expect(dialog).toBeVisible();
