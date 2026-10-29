@@ -1,6 +1,15 @@
 /** Structural policy in plain JS: works offline without node_modules. */
 export function graphErrors(spec, allowedTypes, { maxElements=300, maxDepth=30, allowedActions=["setState","pushState","removeState","buttonClick","formSubmit","linkClick"], allowedEvents={} }={}) {
   const errors=[]; const known=new Set(allowedTypes); const actions=new Set(allowedActions);
+  const unsafeStatePath=path=>{
+    const segments=typeof path==="string"
+      ? path.replaceAll("[",".").replaceAll("]","").replaceAll("/",".")
+        .replaceAll('"',".").replaceAll("'",".").split(".") : [];
+    return typeof path!=="string" || !path || path.length>200 ||
+      Array.from(path).some(char=>char.charCodeAt(0)<32||char.charCodeAt(0)===127) ||
+      ["__proto__","constructor","prototype"].some(segment=>path.includes(segment)) ||
+      segments.some(segment=>["__proto__","constructor","prototype"].includes(segment));
+  };
   if(!spec||typeof spec!=="object"||Array.isArray(spec)) return ["Spec deve ser um objeto."];
   for(const key of Object.keys(spec)) if(!["root","elements","state"].includes(key)) errors.push(`Campo global não autorizado: ${key}.`);
   if(typeof spec.root!=="string"||!spec.root) errors.push("root deve ser uma string não vazia.");
@@ -39,6 +48,14 @@ export function graphErrors(spec, allowedTypes, { maxElements=300, maxDepth=30, 
         if(allowedEvents[node.type] && !(allowed??[]).includes(event))errors.push(`${id}: evento não registrado (${event}).`);
         for(const handler of Array.isArray(handlers)?handlers:[handlers]){
           if(!handler || typeof handler!=="object" || !actions.has(handler.action))errors.push(`${id}: ação não permitida (${String(handler?.action)}).`);
+          // Preserve the stricter prototype-path guard for both state keys.
+          if(["setState","pushState","removeState"].includes(handler?.action)){
+            if(unsafeStatePath(handler?.params?.statePath))
+              errors.push(`${id}: statePath inválido ou inseguro (statePath não autorizado).`);
+            if(handler?.params?.clearStatePath!==undefined &&
+               unsafeStatePath(handler.params.clearStatePath))
+              errors.push(`${id}: clearStatePath inválido ou inseguro.`);
+          }
         }
       }
     }

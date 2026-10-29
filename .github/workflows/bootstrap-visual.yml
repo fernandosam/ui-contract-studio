@@ -86,7 +86,7 @@ jobs:
         id: docs_capture
         continue-on-error: true
         run: npm run shadcn:official:capture -- --workers=3 --retries=1 --max-failures=8
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Instalar comparador de imagens

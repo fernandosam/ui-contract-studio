@@ -27,11 +27,14 @@ Pi can generate **JSON specs only**, using types and properties published in the
 ## Action and data boundaries
 
 - `content` and `nodeProps` accept only published fields; they must not modify `type`, `children`, `name`, `on`, `href`, `src`, `sourceId`, or actions.
-- Demo data and events remain local. A DataTable `sourceId` may only reference authorized sources; real servers must enforce authentication, authorization, and access filters.
+- Demo data and events remain local.
+- The `processos-api` source requires an explicit host capability in `SpecScreen`; JSON selection never enables network access. See [E09 isolation](pi-isolation.md). A DataTable `sourceId` may only reference authorized sources; real servers must enforce authentication, authorization, and access filters.
 - New types require [admission](components.md) and independent human approval. Pi cannot grant itself additional catalog permissions.
 
 ## Live evaluations
 
 Paid model runs are **manual** and require `PI_EVAL_CONFIRM=yes`. Paid repair also requires `PI_EVAL_REPAIR_CONFIRM=yes`. Report actual runs, failures, blockers, and missing results without fabricating outputs, metrics, or evidence.
+
+Security review: [Pi Agent threat model (E09)](pi-agent-threat-model.md) distinguishes the coding-agent tool boundary from validated JSON rendering and the paid, no-tool evaluation subprocess.
 
 Binding rules are in [AGENTS.md](../AGENTS.md); procedures are in the [UI Catalog skill](../.pi/skills/ui-catalog/SKILL.md). See the [short workflow](pi-workflow.md).

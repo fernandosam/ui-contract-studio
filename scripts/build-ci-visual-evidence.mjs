@@ -18,6 +18,9 @@ const missingReference = required.filter(item => !existsSync(item.reference));
 // Component demos on ui.shadcn.com are a distinct reference set from the 64 create cards.
 const officialDocsPath = 'reports/official-components/comparison.json';
 const officialDocs = existsSync(officialDocsPath) ? read(officialDocsPath) : null;
+const officialManifest = read('scripts/official-component-examples.json');
+const expectedOfficialCases = officialManifest.examples.length * viewports.length;
+const expectedComparableCases = officialManifest.examples.filter(item => item.localType).length * viewports.length;
 const lockPath = 'package-lock.json';
 const root = 'src/components/ui';
 const primitives = read('shadcn-plan.json').groups.flatMap(group => group.items.map(item => item.name));
@@ -45,8 +48,10 @@ const result = {
         equivalence: 'different-demo-content; diagnostic comparison only',
         report: officialDocsPath,
       }
-    : {status:'not-run',report:officialDocsPath},
-  visualApproval: missingLocal.length === 0 && missingReference.length === 0
+    : {status:'not-run',report:officialDocsPath,expectedPairs:expectedOfficialCases,expectedComparablePairs:expectedComparableCases},
+  visualApproval: officialDocs && officialDocs.expectedCases > 0 && officialDocs.missingCases === 0 &&
+    officialDocs.comparedCases + officialDocs.officialOnlyCases === officialDocs.expectedCases &&
+    missingLocal.length === 0 && missingReference.length === 0
     ? 'comparison-and-human-review-required' : 'pending',
   lockfileSha256: fingerprint,
   requiredPrimitiveCount: primitives.length,
@@ -65,7 +70,7 @@ console.log(JSON.stringify({
   lockfile: Boolean(fingerprint),
   visualApproval:result.visualApproval,
   officialDocsCompared:officialDocs?.comparedCases ?? 0,
-  officialDocsExpected:officialDocs?.expectedCases ?? 76,
-  officialDocsExpectedComparable:officialDocs?.expectedComparableCases ?? 58,
+  officialDocsExpected:officialDocs?.expectedCases ?? expectedOfficialCases,
+  officialDocsExpectedComparable:officialDocs?.expectedComparableCases ?? expectedComparableCases,
 },null,2));
 if (strict && (!fingerprint || missingPrimitives.length || missingLocal.length)) process.exitCode = 1;

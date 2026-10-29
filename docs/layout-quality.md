@@ -52,3 +52,18 @@ npm run build
 ```
 
 Safety rechecks are **not** a new product or PR approval. They ensure visual repairs cannot bypass existing contract constraints. A score of 100 still does not certify rendered layout, accessibility or E2E, which require independent evidence when relevant.
+
+
+## Executable browser geometry (additional advisory evidence)
+
+The existing quality panel also evaluates **actual rendered geometry** of the approved JSON preview. The evaluator in `src/ui-runtime/layout-runtime-quality.ts` observes the rendered preview surface only and reports a **separate** 0–100 runtime score. The original static result and Pi contract/admission policies remain unchanged.
+
+The browser checks use live bounding rectangles, computed visibility and scroll dimensions: heading order and clipping (hierarchy); group containment and overlaps (grouping); effective grid columns and control sizing/overlaps (density); and viewport bounds/horizontal overflow (responsiveness). Results declare `basis: browser-geometry`, `runtimeEvidence: browser-measured`, `policy: advisory-only`, viewport dimensions, tested/not-applicable rules and actionable findings. Inapplicable checks are not claimed as verified. The panel automatically remeasures on preview or window resize.
+
+Run on both desktop and mobile with the existing Playwright harness:
+
+```sh
+npm run layout:browser:test
+```
+
+The suite renders registration, login, search and dashboard, plus an injected-overflow regression test. JSON measurements are saved under `reports/layout-runtime/<project>/<flow>.json` and archived by the existing browser-impact CI job. Only the existence and consistency of real evidence are asserted: **no minimum score blocks a PR or admission**. Even a 100/100 score is not a certification of aesthetics, accessibility, keyboard behavior or other browsers.

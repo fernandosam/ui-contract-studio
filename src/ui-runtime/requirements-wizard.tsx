@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useRef,useState} from "react";
 import {SpecScreen} from "./spec-screen";
 
 import {proposeFormFlow} from "../ui-requirements/form-proposal";
@@ -34,6 +34,7 @@ function QuestionControl({question,value,onChange}:{question:Question;value:Answ
 }
 /** UI only orchestrates approved local-only contracts; no remote persistence is invented. */
 export function RequirementsWizard(){
+  const qualitySurfaceRef=useRef<HTMLDivElement>(null);
   const [intent,setIntent]=useState("Crie uma tela de cadastro de usuários");
   const [provided,setProvided]=useState<Answers>({});
   const [showPreview,setShowPreview]=useState(false);
@@ -99,8 +100,8 @@ export function RequirementsWizard(){
     {preview&&<div className="rounded-lg border bg-card p-4 space-y-3" data-testid="generated-preview">
       <h2 className="text-lg font-semibold">Prévia do catálogo aprovado</h2>
       <p className="text-sm text-muted-foreground">Demonstração sem persistência. Validação funcional e acessibilidade ainda exigem execução de testes.</p>
-      <SpecScreen spec={preview}/>
-      {quality&&<LayoutQualityPanel report={quality} refinement={refinement??undefined}/>}
+      <div ref={qualitySurfaceRef} data-testid="layout-quality-surface" className="min-w-0 w-full"><SpecScreen spec={preview}/></div>
+      {quality&&<LayoutQualityPanel report={quality} refinement={refinement??undefined} surfaceRef={qualitySurfaceRef}/>}
       {trace&&<details data-testid="requirements-traceability" className="rounded-md border p-3 text-sm">
         <summary className="cursor-pointer font-medium">Rastreabilidade dos requisitos (somente verificação estática)</summary>
         <p className="mt-2 text-muted-foreground">Estado da spec: {trace.structurallyValid?"estrutura válida":"estrutura inconsistente"}. Testes de execução: não comprovados por este relatório.</p>
