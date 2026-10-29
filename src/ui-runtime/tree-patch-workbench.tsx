@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SpecScreen } from "./spec-screen";
-import { PreviewThemeSelector } from "../ui-theme/preview-theme";
+import { PreviewThemeSelector } from "./preview-theme";
 import { createPiTreeEditSession } from "./tree-edit-session";
 import type { TreeDiff, TreeEditPreview } from "../../scripts/lib/spec-tree-history.mjs";
 
