@@ -31,3 +31,7 @@
 - Installed components inherit the theme and CSS variables from `src/globals.css`; do not replace them with the CLI's default theme.
 - `src/ui-catalog/*` remains the AI contract. To use a primitive in screens, it needs an adapter and, for a new type, a Zod schema and approval.
 - The 21 primitives planned at the time, instructions, and installation status are documented in `shadcn-plan.json` and [integracao-shadcn.md](integracao-shadcn.md).
+
+## Token inventory (PHASE 3 / E06)
+
+The [existing visual token inventory](design-token-inventory.md) traces colors, typography, spacing, borders, radii, shadows, and density to their sources. The [machine-readable snapshot](design-token-inventory.json) records theme values and is checked with `node scripts/inventory-design-tokens.mjs --check`. This is not a new token or Pi contract API.
