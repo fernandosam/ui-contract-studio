@@ -16,6 +16,10 @@ Revisão em 29/10/2026. Escopo: arquivos versionados do UI Contract Studio, serv
 | Capturas e provas de testes | Screenshots/traces podem incluir valores de formulários. | Todos os uploads de artefatos passam a exigir expiração de até 14 dias. Testes devem utilizar apenas dados sintéticos. |
 | Memória de demonstração | Serviço de exemplo guarda nome e e-mail; gateway guarda fingerprints/comprovantes até remoção por capacidade. | Limitar retenção dos registros de demonstração por tempo e quantidade; integrar TTL ao gateway após os PRs E09 de autorização em andamento. Até lá, não usar dados pessoais reais. |
 
+## Resultado do primeiro gate
+
+O gate npm identificou Zod 4.3.6 vulnerável a exaustão de memória na validação de coleções (GHSA-mrhx-c7xc-m3w5). A dependência direta e o lockfile foram atualizados para a versão corrigida 4.6.7; a instalação e a aprovação do audit devem ser verificadas pela nova execução de CI. A cópia Zod 3.25.76 é transitiva do shadcn de desenvolvimento e fica sujeita ao limite de gravidade crítica do conjunto completo.
+
 ## Classificação e políticas
 
 - **Credenciais:** a chave `PI_EVAL_API_KEY` deve existir somente no step de execução. Adotar privilégio mínimo, rotação em caso de suspeita e nunca registrar o valor.

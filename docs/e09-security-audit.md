@@ -16,6 +16,10 @@ Reviewed on 2026-10-29. Scope: the tracked UI Contract Studio source, its demons
 | Screenshots and test evidence | Screenshots, traces and composition reports may contain user-entered form data. | Every artifact uploader specifies a retention period of at most 14 days, shorter for Pi evaluations. CI evidence must use synthetic inputs. Never submit production or personal records to screenshot workflows. |
 | Demo in-memory records | `createInMemoryDemoService` retains name and email in the Node process, and the HTTP gateway may keep receipt fingerprints until capacity eviction. | Demonstration records are bounded by size and time with explicit test coverage; the HTTP gateway cache requires TTL integration when the pending E09 authorization changes are merged. Until then, do not use this adapter for real personal data. |
 
+## First advisory gate result
+
+The npm gate identified Zod 4.3.6 as affected by an allocation/collection validation denial-of-service advisory (GHSA-mrhx-c7xc-m3w5). The direct dependency and npm lockfile have been updated to patched Zod 4.6.7; install integrity and a clean audit must still be confirmed by the new CI run. A separate Zod 3.25.76 copy belongs to the shadcn development dependency and is covered by the whole-graph critical-severity gate.
+
 ## Data classes and handling
 
 - **Secrets:** GitHub Actions supplies `PI_EVAL_API_KEY` only to the evaluation step. Use short-lived, least-privilege provider keys; rotate immediately if exposure is suspected. Never print values, include them in issue comments or attach them to artifacts.
