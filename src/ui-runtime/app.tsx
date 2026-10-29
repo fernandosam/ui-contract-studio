@@ -1,5 +1,5 @@
 import { SpecScreen } from './spec-screen';
-import { PreviewThemeSelector } from '../ui-theme/preview-theme';
+import { PreviewThemeSelector } from './preview-theme';
 import { PageShell } from './layout';
 import { navigation, screens } from './screen-registry';
 import { lazy, Suspense } from 'react';
