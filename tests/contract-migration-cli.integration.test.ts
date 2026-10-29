@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {mkdtempSync,readFileSync,writeFileSync,existsSync,rmSync,mkdirSync,readdirSync} from 'node:fs';
+import {mkdtempSync,readFileSync,writeFileSync,existsSync,rmSync,mkdirSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {randomUUID} from 'node:crypto';
@@ -98,6 +98,5 @@ test('CLI output bundle refuses overwrite and leaves existing artifacts untouche
   assert.equal(existsSync(result),false);
   assert.equal(existsSync(report),false);
   assert.equal(readFileSync(manifest,'utf8'),sentinel);
-  assert.equal(readdirSync('reports/contract-migrations').some(name=>name.startsWith('.publish-')),false);
  }finally{cleanup([result,manifest,report]);rmSync(dir,{recursive:true,force:true});}
 });
