@@ -605,6 +605,145 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(menu.getByRole("menuitem",{name:"Editar"})).toBeVisible();
   },
 
+  // Fail-closed behavioral coverage for high-impact semantic gaps.
+  "alert-dialog.confirm-once":async page=>{
+    const panel=await preview(page,"AlertDialog");
+    const remote=networkRequests(page);
+    const trigger=panel.getByRole("button",{name:"Confirmar operação"});
+    const dialog=page.locator('[data-slot="alert-dialog-content"]');
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole("button",{name:"Cancelar"}).click();
+    await expect(dialog).toBeHidden();
+    await expectEmitted(page,"confirm",0);
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole("button",{name:"Continuar"}).click();
+    await expect(dialog).toBeHidden();
+    await expectEmitted(page,"confirm",1);
+    expect(remote).toEqual([]);
+    // Only the local confirm signal is observed, not backend authorization.
+  },
+  "drawer.open-change":async page=>{
+    const panel=await preview(page,"Drawer");
+    const remote=networkRequests(page);
+    const trigger=panel.getByRole("button",{name:/Abrir painel:/});
+    const popup=page.locator('[data-slot="drawer-popup"]');
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await expectEmitted(page,"openChange",1);
+    await page.keyboard.press("Escape");
+    await expect(popup).toBeHidden();
+    await expectEmitted(page,"openChange",2);
+    expect(remote).toEqual([]);
+  },
+  "drawer.modal-backdrop":async page=>{
+    const panel=await preview(page,"Drawer");
+    const remote=networkRequests(page);
+    await panel.getByRole("button",{name:/Abrir painel:/}).click();
+    const popup=page.locator('[data-slot="drawer-popup"]');
+    const backdrop=page.locator('[data-slot="drawer-overlay"]');
+    await expect(popup).toBeVisible();
+    await expect(backdrop).toBeVisible();
+    // Base UI mounts the modal in a portal, outside the preview subtree.
+    await expect(panel.locator('[data-slot="drawer-popup"]')).toHaveCount(0);
+    await expect(popup.locator('[data-slot="drawer-title"]')).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(popup).toBeHidden();
+    await expect(backdrop).toBeHidden();
+    expect(remote).toEqual([]);
+  },
+  "checkbox.keyboard-space":async page=>{
+    const panel=await preview(page,"Checkbox");
+    const remote=networkRequests(page);
+    const control=panel.getByRole("checkbox",{name:"Receber notificações"});
+    await expect(control).toBeChecked();
+    await control.focus();
+    await page.keyboard.press("Space");
+    await expect(control).not.toBeChecked();
+    await expectEmitted(page,"change",1);
+    await page.locator("#property-Checkbox-disabled").selectOption("true");
+    await expect(control).toBeDisabled();
+    await page.keyboard.press("Space");
+    await expectEmitted(page,"change",1);
+    expect(remote).toEqual([]);
+    // Does not assert manual screen-reader announcements.
+  },
+  "tabs.keyboard-roving":async page=>{
+    const panel=await preview(page,"Tabs");
+    const first=panel.getByRole("tab",{name:"Visão geral"});
+    const next=panel.getByRole("tab",{name:"Detalhes"});
+    await first.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(next).toBeFocused();
+    // Depending on activation mode, Enter selects the focused tab.
+    if(await next.getAttribute("aria-selected")!=="true")await page.keyboard.press("Enter");
+    await expect(next).toHaveAttribute("aria-selected","true");
+    await expect(panel.getByRole("tabpanel")).toContainText(/Detalhes|detalhes|Conteúdo/);
+    await expectEmitted(page,"change",1);
+    // Browser keyboard behavior is partial, not screen-reader certification.
+  },
+  "dropdown.keyboard-submenu":async page=>{
+    const panel=await preview(page,"DropdownMenu");
+    const remote=networkRequests(page);
+    await page.locator("#property-DropdownMenu-items").fill(JSON.stringify([
+      {label:"Executar",value:"run"},
+      {label:"Indisponível",value:"blocked",disabled:true},
+      {type:"submenu",label:"Mais opções",value:"more",items:[
+        {label:"Duplicar",value:"copy"},
+      ]},
+    ]));
+    const trigger=panel.getByRole("button",{name:/Mais ações/});
+    await trigger.focus();
+    await page.keyboard.press("Enter");
+    const menu=page.locator('[data-slot="dropdown-menu-content"]');
+    await expect(menu).toBeVisible();
+    await expect(menu.getByRole("menuitem",{name:"Indisponível"})).toBeDisabled();
+    await menu.getByRole("menuitem",{name:"Executar"}).focus();
+    await page.keyboard.press("ArrowDown");
+    const submenuTrigger=page.getByRole("menuitem",{name:"Mais opções"});
+    await expect(submenuTrigger).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    const submenu=page.locator('[data-slot="dropdown-menu-sub-content"]');
+    await expect(submenu).toBeVisible();
+    await expect(submenu.getByRole("menuitem",{name:"Duplicar"})).toBeVisible();
+    await page.keyboard.press("Escape");
+    await page.keyboard.press("Escape");
+    await expect(menu).toBeHidden();
+    await expectEmitted(page,"select",0);
+    expect(remote).toEqual([]);
+  },
+  "accordion.disabled-guard":async page=>{
+    const panel=await preview(page,"Accordion");
+    await page.locator("#property-Accordion-items").fill(JSON.stringify([
+      {title:"Acesso bloqueado",value:"blocked",disabled:true,content:"Não abrir"},
+      {title:"Acesso permitido",value:"allowed",content:"Conteúdo permitido"},
+    ]));
+    const blocked=panel.getByRole("button",{name:"Acesso bloqueado"});
+    const allowed=panel.getByRole("button",{name:"Acesso permitido"});
+    await expect(blocked).toBeDisabled();
+    await expect(blocked).toHaveAttribute("aria-expanded","false");
+    await allowed.click();
+    await expect(allowed).toHaveAttribute("aria-expanded","true");
+    await expect(blocked).toHaveAttribute("aria-expanded","false");
+    await expect(panel.getByText("Conteúdo permitido")).toBeVisible();
+  },
+  "button.form-type":async page=>{
+    const panel=await preview(page,"Button");
+    const button=panel.getByRole("button",{name:"Testar ação local"});
+    const remote=networkRequests(page);
+    await expect(button).toHaveAttribute("type","button");
+    await page.locator("#property-Button-type").selectOption("submit");
+    await expect(button).toHaveAttribute("type","submit");
+    await page.locator("#property-Button-type").selectOption("reset");
+    await expect(button).toHaveAttribute("type","reset");
+    await page.locator("#property-Button-type").selectOption("button");
+    await expect(button).toHaveAttribute("type","button");
+    await button.click();
+    await expectEmitted(page,"press",1);
+    expect(remote).toEqual([]);
+    // Native form submit/reset remains to test in a real form context.
+  },
   "toggle.pressed-roundtrip":async page=>{
     const panel=await preview(page,"Toggle");
     const toggle=panel.getByRole("button",{name:"Favorito"});

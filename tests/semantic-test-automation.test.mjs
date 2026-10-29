@@ -14,11 +14,11 @@ const one=record=>buildSemanticTestAutomation([record]);
 test("registered semantic tests are discovered, traceable and never marked executed",()=>{
   const audit=buildSemanticTestAutomation(fixtures);
   assert.deepEqual(audit.errors,[]);
-  assert.equal(audit.summary.registered,52);
+  assert.equal(audit.summary.registered,60);
   assert.ok(audit.summary.pending>0);
   assert.ok(audit.summary.blocked>0);
   assert.equal(audit.summary.invalid,0);
-  assert.equal(audit.summary.partial,51);
+  assert.equal(audit.summary.partial,59);
   for(const entry of audit.entries.filter(x=>x.status==="registered")){
     assert.equal(entry.execution,"not-run");
     assert.ok(entry.source.startsWith("src/ui-catalog/knowledge/"));
@@ -38,7 +38,7 @@ test("new supported derived test is automatically registered without editing Pla
   const audit=one(record);
   assert.deepEqual(audit.errors,[]);
   assert.equal(audit.entries.find(x=>x.id===derived.id).status,"registered");
-  assert.equal(audit.summary.registered,3);
+  assert.equal(audit.summary.registered,4);
 });
 
 test("new prose-only executable test is pending rather than asserted to have passed",()=>{
@@ -101,7 +101,7 @@ test("pilot recipes cover all five prioritized primitives without unimplemented 
     const entries=audit.entries.filter(x=>x.component===family&&x.status==="registered");
     assert.ok(entries.length>=2,family+" must have two or more reviewed recipes");
     for(const entry of entries){
-      assert.equal(entry.kind,"integration");
+      assert.ok(["integration","manual-a11y"].includes(entry.kind));
       assert.equal(entry.coverage,"partial");
       assert.equal(entry.action,"run-registered-playwright-recipe");
       assert.ok(entry.capabilityStates.every(x=>x.state!=="documented-not-implemented"));
@@ -117,12 +117,12 @@ test("pilot recipes cover all five prioritized primitives without unimplemented 
 test("seven next-priority families register only reviewed, non-candidate recipes",()=>{
   const audit=buildSemanticTestAutomation(fixtures);
   const families=["Switch","Radio","Textarea","Slider","Popover","Tooltip","DropdownMenu"];
-  const expected={"Switch":4,"Radio":5,"Textarea":5,"Slider":4,"Popover":4,"Tooltip":2,"DropdownMenu":5};
+  const expected={"Switch":4,"Radio":5,"Textarea":5,"Slider":4,"Popover":4,"Tooltip":2,"DropdownMenu":6};
   assert.deepEqual(audit.errors,[]);
   assert.equal(audit.summary.total,315);
-  assert.equal(audit.summary.registered,52);
-  assert.equal(audit.summary.partial,51);
-  assert.equal(audit.summary.pending,160);
+  assert.equal(audit.summary.registered,60);
+  assert.equal(audit.summary.partial,59);
+  assert.equal(audit.summary.pending,152);
   assert.equal(audit.summary.blocked,103);
   assert.equal(audit.summary.invalid,0);
   for(const family of families){

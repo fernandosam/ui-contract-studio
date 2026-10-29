@@ -369,7 +369,11 @@
       "description": "Tentar ativar item disabled e verificar que itens habilitados ainda expandem normalmente.",
       "capabilities": [
         "disabled-items"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "accordion.disabled-guard"
+      }
     },
     {
       "id": "visual-indicator-grid",

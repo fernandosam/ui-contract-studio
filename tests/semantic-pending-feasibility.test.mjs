@@ -7,6 +7,8 @@ import {buildSemanticTestAutomation,loadSemanticTestRecords,semanticTestRecipes}
 // New registered entries are included in the baseline; the remaining entries
 // are still pending. These are evidence/feasibility tests, NEVER runtime passes.
 const newlyReviewed=new Set(["toggle.pressed-roundtrip","tabs.change-event","select.change-event","dialog.local-state-event","popover.keyboard-dismiss","radio.keyboard-exclusive","slider.multithumb-keyboard","switch.keyboard-activation","button.keyboard-press","accordion.keyboard-disclosure","rating.local-press","pagination.change-event"]);
+// High-risk follow-up: these reviewed recipes close eight more baseline gaps.
+for(const recipe of ["alert-dialog.confirm-once","drawer.open-change","drawer.modal-backdrop","checkbox.keyboard-space","tabs.keyboard-roving","dropdown.keyboard-submenu","accordion.disabled-guard","button.form-type"])newlyReviewed.add(recipe);
 const profiles=loadSemanticTestRecords();
 const audit=buildSemanticTestAutomation(profiles);
 const records=new Map(profiles.map(record=>[record.component,record]));
@@ -17,16 +19,16 @@ test("all 172 baseline pending scenarios receive an explicit disposition",()=>{
  assert.deepEqual(audit.errors,[]);
  assert.equal(baseline.length,172);
  assert.equal(audit.summary.total,315);
- assert.equal(audit.summary.registered,52);
- assert.equal(audit.summary.pending,160);
+ assert.equal(audit.summary.registered,60);
+ assert.equal(audit.summary.pending,152);
  assert.equal(audit.summary.blocked,103);
  assert.equal(audit.summary.invalid,0);
- assert.equal(audit.summary.partial,51);
- assert.equal(newlyReviewed.size,12);
+ assert.equal(audit.summary.partial,59);
+ assert.equal(newlyReviewed.size,20);
  assert.deepEqual([...new Set(baseline.filter(x=>newlyReviewed.has(x.recipe)).map(x=>x.recipe))].sort(),
    [...newlyReviewed].sort());
  const counts=audit.summary.pendingTracks;
- assert.equal(counts.integration+counts.visual+counts.manualA11y+counts.other,160);
+ assert.equal(counts.integration+counts.visual+counts.manualA11y+counts.other,152);
  assert.ok(counts.manualA11y>0 && counts.visual>0 && counts.runtimeEvidenceNeeded>0);
 });
 
