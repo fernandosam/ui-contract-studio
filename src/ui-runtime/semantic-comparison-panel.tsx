@@ -47,7 +47,7 @@ export function SemanticComparisonPanel({
  onClose:()=>void;
 }){
  const outcome=secondary&&secondary.name!==primary.name?compareSemanticContracts(primary,secondary):null;
- return <section data-testid="semantic-comparison" aria-label="Comparação semântica" className="min-w-0 space-y-4 rounded-xl border bg-muted/15 p-4">
+ return <section id="semantic-comparison-panel" data-testid="semantic-comparison" aria-label="Comparação semântica" className="min-w-0 space-y-4 rounded-xl border bg-muted/15 p-4">
   <div className="flex flex-wrap items-start justify-between gap-3">
    <div><h3 className="font-semibold">Comparação semântica</h3><p className="text-xs text-muted-foreground">Compare finalidades, recomendações, restrições e evidências existentes. Nenhuma aprovação ou alteração de contrato é realizada.</p></div>
    <button type="button" onClick={onClose} className="rounded-md border bg-background px-3 py-1.5 text-xs hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring">Fechar comparação</button>
