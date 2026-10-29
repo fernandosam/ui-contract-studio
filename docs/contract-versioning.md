@@ -84,3 +84,14 @@ npm run contracts:migrations:check
 Without `--out`, prints a deterministic preview and preserves the original. With `--out`, creates the migrated spec, `.versions.json` and audit `.report.json` only under `reports/contract-migrations/`, refusing overwrites. **The real stable-channel Zod validator runs before output is published**, requiring installed dependencies. Unknown versions, mismatched fingerprints, collisions and broken migration chains fail closed.
 
 Future data-only transformations are limited to reviewed `rename-prop`, `rename-event` and `set-default-prop` per exact type/source version, never arbitrary code, type rewriting, actions or permissions. Existing CI/offline checks protect the registry; sensitive changes require ordinary review. Retired or experimental types never become admitted through migration. Review outputs before replacing production consumers.
+
+## E07 — Compatibility, rollback and fail-closed regression suite
+
+The regression coverage runs in the existing test pipeline; it does **not** add an approval or promotion layer:
+
+- `node --test tests/contract-migrations.test.mjs tests/contract-migration-safety.test.mjs` covers exact historical fingerprints per component, mixed historical/current specs, deterministic multi-hop transformations, idempotence, safe defaults, collision rollback, unapproved types, unknown sources and registry tampering.
+- `npx tsx --test tests/contract-migration-cli.integration.test.ts` covers the real stable Zod validator, snapshot/replay, invalid Zod props, malformed graphs, absent or conflicting provenance, and output overwrite rejection. This test requires installed dependencies and runs in the **existing integration CI job**; the pure tests run in the offline job.
+
+**Reversibility means preserving the original JSON spec and its historical provenance manifest**, not inventing an inverse migration. Historical releases with non-invertible default additions cannot be downgraded automatically. Keep both originals before promoting any migrated output; the CLI never modifies them in place. The output bundle is staged before publication and published without replacing existing files. If a normal publication error occurs, the CLI removes only its newly published files; process crashes and power loss are not an atomic multi-file transaction. If a bundle is interrupted, discard the new report artifacts and retry from the unchanged originals. Do not infer old fingerprints from `--snapshot`: that option is only for a spec already confirmed current.
+
+Default prop values must be strictly JSON-compatible (no `NaN`, infinity, undefined, sparse arrays or prototype-sensitive keys). CI exercises these guards without authorizing any new Zod API, stable status, Pi action or event.
