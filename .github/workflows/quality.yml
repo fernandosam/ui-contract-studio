@@ -69,7 +69,7 @@ jobs:
         run: node scripts/semantic-ci-summary.mjs
       - name: Preserve semantic report and failure logs
         if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: semantic-knowledge-report
           path: |
@@ -90,7 +90,7 @@ jobs:
         run: npm run contracts:impact
       - name: Preserve detailed contract change audit, including blocked changes
         if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.contract-diff.outcome != 'skipped' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: contract-change-audit
           path: |
@@ -141,7 +141,7 @@ jobs:
           node scripts/admission-engine.mjs --ci-verify
       - name: Preserve admission proof for audit
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ci-local-admission-proof
           path: |
@@ -195,7 +195,7 @@ jobs:
         run: npm run admission:evidence:report
       - name: Preserve browser evidence for review
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: admission-browser-evidence
           path: |

@@ -131,7 +131,7 @@ jobs:
             --exclude=reports --exclude=playwright-report --exclude=test-results .
       - name: Publicar código instalado, lockfile e propostas de CSS
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: bootstrap-revisao-${{ github.run_id }}
           path: |
@@ -141,7 +141,7 @@ jobs:
           retention-days: 14
       - name: Publicar screenshots, traces e relatório de comparação
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: galeria-evidencias-${{ github.run_id }}
           path: |

@@ -42,7 +42,7 @@ jobs:
           test -d reports/composition-validation
           tar -czf "$RUNNER_TEMP/admission-evidence.tar.gz" -C reports composition-validation
       - name: Upload independent browser evidence
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: admission-proof-${{ github.run_id }}
           path: ${{ runner.temp }}/admission-evidence.tar.gz
@@ -50,7 +50,7 @@ jobs:
           retention-days: 7
       - name: Preserve full E2E diagnostics (including failures)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-results
           path: |
