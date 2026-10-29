@@ -32,7 +32,7 @@ jobs:
         id: capture
         continue-on-error: true
         run: npm run shadcn:official:capture -- --workers=2 --retries=0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Install isolated image comparator
