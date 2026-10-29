@@ -50,12 +50,13 @@ jobs:
           const file='reports/official-components/comparison.json';
           const report=existsSync(file)?JSON.parse(readFileSync(file,'utf8')):null;
           const inventory=JSON.parse(readFileSync('scripts/official-component-examples.json','utf8'));
+          const installed=JSON.parse(readFileSync('shadcn-plan.json','utf8')).groups.reduce((total, group)=>total+group.items.length,0);
           const selected=inventory.examples.length;
           const pending=inventory.excludedComponents.length;
           const paired=inventory.examples.filter(item=>item.localType).length;
           const lines=[
             '### shadcn/ui · auditoria visual independente',
-            `- 50 primitivas no plano: ${selected} referências selecionadas (${paired} com par Pi) e ${pending} pendentes de seleção.`,
+            `- ${installed} primitivas no plano: ${selected} referências selecionadas (${paired} com par Pi) e ${pending} pendentes de seleção.`,
             report?`- Casos com screenshot e proveniência: ${report.expectedCases-report.missingCases}/${report.expectedCases}; pares comparados: ${report.comparedCases}/${report.expectedComparableCases}.`:'- Relatório de capturas indisponível.',
             '- Diferenças visuais são somente diagnósticas. A aprovação exige revisão humana; falhas ou ausência de capturas não representam cobertura concluída.',
           ];
