@@ -42,4 +42,4 @@ jobs:
           name: admission-experimental-${{ github.sha }}
           path: dist/admission/experimental/
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 14

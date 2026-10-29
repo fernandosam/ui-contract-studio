@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { ArrowDown, ArrowUp, ArrowUpDown, Search } from 'lucide-react';
 import {
  flexRender,getCoreRowModel,getFilteredRowModel,getPaginationRowModel,getSortedRowModel,useReactTable,
@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table,TableBody,TableCell,TableHead,TableHeader,TableRow } from '@/components/ui/table';
 import { loadDataPage,type DataRow,type SourceId } from '@/ui-data/providers';
+import { DataAccessContext } from '@/ui-data/data-access-context';
 
 export type DataColumn = {key:string;label:string;sortable:boolean;type?:'text'|'number'|'date'|'status'};
 export type DataTableProps = {
@@ -20,6 +21,8 @@ export function DataTable({props,selectionPath,onSelectionChange,onPageChange,on
  props:DataTableProps;selectionPath?:string;onSelectionChange?:()=>void;onPageChange?:()=>void;onSortChange?:()=>void;
 }) {
  const {caption,columns:config,rows, pageSize, searchable, selectable, sourceId}=props;
+ const capabilities=useContext(DataAccessContext);
+ const remoteData=capabilities.remoteData;
  const remote=Boolean(sourceId);
  const [sorting,setSorting]=useState<SortingState>([]);
  const [query,setQuery]=useState('');
@@ -41,12 +44,12 @@ export function DataTable({props,selectionPath,onSelectionChange,onPageChange,on
    const controller=new AbortController();
    setPending(true);setFetchError(null);
    loadDataPage(sourceId,{page:pagination.pageIndex,pageSize:pagination.pageSize,search:debouncedQuery,
-     sortKey:firstSort?.id,sortDesc:firstSort?.desc},controller.signal)
+     sortKey:firstSort?.id,sortDesc:firstSort?.desc},controller.signal,{remoteData})
     .then(next=>{if(!controller.signal.aborted)setResult(next);})
     .catch(error=>{if(!controller.signal.aborted)setFetchError(error instanceof Error?error.message:'Erro ao carregar dados');})
     .finally(()=>{if(!controller.signal.aborted)setPending(false);});
    return ()=>controller.abort();
- },[sourceId,pagination.pageIndex,pagination.pageSize,debouncedQuery,firstSort?.id,firstSort?.desc]);
+ },[sourceId,remoteData,pagination.pageIndex,pagination.pageSize,debouncedQuery,firstSort?.id,firstSort?.desc]);
  const cols=useMemo<ColumnDef<DataRow>[]>(()=>[
    ...(selectable ? [{id:'selection',header:({table})=><input type="checkbox" aria-label="Selecionar todas as linhas desta página"
      checked={table.getIsAllPageRowsSelected()} onChange={e=>table.toggleAllPageRowsSelected(e.target.checked)}/>,

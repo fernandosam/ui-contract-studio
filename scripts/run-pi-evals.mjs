@@ -10,6 +10,9 @@ if(!args.includes('--execute')||process.env.PI_EVAL_CONFIRM!=='yes'||(repair&&pr
 }
 const only=args.find(x=>x.startsWith('--only='))?.slice(7);
 const model=process.env.PI_EVAL_MODEL||'';
+if(model&&!/^[a-zA-Z0-9][a-zA-Z0-9_./:-]{0,99}$/.test(model)){
+ console.error('Invalid model selector for Pi evaluation');process.exit(2);
+}
 const timeLimit=Math.min(300_000,Math.max(10_000,Number(process.env.PI_EVAL_TIMEOUT_MS??'120000')));
 if(!existsSync('pi-catalog/props-json-schema.json'))throw new Error('Execute npm run pi:zod-schema antes da avaliação.');
 const suite=JSON.parse(readFileSync('tests/prompt-evals/scenarios.json','utf8'));
@@ -17,10 +20,10 @@ const scenarios=suite.scenarios.filter(s=>!only||s.id===only);
 if(!scenarios.length)throw new Error('Cenário não encontrado');
 mkdirSync('eval-results',{recursive:true});mkdirSync('reports/pi-eval/runs',{recursive:true});
 const textFromPi=(prompt)=>{
- const cli=['--mode','json','--no-session','--no-tools',...(model?['--model',model]:[]),prompt];
- const run=spawnSync('pi',cli,{encoding:'utf8',timeout:timeLimit,maxBuffer:8_000_000,env:{...process.env,PI_TELEMETRY:'0'}});
+ const cli=['--mode','json','--no-session','--no-tools','--no-extensions','--no-skills','--no-prompt-templates','--no-context-files','--no-approve',...(model?['--model',model]:[]),prompt];
+ const run=spawnSync('pi',cli,{encoding:'utf8',timeout:timeLimit,maxBuffer:2_000_000,env:{...process.env,PI_TELEMETRY:'0',PI_OFFLINE:'1',PI_SKIP_VERSION_CHECK:'1'}});
  if(run.error)throw run.error;
- if(run.status!==0)throw new Error(`Pi finalizou com ${run.status}: ${(run.stderr??'').slice(0,220)}`);
+ if(run.status!==0)throw new Error('Pi invocation failed (stderr suppressed)');
  let message=null;
  for(const line of run.stdout.trim().split('\n')){
   if(!line.trim())continue;
@@ -46,7 +49,7 @@ const persist=(id,suffix,result,started)=>{
 const validate=file=>{
  const r=spawnSync('npm',['run','--silent','pi:validate','--',`--file=${file}`,'--stdout'],{encoding:'utf8',timeout:60_000,maxBuffer:2_000_000});
  if(r.error)throw r.error;
- let result;try{result=JSON.parse(r.stdout)}catch{throw new Error(`Validador indisponível: ${(r.stderr??'').slice(0,180)}`)}
+ let result;try{result=JSON.parse(r.stdout)}catch{throw new Error('Pi validator unavailable (stderr suppressed)')}
  return result;
 };
 let errors=0;
@@ -72,7 +75,7 @@ for(const s of scenarios){
     console.log(`↻ ${s.id}: uma tentativa de reparo real registrada (original mantido).`);
    }
   }
- }catch(e){errors++;const msg=String(e);console.error(`✗ ${s.id}: ${msg}`);
-  writeFileSync(`reports/pi-eval/runs/${s.id}.error.json`,JSON.stringify({id:s.id,failedAt:new Date().toISOString(),error:msg},null,2)+'\n');}
+ }catch{errors++;console.error(`✗ ${s.id}: pi-evaluation-failed (diagnostics suppressed)`);
+  writeFileSync(`reports/pi-eval/runs/${s.id}.error.json`,JSON.stringify({id:s.id,failedAt:new Date().toISOString(),error:'pi-evaluation-failed'},null,2)+'\n');}
 }
 if(errors)process.exitCode=1;
