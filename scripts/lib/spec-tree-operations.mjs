@@ -1,4 +1,5 @@
 import { graphErrors } from './spec-invariants.mjs';
+import { preservationViolation } from './spec-tree-preservation.mjs';
 
 /** E08/v1: pure, atomic edits to an admitted json-render tree. No side effects. */
 const MAX_OPERATIONS = 50;
@@ -185,13 +186,27 @@ export function applyTreePatch(spec, patch, policy) {
       !patch.operations.length || patch.operations.length > MAX_OPERATIONS)
       reject('invalid_patch', 'Patch v1 deve conter de 1 a ' + MAX_OPERATIONS + ' operações.');
     validateTree(spec, policy);
-    const next = structuredClone(spec), changes = [];
+    let next = structuredClone(spec);
+    const changes = [], reservedIds = new Set(Object.keys(next.elements));
     for (let i = 0; i < patch.operations.length; i++) {
       index = i;
       const operation = patch.operations[i];
       validateOperation(operation);
-      changes.push(applyOne(next, operation));
-      validateTree(next, policy);
+      // Deleting and re-adding an ID within one transaction would silently
+      // substitute the identity of a previously referenced element.
+      if (operation.op === 'add' && reservedIds.has(operation.nodeId) &&
+        !own(next.elements, operation.nodeId))
+        reject('id_reuse', 'ID removido nesta transação não pode ser reutilizado.');
+      // Snapshot per operation: preservation is checked against the precise
+      // previous tree, not just against the original batch input.
+      const candidate = structuredClone(next);
+      const change = applyOne(candidate, operation);
+      validateTree(candidate, policy);
+      const violation = preservationViolation(next, candidate, operation, change);
+      if (violation) reject('preservation_violation', violation);
+      next = candidate;
+      changes.push(change);
+      if (operation.op === 'add') reservedIds.add(operation.nodeId);
     }
     return { ok: true, spec: next, changes };
   } catch (error) {

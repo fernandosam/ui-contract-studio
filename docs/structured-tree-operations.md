@@ -42,6 +42,18 @@ The supported integration point is `applyPiTreePatch(spec, patch, "stable")` in 
 
 These are **not RFC 6902 JSON Patch** operations: stable IDs and tree invariants replace blind positional paths. An invalid patch never falls back to JSX or HTML.
 
+## Preservation guarantees
+
+After **every** successful operation, a separate mutation-footprint audit compares the previous and proposed trees before accepting the result:
+
+- The root, complete top-level `state`, and all other top-level fields remain unchanged. Patches never reset or migrate form state.
+- Existing element IDs cannot be renamed or silently replaced. IDs removed earlier in **the same patch** (including newly added and then deleted IDs) cannot be reused; this fails with `id_reuse` and rolls back the whole batch.
+- `add` inserts exactly its declared node; `remove` deletes only the explicitly selected subtree; `move` retains the complete payload and IDs of the moved subtree; `update` changes only the requested `props` keys.
+- Only the explicitly affected `children` or `slots.<name>` lists may change, with their exact reference ordering verified. All unrelated sibling lists, slots, handlers, visibility, repeat metadata, props, and subtrees must match the previous tree.
+- A mutation that escapes its declared footprint fails closed with `preservation_violation`. The existing graph validation additionally prevents dangling **structural** references after removals or moves.
+
+Opaque ID-like strings in domain-specific `props` or `state` are **not** automatically interpreted as element references or rewritten. Such application-level relationships require their own explicit contract; this API preserves their values as-is and does not grant a new action or permission.
+
 ## Verification
 
-`node --test tests/tree-operations.test.mjs` tests offline behavior, invalid operations, slots, cycles and rollback. `tsx --test tests/tree-operations.integration.test.ts` covers the real stable Zod catalog. Run `npm run test:offline`, `npm run validate` and `npm run build` in a fully provisioned environment.
+`node --test tests/tree-operations.test.mjs tests/tree-preservation.test.mjs` tests offline behavior and preservation invariants, invalid operations, slots, cycles and rollback. `tsx --test tests/tree-operations.integration.test.ts` covers the real stable Zod catalog. Run `npm run test:offline`, `npm run validate` and `npm run build` in a fully provisioned environment.
