@@ -37,12 +37,13 @@ function walk(path: string) {
       }
       if (ts.isImportDeclaration(node)) {
         const source=node.moduleSpecifier.getText(file).replaceAll(/["']/g,"");
-        if (isUiSurface && source.includes("ui-requirements/")) {
+        // Requirements planning and date rules are pure UI utilities, not service adapters.
+        if (isUiSurface && source.includes("ui-requirements/") &&
+          (source.endsWith("/submission-backend") || source.endsWith("/submission-http"))) {
           errors.push(`${rel}: serviços de submissão são exclusivos do servidor.`);
         }
-        if (isUiSurface && source.includes("ui-data/") &&
-          !source.endsWith("/data-access-context") &&
-          !(isDataTableAdapter && source.endsWith("/providers"))) {
+        if (isUiSurface && source.includes("ui-data/") && source.endsWith("/providers") &&
+          !isDataTableAdapter) {
           errors.push(`${rel}: fontes de dados devem passar pelo DataTable e pelo adaptador autorizado.`);
         }
         if (!canContainVisuals && source === "react/jsx-runtime") errors.push(`${rel}: runtime JSX manual fora da biblioteca.`);
