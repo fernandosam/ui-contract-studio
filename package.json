@@ -54,6 +54,7 @@
     "doctor": "node scripts/check-environment.mjs",
     "doctor:strict": "node scripts/check-environment.mjs --strict",
     "pi:context": "node scripts/select-pi-context.mjs",
+    "pi:select": "node scripts/select-pi-candidates.mjs",
     "pi:api": "node scripts/build-pi-api.mjs --write",
     "pi:api:check": "node scripts/build-pi-api.mjs --check",
     "pi:fixtures": "node scripts/build-pi-fixtures.mjs --write",
