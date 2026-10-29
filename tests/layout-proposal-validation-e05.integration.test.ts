@@ -84,6 +84,19 @@ test("E05 refuses stale provenance, version changes, unauthorized dependency and
  assert.throws(()=>validate(build(),policy),/Admission Engine policy failed/);
 });
 
+test("E05 existing composite suggestions and proposed slot counts are not trust assertions",()=>{
+ const stale=build();
+ const reusable=stale.proposals.find((x:{dependencies:{inspectExistingCompositions:unknown[]}})=>
+  x.dependencies.inspectExistingCompositions.length>0);
+ assert.ok(reusable);
+ reusable.dependencies.inspectExistingCompositions[0].templatePath=
+  "src/ui-catalog/extensions/composites/templates/unreviewed.json";
+ assert.throws(()=>validate(stale),/unapproved existing-composition suggestion/);
+ const incorrect=build();
+ incorrect.proposals[0].slots[0].observedChildren.min=999;
+ assert.throws(()=>validate(incorrect),/proposed slot cardinality/);
+});
+
 test("E05 CLI is deterministic, read-only and rejects undocumented options",()=>{
  const run=(arg:string)=>spawnSync(process.execPath,["node_modules/.bin/tsx","scripts/validate-layout-composition-proposals.mjs",arg],{encoding:"utf8"});
  const a=run("--check");
