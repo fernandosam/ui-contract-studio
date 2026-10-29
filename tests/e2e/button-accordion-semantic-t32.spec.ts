@@ -3,7 +3,7 @@ import {test,expect,type Page} from "@playwright/test";
 // T32 — runtime evidence. Never promote candidate capabilities or Pi permissions.
 async function preview(page:Page,family:"Button"|"Accordion"){
  await page.goto("/?screen=explorador-primitivos");
- await page.getByRole("button",{name:family,exact:true}).first().click();
+ await page.getByLabel("Componentes registrados").getByRole("button",{name:new RegExp("^"+family+"\\b")}).click();
  const container=page.getByTestId("catalog-live-preview");
  await expect(container).toBeVisible();
  return container;
