@@ -3,7 +3,7 @@ import {test, expect} from "@playwright/test";
 test("E06: theme choice stays synchronized across primitives, composites and JSON screens", async ({page}) => {
   await page.goto("/?screen=explorador-primitivos");
   await page.getByLabel("Buscar componente").fill("Button");
-  await page.getByRole("button", {name:"Button", exact:true}).click();
+  await page.locator('[aria-label="Componentes registrados"] button[aria-label="Button"]').click();
   const primitive = page.getByTestId("preview-theme-selector").first();
   await expect(primitive).toHaveValue("studio@1.0.0:dark");
   await primitive.selectOption("studio@1.0.0:light");
