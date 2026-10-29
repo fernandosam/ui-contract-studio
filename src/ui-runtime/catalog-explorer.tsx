@@ -9,7 +9,7 @@ import primitiveGuidancePtBr from '@/ui-catalog/primitive-guidance.pt-BR.json';
 import compositionPolicy from '@/ui-catalog/composition-policy.json';
 import { PrimitiveSourceViewer } from '@/ui-catalog/extensions/composites/primitive-source-viewer';
 import { SpecScreen } from './spec-screen';
-import { PreviewThemeSelector } from '../ui-theme/preview-theme';
+import { PreviewThemeSelector } from './preview-theme';
 import { TreePatchWorkbench } from './tree-patch-workbench';
 import piManifest from '../../pi-catalog/contracts.json';
 import semanticGuidance from '@/ui-catalog/semantic-contract-guidance.json';
