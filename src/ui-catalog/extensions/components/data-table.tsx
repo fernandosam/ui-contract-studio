@@ -82,7 +82,7 @@ export function DataTable({props,selectionPath,onSelectionChange,onPageChange,on
      {getFilteredRowModel:getFilteredRowModel<DataRow>(),getSortedRowModel:getSortedRowModel<DataRow>(),getPaginationRowModel:getPaginationRowModel<DataRow>()}),
    enableRowSelection:Boolean(selectable),
  });
- const count=remote?result.total:table.getFilteredRowModel<DataRow>().rows.length;
+ const count=remote?result.total:table.getFilteredRowModel().rows.length;
  return <section className="w-full space-y-3" aria-label={caption??'Tabela de dados'}>
   {searchable&&<div className="relative max-w-sm"><Search aria-hidden="true" className="absolute left-3 top-2.5 size-4 text-muted-foreground"/>
     <Input aria-label="Pesquisar linhas" className="pl-9" value={query} placeholder="Pesquisar..." onChange={e=>table.setGlobalFilter(e.target.value)}/></div>}
