@@ -25,22 +25,23 @@ try{
    ? snapshotContractVersions(spec,lock)
    : migrateContractSpec({spec,versions:read(versionFile),
      registry:read('src/ui-catalog/contract-migrations.json'),lock});
- if(!snapshot){
+ {
+   const candidate=snapshot?spec:result.spec;
    // The final/current authoritative Zod catalog remains the approval boundary.
    // Validate the migrated JSON in isolation before publishing any output.
    mkdirSync('reports/contract-migrations',{recursive:true});
    const dir=mkdtempSync('reports/contract-migrations/.validate-');
    try{
      const stage=join(dir,'spec.json');
-     writeFileSync(stage,JSON.stringify(result.spec,null,2)+'\n');
+     writeFileSync(stage,JSON.stringify(candidate,null,2)+'\n');
      const validation=spawnSync(process.execPath,[
        resolve('node_modules/.bin/tsx'),resolve('scripts/validate-pi-spec.ts'),
        '--file='+stage,'--stdout'
      ],{encoding:'utf8',maxBuffer:1024*1024});
-     if(validation.status!==0)error('current Zod validation failed: '+
+     if(validation.status!==0)throw new Error('current Zod validation failed: '+
        (validation.stdout||validation.stderr||validation.error?.message||'unknown').slice(0,4000));
      const verdict=JSON.parse(validation.stdout);
-     if(verdict.valid!==true)error('current Zod validator returned invalid');
+     if(verdict.valid!==true)throw new Error('current Zod validator returned invalid');
    }finally{rmSync(dir,{recursive:true,force:true});}
  }
  if(!output){
