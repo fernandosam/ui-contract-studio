@@ -8,7 +8,7 @@ test("tsx e Vite compartilham o alias @/", () => {
   const rootConfig = JSON.parse(readFileSync(resolve(root, "tsconfig.json"), "utf8"));
   const appConfig = JSON.parse(readFileSync(resolve(root, "tsconfig.app.json"), "utf8"));
   assert.deepEqual(rootConfig.compilerOptions.paths["@/*"], ["./src/*"]);
-  assert.deepEqual(appConfig.compilerOptions.paths["@/*"], ["src/*"]);
+  assert.deepEqual(appConfig.compilerOptions.paths["@/*"], ["./src/*"]);
 });
 test("validação do catálogo não carrega implementações React do shadcn", () => {
   const code = readFileSync(resolve(root, "scripts/check-ui-catalog.ts"), "utf8");

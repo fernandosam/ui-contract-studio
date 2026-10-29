@@ -45,3 +45,7 @@ Registre escopo, arquivos alterados, testes executados e limitações. Mudanças
 Os workflows reutilizam `.github/actions/setup-deps` (Node 22, cache npm e `npm ci`) e `.github/actions/setup-chromium` (reaproveita navegador instalado e baixa Chromium apenas quando necessário). O workflow pago de [avaliação Pi](../.github/workflows/pi-evaluation.yml) é manual e limitado à `main`; nenhuma chamada paga faz parte da CI de PR.
 
 Os cenários E2E orientados por riscos semânticos (T29) estão em [riscos E2E semânticos](semantic-e2e-risks-t29.pt-BR.md). Eles usam o job de navegador existente para PRs e o E2E manual na main; os relatórios são consultivos, não certificações Pi automáticas.
+
+## Compilador TypeScript 7 e API TypeScript 6 para ferramentas
+
+O TypeScript 7.0 ainda não disponibiliza a API exigida pelo `typescript-eslint`. Por isso, `typescript` usa o alias `npm:@typescript/typescript6@6.0.2` para o ESLint, e `@typescript/native` usa `npm:typescript@7.0.2` para compilação nativa. O pacote de compatibilidade traz `@typescript/old`, que também pode expor um binário `tsc`; **não depender do destino escolhido automaticamente por `npx tsc`**. O comando `npm run typecheck` invoca `node ./node_modules/@typescript/native/bin/tsc -b --pretty false` explicitamente, e o `npm run build` executa essa verificação antes do Vite. O lockfile deve ser versionado; `npm ci`, lint, typecheck e build precisam passar sem ignorar conflitos de peers. Consulte a [orientação oficial da Microsoft](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/).
