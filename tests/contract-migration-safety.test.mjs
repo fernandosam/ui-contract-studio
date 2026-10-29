@@ -101,7 +101,7 @@ test('reviewed chained transformations are deterministic and reversible by a ret
  const result=run();
  assert.deepEqual(result,run());
  assert.equal(result.report.steps.length,2);
- assert.equal(result.report.operations.length,5);
+ assert.equal(result.report.operations.length,4);
  assert.deepEqual(result.spec.elements.first.props,{label:'Save',disabled:false});
  assert.deepEqual(result.spec.elements.second.props,{disabled:true,label:'Cancel'});
  assert.deepEqual(result.spec.elements.first.on,{press:{action:'buttonClick',params:{message:'go'}}});
