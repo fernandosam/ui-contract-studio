@@ -17,6 +17,10 @@ const sensitive=[
   /^src\/ui-catalog\/admission-engine\//,
   /^src\/ui-catalog\/(?:contracts\.lock\.json|catalog\.ts|registry\.tsx)$/,
   /^src\/ui-catalog\/extensions\/catalog\.ts$/,
+  /^src\/ui-requirements\/submission-/,
+  /^src\/ui-runtime\/spec-screen\.tsx$/,
+  /^scripts\/lib\/spec-invariants\.mjs$/,
+  /^\.pi\/extensions\//,
   /^pi-catalog\/(?:contracts\.json|.*\.schema\.(?:json|ts))$/,
   /^(?:server|backend|api)\//,
 ];
