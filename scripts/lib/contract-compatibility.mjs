@@ -1,4 +1,5 @@
 import { normalizedTokens } from './contract-lock.mjs';
+import { detectContractChanges } from './contract-structural-diff.mjs';
 
 const levels = {none:0, patch:1, minor:2, major:3};
 const versionPattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
@@ -67,11 +68,12 @@ const optionalField=tokens=>same(tokens.slice(-4),['.','optional','(',')']);
 /** Prove only safe recognizable changes. Unknown source changes fail closed as MAJOR. */
 export function classifySegmentChange(before,after) {
   if(typeof before!=='string' || typeof after!=='string')
-    return {level:'major',reason:'Fonte anterior ou atual ausente; impacto não comprovável'};
+    return {level:'major',reason:'Fonte anterior ou atual ausente; impacto não comprovável',details:detectContractChanges(before,after)};
+  const details=detectContractChanges(before,after);
   const oldTokens=normalizedTokens(before),newTokens=normalizedTokens(after);
-  if(same(oldTokens,newTokens))return {level:'none',reason:'Sem alteração semântica no segmento'};
+  if(same(oldTokens,newTokens))return {level:'none',reason:'Sem alteração semântica no segmento',details};
   const oldMasked=maskTopLevelDescription(oldTokens),newMasked=maskTopLevelDescription(newTokens);
-  if(same(oldMasked,newMasked))return {level:'patch',reason:'Somente texto de descrição alterado'};
+  if(same(oldMasked,newMasked))return {level:'patch',reason:'Somente texto de descrição alterado',details};
   const oldProps=topLevelProps(oldMasked),newProps=topLevelProps(newMasked);
   if(oldProps && newProps &&
       same([...oldMasked.slice(0,oldProps.start),...oldMasked.slice(oldProps.end+1)],
@@ -79,9 +81,9 @@ export function classifySegmentChange(before,after) {
       [...oldProps.fields].every(([key,value])=>same(value,newProps.fields.get(key)??[]))){
     const added=[...newProps.fields].filter(([key])=>!oldProps.fields.has(key));
     if(added.length && added.every(([,value])=>optionalField(value)))
-      return {level:'minor',reason:'Apenas props opcionais adicionadas: '+added.map(([key])=>key).join(', ')};
+      return {level:'minor',reason:'Apenas props opcionais adicionadas: '+added.map(([key])=>key).join(', '),details};
   }
-  return {level:'major',reason:'Alteração de schema, slot, evento ou semântica não comprovada como aditiva'};
+  return {level:'major',reason:'Alteração de schema, slot, evento ou semântica não comprovada como aditiva',details};
 }
 
 export function classifyContractChanges(beforeLock,afterLock,beforeSegments,afterSegments) {
@@ -105,7 +107,8 @@ export function classifyContractChanges(beforeLock,afterLock,beforeSegments,afte
     }
     if(!prior){
       if(now.tier!=='extension')errors.push(name+': novo contrato base proibido');
-      changes.push({name,level:'new',reason:'Novo contrato de extensão requer revisão e admissão',version:now.version});
+      changes.push({name,level:'new',reason:'Novo contrato de extensão requer revisão e admissão',version:now.version,
+        details:[{category:'structure',path:'$component',kind:'added'}]});
       continue;
     }
     if(now.tier!==prior.tier)errors.push(name+': migração de tier proibida');
@@ -129,9 +132,19 @@ export function classifyContractChanges(beforeLock,afterLock,beforeSegments,afte
     }else if(level==='none' && bump!=='none'){
       errors.push(name+': versão alterada sem mudança pública justificável ('+prior.version+' -> '+now.version+')');
     }
-    if(level!=='none'||bump!=='none')changes.push({name,level,reason,previous:prior.version,version:now.version,bump});
+    if(level!=='none'||bump!=='none'){
+      const details=[...sourceDiff.details];
+      for(const field of ['stability','status']){
+        if(prior[field]!==now[field])details.push({category:'metadata',path:field,kind:'modified',before:prior[field],after:now[field]});
+      }
+      if(prior.tier!==now.tier)details.push({category:'structure',path:'tier',kind:'modified',before:prior.tier,after:now.tier});
+      changes.push({name,level,reason,previous:prior.version,version:now.version,bump,details});
+    }
   }
-  for(const name of oldMap.keys())if(!newMap.has(name))
+  for(const [name,prior] of oldMap)if(!newMap.has(name)){
     errors.push(name+': remoção exige processo explícito de migração; exclusão direta proibida');
+    changes.push({name,level:'removed',previous:prior.version,
+      reason:'Remoção não admitida',details:[{category:'structure',path:'$component',kind:'removed'}]});
+  }
   return {errors,changes};
 }

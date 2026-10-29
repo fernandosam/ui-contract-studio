@@ -33,3 +33,9 @@ Saída de stability: stable ou revogação de status: approved é MAJOR porque r
 4. Registre no PR o impacto, justificativa, migração e testes; mantenha revisão normal de contratos/segurança. Não há nova camada de aprovação nem bypass das proteções da main.
 
 A análise SemVer é independente da certificação E2E, auditoria visual e autorização de novas ações.
+
+### Evidências detalhadas de mudanças contratuais
+
+A mesma verificação `npm run contracts:diff` agora gera `reports/contract-diff/changes.json` nos PRs. São comparadas as definições na base e no HEAD do PR, registrando alterações **adicionadas/removidas/modificadas**, com caminhos, nas categorias `property` (propriedade), `state` (estado), `event` (evento), `structure` (estrutura, incluindo slots) e `metadata` (descrições/canal). Objetos Zod literais aninhados usam caminhos como `props.steps[].status`. Testes offline cobrem estados aninhados, membros de eventos e slots, propriedades obrigatórias/opcionais, wrappers estruturais e expressões opacas.
+
+O JSON inclui commit base, validade, totais por categoria, classificação SemVer por componente, diagnósticos e assinaturas de tokens antigas/novas abreviadas. É preservado como artefato de CI mesmo quando a checagem SemVer rejeita alterações. Trata-se de **evidência estática de código**, não prova de execução: schemas importados de outros arquivos, comportamento runtime e expressões Zod dinâmicas/não reconhecidas não permitem comprovar compatibilidade aqui. Permanecem opacos ou exigem revisão independente. Nenhuma etapa adicional de aprovação, permissão de API ou promoção automática é introduzida.
