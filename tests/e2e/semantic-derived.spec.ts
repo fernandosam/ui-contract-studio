@@ -700,8 +700,14 @@ const recipes:Record<string,(page:Page)=>Promise<void>>={
     await expect(menu).toBeVisible();
     await expect(menu.getByRole("menuitem",{name:"Indisponível"})).toBeDisabled();
     await menu.getByRole("menuitem",{name:"Executar"}).focus();
-    await page.keyboard.press("ArrowDown");
     const submenuTrigger=page.getByRole("menuitem",{name:"Mais opções"});
+    // Disabled items may be focusable for discovery in Base UI even though
+    // they cannot be activated. Traverse with the keyboard, never click
+    // or programmatically focus the submenu to manufacture accessibility.
+    for(let step=0;step<4;step++){
+      if(await submenuTrigger.evaluate(node=>node===document.activeElement))break;
+      await page.keyboard.press("ArrowDown");
+    }
     await expect(submenuTrigger).toBeFocused();
     await page.keyboard.press("ArrowRight");
     const submenu=page.locator('[data-slot="dropdown-menu-sub-content"]');
