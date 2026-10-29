@@ -112,7 +112,9 @@
     "requirements:browser:report": "tsx scripts/verify-requirements-browser-evidence.ts",
     "requirements:evidence:verify": "tsx scripts/verify-requirements-browser-evidence.ts",
     "requirements:browser:prepare": "tsx scripts/prepare-requirements-browser-evidence.ts",
-    "semantic:test:e2e": "playwright test tests/e2e/semantic-derived.spec.ts --project=desktop --project=mobile"
+    "semantic:test:e2e": "playwright test tests/e2e/semantic-derived.spec.ts --project=desktop --project=mobile",
+    "contracts:migrate": "node scripts/migrate-contract-spec.mjs",
+    "contracts:migrations:check": "node scripts/check-contract-migrations.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
