@@ -43,3 +43,35 @@ The host **must not** expose a public “issue ticket” endpoint that issues pr
 - `npm run test:offline && npm run pi:zod-schema && npm run validate && npm run build`
 
 Security boundary edits require ordinary PR review; native auto-merge eligibility excludes the submission modules and spec invariants. All catalog admission and semantic checks remain unchanged.
+
+## E09 adversarial regressions
+
+The deterministic tests in tests/e09-adversarial.test.mjs (dependency-free) and
+tests/e09-adversarial.integration.test.ts (real Zod catalog, Node HTTP host,
+consent and demo adapter) cover three attack families:
+
+- Prompt injection / instruction laundering: fake system and tool messages in
+  requirements and UI labels, plus JSON pretending to grant actions. The
+  selected type allowlist, fixed rules and executable Zod actions must not change.
+  Untrusted text is treated as data, never an authorization source.
+- Privilege escalation / confused deputy: forged role, tenant, identity, CSRF,
+  server grants and confirmation headers, replay, cross-user access and payload
+  mutations must fail closed without unauthorized adapter writes.
+- Malformed inputs: broken/oversized JSON, unexpected fields, invalid actions,
+  events and parameters, cyclic/deep graphs, prototype paths and reserved field
+  names must be rejected without leaking request values in HTTP errors.
+
+One regression was found and fixed: quoted-bracket prototype paths
+(e.g., profile["__proto__"]) now fail graph validation, and reserved fields
+(__proto__, prototype, constructor) are denied both when issuing consent and
+in the server gateway.
+
+Existing quality.yml jobs discover both suites automatically:
+- npm run test:offline
+- npm run pi:zod-schema && npx tsx --test tests/e09-adversarial.integration.test.ts
+- npm run validate && npm run build
+
+These are deterministic boundary tests, NOT an LLM jailbreak evaluation,
+Pi shell sandbox proof, production authentication test or production
+authorization guarantee. Loopback HTTP remains a demonstration adapter.
+Security boundary changes require review of CI results before merge.
