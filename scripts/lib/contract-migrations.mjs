@@ -39,6 +39,30 @@ function validateSpec(spec,known){
   const errors=graphErrors(spec,[...known.keys()]);
   if(errors.length)fail('invalid spec: '+errors.join('; '));
 }
+function assertJsonDefault(value,label,depth=0){
+  if(depth>64)fail(label+': invalid default value (excessive nesting)');
+  if(value===null || typeof value==='string' || typeof value==='boolean')return;
+  if(typeof value==='number'){
+    if(!Number.isFinite(value))fail(label+': invalid default value (non-finite number)');
+    return;
+  }
+  if(Array.isArray(value)){
+    if(Object.keys(value).length!==value.length)
+      fail(label+': invalid default value (sparse or custom array)');
+    for(let i=0;i<value.length;i++){
+      if(!own(value,i))fail(label+': invalid default value (sparse array)');
+      assertJsonDefault(value[i],label,depth+1);
+    }
+    return;
+  }
+  if(!record(value) || Object.getPrototypeOf(value)!==Object.prototype)
+    fail(label+': invalid default value (not a JSON object)');
+  for(const [key,child] of Object.entries(value)){
+    if(['__proto__','prototype','constructor'].includes(key))
+      fail(label+': unsafe default property name');
+    assertJsonDefault(child,label,depth+1);
+  }
+}
 function validateOperations(operations,label){
   if(!Array.isArray(operations))fail(label+': operations must be an array');
   for(const op of operations){
@@ -56,13 +80,11 @@ function validateOperations(operations,label){
       fail(label+': rename source and target are identical');
     if(op.op==='set-default-prop'){
       // JSON-safe only, no undefined, functions, NaN, or prototype-sensitive objects.
+      assertJsonDefault(op.value,label);
       let encoded;
       try{encoded=JSON.stringify(op.value);}catch{encoded=undefined;}
-      if(encoded===undefined || encoded.length>8192 || JSON.parse(encoded)===undefined)
+      if(encoded===undefined || encoded.length>8192)
         fail(label+': invalid default value');
-      if(!record(op.value) && !Array.isArray(op.value) &&
-         !['string','boolean','number'].includes(typeof op.value) && op.value!==null)
-        fail(label+': unsupported default value');
     }
   }
 }
