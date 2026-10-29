@@ -3,6 +3,7 @@
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {buildSemanticKnowledge,selectAgentSemanticAdvice} from './lib/semantic-knowledge.mjs';
+import {selectPiSemanticCandidates} from './lib/pi-semantic-selection.mjs';
 const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const all=read('pi-catalog/contracts.json');
 const reviewed=new Map(read('src/ui-catalog/contracts.lock.json').components.map(c=>[c.name,c]));
@@ -22,7 +23,8 @@ for(const entry of all.components){
 }
 
 const option=process.argv.find(x=>x.startsWith('--types='));
-if(!option){console.error('Uso: npm run pi:context -- --types=Card,Button,Dashboard01 [--stdout] [--metadata-only]');process.exit(2)}
+const requirementArg=process.argv.find(x=>x.startsWith('--requirement='));
+if(!option){console.error('Uso: npm run pi:context -- --types=Card,Button,Dashboard01 [--requirement=objetivo] [--stdout] [--metadata-only]');process.exit(2)}
 const names=[...new Set(option.slice('--types='.length).split(',').map(s=>s.trim()).filter(Boolean))];
 if(!names.length||names.length>25){console.error('Selecione entre 1 e 25 tipos por lote.');process.exit(2)}
 const metadataOnly=process.argv.includes('--metadata-only');
@@ -56,6 +58,11 @@ const semanticAdvice=selectAgentSemanticAdvice(semantic.report,names.filter(x=>a
 const adviceByType=new Map(semanticAdvice.map(x=>[x.type,x]));
 const conformanceByType=new Map(semantic.report.semanticConformance.components.map(x=>[x.component,x]));
 const conformanceCapabilities=semantic.report.semanticConformance.entries;
+const selection=requirementArg?selectPiSemanticCandidates({
+  requirement:requirementArg.slice('--requirement='.length),
+  contracts:selected.map(item=>item.contract),profiles:semantic.report.profiles,
+  allowedTypes:names,limit:names.length,
+}):null;
 const pack={schemaVersion:3,catalogVersion:all.projectVersion,channel,metadataOnly,rules:[
  channel==='experimental'?'EXPERIMENTAL: tipos experimentais somente para preview/sandbox local; não conceda operações externas.':'ESTÁVEL: não utilize tipos experimentais pendentes de E2E.',
  'Retorne somente JSON com root e elements; todos os nós DEVEM conter children como array, mesmo sem filhos.',
@@ -79,7 +86,7 @@ const pack={schemaVersion:3,catalogVersion:all.projectVersion,channel,metadataOn
            authority:"advisory-only"})),
      },
    }:{}),
- })), semanticAdvice, semanticAdvicePolicy:"Advisory only; no new props, type, event, external action, data source or permission. propsSchema and actionSchemas remain authoritative."};
+ })), ...(selection?{selection}:{}), semanticAdvice, semanticAdvicePolicy:"Advisory only; no new props, type, event, external action, data source or permission. propsSchema and actionSchemas remain authoritative."};
 const output=JSON.stringify(pack,null,2)+'\n';
 const dest=process.argv.find(x=>x.startsWith('--out='))?.slice(6)??'reports/pi-context/selected.json';
 if(process.argv.includes('--stdout')) process.stdout.write(output);
