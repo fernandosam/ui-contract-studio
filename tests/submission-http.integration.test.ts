@@ -56,6 +56,20 @@ test("T32 HTTP: authorized demonstration creates server-side record and provides
  assert.deepEqual(await conflict.json(),{ok:false,error:"conflict"});
  assert.equal(h.demo.records().length,1);
 });
+test("E09 HTTP: replay and mutation of a confirmed write are denied before the adapter",async t=>{
+ const h=await harness();t.after(h.close);
+ const store=byBase.get(h.base);
+ assert.ok(store);
+ const proof=store.issueAfterApproval(body,session);
+ assert.equal((await post(h.base,body,{confirmation:proof})).status,200);
+ assert.equal((await post(h.base,body,{confirmation:proof})).status,403);
+ const bound=store.issueAfterApproval(body,session);
+ const changed={...body,values:{name:"Bia",email:"bia@example.org"}};
+ assert.equal((await post(h.base,changed,{confirmation:bound})).status,403);
+ assert.equal((await post(h.base,body,{confirmation:bound})).status,403);
+ assert.equal(h.demo.records().length,1);
+});
+
 test("T32 HTTP: unknown service, duplicate e-mail and malformed fields never persist",async t=>{
  const h=await harness();t.after(h.close);
  assert.equal((await post(h.base,{...body,serviceId:"external-db"})).status,403);
