@@ -43,3 +43,35 @@ O hospedeiro **não pode** criar um endpoint público de emissão que dispense c
 - `npm run test:offline && npm run pi:zod-schema && npm run validate && npm run build`
 
 Alterações das fronteiras de segurança exigem revisão normal do PR; a elegibilidade ao auto-merge nativo exclui os módulos de submissão e as invariantes da spec. As verificações de admissão e semântica permanecem preservadas.
+
+## Regressões adversariais E09
+
+Os testes determinísticos em tests/e09-adversarial.test.mjs (sem dependências) e
+tests/e09-adversarial.integration.test.ts (catálogo Zod real, host HTTP Node,
+comprovação de confirmação e adaptador demonstrativo) cobrem três classes:
+
+- Prompt injection / instruções falsificadas: mensagens de sistema e ferramenta
+  forjadas em requisitos e rótulos, incluindo JSON que tenta ampliar ações.
+  Tipos selecionados, regras fixas e ações Zod executáveis devem permanecer
+  inalterados. Texto não confiável continua sendo dado, não autorização.
+- Escalonamento de permissões: role, tenant, identidade, CSRF, concessões e
+  comprovantes falsificados, replay, usuário diferente e adulteração de payload
+  devem falhar de forma segura, sem gravações indevidas.
+- Entradas malformadas: JSON inválido/grande, campos imprevistos, ações,
+  eventos e parâmetros proibidos, grafos cíclicos/profundos, caminhos e campos
+  de protótipo devem ser rejeitados sem revelar valores nos erros HTTP.
+
+Os testes identificaram uma lacuna corrigida: caminhos de protótipo com
+colchetes e aspas (ex.: profile["__proto__"]) agora são rejeitados.
+Os nomes __proto__, prototype e constructor são proibidos tanto na emissão
+de confirmação quanto na validação pelo backend.
+
+Os jobs existentes em quality.yml incluem automaticamente as duas suítes:
+- npm run test:offline
+- npm run pi:zod-schema && npx tsx --test tests/e09-adversarial.integration.test.ts
+- npm run validate && npm run build
+
+São testes determinísticos das fronteiras, não uma avaliação de jailbreak de
+LLM real, prova de sandbox do shell Pi ou garantia de autenticação/autorização
+em produção. HTTP permanece demonstrativo e exclusivo de loopback. Revisar
+os resultados de CI antes do merge das alterações sensíveis.
