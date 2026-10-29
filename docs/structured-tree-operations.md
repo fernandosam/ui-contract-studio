@@ -36,11 +36,19 @@ A spec contains `root`, `elements` and optionally `state`. Each element is addre
 The supported integration point is `applyPiTreePatch(spec, patch, "stable")` in `src/ui-runtime/tree-operations.ts`. It delegates to the side-effect-free `scripts/lib/spec-tree-operations.mjs` engine. The `experimental` channel must be chosen only by an already authorized caller; a patch never chooses or grants its own channel.
 
 1. Check JSON input, strict operation fields, v1, 50-operation limit and reserved prototype-pollution keys. Reject non-JSON data and cycles.
-2. Validate the initial tree **and after each edit** with the actual channel-specific **Zod catalog** and the existing `graphErrors` policy (current limits: 300 nodes, depth 30). Explicitly reject undeclared slots.
+2. Validate the initial tree **and after each edit** with the actual channel-specific **Zod catalog**, authorized types/events/actions/slots and the existing `graphErrors` policy (current limits: 300 nodes, depth 30). Explicitly reject undeclared slots. Run the independent layout safety and semantic flow checks before the operation can be committed.
 3. Edit only a clone. On any error return `{ok:false,spec:<original>,error:{opIndex,code,message}}`. No partial mutation is observable. Success returns `{ok:true,spec:<new clone>,changes:[...]}`. Change summaries include IDs, positions and property names but not field values.
 4. Never write files, render content, execute handlers, promote contracts or grant Pi permissions. Publication continues through the existing checks and authorization process.
 
 These are **not RFC 6902 JSON Patch** operations: stable IDs and tree invariants replace blind positional paths. An invalid patch never falls back to JSX or HTML.
+
+## Per-operation layout validation
+
+The engine always checks structural layout invariants after Zod and graph checks: text-only `Text` and `Heading` cannot contain child nodes (which would become invisible in rendering), and a `Heading` cannot have an empty/whitespace-only title. An invalid initial tree or any intermediate operation returns `layout_invalid` (with `opIndex: null` for the initial spec). The **entire patch** is discarded, including preceding valid operations.
+
+The trusted caller can bind a flow-specific layout plan without changing the patch protocol: `applyPiTreePatch(spec, patch, "stable", requirements)`, where `requirements` comes from the existing requirements engine for **registration, login, search, or dashboard**. The engine reuses `evaluateLayoutQuality` to reject only a fixed set of **deterministic structural contract deviations**: semantic region order, grouping, membership, grid density, container and responsive reading order. Unsupported explicit flow contexts fail closed.
+
+The `layoutQuality` score and browser geometry remain **advisory only**; neither score thresholds nor visual heuristics are approval gates, and this validation does not certify real breakpoints, accessibility, or screenshots. If no flow context is supplied, only cross-screen layout invariants are checked—**no flow should be guessed** from IDs or untrusted JSON. A patch cannot provide or change its own validation policy. Layout failures never grant components, Zod props, handlers or Pi permissions, and diagnostics contain no prop/state values.
 
 ## Preservation guarantees
 
