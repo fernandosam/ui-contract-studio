@@ -19,6 +19,8 @@ export type DemoHttpOptions={
  allowedOrigin:string;
  resolveSession:(bearerToken:string)=>Promise<TrustedDemoSession|null>;
  services:readonly ApprovedService[];
+ /** Trusted host consumes a one-use ticket after a real user approval. */
+ verifyConfirmation:(ticket:string,payload:SubmissionPayload,session:TrustedDemoSession)=>Promise<boolean>;
  timeoutMs?:number;
 };
 
@@ -63,6 +65,7 @@ export function createControlledDemoHttpHandler(options:DemoHttpOptions):Request
  if(!/^https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?$/.test(options.allowedOrigin))
   throw Error("Apenas origens de demonstração no loopback são permitidas");
  if(typeof options.resolveSession!=="function")throw Error("Autenticação do hospedeiro obrigatória");
+ if(typeof options.verifyConfirmation!=="function")throw Error("Verificação de confirmação do hospedeiro obrigatória");
  const submit=createSubmissionGateway(options.services,{timeoutMs:options.timeoutMs});
  return (req,res)=>{
   const handle=async()=>{
@@ -72,10 +75,10 @@ export function createControlledDemoHttpHandler(options:DemoHttpOptions):Request
    if(req.method==="OPTIONS"){
     const requestedHeaders=(req.headers["access-control-request-headers"]??"").toLowerCase();
     if(req.headers["access-control-request-method"]!=="POST"||
-       requestedHeaders.split(",").map(x=>x.trim()).some(x=>!["authorization","content-type","x-csrf-token"].includes(x)))
+       requestedHeaders.split(",").map(x=>x.trim()).some(x=>!["authorization","content-type","x-csrf-token","x-action-confirmation"].includes(x)))
      return respond(res,403,"forbidden");
     res.writeHead(204,{"access-control-allow-origin":options.allowedOrigin,
-     "access-control-allow-methods":"POST","access-control-allow-headers":"authorization, content-type, x-csrf-token",
+     "access-control-allow-methods":"POST","access-control-allow-headers":"authorization, content-type, x-csrf-token, x-action-confirmation",
      "access-control-max-age":"0","vary":"Origin","cache-control":"no-store"});res.end();return;
    }
    if(req.method!=="POST")return respond(res,405,"method_not_allowed");
@@ -93,10 +96,16 @@ export function createControlledDemoHttpHandler(options:DemoHttpOptions):Request
     if(e instanceof SubmissionFailure)return respond(res,400,"invalid");
     return respond(res,400,"invalid");
    }
+   const ticket=req.headers["x-action-confirmation"];
+   if(typeof ticket!=="string"||!/^[A-Za-z0-9_-]{40,128}$/.test(ticket))
+    return respond(res,403,"forbidden");
+   let confirmed=false;
+   try{confirmed=await options.verifyConfirmation(ticket,payload,session);}catch{return respond(res,403,"forbidden");}
+   if(confirmed!==true)return respond(res,403,"forbidden");
    try{
     const receipt=await submit(payload,{
      userId:session.userId,tenantId:session.tenantId,
-     csrfVerified:true,actions:new Set(session.allowedServices)
+     csrfVerified:true,confirmationVerified:true,actions:new Set(session.allowedServices)
     });
     res.writeHead(200,{"content-type":"application/json; charset=utf-8",
      "access-control-allow-origin":options.allowedOrigin,"vary":"Origin",

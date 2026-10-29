@@ -23,14 +23,17 @@ export const actionImplementations = {
   removeState: async () => {},
   buttonClick: async (params: unknown) => {
     const data=parseLocalFeedbackAction("buttonClick",params);
+    if(!data)throw Error("Parâmetros de ação local inválidos");
     if(data)toast.success(data.message??"Ação demonstrativa executada.");
   },
   formSubmit: async (params: unknown) => {
     const data=parseLocalFeedbackAction("formSubmit",params);
+    if(!data)throw Error("Parâmetros de ação local inválidos");
     if(data)toast.info(`${data.formName??"Formulário"}: persistência desabilitada neste exemplo.`);
   },
   linkClick: async (params: unknown) => {
     const data=parseLocalFeedbackAction("linkClick",params);
+    if(!data)throw Error("Parâmetros de ação local inválidos");
     if(data)toast.info(`Navegação demonstrativa: ${data.href}`);
   },
 };

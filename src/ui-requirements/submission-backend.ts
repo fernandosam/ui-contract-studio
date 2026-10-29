@@ -3,7 +3,7 @@
  * This module defines no HTTP route, browser action or production identity authority.
  */
 export type SubmissionContext={
- userId:string;tenantId:string;csrfVerified:boolean;
+ userId:string;tenantId:string;csrfVerified:boolean;confirmationVerified:boolean;
  actions:ReadonlySet<string>;
 };
 export type SubmissionPayload={
@@ -37,13 +37,13 @@ export function createSubmissionGateway(services:readonly ApprovedService[],opti
  const completed=new Map<string,{fingerprint:string;receipt:SubmissionReceipt}>();
  const pending=new Map<string,{fingerprint:string;promise:Promise<SubmissionReceipt>}>();
  return async function submit(payload:SubmissionPayload,context:SubmissionContext):Promise<SubmissionReceipt>{
-  // Authorization precedes deduplication and resource allocation.
+  // Authorization and trusted confirmation precede deduplication and allocation.
   if(!payload||typeof payload!=="object"||!context||typeof context!=="object"||
    !safeId.test(payload.serviceId)||!registry.has(payload.serviceId)||
    typeof context.userId!=="string"||!context.userId.trim()||
    typeof context.tenantId!=="string"||!context.tenantId.trim()||
    context.userId.length>128||context.tenantId.length>128||
-   context.csrfVerified!==true||!(context.actions instanceof Set)||
+   context.csrfVerified!==true||context.confirmationVerified!==true||!(context.actions instanceof Set)||
    !context.actions.has(payload.serviceId))throw forbidden();
   if(typeof payload.idempotencyKey!=="string"||!/^[a-zA-Z0-9_-]{12,120}$/.test(payload.idempotencyKey))
    throw invalid("Chave de idempotência inválida");
