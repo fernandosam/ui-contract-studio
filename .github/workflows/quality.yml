@@ -180,6 +180,7 @@ jobs:
             tests/e2e/alert-dialog-semantic-t32.spec.ts \
             tests/e2e/button-accordion-semantic-t32.spec.ts \
             tests/e2e/requirements-wizard.spec.ts \
+            tests/e2e/layout-runtime-quality.spec.ts \
             tests/e2e/requirements-flow.spec.ts \
             tests/e2e/requirements-patterns.spec.ts \
             tests/e2e/requirements-coverage-evidence.spec.ts \
@@ -201,6 +202,7 @@ jobs:
           path: |
             reports/composition-validation/
             reports/requirements-browser/
+            reports/layout-runtime/
             reports/semantic-e2e/
             reports/semantic-tests/
             test-results/

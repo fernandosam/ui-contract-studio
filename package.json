@@ -115,7 +115,8 @@
     "requirements:browser:prepare": "tsx scripts/prepare-requirements-browser-evidence.ts",
     "semantic:test:e2e": "playwright test tests/e2e/semantic-derived.spec.ts --project=desktop --project=mobile",
     "contracts:migrate": "node scripts/migrate-contract-spec.mjs",
-    "contracts:migrations:check": "node scripts/check-contract-migrations.mjs"
+    "contracts:migrations:check": "node scripts/check-contract-migrations.mjs",
+    "layout:browser:test": "playwright test tests/e2e/layout-runtime-quality.spec.ts --project=desktop --project=mobile"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

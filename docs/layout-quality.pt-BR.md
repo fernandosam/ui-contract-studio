@@ -52,3 +52,18 @@ npm run build
 ```
 
 A verificação automática de integridade **não é** uma nova aprovação de produto, componente ou PR; ela impede que uma correção visual burle controles que já existiam. A nota 100 não certifica renderização, acessibilidade ou E2E, que continuam exigindo evidência própria quando aplicável.
+
+
+## Medição executável no navegador (evidência adicional e consultiva)
+
+O painel mede também a **geometria real da prévia renderizada**, sem substituir a nota estática. O avaliador em `src/ui-runtime/layout-runtime-quality.ts` inspeciona somente o contêiner da prévia, sem alterar estado, JSON ou contratos Pi. Uma **segunda nota** de 0 a 100 inclui `basis: browser-geometry`, `runtimeEvidence: browser-measured`, `policy: advisory-only`, dimensões do viewport, regras executadas/não aplicáveis e diagnósticos corrigíveis.
+
+As verificações medem posição e corte de títulos (hierarquia), limites e sobreposição de grupos (agrupamento), controles e colunas efetivas de grids (densidade), overflow horizontal e limites do viewport (responsividade). A medição é refeita ao redimensionar a prévia ou janela. Regras não aplicáveis ficam explícitas; uma pontuação 100 não certifica qualidade subjetiva nem outros breakpoints.
+
+Para obter evidências em desktop e celular com Playwright:
+
+```sh
+npm run layout:browser:test
+```
+
+A suíte renderiza cadastro, login, busca e dashboard e injeta overflow horizontal controlado para demonstrar queda na nota sem bloquear a prévia Pi. Os relatórios são gravados em `reports/layout-runtime/<project>/<flow>.json` e anexados pelo job de navegador existente quando o PR exige esse teste. Exigir a execução da medição **não cria nota mínima, novo gate de aprovação nem altera auto-merge**. Acessibilidade, teclado, estética subjetiva e diferentes navegadores continuam fora do escopo.
