@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {PreviewThemeSelector} from "../ui-theme/preview-theme";
+import {PreviewThemeSelector} from "./preview-theme";
 import {TypedConfirmationDialog} from "@/ui-catalog/extensions/composites/proposals/TypedConfirmationDialog";
 import {typedConfirmationDialogSchema} from "@/ui-catalog/extensions/composites/proposals/TypedConfirmationDialog.schema";
 
