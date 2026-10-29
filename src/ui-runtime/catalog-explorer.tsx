@@ -12,6 +12,8 @@ import { SpecScreen } from './spec-screen';
 import piManifest from '../../pi-catalog/contracts.json';
 import semanticGuidance from '@/ui-catalog/semantic-contract-guidance.json';
 import {discoverContracts,functionalGroups,type DiscoveryEntry} from './catalog-discovery';
+import {compareSemanticContracts} from './semantic-comparison';
+import type {SemanticComparisonEntry,ComparedCapability} from './semantic-comparison';
 import { AdmissionExplorer } from './admission-explorer';
 import {CompositionRecommendationPanel, pilotFamilies} from './composition-recommendations';
 
@@ -209,7 +211,7 @@ function ReuiGuidance({type}:{type:string}) {
 }
 
 type SemanticOverlay = {
- component:string; purpose:string; whenUse?:string[]; rationale:string[];
+ component:string; purpose:string; whenUse?:string[]; whenNotUse?:string[]; rationale:string[];
  source:{url:string;reviewedOn:string;provider:string};
  capabilities:{id:string;description:string;state:string;testRequirements:string[]}[];
  integrations:{component:string;relationship:string;reason:string}[];
@@ -269,6 +271,87 @@ function SemanticKnowledgePanel({type}:{type:string}){
  </section>;
 }
 
+const stateLabels: Record<string,string> = {
+ 'implemented-static-evidence':'Evidência estática no código (não é homologação)',
+ 'documented-not-implemented':'Documentada, não implementada',
+ 'runtime-review-required':'Requer validação em execução',
+};
+function GuidanceList({title,lines}:{title:string;lines:readonly string[]}) {
+ return <div>
+  <h5 className="mb-2 text-sm font-semibold">{title}</h5>
+  {lines.length ? <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+   {lines.map((line,index)=><li key={index}>{line}</li>)}
+  </ul> : <p className="text-xs text-muted-foreground">Sem orientação registrada; não concluir que não existam restrições.</p>}
+ </div>;
+}
+function CapabilityList({items}:{items:readonly ComparedCapability[]}) {
+ if(!items.length) return <p className="text-xs text-muted-foreground">Sem capacidades documentadas nesta fonte; ausência de registro não comprova ausência de implementação.</p>;
+ return <ul className="space-y-2">{items.map(capability=><li key={capability.id} className="rounded-md border bg-muted/20 p-2 text-xs">
+  <p className="font-medium">{capability.description}</p>
+  <p className="mt-1 text-muted-foreground">{stateLabels[capability.state]??'Estado pendente de revisão'} · <code>{capability.id}</code></p>
+ </li>)}</ul>;
+}
+function Side({entry}:{entry:SemanticComparisonEntry}){
+ return <article className="min-w-0 space-y-4 rounded-lg border bg-card p-4" aria-label={`Perfil semântico de ${entry.name}`}>
+  <div className="space-y-1">
+   <h4 className="font-semibold">{entry.name}</h4>
+   <p className="text-xs text-muted-foreground">Contrato v{entry.version??'não registrado'} · {entry.maturity??'estabilidade não registrada'} · {entry.piAvailable?'Pi disponível':'Pi não disponível'}</p>
+   <p className="text-xs text-muted-foreground">{entry.reviewed?'Documentação semântica revisada':'Orientação parcial ou apenas descrição do contrato'}</p>
+  </div>
+  <div><h5 className="mb-1 text-sm font-semibold">Finalidade</h5><p className="text-sm text-muted-foreground">{entry.purpose??entry.description??'Finalidade não documentada.'}</p></div>
+  <GuidanceList title="Quando usar" lines={entry.whenUse}/>
+  <GuidanceList title="Quando evitar" lines={entry.whenNotUse}/>
+  <div><h5 className="mb-2 text-sm font-semibold">Capacidades documentadas ({entry.capabilities.length})</h5><CapabilityList items={entry.capabilities}/></div>
+  {entry.sourceUrl&&<p className="text-xs">Fonte: <a href={entry.sourceUrl} rel="noopener noreferrer" target="_blank" className="underline underline-offset-2">{entry.sourceProvider??'Documentação'}{entry.reviewedOn?` · revisão ${entry.reviewedOn}`:''}</a></p>}
+ </article>;
+}
+
+export function SemanticComparisonPanel({
+ primary, secondary, options, selection, onChange, onClose,
+}:{
+ primary:SemanticComparisonEntry;
+ secondary?:SemanticComparisonEntry;
+ options:readonly string[];
+ selection:string;
+ onChange:(name:string)=>void;
+ onClose:()=>void;
+}){
+ const outcome=secondary&&secondary.name!==primary.name?compareSemanticContracts(primary,secondary):null;
+ return <section id="semantic-comparison-panel" data-testid="semantic-comparison" aria-label="Comparação semântica" className="min-w-0 space-y-4 rounded-xl border bg-muted/15 p-4">
+  <div className="flex flex-wrap items-start justify-between gap-3">
+   <div><h3 className="font-semibold">Comparação semântica</h3><p className="text-xs text-muted-foreground">Compare finalidades, recomendações, restrições e evidências existentes. Nenhuma aprovação ou alteração de contrato é realizada.</p></div>
+   <button type="button" onClick={onClose} className="rounded-md border bg-background px-3 py-1.5 text-xs hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring">Fechar comparação</button>
+  </div>
+  <div className="grid items-end gap-3 sm:grid-cols-2">
+   <p className="rounded-md border bg-background px-3 py-2 text-sm"><span className="block text-xs text-muted-foreground">Componente principal</span><strong>{primary.name}</strong></p>
+   <div>
+    <label htmlFor="catalog-compare-target" className="mb-1 block text-xs font-medium">Comparar com</label>
+    <select id="catalog-compare-target" value={selection} onChange={event=>onChange(event.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-ring">
+     <option value="">Selecione outro componente</option>
+     {options.filter(name=>name!==primary.name).map(name=><option value={name} key={name}>{name}</option>)}
+    </select>
+   </div>
+  </div>
+  {!outcome||!secondary ? <p role="status" className="rounded-md border bg-background p-4 text-sm text-muted-foreground">Selecione um segundo componente para visualizar as diferenças semânticas.</p> : <>
+   <div className="grid min-w-0 gap-4 lg:grid-cols-2">
+    <Side entry={primary}/><Side entry={secondary}/>
+   </div>
+   <div className="rounded-lg border bg-card p-4 space-y-3">
+    <h4 className="font-semibold">Diferenças de capacidades documentadas</h4>
+    <p className="text-xs text-muted-foreground">A correspondência ocorre somente por ID exato. IDs diferentes não provam ausência de capacidade; IDs iguais não garantem comportamento ou API equivalentes. Os estados e as evidências devem ser examinados separadamente.</p>
+    <div className="grid gap-3 md:grid-cols-3">
+     <div><h5 className="mb-2 text-sm font-medium">IDs em comum ({outcome.shared.length})</h5>
+      {outcome.shared.length?<ul className="space-y-2 text-xs">{outcome.shared.map(item=><li key={item.id} className="rounded-md bg-muted/40 p-2"><code>{item.id}</code><p className="mt-1 text-muted-foreground">{stateLabels[item.left.state]??item.left.state} / {stateLabels[item.right.state]??item.right.state}</p></li>)}</ul>:<p className="text-xs text-muted-foreground">Nenhum ID coincidente.</p>}
+     </div>
+     <div><h5 className="mb-2 text-sm font-medium">Somente {primary.name} ({outcome.onlyLeft.length})</h5><CapabilityList items={outcome.onlyLeft}/></div>
+     <div><h5 className="mb-2 text-sm font-medium">Somente {secondary.name} ({outcome.onlyRight.length})</h5><CapabilityList items={outcome.onlyRight}/></div>
+    </div>
+    <p className="text-xs text-muted-foreground">A disponibilidade no Pi é derivada dos contratos revisados e do manifesto; conteúdo semântico não promove capacidades, schemas Zod ou permissões automaticamente.</p>
+   </div>
+  </>}
+ </section>;
+}
+
 type Kind='primitive'|'composite';
 type ContractTab='preview'|'contract'|'semantics';
 const piByType=new Map(piManifest.components.map(item=>[item.type,item]));
@@ -302,7 +385,15 @@ function ComponentExplorer({kind}:{kind:Kind}){
  const [group,setGroup]=useState(()=>initial.get('catalogGroup')??'all');
  const [piFilter,setPiFilter]=useState(()=>initial.get('catalogPi')??'all');
  const [tab,setTab]=useState<ContractTab>('preview');
- const [type,setType]=useState(available[0]??'Card');
+ const [type,setType]=useState(()=>{
+  const deepLink=initial.get('catalogComponent');
+  return deepLink&&available.includes(deepLink)?deepLink:(available[0]??'Card');
+ });
+ const [compareWith,setCompareWith]=useState(()=>{
+  const deepLink=initial.get('catalogCompare');
+  return deepLink&&available.includes(deepLink)?deepLink:'';
+ });
+ const [compareOpen,setCompareOpen]=useState(()=>Boolean(initial.get('catalogCompare')&&available.includes(initial.get('catalogCompare')??'')));
 
  const discoveryEntries=useMemo(()=>available.map(name=>{
   const contract=versions.get(name);
@@ -318,6 +409,27 @@ function ComponentExplorer({kind}:{kind:Kind}){
    piAvailable:contract?.stability==='stable'&&contract.status==='approved'&&published?.stability==='stable'&&published.lifecycle==='stable'&&published.fingerprint===contract.semanticFingerprint&&published.version===contract.version,
   } satisfies DiscoveryEntry;
  }),[available]);
+ const comparisonEntries=useMemo<SemanticComparisonEntry[]>(()=>discoveryEntries.map(entry=>{
+  const overlay=curatedSemanticByType[entry.name] as SemanticOverlay|undefined;
+  const guide=localizedPrimitiveDocs[entry.name]??shadcnDocs[entry.name]??reuiDocs[entry.name];
+  const extra=(semanticGuidance.contracts as Record<string,{whenUse?:string[];whenNotUse?:string[]}>)[entry.name];
+  const contract=versions.get(entry.name);
+  return {
+   name:entry.name,
+   description:entry.description,
+   purpose:overlay?.purpose,
+   whenUse:overlay?.whenUse??extra?.whenUse??guide?.whenUse??[],
+   whenNotUse:overlay?.whenNotUse??extra?.whenNotUse??guide?.whenNotUse??[],
+   capabilities:overlay?.capabilities.map(capability=>({id:capability.id,description:capability.description,state:capability.state}))??[],
+   version:contract?.version,
+   maturity:entry.maturity,
+   piAvailable:entry.piAvailable,
+   reviewed:Boolean(overlay),
+   sourceUrl:overlay?.source.url??shadcnDocs[entry.name]?.sourceUrl,
+   sourceProvider:overlay?.source.provider??(shadcnDocs[entry.name]?'shadcn/ui':undefined),
+   reviewedOn:overlay?.source.reviewedOn,
+  };
+ }),[discoveryEntries]);
  const results=useMemo(()=>discoverContracts(discoveryEntries,{query:search,group,maturity:stability,pi:piFilter}),[discoveryEntries,search,group,stability,piFilter]);
  const filtered=results.map(item=>item.entry.name);
  const grouped=useMemo(()=>{
@@ -325,14 +437,19 @@ function ComponentExplorer({kind}:{kind:Kind}){
   for(const result of results)buckets.set(result.group,[...(buckets.get(result.group)??[]),result]);
   return [...buckets.entries()];
  },[results]);
+ const selectedType=filtered.includes(type)?type:(filtered[0]??null);
+ const activeCompare=compareOpen&&compareWith!==selectedType&&available.includes(compareWith)?compareWith:'';
+ const comparisonPrimary=comparisonEntries.find(item=>item.name===selectedType);
+ const comparisonSecondary=comparisonEntries.find(item=>item.name===activeCompare);
  useEffect(()=>{
   const params=new URLSearchParams(window.location.search);
   for(const [key,value] of [['catalogSearch',search],['catalogStability',stability],['catalogGroup',group],['catalogPi',piFilter]]){
    if(!value||value==='all')params.delete(key);else params.set(key,value);
   }
+  if(compareOpen&&selectedType)params.set('catalogComponent',selectedType);else params.delete('catalogComponent');
+  if(activeCompare)params.set('catalogCompare',activeCompare);else params.delete('catalogCompare');
   window.history.replaceState(window.history.state,'',window.location.pathname+'?'+params.toString()+window.location.hash);
- },[search,stability,group,piFilter]);
- const selectedType=filtered.includes(type)?type:(filtered[0]??null);
+ },[search,stability,group,piFilter,compareOpen,selectedType,activeCompare]);
  const sample=selectedType?samples[selectedType]:undefined;
  const spec=sample?extractBranch(sample.spec,sample.id):undefined;
  return <section className="min-w-0 space-y-5" aria-label={kind==='primitive'?'Explorador de primitivos shadcn':'Explorador de componentes compostos'}>
@@ -377,11 +494,15 @@ function ComponentExplorer({kind}:{kind:Kind}){
    </aside>
    <div className="min-w-0 space-y-4">
     {!selectedType ? <p role="status" className="rounded-lg border bg-card p-5 text-sm text-muted-foreground">Nenhum componente corresponde aos filtros. Limpe a busca ou altere a estabilidade.</p> : <><div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">{selectedType}</h3>
-    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(selectedType)?.version??'—'}</span>{kind==='primitive'&&<PrimitiveSourceViewer key={selectedType} type={selectedType} example={spec}/>}</div></div>
+    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(selectedType)?.version??'—'}</span>
+    <button type="button" aria-expanded={compareOpen} aria-controls="semantic-comparison-panel" onClick={()=>{setCompareOpen(value=>!value);setCompareWith('');}} className="rounded-md border px-3 py-1.5 text-xs hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring">Comparar semântica</button>
+    {kind==='primitive'&&<PrimitiveSourceViewer key={selectedType} type={selectedType} example={spec}/>}</div></div>
     <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[selectedType as keyof typeof componentDefinitions]?.description}</p>
     {discoveryEntries.find(item=>item.name===selectedType)?.whenUse?.length ? <p className="mt-2 text-sm"><span className="font-medium">Quando usar:</span> {discoveryEntries.find(item=>item.name===selectedType)?.whenUse?.[0]}</p> : null}
     <p className="mt-1 text-xs text-muted-foreground">Orientações de descoberta são consultivas; apenas schemas e contratos revisados determinam o que o Pi pode executar.</p>
     <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(selectedType).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
+    {compareOpen&&comparisonPrimary&&<SemanticComparisonPanel primary={comparisonPrimary} secondary={comparisonSecondary}
+      options={available} selection={activeCompare} onChange={setCompareWith} onClose={()=>{setCompareOpen(false);setCompareWith('');}}/>}
     <div role="tablist" aria-label="Detalhes do componente" className="flex flex-wrap gap-1 rounded-lg border bg-muted/25 p-1">
      {([['preview','Prévia e propriedades'],['contract','Contrato'],['semantics','Semântica e testes']] as const).map(([value,label])=><button key={value} type="button" role="tab" aria-selected={tab===value} onClick={()=>setTab(value)} className={`rounded-md px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-ring ${tab===value?'bg-background font-semibold shadow-sm':'hover:bg-muted'}`}>{label}</button>)}
     </div>
