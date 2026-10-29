@@ -42,6 +42,18 @@ A integração suportada é `applyPiTreePatch(spec, patch, "stable")` em `src/ui
 
 Essas operações **não são JSON Patch RFC 6902**: IDs estáveis e invariantes da árvore substituem caminhos posicionais cegos. Um patch inválido não libera JSX ou HTML arbitrário.
 
+## Garantias de preservação
+
+Após **cada** operação, uma auditoria independente do escopo de mutação compara a árvore anterior com a árvore proposta, antes de aceitar o resultado:
+
+- A raiz, todo o `state` global e os demais campos globais ficam intactos. Nenhum patch redefine ou migra estados de formulário.
+- IDs preexistentes não podem ser renomeados ou substituídos implicitamente. IDs removidos anteriormente **na mesma transação** (inclusive os criados e depois excluídos) não podem ser reutilizados: erro `id_reuse` com rollback integral.
+- `add` insere exatamente o nó declarado; `remove` exclui apenas a subárvore selecionada; `move` mantém IDs e conteúdo integral da subárvore; `update` altera somente as chaves solicitadas de `props`.
+- Apenas listas `children` ou `slots.<nome>` explicitamente atingidas podem mudar, com preservação conferida da ordem das referências. Irmãos, outros slots, handlers, visibilidade, repetição, props e subárvores não atingidos devem continuar idênticos.
+- Qualquer mutação fora do escopo declarado falha com `preservation_violation`. A validação de grafo também impede referências **estruturais** pendentes após remoções e movimentações.
+
+Strings que se parecem com IDs em `props` ou `state` próprios da aplicação **não** são interpretadas automaticamente como referências nem reescritas. Relações de domínio exigem contrato explícito próprio; a API conserva esses valores sem conceder novas ações ou permissões.
+
 ## Verificação
 
-`node --test tests/tree-operations.test.mjs` cobre comportamento offline, erros, slots, ciclos e rollback. `tsx --test tests/tree-operations.integration.test.ts` cobre o Zod real do canal estável. Em ambiente com dependências, execute `npm run test:offline`, `npm run validate` e `npm run build`.
+`node --test tests/tree-operations.test.mjs tests/tree-preservation.test.mjs` cobre comportamento offline e invariantes de preservação, erros, slots, ciclos e rollback. `tsx --test tests/tree-operations.integration.test.ts` cobre o Zod real do canal estável. Em ambiente com dependências, execute `npm run test:offline`, `npm run validate` e `npm run build`.
