@@ -12,6 +12,8 @@ import { SpecScreen } from './spec-screen';
 import piManifest from '../../pi-catalog/contracts.json';
 import semanticGuidance from '@/ui-catalog/semantic-contract-guidance.json';
 import {discoverContracts,functionalGroups,type DiscoveryEntry} from './catalog-discovery';
+import {SemanticComparisonPanel} from './semantic-comparison-panel';
+import type {SemanticComparisonEntry} from './semantic-comparison';
 import { AdmissionExplorer } from './admission-explorer';
 import {CompositionRecommendationPanel, pilotFamilies} from './composition-recommendations';
 
@@ -209,7 +211,7 @@ function ReuiGuidance({type}:{type:string}) {
 }
 
 type SemanticOverlay = {
- component:string; purpose:string; whenUse?:string[]; rationale:string[];
+ component:string; purpose:string; whenUse?:string[]; whenNotUse?:string[]; rationale:string[];
  source:{url:string;reviewedOn:string;provider:string};
  capabilities:{id:string;description:string;state:string;testRequirements:string[]}[];
  integrations:{component:string;relationship:string;reason:string}[];
@@ -302,7 +304,15 @@ function ComponentExplorer({kind}:{kind:Kind}){
  const [group,setGroup]=useState(()=>initial.get('catalogGroup')??'all');
  const [piFilter,setPiFilter]=useState(()=>initial.get('catalogPi')??'all');
  const [tab,setTab]=useState<ContractTab>('preview');
- const [type,setType]=useState(available[0]??'Card');
+ const [type,setType]=useState(()=>{
+  const deepLink=initial.get('catalogComponent');
+  return deepLink&&available.includes(deepLink)?deepLink:(available[0]??'Card');
+ });
+ const [compareWith,setCompareWith]=useState(()=>{
+  const deepLink=initial.get('catalogCompare');
+  return deepLink&&available.includes(deepLink)?deepLink:'';
+ });
+ const [compareOpen,setCompareOpen]=useState(()=>Boolean(initial.get('catalogCompare')&&available.includes(initial.get('catalogCompare')??'')));
 
  const discoveryEntries=useMemo(()=>available.map(name=>{
   const contract=versions.get(name);
@@ -318,6 +328,27 @@ function ComponentExplorer({kind}:{kind:Kind}){
    piAvailable:contract?.stability==='stable'&&contract.status==='approved'&&published?.stability==='stable'&&published.lifecycle==='stable'&&published.fingerprint===contract.semanticFingerprint&&published.version===contract.version,
   } satisfies DiscoveryEntry;
  }),[available]);
+ const comparisonEntries=useMemo<SemanticComparisonEntry[]>(()=>discoveryEntries.map(entry=>{
+  const overlay=curatedSemanticByType[entry.name] as SemanticOverlay|undefined;
+  const guide=localizedPrimitiveDocs[entry.name]??shadcnDocs[entry.name]??reuiDocs[entry.name];
+  const extra=(semanticGuidance.contracts as Record<string,{whenUse?:string[];whenNotUse?:string[]}>)[entry.name];
+  const contract=versions.get(entry.name);
+  return {
+   name:entry.name,
+   description:entry.description,
+   purpose:overlay?.purpose,
+   whenUse:overlay?.whenUse??extra?.whenUse??guide?.whenUse??[],
+   whenNotUse:overlay?.whenNotUse??extra?.whenNotUse??guide?.whenNotUse??[],
+   capabilities:overlay?.capabilities.map(capability=>({id:capability.id,description:capability.description,state:capability.state}))??[],
+   version:contract?.version,
+   maturity:entry.maturity,
+   piAvailable:entry.piAvailable,
+   reviewed:Boolean(overlay),
+   sourceUrl:overlay?.source.url??shadcnDocs[entry.name]?.sourceUrl,
+   sourceProvider:overlay?.source.provider??(shadcnDocs[entry.name]?'shadcn/ui':undefined),
+   reviewedOn:overlay?.source.reviewedOn,
+  };
+ }),[discoveryEntries]);
  const results=useMemo(()=>discoverContracts(discoveryEntries,{query:search,group,maturity:stability,pi:piFilter}),[discoveryEntries,search,group,stability,piFilter]);
  const filtered=results.map(item=>item.entry.name);
  const grouped=useMemo(()=>{
@@ -325,14 +356,19 @@ function ComponentExplorer({kind}:{kind:Kind}){
   for(const result of results)buckets.set(result.group,[...(buckets.get(result.group)??[]),result]);
   return [...buckets.entries()];
  },[results]);
+ const selectedType=filtered.includes(type)?type:(filtered[0]??null);
+ const activeCompare=compareOpen&&compareWith!==selectedType&&available.includes(compareWith)?compareWith:'';
+ const comparisonPrimary=comparisonEntries.find(item=>item.name===selectedType);
+ const comparisonSecondary=comparisonEntries.find(item=>item.name===activeCompare);
  useEffect(()=>{
   const params=new URLSearchParams(window.location.search);
   for(const [key,value] of [['catalogSearch',search],['catalogStability',stability],['catalogGroup',group],['catalogPi',piFilter]]){
    if(!value||value==='all')params.delete(key);else params.set(key,value);
   }
+  if(compareOpen&&selectedType)params.set('catalogComponent',selectedType);else params.delete('catalogComponent');
+  if(activeCompare)params.set('catalogCompare',activeCompare);else params.delete('catalogCompare');
   window.history.replaceState(window.history.state,'',window.location.pathname+'?'+params.toString()+window.location.hash);
- },[search,stability,group,piFilter]);
- const selectedType=filtered.includes(type)?type:(filtered[0]??null);
+ },[search,stability,group,piFilter,compareOpen,selectedType,activeCompare]);
  const sample=selectedType?samples[selectedType]:undefined;
  const spec=sample?extractBranch(sample.spec,sample.id):undefined;
  return <section className="min-w-0 space-y-5" aria-label={kind==='primitive'?'Explorador de primitivos shadcn':'Explorador de componentes compostos'}>
@@ -377,11 +413,15 @@ function ComponentExplorer({kind}:{kind:Kind}){
    </aside>
    <div className="min-w-0 space-y-4">
     {!selectedType ? <p role="status" className="rounded-lg border bg-card p-5 text-sm text-muted-foreground">Nenhum componente corresponde aos filtros. Limpe a busca ou altere a estabilidade.</p> : <><div className="rounded-lg border border-border bg-card p-4"><div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-lg font-semibold">{selectedType}</h3>
-    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(selectedType)?.version??'—'}</span>{kind==='primitive'&&<PrimitiveSourceViewer key={selectedType} type={selectedType} example={spec}/>}</div></div>
+    <div className="flex flex-wrap items-center gap-2"><span className="rounded bg-secondary px-2 py-1 font-mono text-xs">v{versions.get(selectedType)?.version??'—'}</span>
+    <button type="button" aria-expanded={compareOpen} aria-controls="semantic-comparison-panel" onClick={()=>{setCompareOpen(value=>!value);setCompareWith('');}} className="rounded-md border px-3 py-1.5 text-xs hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring">Comparar semântica</button>
+    {kind==='primitive'&&<PrimitiveSourceViewer key={selectedType} type={selectedType} example={spec}/>}</div></div>
     <p className="mt-2 text-sm text-muted-foreground">{componentDefinitions[selectedType as keyof typeof componentDefinitions]?.description}</p>
     {discoveryEntries.find(item=>item.name===selectedType)?.whenUse?.length ? <p className="mt-2 text-sm"><span className="font-medium">Quando usar:</span> {discoveryEntries.find(item=>item.name===selectedType)?.whenUse?.[0]}</p> : null}
     <p className="mt-1 text-xs text-muted-foreground">Orientações de descoberta são consultivas; apenas schemas e contratos revisados determinam o que o Pi pode executar.</p>
     <p className="mt-3 text-xs"><strong>Propriedades:</strong> {getFields(selectedType).map(f=>f.name).join(', ')||'nenhuma'} · <strong>Exemplo:</strong> {sample?.source??'não disponível'}</p></div>
+    {compareOpen&&comparisonPrimary&&<SemanticComparisonPanel primary={comparisonPrimary} secondary={comparisonSecondary}
+      options={available} selection={activeCompare} onChange={setCompareWith} onClose={()=>{setCompareOpen(false);setCompareWith('');}}/>}
     <div role="tablist" aria-label="Detalhes do componente" className="flex flex-wrap gap-1 rounded-lg border bg-muted/25 p-1">
      {([['preview','Prévia e propriedades'],['contract','Contrato'],['semantics','Semântica e testes']] as const).map(([value,label])=><button key={value} type="button" role="tab" aria-selected={tab===value} onClick={()=>setTab(value)} className={`rounded-md px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-ring ${tab===value?'bg-background font-semibold shadow-sm':'hover:bg-muted'}`}>{label}</button>)}
     </div>
