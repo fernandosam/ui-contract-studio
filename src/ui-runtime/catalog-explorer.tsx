@@ -369,7 +369,7 @@ function ComponentExplorer({kind}:{kind:Kind}){
     </div>
     <div className="space-y-4" aria-label="Componentes registrados">{grouped.map(([category,items])=><section key={category} aria-label={category} className="space-y-1">
       <h3 className="px-2 text-xs font-semibold text-muted-foreground">{category} <span className="font-normal">({items.length})</span></h3>
-      {items.map(({entry})=><button type="button" key={entry.name} aria-current={entry.name===selectedType?'true':undefined} onClick={()=>{setType(entry.name);setTab('preview');}} className={`block w-full rounded-md px-3 py-2 text-left text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${entry.name===selectedType?'bg-secondary font-semibold':'hover:bg-muted'}`}>
+      {items.map(({entry})=><button type="button" key={entry.name} aria-label={entry.name} aria-description={`${entry.maturity} · ${entry.piAvailable?'Pi disponível':'Pi não disponível'}`} aria-current={entry.name===selectedType?'true':undefined} onClick={()=>{setType(entry.name);setTab('preview');}} className={`block w-full rounded-md px-3 py-2 text-left text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${entry.name===selectedType?'bg-secondary font-semibold':'hover:bg-muted'}`}>
        <span className="block truncate">{entry.name}</span><span className="block text-[11px] font-normal text-muted-foreground">{entry.maturity} · {entry.piAvailable?'Pi disponível':'Pi não disponível'}</span>
       </button>)}
     </section>)}</div>
