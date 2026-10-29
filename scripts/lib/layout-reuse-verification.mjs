@@ -5,10 +5,11 @@ import {graphErrors} from "./spec-invariants.mjs";
 
 const order=(a,b)=>a.localeCompare(b,"en");
 const digest=(value)=>createHash("sha256").update(JSON.stringify(value)).digest("hex");
-const ids=(rows)=>rows.map(x=>x.id).sort(order);
 const ensure=(ok,message)=>{if(!ok)throw Error("E05 traceability: "+message);};
 const refKey=({layoutId,parentId,childId,relation,index})=>
  JSON.stringify([layoutId,parentId,childId,relation,index]);
+const gitBlobSha=raw=>createHash("sha1")
+ .update("blob "+Buffer.byteLength(raw,"utf8")+"\\0").update(raw,"utf8").digest("hex");
 const proposalRef=({layoutId,originScreen,sourcePath,parentId,childId,relation,index})=>({
  layoutId,originScreen,path:sourcePath,parentId,childId,relation,index
 });
@@ -26,13 +27,30 @@ const mapUnique=(rows,label)=>{
  * Hashes cover the *observed* declarative state, props and descendants, not browser
  * behavior; a passing audit must never be interpreted as functional equivalence.
  */
-export function auditE05Reuse({evidence,comparison,proposals,read,allowedTypes}){
+export function auditE05Reuse({evidence,comparison,proposals,read,readRaw,baseline,allowedTypes}){
  ensure(evidence?.schemaVersion===1&&evidence.status==="static-evidence-only"&&
   comparison?.status==="static-comparison-only"&&
   proposals?.status==="proposals-only-not-authorized","invalid report statuses");
  ensure(typeof read==="function"&&Array.isArray(allowedTypes)&&
   Array.isArray(evidence.recurrentStructures)&&Array.isArray(evidence.sameOriginCandidates)&&
   Array.isArray(comparison.comparisons)&&Array.isArray(proposals.proposals),"invalid inputs");
+ ensure(baseline?.schemaVersion===1&&
+  baseline.status==="reviewed-declarative-baseline-not-runtime-certification"&&
+  Array.isArray(baseline.layouts)&&typeof readRaw==="function",
+  "missing reviewed regression baseline");
+ const pinned=mapUnique(baseline.layouts,"regression baseline");
+ const expectedLayoutIds=(evidence.approvedLayouts??[]).map(x=>x.layoutId).sort(order);
+ ensure(isDeepStrictEqual([...pinned.keys()].sort(order),expectedLayoutIds),
+  "regression baseline layout coverage drift");
+ for(const approved of evidence.approvedLayouts){
+  const entry=pinned.get(approved.layoutId);
+  ensure(entry&&/^[a-f0-9]{40}$/.test(entry.sourceBlobSha)&&
+   /^[a-f0-9]{40}$/.test(entry.metadataBlobSha),
+   "invalid regression fingerprint "+approved.layoutId);
+  ensure(gitBlobSha(readRaw(approved.sourcePath))===entry.sourceBlobSha&&
+   gitBlobSha(readRaw(approved.metadataPath))===entry.metadataBlobSha,
+   "reviewed JSON/metadata regression drift "+approved.layoutId);
+ }
  const candidates=mapUnique([...evidence.recurrentStructures,...evidence.sameOriginCandidates],"evidence");
  const compared=mapUnique(comparison.comparisons.map(x=>({...x,id:x.structureId})),"comparison");
  const proposed=mapUnique(proposals.proposals,"proposals");
