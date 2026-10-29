@@ -80,12 +80,12 @@ export function validateE05AdvisoryReport(raw,input){
  const parsed=e05AdvisorySchema.safeParse(raw);
  if(!parsed.success)throw Error("Invalid advisory Zod schema: "+errorText(parsed.error));
  const report=parsed.data;
- const {lock,pi,propsSchemas,policy,recipes,scenarios,sources,protocols,entries}=input;
+ const {lock,pi,propsSchemas,policy,recipes,scenarios,sources,protocols,entries,manifest}=input;
  const problems=[];
  const fail=(message)=>{problems.push(message);};
  if(pi?.schemaVersion!==3||!Array.isArray(pi.components)||!Array.isArray(lock?.components)||
     propsSchemas?.schemaVersion!==3||!propsSchemas.types||
-    !Array.isArray(entries?.entries)||!Array.isArray(recipes?.recipes)||
+    !Array.isArray(entries?.entries)||!Array.isArray(manifest?.components)||!Array.isArray(recipes?.recipes)||
     !Array.isArray(scenarios?.scenarios)||!protocols?.candidates)
   throw Error("Invalid authoritative contract/admission input");
  const policyErrors=evaluatePolicy({policy,recipes,scenarios,lock,pi,sources,protocols});
@@ -168,6 +168,12 @@ export function validateE05AdvisoryReport(raw,input){
    if(!isDeepStrictEqual(sort([...actualProps]),sort(Object.keys(schema?.properties??{}))))
     fail(tag+"property list differs from Zod: "+type);
    for(const field of proposal.properties[role]){
+    const fieldSchema=schema?.properties?.[field.name];
+    const expectedTypes=[...new Set([fieldSchema?.type,
+      ...(fieldSchema?.anyOf??[]).map(option=>option.type)]
+      .filter(x=>typeof x==="string"))].sort((a,b)=>a.localeCompare(b,"en"));
+    if(!fieldSchema||!isDeepStrictEqual(field.types,expectedTypes))
+     fail(tag+"property type differs from actual Zod: "+type+"."+field.name);
     const expectedObserved=proposal.evidence.filter(ref=>{
      const node=sourceSpecs.get(ref.path)?.elements?.[ref[idKey]];
      return Object.hasOwn(node?.props??{},field.name);
@@ -185,12 +191,29 @@ export function validateE05AdvisoryReport(raw,input){
   for(const candidate of proposal.dependencies.inspectExistingCompositions){
    const manifestEntry=official.get(candidate.name);
    const lockEntry=locked.get(candidate.name);
+   const manifestSource=manifest.components.find(x=>x.name===candidate.name &&
+    candidate.templatePath==="src/ui-catalog/extensions/composites/templates/"+x.template);
    if(!manifestEntry||!lockEntry||lockEntry.status!=="approved"||
       manifestEntry.tier==="base"||manifestEntry.lifecycle!=="stable"||
-      !candidate.templatePath.startsWith("src/ui-catalog/extensions/composites/templates/")||
-      !candidate.relationOnly)
+      !manifestSource||!candidate.relationOnly){
     fail(tag+"unapproved existing-composition suggestion: "+candidate.name);
+    continue;
+   }
+   const template=input.read(candidate.templatePath);
+   const matches=Object.values(template?.elements??{}).reduce((total,node)=>{
+    if(node?.type!==proposal.structure.parentType)return total;
+    const children=proposal.structure.relation==="children"?node.children:
+     node.slots?.[proposal.structure.relation.slice(6)];
+    return total+(children??[]).filter(id=>
+     template.elements[id]?.type===proposal.structure.childType).length;
+   },0);
+   if(matches!==candidate.structuralOccurrences)
+    fail(tag+"stale existing-composition structure: "+candidate.name);
   }
+  const hasNested=proposal.evidence.some(ref=>
+   (sourceSpecs.get(ref.path)?.elements?.[ref.childId]?.children??[]).length>0);
+  if(hasNested!==proposal.slots.some(s=>s.name==="nestedContent"))
+   fail(tag+"missing or invented nested-content slot");
   const first=proposal.slots[0];
   if(first && (first.proposedBinding!==
      (proposal.structure.relation==="children"?"parent.children":"parent."+proposal.structure.relation)||
@@ -253,7 +276,8 @@ function run(){
   scenarios:read("src/ui-catalog/recommendations/scenarios.json"),
   sources:read("src/ui-catalog/sources.json"),
   protocols:read("src/ui-catalog/admission-engine/protocols.json"),
-  entries:read("src/ui-catalog/admission-engine/entries.json")
+  entries:read("src/ui-catalog/admission-engine/entries.json"),
+  manifest:read("src/ui-catalog/extensions/composites/generated-manifest.json")
  });
  if(flag==="--report"){
   const path="reports/layout-reuse/validation.json";
