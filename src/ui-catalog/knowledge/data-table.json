@@ -41,7 +41,7 @@
     "searchable exibe Input com pesquisa global; para fonte remota usa debouncedQuery de 300 ms e cancelamento de solicitação anterior; campos não admitem buscas SQL arbitrárias.",
     "sourceId='demo-processos' usa consulta de demonstração; sourceId='processos-api' consulta caminho interno fixo com same-origin credentials e requer backend autenticado. IDs são restritos em Zod.",
     "Seleccionar linhas usa checkbox por página e getRowId baseado em row.id. selectedIds pode usar binding aprovado; eventos indicam mudanças locais, não uma ação de negócio.",
-    "column.type controla apresentação tabular e escolha da sortingFn; type='number' usa sortingFn='alphanumeric' nesta implementação, não prometer comparação numérica pura ou formatação de moeda.",
+    "column.type controla apresentação tabular e a escolha de sortFn no adaptador de compatibilidade TanStack Table v9; type='number' mantém a ordenação alfanumérica, sem prometer ordenação numérica pura ou formatação de moeda.",
     "caption fica sr-only quando informado; erro remoto recebe role=alert e loading marca aria-busy. Verificar acessibilidade real, principalmente checkbox de página e ações de cabeçalho.",
     "O exemplo oficial TanStack inclui visibilidade de colunas, ações de linha e outros recursos; documentação não altera o contrato estrito ou autoriza novos filtros/handlers."
   ],
@@ -229,7 +229,7 @@
       "evidence": [
         {
           "path": "src/ui-catalog/extensions/components/data-table.tsx",
-          "contains": "sortingFn:column.type==='number'?'alphanumeric':'auto'"
+          "contains": "sortFn:column.type==='number'?'alphanumeric':'auto'"
         },
         {
           "path": "src/ui-catalog/extensions/components/data-table.tsx",
