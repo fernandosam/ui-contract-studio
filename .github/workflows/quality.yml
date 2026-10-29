@@ -79,9 +79,18 @@ jobs:
       - name: Verify docs and offline invariants
         run: npm run docs:check && npm run test:offline
       - name: Check reviewed API changes against PR base
+        id: contract-diff
         env:
           CONTRACT_BASE_REF: ${{ github.event.pull_request.base.sha }}
         run: npm run contracts:diff
+      - name: Preserve detailed contract change audit, including blocked changes
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.contract-diff.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-change-audit
+          path: reports/contract-diff/changes.json
+          if-no-files-found: warn
+          retention-days: 14
 
   integration:
     name: Source checks, schemas and production build
