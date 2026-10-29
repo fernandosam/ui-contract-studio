@@ -29,7 +29,7 @@ function maskTopLevelDescription(tokens) {
     if(result[i]==='{')depth++;
     else if(result[i]==='}')depth--;
     if(depth===1 && result[i]==='description' && result[i+1]===':' &&
-       /^["'`]/.test(result[i+2]??''))result[i+2]='__description__';
+       /^["']/.test(result[i+2]??''))result[i+2]='__description__';
   }
   return result;
 }
