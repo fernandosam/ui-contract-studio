@@ -12,7 +12,7 @@ Follow the rules in [AGENTS.md](../../../AGENTS.md). This document provides Pi's
 ## Creating or changing a screen
 
 1. Read `pi-catalog/contracts.json`, `src/ui-catalog/contracts.lock.json`, `pi-catalog/retired-contracts.json`, and `src/ui-patterns/`. Reuse approved types and patterns before proposing new ones.
-2. Select the required context: `npm run pi:zod-schema` and `npm run pi:context -- --types=Card,Button --stdout` (up to 25 types). Consult examples in `pi-catalog/examples/`. Do not use `--metadata-only` when generating.
+2. For a specific requirement, first run `npm run pi:select -- --requirement="explicit button action"` to inspect ranked alternatives and rationale. Respect `whenNotUse`, missing implementation evidence and `ambiguous`/`no-match` decisions; comparison IDs are documentary only. Choose approved types explicitly, then run `npm run pi:zod-schema` and `npm run pi:context -- --types=Card,Button --requirement="explicit button action" --stdout` (up to 25 types). The context includes advisory selection but does not add schemas or permissions. Consult `pi-catalog/examples/`; never use `--metadata-only` to generate.
 3. Generate **only** `src/ui-screens/<slug>.json` and `src/ui-screen-meta/<slug>.json`; use Zod schemas, canonical props, approved slots, events, and actions. Do not copy JSX from templates or use unrestricted URLs or callbacks.
 4. For composites, change only `content` and `nodeProps` using keys declared in the context; preserve the tree, field names, node type, actions, and links.
 5. Run `npm run pi:validate -- --file=<spec.json>`, resolve `issues[].pointer`, then run `npm run patterns:check && npm run check:catalog && npm run validate && npm run build` where available. Report blockers and checks actually performed.
