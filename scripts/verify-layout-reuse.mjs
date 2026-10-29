@@ -24,6 +24,8 @@ try{
  const proposals=buildLayoutCompositionProposals(comparison,evidence,lock,
   read("pi-catalog/props-json-schema.json"),read);
  const result=auditE05Reuse({evidence,comparison,proposals,read,
+  readRaw:path=>readFileSync(path,"utf8"),
+  baseline:read("src/ui-requirements/layout-reuse-regression-baseline.json"),
   allowedTypes:lock.components.filter(x=>x.status==="approved").map(x=>x.name)});
  if(args[0]==="--report"){
   const output="reports/layout-reuse/traceability.json";
