@@ -209,7 +209,7 @@ function ReuiGuidance({type}:{type:string}) {
 }
 
 type SemanticOverlay = {
- component:string; purpose:string; rationale:string[];
+ component:string; purpose:string; whenUse?:string[]; rationale:string[];
  source:{url:string;reviewedOn:string;provider:string};
  capabilities:{id:string;description:string;state:string;testRequirements:string[]}[];
  integrations:{component:string;relationship:string;reason:string}[];
