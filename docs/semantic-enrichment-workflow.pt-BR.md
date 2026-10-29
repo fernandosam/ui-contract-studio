@@ -2,7 +2,7 @@
 
 # Enriquecimento semântico repetível e auditável — T30
 
-**Revisão do procedimento:** 2026-10-27. **Público:** revisores humanos e agentes que preparam overlays de componentes shadcn/ui ou exemplos ReUI. **Fonte normativa do formato:** [checklist T01](semantic-knowledge-checklist.pt-BR.md) e `scripts/lib/semantic-knowledge.mjs`. Este guia operacional não substitui a fonte oficial, o código do catálogo ou uma decisão de admissão.
+**Revisão do procedimento na `main`:** 2026-10-29. **Público:** revisores humanos e agentes que preparam overlays de componentes shadcn/ui ou exemplos ReUI. **Fonte normativa do formato:** [checklist T01](semantic-knowledge-checklist.pt-BR.md) e `scripts/lib/semantic-knowledge.mjs`. Este guia operacional não substitui a fonte oficial, o código do catálogo ou uma decisão de admissão.
 
 > **Limite de autoridade:** documentação, pontuação, evidência estática, recomendação, lacuna, proposta de composição, teste derivado e relatório **não** modificam schemas Zod, contratos admitidos, APIs expostas nem permissões Pi automaticamente. Não transforme um candidato em API disponível, nem mude status de implementação/admissão para fazer os checks passarem.
 
@@ -10,7 +10,7 @@
 
 1. Consulte `src/ui-catalog/reui-primitive-source-baseline.json`, `src/ui-catalog/reui-guidance.json`, `src/ui-catalog/shadcn-guidance.json` e `src/ui-catalog/semantic-contract-guidance.json`. Compare com `src/ui-catalog/knowledge/` para distinguir perfil apenas orientativo de overlay curado. O baseline ReUI é um inventário de **exemplos**, não de novos contratos Pi.
 2. Priorize impacto para composição por IA: uso em exemplos ReUI; quantidade de integrações que mencionam o componente; quantidade de integrações propostas; capacidades documentadas sem implementação; comportamentos de runtime não verificados; testes de alto risco; e lacunas documentais. Dê atenção especial a confusões entre confirmação local e ação remota, capacidades não implementadas e candidatos não admitidos.
-3. **Quando a T25 estiver integrada**, consulte `enrichmentPriorities.criteria`, `entries[].score`, `points`, `signals`, `dataCompleteness`, `missingData` e `evidenceSources` no relatório único. A implementação auditável está na [PR T25](https://github.com/fernandosam/ui-contract-studio/pull/84), separada da base T29 deste guia. Na ausência do campo, **não invente pontuações**: priorize qualitativamente e registre os critérios usados. A nota nunca certifica risco ou autorização.
+3. **A T25 já está integrada à `main`:** consulte `enrichmentPriorities.criteria` e `enrichmentPriorities.entries[]` (`score`, `points`, `signals`, `dataCompleteness`, `missingData`, `evidenceSources`) no relatório semântico derivado. A ordenação é determinística e consultiva; use os dados do relatório atual, não números históricos. Se esses campos não existirem no checkout, confira branch e scripts antes de priorizar qualitativamente; não invente pontuações nem infira admissão.
 4. Registre no PR: componente/família, ID(s) dos exemplos quando houver, motivo da prioridade, fontes, lacunas e contrato alvo. Mantenha um componente por revisão independente quando possível.
 
 ## 2. Investigar a fonte oficial e o contrato efetivo
@@ -64,7 +64,7 @@ npm run docs:check
 npm run test:offline
 ~~~
 
-Os três primeiros aliases são definidos em `package.json` e usam `scripts/analyze-semantic-knowledge.mjs`. `semantic:check` falha para estrutura inválida ou ausência de trecho literal; `semantic:report` valida novamente e escreve somente `reports/composition-analysis/semantic-knowledge.json`, derivado e ignorado pelo Git. Se a validação falhar, esse JSON tem `validation.status: "failed"` e **não** serve de relatório válido. `semantic:context` permite examinar um perfil individual. Para um overlay novo, substitua `AlertDialog` pelo componente auditado.
+Os três primeiros aliases são definidos em `package.json` e usam `scripts/analyze-semantic-knowledge.mjs`. `semantic:check` falha para estrutura inválida ou ausência de trecho literal; `semantic:report` valida novamente e grava o relatório principal, ignorado pelo Git, em `reports/composition-analysis/semantic-knowledge.json`, além de `semantic-capability-gaps.json` e `semantic-composition-proposals.json` no mesmo diretório. São diagnósticos derivados, não catálogos ou aprovações independentes. Se a validação falhar, esse JSON tem `validation.status: "failed"` e **não** serve de relatório válido. `semantic:context` permite examinar um perfil individual. Para um overlay novo, substitua `AlertDialog` pelo componente auditado.
 
 Inspecione `profiles[]` e `reuiExampleProfiles[]`; em `semanticCoverage`, confira `sourcePaths`, `totals`, `families[]`, `components[]` e os IDs que apontam para as evidências originais. Cobertura documental não é implementação nem autorização. Em `semanticFreshness` confira `summary`, `components[]` e `diagnostics[]`:
 
@@ -73,7 +73,7 @@ Inspecione `profiles[]` e `reuiExampleProfiles[]`; em `semanticCoverage`, confir
 - `history-unavailable`: incerteza não bloqueante; repita com histórico Git, não marque como atualizado.
 - `current`: trecho presente sem alteração detectada depois da data; não garante runtime, nem alterações no mesmo dia.
 
-Para a regressão dos próprios verificadores, execute `node --test tests/semantic-coverage-t26.test.mjs tests/semantic-freshness-t27.test.mjs tests/semantic-ci-t28.test.mjs tests/semantic-e2e-t29.test.mjs`. Esses testes estão também na suíte `test:offline` da base T29. Quando T25 estiver integrada, acrescente `node --test tests/semantic-priority-t25.test.mjs`. Para exemplos/contratos alterados (fora do escopo exclusivamente documental), acrescente as auditorias e testes correspondentes da [estratégia ReUI](composition-strategy.pt-BR.md) e da [integração shadcn](integracao-shadcn.pt-BR.md).
+Para a regressão dos verificadores na `main` atual, execute `node --test tests/semantic-priority-t25.test.mjs tests/semantic-coverage-t26.test.mjs tests/semantic-freshness-t27.test.mjs tests/semantic-ci-t28.test.mjs tests/semantic-e2e-t29.test.mjs tests/semantic-contract-conformance-t31.test.mjs tests/semantic-test-automation.test.mjs`. Todos integram `npm run test:offline`. Para exemplos ou contratos alterados, acrescente as verificações da [estratégia ReUI](composition-strategy.pt-BR.md) e da [integração shadcn](integracao-shadcn.pt-BR.md).
 
 ## 6. CI, E2E e evidência de execução
 
@@ -89,12 +89,16 @@ Na CI de PR, `admission-browser` reutiliza a suíte focada quando o impacto exig
 
 ## 7. Registro mínimo para auditoria e definição de pronto
 
-No PR, registre: **SHA testado e branch/base**, componentes/famílias/IDs ReUI, motivo de prioridade (ou indisponibilidade de T25), fonte oficial e `reviewedOn`, overlay e evidência `path`/`contains`, capacidades por estado, lacunas, decisões de FAQ, integrações candidatas, testes derivados, comandos executados com **saída/exit code e links de CI**, avisos de desatualização, E2E executado ou explicitamente não executado e riscos pendentes. Não use contagens históricas como dados atuais; leia o relatório gerado.
+No PR, registre: **SHA testado e branch/base**, componentes/famílias/IDs ReUI, motivo de prioridade e evidências da T25, fonte oficial e `reviewedOn`, overlay e evidência `path`/`contains`, capacidades por estado, lacunas, decisões de FAQ, integrações candidatas, testes derivados, comandos executados com **saída/exit code e links de CI**, avisos de desatualização, E2E executado ou explicitamente não executado e riscos pendentes. Não use contagens históricas como dados atuais; leia o relatório gerado.
 
 **Aceite:** revisão humana do texto e evidências; `semantic:check`/`semantic:report` com resultados registrados; `docs:check` e testes relevantes; relatório consistente com inventário; CI rastreável; E2E proporcional ao risco; diff restrito à curadoria e aos controles de documentação/teste apropriados. **Fora de escopo:** alterar `src/ui-catalog/catalog.ts`, `src/ui-catalog/extensions/catalog.ts`, schemas Zod, `pi-catalog/`, locks, contratos admitidos e permissões Pi **por enriquecimento**. Qualquer mudança funcional ou de admissão deve seguir PR e gates próprios.
 
-**Base de integração em 27/10/2026:** T26–T29 estão na [PR #88](https://github.com/fernandosam/ui-contract-studio/pull/88) (derivada da T28), ainda não na `main`; T25 permanece na [PR #84](https://github.com/fernandosam/ui-contract-studio/pull/84). Consulte o merge efetivo antes de esperar `semanticCoverage`, `semanticFreshness`, o sumário CI, E2E T29 ou `enrichmentPriorities` em outros branches. Este guia não afirma que as PRs já foram integradas.
+**Estado de integração revisado na `main`, 29/10/2026:** T25–T29, auditoria de aderência T31 e automação de testes derivados estão presentes em `scripts/lib/` e ligados ao analisador; o job `offline-policy` do CI executa as verificações. As PRs [#84](https://github.com/fernandosam/ui-contract-studio/pull/84) e [#88](https://github.com/fernandosam/ui-contract-studio/pull/88) são referências históricas de implementação, **não pendências para usar o fluxo atual**. Execute os comandos na revisão escolhida para obter contagens e avisos reais.
 
+
+## Revisão do exemplo curado AlertDialog — 29/10/2026
+
+O overlay de `AlertDialog` foi confrontado com `src/ui-catalog/extensions/components/alert-dialog.tsx` e `src/ui-catalog/extensions/catalog.ts`. O evento `confirm` continua um **sinal local**. A evidência estática inclui agora a chamada explícita `signalConfirm(emit)` no botão de confirmação e a invocação `emit?.("confirm")` no helper; nenhuma autoriza operação remota. `typed-confirmation` e `checkbox-gating` continuam documentadas, **não implementadas na primitiva**. `focus-and-keyboard` e `mobile-dialog` exigem verificação em runtime. O observador opcional DEV (`semanticProbe=1`) não demonstra execução do callback Pi, acessibilidade completa ou comportamento de produção. Esta revisão não promoveu estado de capacidade, data `source.reviewedOn` ou permissão de contrato. `semantic:check`, `semantic:report` e verificação de navegador ainda dependem da CI; leitura de código não é teste executado.
 
 ## T31 — Auditoria de aderência obrigatória em toda alteração semântica
 
