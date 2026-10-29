@@ -78,6 +78,10 @@ jobs:
             reports/composition-analysis/semantic-report.log
           if-no-files-found: error
           retention-days: 14
+      - name: Verify immutable theme versions against PR base (blocking)
+        env:
+          THEME_BASE_REF: ${{ github.event.pull_request.base.sha }}
+        run: npm run themes:check
       - name: Verify docs and offline invariants
         run: npm run docs:check && npm run test:offline
       - name: Check reviewed API changes against PR base
