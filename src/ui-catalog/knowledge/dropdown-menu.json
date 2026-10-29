@@ -418,7 +418,11 @@
         "keyboard-focus-a11y",
         "single-level-submenu",
         "disabled-items"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "dropdown.keyboard-submenu"
+      }
     },
     {
       "id": "overflow-and-shortcuts",

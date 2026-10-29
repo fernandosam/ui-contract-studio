@@ -263,7 +263,11 @@
       "description": "Testar open/defaultOpen/binding, trigger, fechamento e contagem de openChange sem efeitos remotos.",
       "capabilities": [
         "local-controlled-open"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "drawer.open-change"
+      }
     },
     {
       "id": "drawer-directions-and-slot",
@@ -281,7 +285,11 @@
       "capabilities": [
         "primitive-portal-and-modal-overlay",
         "local-controlled-open"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "drawer.modal-backdrop"
+      }
     },
     {
       "id": "drawer-keyboard-and-gesture",

@@ -371,7 +371,11 @@
       "description": "Montar formulário com ações button/submit/reset e conferir o evento nativo esperado sem persistência implícita.",
       "capabilities": [
         "explicit-form-type"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "button.form-type"
+      }
     },
     {
       "id": "variants-and-sizes",

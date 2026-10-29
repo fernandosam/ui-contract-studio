@@ -364,7 +364,11 @@
       "capabilities": [
         "base-ui-tab-anatomy",
         "keyboard-focus-and-announcements"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "tabs.keyboard-roving"
+      }
     },
     {
       "id": "inactive-panel-state-runtime",

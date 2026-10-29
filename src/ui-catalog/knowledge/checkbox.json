@@ -341,7 +341,11 @@
       "capabilities": [
         "keyboard-focus-screenreader",
         "label-description-association"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "checkbox.keyboard-space"
+      }
     },
     {
       "id": "mixed-state-icon-visual",

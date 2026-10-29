@@ -15,7 +15,10 @@ test("T32: AlertDialog viewport hardening uses existing API only",()=>{
  assert.match(adapter,/overflow-y-auto/);
  assert.match(adapter,/onOpenChange=\{setOpen\}/);
  assert.match(adapter,/<AlertDialogCancel>/);
- assert.match(adapter,/setOpen\(false\);emit\?\.\("confirm"\)/);
+ assert.match(adapter,/setOpen\(false\);signalConfirm\(emit\)/);
+ assert.match(adapter,/return emit\?\.\("confirm"\)/);
+ assert.match(adapter,/import\.meta\.env\.DEV/);
+ assert.match(adapter,/semanticProbe/);
  assert.doesNotMatch(adapter,/\b(fetch|XMLHttpRequest)\s*\(/);
 });
 

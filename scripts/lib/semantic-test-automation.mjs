@@ -93,6 +93,17 @@ export const semanticTestRecipes=Object.freeze({
     capabilities:["disabled-set-and-items"],coverage:"partial",
   }),
 
+
+  // High-risk, reviewed partial browser observations. These do not replace
+  // screen-reader/manual evidence and never grant authorization to Pi.
+  "alert-dialog.confirm-once":Object.freeze({component:"AlertDialog",kind:"integration",capabilities:["controlled-open","confirm-signal"],coverage:"partial"}),
+  "drawer.open-change":Object.freeze({component:"Drawer",kind:"integration",capabilities:["local-controlled-open"],coverage:"partial"}),
+  "drawer.modal-backdrop":Object.freeze({component:"Drawer",kind:"integration",capabilities:["primitive-portal-and-modal-overlay","local-controlled-open"],coverage:"partial"}),
+  "checkbox.keyboard-space":Object.freeze({component:"Checkbox",kind:"manual-a11y",capabilities:["keyboard-focus-screenreader","label-description-association"],coverage:"partial"}),
+  "tabs.keyboard-roving":Object.freeze({component:"Tabs",kind:"manual-a11y",capabilities:["base-ui-tab-anatomy","keyboard-focus-and-announcements"],coverage:"partial"}),
+  "dropdown.keyboard-submenu":Object.freeze({component:"DropdownMenu",kind:"manual-a11y",capabilities:["keyboard-focus-a11y","single-level-submenu","disabled-items"],coverage:"partial"}),
+  "accordion.disabled-guard":Object.freeze({component:"Accordion",kind:"integration",capabilities:["disabled-items"],coverage:"partial"}),
+  "button.form-type":Object.freeze({component:"Button",kind:"integration",capabilities:["explicit-form-type"],coverage:"partial"}),
   "dialog.cancel-without-confirm":Object.freeze({
     component:"AlertDialog",kind:"integration",
     capabilities:["explicit-cancel","confirm-signal"],coverage:"partial",

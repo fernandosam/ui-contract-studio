@@ -262,7 +262,11 @@
       "capabilities": [
         "controlled-open",
         "confirm-signal"
-      ]
+      ],
+      "automation": {
+        "runner": "playwright",
+        "recipe": "alert-dialog.confirm-once"
+      }
     },
     {
       "id": "responsive-actions",
