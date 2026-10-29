@@ -1,5 +1,5 @@
 import {existsSync, readFileSync, readdirSync} from 'node:fs';
-import {resolve, relative, dirname, join, sep} from 'node:path';
+import {resolve, relative, dirname, sep} from 'node:path';
 
 // Read-only consumer analysis. Only typed JSON nodes, declared compositions and
 // reviewed Pi projections count as evidence; arbitrary string matches do not.
