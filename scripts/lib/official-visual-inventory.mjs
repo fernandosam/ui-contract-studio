@@ -17,9 +17,10 @@ export function validateOfficialVisualInventory(plan,manifest,pi){
  if(manifest?.schemaVersion!==1)fail("Inventário visual sem schemaVersion 1");
  if(manifest?.selectionPolicy?.mode!=="curated-official-examples")fail("Política de seleção explícita obrigatória");
  const minimum=manifest?.selectionPolicy?.minimumSelected;
- if(!Number.isInteger(minimum)||minimum<38)fail("A seleção não pode reduzir o piso aprovado de 38 referências");
+ if(!Number.isInteger(minimum)||minimum<50)fail("A seleção não pode reduzir o piso de cobertura prioritária de 50 referências");
  if(manifest?.selectionPolicy?.reviewRequiredForExcluded!==true)fail("Excluídos devem permanecer pendentes de revisão");
  if(examples.length<minimum)fail(`Referências selecionadas insuficientes: ${examples.length}/${minimum}`);
+ if(examples.length+exclusions.length!==installed.length)fail(`Total de classificações inesperado: ${examples.length}+${exclusions.length} vs ${installed.length}`);
  if(manifest?.upstream!=="https://ui.shadcn.com")fail("Domínio de origem diferente da documentação oficial");
  if(manifest?.sourceRepository!=="https://github.com/shadcn-ui/ui")fail("Repositório de origem não oficial");
  if(manifest?.sourcePath!=="apps/v4/content/docs/components/base")fail("Diretório upstream oficial inesperado");

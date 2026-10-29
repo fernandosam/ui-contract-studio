@@ -16,9 +16,11 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 | [Checklist semântico de componentes](semantic-knowledge-checklist.pt-BR.md) | Revisão de conhecimento por componente, evidências, lacunas e validação |
 | [Prioridade de enriquecimento semântico (T25)](semantic-enrichment-priority-t25.pt-BR.md) | Pontuação determinística e consultiva para revisão de composições por IA |
 | [Processo de enriquecimento semântico (T30)](semantic-enrichment-workflow.pt-BR.md) | Passo a passo auditável para novos componentes shadcn e exemplos ReUI, priorização, CI e E2E |
+| [Descoberta e comparação semântica](semantic-catalog-discovery.pt-BR.md) | Busca e comparação nos catálogos Primitivas/Compostos, evidências e disponibilidade Pi |
 | [Auditoria de aderência semântica (T31)](semantic-contract-conformance-t31.pt-BR.md) | Vínculos Zod/Pi, decisões de lacunas e acionamento obrigatório ao alterar conhecimento |
 | [Avaliação de qualidade de layout](layout-quality.pt-BR.md) | Notas consultivas de hierarquia, agrupamento, densidade e responsividade |
 | [Agentes e Pi](agents.pt-BR.md) | Geração segura e validação de specs |
+| [Modelo de ameaças do Pi Agent (E09)](pi-agent-threat-model.pt-BR.md) | Fronteiras de confiança, revisão das entradas/saídas/execução e riscos priorizados |
 | [Desenvolvimento](development.pt-BR.md) | Ambiente, testes, CI e E2E |
 | [Governança](governance.pt-BR.md) | Revisão e auditoria contínua do repositório público |
 

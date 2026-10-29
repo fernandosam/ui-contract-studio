@@ -2,7 +2,7 @@
 
 # Repeatable and auditable semantic enrichment — T30
 
-**Procedure reviewed:** 2026-10-27. **Audience:** human reviewers and agents preparing shadcn/ui component overlays or ReUI example guidance. **Authoritative format:** [T01 checklist](semantic-knowledge-checklist.md) and `scripts/lib/semantic-knowledge.mjs`. This operational guide does not override official documentation, catalog implementation or admission decisions.
+**Procedure reviewed against `main`:** 2026-10-29. **Audience:** human reviewers and agents preparing shadcn/ui component overlays or ReUI example guidance. **Authoritative format:** [T01 checklist](semantic-knowledge-checklist.md) and `scripts/lib/semantic-knowledge.mjs`. This operational guide does not override official documentation, catalog implementation or admission decisions.
 
 > **Authority boundary:** documentation, scores, static evidence, recommendations, gaps, composition proposals, derived tests and reports **never** automatically update Zod schemas, admitted contracts, available APIs or Pi permissions. An unimplemented capability or non-admitted candidate must never be presented as an authorized API.
 
@@ -10,7 +10,7 @@
 
 1. Compare `src/ui-catalog/reui-primitive-source-baseline.json`, `src/ui-catalog/reui-guidance.json`, `src/ui-catalog/shadcn-guidance.json` and `src/ui-catalog/semantic-contract-guidance.json` with `src/ui-catalog/knowledge/`. ReUI baseline entries are **examples**, not Pi contracts.
 2. Rank investigation by frequency in ReUI examples; inbound and outbound integration candidates; documented unimplemented capabilities; unverified runtime behavior; high-risk derived tests; and missing documentation. Prioritize AI failures that turn local confirmation into backend authority, or documented/candidate behavior into approved APIs.
-3. **Once T25 is merged**, use `enrichmentPriorities.criteria` and `entries[]` (`score`, `points`, `signals`, `dataCompleteness`, `missingData`, `evidenceSources`) in the single derived report. Its implementation is in the separate [T25 PR](https://github.com/fernandosam/ui-contract-studio/pull/84), not yet in this T29-based branch. If that field is absent, **do not fabricate scores**: document a qualitative priority with explicit criteria. Scoring is advisory, not admission.
+3. **T25 is present on `main`:** inspect `enrichmentPriorities.criteria` and `enrichmentPriorities.entries[]` (`score`, `points`, `signals`, `dataCompleteness`, `missingData`, `evidenceSources`) in the derived semantic report. Ranking is deterministic and advisory; read the actual report rather than copying historic counts. If a checkout lacks these fields, verify its branch and scripts before using qualitative criteria; never invent scores or infer admission.
 4. Record component/family, ReUI example IDs where applicable, target contract, evidence and rationale in the PR. Keep each component independently reviewable when practicable.
 
 ## 2. Investigate upstream guidance and the actual local contract
@@ -64,7 +64,7 @@ npm run docs:check
 npm run test:offline
 ~~~
 
-The first three `package.json` scripts use `scripts/analyze-semantic-knowledge.mjs`. `semantic:check` blocks invalid records/missing literal evidence; `semantic:report` reruns validation and writes only the Git-ignored derived `reports/composition-analysis/semantic-knowledge.json`. On validation failure, the JSON has `validation.status: "failed"` and must **not** be treated as valid. `semantic:context` reads one profile; replace `AlertDialog` with the reviewed component.
+The first three `package.json` scripts use `scripts/analyze-semantic-knowledge.mjs`. `semantic:check` blocks invalid records/missing literal evidence; `semantic:report` reruns validation and writes the primary Git-ignored `reports/composition-analysis/semantic-knowledge.json`, plus `semantic-capability-gaps.json` and `semantic-composition-proposals.json` in the same directory. These are derived diagnostics, not independent catalogs or approval sources. On validation failure, the JSON has `validation.status: "failed"` and must **not** be treated as valid. `semantic:context` reads one profile; replace `AlertDialog` with the reviewed component.
 
 Audit `profiles[]` and `reuiExampleProfiles[]`. Under `semanticCoverage` inspect `sourcePaths`, `totals`, `families[]`, `components[]`, IDs and original code needles; coverage does not authorize implementation. Under `semanticFreshness` inspect `summary`, `components[]` and `diagnostics[]`:
 
@@ -73,7 +73,7 @@ Audit `profiles[]` and `reuiExampleProfiles[]`. Under `semanticCoverage` inspect
 - `history-unavailable`: non-blocking uncertainty; rerun with full Git history.
 - `current`: literal exists with no detected later edit; not behavioral proof (same-day edits cannot be ordered).
 
-To exercise those checkers use `node --test tests/semantic-coverage-t26.test.mjs tests/semantic-freshness-t27.test.mjs tests/semantic-ci-t28.test.mjs tests/semantic-e2e-t29.test.mjs`, also included in `test:offline` on the T29 base. Once T25 is merged, add `node --test tests/semantic-priority-t25.test.mjs`. New ReUI examples or functional contracts need the additional checks in [ReUI strategy](composition-strategy.md) and [shadcn integration](integracao-shadcn.md).
+To exercise those checkers on the current `main`, run `node --test tests/semantic-priority-t25.test.mjs tests/semantic-coverage-t26.test.mjs tests/semantic-freshness-t27.test.mjs tests/semantic-ci-t28.test.mjs tests/semantic-e2e-t29.test.mjs tests/semantic-contract-conformance-t31.test.mjs tests/semantic-test-automation.test.mjs`. All are included in `npm run test:offline`. New ReUI examples or functional contracts also require the checks in [ReUI strategy](composition-strategy.md) and [shadcn integration](integracao-shadcn.md).
 
 ## 6. CI, browser risk coverage and retained evidence
 
@@ -89,12 +89,16 @@ The existing `admission-browser` job runs them on PRs classified as browser-rele
 
 ## 7. Audit record and definition of done
 
-Record **tested SHA and branch/base**, component/family/ReUI IDs, priority rationale (or T25 unavailable), official URL/sections/`reviewedOn`, overlay and exact `path`/`contains` evidence, capability states, gaps, FAQ decisions, candidate integrations, derived tests, command **exit codes/output and CI links**, freshness warnings, browser results or explicit non-execution, and unresolved limitations. Read live report counts rather than copying historical figures.
+Record **tested SHA and branch/base**, component/family/ReUI IDs, priority rationale and T25 evidence, official URL/sections/`reviewedOn`, overlay and exact `path`/`contains` evidence, capability states, gaps, FAQ decisions, candidate integrations, derived tests, command **exit codes/output and CI links**, freshness warnings, browser results or explicit non-execution, and unresolved limitations. Read live report counts rather than copying historical figures.
 
 **Done:** human review of semantics/evidence; recorded `semantic:check`/`semantic:report` results, `docs:check` and targeted tests; coverage reconciled against inventory; traceable CI; risk-proportionate E2E. Do **not** change `src/ui-catalog/catalog.ts`, `src/ui-catalog/extensions/catalog.ts`, Zod schemas, `pi-catalog/`, contract locks, admitted APIs or Pi permissions **through documentary enrichment**. Runtime/admission changes require an independent review and gates.
 
-**Integration status as of 2026-10-27:** T26–T29 are in the open [PR #88](https://github.com/fernandosam/ui-contract-studio/pull/88), not yet on `main`. T25 is in separate open [PR #84](https://github.com/fernandosam/ui-contract-studio/pull/84). Check actual merge status before expecting `semanticCoverage`, `semanticFreshness`, T28 CI summary, T29 E2E or `enrichmentPriorities` on other branches. This guide does **not** claim these PRs are merged.
+**Integration status reviewed on `main`, 2026-10-29:** T25–T29, T31 conformance and derived test-automation analyzers are present in `scripts/lib/` and wired into the semantic CLI; the existing CI `offline-policy` runs the checks. PRs [#84](https://github.com/fernandosam/ui-contract-studio/pull/84) and [#88](https://github.com/fernandosam/ui-contract-studio/pull/88) are historical implementation references, **not pending prerequisites**. Run the current commands to establish actual report counts and freshness warnings for the checked-out SHA.
 
+
+## 2026-10-29 review of the curated AlertDialog example
+
+The `AlertDialog` overlay was rechecked against `src/ui-catalog/extensions/components/alert-dialog.tsx` and `src/ui-catalog/extensions/catalog.ts`. The `confirm` event remains a **local signal**. Its static evidence now includes the explicit `signalConfirm(emit)` call in the confirmation button and the helper's `emit?.("confirm")` invocation; neither implies an authorized remote action. `typed-confirmation` and `checkbox-gating` remain documented, **not implemented in the primitive**. `focus-and-keyboard` and `mobile-dialog` remain runtime-review-required. The opt-in DEV observer (`semanticProbe=1`) is not proof of a Pi callback, accessibility compliance or production behavior. No capability state, `source.reviewedOn` date or contract permission was promoted by this review. Full `semantic:check`, `semantic:report` and browser confirmation must be verified in CI; reading source is not a test run.
 
 ## T31 — Mandatory conformance audit for every semantic edit
 

@@ -37,7 +37,8 @@
     "A opção size='sm' pede atenção ao rodapé de duas ações.",
     "As regras documentadas são orientação, não adição de props, efeitos colaterais ou permissões ao contrato Pi.",
     "Uma composição experimental independente, como TypedConfirmationDialog, não adiciona confirmação digitada à API do AlertDialog básico.",
-    "A variante destructive define apresentação da ação, não autorização para excluir dados."
+    "A variante destructive define apresentação da ação, não autorização para excluir dados.",
+    "O observador semanticProbe=1 opera apenas em DEV e não confirma execução de callback Pi ou ação remota."
   ],
   "capabilities": [
     {
@@ -66,6 +67,10 @@
         {
           "path": "src/ui-catalog/extensions/components/alert-dialog.tsx",
           "contains": "emit?.(\"confirm\")"
+        },
+        {
+          "path": "src/ui-catalog/extensions/components/alert-dialog.tsx",
+          "contains": "signalConfirm(emit);"
         }
       ],
       "testRequirements": [

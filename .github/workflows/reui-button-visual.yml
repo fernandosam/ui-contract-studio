@@ -32,3 +32,4 @@ jobs:
             reports/reui-button-visual/
             test-results/
           if-no-files-found: ignore
+          retention-days: 7
