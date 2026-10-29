@@ -8,7 +8,7 @@ The reviewed `src/ui-catalog/contracts.lock.json` is the source of truth for eac
 
 Composition candidates preserve their existing source digests, protocols, CI verification and the experimental lane. A CI-required proof is **not** permission for remote actions. Pi exposure means a declarative, validated JSON UI schema only, with action permissions unchanged.
 
-Contract edits require the normal PR review, compatible semantic version, regenerated projection and existing semantic/contract checks. Run:
+Contract edits require normal PR review, [per-contract SemVer compatibility classification](contract-versioning.md), regenerated projection and existing semantic/contract checks. Run:
 
 ```sh
 npm run contracts:check

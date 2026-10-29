@@ -10,7 +10,10 @@ Dataset local fictício com 57 linhas. Simula paginação e busca delegadas à f
 
 ## `processos-api`
 
-A aplicação solicita apenas `GET /api/ui-data/processos` (mesma origem, `credentials: same-origin`), com `page` (base 0), `pageSize` (5–100), `search`, `sortKey` e `sortDesc`. Resposta JSON:
+**Bloqueada por padrão:** a spec JSON pode indicar `sourceId: "processos-api"`, mas isso não autoriza requisição. Somente um hospedeiro confiável pode habilitar `remoteDataEnabled={true}` na renderização `SpecScreen`; esse sinal não pode vir de props JSON ou do Pi. Sem ele, a tabela mostra erro local e nenhuma chamada HTTP é feita.
+
+
+A aplicação só solicita apenas `GET /api/ui-data/processos` (mesma origem, `credentials: same-origin`), com `page` (base 0), `pageSize` (5–100), `search`, `sortKey` e `sortDesc`. Resposta JSON:
 
 ```json
 {"rows":[{"id":"P1","values":{"processo":"P1","situacao":"Em análise"}}],"total":1}

@@ -2,17 +2,15 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
 /** Split only reviewed top-level catalog entries; no runtime module execution. */
-export function catalogSegments(){
-  const inputs = [
-    ['src/ui-catalog/catalog.ts','export const playgroundDefinitions = {','\n};','base'],
-    ['src/ui-catalog/extensions/catalog.ts','export const extensionDefinitions = {','\n};','extension'],
-  ];
+export function catalogSegmentsFromContents(baseSource, extensionSource) {
   const values=[];
-  for(const [file,start,end,tier] of inputs){
-    const content=readFileSync(file,'utf8');
-    const a=content.indexOf(start),b=content.indexOf(end,a+start.length);
-    if(a<0||b<0)throw new Error(`${file}: bloco de catálogo não encontrado`);
-    const body=content.slice(a+start.length,b);
+  for(const [source,start,end,tier] of [
+    [baseSource,'export const playgroundDefinitions = {','\n};','base'],
+    [extensionSource,'export const extensionDefinitions = {','\n};','extension'],
+  ]){
+    const a=source.indexOf(start),b=source.indexOf(end,a+start.length);
+    if(a<0||b<0)throw new Error(tier+': bloco de catálogo não encontrado');
+    const body=source.slice(a+start.length,b);
     const matches=[...body.matchAll(/^ {2}([A-Za-z][A-Za-z0-9]*): \{/gm)];
     for(let i=0;i<matches.length;i++){
       const segment=body.slice(matches[i].index,i+1<matches.length?matches[i+1].index:body.length).trim();
@@ -20,6 +18,14 @@ export function catalogSegments(){
     }
   }
   return values;
+}
+
+/** Split only reviewed top-level catalog entries; no runtime module execution. */
+export function catalogSegments(){
+  return catalogSegmentsFromContents(
+    readFileSync('src/ui-catalog/catalog.ts','utf8'),
+    readFileSync('src/ui-catalog/extensions/catalog.ts','utf8'),
+  );
 }
 
 /** Token-based semantic normalization. Whitespace/comments are insignificant outside

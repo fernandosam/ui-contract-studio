@@ -8,7 +8,7 @@ O script `scripts/build-pi-api.mjs` projeta os metadados para `pi-catalog/contra
 
 As composições candidatas preservam os digests, protocolos, verificações de CI e o canal experimental existentes. Uma evidência exigida em CI **não autoriza** ações remotas. A disponibilidade ao Pi limita-se à geração de interfaces JSON declarativas e validadas; permissões de ações permanecem inalteradas.
 
-Mudanças de contrato exigem o PR habitual, versionamento semântico compatível, projeção regenerada e verificações existentes. Execute:
+Mudanças de contrato exigem o PR habitual, [classificação de compatibilidade e SemVer por contrato](contract-versioning.pt-BR.md), projeção regenerada e verificações existentes. Execute:
 
 ```sh
 npm run contracts:check

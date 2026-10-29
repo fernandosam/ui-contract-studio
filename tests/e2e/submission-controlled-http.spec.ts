@@ -4,13 +4,16 @@ import {randomBytes} from "node:crypto";
 import {once} from "node:events";
 import {createControlledDemoHttpHandler} from "../../src/ui-requirements/submission-http";
 import {createInMemoryDemoService} from "../../src/ui-requirements/submission-demo";
+import {createSubmissionConfirmations} from "../../src/ui-requirements/submission-confirmation";
 
 /** Browser/network integration for a TEST HOST, not a production Pi submit handler. */
 test("T32: browser form remains local; an explicit trusted demo HTTP call can persist a test record",async({page})=>{
  const demo=createInMemoryDemoService();
+ const tickets=createSubmissionConfirmations();
  const token=randomBytes(32).toString("base64url"),csrf=randomBytes(24).toString("base64url");
  const service=createControlledDemoHttpHandler({
   allowedOrigin:"http://127.0.0.1:5173",services:[demo.service],
+  verifyConfirmation:async(ticket,payload,session)=>tickets.consume(ticket,payload,session),
   resolveSession:async bearer=>bearer===token?{
    userId:"test-user",tenantId:"test-tenant",
    allowedServices:new Set(["users-demo"]),csrfToken:csrf
@@ -46,15 +49,19 @@ test("T32: browser form remains local; an explicit trusted demo HTTP call can pe
   assertRecordCount(demo.records().length,0);
   // An EXPLICIT test-host-only request is required to use the approved service;
   // the Pi candidate did not get network permissions or automatically transmit fields.
+  // The trusted TEST HOST issues consent only after the explicit browser confirmation.
+  const payload={serviceId:"users-demo",idempotencyKey:"browser_demo_12345",
+   values:{name:"Ana",email:"ana@example.org"}};
+  const confirmation=tickets.issueAfterApproval(payload,{userId:"test-user",tenantId:"test-tenant"});
   const result=await page.evaluate(async args=>{
    const response=await fetch(args.url,{
     method:"POST",headers:{"authorization":"Bearer "+args.token,
-     "x-csrf-token":args.csrf,"content-type":"application/json"},
-    body:JSON.stringify({serviceId:"users-demo",idempotencyKey:"browser_demo_12345",
-     values:{name:"Ana",email:"ana@example.org"}})
+     "x-csrf-token":args.csrf,"x-action-confirmation":args.confirmation,
+     "content-type":"application/json"},
+    body:JSON.stringify(args.payload)
    });
    return {status:response.status,body:await response.json()};
-  },{url,token,csrf});
+  },{url,token,csrf,confirmation,payload});
   expect(result.status).toBe(200);
   expect(result.body.ok).toBe(true);
   assertRecordCount(demo.records().length,1);

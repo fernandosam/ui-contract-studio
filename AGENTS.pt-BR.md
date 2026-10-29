@@ -22,6 +22,7 @@ Este arquivo contém somente as **regras vigentes**. Fluxos detalhados estão na
 
 - Primeiro verifique se há um equivalente aprovado. Para uma lacuna real, é obrigatória **admissão com schema Zod + componente React + registry**, origem e licença em `sources.json`, versão/fingerprint em `contracts.lock.json`, exemplos, testes e revisão independente. Um agente **não pode autoaprovar** a própria mudança.
 - Para composições estáticas, edite templates e `generated-manifest.json`, execute `npm run composites:generate` e nunca edite manualmente `src/ui-catalog/extensions/generated/`. Composições com estado próprio exigem implementação React explícita e adapter tipado.
+- Mudanças em contrato seguem a [classificação SemVer E07](docs/contract-versioning.pt-BR.md): alteração desconhecida exige MAJOR e revisão independente; a checagem CI usa a base do PR.
 - Gerar ou instalar código shadcn/ui não altera o catálogo automaticamente; valide a origem em `shadcn-plan.json` e use `npm run shadcn:verify`. Alterações de schema, props ou eventos exigem migração de telas, padrões, manifestos e testes.
 
 A publicação automática experimental e a distribuição isolada pós-E2E são regidas pelo [Admission Engine](docs/admission-engine.pt-BR.md). Nenhum desses artefatos altera a API do Pi ou substitui revisão de admissão no registry/lock.
