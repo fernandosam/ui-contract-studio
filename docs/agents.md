@@ -34,4 +34,6 @@ Pi can generate **JSON specs only**, using types and properties published in the
 
 Paid model runs are **manual** and require `PI_EVAL_CONFIRM=yes`. Paid repair also requires `PI_EVAL_REPAIR_CONFIRM=yes`. Report actual runs, failures, blockers, and missing results without fabricating outputs, metrics, or evidence.
 
+Security review: [Pi Agent threat model (E09)](pi-agent-threat-model.md) distinguishes the coding-agent tool boundary from validated JSON rendering and the paid, no-tool evaluation subprocess.
+
 Binding rules are in [AGENTS.md](../AGENTS.md); procedures are in the [UI Catalog skill](../.pi/skills/ui-catalog/SKILL.md). See the [short workflow](pi-workflow.md).

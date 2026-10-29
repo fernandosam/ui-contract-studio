@@ -34,4 +34,6 @@ O Pi pode gerar **apenas specs JSON** com tipos e propriedades publicados no cat
 
 A execução paga de modelos é **manual** e requer `PI_EVAL_CONFIRM=yes`. Reparo pago exige também `PI_EVAL_REPAIR_CONFIRM=yes`. Relate execuções, falhas, bloqueios e ausências sem fabricar saídas, métricas ou evidências.
 
+Revisão de segurança: o [modelo de ameaças do Pi Agent (E09)](pi-agent-threat-model.pt-BR.md) separa o risco das ferramentas do agente de desenvolvimento da renderização JSON validada e das avaliações pagas sem ferramentas.
+
 As regras normativas estão em [AGENTS.md](../AGENTS.pt-BR.md); o procedimento está na [skill UI Catalog](../.pi/skills/ui-catalog/SKILL.pt-BR.md). Veja o [fluxo resumido](pi-workflow.pt-BR.md).
