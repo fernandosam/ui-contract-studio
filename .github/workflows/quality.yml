@@ -193,6 +193,7 @@ jobs:
             tests/e2e/submission-controlled-http.spec.ts \
             tests/e2e/declarative-form-certification.spec.ts \
             tests/e2e/t35-form-scenarios.spec.ts \
+            tests/e2e/preview-themes.spec.ts \
             --project=desktop --project=mobile
       - name: Verify T34 requirement-to-browser evidence (fail closed)
         run: npm run requirements:browser:report
