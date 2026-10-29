@@ -28,7 +28,7 @@ export function semanticScore(entry:DiscoveryEntry,query:string):number {
  if(!terms.length)return 1;
  const name=normalize(entry.name);
  const description=normalize(entry.description??'');
- const intent=normalize([entry.purpose,...entry.whenUse??[]].join(' '));
+ const intent=normalize([entry.purpose,...(entry.whenUse??[])].join(' '));
  // Every query term must match a verified positive field; not avoid/unsupported capabilities.
  if(!terms.every(term=>name.includes(term)||description.includes(term)||intent.includes(term)))return 0;
  return terms.reduce((sum,term)=>sum+(name===term?10:name.startsWith(term)?6:name.includes(term)?4:description.includes(term)?2:1),0);
