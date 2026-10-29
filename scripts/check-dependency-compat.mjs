@@ -20,12 +20,15 @@ const checks = [
   [devDependencies.tailwindcss === devDependencies['@tailwindcss/vite'], 'Versões do Tailwind e do plugin Vite devem estar alinhadas'],
   [atLeast(devDependencies['@tailwindcss/vite'], '4.1.11'), '@tailwindcss/vite para Vite 7 precisa ser >=4.1.11'],
   [atLeast(devDependencies['@vitejs/plugin-react'], '4.5.2'), 'Plugin React sem suporte declarado a Vite 7'],
-  [atLeast(devDependencies.typescript, '5.9.2') && number(devDependencies.typescript)[0] === 5, 'Use uma versão TypeScript 5.9 estável (>=5.9.2 e <6); 5.9.0 foi beta e não existe como versão estável'],
+  [devDependencies.typescript === 'npm:@typescript/typescript6@6.0.2', 'ESLint deve usar o TypeScript 6 compatível com a API via alias npm'],
+  [devDependencies['@typescript/native'] === 'npm:typescript@7.0.2', 'A compilação nativa deve usar TypeScript 7 via alias npm'],
+  [JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8')).packages['node_modules/@typescript/native']?.version === '7.0.2', 'Lockfile precisa conter TypeScript 7 nativo'],
+  [JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8')).packages['node_modules/typescript']?.version === '6.0.2', 'Lockfile precisa conter API TypeScript 6 para lint'],
 ];
 const invalid = checks.filter(([ok]) => !ok).map(([, message]) => message);
 if (invalid.length) {
   for (const message of invalid) console.error(`ERRO: ${message}`);
   process.exit(1);
 }
-console.log('Baseline de compatibilidade React 19 + Vite 7 + Tailwind 4 + TypeScript 5.9 verificada.');
+console.log('Baseline de compatibilidade React 19 + Vite 7 + Tailwind 4 + TypeScript 7 nativo / API 6 verificada.');
 console.log('Nota: esta checagem estática não substitui resolução de peers pelo npm nem build.');

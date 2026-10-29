@@ -45,3 +45,7 @@ Record scope, changed files, tests actually run, and limitations. Schema changes
 Workflows share `.github/actions/setup-deps` (Node 22, npm cache, immutable `npm ci`) and `.github/actions/setup-chromium` (reuse system browser; install Chromium only as a fallback). The paid [Pi evaluation](../.github/workflows/pi-evaluation.yml) is manual and restricted to `main`; no paid evaluations run in PR CI.
 
 Risk-driven semantic E2E cases (T29) are documented in [semantic E2E risks](semantic-e2e-risks-t29.md). They run within the existing focused PR browser job and the existing manual main suite; the reports are advisory, not automatic Pi certification.
+
+## TypeScript 7 compiler and TypeScript 6 tooling API
+
+TypeScript 7.0 does not provide the compiler API consumed by `typescript-eslint`. The supported setup deliberately installs `typescript` as `npm:@typescript/typescript6@6.0.2` for ESLint and `@typescript/native` as `npm:typescript@7.0.2` for the native compiler. The TypeScript 6 compatibility package depends on `@typescript/old`, which can also expose a `tsc` binary; therefore **do not depend on whichever `npx tsc` binary npm links**. `npm run typecheck` runs `node ./node_modules/@typescript/native/bin/tsc -b --pretty false` explicitly, and `npm run build` includes this check before Vite. The lockfile is committed for reproducibility, and `npm ci`, ESLint, typecheck and build must all pass without peer-dependency bypass flags. See [Microsoft's dual-compiler guidance](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/).

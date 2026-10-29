@@ -25,7 +25,7 @@ jobs:
       - run: npx playwright test tests/e2e/reui-button-61.spec.ts --project=desktop --project=mobile
       - name: Save button screenshots and trace
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: reui-button-previews
           path: |

@@ -60,3 +60,10 @@ test("T33: semantic reporting and artifact retention remain mandatory",()=>{
  assert.ok(semanticAuditEnforcementViolations({workflow:invalid})
    .some(message=>message.includes("report and diagnostics")));
 });
+
+test("T33: approved artifact action v7 retains semantic reports, missing uploader remains blocked",()=>{
+ const upgraded=workflow.replaceAll("actions/upload-artifact@v4","actions/upload-artifact@v7");
+ assert.deepEqual(semanticAuditEnforcementViolations({workflow:upgraded}),[]);
+ const removed=upgraded.replaceAll("uses: actions/upload-artifact@v7","uses: actions/checkout@v7");
+ assert.ok(semanticAuditEnforcementViolations({workflow:removed}).some(e=>e.includes("report and diagnostics")));
+});
