@@ -10,6 +10,9 @@ A fictional local dataset with 57 rows. It simulates source-delegated pagination
 
 ## `processos-api`
 
+**Disabled by default:** a JSON spec may select `sourceId: "processos-api"` but cannot authorize network access. Only a trusted host may render `SpecScreen` with `remoteDataEnabled={true}` (never derive it from JSON/Pi data); otherwise the table shows a local failure and makes no HTTP request.
+
+
 The application requests only `GET /api/ui-data/processos` (same origin, `credentials: same-origin`), with `page` (zero-based), `pageSize` (5–100), `search`, `sortKey`, and `sortDesc`. JSON response:
 
 ```json
