@@ -85,12 +85,18 @@ jobs:
         env:
           CONTRACT_BASE_REF: ${{ github.event.pull_request.base.sha }}
         run: npm run contracts:diff
+      - name: Generate JSON screen, example, composition and Pi impact report
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.contract-diff.outcome != 'skipped' }}
+        run: npm run contracts:impact
       - name: Preserve detailed contract change audit, including blocked changes
         if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.contract-diff.outcome != 'skipped' }}
         uses: actions/upload-artifact@v4
         with:
           name: contract-change-audit
-          path: reports/contract-diff/changes.json
+          path: |
+            reports/contract-diff/changes.json
+            reports/contract-diff/impact.json
+            reports/contract-diff/impact.md
           if-no-files-found: warn
           retention-days: 14
 

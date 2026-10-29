@@ -39,3 +39,18 @@ A análise SemVer é independente da certificação E2E, auditoria visual e auto
 A mesma verificação `npm run contracts:diff` agora gera `reports/contract-diff/changes.json` nos PRs. São comparadas as definições na base e no HEAD do PR, registrando alterações **adicionadas/removidas/modificadas**, com caminhos, nas categorias `property` (propriedade), `state` (estado), `event` (evento), `structure` (estrutura, incluindo slots) e `metadata` (descrições/canal). Objetos Zod literais aninhados usam caminhos como `props.steps[].status`. Testes offline cobrem estados aninhados, membros de eventos e slots, propriedades obrigatórias/opcionais, wrappers estruturais e expressões opacas.
 
 O JSON inclui commit base, validade, totais por categoria, classificação SemVer por componente, diagnósticos e assinaturas de tokens antigas/novas abreviadas. É preservado como artefato de CI mesmo quando a checagem SemVer rejeita alterações. Trata-se de **evidência estática de código**, não prova de execução: schemas importados de outros arquivos, comportamento runtime e expressões Zod dinâmicas/não reconhecidas não permitem comprovar compatibilidade aqui. Permanecem opacos ou exigem revisão independente. Nenhuma etapa adicional de aprovação, permissão de API ou promoção automática é introduzida.
+
+## E07 — Relatório de impacto nos consumidores
+
+O comando `npm run contracts:impact` utiliza o arquivo `reports/contract-diff/changes.json` gerado por `npm run contracts:diff` (no PR, com `CONTRACT_BASE_REF` apontando para o commit base). Produz dois relatórios determinísticos em `reports/contract-diff/impact.json` e `reports/contract-diff/impact.md`, anexados ao mesmo artefato `contract-change-audit` do CI. É diagnóstico, não um novo gate de aprovação. Ainda é gerado se o diff SemVer produzir violações, desde que o arquivo `changes.json` seja válido.
+
+A análise relaciona cada contrato alterado a:
+
+- **Telas JSON** em `src/ui-screens/`, com caminho, ID do nó, tipo e propriedades ou eventos explicitamente referenciados.
+- **Exemplos Pi** de `pi-catalog/examples/` e `pi-catalog/experimental-examples/`, distinguindo-os de APIs admitidas.
+- **Composições declarativas e React**, com dependência direta ou transitiva a partir dos templates do manifesto gerado e dos imports locais dos adapters classificados na política existente.
+- **Integrações Pi**, consultando o lock revisado, a projeção `pi-catalog/contracts.json` e os tipos exportados em `pi-catalog/props-json-schema.json`; divergências são diagnosticadas, não corrigidas automaticamente.
+
+O nível `high/medium/low` deriva da classificação SemVer. Cada ocorrência aponta `relationship` (`direct`, `transitive` ou `definition`), cadeia `via` e `matchedPaths` quando há evidência concreta de uso de uma propriedade/evento alterado. Uma referência ao tipo continua potencialmente afetada mesmo quando não utiliza explicitamente a propriedade modificada. Ausência de referências estáticas **não comprova ausência de consumo**: código executado dinamicamente, aplicações externas e efeitos de runtime precisam de investigação manual. Os relatórios **não** alteram Zod, lock, fingerprint, estabilidade, admissão, ações ou permissões Pi.
+
+Para verificar: `node --test tests/contract-impact.test.mjs`; no PR, `npm run contracts:diff && npm run contracts:impact` (o segundo comando também pode ser executado após erro SemVer, se o primeiro produziu o JSON).
