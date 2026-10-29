@@ -1,7 +1,7 @@
 import {useMemo,useState} from "react";
 import official from "../../pi-catalog/contracts.json";
 import {SpecScreen} from "./spec-screen";
-import {PreviewThemeSelector} from "../ui-theme/preview-theme";
+import {PreviewThemeSelector} from "./preview-theme";
 import {experimentalFormScenarios,type ExperimentalFormScenario} from "../ui-catalog/admission-engine/form-scenarios";
 
 const stableExamples=import.meta.glob("../../pi-catalog/examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
