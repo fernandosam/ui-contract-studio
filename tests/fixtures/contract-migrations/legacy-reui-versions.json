@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "contracts": {
+    "Badge": {
+      "version": "2.0.0",
+      "fingerprint": "bc60302e034b413f132793615418f283caf5f0f4ae586040bd91a55c1a4171a1"
+    },
+    "Card": {
+      "version": "2.0.0",
+      "fingerprint": "3346cd0cbd754ecae6df29c30575dd826a72814798c97b7a62626a075ac2f9fa"
+    },
+    "Input": {
+      "version": "2.0.0",
+      "fingerprint": "81ace36634edae1ee381f434d9476d84cd97bcb21b89999499e2669a6fc4b1ad"
+    }
+  }
+}

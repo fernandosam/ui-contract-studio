@@ -119,6 +119,8 @@ jobs:
         run: npm run doctor:strict && npm run shadcn:verify && npm run shadcn:integrity -- --strict
       - name: Verify generators, contracts and boundaries
         run: npm run check
+      - name: Exercise fingerprint-bound legacy migration with real Zod validation
+        run: npm run contracts:migrate -- --file=tests/fixtures/contract-migrations/legacy-reui-spec.json --versions=tests/fixtures/contract-migrations/legacy-reui-versions.json --out=reports/contract-migrations/reui-migrated.json
       - name: Lint sources
         run: npm run lint
       - name: Run integration tests (offline tests run in their own job)

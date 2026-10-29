@@ -47,3 +47,40 @@ Run `npm run contracts:impact` after `npm run contracts:diff` (PRs pass `CONTRAC
 The report links each changed contract to typed nodes in `src/ui-screens/`, Pi examples in both example directories, direct and transitive declarative/React composition dependencies, and reviewed lock versus Pi catalog/schema projection. It captures file and node IDs, dependency chains and explicitly matched property/event paths. Priority is derived from the conservative SemVer classification; every reference to a changed type is potentially affected even when no changed property is explicitly present. Pi projection mismatches are diagnostic, not self-healing.
 
 Static references are not complete runtime coverage. No reference found **does not** mean no consumers exist: dynamic code, external applications and behavior still require review. This report does not modify Zod, reviewed contracts, versions, stability, admission, Pi actions or permissions. Test with `node --test tests/contract-impact.test.mjs`, then run the two contract commands on a PR base.
+
+## E07 — Explicit, deterministic migrations
+
+JSON spec migrations are **opt-in and fingerprint-bound**. They never downgrade, infer compatibility or run automatically in SpecScreen, Pi, or API generation. Reviewed transitions live in `src/ui-catalog/contract-migrations.json`; the authoritative target remains `src/ui-catalog/contracts.lock.json`.
+
+**Supported historical versions:** `Card`, `Badge` and `Input` `2.0.0 → 2.1.0` with exact source fingerprints from historical commit `1fef72c31a42`. Those releases only added optional props (Card: footer; Badge: tone, appearance, size, dot; Input: description, invalid, maxLength), so their explicit migration steps preserve the spec content and update **only the external version manifest**. No other legacy version or fingerprint is assumed compatible.
+
+The external manifest preserves json-render's strict spec schema:
+
+```json
+{
+  "schemaVersion": 1,
+  "contracts": {
+    "Card": {
+      "version": "2.0.0",
+      "fingerprint": "3346cd0cbd754ecae6df29c30575dd826a72814798c97b7a62626a075ac2f9fa"
+    }
+  }
+}
+```
+
+**Include exactly every component type used by the spec** with verifiable historical source versions and fingerprints; the example above is partial. Do not fabricate historical metadata for an unversioned spec.
+
+```sh
+# Snapshot already-current contract versions
+npm run contracts:migrate -- --file=src/ui-screens/blocos-login.json --snapshot --out=reports/contract-migrations/current-versions.json
+
+# Migrate a proven legacy release
+npm run contracts:migrate -- --file=tests/fixtures/contract-migrations/legacy-reui-spec.json --versions=tests/fixtures/contract-migrations/legacy-reui-versions.json --out=reports/contract-migrations/reui-migrated.json
+
+# Verify the reviewed migration graph
+npm run contracts:migrations:check
+```
+
+Without `--out`, prints a deterministic preview and preserves the original. With `--out`, creates the migrated spec, `.versions.json` and audit `.report.json` only under `reports/contract-migrations/`, refusing overwrites. **The real stable-channel Zod validator runs before output is published**, requiring installed dependencies. Unknown versions, mismatched fingerprints, collisions and broken migration chains fail closed.
+
+Future data-only transformations are limited to reviewed `rename-prop`, `rename-event` and `set-default-prop` per exact type/source version, never arbitrary code, type rewriting, actions or permissions. Existing CI/offline checks protect the registry; sensitive changes require ordinary review. Retired or experimental types never become admitted through migration. Review outputs before replacing production consumers.

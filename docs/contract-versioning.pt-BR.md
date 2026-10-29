@@ -54,3 +54,40 @@ A análise relaciona cada contrato alterado a:
 O nível `high/medium/low` deriva da classificação SemVer. Cada ocorrência aponta `relationship` (`direct`, `transitive` ou `definition`), cadeia `via` e `matchedPaths` quando há evidência concreta de uso de uma propriedade/evento alterado. Uma referência ao tipo continua potencialmente afetada mesmo quando não utiliza explicitamente a propriedade modificada. Ausência de referências estáticas **não comprova ausência de consumo**: código executado dinamicamente, aplicações externas e efeitos de runtime precisam de investigação manual. Os relatórios **não** alteram Zod, lock, fingerprint, estabilidade, admissão, ações ou permissões Pi.
 
 Para verificar: `node --test tests/contract-impact.test.mjs`; no PR, `npm run contracts:diff && npm run contracts:impact` (o segundo comando também pode ser executado após erro SemVer, se o primeiro produziu o JSON).
+
+## E07 — Migrações explícitas e determinísticas
+
+Migrações de specs JSON são **opt-in e vinculadas ao fingerprint**. Não fazem downgrade, não presumem compatibilidade, nem são executadas automaticamente por SpecScreen, Pi ou geração de API. O registro revisável é `src/ui-catalog/contract-migrations.json`; o destino autorizado continua sendo `src/ui-catalog/contracts.lock.json`.
+
+**Versões históricas suportadas:** `Card`, `Badge` e `Input` `2.0.0 → 2.1.0`, com fingerprints de origem exatos do commit histórico `1fef72c31a42`. Nessa atualização foram adicionadas apenas propriedades opcionais (Card: footer; Badge: tone, appearance, size, dot; Input: description, invalid, maxLength), portanto seus passos explícitos preservam o JSON e atualizam **somente os metadados externos de versão**. Versões ou fingerprints diferentes não recebem migração implícita.
+
+O manifesto de versões é separado da spec para preservar o schema estrito de json-render:
+
+```json
+{
+  "schemaVersion": 1,
+  "contracts": {
+    "Card": {
+      "version": "2.0.0",
+      "fingerprint": "3346cd0cbd754ecae6df29c30575dd826a72814798c97b7a62626a075ac2f9fa"
+    }
+  }
+}
+```
+
+**É necessário listar exatamente todos os tipos da spec**, com versões e fingerprints de origem comprovados; o exemplo é parcial. Quando não houver evidências de proveniência, não invente uma versão histórica: revise a fonte manualmente.
+
+```sh
+# Manifesto para uma spec que já usa os contratos atuais
+npm run contracts:migrate -- --file=src/ui-screens/blocos-login.json --snapshot --out=reports/contract-migrations/current-versions.json
+
+# Migração a partir de manifesto histórico verificado
+npm run contracts:migrate -- --file=tests/fixtures/contract-migrations/legacy-reui-spec.json --versions=tests/fixtures/contract-migrations/legacy-reui-versions.json --out=reports/contract-migrations/reui-migrated.json
+
+# Integridade do registro de transições
+npm run contracts:migrations:check
+```
+
+Sem `--out`, imprime uma prévia determinística sem modificar os originais. Com `--out`, cria spec migrada, manifesto `.versions.json` e trilha `.report.json` exclusivamente em `reports/contract-migrations/`, recusando sobrescrita. **Executa a validação Zod real no canal estável antes de publicar a saída**, exigindo dependências instaladas. Rejeita versões desconhecidas, divergências de fingerprint, colisões e lacunas de cadeia.
+
+A gramática futura permite exclusivamente `rename-prop`, `rename-event` e `set-default-prop` por tipo/versão, sem executar código nem modificar tipos, ações ou permissões. A verificação existente de CI e os testes offline protegem o registro; mudanças sensíveis exigem revisão normal. Não habilita tipos aposentados ou experimentais. Revise sempre as saídas antes de substituir consumidores de produção.
