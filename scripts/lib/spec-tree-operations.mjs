@@ -1,5 +1,6 @@
 import { graphErrors } from './spec-invariants.mjs';
 import { preservationViolation } from './spec-tree-preservation.mjs';
+import { layoutStructureErrors } from './spec-tree-layout.mjs';
 
 /** E08/v1: pure, atomic edits to an admitted json-render tree. No side effects. */
 const MAX_OPERATIONS = 50;
@@ -93,6 +94,18 @@ function validateTree(spec, policy) {
     allowedActions: policy.allowedActions, allowedEvents: policy.allowedEvents,
   });
   if (issues.length) reject('graph_invalid', 'Integridade da árvore rejeitada: ' + issues[0]);
+  // Layout is an independent mandatory gate after Zod + authorization + graph.
+  // The generic invariant is always enforced, even for callers without a
+  // named flow. Flow-specific checks can only narrow, never widen, admission.
+  if (layoutStructureErrors(spec).length)
+    reject('layout_invalid', 'Estrutura de layout inválida: conteúdo aninhado invisível ou título vazio.');
+  if (policy.validateLayout) {
+    let result;
+    try { result = policy.validateLayout(spec); }
+    catch { reject('layout_invalid', 'Falha na verificação do contrato de layout.'); }
+    if (result?.success !== true)
+      reject('layout_invalid', 'A árvore viola as regras de layout do fluxo selecionado.');
+  }
 }
 function childrenOf(node) {
   return [...node.children, ...Object.values(node.slots ?? {}).flat()];
