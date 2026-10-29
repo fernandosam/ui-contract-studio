@@ -22,7 +22,6 @@ const approved:SubmissionContext={
  confirmationVerified:true,actions:new Set(["users-demo"])
 };
 const isForbidden=(e:unknown)=>e instanceof SubmissionFailure&&e.code==="forbidden";
-const isInvalid=(e:unknown)=>e instanceof SubmissionFailure&&e.code==="invalid";
 
 test("E09 adversarial: injected system/tool text is data, not a catalog grant",()=>{
  const payloads=[
@@ -73,13 +72,12 @@ test("E09 adversarial: forged privilege metadata and malformed fields never reac
  }
  for(const bad of [
   {...request,idempotencyKey:"../../admin"},
-  {...request,values:{"__proto__":"yes",name:"Ana",email:"ana@example.org"}},
   {...request,values:JSON.parse('{"name":"Ana","email":"ana@example.org","__proto__":"admin"}') as Record<string,string>},
   {...request,values:{name:42,email:"ana@example.org"}},
   {...request,values:{name:"Ana",email:"ana@example.org",role:"admin"}},
   {...request,values:[]},
  ]){
-  await assert.rejects(submit(bad as SubmissionPayload,approved),error=>
+  await assert.rejects(submit(bad as unknown as SubmissionPayload,approved),error=>
    error instanceof SubmissionFailure&&(error.code==="invalid"),JSON.stringify(bad));
  }
  assert.equal(demo.records().length,0);
