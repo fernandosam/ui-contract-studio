@@ -102,8 +102,8 @@ export function TreePatchWorkbench({ spec, selectedId }: { spec: unknown; select
       <details>
         <summary className="cursor-pointer text-xs font-medium">Comparação visual (antes/depois)</summary>
         <div className="mt-3 grid min-w-0 gap-3 lg:grid-cols-2">
-          <div className="min-w-0 overflow-auto rounded-md border bg-background p-3"><p className="mb-2 text-xs font-medium">Antes</p><SpecScreen key={`before-${view.revision}`} spec={view.spec} /></div>
-          <div className="min-w-0 overflow-auto rounded-md border bg-background p-3"><p className="mb-2 text-xs font-medium">Depois</p><SpecScreen key={`after-${view.revision}`} spec={preview.spec} /></div>
+          <div className="min-w-0 overflow-auto rounded-md border bg-background p-3"><p className="mb-2 text-xs font-medium">Antes</p><div inert aria-hidden="true"><SpecScreen key={`before-${view.revision}`} spec={view.spec} /></div></div>
+          <div className="min-w-0 overflow-auto rounded-md border bg-background p-3"><p className="mb-2 text-xs font-medium">Depois</p><div inert aria-hidden="true"><SpecScreen key={`after-${view.revision}`} spec={preview.spec} /></div></div>
         </div>
       </details>
     </div>}
