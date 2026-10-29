@@ -153,7 +153,7 @@ test("T28: existing quality workflow fails closed while publishing reports on fa
   assert.match(offline, /npm run semantic:report 2>&1 \| tee .*semantic-report\.log/);
   assert.equal((offline.match(/shell: bash/g) ?? []).length, 2);
   assert.match(offline, /steps\.semantic-check\.outcome != 'skipped'/);
-  assert.match(offline, /actions\/upload-artifact@v4/);
+  assert.match(offline, /actions\/upload-artifact@v(?:4|7)/);
   assert.match(offline, /semantic-knowledge\.json/);
   assert.match(offline, /semantic-ci-summary\.mjs/);
   assert.match(offline, /npm run docs:check && npm run test:offline/);

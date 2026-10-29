@@ -37,7 +37,7 @@ jobs:
       - name: Publish immutable experimental artifact for this commit
         run: npm run admission:publish
       - name: Upload opt-in experimental React and Zod proposals
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: admission-experimental-${{ github.sha }}
           path: dist/admission/experimental/

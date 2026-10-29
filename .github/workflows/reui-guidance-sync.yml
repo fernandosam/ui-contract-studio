@@ -30,7 +30,7 @@ jobs:
         run: node scripts/sync-reui-example-guidance.mjs
       - name: Upload public documentation evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: reui-guidance-catalog
           if-no-files-found: warn

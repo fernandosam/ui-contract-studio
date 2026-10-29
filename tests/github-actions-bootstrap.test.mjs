@@ -20,7 +20,7 @@ test('CI não confunde screenshots locais com baselines originais',()=>{
 test('CI preserva origem e artefatos de revisão',()=>{
  assert.ok(text.includes('permissions:'));
  assert.ok(text.includes('contents: read'));
- assert.ok(text.includes('actions/upload-artifact@v4'));
+ assert.ok(/actions\/upload-artifact@v(?:4|7)/.test(text));
  assert.ok(text.includes('projeto-bootstrap.tar.gz'));
  assert.ok(existsSync('scripts/build-ci-visual-evidence.mjs'));
 });

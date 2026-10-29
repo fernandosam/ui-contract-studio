@@ -34,7 +34,7 @@ export function semanticAuditEnforcementViolations({
     errors.push("Semantic audit failures must never be suppressed.");
   if(!/npm run semantic:report 2>&1 \| tee reports\/composition-analysis\/semantic-report\.log/.test(job) ||
     !/semantic-knowledge\.json/.test(job) ||
-    !/actions\/upload-artifact@v4/.test(job))
+    !/actions\/upload-artifact@v(?:4|7)/.test(job))
     errors.push("Semantic report and diagnostics must remain accessible.");
   if(!/npm run semantic:enforcement/.test(job))
     errors.push("The independent audit-policy guard must run in the offline job.");
