@@ -65,3 +65,7 @@ Opaque ID-like strings in domain-specific `props` or `state` are **not** automat
 ## Verification
 
 `node --test tests/tree-operations.test.mjs tests/tree-preservation.test.mjs` tests offline behavior and preservation invariants, invalid operations, slots, cycles and rollback. `tsx --test tests/tree-operations.integration.test.ts` covers the real stable Zod catalog. Run `npm run test:offline`, `npm run validate` and `npm run build` in a fully provisioned environment.
+
+### E08 regression suite (partial edits, conflicts and rollback)
+
+Run `node --test tests/tree-edit-regression.test.mjs` without dependencies, or `tsx --test tests/tree-edit-regression.integration.test.ts` with project dependencies. Both are included in the existing `npm run test:offline` / `npm run test` globs, respectively. The offline suite exercises stable IDs, independent regions, event handlers, form state, slots, conflict rejection, non-leaking errors, stale previews and replay failures. Integration exercises the real stable Zod catalog and login layout contracts, checking that an invalid later edit rolls back earlier edits atomically. These are structural/contract regression tests; they do **not** replace the manual full browser E2E suite or demonstrate live interaction, visual fidelity, remote persistence, or new Pi authorization.
