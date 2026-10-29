@@ -2,35 +2,34 @@
 
 # Visual Comparison with Official shadcn/ui Examples
 
-The lightweight manual [Official Visual Audit](../.github/workflows/official-visual-manual.yml) workflow captures rendered examples from the shadcn/ui documentation and the mapped local previews in the Primitive Explorer.
+The independent manual [Official Visual Audit](../.github/workflows/official-visual-manual.yml) workflow captures the rendered official shadcn/ui examples and the corresponding local Primitive Explorer previews. It never reinstalls source code. The older [bootstrap workflow](../.github/workflows/bootstrap-visual.yml) remains available separately.
 
-The older [Bootstrap and Visual Audit](../.github/workflows/bootstrap-visual.yml) remains available when reinstalling primitives is explicitly necessary; the new audit workflow never reinstalls components or rewrites source files.
+## Priority coverage
 
-## Scope and sources
+The installation plan `shadcn-plan.json` declares **50 primitives**. The curated inventory `scripts/official-component-examples.json` now includes **all 50 official examples**, with **41 mapped Pi contracts** and **9 official-only references**. There are **0 unselected primitives**. The floor of 50 is enforced by `shadcn:official:inventory:check` and regression tests; new components must be added to the audit or explicitly recorded for pending review without lowering this floor.
 
-- The `shadcn-plan.json` **installation plan** contains 50 planned/local primitives.
-- The `scripts/official-component-examples.json` **curated inventory** defines **38 selected official examples** (29 mapped Pi contracts and 9 official-only examples). The other **12 installed primitives are explicitly tagged as pending visual review**, not as visually approved. These counts serve different purposes.
-- All 50 planned primitives must be reconciled against either selected examples or explicit exclusions with review reasons. The floor of 38 selected examples cannot be silently reduced; future audited examples can be moved from the pending list into the selected set.
-- Currently pending: `aspect-ratio`, `kbd`, `empty`, `scroll-area`, `alert-dialog`, `attachment`, `bubble`, `context-menu`, `hover-card`, `item`, `marker`, `message`.
-- Not all primitives have an isolated Pi contract. The inventory records which examples have a local counterpart; **do not invent counterparts** for components without contracts.
+The 12 previously missing priority examples are `aspect-ratio`, `kbd`, `empty`, `scroll-area`, `alert-dialog`, `attachment`, `bubble`, `context-menu`, `hover-card`, `item`, `marker`, and `message`. Each has an existing Pi contract and sample; **no API, Zod schema, admission state or Pi permission was changed** to extend the audit.
 
-Former **Galleries 1 and 2** were removed from the product; reports and methods related to the old 64 shadcn/create cards are **historical**, not current operational criteria. ReUI is a separate library of React examples.
+Former Galleries 1 and 2 were removed; historical 64-card comparisons are not a current quality gate. ReUI remains a separate React composition library.
 
-## Manual execution
+## Execute and inspect
 
-With actual dependencies and a browser installed:
+With dependencies, Chromium and the official documentation site reachable:
 
 ~~~bash
 npm run shadcn:official:inventory:check
+npm run test:offline
 npm run shadcn:official:capture
 python3 -m pip install Pillow==11.3.0
 npm run shadcn:official:compare -- --strict
 ~~~
 
-Playwright captures the official reference and corresponding local preview, when available, on desktop/mobile. Inspection artifacts are published in `reports/official-components/`, including `index.html` and `comparison.json`.
+Alternatively, run **Actions → Official shadcn visual audit (manual)** on `main`. For each example, Playwright attempts a real screenshot of the official source and — when a Pi contract exists — a local preview at **desktop and mobile** viewport sizes. The expected matrix is **100 cases: 82 compared source/local cases and 18 official-only cases**. Reports in `reports/official-components/comparison.json`, `index.html`, the screenshots and provenance are uploaded together, including failures.
 
-## How to interpret results
+A passing inventory check only proves that the 50 examples have been selected and reconciled. A passing strict comparison proves that actual screenshots and traceable source provenance were collected, **not** that the implementations look equivalent. The local and upstream demos often use different content, themes and states. The diagnostic difference percentage must never act as a pass threshold or visual certificate. The `visualApproval` field remains `pending` until the real capture comparison report is complete, then signals **human review required**, not approval.
 
-Captures with different sizes, fonts, content, and states produce numerical differences that are **diagnostic only**. Coverage checks fail for a missing reference, capture, invalid origin, invalid Pi mapping, duplicate, or an unaccounted-for primitive. **Passing does not prove pixel-for-pixel fidelity or certify excluded primitives.** Visual approval requires equivalent fixtures and documented human review.
+## Manual visual review still required
+
+Inspect desktop/mobile side by side and document deviations in spacing, typography, hierarchy, responsive behavior, clipping and interactive overlay states (especially AlertDialog, ContextMenu and HoverCard). The initial-state captures alone do not certify these interaction states or accessibility. A reviewer's explicit decision is still required for fidelity claims; selecting an example is **not** an approval.
 
 See [development](development.md), [components](components.md), and [composition review](revisao-visual-shadcn.md).
