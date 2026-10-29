@@ -28,4 +28,5 @@ export declare function applyTreePatch(spec: unknown, patch: unknown, policy: {
   allowedTypes: string[];
   allowedActions: string[];
   allowedEvents: Record<string, { events?: string[]; slots?: string[] }>;
+  validateLayout?(spec: unknown): { success: boolean };
 }): TreePatchResult;
