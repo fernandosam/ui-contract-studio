@@ -73,3 +73,45 @@ test("T30 workflow is discoverable in both documentation indexes", () => {
   assert.match(readFileSync("docs/README.pt-BR.md", "utf8"), /semantic-enrichment-workflow\.pt-BR\.md/);
   assert.match(readFileSync("docs/README.md", "utf8"), /semantic-enrichment-workflow\.md/);
 });
+
+test("current semantic review guide reflects main analyzers, outputs and authority boundaries", () => {
+  const analyzer = readFileSync("scripts/analyze-semantic-knowledge.mjs", "utf8");
+  const semanticLib = readFileSync("scripts/lib/semantic-knowledge.mjs", "utf8");
+  const docs = [pt, en];
+  for (const guide of docs) {
+    for (const field of ["enrichmentPriorities", "semanticCoverage", "semanticFreshness", "semanticConformance", "semanticTestAutomation"]) {
+      assert.ok(guide.includes(field), "missing current semantic analyzer topic: " + field);
+      assert.ok(semanticLib.includes(field), "semantic analyzer no longer exposes: " + field);
+    }
+    for (const artifact of ["semantic-knowledge.json", "semantic-capability-gaps.json", "semantic-composition-proposals.json"]) {
+      assert.ok(guide.includes(artifact), "undocumented CLI artifact: " + artifact);
+      assert.ok(analyzer.includes(artifact), "documented artifact not written by CLI: " + artifact);
+    }
+    assert.doesNotMatch(guide, /Once T25 is merged|Quando a T25 estiver integrada|not yet on `main`|ainda não na `main`/i);
+    assert.ok(guide.includes("2026-10-29") || guide.includes("29/10/2026"));
+    assert.ok(guide.includes("signalConfirm(emit)"));
+  }
+  assert.match(readFileSync("docs/README.md", "utf8"), /semantic-catalog-discovery\.md/);
+  assert.match(readFileSync("docs/README.pt-BR.md", "utf8"), /semantic-catalog-discovery\.pt-BR\.md/);
+});
+
+test("AlertDialog semantic review ties local confirm signal to its click handler without promoting candidates", () => {
+  const overlay = JSON.parse(readFileSync("src/ui-catalog/knowledge/alert-dialog.json", "utf8"));
+  const handler = readFileSync("src/ui-catalog/extensions/components/alert-dialog.tsx", "utf8");
+  const confirm = overlay.capabilities.find(capability => capability.id === "confirm-signal");
+  assert.equal(confirm.state, "implemented-static-evidence");
+  assert.deepEqual(confirm.contractBindings, [{kind: "event", name: "confirm"}]);
+  for (const needle of ['emit?.("confirm")', "signalConfirm(emit);"]) {
+    assert.ok(confirm.evidence.some(source => source.contains === needle));
+    assert.ok(handler.includes(needle), "handler no longer contains evidence: " + needle);
+  }
+  for (const name of ["typed-confirmation", "checkbox-gating"]) {
+    const capability = overlay.capabilities.find(cap => cap.id === name);
+    assert.equal(capability.state, "documented-not-implemented");
+    assert.deepEqual(capability.evidence, []);
+  }
+  for (const name of ["focus-and-keyboard", "mobile-dialog"]) {
+    assert.equal(overlay.capabilities.find(cap => cap.id === name).state, "runtime-review-required");
+  }
+  assert.equal(overlay.source.reviewedOn, "2026-10-26", "vendor review date must not change to mask freshness");
+});
