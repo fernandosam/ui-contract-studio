@@ -140,12 +140,11 @@ test("seven next-priority families register only reviewed, non-candidate recipes
 
 test("AlertDialog observes the existing confirm signal only with explicit DEV opt-in",()=>{
  const source=readFileSync("src/ui-catalog/extensions/components/alert-dialog.tsx","utf8");
- assert.match(source,/import\\.meta\\.env\\.DEV/);
- assert.match(source,/semanticProbe/);
- assert.match(source,/__uiContractSemanticEvents/);
- assert.match(source,/return emit\\?\\.\\("confirm"\\)/);
- assert.match(source,/setOpen\\(false\\);signalConfirm\\(emit\\)/);
- assert.doesNotMatch(source,/window\\.fetch\\(|XMLHttpRequest\\(|localStorage\\.setItem\\(/);
+ for(const fragment of ["import.meta.env.DEV","semanticProbe","__uiContractSemanticEvents",
+   'return emit?.("confirm")',"setOpen(false);signalConfirm(emit)"])
+   assert.ok(source.includes(fragment),"missing opt-in confirm observation: "+fragment);
+ for(const forbidden of ["window.fetch(","XMLHttpRequest(","localStorage.setItem("])
+   assert.ok(!source.includes(forbidden),"unexpected observer side effect: "+forbidden);
 });
 
 test("semantic event observer is opt-in DEV-only and does not extend Pi",()=>{
