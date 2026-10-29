@@ -3,7 +3,7 @@ export function graphErrors(spec, allowedTypes, { maxElements=300, maxDepth=30, 
   const errors=[]; const known=new Set(allowedTypes); const actions=new Set(allowedActions);
   const safeStatePath=value=>typeof value==="string"&&value.length>0&&value.length<=200&&
     !Array.from(value).some(char=>char.charCodeAt(0)<32)&&
-    !value.split(/[.\[\]"\']/)
+    !value.replaceAll("[",".").replaceAll("]",".").replaceAll('"',".").replaceAll("'",".").split(".")
       .some(segment=>["__proto__","prototype","constructor"].includes(segment));
   if(!spec||typeof spec!=="object"||Array.isArray(spec)) return ["Spec deve ser um objeto."];
   for(const key of Object.keys(spec)) if(!["root","elements","state"].includes(key)) errors.push(`Campo global não autorizado: ${key}.`);
