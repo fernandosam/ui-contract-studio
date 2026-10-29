@@ -10,6 +10,7 @@ type Identity={userId:string;tenantId:string};
 const ticketFormat=/^[A-Za-z0-9_-]{40,128}$/;
 const safeId=/^[a-z][a-z0-9-]{2,60}$/;
 const safeField=/^[a-z][a-zA-Z0-9]{0,60}$/;
+const unsafeFieldNames=new Set(["__proto__","prototype","constructor"]);
 function identityKey(identity:Identity){
  if(!identity||typeof identity.userId!=="string"||!identity.userId.trim()||
    typeof identity.tenantId!=="string"||!identity.tenantId.trim()||
@@ -25,7 +26,7 @@ function requestKey(payload:SubmissionPayload){
   throw Error("Parâmetros de confirmação inválidos");
  const entries=Object.entries(payload.values);
  if(!entries.length||entries.length>30||entries.some(([key,value])=>
-   !safeField.test(key)||typeof value!=="string"||value.length>2000))
+   (!safeField.test(key)||unsafeFieldNames.has(key))||typeof value!=="string"||value.length>2000))
   throw Error("Parâmetros de confirmação inválidos");
  // Canonical content: JSON property insertion order does not affect the ticket.
  return JSON.stringify([payload.serviceId,payload.idempotencyKey,

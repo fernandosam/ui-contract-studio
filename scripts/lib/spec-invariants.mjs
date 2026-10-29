@@ -3,7 +3,8 @@ export function graphErrors(spec, allowedTypes, { maxElements=300, maxDepth=30, 
   const errors=[]; const known=new Set(allowedTypes); const actions=new Set(allowedActions);
   const unsafeStatePath=path=>{
     const segments=typeof path==="string"
-      ? path.replaceAll("[",".").replaceAll("]","").replaceAll("/",".").split(".") : [];
+      ? path.replaceAll("[",".").replaceAll("]","").replaceAll("/",".")
+        .replaceAll('"',".").replaceAll("'",".").split(".") : [];
     return typeof path!=="string" || !path || path.length>200 ||
       Array.from(path).some(char=>char.charCodeAt(0)<32||char.charCodeAt(0)===127) ||
       ["__proto__","constructor","prototype"].some(segment=>path.includes(segment)) ||

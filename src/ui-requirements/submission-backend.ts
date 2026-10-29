@@ -23,6 +23,7 @@ const invalid=(reason:string)=>new SubmissionFailure("invalid",reason);
 const forbidden=()=>new SubmissionFailure("forbidden","Serviço ou acesso não autorizado");
 const safeId=/^[a-z][a-z0-9-]{2,60}$/;
 const safeField=/^[a-z][a-zA-Z0-9]{0,60}$/;
+const unsafeFieldNames=new Set(["__proto__","prototype","constructor"]);
 export function createSubmissionGateway(services:readonly ApprovedService[],options:{timeoutMs?:number;maxReceipts?:number}={}){
  const timeoutMs=options.timeoutMs??3000,maxReceipts=options.maxReceipts??500;
  if(!Number.isSafeInteger(timeoutMs)||timeoutMs<10||timeoutMs>30000||
@@ -51,7 +52,7 @@ export function createSubmissionGateway(services:readonly ApprovedService[],opti
   const entries=Object.entries(payload.values);
   if(!entries.length||entries.length>30)throw invalid("Dados inválidos");
   for(const [field,value] of entries){
-   if(!safeField.test(field)||typeof value!=="string"||value.length>2000)
+   if(!safeField.test(field)||unsafeFieldNames.has(field)||typeof value!=="string"||value.length>2000)
     throw invalid("Campo inválido");
   }
   const snapshot=Object.fromEntries(entries);
