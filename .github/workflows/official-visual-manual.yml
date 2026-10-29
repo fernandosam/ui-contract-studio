@@ -18,7 +18,7 @@ jobs:
     env:
       CI: 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-deps
       - name: Validate curated references and explicit pending-review set
         run: |
@@ -32,7 +32,7 @@ jobs:
         id: capture
         continue-on-error: true
         run: npm run shadcn:official:capture -- --workers=2 --retries=0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Install isolated image comparator
@@ -49,11 +49,16 @@ jobs:
           import {existsSync, readFileSync, appendFileSync} from 'node:fs';
           const file='reports/official-components/comparison.json';
           const report=existsSync(file)?JSON.parse(readFileSync(file,'utf8')):null;
+          const inventory=JSON.parse(readFileSync('scripts/official-component-examples.json','utf8'));
+          const installed=JSON.parse(readFileSync('shadcn-plan.json','utf8')).groups.reduce((total, group)=>total+group.items.length,0);
+          const selected=inventory.examples.length;
+          const pending=inventory.excludedComponents.length;
+          const paired=inventory.examples.filter(item=>item.localType).length;
           const lines=[
             '### shadcn/ui · auditoria visual independente',
-            '- 50 primitivas instaladas: 38 referências selecionadas e 12 aguardando revisão.',
+            `- ${installed} primitivas no plano: ${selected} referências selecionadas (${paired} com par Pi) e ${pending} pendentes de seleção.`,
             report?`- Casos com screenshot e proveniência: ${report.expectedCases-report.missingCases}/${report.expectedCases}; pares comparados: ${report.comparedCases}/${report.expectedComparableCases}.`:'- Relatório de capturas indisponível.',
-            '- Diferenças visuais são somente diagnósticas. A aprovação exige revisão humana.',
+            '- Diferenças visuais são somente diagnósticas. A aprovação exige revisão humana; falhas ou ausência de capturas não representam cobertura concluída.',
           ];
           appendFileSync(process.env.GITHUB_STEP_SUMMARY,lines.join('\n')+'\n');
           NODE
