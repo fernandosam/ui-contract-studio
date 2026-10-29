@@ -12,7 +12,7 @@ for(const id of required){
 }
 async function preview(page:Page){
  await page.goto("/?screen=explorador-primitivos");
- await page.getByRole("button",{name:"AlertDialog",exact:true}).first().click();
+ await page.getByLabel("Componentes registrados").getByRole("button",{name:/AlertDialog/}).click();
  const container=page.getByTestId("catalog-live-preview");
  await expect(container).toBeVisible();
  const trigger=container.getByRole("button",{name:"Confirmar operação"});
