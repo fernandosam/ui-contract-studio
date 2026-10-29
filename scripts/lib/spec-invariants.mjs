@@ -42,8 +42,11 @@ export function graphErrors(spec, allowedTypes, { maxElements=300, maxDepth=30, 
           // json-render state actions must never target prototype chains or control characters.
           if(["setState","pushState","removeState"].includes(handler?.action)){
             const path=handler?.params?.statePath;
-            if(typeof path!=="string" || !path || /[\\x00-\\x1f\\x7f]/.test(path) ||
-              path.split(/[.\\[\\]\\/]+/).some(segment=>["__proto__","constructor","prototype"].includes(segment)))
+            const segments=typeof path==="string"
+              ? path.replaceAll("[",".").replaceAll("]","").replaceAll("/",".").split(".") : [];
+            if(typeof path!=="string" || !path ||
+              Array.from(path).some(char=>char.charCodeAt(0)<32||char.charCodeAt(0)===127) ||
+              segments.some(segment=>["__proto__","constructor","prototype"].includes(segment)))
               errors.push(`${id}: statePath não autorizado.`);
           }
         }
