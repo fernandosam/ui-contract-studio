@@ -76,13 +76,13 @@ export function DataTable({props,selectionPath,onSelectionChange,onPageChange,on
      if(selectionPath)setBoundIds(Object.keys(next).filter(id=>next[id]));else setLocalSelection(next);
      onSelectionChange?.();
    },
-   getRowId:row=>row.id,getCoreRowModel:getCoreRowModel(),
+   getRowId:row=>row.id,getCoreRowModel:getCoreRowModel<DataRow>(),
    ...(remote?{manualPagination:true,manualSorting:true,manualFiltering:true,
       pageCount:Math.max(1,Math.ceil(result.total/pagination.pageSize))}:
-     {getFilteredRowModel:getFilteredRowModel(),getSortedRowModel:getSortedRowModel(),getPaginationRowModel:getPaginationRowModel()}),
+     {getFilteredRowModel:getFilteredRowModel<DataRow>(),getSortedRowModel:getSortedRowModel<DataRow>(),getPaginationRowModel:getPaginationRowModel<DataRow>()}),
    enableRowSelection:Boolean(selectable),
  });
- const count=remote?result.total:table.getFilteredRowModel().rows.length;
+ const count=remote?result.total:table.getFilteredRowModel<DataRow>().rows.length;
  return <section className="w-full space-y-3" aria-label={caption??'Tabela de dados'}>
   {searchable&&<div className="relative max-w-sm"><Search aria-hidden="true" className="absolute left-3 top-2.5 size-4 text-muted-foreground"/>
     <Input aria-label="Pesquisar linhas" className="pl-9" value={query} placeholder="Pesquisar..." onChange={e=>table.setGlobalFilter(e.target.value)}/></div>}
