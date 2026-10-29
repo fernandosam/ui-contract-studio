@@ -7,7 +7,7 @@ import { spawnSync } from 'node:child_process';
  * --core runs inexpensive catalog/policy checks; full mode runs all current gates.
  */
 const core=[
-  'check-dependency-compat.mjs','check-contract-versions.mjs',
+  'check-dependency-compat.mjs','check-contract-versions.mjs','check-contract-migrations.mjs',
   'build-pi-api.mjs --check','build-pi-fixtures.mjs --check',
   'check-readiness.mjs','check-composite-pruning.mjs','check-screen-discovery.mjs',
   'check-ui-catalog.ts','sync-admission-catalog.mjs --check','admission-engine.mjs --check','check-composition-recommendations.ts','generate-composition-proposals.mjs --check','analyze-semantic-knowledge.mjs --check','analyze-compositions.mjs','generate-composite-registry.mjs --check','generate-composite-node-props.mjs --check',

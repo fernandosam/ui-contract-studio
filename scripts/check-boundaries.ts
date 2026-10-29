@@ -14,13 +14,38 @@ function walk(path: string) {
     if (!/\.[jt]sx?$/.test(rel)) continue;
     const text=readFileSync(full,"utf8");
     const canContainVisuals = allowed.has(rel) || rel.startsWith("ui-catalog/components/") || rel.startsWith("components/ui/") || rel.startsWith("ui-catalog/extensions/components/") || rel.startsWith("ui-catalog/extensions/composites/") || rel.startsWith("ui-catalog/admission-engine/generated/") || rel === "ui-catalog/extensions/registry.tsx";
+    // E09: UI code may render and emit local events; only reviewed adapters access the network.
+    const isUiSurface = rel.startsWith("ui-runtime/") || rel.startsWith("ui-catalog/");
+    const isDataTableAdapter = rel === "ui-catalog/extensions/components/data-table.tsx";
+
     const file = ts.createSourceFile(rel,text,ts.ScriptTarget.Latest,true, /\.[jt]sx$/.test(rel) ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
     function visit(node: ts.Node) {
       const isJsx = ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node) || ts.isJsxFragment(node);
       if (isJsx && !canContainVisuals) errors.push(`${rel}: JSX fora dos componentes aprovados/runtime.`);
       if (ts.isCallExpression(node) && /(?:React\.)?createElement$/.test(node.expression.getText(file)) && !canContainVisuals) errors.push(`${rel}: React.createElement fora da camada aprovada.`);
+      if (isUiSurface && ts.isCallExpression(node)) {
+        const callee=node.expression.getText(file);
+        if (["fetch","window.fetch","globalThis.fetch","eval","window.eval","globalThis.eval",
+          "open","window.open","globalThis.open","navigator.sendBeacon","window.navigator.sendBeacon",
+          "location.assign","location.replace","window.location.assign","window.location.replace"].includes(callee)) {
+          errors.push(`${rel}: Network API forbidden in UI; use an explicitly authorized adapter.`);
+        }
+      }
+      if (isUiSurface && ts.isNewExpression(node) &&
+        ["XMLHttpRequest","WebSocket","EventSource","Function","Worker","SharedWorker"].includes(node.expression.getText(file).split(".").at(-1)??"")) {
+        errors.push(`${rel}: Network API forbidden in UI; use an explicitly authorized adapter.`);
+      }
       if (ts.isImportDeclaration(node)) {
         const source=node.moduleSpecifier.getText(file).replaceAll(/["']/g,"");
+        // Requirements planning and date rules are pure UI utilities, not service adapters.
+        if (isUiSurface && source.includes("ui-requirements/") &&
+          (source.endsWith("/submission-backend") || source.endsWith("/submission-http"))) {
+          errors.push(`${rel}: serviços de submissão são exclusivos do servidor.`);
+        }
+        if (isUiSurface && source.includes("ui-data/") && source.endsWith("/providers") &&
+          !isDataTableAdapter) {
+          errors.push(`${rel}: fontes de dados devem passar pelo DataTable e pelo adaptador autorizado.`);
+        }
         if (!canContainVisuals && source === "react/jsx-runtime") errors.push(`${rel}: runtime JSX manual fora da biblioteca.`);
         if ((rel.startsWith("ui-runtime/") || rel === "main.tsx") && /ui-catalog\/components/.test(source)) errors.push(`${rel}: import de componentes fora do registry.`);
         if (/^(?:@\/components\/ui(?:\/|$)|\.\.\/components\/ui\/)/.test(source)) {

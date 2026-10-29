@@ -2,35 +2,34 @@
 
 # Comparação visual com exemplos oficiais shadcn/ui
 
-O novo workflow manual [Auditoria visual oficial](../.github/workflows/official-visual-manual.yml) é dedicado à auditoria visual (sem duplicar os testes funcionais E2E de [E2E manual](../.github/workflows/e2e-manual.yml)) e captura exemplos renderizados da documentação shadcn/ui e as prévias locais mapeadas no Explorador de Primitivos.
+O workflow manual independente [Auditoria visual oficial](../.github/workflows/official-visual-manual.yml) captura os exemplos reais da documentação shadcn/ui e as prévias correspondentes no Explorador de Primitivos. Não reinstala código-fonte. O [workflow de bootstrap](../.github/workflows/bootstrap-visual.yml) continua separado.
 
-O workflow de [Bootstrap e auditoria visual](../.github/workflows/bootstrap-visual.yml) permanece para quando houver necessidade explícita de reinstalar primitivas; a auditoria independente não reinstala componentes nem altera arquivos-fonte.
+## Cobertura prioritária
 
-## Escopo e fontes
+O plano `shadcn-plan.json` declara **50 primitivas**. O inventário curado `scripts/official-component-examples.json` passou a selecionar **50 exemplos oficiais**: **41 com contrato Pi local** e **9 somente como referência oficial**. Existem **0 primitivas sem seleção**. O piso de 50 é verificado por `shadcn:official:inventory:check` e por testes de regressão; novos componentes precisam ser incluídos na auditoria ou registrados explicitamente como pendentes, sem redução desse piso.
 
-- O **plano de instalação** `shadcn-plan.json` contém 50 primitivas planejadas/locais.
-- O **inventário de comparação** `scripts/official-component-examples.json` seleciona **38 exemplos oficiais**: 29 com contrato Pi local e 9 apenas como referência oficial. As **12 primitivas restantes** estão explicitamente marcadas como **pendentes de revisão visual**, sem certificação implícita.
-- Todas as 50 primitivas devem estar classificadas como selecionadas ou pendentes com justificativa. O piso de 38 referências não pode ser reduzido silenciosamente.
-- Pendentes: `aspect-ratio`, `kbd`, `empty`, `scroll-area`, `alert-dialog`, `attachment`, `bubble`, `context-menu`, `hover-card`, `item`, `marker`, `message`.
-- Nem todas as primitivas possuem contrato Pi isolado. O inventário registra quais exemplos têm par local; **não invente pares** para os componentes sem contrato.
+As 12 referências prioritárias adicionadas foram `aspect-ratio`, `kbd`, `empty`, `scroll-area`, `alert-dialog`, `attachment`, `bubble`, `context-menu`, `hover-card`, `item`, `marker` e `message`. Todas já têm contrato e exemplo Pi; **nenhuma API, permissão Pi, admissão ou schema Zod foi ampliado**.
 
-As antigas **Galerias 1 e 2** foram removidas do produto; relatórios e métodos relacionados aos antigos 64 cards do shadcn/create são **históricos**, não critérios operacionais atuais. A ReUI é uma biblioteca separada de exemplos React.
+As antigas Galerias 1 e 2 foram removidas e suas 64 comparações são históricas. ReUI continua como biblioteca de composições React independente.
 
-## Execução manual
+## Execução e evidências
 
-Com dependências reais e navegador instalado:
+Com dependências reais, Chromium e acesso à documentação oficial:
 
 ~~~bash
 npm run shadcn:official:inventory:check
+npm run test:offline
 npm run shadcn:official:capture
 python3 -m pip install Pillow==11.3.0
 npm run shadcn:official:compare -- --strict
 ~~~
 
-O Playwright captura a referência oficial e a prévia local correspondente, quando existente, em desktop/mobile. Os artefatos de inspeção são publicados em `reports/official-components/`, incluindo `index.html` e `comparison.json`.
+Alternativamente, executar **Actions → Official shadcn visual audit (manual)** na `main`. O Playwright captura a referência oficial e — quando existe contrato Pi — a prévia local em **desktop e mobile**. A matriz esperada é de **100 casos: 82 pares local/oficial e 18 casos somente oficiais**. Os arquivos `reports/official-components/comparison.json`, `index.html`, screenshots e proveniência são publicados no mesmo artefato, inclusive quando houver falha.
 
-## Critério de interpretação
+O inventário validado comprova somente o mapeamento das 50 referências. O comparador estrito exige capturas reais e rastreabilidade de origem, **não** equivalência visual. Exemplos oficiais e locais podem ter conteúdos, temas e estados diferentes; o percentual de diferença é diagnóstico, jamais limiar de aprovação. O campo `visualApproval` permanece `pending` enquanto o relatório real não estiver completo; depois sinaliza **revisão humana necessária**, nunca certificação automática.
 
-Capturas com tamanhos, fontes, conteúdos e estados diferentes geram diferenças numéricas **apenas diagnósticas**. A verificação de cobertura falha por referência ou captura ausente, origem inválida, mapeamento Pi incorreto, duplicidade ou primitiva sem classificação. **Não comprova fidelidade pixel a pixel e não certifica as 12 primitivas pendentes.** A aprovação visual exige fixtures equivalentes e revisão humana registrada.
+## Revisão manual ainda necessária
+
+Confrontar desktop/mobile e registrar divergências de espaçamento, tipografia, hierarquia, comportamento responsivo, recorte e estados de sobreposição (especialmente AlertDialog, ContextMenu e HoverCard). Capturas no estado inicial, isoladamente, não certificam interações nem acessibilidade. Aprovação de fidelidade exige decisão explícita de um revisor.
 
 Consulte [desenvolvimento](development.pt-BR.md), [componentes](components.pt-BR.md) e [revisão de composições](revisao-visual-shadcn.pt-BR.md).

@@ -9,3 +9,5 @@ To report a vulnerability, use GitHub's private **Security Advisories → Report
 Useful details to include: version/commit, impact, minimal reproduction steps, and proposed mitigation. Never share valid secrets or real user data.
 
 This project is a UI demonstration environment and **must not be treated as an authentication, authorization, or payment backend**. Security of external integrations must be assessed separately.
+
+For dependency advisory gates, committed secret checks, log minimization, and retention limits, see the [E09 security audit](docs/e09-security-audit.md). Do not attach raw Pi prompts/specs, actual user records, or provider errors to public GitHub Actions artifacts.
