@@ -14,7 +14,8 @@ const registered=audit.entries.filter(item=>item.status==="registered");
 
 async function preview(page:Page,component:string) {
   await page.goto("/?screen=explorador-primitivos&semanticProbe=1");
-  await page.getByRole("button",{name:component,exact:true}).first().click();
+  // Select the catalog item, not the similarly named semantic-composition shortcut.
+  await page.getByLabel("Componentes registrados").getByRole("button",{name:component,exact:true}).click();
   const container=page.getByTestId("catalog-live-preview");
   await expect(container).toBeVisible();
   return container;
