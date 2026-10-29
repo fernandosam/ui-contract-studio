@@ -86,6 +86,7 @@ export function TreePatchWorkbench({ spec, selectedId }: { spec: unknown; select
         value={draft} onChange={event => { setDraft(event.target.value); setPreview(null); setMessage(""); }}
         className="w-full min-w-0 rounded-md border border-input bg-background p-3 font-mono text-xs focus-visible:outline-2 focus-visible:outline-ring" />
       <div className="flex flex-wrap gap-2">
+        <button type="button" onClick={() => { setDraft(suggestedPatch(view.spec, selectedId)); setPreview(null); setMessage(""); }} className="rounded-md border px-3 py-2 text-xs hover:bg-muted">Sugerir patch para nó selecionado</button>
         <button type="button" onClick={showPreview} className="rounded-md border bg-background px-3 py-2 text-xs font-medium hover:bg-muted">Pré-visualizar diferenças</button>
         <button type="button" onClick={() => navigate("commit")} disabled={!preview?.ok}
           className="rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">Aplicar prévia</button>
