@@ -53,7 +53,7 @@ test("fontes indicadas e modo escuro padrão",()=>{
  assert.match(css,/--font-mono: "JetBrains Mono Variable"/);
  assert.match(css,/--font-serif: "Playfair Display Variable"/);
  assert.match(read("index.html"),/class="dark-theme"/);
- assert.match(read("src/ui-theme/preview-theme.tsx"),/localStorage\.setItem\("ui-contract-studio-theme"/);
+ assert.match(read("src/ui-runtime/preview-theme.tsx"),/localStorage\.setItem\("ui-contract-studio-theme"/);
  assert.match(layout,/SidebarProvider/);
  assert.match(css,/--color-sidebar: var\(--sidebar\)/);
  assert.doesNotMatch(localCss,/\.sidebar\s*\{/);
