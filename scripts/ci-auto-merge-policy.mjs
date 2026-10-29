@@ -14,6 +14,7 @@ const sensitive=[
   /^\.github\//,
   /^(?:package(?:-lock)?\.json|pnpm-lock\.yaml|yarn\.lock)$/,
   /^scripts\/(?:ci-|check-contract-|verify-semantic-audit-policy|run-checks|build-pi-api|admission-engine|admission-evidence|sync-admission-catalog|lib\/admission-)/,
+  /^scripts\/lib\/contract-(?:lock|compatibility)\.mjs$/,
   /^src\/ui-catalog\/admission-engine\//,
   /^src\/ui-catalog\/(?:contracts\.lock\.json|catalog\.ts|registry\.tsx)$/,
   /^src\/ui-catalog\/extensions\/catalog\.ts$/,
