@@ -73,6 +73,9 @@ jobs:
       - name: Generate E05 candidate-only composition interfaces
         if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
         run: npm run patterns:reuse:proposals:report
+      - name: Verify E05 occurrence traceability and declarative regression fingerprints
+        if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
+        run: npm run patterns:reuse:verify:report
       - name: Summarize semantic diagnostics
         if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
         run: node scripts/semantic-ci-summary.mjs
@@ -86,6 +89,7 @@ jobs:
             reports/layout-reuse/evidence.json
             reports/layout-reuse/comparison.json
             reports/layout-reuse/proposals.json
+            reports/layout-reuse/traceability.json
             reports/composition-analysis/semantic-check.log
             reports/composition-analysis/semantic-report.log
           if-no-files-found: error
