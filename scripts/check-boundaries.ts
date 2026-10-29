@@ -25,21 +25,22 @@ function walk(path: string) {
       if (ts.isCallExpression(node) && /(?:React\.)?createElement$/.test(node.expression.getText(file)) && !canContainVisuals) errors.push(`${rel}: React.createElement fora da camada aprovada.`);
       if (isUiSurface && ts.isCallExpression(node)) {
         const callee=node.expression.getText(file);
-        if (/^(?:(?:window|globalThis)\\.)?(?:fetch|eval|open)$/.test(callee) ||
-          /^(?:(?:window|globalThis)\\.)?(?:navigator\\.sendBeacon|location\\.(?:assign|replace))$/.test(callee)) {
+        if (["fetch","window.fetch","globalThis.fetch","eval","window.eval","globalThis.eval",
+          "open","window.open","globalThis.open","navigator.sendBeacon","window.navigator.sendBeacon",
+          "location.assign","location.replace","window.location.assign","window.location.replace"].includes(callee)) {
           errors.push(`${rel}: Network API forbidden in UI; use an explicitly authorized adapter.`);
         }
       }
       if (isUiSurface && ts.isNewExpression(node) &&
-        /^(?:(?:window|globalThis)\\.)?(?:XMLHttpRequest|WebSocket|EventSource|Function|Worker|SharedWorker)$/.test(node.expression.getText(file))) {
+        ["XMLHttpRequest","WebSocket","EventSource","Function","Worker","SharedWorker"].includes(node.expression.getText(file).split(".").at(-1)??"")) {
         errors.push(`${rel}: Network API forbidden in UI; use an explicitly authorized adapter.`);
       }
       if (ts.isImportDeclaration(node)) {
         const source=node.moduleSpecifier.getText(file).replaceAll(/["']/g,"");
-        if (isUiSurface && /(?:^|\\/)ui-requirements\\//.test(source)) {
+        if (isUiSurface && source.includes("ui-requirements/")) {
           errors.push(`${rel}: serviços de submissão são exclusivos do servidor.`);
         }
-        if (isUiSurface && /(?:^|\\/)ui-data\\//.test(source) &&
+        if (isUiSurface && source.includes("ui-data/") &&
           !source.endsWith("/data-access-context") &&
           !(isDataTableAdapter && source.endsWith("/providers"))) {
           errors.push(`${rel}: fontes de dados devem passar pelo DataTable e pelo adaptador autorizado.`);
