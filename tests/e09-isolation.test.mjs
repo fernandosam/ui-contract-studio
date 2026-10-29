@@ -38,7 +38,7 @@ test("JSON actions cannot call remote services or manipulate prototype paths", (
     attack.elements.root.on.press.action = action;
     assert.match(graphErrors(attack, ["Button"], { allowedActions: actions, allowedEvents: events }).join(" "), /não permitida/);
   }
-  for (const path of ["__proto__.admin", "user.constructor.prototype", "items[__proto__]", "safe\nunsafe"]) {
+  for (const path of ["__proto__.admin", "user.constructor.prototype", "items[__proto__]", "state[\'__proto__\']", "safe\nunsafe"]) {
     const attack = structuredClone(valid);
     attack.elements.root.on.press = { action: "setState", params: { statePath: path, value: true } };
     assert.match(graphErrors(attack, ["Button"], { allowedActions: actions, allowedEvents: events }).join(" "), /statePath não autorizado/);
