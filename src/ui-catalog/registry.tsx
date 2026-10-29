@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any -- Every public prop is restricted by the Zod catalog and validated specs. */
 import { defineRegistry } from "@json-render/react";
 import { toast } from "sonner";
 import { catalog, experimentalCatalog, certifiedExperimentalNames } from "./catalog";
 import { experimentalImplementations } from "./admission-engine/generated/implementations";
 import { playgroundImplementations } from "./components/playground";
 import { extensionImplementations } from "./extensions/registry";
+import { parseLocalFeedbackAction } from "./local-action-boundary";
 
 /** Exactly one implementation per approved catalog component. */
 export const componentImplementations = {
@@ -21,9 +21,18 @@ export const actionImplementations = {
   setState: async () => {},
   pushState: async () => {},
   removeState: async () => {},
-  buttonClick: async (params: any) => {toast.success(params.message??"Ação demonstrativa executada.");},
-  formSubmit: async (params: any) => {toast.info(`${params.formName??"Formulário"}: persistência desabilitada neste exemplo.`);},
-  linkClick: async (params: any) => {toast.info(`Navegação demonstrativa: ${params.href}`);},
+  buttonClick: async (params: unknown) => {
+    const data=parseLocalFeedbackAction("buttonClick",params);
+    if(data)toast.success(data.message??"Ação demonstrativa executada.");
+  },
+  formSubmit: async (params: unknown) => {
+    const data=parseLocalFeedbackAction("formSubmit",params);
+    if(data)toast.info(`${data.formName??"Formulário"}: persistência desabilitada neste exemplo.`);
+  },
+  linkClick: async (params: unknown) => {
+    const data=parseLocalFeedbackAction("linkClick",params);
+    if(data)toast.info(`Navegação demonstrativa: ${data.href}`);
+  },
 };
 
 export const { registry } = defineRegistry(catalog, { components: componentImplementations, actions: actionImplementations });

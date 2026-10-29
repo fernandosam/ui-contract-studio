@@ -27,7 +27,8 @@ Pi can generate **JSON specs only**, using types and properties published in the
 ## Action and data boundaries
 
 - `content` and `nodeProps` accept only published fields; they must not modify `type`, `children`, `name`, `on`, `href`, `src`, `sourceId`, or actions.
-- Demo data and events remain local. A DataTable `sourceId` may only reference authorized sources; real servers must enforce authentication, authorization, and access filters.
+- Demo data and events remain local.
+- The `processos-api` source requires an explicit host capability in `SpecScreen`; JSON selection never enables network access. See [E09 isolation](pi-isolation.md). A DataTable `sourceId` may only reference authorized sources; real servers must enforce authentication, authorization, and access filters.
 - New types require [admission](components.md) and independent human approval. Pi cannot grant itself additional catalog permissions.
 
 ## Live evaluations

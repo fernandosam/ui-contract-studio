@@ -27,7 +27,8 @@ O Pi pode gerar **apenas specs JSON** com tipos e propriedades publicados no cat
 ## Limites de ações e dados
 
 - `content` e `nodeProps` aceitam somente campos publicados; não modificam `type`, `children`, `name`, `on`, `href`, `src`, `sourceId` ou ações.
-- Dados e eventos demonstrativos permanecem locais. Um `sourceId` de DataTable só pode referir fontes autorizadas; servidores reais devem realizar autenticação, autorização e filtros de acesso.
+- Dados e eventos demonstrativos permanecem locais.
+- A fonte `processos-api` exige permissão explícita do hospedeiro na `SpecScreen`; a seleção pelo JSON não habilita acesso à rede. Consulte [isolamento E09](pi-isolation.pt-BR.md). Um `sourceId` de DataTable só pode referir fontes autorizadas; servidores reais devem realizar autenticação, autorização e filtros de acesso.
 - Novos tipos exigem [admissão](components.pt-BR.md) e aprovação humana independente. O Pi não atualiza sozinho permissões do catálogo.
 
 ## Avaliações reais
