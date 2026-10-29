@@ -33,3 +33,9 @@ Leaving stability: stable or revoking status: approved requires MAJOR because it
 4. Record compatibility impact, reasoning, migration and tests in the PR; retain normal independent contract/security review. No extra approval layer or protected-main bypass is added.
 
 SemVer classification is separate from E2E certification, visual audits and new action permissions.
+
+### Granular contract-change evidence
+
+The same `npm run contracts:diff` check now emits `reports/contract-diff/changes.json` for PRs. It compares source definitions at the PR base and head and records **added/removed/modified** changes, with source paths, under `property`, `state`, `event`, `structure` (including slots) and `metadata` (descriptions, channel). Nested literal Zod object shapes use paths such as `props.steps[].status`. The offline tests cover nested states, event and slot member changes, required/optional properties, structural wrappers and opaque expressions.
+
+The JSON includes the base commit, validity, per-category counts, per-component SemVer classification, diagnostics and abbreviated old/new token signatures. It is retained as a CI artifact even when the SemVer gate rejects a change. This is **source-level evidence**, not an execution trace: schemas referenced indirectly from other files, runtime behavior and unsupported/dynamic Zod expressions cannot be proven compatible here. They remain opaque or require independent review. No new approval workflow, API permission or automatic schema promotion is introduced.
