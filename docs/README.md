@@ -20,6 +20,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Semantic contract conformance audit (T31)](semantic-contract-conformance-t31.md) | Zod/Pi bindings, gap decisions and mandatory audit for knowledge edits |
 | [Layout quality evaluation](layout-quality.md) | Advisory hierarchy, grouping, density and responsive layout scores |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
+| [Structured JSON tree operations (E08)](structured-tree-operations.md) | Atomic add/remove/move/update protocol; Zod/graph validation and rollback |
 | [Development](development.md) | Environment, tests, CI, and E2E |
 | [Governance](governance.md) | Review and ongoing audits of the public repository |
 
