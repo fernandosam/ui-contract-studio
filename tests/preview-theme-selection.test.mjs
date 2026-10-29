@@ -59,7 +59,7 @@ test("E06 preview: all intended host surfaces share selection without changing J
     "src/ui-runtime/tree-patch-workbench.tsx",
   ]) assert.match(read(path), /<PreviewThemeSelector\b/, path);
   assert.match(read("src/ui-runtime/layout.tsx"), /<PreviewThemeProvider>/);
-  const ui = read("src/ui-theme/preview-theme.tsx");
+  const ui = read("src/ui-runtime/preview-theme.tsx");
   assert.match(ui, /classList\.add\(selection\.className\)/);
   assert.match(ui, /localStorage\.setItem\(PREVIEW_THEME_STORAGE_KEY/);
   assert.doesNotMatch(ui, /setProperty|innerHTML|cssText|style=|eval\(/);
