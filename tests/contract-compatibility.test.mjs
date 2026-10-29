@@ -57,6 +57,10 @@ test('stable withdrawal is MAJOR and stable publication is MINOR',()=>{
  assert.equal(classifyContractChanges({components:[prior]},{components:[component('1.3.0')]},
  new Map([['Button',old]]),new Map([['Button',old]])).errors.length,0);
 });
+test('dynamic descriptions are not classified as documentation-only',()=>{
+ const dynamic=old.replace('description:"Botão antigo"','description:`${label}`');
+ assert.equal(classifySegmentChange(old,dynamic).level,'major');
+});
 test('deletions, tier changes, duplicate names and invalid stable status fail closed',()=>{
  assert.match(classifyContractChanges({components:[component()]},{components:[]},new Map(),new Map()).errors.join(' '),/remoção exige/);
  assert.match(compare(old,'1.2.3',{tier:'extension'}).errors.join(' '),/migração de tier proibida/);
