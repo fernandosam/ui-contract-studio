@@ -1,6 +1,6 @@
 import {useRef,useState} from "react";
 import {SpecScreen} from "./spec-screen";
-import {PreviewThemeSelector} from "../ui-theme/preview-theme";
+import {PreviewThemeSelector} from "./preview-theme";
 import {tracePattern} from "../ui-requirements/traceability";
 import {improveLayoutQuality} from "../ui-requirements/layout-repair";
 import {LayoutQualityPanel} from "./layout-quality-panel";
