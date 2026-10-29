@@ -21,7 +21,7 @@ export type TreeEditSession = Readonly<{
   undo(): TreeEditNavigation;
   redo(): TreeEditNavigation;
 }>;
-export declare function diffTreeSpecs(before: any, after: any, changes?: TreeChange[]): TreeDiff;
+export declare function diffTreeSpecs(before: unknown, after: unknown, changes?: TreeChange[]): TreeDiff;
 export declare function createTreeEditSession(
   original: unknown,
   applyPatch: (spec: unknown, patch: unknown) => TreePatchResult,
