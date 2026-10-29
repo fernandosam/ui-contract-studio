@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowDown, ArrowUp, ArrowUpDown, Search } from 'lucide-react';
+import { flexRender, type RowSelectionState, type SortingState, type PaginationState } from '@tanstack/react-table';
 import {
- flexRender,getCoreRowModel,getFilteredRowModel,getPaginationRowModel,getSortedRowModel,useReactTable,
- type ColumnDef,type RowSelectionState,type SortingState,type PaginationState,
-} from '@tanstack/react-table';
+ getCoreRowModel,getFilteredRowModel,getPaginationRowModel,getSortedRowModel,useLegacyTable,
+ type LegacyColumnDef,
+} from '@tanstack/react-table/legacy';
 import { useBoundProp } from '@json-render/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -47,22 +48,22 @@ export function DataTable({props,selectionPath,onSelectionChange,onPageChange,on
     .finally(()=>{if(!controller.signal.aborted)setPending(false);});
    return ()=>controller.abort();
  },[sourceId,pagination.pageIndex,pagination.pageSize,debouncedQuery,firstSort?.id,firstSort?.desc]);
- const cols=useMemo<ColumnDef<DataRow>[]>(()=>[
+ const cols=useMemo<LegacyColumnDef<DataRow>[]>(()=>[
    ...(selectable ? [{id:'selection',header:({table})=><input type="checkbox" aria-label="Selecionar todas as linhas desta página"
      checked={table.getIsAllPageRowsSelected()} onChange={e=>table.toggleAllPageRowsSelected(e.target.checked)}/>,
      cell:({row})=><input type="checkbox" aria-label={`Selecionar ${row.original.id}`}
-     checked={row.getIsSelected()} onChange={e=>row.toggleSelected(e.target.checked)}/>,enableSorting:false} satisfies ColumnDef<DataRow>] : []),
-   ...config.map((column):ColumnDef<DataRow>=>({id:column.key,accessorFn:row=>row.values[column.key]??'',
+     checked={row.getIsSelected()} onChange={e=>row.toggleSelected(e.target.checked)}/>,enableSorting:false} satisfies LegacyColumnDef<DataRow>] : []),
+   ...config.map((column):LegacyColumnDef<DataRow>=>({id:column.key,accessorFn:row=>row.values[column.key]??'',
      header:({column:col})=>column.sortable?<Button variant="ghost" size="sm"
        onClick={()=>col.toggleSorting(col.getIsSorted()==='asc')} aria-label={`Ordenar por ${column.label}`}>
        {column.label}{col.getIsSorted()==='asc'?<ArrowUp className="size-4"/>:col.getIsSorted()==='desc'?<ArrowDown className="size-4"/>:<ArrowUpDown className="size-4 opacity-50"/>}
        </Button>:column.label,
      enableSorting:column.sortable,
-     sortingFn:column.type==='number'?'alphanumeric':'auto',
+     sortFn:column.type==='number'?'alphanumeric':'auto',
      cell:({getValue})=><span className={column.type==='number'?'tabular-nums':''}>{String(getValue()??'')}</span>,
    })),
  ],[config,selectable]);
- const table=useReactTable({data:remote?result.rows:rows,columns:cols,
+ const table=useLegacyTable({data:remote?result.rows:rows,columns:cols,
    state:{sorting,globalFilter:query,rowSelection:selection,pagination},
    onSortingChange:updater=>{setSorting(updater);setPagination(p=>({...p,pageIndex:0}));onSortChange?.();},
    onGlobalFilterChange:updater=>{setQuery(updater);setPagination(p=>({...p,pageIndex:0}));},
