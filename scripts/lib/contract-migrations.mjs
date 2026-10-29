@@ -57,7 +57,7 @@ function validateOperations(operations,label){
     if(op.op==='set-default-prop'){
       // JSON-safe only, no undefined, functions, NaN, or prototype-sensitive objects.
       let encoded;
-      try{encoded=JSON.stringify(op.value);}catch{}
+      try{encoded=JSON.stringify(op.value);}catch{encoded=undefined;}
       if(encoded===undefined || encoded.length>8192 || JSON.parse(encoded)===undefined)
         fail(label+': invalid default value');
       if(!record(op.value) && !Array.isArray(op.value) &&
@@ -114,6 +114,7 @@ function transform(node,step,nodeId,applied){
   for(const op of step.operations){
     const field=op.op==='rename-event'?'on':'props';
     const container=node[field];
+    if(op.op==='rename-event' && container===undefined)continue;
     if(!record(container))fail(nodeId+': expected '+field+' object');
     if(op.op==='set-default-prop'){
       if(!own(container,op.key)){
