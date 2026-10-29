@@ -17,7 +17,7 @@ function suggestedPatch(spec: unknown, selectedId?: string): string {
       ["text", "title", "label", "description", "placeholder"].includes(key) && typeof value === "string");
     if (entry) {
       return JSON.stringify({ schemaVersion: 1, operations: [{
-        op: "update", nodeId, setProps: { [entry[0]]: entry[1] + " (editado)" },
+        op: "update", nodeId, setProps: { [entry[0]]: String(entry[1]) + " (editado)" },
       }] }, null, 2);
     }
   }
