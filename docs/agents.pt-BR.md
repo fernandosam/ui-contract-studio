@@ -10,8 +10,9 @@ O Pi pode gerar **apenas specs JSON** com tipos e propriedades publicados no cat
 2. Gere os schemas reais e selecione **somente os tipos necessários** (até 25 por lote):
 
    ~~~bash
+   npm run pi:select -- --requirement="ação explícita com botão" --types=Button,Card
    npm run pi:zod-schema
-   npm run pi:context -- --types=Card,Button --stdout
+   npm run pi:context -- --types=Card,Button --requirement="ação explícita com botão" --stdout
    ~~~
 
 3. Use `propsSchema`, exemplos, eventos e ações autorizados. `semanticName` é um rótulo auxiliar; as chaves válidas são as definidas no Zod. `--metadata-only` não serve para geração.
