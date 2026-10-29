@@ -65,3 +65,7 @@ Strings que se parecem com IDs em `props` ou `state` próprios da aplicação **
 ## Verificação
 
 `node --test tests/tree-operations.test.mjs tests/tree-preservation.test.mjs` cobre comportamento offline e invariantes de preservação, erros, slots, ciclos e rollback. `tsx --test tests/tree-operations.integration.test.ts` cobre o Zod real do canal estável. Em ambiente com dependências, execute `npm run test:offline`, `npm run validate` e `npm run build`.
+
+### Regressões E08 (edição parcial, conflitos e rollback)
+
+Execute `node --test tests/tree-edit-regression.test.mjs` sem dependências, ou `tsx --test tests/tree-edit-regression.integration.test.ts` com as dependências do projeto. As suítes já entram nos globs existentes de `npm run test:offline` e `npm run test`, respectivamente. Os testes offline verificam IDs estáveis, regiões independentes, handlers, estado do formulário, slots, rejeição de conflitos, diagnósticos sem valores sensíveis, prévias obsoletas e revalidação do histórico. A integração utiliza o catálogo Zod estável e o contrato real de layout de login, confirmando rollback atômico quando uma operação posterior falha. São testes de regressão estrutural e contratual: **não** substituem o E2E completo manual no navegador nem demonstram interação real, fidelidade visual, persistência remota ou novas permissões Pi.
