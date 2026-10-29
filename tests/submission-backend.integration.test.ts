@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {createSubmissionGateway,defaultSubmissionGateway,SubmissionFailure,type ApprovedService} from "../src/ui-requirements/submission-backend";
 import {createInMemoryDemoService} from "../src/ui-requirements/submission-demo";
-const context={userId:"u1",tenantId:"t1",csrfVerified:true,actions:new Set(["users-demo"])};
+const context={userId:"u1",tenantId:"t1",csrfVerified:true,confirmationVerified:true,actions:new Set(["users-demo"])};
 const request={serviceId:"users-demo",idempotencyKey:"request_123456789",values:{name:"Ana",email:"ana@example.com"}};
 test("T32: denies unauthorized sources and rejects malformed submissions",async()=>{
  const demo=createInMemoryDemoService();
@@ -10,6 +10,7 @@ test("T32: denies unauthorized sources and rejects malformed submissions",async(
  await assert.rejects(defaultSubmissionGateway(request,context),/não autorizado/);
  for(const ctx of [
   {...context,csrfVerified:false},
+  {...context,confirmationVerified:false},
   {...context,actions:new Set<string>()},
   {...context,tenantId:""},
   {...context,userId:""}
