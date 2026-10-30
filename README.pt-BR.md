@@ -43,6 +43,10 @@ npm run build          # TypeScript e Vite
 
 O CI de qualidade roda em pull requests e pushes na `main`. O [Admission Engine](docs/admission-engine.pt-BR.md) publica propostas revisadas em artefatos experimentais após os testes automáticos; o E2E manual na main pode homologar cada composição coberta por protocolo, registrar o certificado vinculado ao fingerprint e atualizar automaticamente o catálogo Pi v3, sujeito às proteções da branch. O **E2E completo** é executado manualmente na `main` em **Actions → E2E manual (main)**; a auditoria visual tem fluxo separado. A presença de componentes, testes estruturais ou diferenças de pixels não equivale a homologação visual.
 
+## Integrações (E12)
+
+Para consumir o SDK TypeScript pelo código-fonte ou usar a CLI local, consulte o [guia de integração](docs/integration-guide.pt-BR.md): contratos fixados, exemplos executáveis, categorias de erro e responsabilidades de segurança do host. Não há API HTTP pública nem pacote SDK publicado no npm.
+
 ## Onde encontrar
 
 | Local | Conteúdo |

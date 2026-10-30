@@ -4,6 +4,8 @@
 
 A superfície pública de integração é uma **fachada local no mesmo processo** sobre o lock revisado, a projeção Pi, os schemas Zod reais e as regras estruturais. Não é API HTTP, pacote npm publicado, cliente de modelo de IA, mecanismo de admissão nem camada de autorização de backend.
 
+Para uso completo, pins de revisões revisadas e tratamento padronizado de erros no consumidor, consulte o [guia de integração E12](integration-guide.pt-BR.md) e seu [exemplo com testes](../examples/integrations/contract-sdk.ts).
+
 ## Operações públicas
 
 - `createContractSdk()` usa `stable` por padrão; `createContractSdk({ channel: "experimental" })` habilita explicitamente o catálogo experimental.
