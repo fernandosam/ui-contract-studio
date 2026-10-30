@@ -121,7 +121,11 @@
     "contracts:migrations:check": "node scripts/check-contract-migrations.mjs",
     "layout:browser:test": "playwright test tests/e2e/layout-runtime-quality.spec.ts --project=desktop --project=mobile",
     "themes:check": "node scripts/check-versioned-themes.mjs",
-    "perf:baseline": "node scripts/benchmark-e11.mjs"
+    "perf:baseline": "node scripts/benchmark-e11.mjs",
+    "perf:web:bundle": "npm run build && node scripts/audit-web-performance.mjs",
+    "perf:web:browser": "npm run build && playwright test --config=playwright.performance.config.ts",
+    "perf:web:report": "node scripts/summarize-web-performance.mjs",
+    "perf:web:all": "npm run build && node scripts/audit-web-performance.mjs && playwright test --config=playwright.performance.config.ts && node scripts/summarize-web-performance.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -17,6 +17,7 @@ Use Node.js **22+** e dependências verificadas pelo `package-lock.json`. O [REA
 | `npm run shadcn:verify` | Integridade da instalação das primitivas |
 | `npm run composites:generated:check` | Saídas do gerador sincronizadas |
 | `npm run pi:verify` | API e fixtures do agente |
+| `npm run perf:web:all` | [Laboratório web E11](web-performance.pt-BR.md) opcional: bundles, renderização, heap JS e emulação móvel |
 
 `docs:check` opera sem acesso à rede. Modificações documentais devem executar `docs:check` e `test:offline`; mudanças de código exigem os checks específicos e, quando disponíveis, `validate` e `build`.
 
