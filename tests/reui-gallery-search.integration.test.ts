@@ -2,7 +2,7 @@ import test from "node:test"
 import assert from "node:assert/strict"
 import guidance from "../src/ui-catalog/reui-example-guidance.pt-BR.json"
 import groups from "../src/ui-catalog/reui-guidance.json"
-import { filterReuiExamples, normalizeReuiSearch } from "../src/ui-runtime/reui-search"
+import { buildReuiExampleIndex, filterIndexedReuiExamples, filterReuiExamples, normalizeReuiSearch } from "../src/ui-runtime/reui-search"
 
 test("normalização ignora acentuação, letras maiúsculas e espaços duplicados", () => {
   assert.equal(normalizeReuiSearch("  QUANDO   NÃO   USAR "), "quando nao usar")
@@ -43,4 +43,12 @@ test("pesquisa integra os critérios oficiais pt-BR dos exemplos da Galeria 3", 
   assert.ok(filterReuiExamples(accordion,"Accordion","PADRAO MINIMO",guides).some(x=>x[1]==="c-accordion-1"),"busca em melhor para")
   assert.ok(filterReuiExamples(accordion,"Accordion","VARIAS respostas",guides).some(x=>x[1]==="c-accordion-1"),"busca em quando não usar")
   assert.equal(filterReuiExamples(accordion,"Accordion","",guides).length,accordion.length)
+})
+
+test("índice reutilizado mantém equivalência para acentos, termos cruzados e buscas vazias",()=>{
+ const index=buildReuiExampleIndex(examples,"Accordion",sampleGuides)
+ for(const query of ["","  ","expansao unica","perguntas MULTIPLA","NAO use","c-accordion-2","não existe"]){
+  assert.deepEqual(filterIndexedReuiExamples(index,query),filterReuiExamples(examples,"Accordion",query,sampleGuides))
+ }
+ assert.deepEqual(index.map(item=>item.entry[1]),examples.map(item=>item[1]))
 })

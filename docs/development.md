@@ -17,6 +17,7 @@ Use Node.js **22+** and dependencies verified by `package-lock.json`. The [READM
 | `npm run shadcn:verify` | Primitive installation integrity |
 | `npm run composites:generated:check` | Generated files are in sync |
 | `npm run pi:verify` | Agent API and fixtures |
+| `npm run perf:web:all` | Opt-in [production web performance lab](web-performance.md): bundles, browser rendering, heap and mobile emulation |
 
 `docs:check` works without network access. Documentation-only changes should run `docs:check` and `test:offline`; code changes require their specific checks and, where available, `validate` and `build`.
 

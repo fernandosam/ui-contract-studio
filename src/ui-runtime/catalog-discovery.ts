@@ -70,13 +70,26 @@ export function semanticScore(entry:DiscoveryEntry,query:string):number {
  return scoreIndexed(indexRow(entry),normalize(query).split(' ').filter(Boolean));
 }
 
-export function discoverContracts(entries:DiscoveryEntry[],options:{query?:string;group?:string;maturity?:string;pi?:string}={}) {
+/** Pre-index entries using the fingerprint-scoped cache; never cache user search text. */
+export type IndexedDiscoveryEntry = Readonly<{
+ entry:DiscoveryEntry;
+ group:FunctionalGroup;
+ fields:SearchIndexRow;
+}>;
+type DiscoveryOptions={query?:string;group?:string;maturity?:string;pi?:string};
+export function buildDiscoveryIndex(entries:readonly DiscoveryEntry[]):readonly IndexedDiscoveryEntry[] {
+ const indexed=prepareIndex([...entries]);
+ return entries.map((entry,i)=>({entry,group:indexed[i].group,fields:indexed[i]}));
+}
+export function discoverIndexedContracts(index:readonly IndexedDiscoveryEntry[],options:DiscoveryOptions={}) {
  const terms=normalize(options.query??'').split(' ').filter(Boolean);
- const index=prepareIndex(entries);
- return entries.map((entry,i)=>({entry,group:index[i].group,score:scoreIndexed(index[i],terms)}))
+ return index.map(({entry,group,fields})=>({entry,group,score:scoreIndexed(fields,terms)}))
   .filter(result=>result.score>0&&(options.group==='all'||!options.group||result.group===options.group)
     &&(options.maturity==='all'||!options.maturity||result.entry.maturity===options.maturity)
     &&(options.pi!=='available'||result.entry.piAvailable)
     &&(options.pi!=='unavailable'||!result.entry.piAvailable))
   .sort((a,b)=>b.score-a.score||functionalGroups.indexOf(a.group)-functionalGroups.indexOf(b.group)||a.entry.name.localeCompare(b.entry.name,'pt-BR'));
+}
+export function discoverContracts(entries:DiscoveryEntry[],options:DiscoveryOptions={}) {
+ return discoverIndexedContracts(buildDiscoveryIndex(entries),options);
 }

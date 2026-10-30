@@ -21,6 +21,19 @@ const families = [...new Set(reuiCompositeCatalog.map(entry => entry.kind))].sor
 )
 
 const admissions = new Map(semanticAdmissions.entries.map(entry => [entry.exampleId, entry]))
+// Search evidence is static: index once instead of normalizing every field on every keystroke.
+const searchableComposites = reuiCompositeCatalog.map(entry => {
+ const admission = admissions.get(entry.id)
+ return {
+  entry,
+  admission,
+  fields: [
+   entry.id, entry.name, entry.title, entry.kind, entry.bestFor,
+   admission?.contractName ?? "", admission?.reason ?? "",
+   ...entry.whenNotUse, ...entry.whenUse, ...entry.familyWhenNotUse, ...entry.agentNotes,
+  ].map(normalizeReuiSearch),
+ }
+})
 const classificationLabels: Record<string,string> = {
   "existing-primitive-variant":"Variação de contrato existente",
   "review-required":"Revisão semântica pendente",
@@ -51,17 +64,11 @@ export function ReuiCompositeExplorer() {
 
   const filtered = useMemo(() => {
     const terms = normalizeReuiSearch(search).split(" ").filter(Boolean)
-    return reuiCompositeCatalog.filter(entry => {
+    return searchableComposites.filter(({entry,admission,fields}) => {
       if (family !== "all" && entry.kind !== family) return false
-      const admission = admissions.get(entry.id)
       if (classification !== "all" && admission?.classification !== classification) return false
-      const searchable = [
-        entry.id, entry.name, entry.title, entry.kind,
-        entry.bestFor, admission?.contractName ?? "", admission?.reason ?? "", ...entry.whenNotUse, ...entry.whenUse, ...entry.familyWhenNotUse,
-        ...entry.agentNotes,
-      ].map(normalizeReuiSearch)
-      return terms.every(term => searchable.some(field => field.includes(term)))
-    })
+      return terms.every(term => fields.some(field => field.includes(term)))
+    }).map(({entry}) => entry)
   }, [family, search, classification])
   const visible = filtered.slice(0, limit)
   const selected = filtered.find(entry => entry.id === selectedId) ?? filtered[0]

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {discoverContracts,functionalGroup,semanticScore} from '../src/ui-runtime/catalog-discovery.ts';
+import {buildDiscoveryIndex,discoverIndexedContracts,discoverContracts,functionalGroup,semanticScore} from '../src/ui-runtime/catalog-discovery.ts';
 
 const entries=[
  {name:'AlertDialog',description:'Confirmação de operações',whenUse:['Confirmar decisões irreversíveis'],maturity:'stable',piAvailable:true},
@@ -27,6 +27,17 @@ test('results are deterministic, stable and preserve names for exact matching',(
  const before=JSON.stringify(entries);
  assert.deepEqual(discoverContracts(entries,{query:'a'}),discoverContracts(entries,{query:'a'}));
  assert.equal(JSON.stringify(entries),before);
+});
+
+test('pre-indexing preserves ranking and filters across repeated queries',()=>{
+ const index=buildDiscoveryIndex(entries);
+ for(const query of ['','confirmacao','  FORMULÁRIOS ','a','inexistente','confirmar decisões']){
+  for(const pi of ['all','available','unavailable']){
+   const options={query,pi};
+   assert.deepEqual(discoverIndexedContracts(index,options),discoverContracts(entries,options));
+  }
+ }
+ assert.equal(index[0].entry,entries[0],'keep original approved record identity');
 });
 
 test('cached index follows contract identity, public guidance and current Pi filtering',()=>{
