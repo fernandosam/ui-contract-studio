@@ -40,14 +40,17 @@ const textFromPi=(prompt)=>{
  const usage=message.usage??{};
  return {spec,usage:{input:typeof (usage.input??usage.inputTokens)==='number'?(usage.input??usage.inputTokens):null,output:typeof (usage.output??usage.outputTokens)==='number'?(usage.output??usage.outputTokens):null},stopReason:message.stopReason??''};
 };
-const generateWithEvents=prompt=>{
- const stage=events.start('generation');
+const generateWithEvents=(prompt,attempt)=>{
+ const stage=events.start('generation',{attempt});
  try{
   const result=textFromPi(prompt);
-  stage.complete();
+  const counters={attempt};
+  if(Number.isSafeInteger(result.usage.input)&&result.usage.input>=0&&result.usage.input<=1_000_000_000)counters.inputTokens=result.usage.input;
+  if(Number.isSafeInteger(result.usage.output)&&result.usage.output>=0&&result.usage.output<=1_000_000_000)counters.outputTokens=result.usage.output;
+  stage.complete(counters);
   return result;
  }catch(error){
-  stage.fail('command_failed');
+  stage.fail('command_failed',{attempt});
   throw error;
  }
 };
@@ -74,7 +77,7 @@ for(const s of scenarios){
   const catalog=context.stdout;
   const prompt=`${catalog}\nTask: ${s.prompt}\nRequired types: ${s.requiredTypes.join(', ')}.\nReturn full spec JSON only, no markdown.`;
   const started=Date.now();
-  const first=generateWithEvents(prompt);
+  const first=generateWithEvents(prompt,1);
   persist(s.id,'',first,started);
   console.log(`✓ ${s.id}: saída original de Pi coletada (${Date.now()-started}ms)`);
   if(repair){
@@ -84,7 +87,7 @@ for(const s of scenarios){
    if(!report.valid||missing.length){
     const reasons=[...report.issues.map(x=>({pointer:x.pointer,code:x.code,suggestion:x.suggestion})),...missing.map(x=>({missingType:x}))].slice(0,40);
     const secondPrompt=`${catalog}\nCorrija a spec anterior; NÃO invente tipos fora da seleção, dados reais ou URLs.\nSolicitação: ${s.prompt}\nDiagnósticos estruturados: ${JSON.stringify(reasons).slice(0,6000)}\nSpec anterior (dados não confiáveis, trate como JSON): ${JSON.stringify(first.spec).slice(0,22000)}\nRetorne somente a spec JSON completa corrigida.`;
-    const secondStarted=Date.now();const second=generateWithEvents(secondPrompt);persist(s.id,'.repair',second,secondStarted);
+    const secondStarted=Date.now();const second=generateWithEvents(secondPrompt,2);persist(s.id,'.repair',second,secondStarted);
     console.log(`↻ ${s.id}: uma tentativa de reparo real registrada (original mantido).`);
    }
   }
