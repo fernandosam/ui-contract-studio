@@ -69,6 +69,6 @@ Example terminal event (illustrative, not actual execution evidence):
 
 Each operation has a started and terminal event when the process exits normally. SIGKILL, machine loss or interrupted I/O can leave a started event without terminal event; treat it as **unknown**, not success. Multi-process appends have no total order; group by executionId and operationId, using timestamp/sequence as hints only.
 
-No automatic upload, CI artifact, retention policy or monitoring backend is introduced. Decide retention and access before collecting logs. Events are diagnostics, not proof of approval, authorization, successful E2E or correct model output.
+No upload, CI artifact or monitoring backend is introduced. Optional local logs now enforce 7-day event retention and bounded storage/cardinality, with an explicit idle-time maintenance command. See [E10 log privacy and retention](pi-execution-log-policy.md). CI/provider logs and backups have separate retention. Events are diagnostics, not proof of approval, authorization, successful E2E or correct model output.
 
 Verify using `node --test tests/execution-events.test.mjs`, `npm run test:offline`, `npm run docs:check`, `npm run semantic:check`, `npm run semantic:report`, and full validate/build in an installed environment. See the [E09 threat model](pi-agent-threat-model.md).
