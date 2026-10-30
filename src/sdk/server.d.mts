@@ -18,14 +18,18 @@ export interface ContractUsageLimits {
   readonly globalAuthAttemptsPerMinute: number;
   readonly requestsPerMinute: number;
   readonly requestsPerDay: number;
+  readonly requestsPerTenantMinute: number;
+  readonly requestsPerTenantDay: number;
   readonly concurrentPerPrincipal: number;
   readonly concurrentGlobal: number;
+  readonly concurrentPerTenant: number;
   readonly concurrentAuthentication: number;
   readonly maxRequestBytes: number;
   readonly maxInputNodes: number;
   readonly maxInputDepth: number;
   readonly maxTrackedPeers: number;
   readonly maxTrackedPrincipals: number;
+  readonly maxTrackedTenants: number;
 }
 export interface ContractGatewayOptions {
   /** Existing local SDK; no remote network endpoint is created. */
