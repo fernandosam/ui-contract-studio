@@ -16,6 +16,7 @@ const safeCounts = new Set(['selectedCount','candidateCount','issueCount','block
 
 const isRecord = x => x !== null && typeof x === 'object' && !Array.isArray(x);
 const isCount = x => Number.isSafeInteger(x) && x >= 0 && x <= 1_000_000;
+const isDuration = x => Number.isSafeInteger(x) && x >= 0 && x <= 86_400_000;
 export function validateExecutionEvent(event) {
   if (!isRecord(event) || Object.keys(event).some(key => !allowedKeys.has(key))) return false;
   if (event.schemaVersion !== EXECUTION_EVENT_SCHEMA_VERSION || !uuid.test(event.eventId) ||
@@ -25,7 +26,7 @@ export function validateExecutionEvent(event) {
       !EXECUTION_STATUSES.includes(event.status) || event.type !== event.phase+'.'+event.status ||
       typeof event.timestamp !== 'string' || !Number.isFinite(Date.parse(event.timestamp)) ||
       new Date(event.timestamp).toISOString() !== event.timestamp) return false;
-  if (event.status === 'started' ? event.durationMs !== undefined : !isCount(event.durationMs)) return false;
+  if (event.status === 'started' ? event.durationMs !== undefined : !isDuration(event.durationMs)) return false;
   if (!isRecord(event.details)) return false;
   for (const [key,value] of Object.entries(event.details)) {
     if (safeCounts.has(key) && isCount(value)) continue;
@@ -49,7 +50,7 @@ function eventPath(file, root) {
   if (realpathSync(directory) !== resolve(realpathSync(root),'reports/pi-execution'))
     throw new Error('E10 events directory cannot be a symlink');
   const destination = resolve(root,file);
-  if (!destination.startsWith(directory + sep) || (existsSync(destination) && lstatSync(destination).isSymbolicLink()))
+  if (!destination.startsWith(directory + sep) || (existsSync(destination) && !lstatSync(destination).isFile()))
     throw new Error('E10 events destination must be a local regular file');
   return destination;
 }
