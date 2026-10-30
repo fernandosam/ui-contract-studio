@@ -92,8 +92,8 @@ export function buildMarkdown(bundle, results) {
       }
     }
   }
-  lines.push("", "*Interaction duration is Playwright automation wall time, **not** INP.",
-    "**Heap delta is a short-run Chromium CDP JS-heap indicator, **not** process RAM or proof of a memory leak.",
+  lines.push("", "Interaction duration is Playwright automation wall time, **not** INP.",
+    "Heap delta is a short-run Chromium CDP JS-heap indicator, **not** process RAM or proof of a memory leak.",
     "Pixel 7 is emulated with 4× CPU throttling, 150 ms RTT and 1.6 Mbit/s download; actual hardware is not tested.",
     "", "## Observations requiring review", "",
     ...(observations.length ? observations.map(note => "- " + note) :
