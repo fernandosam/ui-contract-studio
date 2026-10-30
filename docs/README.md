@@ -23,6 +23,8 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Pi Agent threat model (E09)](pi-agent-threat-model.md) | Trust boundaries, input/output/execution review, prioritized risks and mitigations |
 | [Pi execution events (E10)](pi-execution-events.md) | Correlated run identifiers, safe lifecycle events and opt-in diagnostics |
+| [Pi metrics (E10)](pi-execution-metrics.md) | Offline latency, tokens, retries and contractual evaluation |
+| [Pi trend dashboard (E10)](pi-execution-trends.md) | Offline JSON, CSV and HTML reports from validated local events |
 | [Development](development.md) | Environment, tests, CI, and E2E |
 | [Governance](governance.md) | Review and ongoing audits of the public repository |
 
