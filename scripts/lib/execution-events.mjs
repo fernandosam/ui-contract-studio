@@ -44,7 +44,13 @@ function eventPath(file, root) {
   if (file === undefined || file === '') return null;
   if (typeof file !== 'string' || !/^reports\/pi-execution\/[a-zA-Z0-9][a-zA-Z0-9._-]{0,79}\.jsonl$/.test(file) || file.includes('..'))
     throw new Error('E10 events path must be reports/pi-execution/<name>.jsonl');
-  const directory = resolve(root,'reports/pi-execution');
+  const reports = resolve(root,'reports');
+  const directory = resolve(reports,'pi-execution');
+  // Check both parent segments BEFORE creating anything through a possible symlink.
+  if (existsSync(reports) && !lstatSync(reports).isDirectory()) throw new Error('E10 reports directory must not be a symlink');
+  mkdirSync(reports,{recursive:true});
+  if (realpathSync(reports) !== resolve(realpathSync(root),'reports')) throw new Error('E10 reports directory must not be a symlink');
+  if (existsSync(directory) && !lstatSync(directory).isDirectory()) throw new Error('E10 events directory cannot be a symlink');
   mkdirSync(directory,{recursive:true});
   // Prevent symlink redirection outside the project when the opt-in log is used.
   if (realpathSync(directory) !== resolve(realpathSync(root),'reports/pi-execution'))
