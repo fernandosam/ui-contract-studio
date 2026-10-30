@@ -22,6 +22,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Versioned themes (E06)](versioned-themes.md) | Closed token choices, immutable theme versions and CSS injection boundary |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Pi Agent threat model (E09)](pi-agent-threat-model.md) | Trust boundaries, input/output/execution review, prioritized risks and mitigations |
+| [Pi execution events (E10)](pi-execution-events.md) | Correlated run identifiers, safe lifecycle events and opt-in diagnostics |
 | [Development](development.md) | Environment, tests, CI, and E2E |
 | [Governance](governance.md) | Review and ongoing audits of the public repository |
 
