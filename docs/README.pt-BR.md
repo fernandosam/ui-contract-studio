@@ -10,7 +10,8 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 | --- | --- |
 | [README](../README.pt-BR.md) | Apresentação e instalação |
 | [Arquitetura](architecture.pt-BR.md) | Fontes de verdade e camadas |
-| [Integrações externas (E12)](external-integrations.pt-BR.md) | Casos de uso externos e superfície mínima de integração por arquivos/CLI |
+| [Integrações externas (E12)](external-integrations.pt-BR.md) | Decisão inicial arquivos/CLI e evolução posterior com SDK |
+| [Guia de integração (E12)](integration-guide.pt-BR.md) | Uso atual SDK/CLI, exemplos executáveis, versões fixadas e erros seguros |
 | [Componentes e contratos](components.pt-BR.md) | shadcn/ui, ReUI, composições e admissão |
 | [Admission Engine](admission-engine.pt-BR.md) | Publicação experimental e distribuição pós-E2E |
 | [Estratégia de composições](composition-strategy.pt-BR.md) | Dependências, classificação semântica e novos exemplos ReUI |
