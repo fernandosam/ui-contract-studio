@@ -25,6 +25,7 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 | [Eventos de execução Pi (E10)](pi-execution-events.pt-BR.md) | Identificadores correlacionados, eventos de ciclo de vida, segurança e diagnóstico opcional |
 | [Métricas Pi (E10)](pi-execution-metrics.pt-BR.md) | Latência, tokens, tentativas e avaliação contratual offline |
 | [Painel de tendências Pi (E10)](pi-execution-trends.pt-BR.md) | Relatórios JSON, CSV e HTML de eventos locais validados |
+| [Privacidade e retenção dos logs Pi (E10)](pi-execution-log-policy.pt-BR.md) | Mascaramento, expiração, quotas e limites de cardinalidade |
 | [Desenvolvimento](development.pt-BR.md) | Ambiente, testes, CI e E2E |
 | [Governança](governance.pt-BR.md) | Revisão e auditoria contínua do repositório público |
 
