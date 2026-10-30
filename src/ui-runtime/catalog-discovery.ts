@@ -74,7 +74,7 @@ export function semanticScore(entry:DiscoveryEntry,query:string):number {
 export type IndexedDiscoveryEntry = Readonly<{
  entry:DiscoveryEntry;
  group:FunctionalGroup;
- fields:Readonly<{name:string;description:string;intent:string}>;
+ fields:SearchIndexRow;
 }>;
 type DiscoveryOptions={query?:string;group?:string;maturity?:string;pi?:string};
 export function buildDiscoveryIndex(entries:readonly DiscoveryEntry[]):readonly IndexedDiscoveryEntry[] {
