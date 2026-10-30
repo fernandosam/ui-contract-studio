@@ -25,7 +25,9 @@ Each JSONL line is a closed record validated by [execution-events.mjs](../script
 
 `details` only accepts nonnegative bounded `selectedCount`, `candidateCount`, `issueCount`, `blockerCount`; boolean `valid`; `channel` stable/experimental; `decision` recommended/ambiguous/no-match; and, for failed/blocked events only, `reasonCode`: input_invalid, catalog_unavailable, schema_missing, requirements_blocked, validation_failed or command_failed.
 
-Never emit **prompt text, requirements, screen JSON, filesystem paths, user identifiers, model outputs, tokens, exception messages/stacks, credentials or secrets**. Unknown fields and values are rejected, not serialized. Errors default to a generic fixed code.
+Actual Pi token **counts** (not content) are allowed as bounded numeric inputTokens/outputTokens on terminal pi-eval generation events; the optional attempt index is 1 or 2. The metrics reporter is described in [E10 metrics](pi-execution-metrics.md).
+
+Never emit **prompt text, requirements, screen JSON, filesystem paths, user identifiers, model outputs, token content, exception messages/stacks, credentials or secrets**. Unknown fields and values are rejected, not serialized. Errors default to a generic fixed code.
 
 ## Instrumented entry points
 
