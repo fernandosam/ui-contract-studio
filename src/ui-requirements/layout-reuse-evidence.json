@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 1,
+  "status": "static-evidence-only",
+  "authorization": "does-not-admit-contracts-components-actions-or-pi-permissions",
+  "criterion": "pair-of-adjacent-admitted-types-in-two-approved-patterns-from-distinct-originScreen-labels",
+  "limitations": "Structural metadata is not independent human approval, behavioral equivalence, visual/browser evidence or proof of actual reuse.",
+  "approvedLayouts": [
+    {
+      "layoutId": "crud-list",
+      "originScreen": "usuarios",
+      "sourcePath": "src/ui-patterns/crud-list.json",
+      "metadataPath": "src/ui-patterns/crud-list.meta.json",
+      "rootId": "users-card"
+    },
+    {
+      "layoutId": "dashboard-analytics",
+      "originScreen": "playground",
+      "sourcePath": "src/ui-patterns/dashboard-analytics.json",
+      "metadataPath": "src/ui-patterns/dashboard-analytics.meta.json",
+      "rootId": "graphs"
+    },
+    {
+      "layoutId": "dashboard-kpis",
+      "originScreen": "dashboard",
+      "sourcePath": "src/ui-patterns/dashboard-kpis.json",
+      "metadataPath": "src/ui-patterns/dashboard-kpis.meta.json",
+      "rootId": "stats"
+    },
+    {
+      "layoutId": "detail-view",
+      "originScreen": "dashboard",
+      "sourcePath": "src/ui-patterns/detail-view.json",
+      "metadataPath": "src/ui-patterns/detail-view.meta.json",
+      "rootId": "detail-grid"
+    },
+    {
+      "layoutId": "empty-state",
+      "originScreen": "dashboard",
+      "sourcePath": "src/ui-patterns/empty-state.json",
+      "metadataPath": "src/ui-patterns/empty-state.meta.json",
+      "rootId": "notice"
+    },
+    {
+      "layoutId": "form-dialog",
+      "originScreen": "playground",
+      "sourcePath": "src/ui-patterns/form-dialog.json",
+      "metadataPath": "src/ui-patterns/form-dialog.meta.json",
+      "rootId": "actions"
+    },
+    {
+      "layoutId": "form-fields",
+      "originScreen": "playground",
+      "sourcePath": "src/ui-patterns/form-fields.json",
+      "metadataPath": "src/ui-patterns/form-fields.meta.json",
+      "rootId": "forms"
+    },
+    {
+      "layoutId": "search-and-filters",
+      "originScreen": "extensoes",
+      "sourcePath": "src/ui-patterns/search-and-filters.json",
+      "metadataPath": "src/ui-patterns/search-and-filters.meta.json",
+      "rootId": "root"
+    }
+  ],
+  "excludedLayouts": [],
+  "summary": {
+    "approvedLayoutCount": 8,
+    "excludedLayoutCount": 0,
+    "crossOriginStructureCount": 3,
+    "sameOriginCandidateCount": 2
+  },
+  "recurrentStructures": [
+    {
+      "id": "[\"children\",\"Card\",\"Stack\"]",
+      "structure": {
+        "parentType": "Card",
+        "childType": "Stack",
+        "relation": "children"
+      },
+      "layoutCount": 2,
+      "originCount": 2,
+      "occurrenceCount": 4,
+      "layoutIds": [
+        "detail-view",
+        "form-dialog"
+      ],
+      "originScreens": [
+        "dashboard",
+        "playground"
+      ],
+      "evidence": [
+        {
+          "layoutId": "detail-view",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/detail-view.json",
+          "metadataPath": "src/ui-patterns/detail-view.meta.json",
+          "parentId": "info-card",
+          "childId": "info-stack",
+          "relation": "children",
+          "index": 0
+        },
+        {
+          "layoutId": "form-dialog",
+          "originScreen": "playground",
+          "sourcePath": "src/ui-patterns/form-dialog.json",
+          "metadataPath": "src/ui-patterns/form-dialog.meta.json",
+          "parentId": "actions",
+          "childId": "action_row",
+          "relation": "children",
+          "index": 0
+        },
+        {
+          "layoutId": "form-dialog",
+          "originScreen": "playground",
+          "sourcePath": "src/ui-patterns/form-dialog.json",
+          "metadataPath": "src/ui-patterns/form-dialog.meta.json",
+          "parentId": "actions",
+          "childId": "action_row2",
+          "relation": "children",
+          "index": 1
+        },
+        {
+          "layoutId": "form-dialog",
+          "originScreen": "playground",
+          "sourcePath": "src/ui-patterns/form-dialog.json",
+          "metadataPath": "src/ui-patterns/form-dialog.meta.json",
+          "parentId": "actions",
+          "childId": "action_row3",
+          "relation": "children",
+          "index": 2
+        }
+      ],
+      "status": "cross-origin-static-evidence"
+    },
+    {
+      "id": "[\"children\",\"Card\",\"Table\"]",
+      "structure": {
+        "parentType": "Card",
+        "childType": "Table",
+        "relation": "children"
+      },
+      "layoutCount": 2,
+      "originCount": 2,
+      "occurrenceCount": 2,
+      "layoutIds": [
+        "crud-list",
+        "detail-view"
+      ],
+      "originScreens": [
+        "dashboard",
+        "usuarios"
+      ],
+      "evidence": [
+        {
+          "layoutId": "crud-list",
+          "originScreen": "usuarios",
+          "sourcePath": "src/ui-patterns/crud-list.json",
+          "metadataPath": "src/ui-patterns/crud-list.meta.json",
+          "parentId": "users-card",
+          "childId": "users-table",
+          "relation": "children",
+          "index": 0
+        },
+        {
+          "layoutId": "detail-view",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/detail-view.json",
+          "metadataPath": "src/ui-patterns/detail-view.meta.json",
+          "parentId": "processes",
+          "childId": "process-table",
+          "relation": "children",
+          "index": 0
+        }
+      ],
+      "status": "cross-origin-static-evidence"
+    },
+    {
+      "id": "[\"children\",\"Stack\",\"Link\"]",
+      "structure": {
+        "parentType": "Stack",
+        "childType": "Link",
+        "relation": "children"
+      },
+      "layoutCount": 2,
+      "originCount": 2,
+      "occurrenceCount": 2,
+      "layoutIds": [
+        "detail-view",
+        "form-dialog"
+      ],
+      "originScreens": [
+        "dashboard",
+        "playground"
+      ],
+      "evidence": [
+        {
+          "layoutId": "detail-view",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/detail-view.json",
+          "metadataPath": "src/ui-patterns/detail-view.meta.json",
+          "parentId": "info-stack",
+          "childId": "link-catalog",
+          "relation": "children",
+          "index": 4
+        },
+        {
+          "layoutId": "form-dialog",
+          "originScreen": "playground",
+          "sourcePath": "src/ui-patterns/form-dialog.json",
+          "metadataPath": "src/ui-patterns/form-dialog.meta.json",
+          "parentId": "action_row",
+          "childId": "action_link",
+          "relation": "children",
+          "index": 1
+        }
+      ],
+      "status": "cross-origin-static-evidence"
+    }
+  ],
+  "sameOriginCandidates": [
+    {
+      "id": "[\"children\",\"Card\",\"Grid\"]",
+      "structure": {
+        "parentType": "Card",
+        "childType": "Grid",
+        "relation": "children"
+      },
+      "layoutCount": 2,
+      "originCount": 1,
+      "occurrenceCount": 2,
+      "layoutIds": [
+        "dashboard-analytics",
+        "form-fields"
+      ],
+      "originScreens": [
+        "playground"
+      ],
+      "evidence": [
+        {
+          "layoutId": "dashboard-analytics",
+          "originScreen": "playground",
+          "sourcePath": "src/ui-patterns/dashboard-analytics.json",
+          "metadataPath": "src/ui-patterns/dashboard-analytics.meta.json",
+          "parentId": "graphs",
+          "childId": "graph_grid",
+          "relation": "children",
+          "index": 0
+        },
+        {
+          "layoutId": "form-fields",
+          "originScreen": "playground",
+          "sourcePath": "src/ui-patterns/form-fields.json",
+          "metadataPath": "src/ui-patterns/form-fields.meta.json",
+          "parentId": "forms",
+          "childId": "form_grid",
+          "relation": "children",
+          "index": 0
+        }
+      ],
+      "status": "same-origin-candidate"
+    },
+    {
+      "id": "[\"children\",\"Grid\",\"Card\"]",
+      "structure": {
+        "parentType": "Grid",
+        "childType": "Card",
+        "relation": "children"
+      },
+      "layoutCount": 2,
+      "originCount": 1,
+      "occurrenceCount": 6,
+      "layoutIds": [
+        "dashboard-kpis",
+        "detail-view"
+      ],
+      "originScreens": [
+        "dashboard"
+      ],
+      "evidence": [
+        {
+          "layoutId": "dashboard-kpis",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/dashboard-kpis.json",
+          "metadataPath": "src/ui-patterns/dashboard-kpis.meta.json",
+          "parentId": "stats",
+          "childId": "m1-card",
+          "relation": "children",
+          "index": 0
+        },
+        {
+          "layoutId": "dashboard-kpis",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/dashboard-kpis.json",
+          "metadataPath": "src/ui-patterns/dashboard-kpis.meta.json",
+          "parentId": "stats",
+          "childId": "m2-card",
+          "relation": "children",
+          "index": 1
+        },
+        {
+          "layoutId": "dashboard-kpis",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/dashboard-kpis.json",
+          "metadataPath": "src/ui-patterns/dashboard-kpis.meta.json",
+          "parentId": "stats",
+          "childId": "m3-card",
+          "relation": "children",
+          "index": 2
+        },
+        {
+          "layoutId": "dashboard-kpis",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/dashboard-kpis.json",
+          "metadataPath": "src/ui-patterns/dashboard-kpis.meta.json",
+          "parentId": "stats",
+          "childId": "m4-card",
+          "relation": "children",
+          "index": 3
+        },
+        {
+          "layoutId": "detail-view",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/detail-view.json",
+          "metadataPath": "src/ui-patterns/detail-view.meta.json",
+          "parentId": "detail-grid",
+          "childId": "processes",
+          "relation": "children",
+          "index": 0
+        },
+        {
+          "layoutId": "detail-view",
+          "originScreen": "dashboard",
+          "sourcePath": "src/ui-patterns/detail-view.json",
+          "metadataPath": "src/ui-patterns/detail-view.meta.json",
+          "parentId": "detail-grid",
+          "childId": "info-card",
+          "relation": "children",
+          "index": 1
+        }
+      ],
+      "status": "same-origin-candidate"
+    }
+  ]
+}
