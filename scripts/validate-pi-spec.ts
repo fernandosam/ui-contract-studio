@@ -1,10 +1,12 @@
 /** Validates generated json-render specs with the real Zod registry; produces compact, actionable, data-free diagnostics. */
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
+import {createExecutionRecorder} from './lib/execution-events.mjs';
 import {catalog,experimentalCatalog,stableComponentDefinitions,unifiedComponentDefinitions,stableComponentEventDescriptors,experimentalComponentEventDescriptors,actionDefinitions} from '../src/ui-catalog/catalog';
 import {graphErrors} from './lib/spec-invariants.mjs';
 
 type Finding={pointer:string;code:string;message:string;expected?:unknown;suggestion:string};
+const eventStage=createExecutionRecorder({source:'pi-validate'}).start('validation');
 const args=process.argv.slice(2);
 const file=args.find(a=>a.startsWith('--file='))?.slice(7);
 const dest=args.find(a=>a.startsWith('--out='))?.slice(6);
@@ -49,4 +51,6 @@ const result={valid:findings.length===0,source:file,channel,validator:'real-zod-
 const output=JSON.stringify(result,null,2)+'\n';
 if(print) process.stdout.write(output);
 if(dest){mkdirSync(dirname(dest),{recursive:true});writeFileSync(dest,output)}
+if(result.valid)eventStage.complete({channel,valid:true,issueCount:0});
+else eventStage.fail('validation_failed',{channel,valid:false,issueCount:findings.length});
 process.exitCode=result.valid?0:1;

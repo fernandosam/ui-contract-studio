@@ -2,8 +2,10 @@
 /** Least-privilege Pi context: real JSON Schema and actions for selected components only. */
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
 import {resolve} from 'node:path';
+import {createExecutionRecorder} from './lib/execution-events.mjs';
 import {buildSemanticKnowledge,selectAgentSemanticAdvice} from './lib/semantic-knowledge.mjs';
 import {selectPiSemanticCandidates} from './lib/pi-semantic-selection.mjs';
+const eventStage=createExecutionRecorder({source:'pi-context'}).start('selection');
 const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const all=read('pi-catalog/contracts.json');
 const reviewed=new Map(read('src/ui-catalog/contracts.lock.json').components.map(c=>[c.name,c]));
@@ -96,3 +98,4 @@ else {
  }
  mkdirSync('reports/pi-context',{recursive:true});writeFileSync(dest,output);console.log(`Gerado ${dest} (${names.length} tipos, schema=${Boolean(schema)})`);
 }
+eventStage.complete({selectedCount:selected.length,channel});
