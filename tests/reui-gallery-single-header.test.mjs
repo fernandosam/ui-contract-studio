@@ -16,7 +16,7 @@ test("ReUI usa somente o título e o subtítulo do layout",()=>{
 })
 
 test("ReUI filtra nos critérios específicos de cada exemplo",()=>{
-  assert.ok(gallery.includes("filterReuiExamples("))
+  assert.ok(gallery.includes("filterIndexedReuiExamples("))
   assert.ok(gallery.includes("exampleGuides"))
   assert.ok(search.includes("guide?.bestFor"))
   assert.ok(search.includes("guide?.whenNotUse"))

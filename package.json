@@ -95,6 +95,7 @@
     "shadcn:blocks:sources:sync": "node scripts/sync-shadcn-block-sources.mjs",
     "semantic:enforcement": "node scripts/verify-semantic-audit-policy.mjs",
     "semantic:check": "node scripts/analyze-semantic-knowledge.mjs --check",
+    "perf:catalog": "tsx scripts/benchmark-catalog-index.ts",
     "semantic:report": "node scripts/analyze-semantic-knowledge.mjs --write",
     "semantic:context": "node scripts/analyze-semantic-knowledge.mjs",
     "semantic:ingest": "node scripts/ingest-reui-knowledge.mjs",
