@@ -20,6 +20,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Semantic contract conformance audit (T31)](semantic-contract-conformance-t31.md) | Zod/Pi bindings, gap decisions and mandatory audit for knowledge edits |
 | [Layout quality evaluation](layout-quality.md) | Advisory hierarchy, grouping, density and responsive layout scores |
 | [Versioned themes (E06)](versioned-themes.md) | Closed token choices, immutable theme versions and CSS injection boundary |
+| [Theme maintenance and regression (E06)](theme-maintenance.md) | Version creation, reviewed CSS and browser visual regression |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Pi Agent threat model (E09)](pi-agent-threat-model.md) | Trust boundaries, input/output/execution review, prioritized risks and mitigations |
 | [Development](development.md) | Environment, tests, CI, and E2E |

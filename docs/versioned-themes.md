@@ -32,3 +32,5 @@ Run `npm run themes:a11y` to audit the **actual stylesheet**. It converts approv
 Two baseline violations were found and corrected: light `muted-foreground/muted` (~4.12:1 before, ~4.66:1 after) and dark `destructive-foreground/destructive` (~2.67:1 before, ~6.26:1 after). A source-order override at 521–639px was also corrected: the 850px two-column rule now precedes the 639px single-column rule. These targeted CSS adjustments require visual review even though the `studio@1.0.0` registry and lock stay unchanged.
 
 `node --test tests/theme-accessibility.test.mjs` exercises regressions and `npx playwright test tests/e2e/theme-accessibility.spec.ts --project=desktop --project=mobile` exercises hover, keyboard focus, disabled state, browser-calculated preview contrast, mode parity and 390/600/800/1440px. The existing quality workflow runs both gates. Browser success and full manual visual E2E must be reported from real runs; source checks alone do not certify them.
+
+For creation, CSS token baseline updates, evidence review and the new round-trip visual regression matrix, see [Theme maintenance and visual regression](theme-maintenance.md).

@@ -32,3 +32,5 @@ Execute `npm run themes:a11y` para auditar o **CSS real**. O comando converte OK
 Foram identificadas e corrigidas duas violações: `muted-foreground/muted` no tema claro (~4,12:1 antes, ~4,66:1 depois) e `destructive-foreground/destructive` no escuro (~2,67:1 antes, ~6,26:1 depois). Corrigida também a sobreposição de media queries entre 521 e 639px: a regra de duas colunas (850px) agora precede a regra de uma coluna (639px). Esses ajustes CSS exigem revisão visual, sem alterar registro e lock `studio@1.0.0`.
 
 `node --test tests/theme-accessibility.test.mjs` verifica regressões; `npx playwright test tests/e2e/theme-accessibility.spec.ts --project=desktop --project=mobile` verifica hover, foco por teclado, estado desabilitado, contraste computado na prévia, paridade claro/escuro e larguras 390/600/800/1440px. O workflow existente executa ambos os gates. Aprovação de navegador e E2E visual manual exigem execução efetiva; a análise de fonte não equivale à certificação completa.
+
+Para criar versões, revisar o baseline CSS e executar a nova matriz visual de retorno de tema, consulte [Manutenção de temas e regressão visual](theme-maintenance.pt-BR.md).
