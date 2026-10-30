@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
 import {mkdtempSync,mkdirSync,readFileSync,writeFileSync,symlinkSync,readdirSync,rmSync,statSync,utimesSync} from 'node:fs';
 import {tmpdir} from 'node:os';
-import {join} from 'node:path';
+import {join,resolve} from 'node:path';
 import {createExecutionRecorder,validateExecutionEvent} from '../scripts/lib/execution-events.mjs';
-import {appendExecutionLogEvent,redactSensitiveText,EXECUTION_LOG_POLICY} from '../scripts/lib/execution-log-policy.mjs';
+import {appendExecutionLogEvent,pruneExecutionLogs,redactSensitiveText,EXECUTION_LOG_POLICY} from '../scripts/lib/execution-log-policy.mjs';
 import {readExecutionEvents} from '../scripts/lib/execution-report-input.mjs';
 
 function withRoot(callback){
@@ -107,3 +108,23 @@ test('read-only reports exclude expired events; oversized logs fail closed',()=>
   assert.throws(()=>appendExecutionLogEvent(target,event(),{validate:validateExecutionEvent}),/quota/);
 }));
 
+
+
+test('retention maintenance previews without writes, then removes expired events',()=>withRoot(root=>{
+  const {target}=paths(root);
+  const stale=event(new Date(Date.now()-10*86_400_000).toISOString());
+  writeFileSync(target,[stale,event()].map(value=>JSON.stringify(value)).join('\n')+'\n');
+  const preview=pruneExecutionLogs({root,validate:validateExecutionEvent});
+  assert.equal(preview.applied,false);
+  assert.equal(preview.expiredEvents,1);
+  assert.equal(read(target).length,2);
+  const cleaned=pruneExecutionLogs({root,validate:validateExecutionEvent,apply:true});
+  assert.equal(cleaned.applied,true);
+  assert.equal(read(target).length,1);
+  assert.ok(!readdirSync(join(root,'reports/pi-execution')).includes('.e10-writer.lock'));
+  const cli=spawnSync(process.execPath,[resolve('scripts/prune-pi-logs.mjs')],
+    {cwd:root,encoding:'utf8',timeout:5000});
+  assert.equal(cli.status,0,cli.stderr);
+  assert.equal(JSON.parse(cli.stdout).expiredEvents,0);
+  assert.doesNotMatch(cli.stdout,new RegExp(stale.eventId));
+}));
