@@ -62,7 +62,7 @@ export function compareLayoutReuseWithCatalog(evidence,lock,manifest,loadTemplat
  }
  compositions.sort((a,b)=>sort(a.name,b.name));
  const comparisons=candidateList.map(candidate=>{
-  const {parentType,childType,relation}=candidate.structure;
+  const {parentType,childType}=candidate.structure;
   const coveredByPrimitives=primitiveSet.has(parentType)&&primitiveSet.has(childType);
   const matches=compositions.flatMap(c=>{
    const occurrences=c.byStructure.get(candidate.id);
