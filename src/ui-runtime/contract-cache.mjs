@@ -7,6 +7,7 @@
 const fingerprintPattern = /^[a-f0-9]{64}$/;
 const versionPattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 const maxKeyLength = 128 * 1024;
+const maxValueLength = 512 * 1024;
 
 function describe(request) {
   if (request?.scope !== 'public-contract-derived' ||
@@ -61,8 +62,12 @@ export function createContractVersionedCache({
       const descriptor = describe(request);
       if (!descriptor || value === undefined) return false;
       let copy;
-      try { copy = structuredClone(value); }
-      catch { return false; } // Functions/non-cloneable data are not cached.
+      try {
+        // Bounded JSON-serializable metadata only; no streams, functions or huge blobs.
+        const json = JSON.stringify(value);
+        if (typeof json !== 'string' || json.length > maxValueLength) return false;
+        copy = structuredClone(value);
+      } catch { return false; } // Functions/non-cloneable data are not cached.
       const time = now();
       prune(descriptor.dependencies, time);
       entries.delete(descriptor.id);
