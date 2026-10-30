@@ -2,7 +2,7 @@
 
 # E10 — Eventos estruturados de execução Pi (v1)
 
-Este **contrato de diagnóstico opcional** não altera permissões Pi, schemas Zod, contratos admitidos nem controles do Admission Engine.
+Este **contrato de diagnóstico opcional** não altera permissões Pi, schemas Zod, contratos admitidos nem controles do Admission Engine. Para registrar a justificativa da seleção, os fingerprints dos contratos e as referências às evidências semânticas, consulte [decisões do Pi (E10)](pi-decision-records.pt-BR.md).
 
 ## Identificadores e formato
 

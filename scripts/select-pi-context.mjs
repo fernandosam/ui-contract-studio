@@ -3,9 +3,11 @@
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {createExecutionRecorder} from './lib/execution-events.mjs';
+import {recordPiDecision} from './lib/pi-decision-records.mjs';
 import {buildSemanticKnowledge,selectAgentSemanticAdvice} from './lib/semantic-knowledge.mjs';
 import {selectPiSemanticCandidates} from './lib/pi-semantic-selection.mjs';
-const eventStage=createExecutionRecorder({source:'pi-context'}).start('selection');
+const executionRecorder=createExecutionRecorder({source:'pi-context'});
+const eventStage=executionRecorder.start('selection');
 const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const all=read('pi-catalog/contracts.json');
 const reviewed=new Map(read('src/ui-catalog/contracts.lock.json').components.map(c=>[c.name,c]));
@@ -65,6 +67,9 @@ const selection=requirementArg?selectPiSemanticCandidates({
   contracts:selected.map(item=>item.contract),profiles:semantic.report.profiles,
   allowedTypes:names,limit:names.length,
 }):null;
+// Explicit --types without a requirement is a host choice, not a semantic agent decision.
+if(selection && process.env.UI_CONTRACT_DECISIONS_FILE)recordPiDecision({source:'pi-context',executionId:executionRecorder.executionId,
+ result:selection,contracts:selected.map(item=>item.contract),profiles:semantic.report.profiles});
 const pack={schemaVersion:3,catalogVersion:all.projectVersion,channel,metadataOnly,rules:[
  channel==='experimental'?'EXPERIMENTAL: tipos experimentais somente para preview/sandbox local; não conceda operações externas.':'ESTÁVEL: não utilize tipos experimentais pendentes de E2E.',
  'Retorne somente JSON com root e elements; todos os nós DEVEM conter children como array, mesmo sem filhos.',
