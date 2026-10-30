@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 // Opt-in E11 lab suite: the production build must already exist (npm run build).
 export default defineConfig({
-  testDir: "./tests/e2e",
+  testDir: "./tests/performance",
   testMatch: "web-performance.spec.ts",
   fullyParallel: false,
   workers: 1,
