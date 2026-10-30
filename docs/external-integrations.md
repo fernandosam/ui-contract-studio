@@ -2,7 +2,7 @@
 
 # E12 — External use cases and the minimum public integration surface
 
-**Decision (scope of this phase):** document and reuse the existing **read-only, file-based catalog plus local validation CLI**. Do not add an HTTP API, SDK, plugin protocol, package publication, remotely executable Pi workflow, or generic host adapter. This document defines the *supported integration pattern for a pinned repository revision*, not a new runtime implementation or a promise of backward compatibility between arbitrary revisions.
+**Historical E12 discovery decision (before PR #193):** reuse the **read-only, file-based catalog and local validation CLI**, without adding a service or public package. The subsequent [in-process typed SDK](typed-contract-sdk.md) is now available in source form. For **current** workflows, pinning, examples and errors, use the [integration guide](integration-guide.md). No HTTP endpoint, npm SDK package, remote Pi workflow or generic host service is implied by this earlier decision.
 
 ## Evidence and assumptions
 
@@ -23,7 +23,7 @@ The following are **potential consumers**, not validated demand or commitments: 
 | P0 | An agent in a separate repository selects allowed UI types and generates a JSON screen | Revision-pinned `pi-catalog/contracts.json`, selected examples and local `pi:validate` | Stable channel only; examples are illustrative and never authorize capabilities |
 | P0 | A CI pipeline accepts/rejects a submitted JSON spec before release | Local CLI exit code and JSON diagnostics from `pi:validate` | Validate against the same pinned revision as the renderer; invalid/unavailable validation blocks promotion |
 | P1 | An external tool browses component names, version, maturity and documented properties | Read-only manifest; optional generated property schema for discovery | Read only; no inferred action/API permissions from guidance |
-| P1 | An application team previews JSON UI in its own React host | Source integration may be evaluated separately | **Not a supported published embedding contract**; no stable SDK, styles/registry contract or runtime binary today |
+| P1 | An application team previews JSON UI in its own React host | Source integration may be evaluated separately | **No supported published renderer embedding contract**, styles/registry package or runtime binary; the source-level contract SDK is not a renderer |
 | Deferred | A backend supplies live table data | Existing narrow same-origin `processos-api` adapter, host-controlled | No general-purpose remote data API; server authn/authz, filtering and audit belong to the host |
 | Deferred | Remote generation, admission, publishing, webhooks or write operations | None | Not justified by demonstrated use cases; require a separately reviewed design |
 
@@ -55,7 +55,7 @@ A CI integrator must ensure the spec is present at the selected path; `npm run p
 
 ## What stays internal / explicitly not exposed
 
-Zod/registry implementation modules, component source paths, `SpecScreen` props, the Admission Engine's write/publish methods, experimental composition certificates, agent prompts and tools, source repositories and semantic indexes, local telemetry/event files, application state, arbitrary actions, network adapters, and CI credentials are **not public service APIs**. They may be visible in an open-source tree but are not stable integration commitments. In particular, do not add `/api/*`, MCP/tool calls, webhooks, `POST /generate`, `POST /validate`, actions, browser embeds, npm exports or an open network listener as part of E12 discovery.
+Underlying Zod/registry implementation modules (other than the explicit in-process contract SDK facade), component source paths, `SpecScreen` props, the Admission Engine's write/publish methods, experimental composition certificates, agent prompts and tools, source repositories and semantic indexes, local telemetry/event files, application state, arbitrary actions, network adapters, and CI credentials are **not public service APIs**. They may be visible in an open-source tree but are not stable integration commitments. In particular, do not add `/api/*`, MCP/tool calls, webhooks, `POST /generate`, `POST /validate`, actions, browser embeds, npm exports or an open network listener as part of E12 discovery.
 
 ## When to consider a larger interface
 
