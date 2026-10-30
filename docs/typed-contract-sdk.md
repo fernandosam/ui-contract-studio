@@ -4,6 +4,8 @@
 
 The public integration surface is a **local, in-process facade** over the reviewed contract lock, Pi projection, real Zod definitions and graph policy. It is not a hosted HTTP API, npm-published package, model generation client, contract-admission interface or backend authorization system.
 
+For an end-to-end quickstart, reviewed revision pins and standardized consumer-side error handling, see the [E12 integration guide](integration-guide.md) and its [tested example](../examples/integrations/contract-sdk.ts).
+
 ## Public operations
 
 - `createContractSdk()` defaults to `stable`. `createContractSdk({ channel: "experimental" })` explicitly opts into the experimental catalog.
