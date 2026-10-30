@@ -12,7 +12,7 @@ The E11 runner measures **real local CLI flows**, not synthetic Pi responses. It
 | select-wide | Broad Pi selection | Reviewed catalog, candidate scoring and comparison |
 | context-real-schema | Four Pi components | Real JSON schemas and semantic advice (not metadata-only) |
 | plan-simple | Minimal local-demo registration | Planning, JSON generation and compliance |
-| plan-rich | Multi-field local-demo registration | Two-column layout, confirmation, JSON generation, compliance |
+| plan-rich | Multi-field local-demo registration | Two-column field grouping, JSON generation, compliance |
 | validate-screen | Existing login JSON screen | Zod validation and structural graph invariants |
 
 Registration inputs are fixed, non-sensitive, temporary files under reports/requirements/ that are deleted after the run. Validation uses src/ui-screens/blocos-login.json. Changes to screen, contracts or semantic knowledge change the workload: record the source revision. Browser rendering, network, live AI generation, paid tokens and backend throughput are out of scope.
