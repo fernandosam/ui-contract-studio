@@ -45,7 +45,7 @@ Pi evaluation checks Zod, graph invariants and required components. It is **not*
 
 ## Data safety and limitations
 
-Events allow only bounded numeric attempt (1 or 2), inputTokens and outputTokens for the pi-eval generation phase, in addition to the previous closed allowlist. Usage is accepted **only on terminal events**; neither prompts nor model responses are logged. All records are validated; invalid or duplicate records cause fail-closed reporting. Interrupted operations are incomplete, not success. Sources must be regular JSONL files under reports/pi-execution/ (no symlink/traversal, max 16 MiB). Evaluation reports are local, bounded and Git-ignored.
+Events allow only bounded numeric attempt (1 or 2), inputTokens and outputTokens for the pi-eval generation phase, in addition to the previous closed allowlist. Usage is accepted **only on terminal events**; neither prompts nor model responses are logged. All records are validated; invalid or duplicate records cause fail-closed reporting. Interrupted operations are incomplete, not success. Sources must be regular JSONL files under reports/pi-execution/ (no symlink/traversal; max 4 MiB per file with 7-day event retention and cardinality limits). Evaluation reports are local, bounded and Git-ignored. See [E10 log policy](pi-execution-log-policy.md).
 
 This is a **diagnostic**, not automatic monitoring, admission evidence or a replacement for independent visual review. Establish local retention and access policy before storing telemetry.
 
