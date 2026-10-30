@@ -127,6 +127,8 @@ jobs:
         run: npm run contracts:migrate -- --file=tests/fixtures/contract-migrations/legacy-reui-spec.json --versions=tests/fixtures/contract-migrations/legacy-reui-versions.json --out=reports/contract-migrations/reui-migrated.json
       - name: Lint sources
         run: npm run lint
+      - name: E12 contract, compatibility, security and in-process end-to-end tests (blocking)
+        run: npm run test:e12
       - name: Run integration tests (offline tests run in their own job)
         run: npx tsx --test tests/*.integration.test.ts
       - name: Typecheck and production build
