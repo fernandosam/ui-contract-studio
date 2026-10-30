@@ -44,10 +44,11 @@ A host must not use this example as a standalone server: `identityProvider`, `tr
 | Pre-auth attempts globally | 5,000/minute |
 | Authenticator calls in flight | 32 |
 | Authenticated calls per tenant + subject | 120/minute and 2,000/UTC day |
-| SDK calls in flight | 4 per tenant + subject, 32 globally |
+| Aggregate calls per tenant | 600/minute and 10,000/UTC day |
+| SDK calls in flight | 4 per tenant + subject, 16 per tenant, 32 globally |
 | Serialized command size | 256,000 bytes |
 | Command nodes / maximum nesting | 6,000 / 40 |
-| Tracked peer / principal buckets | 2,000 / 10,000 |
+| Tracked peer / principal / tenant buckets | 2,000 / 10,000 / 2,000 |
 
 The limits are validated and may be lowered for a specific trusted host. The gateway uses bounded per-instance fixed-window accounting. The request that exceeds a quota is denied before SDK invocation, and concurrency capacity is released after success and exception. Window boundaries permit normal fixed-window burst effects; quotas are **not a sliding-window or a billing guarantee**. Tokens and identifiers are not stored in plaintext in the limiter (internal keys use a per-instance HMAC); the raw bearer token only reaches the host's authentication callback.
 
