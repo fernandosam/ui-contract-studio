@@ -6,7 +6,7 @@ import {buildReuiExampleIndex,filterIndexedReuiExamples,filterReuiExamples} from
 import {buildDiscoveryIndex,discoverContracts,discoverIndexedContracts,type DiscoveryEntry} from "../src/ui-runtime/catalog-discovery"
 
 test("E11: full 559-example index preserves identifiers, ordering and multi-field semantics",()=>{
- const byFamily=groups as Record<string,{examples:[string,string][]}>
+ const byFamily=groups as unknown as Record<string,{examples:[string,string][]}>
  const guidance=guides as Record<string,{bestFor:string;whenNotUse:string[]}>
  let total=0
  for(const [family,group] of Object.entries(byFamily)){
