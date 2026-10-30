@@ -87,9 +87,16 @@ export function appendExecutionLogEvent(destination,event,{validate,now=Date.now
      !regularDirectory(directory)) throw new Error('Unsafe E10 log directory');
   const lock=join(directory,'.e10-writer.lock');
   let lockFd;
-  try {
-    lockFd=openSync(lock,constants.O_CREAT|constants.O_EXCL|constants.O_WRONLY|(constants.O_NOFOLLOW??0),0o600);
-  }catch{throw new Error('E10 log writer lock unavailable');}
+  for(let attempt=0;attempt<50;attempt++){
+    try {
+      lockFd=openSync(lock,constants.O_CREAT|constants.O_EXCL|constants.O_WRONLY|(constants.O_NOFOLLOW??0),0o600);
+      break;
+    }catch(error){
+      if(error?.code!=='EEXIST'||attempt===49) throw new Error('E10 log writer lock unavailable');
+      // Bounded contention backoff; do not override a stale lock or corrupt another writer.
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,20);
+    }
+  }
   try {
     const cutoff=cutoffFor(now);
     const entries=readdirSync(directory).filter(name=>logName.test(name));
