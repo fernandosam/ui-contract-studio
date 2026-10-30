@@ -44,10 +44,11 @@ O exemplo não constitui um servidor pronto: `identityProvider`, `transport` e `
 | Tentativas pré-autenticação globais | 5.000/minuto |
 | Autenticações simultâneas | 32 |
 | Operações por tenant + usuário | 120/minuto e 2.000/dia UTC |
-| Operações simultâneas do SDK | 4 por tenant + usuário, 32 globais |
+| Operações agregadas por tenant | 600/minuto e 10.000/dia UTC |
+| Operações simultâneas do SDK | 4 por tenant + usuário, 16 por tenant, 32 globais |
 | Tamanho serializado do comando | 256.000 bytes |
 | Nós do comando / profundidade máxima | 6.000 / 40 |
-| Peers / identidades rastreadas | 2.000 / 10.000 |
+| Peers / identidades / tenants rastreados | 2.000 / 10.000 / 2.000 |
 
 Os limites são validados e podem ser reduzidos pelo host. A contabilização usa janelas fixas e memória limitada **por processo**. Chamadas acima das quotas são rejeitadas antes de executar o SDK; vagas de concorrência são liberadas em sucesso e erro. Janelas fixas permitem rajadas nas suas transições: não representam controle de janela deslizante ou de faturamento. Tokens e IDs não ficam em texto puro nas chaves do limitador (HMAC com segredo por instância); o token bruto chega somente ao autenticador do host.
 
