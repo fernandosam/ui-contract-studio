@@ -6,7 +6,7 @@ O registrador JSONL E10 é **opcional**, local e de esquema fechado. Nada altera
 
 ## Proteção de dados sensíveis
 
-O registrador admite apenas enums fixos e validados de origem/fase/status/motivo, contadores limitados, flags booleanas e UUIDs aleatórios de correlação. Ele **rejeita** chaves desconhecidas, texto livre, requisitos, prompts, JSON de tela, texto/pilhas de exceção, caminhos, credenciais e identificadores de usuários *antes da persistência*. Diagnósticos arbitrários não devem entrar em details. A função \`redactSensitiveText\` mascara e-mails, CPF, tokens de autorização, campos de senha/segredo e parâmetros de token em URL para *outros* diagnósticos; não amplia a lista permitida de eventos. Expressões regulares são uma proteção adicional, não garantia de anonimização de dados pessoais arbitrários.
+O registrador admite apenas enums fixos e validados de origem/fase/status/motivo, contadores limitados, flags booleanas e UUIDs aleatórios de correlação. Ele **rejeita** chaves desconhecidas, texto livre, requisitos, prompts, JSON de tela, texto/pilhas de exceção, caminhos, credenciais e identificadores de usuários *antes da persistência*. Diagnósticos arbitrários não devem entrar em details. A função `redactSensitiveText` mascara e-mails, CPF, tokens de autorização, campos de senha/segredo e parâmetros de token em URL para *outros* diagnósticos; não amplia a lista permitida de eventos. Expressões regulares são uma proteção adicional, não garantia de anonimização de dados pessoais arbitrários.
 
 UUIDs de execução, operação e evento permanecem nos logs brutos para correlação local; não devem servir como rótulos de métricas nem aparecem nos agregados HTML/CSV. Quem acessa os logs brutos pode correlacionar operações; restringir acesso ao diretório e excluir cópias exportadas separadamente.
 
@@ -34,6 +34,6 @@ npm run pi:logs:prune -- --apply
 node --test tests/execution-log-policy.test.mjs
 ~~~
 
-O primeiro comando apenas apresenta contagens; \`--apply\` compacta/exclui eventos vencidos e aplica o limite de arquivos. A saída contém somente números, sem caminhos, UUIDs ou conteúdo. Para prazo estrito de exclusão, agendar o comando no sistema operacional; não foi criado daemon nem workflow automático. Um lock \`.e10-writer.lock\` remanescente após falha bloqueia novas gravações/manutenção e só deve ser removido **quando não houver outro escritor ativo**. Não se garante eliminação física de snapshots e backups.
+O primeiro comando apenas apresenta contagens; `--apply` compacta/exclui eventos vencidos e aplica o limite de arquivos. A saída contém somente números, sem caminhos, UUIDs ou conteúdo. Para prazo estrito de exclusão, agendar o comando no sistema operacional; não foi criado daemon nem workflow automático. Um lock `.e10-writer.lock` remanescente após falha bloqueia novas gravações/manutenção e só deve ser removido **quando não houver outro escritor ativo**. Não se garante eliminação física de snapshots e backups.
 
 Antes de atingir uma quota, rotacionar ou escolher outro nome de arquivo válido; não há descarte silencioso. Verificar permissões locais, backups e retenção independente do provedor antes de usar com dados reais. Consultar [eventos E10](pi-execution-events.pt-BR.md), [métricas](pi-execution-metrics.pt-BR.md) e [tendências](pi-execution-trends.pt-BR.md).
