@@ -2,6 +2,8 @@
 
 # E10 — Métricas offline de execução do Pi
 
+O [painel de tendências](pi-execution-trends.pt-BR.md) reutiliza a leitura validada e a agregação de métricas para gerar visões JSON/CSV/HTML locais.
+
 O comando analisa [eventos estruturados E10](pi-execution-events.pt-BR.md) **localmente**, sem executar o Pi, solicitar credenciais, ampliar permissões do catálogo nem transmitir dados. A saída é JSON no stdout e não grava arquivos.
 
 ## Captura e relatório

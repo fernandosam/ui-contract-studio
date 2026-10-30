@@ -23,6 +23,8 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 | [Agentes e Pi](agents.pt-BR.md) | Geração segura e validação de specs |
 | [Modelo de ameaças do Pi Agent (E09)](pi-agent-threat-model.pt-BR.md) | Fronteiras de confiança, revisão das entradas/saídas/execução e riscos priorizados |
 | [Eventos de execução Pi (E10)](pi-execution-events.pt-BR.md) | Identificadores correlacionados, eventos de ciclo de vida, segurança e diagnóstico opcional |
+| [Métricas Pi (E10)](pi-execution-metrics.pt-BR.md) | Latência, tokens, tentativas e avaliação contratual offline |
+| [Painel de tendências Pi (E10)](pi-execution-trends.pt-BR.md) | Relatórios JSON, CSV e HTML de eventos locais validados |
 | [Desenvolvimento](development.pt-BR.md) | Ambiente, testes, CI e E2E |
 | [Governança](governance.pt-BR.md) | Revisão e auditoria contínua do repositório público |
 
