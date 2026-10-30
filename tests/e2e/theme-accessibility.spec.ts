@@ -42,10 +42,18 @@ for (const mode of ["light","dark"] as const) {
   });
 }
 test("E06: no page overflow or inaccessible theme selector across viewports",async({page})=>{
+  test.setTimeout(180_000);
   for(const width of [390,600,800,1440]){
     await page.setViewportSize({width,height:850});
     for(const screen of ["explorador-primitivos","explorador-compostos","explorador-exemplos"]){
       await page.goto("/?screen="+screen);
+      if (screen === "explorador-primitivos") {
+        await page.getByLabel("Buscar componente").fill("Button");
+        await page.locator('[aria-label="Componentes registrados"] button[aria-label="Button"]').click();
+      } else if (screen === "explorador-compostos") {
+        await page.getByLabel("Buscar componente").fill("Dashboard01");
+        await page.getByRole("button",{name:"Dashboard01",exact:true}).click();
+      }
       const selector=page.getByTestId("preview-theme-selector").first();
       await expect(selector).toBeVisible();
       for(const mode of ["light","dark"]){
