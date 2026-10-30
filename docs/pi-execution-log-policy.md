@@ -6,7 +6,7 @@ The E10 JSONL recorder is **opt-in**, local-only and closed-schema. Nothing here
 
 ## Sensitive-data protection
 
-The recorder accepts only fixed, validated source/phase/status/reason enums, bounded counters, boolean flags and random correlation UUIDs. It **rejects** unknown keys, free text, requirements, prompts, screen JSON, exception text/stacks, file paths, credentials and user identifiers *before persisting*. Raw diagnostic text must never be placed in event details. The \`redactSensitiveText\` utility masks common emails, CPF, authorization tokens, password/secret fields and token URL parameters for *other* operational diagnostics; it does not relax the event allowlist. Regex masking is defense-in-depth, not proof that arbitrary personal information is anonymized.
+The recorder accepts only fixed, validated source/phase/status/reason enums, bounded counters, boolean flags and random correlation UUIDs. It **rejects** unknown keys, free text, requirements, prompts, screen JSON, exception text/stacks, file paths, credentials and user identifiers *before persisting*. Raw diagnostic text must never be placed in event details. The `redactSensitiveText` utility masks common emails, CPF, authorization tokens, password/secret fields and token URL parameters for *other* operational diagnostics; it does not relax the event allowlist. Regex masking is defense-in-depth, not proof that arbitrary personal information is anonymized.
 
 Stored execution, operation and event UUIDs remain present for local correlation; they are not intended as metrics labels or exposed in the aggregated HTML/CSV. Anyone with access to raw logs can still correlate actions, so limit filesystem access and delete exported copies independently.
 
@@ -34,6 +34,6 @@ npm run pi:logs:prune -- --apply
 node --test tests/execution-log-policy.test.mjs
 ~~~
 
-The first command only previews counts; \`--apply\` compacts/removes expired data and enforces the file-count limit. It reports counts only, no filenames, UUIDs or payloads. Run it under an OS scheduler when a strict deletion deadline matters; no automatic background daemon or scheduled workflow was added. A stale \`.e10-writer.lock\` after a crash blocks new writes/maintenance and must be removed **only after verifying there is no active writer**. No guarantee of secure erasure from snapshots or storage backups is made.
+The first command only previews counts; `--apply` compacts/removes expired data and enforces the file-count limit. It reports counts only, no filenames, UUIDs or payloads. Run it under an OS scheduler when a strict deletion deadline matters; no automatic background daemon or scheduled workflow was added. A stale `.e10-writer.lock` after a crash blocks new writes/maintenance and must be removed **only after verifying there is no active writer**. No guarantee of secure erasure from snapshots or storage backups is made.
 
 Operators should rotate or choose another valid log filename before a quota is exhausted; there is no silent drop of data. Audit local permissions, filesystem backups and the provider's separate retention policies before any real-data usage. See [E10 events](pi-execution-events.md), [metrics](pi-execution-metrics.md) and [trends](pi-execution-trends.md).
