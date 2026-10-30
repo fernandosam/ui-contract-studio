@@ -2,7 +2,7 @@
 
 # E12 — Casos de uso externos e superfície pública mínima de integração
 
-**Decisão (escopo desta etapa):** reutilizar o **catálogo somente de leitura, distribuído em arquivos, e a CLI local de validação**. Não criar API HTTP, SDK, protocolo de plugins, pacote publicável, execução Pi remota nem adaptador genérico de aplicação. Este documento define uma *forma de integração para uma revisão Git fixada*, não uma implementação de serviço nem garantia de compatibilidade entre revisões arbitrárias.
+**Decisão histórica de descoberta E12 (anterior ao PR #193):** reutilizar o **catálogo de leitura em arquivos e a CLI local**, sem criar serviço nem pacote público. O [SDK tipado local](typed-contract-sdk.pt-BR.md) foi implementado depois e está disponível pelo código-fonte. Para fluxos **atuais**, versões, exemplos e erros, consulte o [guia de integração](integration-guide.pt-BR.md). A decisão anterior não implica endpoint HTTP, pacote npm, execução Pi remota nem serviço genérico.
 
 ## Evidências e hipóteses
 
@@ -23,7 +23,7 @@ São **consumidores potenciais**, não demanda comprovada: geradores de UI de te
 | P0 | Agente em outro repositório seleciona tipos autorizados e gera tela JSON | `pi-catalog/contracts.json` fixado em revisão Git, exemplos selecionados e `pi:validate` local | Somente stable; exemplos não concedem capacidades |
 | P0 | CI externa aprova/rejeita uma tela JSON antes de publicá-la | Código de saída e diagnósticos JSON da CLI `pi:validate` | Validar na mesma revisão do renderizador; erro ou indisponibilidade bloqueia publicação |
 | P1 | Ferramenta externa consulta nomes, versões, maturidade e propriedades | Manifesto somente de leitura; opcionalmente schema gerado para consulta | Conhecimento semântico não autoriza APIs nem ações |
-| P1 | Equipe de aplicação deseja renderizar JSON no próprio host React | Integração pelo código-fonte pode ser avaliada à parte | **Não existe contrato público de embedding**; sem SDK, CSS/registry estável ou distribuição binária |
+| P1 | Equipe de aplicação deseja renderizar JSON no próprio host React | Integração pelo código-fonte pode ser avaliada à parte | **Não existe contrato de embedding do renderizador publicado**, pacote de estilos/registry estável ou distribuição binária; o SDK local de contratos não é um renderizador |
 | Adiado | Backend disponibiliza dados reais para tabela | Adaptador restrito `processos-api` same-origin com controle do host | Não é API remota genérica; autenticação, autorização, filtros e auditoria pertencem ao host |
 | Adiado | Geração remota, admissão, publicação, webhooks ou operações de escrita | Nenhuma | Sem caso comprovado; dependem de novo desenho e revisão |
 
@@ -55,7 +55,7 @@ A CI consumidora deve criar o arquivo no caminho informado; `pi:validate` **não
 
 ## O que permanece interno ou fora do contrato público
 
-Módulos Zod/registry, caminhos do código de componentes, props de `SpecScreen`, escrita/publicação do Admission Engine, certificados experimentais, prompts/ferramentas do agente, índices semânticos, arquivos locais de telemetria, estado da aplicação, ações arbitrárias, adaptadores de rede e segredos de CI **não são APIs públicas de serviço**. Sua visibilidade no código aberto não cria compromisso de estabilidade. Em particular, a E12 não autoriza novos `/api/*`, ferramentas MCP, webhooks, `POST /generate`, `POST /validate`, ações, embeds de navegador, exports npm ou listeners de rede.
+Módulos internos Zod/registry (exceto a fachada explícita do SDK local de contratos), caminhos do código de componentes, props de `SpecScreen`, escrita/publicação do Admission Engine, certificados experimentais, prompts/ferramentas do agente, índices semânticos, arquivos locais de telemetria, estado da aplicação, ações arbitrárias, adaptadores de rede e segredos de CI **não são APIs públicas de serviço**. Sua visibilidade no código aberto não cria compromisso de estabilidade. Em particular, a E12 não autoriza novos `/api/*`, ferramentas MCP, webhooks, `POST /generate`, `POST /validate`, ações, embeds de navegador, exports npm ou listeners de rede.
 
 ## Critérios para ampliar a integração
 
