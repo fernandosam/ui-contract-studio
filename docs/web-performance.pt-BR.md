@@ -21,6 +21,7 @@ Artefatos locais, ignorados pelo Git:
 - `reports/web-performance/bundle.json`: inventário de todos os assets, JS/CSS em bytes brutos/gzip/Brotli, referências diretas do HTML (**limite inferior** de carregamento) e maiores chunks.
 - `reports/web-performance/browser/{desktop,mobile}-*.json`: três navegações e cinco interações por cenário; heap JS via CDP, FCP/LCP/CLS, tarefas longas, bytes dos recursos, overflow horizontal, erros JS e requisições externas bloqueadas.
 - `reports/web-performance/summary.md`: valores agregados e identificados como medições diagnósticas. Playwright anexa os JSONs individuais.
+- `reports/web-performance/screenshots/`: uma captura do viewport por caso, gerada **após** medir tempos e heap para revisão humana da renderização.
 
 São cinco cenários: filtragem ReUI, descoberta de primitivas, prévia do composto Dashboard01, seleção de exemplo JSON e alternância de tema no login, executados em desktop e móvel (**10 casos**). No perfil móvel, Pixel 7 é **emulado** com CPU 4× mais lenta, latência de 150 ms e download de 1,6 Mbit/s; desktop não é limitado. A suíte bloqueia requisições externas e deve operar somente com dados públicos de demonstração.
 
