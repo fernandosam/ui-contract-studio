@@ -5,6 +5,9 @@
 import { z } from "zod";
 import piManifest from "../../pi-catalog/contracts.json";
 import reviewedLock from "../ui-catalog/contracts.lock.json";
+import admissionEntries from "../ui-catalog/admission-engine/entries.json";
+import admissionCertificates from "../ui-catalog/admission-engine/certifications.json";
+import admissionPolicy from "../ui-catalog/admission-engine/policy.json";
 import {
   actionDefinitions, catalog, componentDefinitions, experimentalCatalog,
   experimentalComponentEventDescriptors, stableComponentDefinitions,
@@ -76,6 +79,7 @@ export interface ContractSdk<Channel extends ContractChannel = "stable"> {
 
 const manifestByType = new Map(piManifest.components.map(entry => [entry.type, entry] as const));
 const reviewedByType = new Map(reviewedLock.components.map(entry => [entry.name, entry] as const));
+const admittedByType = new Map(admissionEntries.entries.map(entry => [entry.type, entry] as const));
 const safeKeys = new Set(["id", "type", "props", "children", "slots", "on"]);
 const forbiddenKeys = new Set(["__proto__", "constructor", "prototype"]);
 const MAX_BYTES = 512_000;
@@ -138,11 +142,23 @@ function authorized(type: string, channel: ContractChannel) {
         (reviewed.stability === "stable" && reviewed.status !== "approved")) return null;
     if (channel === "stable" && (reviewed.stability !== "stable" || reviewed.status !== "approved")) return null;
   } else {
-    if (projected.tier !== "composition" ||
-        projected.fingerprint !== projected.sourceDigest ||
-        projected.stability !== projected.lifecycle ||
-        (projected.lifecycle === "stable" &&
-          !["passed", "ci-required"].includes(projected.validation?.e2e ?? ""))) return null;
+    const entry = admittedByType.get(type);
+    if (projected.tier !== "composition" || !entry ||
+        !admissionPolicy.allowedScenarios.includes(entry.id) ||
+        projected.version !== entry.version ||
+        projected.fingerprint !== entry.sourceDigest ||
+        projected.sourceDigest !== entry.sourceDigest ||
+        projected.stability !== projected.lifecycle) return null;
+    const cert = admissionCertificates.components[type as keyof typeof admissionCertificates.components];
+    const certified = !!(entry.e2eProtocol && cert?.status === "passed" &&
+      cert.protocol === entry.e2eProtocol && cert.sourceDigest === entry.sourceDigest);
+    const autoDigest = admissionPolicy.ciAutoAdmit[
+      entry.id as keyof typeof admissionPolicy.ciAutoAdmit];
+    const ciApproved = autoDigest === entry.sourceDigest &&
+      entry.events.length === 0 && !!entry.e2eProtocol;
+    if (projected.lifecycle === "stable" && !certified && !ciApproved) return null;
+    if (projected.validation?.e2e === "passed" && !certified) return null;
+    if (projected.validation?.e2e === "ci-required" && !ciApproved) return null;
     if (channel === "stable" && projected.lifecycle !== "stable") return null;
   }
   const definition = definitions[type];
@@ -194,7 +210,7 @@ export function createContractSdk<Channel extends ContractChannel = "stable">(
       const structural = graphErrors(candidate, names, {
         allowedActions: actions, allowedEvents: descriptors,
       });
-      for (const _message of structural) {
+      for (let i = 0; i < structural.length; i += 1) {
         issues.push({
           pointer: "",
           code: "graph_invariant",
@@ -226,10 +242,13 @@ export function createContractSdk<Channel extends ContractChannel = "stable">(
   }
 
   function generate(request: GenerationRequest<ReviewedContractNode | ExperimentalContractNode>): ValidationResult {
-    if (!request || typeof request !== "object" || !Array.isArray(request.nodes) ||
-        typeof request.root !== "string" || request.nodes.length > 300) return invalid("invalid_generation_request");
+    const safe = copySafeJson(request);
+    if (!safe.ok) return invalid("invalid_generation_request");
+    const draft = safe.value as GenerationRequest<ReviewedContractNode | ExperimentalContractNode>;
+    if (!draft || typeof draft !== "object" || !Array.isArray(draft.nodes) ||
+        typeof draft.root !== "string" || draft.nodes.length > 300) return invalid("invalid_generation_request");
     const elements: Record<string, unknown> = Object.create(null);
-    for (const node of request.nodes) {
+    for (const node of draft.nodes) {
       if (!node || typeof node !== "object" || typeof node.id !== "string" ||
           !node.id || forbiddenKeys.has(node.id) ||
           Object.keys(node).some(key => !safeKeys.has(key))) return invalid("invalid_node");
@@ -241,8 +260,8 @@ export function createContractSdk<Channel extends ContractChannel = "stable">(
       };
     }
     return validate({
-      root: request.root, elements,
-      ...(request.state === undefined ? {} : { state: request.state }),
+      root: draft.root, elements,
+      ...(draft.state === undefined ? {} : { state: draft.state }),
     });
   }
 
