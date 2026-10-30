@@ -127,11 +127,11 @@ function writeReport(root,destination,report) {
     renameSync(temp,target);
   }finally{if(existsSync(temp))unlinkSync(temp);}
 }
-function fixtureData(name) {
-  return name==='simple'
-    ?{intent:'Criar tela de cadastro simples',answers:{persistence:'local-demo'}}
-    :{intent:'Cadastro corporativo com múltiplos campos',answers:{
-        persistence:'local-demo',fields:['name','email','phone','company','city'],layout:'two-columns',confirmation:true}};
+function fixtureData(name,root) {
+  const cases=JSON.parse(readFileSync(join(root,'tests/fixtures/requirements-scenarios.json'),'utf8')).scenarios;
+  const selected=cases.find(item=>item.id===(name==='simple'?'simple':'corporate') && item.blocked===false);
+  if(!selected)throw Error('E11 scenario fixture missing or blocked');
+  return {intent:selected.intent,answers:selected.answers};
 }
 function prepareFixtures(root,names) {
   const used=names.filter(x=>SCENARIOS[x].fixture);
@@ -141,7 +141,7 @@ function prepareFixtures(root,names) {
   try{
     for(const scenario of used){
       const path='reports/requirements/e11-'+randomUUID()+'.json';
-      writeFileSync(join(root,path),JSON.stringify(fixtureData(SCENARIOS[scenario].fixture)),{flag:'wx',mode:0o600});
+      writeFileSync(join(root,path),JSON.stringify(fixtureData(SCENARIOS[scenario].fixture,root)),{flag:'wx',mode:0o600});
       paths[scenario]=path;created.push(join(root,path));
     }
     return {paths,cleanup:()=>created.forEach(p=>unlinkSync(p))};
@@ -206,7 +206,9 @@ export async function main(argv=process.argv.slice(2)) {
     return;
   }
   const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-  const {UI_CONTRACT_EVENTS_FILE:_events,UI_CONTRACT_EXECUTION_ID:_id,...safeEnv}=process.env;
+  const safeEnv={...process.env};
+  delete safeEnv.UI_CONTRACT_EVENTS_FILE;
+  delete safeEnv.UI_CONTRACT_EXECUTION_ID;
   const report={schemaVersion:1,kind:'offline-cli-e11',generatedAt:new Date().toISOString(),
     environment:environment(root),config:{iterations:config.iterations,warmup:config.warmup,
       concurrency:config.concurrency,scenarios:config.scenarios,timeoutMs:config.timeoutMs},
