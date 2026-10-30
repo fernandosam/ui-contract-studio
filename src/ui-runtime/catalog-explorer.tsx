@@ -13,7 +13,7 @@ import { PreviewThemeSelector } from './preview-theme';
 import { TreePatchWorkbench } from './tree-patch-workbench';
 import piManifest from '../../pi-catalog/contracts.json';
 import semanticGuidance from '@/ui-catalog/semantic-contract-guidance.json';
-import {discoverContracts,functionalGroups,type DiscoveryEntry} from './catalog-discovery';
+import {buildDiscoveryIndex,discoverIndexedContracts,functionalGroups,type DiscoveryEntry} from './catalog-discovery';
 import {compareSemanticContracts} from './semantic-comparison';
 import type {SemanticComparisonEntry,ComparedCapability} from './semantic-comparison';
 import { AdmissionExplorer } from './admission-explorer';
@@ -432,7 +432,8 @@ function ComponentExplorer({kind}:{kind:Kind}){
    reviewedOn:overlay?.source.reviewedOn,
   };
  }),[discoveryEntries]);
- const results=useMemo(()=>discoverContracts(discoveryEntries,{query:search,group,maturity:stability,pi:piFilter}),[discoveryEntries,search,group,stability,piFilter]);
+ const discoveryIndex=useMemo(()=>buildDiscoveryIndex(discoveryEntries),[discoveryEntries]);
+ const results=useMemo(()=>discoverIndexedContracts(discoveryIndex,{query:search,group,maturity:stability,pi:piFilter}),[discoveryIndex,search,group,stability,piFilter]);
  const filtered=results.map(item=>item.entry.name);
  const grouped=useMemo(()=>{
   const buckets=new Map<string,typeof results>();
@@ -573,7 +574,7 @@ export function ExamplesExplorer(){
 import { ReuiCompositeExplorer } from './reui-composite-explorer';
 import {ReuiPreview} from '@/ui-catalog/extensions/composites/reui-preview';
 import {ReuiSourceViewer} from '@/ui-catalog/extensions/composites/reui-source-viewer';
-import {filterReuiExamples} from './reui-search';
+import {buildReuiExampleIndex,filterIndexedReuiExamples} from './reui-search';
 
 type Guide = {whenUse:string[];whenNotUse:string[];agentNotes:string[];examples:[string,string][]};
 const guides=reuiGuidance as unknown as Record<string,Guide>;
@@ -581,12 +582,15 @@ type ExampleGuide = {bestFor:string;whenNotUse:string[];sourceUrl:string;languag
 const exampleGuides = reuiExampleGuidancePtBr as Record<string,ExampleGuide>;
 const readableReuiCriterion = (text:string) => text.replace(/\s*\(get_(?:example|component)\("[^"]+"\)\)/g, '');
 const names=Object.keys(guides).sort((a,b)=>a.localeCompare(b));
+const reuiSearchIndexes=Object.fromEntries(names.map(name=>[
+ name,buildReuiExampleIndex(guides[name]?.examples??[],name,exampleGuides),
+]));
 export function ReuiGallery(){
  const [search,setSearch]=useState('');
  const [component,setComponent]=useState('Accordion');
  const [limit,setLimit]=useState(12);
  const selected=component==='all'?names:[component];
- const groups=useMemo(()=>selected.map(name=>({name,items:filterReuiExamples(guides[name]?.examples??[],name,search,exampleGuides)})).filter(g=>g.items.length>0),[component,search]);
+ const groups=useMemo(()=>selected.map(name=>({name,items:filterIndexedReuiExamples(reuiSearchIndexes[name],search)})).filter(g=>g.items.length>0),[component,search]);
  const all=groups.flatMap(g=>g.items.map(item=>({...{kind:g.name},title:item[0],id:item[1]})));
  const visible=all.slice(0,limit);
  return <section aria-label="ReUI" className="min-w-0 space-y-5">
