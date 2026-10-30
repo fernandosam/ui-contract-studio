@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SpecScreen } from "./spec-screen";
+import { PreviewThemeSelector } from "./preview-theme";
 import { createPiTreeEditSession } from "./tree-edit-session";
 import type { TreeDiff, TreeEditPreview } from "../../scripts/lib/spec-tree-history.mjs";
 
@@ -102,6 +103,7 @@ export function TreePatchWorkbench({ spec, selectedId }: { spec: unknown; select
       <DiffSummary diff={preview.diff} />
       <details>
         <summary className="cursor-pointer text-xs font-medium">Comparação visual (antes/depois)</summary>
+        <div className="mt-3 flex justify-end"><PreviewThemeSelector /></div>
         <div className="mt-3 grid min-w-0 gap-3 lg:grid-cols-2">
           <div className="min-w-0 overflow-auto rounded-md border bg-background p-3"><p className="mb-2 text-xs font-medium">Antes</p><div inert aria-hidden="true"><SpecScreen key={`before-${view.revision}`} spec={view.spec} /></div></div>
           <div className="min-w-0 overflow-auto rounded-md border bg-background p-3"><p className="mb-2 text-xs font-medium">Depois</p><div inert aria-hidden="true"><SpecScreen key={`after-${view.revision}`} spec={preview.spec} /></div></div>
