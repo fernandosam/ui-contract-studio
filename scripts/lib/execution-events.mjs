@@ -13,6 +13,8 @@ const reasons = new Set(['input_invalid','catalog_unavailable','schema_missing',
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const allowedKeys = new Set(['schemaVersion','eventId','executionId','operationId','sequence','timestamp','source','phase','type','status','durationMs','details']);
 const safeCounts = new Set(['selectedCount','candidateCount','issueCount','blockerCount']);
+const safeTokens = new Set(['inputTokens','outputTokens']);
+const isTokenCount = x => Number.isSafeInteger(x) && x >= 0 && x <= 1_000_000_000;
 
 const isRecord = x => x !== null && typeof x === 'object' && !Array.isArray(x);
 const isCount = x => Number.isSafeInteger(x) && x >= 0 && x <= 1_000_000;
@@ -30,6 +32,8 @@ export function validateExecutionEvent(event) {
   if (!isRecord(event.details)) return false;
   for (const [key,value] of Object.entries(event.details)) {
     if (safeCounts.has(key) && isCount(value)) continue;
+    if (safeTokens.has(key) && isTokenCount(value)) continue;
+    if (key === 'attempt' && Number.isSafeInteger(value) && value >= 1 && value <= 2) continue;
     if (key === 'channel' && channels.has(value)) continue;
     if (key === 'decision' && decisions.has(value)) continue;
     if (key === 'valid' && typeof value === 'boolean') continue;
@@ -37,6 +41,10 @@ export function validateExecutionEvent(event) {
     return false;
   }
   if (['failed','blocked'].includes(event.status) !== ('reasonCode' in event.details)) return false;
+  const generationAttempt = event.source === 'pi-eval' && event.phase === 'generation';
+  if ('attempt' in event.details && !generationAttempt) return false;
+  if ((safeTokens.has('inputTokens') && 'inputTokens' in event.details || 'outputTokens' in event.details) &&
+      (!generationAttempt || event.status === 'started')) return false;
   return true;
 }
 
