@@ -210,6 +210,12 @@ test.describe("E11 production browser performance (manual lab)", () => {
       await testInfo.attach("E11 performance measurements", {
         body: Buffer.from(JSON.stringify(report)), contentType: "application/json",
       });
+      // Capture only after measurement so screenshot work does not contaminate the samples.
+      const screenshot = join("reports", "web-performance", "screenshots",
+        testInfo.project.name + "-" + scenario.id + ".png");
+      mkdirSync(join("reports", "web-performance", "screenshots"), { recursive: true });
+      await page.screenshot({ path: screenshot, fullPage: false });
+      await testInfo.attach("E11 measured viewport", { path: screenshot, contentType: "image/png" });
       await session.detach();
       expect(pageErrors, "Uncaught browser exceptions").toBe(0);
       expect(blockedExternalRequests, "Unexpected external requests").toBe(0);
