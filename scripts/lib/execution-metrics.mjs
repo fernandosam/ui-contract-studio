@@ -101,7 +101,8 @@ export function summarizeExecutionMetrics(events,{executionId}={}) {
 /** Separate quality source; does not imply that scenarios belong to the selected executionId. */
 export function summarizeEvaluationQuality(report) {
   if (!record(report)||!Array.isArray(report.results)||report.results.length>10_000||
-      typeof report.executedAt!=='string'||!Number.isFinite(Date.parse(report.executedAt)))
+      typeof report.executedAt!=='string'||!Number.isFinite(Date.parse(report.executedAt))||
+      new Date(report.executedAt).toISOString()!==report.executedAt)
     throw new Error('Invalid Pi evaluation report');
   const counts={passed:0,failed:0,notRun:0,firstPass:0,repairsAttempted:0,repairsSuccessful:0};
   for(const result of report.results) {
@@ -111,6 +112,10 @@ export function summarizeEvaluationQuality(report) {
     if(result.status==='not-run') counts.notRun++;
     if(result.status==='not-run'&& (result.firstPass===true||result.repaired===true||result.repairAttempted===true))
       throw new Error('Inconsistent Pi evaluation result');
+    if(result.firstPass===true && (result.status!=='pass'||result.repaired===true))
+      throw new Error('Inconsistent Pi first-pass result');
+    if(result.repaired===true && result.repairAttempted!==true)
+      throw new Error('Inconsistent Pi repair evidence');
     if(result.firstPass===true) counts.firstPass++;
     if(result.repairAttempted===true) counts.repairsAttempted++;
     if(result.repaired===true) counts.repairsSuccessful++;
