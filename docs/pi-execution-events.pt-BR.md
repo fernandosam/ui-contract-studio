@@ -25,7 +25,9 @@ Cada linha JSONL é um registro fechado validado por [execution-events.mjs](../s
 
 `details` aceita apenas contadores não negativos e limitados `selectedCount`, `candidateCount`, `issueCount`, `blockerCount`; booleano `valid`; `channel` stable/experimental; `decision` recommended/ambiguous/no-match; e, somente em falha/bloqueio, `reasonCode`: input_invalid, catalog_unavailable, schema_missing, requirements_blocked, validation_failed ou command_failed.
 
-Jamais registrar **prompts, requisitos textuais, JSON de tela, caminhos de arquivos, identificadores de usuários, resposta do modelo, tokens, mensagens/pilhas de exceção, credenciais ou segredos**. Campos desconhecidos são rejeitados; falhas usam código genérico seguro.
+Contagens **numéricas** de tokens reais (inputTokens/outputTokens), não conteúdo, são permitidas somente nos eventos terminais de geração pi-eval, com limites; o índice opcional attempt vale 1 ou 2. Consulte as [métricas E10](pi-execution-metrics.pt-BR.md).
+
+Jamais registrar **prompts, requisitos textuais, JSON de tela, caminhos de arquivos, identificadores de usuários, resposta ou conteúdo de tokens do modelo, mensagens/pilhas de exceção, credenciais ou segredos**. Campos desconhecidos são rejeitados; falhas usam código genérico seguro.
 
 ## Pontos de instrumentação
 
