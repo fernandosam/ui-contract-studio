@@ -4,6 +4,7 @@
  * on a socket, parse HTTP headers, issue credentials or elevate Pi permissions.
  */
 import { createHmac, randomBytes } from "node:crypto";
+import { Buffer } from "node:buffer";
 
 const MINUTE = 60_000;
 const DAY = 86_400_000;
