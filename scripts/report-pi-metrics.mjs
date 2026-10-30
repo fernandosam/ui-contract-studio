@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /** E10 offline metrics, emitted only to stdout; no paid Pi execution or automatic upload. */
-import {existsSync,lstatSync,readFileSync,realpathSync,statSync} from 'node:fs';
-import {resolve,sep} from 'node:path';
+import {readExecutionEvents,readPiEvaluationReport} from './lib/execution-report-input.mjs';
 import {summarizeExecutionMetrics,summarizeEvaluationQuality} from './lib/execution-metrics.mjs';
 
 const args=process.argv.slice(2);
@@ -16,30 +15,11 @@ if(args.some(x=>!x.startsWith('--file=')&&!x.startsWith('--execution-id=')&&x!==
   process.exit(2);
 }
 try {
-  const root=realpathSync(process.cwd());
-  const reports=resolve(root,'reports');
-  const directory=resolve(reports,'pi-execution');
-  const target=resolve(root,file);
-  if(existsSync(target)){
-    for(const path of [reports,directory,target]){
-      if(lstatSync(path).isSymbolicLink()) throw new Error('Symlinked metrics source rejected');
-    }
-    if(realpathSync(target)!==target||!target.startsWith(directory+sep)||!statSync(target).isFile()||
-       statSync(target).size>16*1024*1024) throw new Error('Invalid or oversized E10 source');
-  } else if(explicit) {
-    throw new Error('Requested E10 source missing');
-  }
-  const lines=existsSync(target)?readFileSync(target,'utf8').split('\n').filter(line=>line.trim()):[];
-  const events=lines.map(line=>JSON.parse(line));
+  const events=readExecutionEvents({file,explicit});
   const metrics=summarizeExecutionMetrics(events,{executionId:filter});
-  const qualityPath=resolve(root,'reports/pi-evaluation.json');
-  if(includeEvaluation){
-    if(!existsSync(qualityPath)||lstatSync(reports).isSymbolicLink()||lstatSync(qualityPath).isSymbolicLink()||
-       realpathSync(qualityPath)!==qualityPath||statSync(qualityPath).size>2*1024*1024)
-      throw new Error('Missing or unsafe Pi evaluation evidence');
-  }
-  const quality=includeEvaluation?summarizeEvaluationQuality(JSON.parse(readFileSync(qualityPath,'utf8'))):null;
-  process.stdout.write(JSON.stringify({...metrics,collectionStatus:lines.length?'observed':'no-events',
+  const quality=includeEvaluation
+    ?summarizeEvaluationQuality(readPiEvaluationReport()):null;
+  process.stdout.write(JSON.stringify({...metrics,collectionStatus:events.length?'observed':'no-events',
     evaluationQuality:quality},null,2)+'\n');
 } catch {
   // Do not echo user-controlled paths, input snippets, or raw exceptions.
