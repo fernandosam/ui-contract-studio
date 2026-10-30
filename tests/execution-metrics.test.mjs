@@ -9,9 +9,9 @@ import {validateExecutionEvent} from '../scripts/lib/execution-events.mjs';
 import {summarizeExecutionMetrics,summarizeEvaluationQuality} from '../scripts/lib/execution-metrics.mjs';
 
 const executionId='f9b1b6d2-ea18-4eea-8f78-b1712fdced1f';
-function pair(source,phase,status,durationMs,details={},startDetails={}) {
+function pair(source,phase,status,durationMs,details={},startDetails={},timestamp='2026-10-29T12:00:00.000Z') {
   const operationId=randomUUID(),base={schemaVersion:1,executionId,operationId,source,phase,
-    timestamp:'2026-10-29T12:00:00.000Z'};
+    timestamp};
   const start={...base,eventId:randomUUID(),sequence:1,type:phase+'.started',status:'started',details:startDetails};
   const end={...base,eventId:randomUUID(),sequence:2,type:phase+'.'+status,status,
     durationMs,details};
@@ -82,7 +82,7 @@ test('CLI prints safe offline JSON and never produces files or model calls',()=>
   const root=mkdtempSync(join(tmpdir(),'e10-metrics-'));
   try {
     mkdirSync(join(root,'reports/pi-execution'),{recursive:true});
-    const lines=pair('pi-eval','generation','completed',40,{attempt:1,inputTokens:12,outputTokens:9},{attempt:1});
+    const lines=pair('pi-eval','generation','completed',40,{attempt:1,inputTokens:12,outputTokens:9},{attempt:1},new Date().toISOString());
     writeFileSync(join(root,'reports/pi-execution/events.jsonl'),lines.map(e=>JSON.stringify(e)).join('\n')+'\n');
     writeFileSync(join(root,'reports/pi-evaluation.json'),JSON.stringify({executedAt:'2026-10-29T12:00:00.000Z',
       results:[{status:'pass',firstPass:true},{status:'not-run'}]}));

@@ -2,7 +2,7 @@
 
 # E10 — Painéis e tendências offline do Pi
 
-Os relatórios **reutilizam o JSONL local validado e o mesmo agregador** de [métricas E10](pi-execution-metrics.pt-BR.md). Não criam infraestrutura de monitoramento, APIs, permissões, chamadas de modelo, dependências, uploads no CI nem retenção automática. O painel não é incorporado à aplicação pública para não expor os logs locais ao navegador ou à publicação.
+Os relatórios **reutilizam o JSONL local validado e o mesmo agregador** de [métricas E10](pi-execution-metrics.pt-BR.md). Não criam infraestrutura de monitoramento, APIs, permissões, chamadas de modelo, dependências nem uploads no CI; arquivos locais seguem a [política de retenção E10](pi-execution-log-policy.pt-BR.md). O painel não é incorporado à aplicação pública para não expor os logs locais ao navegador ou à publicação.
 
 ## Gerar os relatórios
 
@@ -32,7 +32,7 @@ As séries não preenchem períodos sem observações com zeros: datas ausentes 
 
 ## Segurança e verificações
 
-O leitor rejeita caminhos externos a reports/pi-execution/, symlinks, arquivos não regulares, tamanho superior a 16 MiB, eventos inválidos, duplicados e operações conflitantes. O painel e CSV não incluem eventos, requisitos, prompts, JSON de telas, caminhos ou UUIDs brutos. O HTML é estático, sem scripts externos e com CSP restritiva. Dados agregados locais ainda podem ser sensíveis: defina política de retenção, acesso e exclusão antes de coletá-los.
+O leitor rejeita caminhos externos a reports/pi-execution/, symlinks, arquivos não regulares, tamanho superior a 4 MiB, eventos vencidos (mais de 7 dias), eventos inválidos, duplicados e operações conflitantes. O painel e CSV não incluem eventos, requisitos, prompts, JSON de telas, caminhos ou UUIDs brutos. O HTML é estático, sem scripts externos e com CSP restritiva. Dados agregados locais ainda podem ser sensíveis: verifique acesso local, agendamento da limpeza, cópias exportadas e retenção independente do CI/provedor antes de coletá-los.
 
 Verificar:
 

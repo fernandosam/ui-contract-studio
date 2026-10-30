@@ -1,6 +1,7 @@
 /** E10: optional, privacy-minimized structured execution events (never Pi authority). */
 import {randomUUID} from 'node:crypto';
-import {appendFileSync, existsSync, lstatSync, mkdirSync, realpathSync} from 'node:fs';
+import {existsSync, lstatSync, mkdirSync, realpathSync} from 'node:fs';
+import {appendExecutionLogEvent,EXECUTION_LOG_POLICY} from './execution-log-policy.mjs';
 import {resolve, sep} from 'node:path';
 
 export const EXECUTION_EVENT_SCHEMA_VERSION = 1;
@@ -59,7 +60,7 @@ function eventPath(file, root) {
   mkdirSync(reports,{recursive:true});
   if (realpathSync(reports) !== resolve(realpathSync(root),'reports')) throw new Error('E10 reports directory must not be a symlink');
   if (existsSync(directory) && !lstatSync(directory).isDirectory()) throw new Error('E10 events directory cannot be a symlink');
-  mkdirSync(directory,{recursive:true});
+  mkdirSync(directory,{recursive:true,mode:0o700});
   // Prevent symlink redirection outside the project when the opt-in log is used.
   if (realpathSync(directory) !== resolve(realpathSync(root),'reports/pi-execution'))
     throw new Error('E10 events directory cannot be a symlink');
@@ -82,12 +83,13 @@ export function createExecutionRecorder({source, executionId=process.env.UI_CONT
   const destination = eventPath(file,root);
   let sequence = 0;
   const emit = (phase,status,operationId,startedAt,details={}) => {
+    if(destination && sequence>=EXECUTION_LOG_POLICY.maxEventsPerRecorder) throw new Error('E10 recorder event limit exceeded');
     const event={schemaVersion:1,eventId:randomUUID(),executionId:id,operationId,
       sequence:++sequence,timestamp:new Date().toISOString(),source,phase,
       type:phase+'.'+status,status,
       ...(status==='started'?{}:{durationMs:Math.max(0,Math.round(performance.now()-startedAt))}),details};
     if (!validateExecutionEvent(event)) throw new Error('Invalid or sensitive E10 event metadata');
-    if (destination) appendFileSync(destination,JSON.stringify(event)+'\n',{encoding:'utf8',flag:'a',mode:0o600});
+    if (destination) appendExecutionLogEvent(destination,event,{validate:validateExecutionEvent});
     return event;
   };
   return {

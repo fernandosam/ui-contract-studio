@@ -93,7 +93,8 @@ test('CLI offers independent JSON / CSV / HTML stdout with no writes or paid Pi 
   const root=mkdtempSync(join(tmpdir(),'e10-trends-'));
   try{
     mkdirSync(join(root,'reports/pi-execution'),{recursive:true});
-    const events=pair('2026-10-29T10:00:00.000Z',{
+    const observedAt=new Date().toISOString();
+    const events=pair(observedAt,{
       details:{attempt:1,inputTokens:20},startDetails:{attempt:1}});
     writeFileSync(join(root,'reports/pi-execution/events.jsonl'),
       events.map(event=>JSON.stringify(event)).join('\n')+'\n');
@@ -103,7 +104,10 @@ test('CLI offers independent JSON / CSV / HTML stdout with no writes or paid Pi 
     const json=invoke('--period=week');
     assert.equal(json.status,0,json.stderr);
     const report=JSON.parse(json.stdout);
-    assert.equal(report.series[0].period,'2026-10-26');
+    const observedDate=new Date(observedAt);
+    const monday=new Date(Date.UTC(observedDate.getUTCFullYear(),observedDate.getUTCMonth(),observedDate.getUTCDate()));
+    monday.setUTCDate(monday.getUTCDate()-(monday.getUTCDay()+6)%7);
+    assert.equal(report.series[0].period,monday.toISOString().slice(0,10));
     assert.equal(report.series[0].tokens.input.total,20);
     assert.equal(report.evaluationQuality,null);
     const csv=invoke('--format=csv');

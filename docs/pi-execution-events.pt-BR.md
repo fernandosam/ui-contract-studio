@@ -69,6 +69,6 @@ Exemplo de evento terminal (ilustrativo, não é evidência de execução):
 
 Cada operação registra início e término quando o processo encerra normalmente. SIGKILL, interrupção da máquina e I/O interrompido podem deixar início sem evento terminal: interpretar como **desconhecido**, nunca sucesso. Não há ordem global garantida para gravações entre processos; agrupar por executionId/operationId e usar timestamp/sequence somente como pistas.
 
-Não há upload, artifact de CI, retenção automática ou backend de monitoramento. Definir retenção e acesso antes de centralizar logs. Eventos são diagnósticos, não comprovam aprovação, autorização, E2E ou correção da saída do modelo.
+Não há upload, artifact de CI nem backend de monitoramento. Logs locais opcionais aplicam retenção de eventos por 7 dias e quotas de armazenamento/cardinalidade, com manutenção explícita em períodos sem gravação. Consultar [privacidade e retenção E10](pi-execution-log-policy.pt-BR.md). Logs do CI/provedor e backups possuem retenção independente. Eventos são diagnósticos, não comprovam aprovação, autorização, E2E ou correção da saída do modelo.
 
 Verificar com `node --test tests/execution-events.test.mjs`, `npm run test:offline`, `npm run docs:check`, `npm run semantic:check`, `npm run semantic:report` e validate/build com dependências instaladas. Consultar o [modelo de ameaças E09](pi-agent-threat-model.pt-BR.md).

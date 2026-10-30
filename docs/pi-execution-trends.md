@@ -2,7 +2,7 @@
 
 # E10 — Offline Pi trends and dashboard
 
-This report **reuses the same locally validated JSONL source and metrics aggregator** as [E10 metrics](pi-execution-metrics.md). It creates no new monitoring backend, API, permissions, model calls, dependencies, CI uploads or automatic retention. There is no live dashboard in the public app, since the local event log must not be exposed to the browser or bundled into a deployment.
+This report **reuses the same locally validated JSONL source and metrics aggregator** as [E10 metrics](pi-execution-metrics.md). It creates no new monitoring backend, API, permissions, model calls, dependencies or CI uploads; local logs follow the [E10 retention policy](pi-execution-log-policy.md). There is no live dashboard in the public app, since the local event log must not be exposed to the browser or bundled into a deployment.
 
 ## Generate reports
 
@@ -32,7 +32,7 @@ Series are sparse, not calendar-filled; missing days/weeks/months are **unknown*
 
 ## Safety and validation
 
-The reader rejects paths outside reports/pi-execution/, symlinks, non-regular files, files above 16 MiB, invalid events, duplicates and conflicting operation identities. No raw event fields, requirement text, prompts, payloads, paths or UUIDs are embedded in the rendered dashboard or CSV. HTML is static with a restrictive CSP, no network or executable scripts. Local results may still be operationally sensitive: set retention, access controls and deletion policies yourself before collecting data.
+The reader rejects paths outside reports/pi-execution/, symlinks, non-regular files, files above 4 MiB, expired events (older than 7 days), invalid events, duplicates and conflicting operation identities. No raw event fields, requirement text, prompts, payloads, paths or UUIDs are embedded in the rendered dashboard or CSV. HTML is static with a restrictive CSP, no network or executable scripts. Local results may still be operationally sensitive: review filesystem access, maintenance scheduling, exported copies and independent provider/CI retention before collecting data.
 
 Run:
 
