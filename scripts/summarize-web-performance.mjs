@@ -29,11 +29,16 @@ export function validateBrowserReport(report, project, scenario) {
     !Array.isArray(report.navigation) || report.navigation.length !== 3 ||
     !report.interactionAutomationWallMs || !Array.isArray(report.interactionAutomationWallMs.samples) ||
     report.interactionAutomationWallMs.samples.length !== 5 ||
+    report.interactionAutomationWallMs.samples.some(value => !Number.isFinite(value) || value < 0) ||
+    !Number.isFinite(report.interactionAutomationWallMs.p95) ||
     !report.javascriptHeapBytes ||
     report.javascriptHeapBytes.afterEachInteraction?.length !== 5 ||
     report.javascriptHeapBytes.afterEachInteraction.some(value => !Number.isFinite(value) || value < 0) ||
     !Number.isFinite(report.javascriptHeapBytes.beforeInteractions) ||
-    report.navigation.some(item => !Number.isFinite(item.horizontalOverflowPx) || item.horizontalOverflowPx < 0) ||
+    !Number.isFinite(report.javascriptHeapBytes.deltaLastMinusFirst) ||
+    report.navigation.some(item => !Number.isFinite(item.horizontalOverflowPx) || item.horizontalOverflowPx < 0 ||
+      ![item.firstContentfulPaintMs, item.largestContentfulPaintMs].every(value =>
+        value === null || (Number.isFinite(value) && value >= 0))) ||
     !Number.isInteger(report.pageErrorCount) || !Number.isInteger(report.blockedExternalRequestCount)) {
     throw new Error("Relatório de navegador incompleto ou incompatível: " + project + "/" + scenario);
   }
