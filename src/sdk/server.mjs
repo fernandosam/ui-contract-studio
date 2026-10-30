@@ -19,28 +19,36 @@ const DEFAULT_LIMITS = Object.freeze({
   globalAuthAttemptsPerMinute: 5_000,
   requestsPerMinute: 120,
   requestsPerDay: 2_000,
+  requestsPerTenantMinute: 600,
+  requestsPerTenantDay: 10_000,
   concurrentPerPrincipal: 4,
   concurrentGlobal: 32,
+  concurrentPerTenant: 16,
   concurrentAuthentication: 32,
   maxRequestBytes: 256_000,
   maxInputNodes: 6_000,
   maxInputDepth: 40,
   maxTrackedPeers: 2_000,
   maxTrackedPrincipals: 10_000,
+  maxTrackedTenants: 2_000,
 });
 const MAX_LIMITS = Object.freeze({
   authAttemptsPerMinute: 10_000,
   globalAuthAttemptsPerMinute: 100_000,
   requestsPerMinute: 10_000,
   requestsPerDay: 1_000_000,
+  requestsPerTenantMinute: 100_000,
+  requestsPerTenantDay: 1_000_000,
   concurrentPerPrincipal: 1_000,
   concurrentGlobal: 10_000,
+  concurrentPerTenant: 10_000,
   concurrentAuthentication: 10_000,
   maxRequestBytes: 512_000,
   maxInputNodes: 8_000,
   maxInputDepth: 50,
   maxTrackedPeers: 100_000,
   maxTrackedPrincipals: 100_000,
+  maxTrackedTenants: 100_000,
 });
 const DENY = (status, error, retryAfterSeconds) => Object.freeze({
   ok: false, status, error,
@@ -171,6 +179,7 @@ export function createProtectedContractGateway({
   const hash = value => createHmac("sha256", secret).update(value).digest("hex");
   const peers = new Map();
   const principals = new Map();
+  const tenants = new Map();
   const globalAttempts = { slot: -1, count: 0 };
   let globalActive = 0, authenticationActive = 0, lastNow = 0;
 
@@ -240,20 +249,34 @@ export function createProtectedContractGateway({
       const principalKey = hash(JSON.stringify([identity.tenantId, identity.subject]));
       const principal = tracked(principals, principalKey, limits.maxTrackedPrincipals, now, DAY * 2);
       if (!principal) return DENY(429, "quota_exceeded", expirySeconds(now, DAY));
+      const tenant = tracked(tenants, hash(identity.tenantId), limits.maxTrackedTenants, now, DAY * 2);
+      if (!tenant) return DENY(429, "quota_exceeded", expirySeconds(now, DAY));
       const perMinute = windowCount(principal.minute, now, MINUTE);
       const perDay = windowCount(principal.day, now, DAY);
+      const tenantMinute = windowCount(tenant.minute, now, MINUTE);
+      const tenantDay = windowCount(tenant.day, now, DAY);
+      if (tenantMinute >= limits.requestsPerTenantMinute) {
+        return DENY(429, "rate_limited", expirySeconds(now, MINUTE));
+      }
+      if (tenantDay >= limits.requestsPerTenantDay) {
+        return DENY(429, "quota_exceeded", expirySeconds(now, DAY));
+      }
       if (perMinute >= limits.requestsPerMinute) {
         return DENY(429, "rate_limited", expirySeconds(now, MINUTE));
       }
       if (perDay >= limits.requestsPerDay) {
         return DENY(429, "quota_exceeded", expirySeconds(now, DAY));
       }
-      if (principal.active >= limits.concurrentPerPrincipal || globalActive >= limits.concurrentGlobal) {
+      if (principal.active >= limits.concurrentPerPrincipal ||
+          tenant.active >= limits.concurrentPerTenant || globalActive >= limits.concurrentGlobal) {
         return DENY(429, "busy", 1);
       }
       principal.minute.count++;
       principal.day.count++;
+      tenant.minute.count++;
+      tenant.day.count++;
       principal.active++;
+      tenant.active++;
       globalActive++;
       try {
         const result = await Promise.resolve().then(() => {
@@ -267,6 +290,7 @@ export function createProtectedContractGateway({
         return DENY(503, "unavailable");
       } finally {
         principal.active--;
+        tenant.active--;
         globalActive--;
       }
     } catch {
