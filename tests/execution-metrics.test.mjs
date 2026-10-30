@@ -74,8 +74,8 @@ test('quality aggregates measured outcomes and excludes not-run',()=>{
   assert.equal(quality.firstPassRatePct,33.33);
   assert.equal(quality.finalPassRatePct,66.67);
   assert.equal(quality.repairSuccessRatePct,50);
-  assert.equal(summarizeEvaluationQuality({executedAt:'2026-10-29',results:[{status:'not-run'}]}).finalPassRatePct,null);
-  assert.throws(()=>summarizeEvaluationQuality({executedAt:'2026-10-29',results:[{status:'fail',repaired:true}]}),/Inconsistent/);
+  assert.equal(summarizeEvaluationQuality({executedAt:'2026-10-29T12:00:00.000Z',results:[{status:'not-run'}]}).finalPassRatePct,null);
+  assert.throws(()=>summarizeEvaluationQuality({executedAt:'2026-10-29T12:00:00.000Z',results:[{status:'fail',repaired:true}]}),/Inconsistent/);
 });
 
 test('CLI prints safe offline JSON and never produces files or model calls',()=>{
@@ -84,7 +84,7 @@ test('CLI prints safe offline JSON and never produces files or model calls',()=>
     mkdirSync(join(root,'reports/pi-execution'),{recursive:true});
     const lines=pair('pi-eval','generation','completed',40,{attempt:1,inputTokens:12,outputTokens:9},{attempt:1});
     writeFileSync(join(root,'reports/pi-execution/events.jsonl'),lines.map(e=>JSON.stringify(e)).join('\n')+'\n');
-    writeFileSync(join(root,'reports/pi-evaluation.json'),JSON.stringify({executedAt:'2026-10-29T12:00:00Z',
+    writeFileSync(join(root,'reports/pi-evaluation.json'),JSON.stringify({executedAt:'2026-10-29T12:00:00.000Z',
       results:[{status:'pass',firstPass:true},{status:'not-run'}]}));
     const script=resolve('scripts/report-pi-metrics.mjs');
     const run=spawnSync(process.execPath,[script,'--include-evaluation','--execution-id='+executionId],
