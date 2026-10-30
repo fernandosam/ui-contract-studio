@@ -165,7 +165,7 @@ test.describe("E11 production browser performance (manual lab)", () => {
         navigation.push({ run: run === 0 ? "first" : "repeat-" + run, ...await loadMetrics(page) });
       }
       const heapBytes = async () => {
-        const result = await session.send("Performance.getMetrics");
+        const result = await session.send("Performance.getMetrics") as { metrics: Array<{ name: string; value: number }> };
         const value = result.metrics.find(item => item.name === "JSHeapUsedSize")?.value;
         if (typeof value !== "number" || !Number.isFinite(value)) {
           throw new Error("CDP JSHeapUsedSize unavailable: memory was not measured");
