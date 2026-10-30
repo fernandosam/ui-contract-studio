@@ -12,6 +12,11 @@ export type ExecutionDetails={
   channel?:'stable'|'experimental';
   decision?:'recommended'|'ambiguous'|'no-match';
   reasonCode?:ExecutionReason;
+  /** Only Pi generation attempt 1 or the explicit, consented repair attempt 2. */
+  attempt?:1|2;
+  /** Actual Pi CLI usage counters; absent means unknown, never zero. */
+  inputTokens?:number;
+  outputTokens?:number;
 };
 export type ExecutionEvent={
   schemaVersion:1;
