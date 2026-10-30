@@ -98,3 +98,22 @@ npm run semantic:report
 The validator reparses approved source screens with the **real stable Pi Zod catalog**, validates every observed primitive's properties with the actual `componentDefinitions[type].props.safeParse` and compares the exported property schemas to `z.toJSONSchema` at runtime. It checks observed-property source pointers, proposed slot cardinalities, pinned primitive versions/fingerprints and the official Pi v3 manifest. The existing `evaluatePolicy` gate is reused to reject invalid Admission Engine policy; candidate IDs must not collide with allowlists, recipes, entries, protocols, CI auto-admission or published types. No new engine decision or protocol is manufactured.
 
 A **passing validation proves only that the advisory proposal describes the approved sources and contracts accurately**. It does not approve new composite props, candidate slots, runtime actions, renderer code, browser E2E, accessibility or stable promotion. The report explicitly records `canPublish: false`, `canExecuteAsComposite: false`, `canGrantPiPermissions: false`, and `e2eCertification: not-performed` for every proposal. A changed or forged source/policy fails closed. The existing quality job validates with installed Zod and preserves the report as a CI artifact, without adding a new approval layer or touching the Pi registry.
+
+
+## E05 functional equivalence, regression and provenance tests
+
+The E05 verifier tests all five candidate edges and all **16 observed occurrences** against their reviewed JSON sources, metadata, explicit parent/child indices, declared origins, and existing composition references. It also pins the original eight approved layouts and their metadata using Git blob SHA-1 in [`layout-reuse-regression-baseline.json`](../src/ui-requirements/layout-reuse-regression-baseline.json). Any edit to a pinned source/metadata file fails the gate until the change is reviewed and its hash deliberately updated. The baseline is not generated implicitly by the quality job.
+
+```sh
+npm run patterns:reuse:verify:check     # read-only; blocks provenance and baseline drift
+npm run patterns:reuse:verify:report    # writes reports/layout-reuse/traceability.json
+node --test tests/layout-reuse-verification-e05.test.mjs
+npm run semantic:check
+npm run semantic:report
+```
+
+The machine-readable report records each candidate/occurrence with layout path, metadata path, origin, node IDs, relation and index. It includes SHA-256 fingerprints of the full JSON graph, pair-level declarative properties/state and primitive properties, without copying sensitive contents into the report. Negative tests cover altered props, state, nested content, reordered children, missing/duplicated references, incorrect origin metadata, changed approved sources and forged permissions/functional-equivalence claims. The same quality workflow publishes `traceability.json` alongside the existing semantic reports, and `npm run check` enforces the read-only audit.
+
+**Meaning of “equivalence”:** successful tests establish only traceable declarative fidelity to the *currently admitted primitives*. Existing matching JSON edges are not functionally interchangeable just because they share types. Since no new E05 composite implementation exists, the verifier explicitly records **zero certified functional equivalences**, `canReplaceExistingComponent: false`, and no authorization. Behavioral, keyboard, accessibility, responsive and visual E2E still require a real executable replacement and independent certification. No Zod, lock, Pi manifest, permissions, templates or Admission Engine policy are modified.
+
+To intentionally update a reviewed baseline after a JSON/metadata change, inspect the exact diff and update only the corresponding source and metadata Git blob hashes (for example with `git hash-object src/ui-patterns/<id>.json` and its `<id>.meta.json`). Run the offline verification, `semantic:check` and `semantic:report` before accepting. Do not treat an updated hash as a behavioral approval.

@@ -45,6 +45,8 @@
     "patterns:reuse:proposals:report": "node scripts/report-layout-composition-proposals.mjs --report",
     "patterns:reuse:validate:check": "tsx scripts/validate-layout-composition-proposals.mjs --check",
     "patterns:reuse:validate:report": "tsx scripts/validate-layout-composition-proposals.mjs --report",
+    "patterns:reuse:verify:check": "node scripts/verify-layout-reuse.mjs --check",
+    "patterns:reuse:verify:report": "node scripts/verify-layout-reuse.mjs --report",
     "integration:update": "node scripts/generate-integration-status.mjs --write",
     "integration:check": "node scripts/generate-integration-status.mjs --check",
     "eval:pi:context": "tsx scripts/export-pi-catalog.ts",

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "status": "reviewed-declarative-baseline-not-runtime-certification",
+  "limitations": "Reviewed Git blob fingerprints of approved JSON layouts and metadata. Refresh only after inspecting semantic changes; not proof of browser equivalence.",
+  "layouts": [
+    {
+      "id": "crud-list",
+      "sourceBlobSha": "7aa5055f87b88c1bbb8a8cebc6aa719401c79084",
+      "metadataBlobSha": "1d11a2b07c4de103918c4f08d9db81e693502aed"
+    },
+    {
+      "id": "dashboard-analytics",
+      "sourceBlobSha": "89f3f11ef52f5511285e3089ae830ad5939e1a3f",
+      "metadataBlobSha": "67395b7bd9d8acce35d4c50f14d06fa9dcce28a0"
+    },
+    {
+      "id": "dashboard-kpis",
+      "sourceBlobSha": "90eb9b49269ee7443cac2211542642b849408624",
+      "metadataBlobSha": "20c21ab9a7e0ebee4d9b1921d5d4648d812149a9"
+    },
+    {
+      "id": "detail-view",
+      "sourceBlobSha": "cb65ddd3ecd640dc6c8bfb27b344c653eab3a834",
+      "metadataBlobSha": "8716bf33c96954e68ae09b4b896c89817b5ec89d"
+    },
+    {
+      "id": "empty-state",
+      "sourceBlobSha": "b23c41ba9a3914ac9a066524fc2bba4a64d66852",
+      "metadataBlobSha": "cd0d08f77bde1dfb3d69657e8aaf6f64417d0914"
+    },
+    {
+      "id": "form-dialog",
+      "sourceBlobSha": "b5ecefc902f7f613f862761583c65b4085594d5a",
+      "metadataBlobSha": "38f049ea3b5e731e05af3be7afe469a4418cf728"
+    },
+    {
+      "id": "form-fields",
+      "sourceBlobSha": "ff159533ba0ec7941255fe3c25587d78d946a524",
+      "metadataBlobSha": "90baf54ad581a66d2688ca0c70ab5921e77d86eb"
+    },
+    {
+      "id": "search-and-filters",
+      "sourceBlobSha": "03fe08c1f3a97b7c72d2bfc57afc440f27f25c6c",
+      "metadataBlobSha": "9d0a671e1135a939385def8a5217ef98d14c9a6f"
+    }
+  ]
+}
