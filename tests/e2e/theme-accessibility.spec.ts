@@ -17,9 +17,17 @@ for (const mode of ["light","dark"] as const) {
     expect(await page.locator("html").evaluate(el=>getComputedStyle(el).colorScheme)).toBe(mode);
     await expect(button).toBeEnabled();
 
-    const before=await button.evaluate(el=>getComputedStyle(el).backgroundColor);
-    await button.hover();
-    await expect.poll(()=>button.evaluate(el=>getComputedStyle(el).backgroundColor)).not.toBe(before);
+    const supportsHover=await page.evaluate(()=>
+      matchMedia("(hover: hover) and (pointer: fine)").matches);
+    if (supportsHover) {
+      const before=await button.evaluate(el=>getComputedStyle(el).backgroundColor);
+      await button.hover();
+      await expect.poll(()=>button.evaluate(el=>getComputedStyle(el).backgroundColor)).not.toBe(before);
+    } else {
+      // Touch-only devices have no hover state; exercise the actual tap interaction.
+      await button.tap();
+      await expect(button).toBeEnabled();
+    }
 
     // Keyboard modality: focus-visible ring must be visibly present on host selector.
     await page.keyboard.press("Tab");
