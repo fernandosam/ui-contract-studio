@@ -12,7 +12,7 @@ O executor E11 mede **fluxos reais da CLI**, sem simular respostas do Pi. Não c
 | select-wide | Seleção Pi ampla | Catálogo revisado, pontuação e comparação |
 | context-real-schema | Contexto de quatro componentes | JSON schemas reais e recomendações semânticas (sem metadata-only) |
 | plan-simple | Cadastro demonstrativo básico | Planejamento, geração JSON e conformidade |
-| plan-rich | Cadastro demonstrativo com múltiplos campos | Layout em duas colunas, confirmação, geração JSON e conformidade |
+| plan-rich | Cadastro demonstrativo com múltiplos campos | Agrupamento de campos em duas colunas, geração JSON e conformidade |
 | validate-screen | Tela JSON existente de login | Validação Zod e invariantes estruturais |
 
 Os casos de cadastro gravam entradas fixas e não sensíveis temporariamente em reports/requirements/; os arquivos são excluídos ao final. A validação utiliza src/ui-screens/blocos-login.json. Alterações na tela, nos contratos ou na semântica mudam a carga: registre a revisão Git. Navegador, rede, geração com IA, tokens pagos e backend estão fora do escopo.
