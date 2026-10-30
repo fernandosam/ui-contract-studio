@@ -20,6 +20,7 @@ const DEFAULT_LIMITS = Object.freeze({
   requestsPerDay: 2_000,
   concurrentPerPrincipal: 4,
   concurrentGlobal: 32,
+  concurrentAuthentication: 32,
   maxRequestBytes: 256_000,
   maxInputNodes: 6_000,
   maxInputDepth: 40,
@@ -33,16 +34,13 @@ const MAX_LIMITS = Object.freeze({
   requestsPerDay: 1_000_000,
   concurrentPerPrincipal: 1_000,
   concurrentGlobal: 10_000,
+  concurrentAuthentication: 10_000,
   maxRequestBytes: 512_000,
   maxInputNodes: 8_000,
   maxInputDepth: 50,
   maxTrackedPeers: 100_000,
   maxTrackedPrincipals: 100_000,
 });
-const PUBLIC_ERRORS = new Set([
-  "unauthorized", "forbidden", "invalid_request", "payload_too_large",
-  "rate_limited", "quota_exceeded", "busy", "unavailable",
-]);
 const DENY = (status, error, retryAfterSeconds) => Object.freeze({
   ok: false, status, error,
   ...(retryAfterSeconds === undefined ? {} : { retryAfterSeconds }),
@@ -68,11 +66,11 @@ function policyFor(overrides) {
 }
 function validIdentifier(value, max = 160) {
   return typeof value === "string" && value.length >= 1 &&
-    value.length <= max && !/[\\x00-\\x1f\\x7f]/.test(value) && value.trim() === value;
+    value.length <= max && !/[\x00-\x1f\x7f]/.test(value) && value.trim() === value;
 }
 function validCredential(token) {
   return typeof token === "string" && token.length >= 16 && token.length <= 2048 &&
-    /^[\\x21-\\x7e]+$/.test(token);
+    /^[\x21-\x7e]+$/.test(token);
 }
 function validIdentity(identity) {
   return identity && typeof identity === "object" &&
@@ -173,7 +171,7 @@ export function createProtectedContractGateway({
   const peers = new Map();
   const principals = new Map();
   const globalAttempts = { slot: -1, count: 0 };
-  let globalActive = 0, lastNow = 0;
+  let globalActive = 0, authenticationActive = 0, lastNow = 0;
 
   function nowValue() {
     const sampled = clock();
@@ -217,11 +215,15 @@ export function createProtectedContractGateway({
       }
       peer.minute.count++;
 
+      if (authenticationActive >= limits.concurrentAuthentication) return DENY(429, "busy", 1);
       let identity;
+      authenticationActive++;
       try {
         identity = await authenticate(transport.bearerToken);
       } catch {
         return DENY(401, "unauthorized");
+      } finally {
+        authenticationActive--;
       }
       if (!validIdentity(identity)) return DENY(401, "unauthorized");
       const normalized = normalizedCommand(command, limits);
