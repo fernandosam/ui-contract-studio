@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"
+import { PreviewThemeSelector } from "./preview-theme"
 import {
   ReuiComposite,
   reuiCompositeCatalog,
@@ -210,6 +211,7 @@ export function ReuiCompositeExplorer() {
                   </button>
                   {semanticValidation?.error && <p role="alert" className="text-sm text-destructive">{semanticValidation.error}</p>}
                 </div>}
+                <div className="flex flex-wrap items-center justify-between gap-2"><PreviewThemeSelector/><span className="text-xs text-muted-foreground">A alteração também atualiza o tema do aplicativo.</span></div>
                 <div data-testid={"reui-composite-preview-" + selected.id}
                   className="flex min-h-48 min-w-0 items-center overflow-hidden rounded-lg border bg-muted/20 p-4">
                   {semanticValidation?.error

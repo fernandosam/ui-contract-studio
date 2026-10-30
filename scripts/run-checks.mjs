@@ -8,6 +8,7 @@ import { spawnSync } from 'node:child_process';
  */
 const core=[
   'check-dependency-compat.mjs','check-contract-versions.mjs','check-contract-migrations.mjs',
+  'check-versioned-themes.mjs',
   'build-pi-api.mjs --check','build-pi-fixtures.mjs --check',
   'check-readiness.mjs','check-composite-pruning.mjs','check-screen-discovery.mjs',
   'report-layout-reuse.mjs --check',

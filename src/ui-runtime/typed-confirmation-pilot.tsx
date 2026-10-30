@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {PreviewThemeSelector} from "./preview-theme";
 import {TypedConfirmationDialog} from "@/ui-catalog/extensions/composites/proposals/TypedConfirmationDialog";
 import {typedConfirmationDialogSchema} from "@/ui-catalog/extensions/composites/proposals/TypedConfirmationDialog.schema";
 
@@ -18,7 +19,7 @@ export function TypedConfirmationPilot(){
    aria-label="Prévia executável isolada TypedConfirmationDialog"
    data-testid="typed-confirmation-pilot">
   <div className="space-y-1">
-   <h4 className="font-semibold">Prévia executável · TypedConfirmationDialog</h4>
+   <div className="flex flex-wrap items-center justify-between gap-2"><h4 className="font-semibold">Prévia executável · TypedConfirmationDialog</h4><PreviewThemeSelector/></div>
    <p className="text-xs text-muted-foreground">Executa a receita React local no explorador administrativo. Sem ações remotas e sem operações destrutivas; catálogo Pi experimental.</p>
   </div>
   <label className="grid gap-1 text-xs font-medium" htmlFor="pilot-expected">

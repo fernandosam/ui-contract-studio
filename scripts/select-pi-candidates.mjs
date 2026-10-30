@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /** Pi advisory selection. Emits comparisons/reasons, not a generated UI spec. */
 import {readFileSync} from 'node:fs';
+import {createExecutionRecorder} from './lib/execution-events.mjs';
 import {buildSemanticKnowledge} from './lib/semantic-knowledge.mjs';
 import {selectPiSemanticCandidates} from './lib/pi-semantic-selection.mjs';
+const eventStage=createExecutionRecorder({source:'pi-select'}).start('selection',{channel:'stable'});
 const read=path=>JSON.parse(readFileSync(path,'utf8'));
 const option=name=>process.argv.find(arg=>arg.startsWith('--'+name+'='))?.slice(name.length+3);
 const requirement=option('requirement');
@@ -45,6 +47,7 @@ try {
   requirement,contracts:manifest.components,profiles:semantic.report.profiles,
   allowedTypes:types,limit,
  });
+ eventStage.complete({candidateCount:result.candidates.length,selectedCount:result.selectedType?1:0,decision:result.status});
  process.stdout.write(JSON.stringify(result,null,2)+'\n');
 }catch(error){
  console.error(error instanceof Error?error.message:String(error));

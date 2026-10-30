@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "defaultTheme": {
+    "id": "studio",
+    "version": "1.0.0",
+    "mode": "dark"
+  },
+  "themes": [
+    {
+      "id": "studio",
+      "version": "1.0.0",
+      "modes": ["light", "dark"],
+      "tokens": {
+        "color": "studio-neutral",
+        "typography": "inter-jetbrains-playfair",
+        "spacing": "tailwind-v4-default",
+        "border": "semantic",
+        "radius": "base-8px",
+        "shadow": "studio",
+        "density": "comfortable"
+      }
+    }
+  ]
+}
