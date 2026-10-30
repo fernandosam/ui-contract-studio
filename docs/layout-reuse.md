@@ -81,3 +81,20 @@ npm run semantic:report
 ```
 
 `npm run check` includes the validation and the existing quality workflow uploads `proposals.json` alongside semantic reports, with no extra approval layer. Source evidence is recalculated and compared to its reviewed index before generating proposals; invalid source nodes and undeclared primitive properties fail closed. The output is **advisory**: no Zod, catalog, lock, Pi permissions, template, or Admission Engine admission/publishing mutations. Any actual new composite still requires semantic, behavioral, visual, accessibility and independent admission review.
+
+
+## E05 proposal validation — Zod, contract lock and Admission Engine
+
+After proposal generation, run the **read-only** validator against the authoritative catalog and admission policy:
+
+```sh
+npm run patterns:reuse:validate:check    # fail-closed, no files written
+npm run patterns:reuse:validate:report   # write reports/layout-reuse/validation.json
+npx tsx --test tests/layout-proposal-validation-e05.integration.test.ts
+npm run semantic:check
+npm run semantic:report
+```
+
+The validator reparses approved source screens with the **real stable Pi Zod catalog**, validates every observed primitive's properties with the actual `componentDefinitions[type].props.safeParse` and compares the exported property schemas to `z.toJSONSchema` at runtime. It checks observed-property source pointers, proposed slot cardinalities, pinned primitive versions/fingerprints and the official Pi v3 manifest. The existing `evaluatePolicy` gate is reused to reject invalid Admission Engine policy; candidate IDs must not collide with allowlists, recipes, entries, protocols, CI auto-admission or published types. No new engine decision or protocol is manufactured.
+
+A **passing validation proves only that the advisory proposal describes the approved sources and contracts accurately**. It does not approve new composite props, candidate slots, runtime actions, renderer code, browser E2E, accessibility or stable promotion. The report explicitly records `canPublish: false`, `canExecuteAsComposite: false`, `canGrantPiPermissions: false`, and `e2eCertification: not-performed` for every proposal. A changed or forged source/policy fails closed. The existing quality job validates with installed Zod and preserves the report as a CI artifact, without adding a new approval layer or touching the Pi registry.

@@ -81,3 +81,20 @@ npm run semantic:report
 ```
 
 O `npm run check` incorpora a validação, e o workflow de qualidade existente anexa `proposals.json` ao artefato semântico, sem novo fluxo de aprovação. O comando sempre recalcula e confere a evidência versionada e compara o catálogo e schemas atuais, recusando apontadores e propriedades inválidos. A saída gerada é **somente consultiva**: não edita Zod, `contracts.lock.json`, templates, `pi-catalog`, permissões, Admission Engine ou publicação. Para qualquer novo contrato composto, permanece necessária a verificação de compatibilidade semântica, visual, acessibilidade, estados e revisão independente.
+
+
+## Validação E05 — Zod, lock de contratos e Admission Engine
+
+Após gerar as propostas, execute a validação **somente leitura** contra o catálogo e a política oficiais:
+
+```sh
+npm run patterns:reuse:validate:check    # falha fechada; não escreve arquivos
+npm run patterns:reuse:validate:report   # gera reports/layout-reuse/validation.json
+npx tsx --test tests/layout-proposal-validation-e05.integration.test.ts
+npm run semantic:check
+npm run semantic:report
+```
+
+O validador reanalisa as telas JSON aprovadas com o **Zod real do catálogo estável Pi**, verifica as propriedades observadas com `componentDefinitions[type].props.safeParse` e compara os JSON Schemas exportados a `z.toJSONSchema` em execução. Confere evidências e ponteiros das propriedades, cardinalidade dos slots candidatos, versões/fingerprints das primitivas e o manifesto Pi v3. Reutiliza o `evaluatePolicy` do Admission Engine para rejeitar política inválida; IDs das propostas não podem colidir com allowlist, receitas, entradas, protocolos, admissão automática CI ou tipos publicados. Não cria nova decisão de aprovação nem protocolo.
+
+**Validação aprovada apenas confirma a coerência documental e contratual da proposta consultiva.** Não admite propriedades/slots de um novo composto, ações, execução React, E2E, acessibilidade ou promoção estável. Cada registro do relatório declara `canPublish: false`, `canExecuteAsComposite: false`, `canGrantPiPermissions: false` e `e2eCertification: not-performed`. Desvios de origem e política são bloqueados. O job de qualidade existente executa a validação com Zod instalado e preserva o relatório como artefato CI, sem nova camada de aprovação nem alteração no registro Pi.
