@@ -56,7 +56,7 @@ export function createContractVersionedCache({
       if (!entry) return undefined;
       entries.delete(descriptor.id);
       entries.set(descriptor.id, entry); // LRU touch
-      return structuredClone(entry.value); // Callers cannot poison stored objects.
+      return globalThis.structuredClone(entry.value); // Callers cannot poison stored objects.
     },
     set(request, value) {
       const descriptor = describe(request);
@@ -66,7 +66,7 @@ export function createContractVersionedCache({
         // Bounded JSON-serializable metadata only; no streams, functions or huge blobs.
         const json = JSON.stringify(value);
         if (typeof json !== 'string' || json.length > maxValueLength) return false;
-        copy = structuredClone(value);
+        copy = globalThis.structuredClone(value);
       } catch { return false; } // Functions/non-cloneable data are not cached.
       const time = now();
       prune(descriptor.dependencies, time);
