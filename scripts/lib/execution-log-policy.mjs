@@ -145,3 +145,57 @@ function regularDirectory(path){
   const info=lstatSync(path);
   return info.isDirectory()&&!info.isSymbolicLink()&&realpathSync(path)===resolve(path);
 }
+
+
+/**
+ * Run manual maintenance even when no new events are written.
+ * Without apply, calculate only; no file/directory creation or deletion.
+ */
+export function pruneExecutionLogs({root=process.cwd(),validate,apply=false,now=Date.now()}={}) {
+  if(typeof validate!=='function') throw new Error('E10 log validation required');
+  const base=realpathSync(root);
+  const reports=resolve(base,'reports');
+  const directory=join(reports,'pi-execution');
+  if(!existsSync(reports)) return {scannedFiles:0,expiredEvents:0,removedFiles:0,retainedFiles:0,applied:apply};
+  if(!regularDirectory(reports)) throw new Error('Unsafe E10 reports directory');
+  if(!existsSync(directory)) return {scannedFiles:0,expiredEvents:0,removedFiles:0,retainedFiles:0,applied:apply};
+  if(!regularDirectory(directory)) throw new Error('Unsafe E10 logs directory');
+  const lock=join(directory,'.e10-writer.lock');
+  let fd;
+  if(apply){
+    try{fd=openSync(lock,constants.O_CREAT|constants.O_EXCL|constants.O_WRONLY|(constants.O_NOFOLLOW??0),0o600);}
+    catch{throw new Error('E10 log writer lock unavailable');}
+  }
+  try {
+    const cutoff=cutoffFor(now);
+    const entries=readdirSync(directory).filter(name=>logName.test(name));
+    const files=[];
+    let expiredEvents=0;
+    for(const name of entries){
+      const path=join(directory,name);
+      if(!regularFile(path)) throw new Error('Unsafe E10 log file');
+      const records=readBounded(path,validate);
+      const retained=records.filter(item=>Date.parse(item.timestamp)>=cutoff);
+      expiredEvents+=records.length-retained.length;
+      files.push({path,retained,original:records.length,mtime:statSync(path).mtimeMs});
+    }
+    files.sort((a,b)=>a.mtime-b.mtime);
+    const removeCount=Math.max(0,files.filter(item=>item.retained.length).length-EXECUTION_LOG_POLICY.maxFiles);
+    let extra=removeCount;
+    let removedFiles=0,retainedFiles=0;
+    for(const item of files){
+      const remove=!item.retained.length||extra-->0;
+      if(remove){
+        removedFiles++;
+        if(apply) unlinkSync(item.path);
+      }else{
+        retainedFiles++;
+        if(apply && item.retained.length!==item.original)
+          replaceAtomically(item.path,item.retained.map(value=>JSON.stringify(value)).join('\n')+'\n');
+      }
+    }
+    return {scannedFiles:files.length,expiredEvents,removedFiles,retainedFiles,applied:apply};
+  }finally{
+    if(fd!==undefined){closeSync(fd);unlinkSync(lock);}
+  }
+}
