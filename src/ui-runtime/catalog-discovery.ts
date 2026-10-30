@@ -1,4 +1,5 @@
 /** Read-only discovery over existing reviewed contracts. Never used as admission policy. */
+import {createContractVersionedCache} from './contract-cache.mjs';
 export type DiscoveryEntry = {
  name:string;
  description?:string;
@@ -6,6 +7,9 @@ export type DiscoveryEntry = {
  whenUse?:string[];
  maturity?:string;
  piAvailable:boolean;
+ /** Reviewed lock identity. Omitted/invalid metadata disables caching. */
+ version?:string;
+ fingerprint?:string;
 };
 export const functionalGroups=[
  'Formulários e entrada','Confirmação e feedback','Navegação e organização',
@@ -13,57 +17,79 @@ export const functionalGroups=[
 ] as const;
 export type FunctionalGroup=typeof functionalGroups[number];
 const normalize=(value:string)=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').replace(/[^a-z0-9]+/g,' ').trim();
-
 export function functionalGroup(name:string):FunctionalGroup {
- const n=normalize(name).replaceAll(' ','');
- if(/(alertdialog|dialog|alert|toast|sonner|confirm|notification|progress|skeleton|spinner|badge)/.test(n))return 'Confirmação e feedback';
- if(/(form|input|field|select|checkbox|radio|switch|slider|textarea|signup|login|date.?picker|calendar|onboarding)/.test(n))return 'Formulários e entrada';
- if(/(menu|sidebar|nav|breadcrumb|tabs|pagination|accordion|collapsible|dropdown|command|popover|tooltip|hovercard|contextmenu)/.test(n))return 'Navegação e organização';
- if(/(chart|graph|table|metric|rating|stats|dashboard|distribution|data)/.test(n))return 'Dados e visualização';
- if(/(avatar|member|chat|message|profile|user|team|contact|share)/.test(n))return 'Identidade e comunicação';
- if(/(card|grid|stack|separator|layout|carousel|scroll|aspect|container)/.test(n))return 'Layouts e estrutura';
+ const n=normalize(name);
+ if(/(alertdialog|dialog|alert|toast|sonner|confirm|notification|progress|skeleton|spinner|badge)/.test(n.replaceAll(' ','')))return 'Confirmação e feedback';
+ if(/(form|input|field|select|checkbox|radio|switch|slider|textarea|signup|login|date.?picker|calendar|onboarding)/.test(n.replaceAll(' ','')))return 'Formulários e entrada';
+ if(/(menu|sidebar|nav|breadcrumb|tabs|pagination|accordion|collapsible|dropdown|command|popover|tooltip|hovercard|contextmenu)/.test(n.replaceAll(' ','')))return 'Navegação e organização';
+ if(/(chart|graph|table|metric|rating|stats|dashboard|distribution|data)/.test(n.replaceAll(' ','')))return 'Dados e visualização';
+ if(/(avatar|member|chat|message|profile|user|team|contact|share)/.test(n.replaceAll(' ','')))return 'Identidade e comunicação';
+ if(/(card|grid|stack|separator|layout|carousel|scroll|aspect|container)/.test(n.replaceAll(' ','')))return 'Layouts e estrutura';
  return 'Outros';
 }
+type SearchIndexRow = {name:string;description:string;intent:string;group:FunctionalGroup};
+const indexCache=createContractVersionedCache<SearchIndexRow[]>({maxEntries:8,ttlMs:5*60*1000});
+const indexRow=(entry:DiscoveryEntry):SearchIndexRow=>({
+ name:normalize(entry.name),
+ description:normalize(entry.description??''),
+ intent:normalize([entry.purpose,...(entry.whenUse??[])].join(' ')),
+ group:functionalGroup(entry.name),
+});
 
-type SearchFields = Readonly<{name:string;description:string;intent:string}>;
-export type IndexedDiscoveryEntry = Readonly<{entry:DiscoveryEntry;group:FunctionalGroup;fields:SearchFields}>;
-function searchable(entry:DiscoveryEntry):SearchFields {
- return {
-  name:normalize(entry.name),
-  description:normalize(entry.description??''),
-  intent:normalize([entry.purpose,...(entry.whenUse??[])].join(' ')),
+/**
+ * Cache only the normalized PUBLIC catalog index. User-entered search terms,
+ * filters and result sets are never cached. Every index depends on the reviewed
+ * version/fingerprint of every contract and on the actual public guidance text.
+ */
+function prepareIndex(entries:DiscoveryEntry[]):SearchIndexRow[] {
+ const key=JSON.stringify(entries.map(entry=>[
+  entry.name,entry.description,entry.purpose,entry.whenUse,
+  entry.maturity,entry.piAvailable,
+ ]));
+ const request={
+  scope:'public-contract-derived' as const,namespace:'catalog-discovery',
+  key,contracts:entries.map(entry=>({
+   name:entry.name,version:entry.version??'',fingerprint:entry.fingerprint??'',
+  })),
  };
+ const hit=indexCache.get(request);
+ if(hit && hit.length===entries.length)return hit;
+ const built=entries.map(indexRow);
+ indexCache.set(request,built); // Invalid/absent lock metadata fails closed.
+ return built;
 }
-function scoreFields(fields:SearchFields,terms:readonly string[]):number {
+
+function scoreIndexed(row:SearchIndexRow,terms:string[]):number {
  if(!terms.length)return 1;
- const {name,description,intent}=fields;
- // Only reviewed positive guidance is searchable; never turn exclusions into capabilities.
+ const {name,description,intent}=row;
  if(!terms.every(term=>name.includes(term)||description.includes(term)||intent.includes(term)))return 0;
  return terms.reduce((sum,term)=>sum+(name===term?10:name.startsWith(term)?6:name.includes(term)?4:description.includes(term)?2:1),0);
 }
 
-/** Precompute normalized read-only evidence once per catalog revision. */
-export function buildDiscoveryIndex(entries:readonly DiscoveryEntry[]):readonly IndexedDiscoveryEntry[] {
- return entries.map(entry=>({entry,group:functionalGroup(entry.name),fields:searchable(entry)}));
-}
-
-/** Preserve the public one-off scoring API for audit and callers outside the explorer. */
 export function semanticScore(entry:DiscoveryEntry,query:string):number {
- return scoreFields(searchable(entry),normalize(query).split(' ').filter(Boolean));
+ return scoreIndexed(indexRow(entry),normalize(query).split(' ').filter(Boolean));
 }
 
+/** Pre-index entries using the fingerprint-scoped cache; never cache user search text. */
+export type IndexedDiscoveryEntry = Readonly<{
+ entry:DiscoveryEntry;
+ group:FunctionalGroup;
+ fields:Readonly<{name:string;description:string;intent:string}>;
+}>;
 type DiscoveryOptions={query?:string;group?:string;maturity?:string;pi?:string};
+export function buildDiscoveryIndex(entries:readonly DiscoveryEntry[]):readonly IndexedDiscoveryEntry[] {
+ const indexed=prepareIndex([...entries]);
+ return entries.map((entry,i)=>({entry,group:indexed[i].group,fields:indexed[i]}));
+}
 export function discoverIndexedContracts(index:readonly IndexedDiscoveryEntry[],options:DiscoveryOptions={}) {
  const terms=normalize(options.query??'').split(' ').filter(Boolean);
- return index.map(({entry,group,fields})=>({entry,group,score:scoreFields(fields,terms)}))
+ return index.map(({entry,group,fields})=>({entry,group,score:scoreIndexed(fields,terms)}))
   .filter(result=>result.score>0&&(options.group==='all'||!options.group||result.group===options.group)
     &&(options.maturity==='all'||!options.maturity||result.entry.maturity===options.maturity)
     &&(options.pi!=='available'||result.entry.piAvailable)
     &&(options.pi!=='unavailable'||!result.entry.piAvailable))
   .sort((a,b)=>b.score-a.score||functionalGroups.indexOf(a.group)-functionalGroups.indexOf(b.group)||a.entry.name.localeCompare(b.entry.name,'pt-BR'));
 }
-
-/** Compatibility helper for callers with an ephemeral list. Interactive views reuse an index. */
-export function discoverContracts(entries:readonly DiscoveryEntry[],options:DiscoveryOptions={}) {
+export function discoverContracts(entries:DiscoveryEntry[],options:DiscoveryOptions={}) {
  return discoverIndexedContracts(buildDiscoveryIndex(entries),options);
 }

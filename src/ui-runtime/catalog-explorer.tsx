@@ -408,7 +408,8 @@ function ComponentExplorer({kind}:{kind:Kind}){
   const guide=localizedPrimitiveDocs[name]??shadcnDocs[name]??reuiDocs[name];
   const extra=(semanticGuidance.contracts as Record<string,{whenUse?:string[]}>)[name];
   return {
-   name,description:componentDefinitions[name as keyof typeof componentDefinitions]?.description,
+   name,version:contract?.version,fingerprint:contract?.semanticFingerprint,
+   description:componentDefinitions[name as keyof typeof componentDefinitions]?.description,
    purpose:overlay?.purpose,
    whenUse:overlay?.whenUse??extra?.whenUse??guide?.whenUse??[],
    maturity:contract?.stability??'experimental',
