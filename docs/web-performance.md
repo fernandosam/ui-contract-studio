@@ -2,7 +2,7 @@
 
 # E11 — Production rendering, bundles, memory and mobile lab
 
-This is an **opt-in**, local diagnostic suite. It does not approve a performance baseline, change the Pi catalog, expand Zod schemas, alter Admission Engine permissions, or add a required CI gate. It complements the separate [E11 load baselines](../benchmarks/baselines/README.md) when that pending work is integrated.
+This is an **opt-in**, local diagnostic suite. It does not approve a performance baseline, change the Pi catalog, expand Zod schemas, alter Admission Engine permissions, or add a required CI gate. It complements the separate [E11 load baselines](https://github.com/fernandosam/ui-contract-studio/pull/180) when that pending work is integrated.
 
 ## Run
 
