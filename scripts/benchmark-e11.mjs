@@ -234,13 +234,19 @@ export async function main(argv=process.argv.slice(2)) {
     }
   } finally {fixtures.cleanup();}
   if(config.compare){
-    const file=join(root,config.compare);
-    if(!existsSync(file)||!lstatSync(file).isFile())throw Error('Approved baseline file not found or unsafe');
-    report.comparison=compareReports(report,JSON.parse(readFileSync(file,'utf8')));
+    try{
+      const file=join(root,config.compare);
+      if(!existsSync(file)||!lstatSync(file).isFile())throw Error('Missing or unsafe approved baseline');
+      report.comparison=compareReports(report,JSON.parse(readFileSync(file,'utf8')));
+    }catch{
+      report.comparison={comparable:false,reasonCode:'reference_incompatible_or_unavailable'};
+      console.error('E11 comparison rejected: reference missing, incompatible or incomplete');
+    }
   }
   writeReport(root,config.out,report);
   console.log('E11 report: '+config.out+' ('+report.status+')');
-  if(report.status!=='complete'||report.comparison?.regressions.length)process.exitCode=1;
+  if(report.status!=='complete'||report.comparison?.comparable===false||
+     report.comparison?.regressions?.length)process.exitCode=1;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   main().catch(error=>{console.error('E11 benchmark failed: '+(error instanceof Error?error.message:'unknown error'));process.exitCode=1;});
