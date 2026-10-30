@@ -75,7 +75,7 @@ function policyFor(overrides) {
 }
 function validIdentifier(value, max = 160) {
   return typeof value === "string" && value.length >= 1 &&
-    value.length <= max && !/[\x00-\x1f\x7f]/.test(value) && value.trim() === value;
+    value.length <= max && !Array.from(value).some(ch => ch.charCodeAt(0) < 32 || ch.charCodeAt(0) === 127) && value.trim() === value;
 }
 function validCredential(token) {
   return typeof token === "string" && token.length >= 16 && token.length <= 2048 &&
