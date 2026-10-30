@@ -71,7 +71,7 @@
         "tailwindAlias": "--color-muted"
       },
       "--muted-foreground": {
-        "light": "oklch(0.4688 0.0136 84.5932)",
+        "light": "oklch(0.4400 0.0136 84.5932)",
         "dark": "oklch(0.7180 0.0113 81.7875)",
         "tailwindAlias": "--color-muted-foreground"
       },
@@ -92,7 +92,7 @@
       },
       "--destructive-foreground": {
         "light": "oklch(1.0000 0 0)",
-        "dark": "oklch(1.0000 0 0)",
+        "dark": "oklch(0.2350 0 0)",
         "tailwindAlias": "--color-destructive-foreground"
       },
       "--border": {
