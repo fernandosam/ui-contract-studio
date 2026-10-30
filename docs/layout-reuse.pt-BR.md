@@ -32,3 +32,24 @@ npm run semantic:report
 Examine as alterações de fontes e do índice antes de atualizar. O `npm run check` atual executa a verificação; o workflow de qualidade existente anexa o relatório às evidências semânticas. `--report` não altera o índice versionado, e `--write` exige execução intencional. O analisador não modifica `pi-catalog/contracts.json`, schemas Zod, componentes admitidos, ações, permissões ou decisões de publicação.
 
 Para alegações mais fortes, é necessária revisão humana das estruturas e evidência focal de navegador/acessibilidade vinculada à implementação. Esta análise offline não substitui o E2E completo.
+
+## Comparação E05 com o catálogo — evitar composições duplicadas
+
+A etapa seguinte compara os **cinco** candidatos estruturais E05 com primitivas base aprovadas no lock de contratos e os **37 templates compostos JSON ativos e revisados** declarados em `generated-manifest.json`:
+
+| Estrutura | Evidência de origem | Templates JSON existentes | Orientação |
+| --- | --- | --- | --- |
+| `Card → Stack` | Origens distintas | Presente (por exemplo, `Login01`, `Signup01`, `SiteCardsForms`) | Verificar composições existentes antes de propor outra |
+| `Card → Table` | Origens distintas | `Dashboard01`, `Sidebar09` | Inspecionar essas composições primeiro |
+| `Stack → Link` | Origens distintas | Nenhuma relação estática encontrada nos templates | Combinar as primitivas existentes `Stack` e `Link` |
+| `Card → Grid` | Mesma origem | Presente (por exemplo, `Dashboard01`, `SiteCardsStats`) | Evidência ainda provisória; inspecionar templates |
+| `Grid → Card` | Mesma origem | Nenhuma relação estática encontrada nos templates | Evidência provisória; compor primitivas aprovadas |
+
+```sh
+npm run patterns:reuse:compare:check   # validação determinística e offline, sem alterar arquivos
+npm run patterns:reuse:compare:report  # mesma validação + reports/layout-reuse/comparison.json
+```
+
+O relatório registra IDs dos layouts de origem, classificação de independência, referências ao lock das primitivas e, para cada template correspondente, **arquivo, IDs dos nós pai/filho, relação e posição**. Cada composição conta apenas uma vez, mesmo se contiver várias ocorrências do mesmo par. A verificação integra o `npm run check` e o workflow de qualidade existentes, sem criar outra camada de aprovação.
+
+Uma correspondência estrutural de dois nós **não comprova** substituição segura, equivalência de propriedades/estados/eventos, acessibilidade ou qualidade visual. A análise cobre apenas templates JSON revisados no manifesto; não inspeciona implementações TSX/ReUI arbitrárias. A ausência de correspondência **não** autoriza criar componentes: primeiro compor primitivas existentes e tratar capacidades realmente ausentes por revisão separada. O processo não modifica schemas Zod, permissões Pi, contratos publicados ou decisões do Admission Engine.

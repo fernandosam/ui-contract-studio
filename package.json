@@ -39,6 +39,8 @@
     "patterns:reuse:check": "node scripts/report-layout-reuse.mjs --check",
     "patterns:reuse:update": "node scripts/report-layout-reuse.mjs --write",
     "patterns:reuse:report": "node scripts/report-layout-reuse.mjs --report",
+    "patterns:reuse:compare:check": "node scripts/report-layout-reuse-comparison.mjs --check",
+    "patterns:reuse:compare:report": "node scripts/report-layout-reuse-comparison.mjs --report",
     "integration:update": "node scripts/generate-integration-status.mjs --write",
     "integration:check": "node scripts/generate-integration-status.mjs --check",
     "eval:pi:context": "tsx scripts/export-pi-catalog.ts",
@@ -93,6 +95,7 @@
     "shadcn:blocks:sources:sync": "node scripts/sync-shadcn-block-sources.mjs",
     "semantic:enforcement": "node scripts/verify-semantic-audit-policy.mjs",
     "semantic:check": "node scripts/analyze-semantic-knowledge.mjs --check",
+    "perf:catalog": "tsx scripts/benchmark-catalog-index.ts",
     "semantic:report": "node scripts/analyze-semantic-knowledge.mjs --write",
     "semantic:context": "node scripts/analyze-semantic-knowledge.mjs",
     "semantic:ingest": "node scripts/ingest-reui-knowledge.mjs",
@@ -126,6 +129,9 @@
     "perf:web:browser": "npm run build && playwright test --config=playwright.performance.config.ts",
     "perf:web:report": "node scripts/summarize-web-performance.mjs",
     "perf:web:all": "npm run build && node scripts/audit-web-performance.mjs && playwright test --config=playwright.performance.config.ts && node scripts/summarize-web-performance.mjs",
+    "perf:load": "node scripts/run-e11-load.mjs",
+    "perf:load:smoke": "node scripts/run-e11-load.mjs --profile=smoke",
+    "perf:load:stress": "node scripts/run-e11-load.mjs --profile=stress",
     "test:e12": "node --test tests/sdk-access-control.test.mjs tests/e12-gateway-security.test.mjs && tsx --test tests/contract-sdk.integration.test.ts tests/e12-contract-compatibility.integration.test.ts tests/e12-gateway.integration.test.ts"
   },
   "dependencies": {

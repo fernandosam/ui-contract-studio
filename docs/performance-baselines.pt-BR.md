@@ -51,3 +51,29 @@ npm run perf:baseline -- --compare=benchmarks/baselines/referencia-aprovada.json
 O comparador rejeita amostras incompletas e exige versão Node, SO/arquitetura, CPU/modelo/quantidade, iterações, aquecimentos, timeout e matriz cenário/concorrência iguais. Detecta aumento de p95 **superior a 20%** ou redução de throughput de sucesso **superior a 15%**. Falhas invalidam a comparação independentemente dos limiares. É sinal de investigação, **não** SLA de produção ou bloqueio automático de publicação: considere contenção, temperatura, inicialização e dispersão.
 
 Consulte a [política da referência](../benchmarks/baselines/README.md) e os [eventos E10](pi-execution-events.pt-BR.md). Verifique com npm run test:offline, docs:check, semantic:check, semantic:report, validate e build quando houver dependências. E2E completo continua manual na main.
+
+## Verificação de carga, concorrência e regressão (E11)
+
+A suíte opcional reutiliza o **mesmo runner offline** e aplica uma matriz determinística de cargas; não introduz outro mecanismo de benchmark nem bloqueia o CI padrão.
+
+| Perfil | Comando | Cenários | Amostras medidas por cenário × concorrência | Processos simultâneos | Teto p95 | Mínimo de throughput |
+| --- | --- | ---: | ---: | --- | ---: | ---: |
+| Smoke | `npm run perf:load:smoke` | 2 | 5 | 1, 4 | 25.000 ms | 0,05 op/s |
+| Carga | `npm run perf:load` | 6 | 20 | 1, 2, 4 | 25.000 ms | 0,10 op/s |
+| Estresse | `npm run perf:load:stress` | 3 | 20 | 1, 4, 8 | 30.000 ms | 0,10 op/s |
+
+Cada grupo exige ainda **0% de erros**, nenhum aquecimento com falha, todas as amostras previstas concluídas com sucesso, matriz exata, duração total positiva, percentis válidos e SHA Git. Permanecem o **timeout de 30.000 ms por subprocesso** e o limite conjunto de 4 MB de saída. p95 e throughput são agregados por (cenário, concorrência), não SLAs por thread. Qualquer infração termina com código diferente de zero. Os limites são **guardrails diagnósticos provisórios**, não SLAs de produção nem baselines medidas; devem ser revisados para a máquina de referência.
+
+Após aprovação de uma **referência real compatível** pelo protocolo anterior, é possível comparar:
+
+~~~bash
+npm run perf:load -- --compare=benchmarks/baselines/approved-reference.json
+npm run perf:load:stress -- --compare=benchmarks/baselines/approved-stress.json
+node --test tests/performance-baseline.test.mjs tests/e11-load-gate.test.mjs
+npm run semantic:check
+npm run semantic:report
+~~~
+
+O comparador preexistente rejeita ambientes/perfis incompatíveis, aumento de **p95 acima de 20%** e queda de **throughput de sucessos acima de 15%**. Sem referência significa **comparação não executada**, jamais regressão aprovada. Referência inexistente, incompleta ou incompatível provoca falha. Os relatórios locais permanecem ignorados pelo Git em `reports/performance/e11-smoke.json`, `e11-load.json` e `e11-stress.json`, sem saídas brutas ou dados fornecidos ao CLI.
+
+Executar em máquina ociosa, com dependências fixadas e checkout Git completo, repetir medições e revisar variações antes de aprovar evidências. A concorrência mede **pressão sobre subprocessos CLI**, não usuários HTTP nem capacidade real do backend. Não tornar essa suíte bloqueadora por padrão nem publicar metadados locais sem revisão. E2E completo permanece manual na `main`.
