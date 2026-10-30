@@ -14,7 +14,7 @@ test("E06: theme choice stays synchronized across primitives, composites and JSO
   await page.getByLabel("Buscar componente").fill("Dashboard01");
   await page.getByRole("button", {name:"Dashboard01", exact:true}).click();
   await expect(page.getByTestId("preview-theme-selector").first()).toHaveValue("studio@1.0.0:light");
-  await page.getByRole("button", {name:"ReUI (559)"}).click();
+  await page.getByRole("tab", {name:"ReUI (559)", exact:true}).click();
   await expect(page.getByTestId("preview-theme-selector").first()).toHaveValue("studio@1.0.0:light");
 
   await page.goto("/?screen=explorador-exemplos");
