@@ -104,6 +104,26 @@ test("E12: per-tenant per-user minute and day quotas are enforced independently"
   assert.equal((await g.execute(transport(), { operation: "list" })).status, 200);
 });
 
+test("E12: aggregate tenant quotas cannot be bypassed by creating more subjects", async () => {
+  let now = 1_000, subject = "user-0";
+  const g = gateway({
+    clock: () => now,
+    limits: { requestsPerMinute: 10, requestsPerDay: 20,
+      requestsPerTenantMinute: 2, requestsPerTenantDay: 3 },
+    authenticate: async () => ({ ...principal(), subject }),
+  });
+  for (let index = 0; index < 2; index++) {
+    subject = "user-" + index;
+    assert.equal((await g.execute(transport(), { operation: "list" })).status, 200);
+  }
+  subject = "user-3";
+  assert.equal((await g.execute(transport(), { operation: "list" })).error, "rate_limited");
+  now += 61_000;
+  assert.equal((await g.execute(transport(), { operation: "list" })).status, 200);
+  subject = "user-4";
+  assert.equal((await g.execute(transport(), { operation: "list" })).error, "quota_exceeded");
+});
+
 test("E12: request size, cyclic data, unexpected attributes and poison keys are rejected", async () => {
   const g = gateway({ authenticate: async () => principal("t", ["contracts:validate"]) ,
     limits: { maxRequestBytes: 100 } });
