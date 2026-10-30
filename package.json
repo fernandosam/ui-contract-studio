@@ -36,6 +36,9 @@
     "test:unit": "node --test tests/*.test.mjs",
     "contracts:diff": "node scripts/check-contract-diff.mjs",
     "patterns:check": "node scripts/check-ui-patterns.mjs",
+    "patterns:reuse:check": "node scripts/report-layout-reuse.mjs --check",
+    "patterns:reuse:update": "node scripts/report-layout-reuse.mjs --write",
+    "patterns:reuse:report": "node scripts/report-layout-reuse.mjs --report",
     "integration:update": "node scripts/generate-integration-status.mjs --write",
     "integration:check": "node scripts/generate-integration-status.mjs --check",
     "eval:pi:context": "tsx scripts/export-pi-catalog.ts",
@@ -117,7 +120,8 @@
     "contracts:migrate": "node scripts/migrate-contract-spec.mjs",
     "contracts:migrations:check": "node scripts/check-contract-migrations.mjs",
     "layout:browser:test": "playwright test tests/e2e/layout-runtime-quality.spec.ts --project=desktop --project=mobile",
-    "themes:check": "node scripts/check-versioned-themes.mjs"
+    "themes:check": "node scripts/check-versioned-themes.mjs",
+    "perf:baseline": "node scripts/benchmark-e11.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

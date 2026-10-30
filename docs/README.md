@@ -21,12 +21,15 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Semantic catalog discovery and comparison](semantic-catalog-discovery.md) | Existing Primitivas/Compostos search, comparison, evidence and Pi availability labels |
 | [Semantic contract conformance audit (T31)](semantic-contract-conformance-t31.md) | Zod/Pi bindings, gap decisions and mandatory audit for knowledge edits |
 | [Layout quality evaluation](layout-quality.md) | Advisory hierarchy, grouping, density and responsive layout scores |
+| [Approved layout reuse evidence (E05)](layout-reuse.md) | Cross-origin structural recurrence, source pointers and deterministic audit |
 | [Versioned themes (E06)](versioned-themes.md) | Closed token choices, immutable theme versions and CSS injection boundary |
 | [Typed contract SDK (E12)](typed-contract-sdk.md) | Local, typed generation, inspection and validation of approved JSON contracts |
+| [SDK access control (E12)](sdk-access-control.md) | Trusted host authentication, scoped authorization, quotas and abuse controls |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Pi Agent threat model (E09)](pi-agent-threat-model.md) | Trust boundaries, input/output/execution review, prioritized risks and mitigations |
 | [Pi execution events (E10)](pi-execution-events.md) | Correlated run identifiers, safe lifecycle events and opt-in diagnostics |
 | [Pi decision records (E10)](pi-decision-records.md) | Versioned contract fingerprints, semantic evidence references and selection criteria |
+| [Performance and load baselines (E11)](performance-baselines.md) | Real CLI scenarios, percentiles, concurrency and measured reference protocol |
 | [Development](development.md) | Environment, tests, CI, and E2E |
 | [Governance](governance.md) | Review and ongoing audits of the public repository |
 
