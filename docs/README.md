@@ -10,6 +10,8 @@ This page separates **current guides** from **historical audit records**. For cu
 | --- | --- |
 | [README](../README.md) | Introduction and installation |
 | [Architecture](architecture.md) | Sources of truth and layers |
+| [External integrations (E12)](external-integrations.md) | Initial read-only/CLI decision and its later SDK evolution |
+| [Integration guide (E12)](integration-guide.md) | Current SDK/CLI usage, executable examples, pinned versions and safe error handling |
 | [Components and contracts](components.md) | shadcn/ui, ReUI, compositions, and admission |
 | [Admission Engine](admission-engine.md) | Experimental publication and post-E2E distribution |
 | [Composition strategy](composition-strategy.md) | Dependency map, semantic classification and new ReUI examples |
@@ -19,6 +21,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Semantic catalog discovery and comparison](semantic-catalog-discovery.md) | Existing Primitivas/Compostos search, comparison, evidence and Pi availability labels |
 | [Semantic contract conformance audit (T31)](semantic-contract-conformance-t31.md) | Zod/Pi bindings, gap decisions and mandatory audit for knowledge edits |
 | [Layout quality evaluation](layout-quality.md) | Advisory hierarchy, grouping, density and responsive layout scores |
+| [Approved layout reuse evidence (E05)](layout-reuse.md) | Cross-origin structural recurrence, source pointers and deterministic audit |
 | [Versioned themes (E06)](versioned-themes.md) | Closed token choices, immutable theme versions and CSS injection boundary |
 | [Typed contract SDK (E12)](typed-contract-sdk.md) | Local, typed generation, inspection and validation of approved JSON contracts |
 | [E12 automated test matrix](e12-test-matrix.md) | Contract/compatibility, security and in-process end-to-end CI gates |
@@ -26,6 +29,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Pi Agent threat model (E09)](pi-agent-threat-model.md) | Trust boundaries, input/output/execution review, prioritized risks and mitigations |
 | [Pi execution events (E10)](pi-execution-events.md) | Correlated run identifiers, safe lifecycle events and opt-in diagnostics |
+| [Performance and load baselines (E11)](performance-baselines.md) | Real CLI scenarios, percentiles, concurrency and measured reference protocol |
 | [Development](development.md) | Environment, tests, CI, and E2E |
 | [Governance](governance.md) | Review and ongoing audits of the public repository |
 

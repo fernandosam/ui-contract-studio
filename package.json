@@ -36,6 +36,9 @@
     "test:unit": "node --test tests/*.test.mjs",
     "contracts:diff": "node scripts/check-contract-diff.mjs",
     "patterns:check": "node scripts/check-ui-patterns.mjs",
+    "patterns:reuse:check": "node scripts/report-layout-reuse.mjs --check",
+    "patterns:reuse:update": "node scripts/report-layout-reuse.mjs --write",
+    "patterns:reuse:report": "node scripts/report-layout-reuse.mjs --report",
     "integration:update": "node scripts/generate-integration-status.mjs --write",
     "integration:check": "node scripts/generate-integration-status.mjs --check",
     "eval:pi:context": "tsx scripts/export-pi-catalog.ts",
@@ -118,6 +121,11 @@
     "contracts:migrations:check": "node scripts/check-contract-migrations.mjs",
     "layout:browser:test": "playwright test tests/e2e/layout-runtime-quality.spec.ts --project=desktop --project=mobile",
     "themes:check": "node scripts/check-versioned-themes.mjs",
+    "perf:baseline": "node scripts/benchmark-e11.mjs",
+    "perf:web:bundle": "npm run build && node scripts/audit-web-performance.mjs",
+    "perf:web:browser": "npm run build && playwright test --config=playwright.performance.config.ts",
+    "perf:web:report": "node scripts/summarize-web-performance.mjs",
+    "perf:web:all": "npm run build && node scripts/audit-web-performance.mjs && playwright test --config=playwright.performance.config.ts && node scripts/summarize-web-performance.mjs",
     "test:e12": "node --test tests/sdk-access-control.test.mjs tests/e12-gateway-security.test.mjs && tsx --test tests/contract-sdk.integration.test.ts tests/e12-contract-compatibility.integration.test.ts tests/e12-gateway.integration.test.ts"
   },
   "dependencies": {
