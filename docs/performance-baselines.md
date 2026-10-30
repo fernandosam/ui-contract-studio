@@ -51,3 +51,29 @@ npm run perf:baseline -- --compare=benchmarks/baselines/approved-reference.json
 The comparator rejects incomplete snapshots and requires matching Node version, OS/architecture, CPU model/count, iteration count, warmups, timeout and exact scenario/concurrency matrix. It flags p95 increases **over 20%** or successful throughput decreases **over 15%**. Errors invalidate the comparison regardless of thresholds. This is an investigation signal, **not** a production SLA or automatic release veto: thermal throttling, contention, cold starts and measurement variance matter.
 
 See the [reference policy](../benchmarks/baselines/README.md) and [E10 events](pi-execution-events.md). Validate with npm run test:offline, docs:check, semantic:check, semantic:report, validate and build, when dependencies are available. Full E2E remains manual on main.
+
+## Load, concurrency and regression verification (E11)
+
+The opt-in load suite wraps the **same** offline runner and uses a deterministic workload matrix; it does not introduce another benchmark implementation. It is not added to the standard CI gate.
+
+| Profile | Command | Scenarios | Measured attempts per scenario × concurrency | Parallel child processes | p95 ceiling | Success throughput floor |
+| --- | --- | ---: | ---: | --- | ---: | ---: |
+| Smoke | `npm run perf:load:smoke` | 2 | 5 | 1, 4 | 25,000 ms | 0.05 op/s |
+| Load | `npm run perf:load` | 6 | 20 | 1, 2, 4 | 25,000 ms | 0.10 op/s |
+| Stress | `npm run perf:load:stress` | 3 | 20 | 1, 4, 8 | 30,000 ms | 0.10 op/s |
+
+Each case also requires **0% errors**, zero warmup failures, the exact number of expected successful attempts, matching scenario/concurrency matrix, positive wall time, valid latency percentiles and a Git commit SHA. The runner's **30,000 ms child timeout** and 4 MB combined output limit still apply. p95 and throughput values are aggregates per (scenario, concurrency), not per-thread SLAs. Failure produces non-zero exit status. The limits above are **provisional diagnostic guardrails**, not approved production SLAs or measured baselines; validate against the reference hardware and adjust through review if inappropriate.
+
+For regression detection, first approve a **real** compatible reference using the earlier protocol. Then supply it to any profile:
+
+~~~bash
+npm run perf:load -- --compare=benchmarks/baselines/approved-reference.json
+npm run perf:load:stress -- --compare=benchmarks/baselines/approved-stress.json
+node --test tests/performance-baseline.test.mjs tests/e11-load-gate.test.mjs
+npm run semantic:check
+npm run semantic:report
+~~~
+
+The existing benchmark comparator rejects incompatible profiles/machines, increases in **p95 over 20%** and drops in **successful throughput over 15%**. No reference means **comparison not performed**, not “regression passed”. A missing/incomplete/invalid reference is a failure. Local reports remain gitignored at `reports/performance/e11-smoke.json`, `e11-load.json` and `e11-stress.json`; they contain aggregate data and environment identifiers, not child outputs or user inputs.
+
+For a meaningful result, execute on an idle machine with locked dependencies and a full Git checkout, repeat runs, inspect variation and save only independently reviewed evidence. Concurrent child processes are **CLI workload pressure**, not HTTP users or a realistic backend production capacity test. Do not run this suite as a default PR check or publish reports containing workstation metadata without review. Full E2E testing remains manual on `main`.

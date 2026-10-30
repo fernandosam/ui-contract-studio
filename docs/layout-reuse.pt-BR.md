@@ -53,3 +53,31 @@ npm run patterns:reuse:compare:report  # mesma validação + reports/layout-reus
 O relatório registra IDs dos layouts de origem, classificação de independência, referências ao lock das primitivas e, para cada template correspondente, **arquivo, IDs dos nós pai/filho, relação e posição**. Cada composição conta apenas uma vez, mesmo se contiver várias ocorrências do mesmo par. A verificação integra o `npm run check` e o workflow de qualidade existentes, sem criar outra camada de aprovação.
 
 Uma correspondência estrutural de dois nós **não comprova** substituição segura, equivalência de propriedades/estados/eventos, acessibilidade ou qualidade visual. A análise cobre apenas templates JSON revisados no manifesto; não inspeciona implementações TSX/ReUI arbitrárias. A ausência de correspondência **não** autoriza criar componentes: primeiro compor primitivas existentes e tratar capacidades realmente ausentes por revisão separada. O processo não modifica schemas Zod, permissões Pi, contratos publicados ou decisões do Admission Engine.
+
+
+## Propostas de composição E05 — interfaces candidatas, sem admissão
+
+A saída de [`scripts/report-layout-composition-proposals.mjs`](../scripts/report-layout-composition-proposals.mjs) transforma a evidência E05 **já conferida** e a comparação com o catálogo em cinco propostas rastreáveis. Cada registro contém:
+
+- **Finalidade:** hipótese explícita para o agrupamento observado, a validar no fluxo real (não é equivalência funcional).
+- **Propriedades:** campos dos schemas **das primitivas** pai/filho em `pi-catalog/props-json-schema.json`, com tipo, obrigatoriedade, ponteiro para a definição e identificação das ocorrências em que o campo foi usado. Valores da tela não são reproduzidos. Esses campos **não** passam a ser props da composição automaticamente.
+- **Slots:** ligações candidatas `content` ao `parent.children` (ou `parent.slots.*`, conforme a evidência) e, se observado, `nestedContent` ao `child.children`, com intervalo de filhos observado. Os nomes são **propostos** e ainda não são slots Zod admitidos.
+- **Dependências:** primitivas aprovadas com versão e fingerprint do lock, mais templates compostos já aprovados para **inspeção de duplicidade**, sem supor compatibilidade de comportamento. Fontes, IDs e índices da árvore permanecem auditáveis.
+
+| Estrutura | Estratégia produzida | Razão |
+| --- | --- | --- |
+| `Card → Stack` | `review-existing-compositions-first` | Já aparece em templates JSON existentes; verificar reaproveitamento |
+| `Card → Table` | `review-existing-compositions-first` | Já aparece em templates JSON existentes |
+| `Stack → Link` | `compose-admitted-primitives` | Primitivas existentes, mas nenhum template JSON correspondente |
+| `Card → Grid` | `observe-until-independent-origins` | Coincidência em uma única origem declarada |
+| `Grid → Card` | `observe-until-independent-origins` | Coincidência em uma única origem declarada |
+
+```sh
+npm run patterns:reuse:proposals:check    # check determinístico, somente leitura
+npm run patterns:reuse:proposals:report   # gera reports/layout-reuse/proposals.json
+node --test tests/layout-composition-proposals-e05.test.mjs
+npm run semantic:check
+npm run semantic:report
+```
+
+O `npm run check` incorpora a validação, e o workflow de qualidade existente anexa `proposals.json` ao artefato semântico, sem novo fluxo de aprovação. O comando sempre recalcula e confere a evidência versionada e compara o catálogo e schemas atuais, recusando apontadores e propriedades inválidos. A saída gerada é **somente consultiva**: não edita Zod, `contracts.lock.json`, templates, `pi-catalog`, permissões, Admission Engine ou publicação. Para qualquer novo contrato composto, permanece necessária a verificação de compatibilidade semântica, visual, acessibilidade, estados e revisão independente.
