@@ -120,7 +120,8 @@
     "contracts:migrate": "node scripts/migrate-contract-spec.mjs",
     "contracts:migrations:check": "node scripts/check-contract-migrations.mjs",
     "layout:browser:test": "playwright test tests/e2e/layout-runtime-quality.spec.ts --project=desktop --project=mobile",
-    "themes:check": "node scripts/check-versioned-themes.mjs"
+    "themes:check": "node scripts/check-versioned-themes.mjs",
+    "perf:baseline": "node scripts/benchmark-e11.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
