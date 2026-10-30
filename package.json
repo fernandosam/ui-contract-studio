@@ -41,6 +41,8 @@
     "patterns:reuse:report": "node scripts/report-layout-reuse.mjs --report",
     "patterns:reuse:compare:check": "node scripts/report-layout-reuse-comparison.mjs --check",
     "patterns:reuse:compare:report": "node scripts/report-layout-reuse-comparison.mjs --report",
+    "patterns:reuse:proposals:check": "node scripts/report-layout-composition-proposals.mjs --check",
+    "patterns:reuse:proposals:report": "node scripts/report-layout-composition-proposals.mjs --report",
     "integration:update": "node scripts/generate-integration-status.mjs --write",
     "integration:check": "node scripts/generate-integration-status.mjs --check",
     "eval:pi:context": "tsx scripts/export-pi-catalog.ts",

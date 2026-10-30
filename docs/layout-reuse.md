@@ -53,3 +53,31 @@ npm run patterns:reuse:compare:report  # same validation + reports/layout-reuse/
 The report records source layout IDs, approval-origin status, primitive contract references, and each matched composite's **file, parent/child node IDs, relationship and position**. It considers one composite only once regardless of how many matching edges appear inside that template. It runs as part of the existing `npm run check` and quality workflow; no new approval workflow exists.
 
 A two-node structural match **does not prove** substitutability, equivalence of props/state/events, accessibility or visual quality. The comparison currently indexes only manifest-backed reviewed JSON templates, not arbitrary TSX/ReUI implementations. A missing match does **not** authorize a new component: try assembling existing primitives and request separate review for any genuinely missing capability. This process never changes Zod schemas, Pi permissions, published contracts, or Admission Engine decisions.
+
+
+## E05 composition proposals — candidate interfaces, not admission
+
+[`scripts/report-layout-composition-proposals.mjs`](../scripts/report-layout-composition-proposals.mjs) converts the **verified** E05 evidence and catalog comparison into five traceable proposals. Each record provides:
+
+- **Purpose:** an explicit hypothesis for the observed grouping, subject to actual user-flow validation; not proof of behavioral equivalence.
+- **Properties:** schema-declared properties of the **existing parent and child primitives** in `pi-catalog/props-json-schema.json`, with types, required flags, schema pointers and exact occurrences of observed keys. Screen values are not copied. These are **not** automatically new composite-level props.
+- **Slots:** proposed `content` mapped to `parent.children` (or an observed `parent.slots.*`) and optional `nestedContent` mapped to `child.children`, including observed child counts. These labels are **not admitted Zod slots**.
+- **Dependencies:** approved base contracts with pinned versions and fingerprints, plus existing approved composite templates to inspect for duplication. Layout source files, node IDs and positions remain auditable.
+
+| Edge | Generated strategy | Rationale |
+| --- | --- | --- |
+| `Card → Stack` | `review-existing-compositions-first` | Matching reviewed JSON templates exist; inspect for safe reuse |
+| `Card → Table` | `review-existing-compositions-first` | Matching reviewed JSON templates exist |
+| `Stack → Link` | `compose-admitted-primitives` | Both primitives exist but no matching reviewed JSON template |
+| `Card → Grid` | `observe-until-independent-origins` | Same declared origin only |
+| `Grid → Card` | `observe-until-independent-origins` | Same declared origin only |
+
+```sh
+npm run patterns:reuse:proposals:check    # read-only deterministic check
+npm run patterns:reuse:proposals:report   # writes reports/layout-reuse/proposals.json
+node --test tests/layout-composition-proposals-e05.test.mjs
+npm run semantic:check
+npm run semantic:report
+```
+
+`npm run check` includes the validation and the existing quality workflow uploads `proposals.json` alongside semantic reports, with no extra approval layer. Source evidence is recalculated and compared to its reviewed index before generating proposals; invalid source nodes and undeclared primitive properties fail closed. The output is **advisory**: no Zod, catalog, lock, Pi permissions, template, or Admission Engine admission/publishing mutations. Any actual new composite still requires semantic, behavioral, visual, accessibility and independent admission review.

@@ -11,7 +11,7 @@ const core=[
   'check-versioned-themes.mjs',
   'build-pi-api.mjs --check','build-pi-fixtures.mjs --check',
   'check-readiness.mjs','check-composite-pruning.mjs','check-screen-discovery.mjs',
-  'report-layout-reuse.mjs --check','report-layout-reuse-comparison.mjs --check',
+  'report-layout-reuse.mjs --check','report-layout-reuse-comparison.mjs --check','report-layout-composition-proposals.mjs --check',
   'check-ui-catalog.ts','sync-admission-catalog.mjs --check','admission-engine.mjs --check','check-composition-recommendations.ts','generate-composition-proposals.mjs --check','analyze-semantic-knowledge.mjs --check','analyze-compositions.mjs','generate-composite-registry.mjs --check','generate-composite-node-props.mjs --check',
   'check-boundaries.ts',
 ];
