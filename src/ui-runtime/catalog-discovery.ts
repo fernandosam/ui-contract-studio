@@ -1,4 +1,5 @@
 /** Read-only discovery over existing reviewed contracts. Never used as admission policy. */
+import {createContractVersionedCache} from './contract-cache.mjs';
 export type DiscoveryEntry = {
  name:string;
  description?:string;
@@ -6,6 +7,9 @@ export type DiscoveryEntry = {
  whenUse?:string[];
  maturity?:string;
  piAvailable:boolean;
+ /** Reviewed lock identity. Omitted/invalid metadata disables caching. */
+ version?:string;
+ fingerprint?:string;
 };
 export const functionalGroups=[
  'Formulários e entrada','Confirmação e feedback','Navegação e organização',
@@ -23,22 +27,69 @@ export function functionalGroup(name:string):FunctionalGroup {
  if(/(card|grid|stack|separator|layout|carousel|scroll|aspect|container)/.test(n.replaceAll(' ','')))return 'Layouts e estrutura';
  return 'Outros';
 }
-export function semanticScore(entry:DiscoveryEntry,query:string):number {
- const terms=normalize(query).split(' ').filter(Boolean);
+type SearchIndexRow = {name:string;description:string;intent:string;group:FunctionalGroup};
+const indexCache=createContractVersionedCache<SearchIndexRow[]>({maxEntries:8,ttlMs:5*60*1000});
+const indexRow=(entry:DiscoveryEntry):SearchIndexRow=>({
+ name:normalize(entry.name),
+ description:normalize(entry.description??''),
+ intent:normalize([entry.purpose,...(entry.whenUse??[])].join(' ')),
+ group:functionalGroup(entry.name),
+});
+
+/**
+ * Cache only the normalized PUBLIC catalog index. User-entered search terms,
+ * filters and result sets are never cached. Every index depends on the reviewed
+ * version/fingerprint of every contract and on the actual public guidance text.
+ */
+function prepareIndex(entries:DiscoveryEntry[]):SearchIndexRow[] {
+ const key=JSON.stringify(entries.map(entry=>[
+  entry.name,entry.description,entry.purpose,entry.whenUse,
+  entry.maturity,entry.piAvailable,
+ ]));
+ const request={
+  scope:'public-contract-derived' as const,namespace:'catalog-discovery',
+  key,contracts:entries.map(entry=>({
+   name:entry.name,version:entry.version??'',fingerprint:entry.fingerprint??'',
+  })),
+ };
+ const hit=indexCache.get(request);
+ if(hit && hit.length===entries.length)return hit;
+ const built=entries.map(indexRow);
+ indexCache.set(request,built); // Invalid/absent lock metadata fails closed.
+ return built;
+}
+
+function scoreIndexed(row:SearchIndexRow,terms:string[]):number {
  if(!terms.length)return 1;
- const name=normalize(entry.name);
- const description=normalize(entry.description??'');
- const intent=normalize([entry.purpose,...(entry.whenUse??[])].join(' '));
- // Every query term must match a verified positive field; not avoid/unsupported capabilities.
+ const {name,description,intent}=row;
  if(!terms.every(term=>name.includes(term)||description.includes(term)||intent.includes(term)))return 0;
  return terms.reduce((sum,term)=>sum+(name===term?10:name.startsWith(term)?6:name.includes(term)?4:description.includes(term)?2:1),0);
 }
-export function discoverContracts(entries:DiscoveryEntry[],options:{query?:string;group?:string;maturity?:string;pi?:string}={}) {
- const query=options.query??'';
- return entries.map(entry=>({entry,group:functionalGroup(entry.name),score:semanticScore(entry,query)}))
+
+export function semanticScore(entry:DiscoveryEntry,query:string):number {
+ return scoreIndexed(indexRow(entry),normalize(query).split(' ').filter(Boolean));
+}
+
+/** Pre-index entries using the fingerprint-scoped cache; never cache user search text. */
+export type IndexedDiscoveryEntry = Readonly<{
+ entry:DiscoveryEntry;
+ group:FunctionalGroup;
+ fields:SearchIndexRow;
+}>;
+type DiscoveryOptions={query?:string;group?:string;maturity?:string;pi?:string};
+export function buildDiscoveryIndex(entries:readonly DiscoveryEntry[]):readonly IndexedDiscoveryEntry[] {
+ const indexed=prepareIndex([...entries]);
+ return entries.map((entry,i)=>({entry,group:indexed[i].group,fields:indexed[i]}));
+}
+export function discoverIndexedContracts(index:readonly IndexedDiscoveryEntry[],options:DiscoveryOptions={}) {
+ const terms=normalize(options.query??'').split(' ').filter(Boolean);
+ return index.map(({entry,group,fields})=>({entry,group,score:scoreIndexed(fields,terms)}))
   .filter(result=>result.score>0&&(options.group==='all'||!options.group||result.group===options.group)
     &&(options.maturity==='all'||!options.maturity||result.entry.maturity===options.maturity)
     &&(options.pi!=='available'||result.entry.piAvailable)
     &&(options.pi!=='unavailable'||!result.entry.piAvailable))
   .sort((a,b)=>b.score-a.score||functionalGroups.indexOf(a.group)-functionalGroups.indexOf(b.group)||a.entry.name.localeCompare(b.entry.name,'pt-BR'));
+}
+export function discoverContracts(entries:DiscoveryEntry[],options:DiscoveryOptions={}) {
+ return discoverIndexedContracts(buildDiscoveryIndex(entries),options);
 }

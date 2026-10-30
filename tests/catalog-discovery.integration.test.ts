@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {discoverContracts,functionalGroup,semanticScore} from '../src/ui-runtime/catalog-discovery.ts';
+import {buildDiscoveryIndex,discoverIndexedContracts,discoverContracts,functionalGroup,semanticScore} from '../src/ui-runtime/catalog-discovery.ts';
 
 const entries=[
  {name:'AlertDialog',description:'Confirmação de operações',whenUse:['Confirmar decisões irreversíveis'],maturity:'stable',piAvailable:true},
@@ -27,4 +27,34 @@ test('results are deterministic, stable and preserve names for exact matching',(
  const before=JSON.stringify(entries);
  assert.deepEqual(discoverContracts(entries,{query:'a'}),discoverContracts(entries,{query:'a'}));
  assert.equal(JSON.stringify(entries),before);
+});
+
+test('pre-indexing preserves ranking and filters across repeated queries',()=>{
+ const index=buildDiscoveryIndex(entries);
+ for(const query of ['','confirmacao','  FORMULÁRIOS ','a','inexistente','confirmar decisões']){
+  for(const pi of ['all','available','unavailable']){
+   const options={query,pi};
+   assert.deepEqual(discoverIndexedContracts(index,options),discoverContracts(entries,options));
+  }
+ }
+ assert.equal(index[0].entry,entries[0],'keep original approved record identity');
+});
+
+test('cached index follows contract identity, public guidance and current Pi filtering',()=>{
+ const fp='a'.repeat(64);
+ const reviewed=entries.map(entry=>({...entry,version:'1.0.0',fingerprint:fp}));
+ assert.deepEqual(discoverContracts(reviewed,{query:'confirmacao'}).map(x=>x.entry.name),['AlertDialog']);
+ // Same contract identity but edited public guidance must never reuse stale text.
+ const revised=reviewed.map(entry=>entry.name==='Dialog'
+  ? {...entry,whenUse:['Confirmar revisão de dados']} : entry);
+ assert.deepEqual(discoverContracts(revised,{query:'confirmar'}).map(x=>x.entry.name),
+  ['AlertDialog','Dialog']);
+ const nextVersion=revised.map(entry=>entry.name==='Dialog'
+  ? {...entry,version:'1.1.0',piAvailable:false} : entry);
+ assert.deepEqual(discoverContracts(nextVersion,{query:'confirmar',pi:'available'}).map(x=>x.entry.name),
+  ['AlertDialog']);
+ const nextFingerprint=nextVersion.map(entry=>entry.name==='Dialog'
+  ? {...entry,fingerprint:'b'.repeat(64),description:'Tabela revisada'} : entry);
+ assert.deepEqual(discoverContracts(nextFingerprint,{query:'tabela'}).map(x=>x.entry.name),['Dialog']);
+ assert.deepEqual(discoverContracts(reviewed,{query:'tabela'}),[]);
 });

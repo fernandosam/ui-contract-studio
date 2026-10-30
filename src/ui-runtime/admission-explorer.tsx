@@ -1,12 +1,15 @@
-import {useMemo,useState} from "react";
+import {useEffect,useMemo,useState} from "react";
 import official from "../../pi-catalog/contracts.json";
 import {SpecScreen} from "./spec-screen";
 import {PreviewThemeSelector} from "./preview-theme";
 import {experimentalFormScenarios,type ExperimentalFormScenario} from "../ui-catalog/admission-engine/form-scenarios";
 
-const stableExamples=import.meta.glob("../../pi-catalog/examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
-const experimentalExamples=import.meta.glob("../../pi-catalog/experimental-examples/*.json",{eager:true,import:"default"}) as Record<string,unknown>;
-const examples={...stableExamples,...experimentalExamples};
+// Keep lightweight manifest metadata eager; load only the selected JSON preview.
+const exampleLoaders=import.meta.glob<unknown>([
+ "../../pi-catalog/examples/*.json",
+ "../../pi-catalog/experimental-examples/*.json",
+],{import:"default"});
+const exampleCache=new Map<string,unknown>();
 const entries=official.components;
 
 export function AdmissionExplorer({compositionOnly=false}:{compositionOnly?:boolean}) {
@@ -20,7 +23,22 @@ export function AdmissionExplorer({compositionOnly=false}:{compositionOnly?:bool
   return (!compositionOnly||entry.tier==="composition")&&(filter==="all"||status===filter)&&entry.type.toLowerCase().includes(query.toLowerCase().trim());
  }),[query,filter,compositionOnly]);
  const current=visible.find(entry=>entry.type===selected)??visible[0];
- const sample=current?examples["../../"+current.example]:undefined;
+ const [sampleState,setSampleState]=useState<{path:string;error:boolean}>({path:"",error:false});
+ const samplePath=current?"../../"+current.example:"";
+ useEffect(()=>{
+  if(!samplePath||exampleCache.has(samplePath))return;
+  const loader=exampleLoaders[samplePath];
+  if(!loader){setSampleState({path:samplePath,error:true});return;}
+  let active=true;
+  loader().then(spec=>{
+   if(!active)return;
+   exampleCache.set(samplePath,spec);
+   setSampleState({path:samplePath,error:false});
+  }).catch(()=>{if(active)setSampleState({path:samplePath,error:true});});
+  return ()=>{active=false;};
+ },[samplePath]);
+ const sample=exampleCache.get(samplePath);
+ const sampleError=sampleState.path===samplePath&&sampleState.error;
  const canPreview=Boolean(current && (current.lifecycle==='stable'||channel==="experimental"));
  const activeSample=current?.type==="DeclarativeFormFlow" && channel==="experimental" && formVariant!=="standard"
   ? experimentalFormScenarios[formVariant] : sample;
@@ -91,7 +109,7 @@ export function AdmissionExplorer({compositionOnly=false}:{compositionOnly?:bool
        {!canPreview?<p role="status" className="rounded-md border border-amber-400/30 p-3 text-sm">
         Este componente ainda não passou pelo E2E completo. Selecione o canal experimental para testá-lo localmente.
        </p>:activeSample?<SpecScreen key={current.type+"-"+channel+"-"+formVariant} spec={activeSample} channel={channel}/>:
-        <p className="text-sm text-muted-foreground">Exemplo não disponível.</p>}
+        <p role={sampleError?"alert":"status"} className="text-sm text-muted-foreground">{sampleError||!exampleLoaders[samplePath]?"Exemplo não disponível.":"Carregando exemplo…"}</p>}
       </section>
      </div>:<p className="rounded-xl border p-6 text-sm text-muted-foreground">Nenhum contrato corresponde à busca.</p>}
     </main>

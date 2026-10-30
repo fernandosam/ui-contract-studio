@@ -3,6 +3,10 @@
  */
 import {compareSemanticCapabilitySets} from '../../src/ui-runtime/semantic-comparison-core.mjs';
 
+export const PI_SELECTION_POLICY=Object.freeze({
+  id:'pi-semantic-selection',version:1,stableOnly:true,minCoverage:0.6,minScoreLead:3,
+});
+
 const stopwords = new Set([
   'a','ao','aos','as','com','como','da','das','de','do','dos','e','em','entre',
   'essa','esse','esta','este','eu','isso','mais','na','nas','no','nos','o','os',
@@ -83,8 +87,8 @@ export function selectPiSemanticCandidates({requirement,contracts,profiles,allow
   const positive=ranked.filter(c=>c.decision==='candidate');
   const first=positive[0], second=positive[1];
   // Require substantive coverage; lexical coincidences and ties must abstain.
-  const confident=Boolean(first && words.length>0 && first.coverage>=0.6 &&
-    (!second || (first.score-second.score>=3 && first.coverage>=second.coverage)));
+  const confident=Boolean(first && words.length>0 && first.coverage>=PI_SELECTION_POLICY.minCoverage &&
+    (!second || (first.score-second.score>=PI_SELECTION_POLICY.minScoreLead && first.coverage>=second.coverage)));
   const status=confident?'recommended':positive.length?'ambiguous':'no-match';
   const selectedType=confident?first.type:null;
   const pairSource=first??ranked[0]??null;

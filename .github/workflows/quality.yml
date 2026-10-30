@@ -64,6 +64,12 @@ jobs:
         shell: bash
         run: |
           npm run semantic:report 2>&1 | tee reports/composition-analysis/semantic-report.log
+      - name: Generate checked E05 cross-origin layout reuse evidence
+        if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
+        run: npm run patterns:reuse:report
+      - name: Compare E05 recurring structures with approved primitives and compositions
+        if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
+        run: npm run patterns:reuse:compare:report
       - name: Summarize semantic diagnostics
         if: ${{ !cancelled() && steps.semantic-check.outcome != 'skipped' }}
         run: node scripts/semantic-ci-summary.mjs
@@ -74,6 +80,8 @@ jobs:
           name: semantic-knowledge-report
           path: |
             reports/composition-analysis/semantic-knowledge.json
+            reports/layout-reuse/evidence.json
+            reports/layout-reuse/comparison.json
             reports/composition-analysis/semantic-check.log
             reports/composition-analysis/semantic-report.log
           if-no-files-found: error

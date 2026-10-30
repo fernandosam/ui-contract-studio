@@ -2,7 +2,7 @@
 
 # E10 — Structured Pi execution events (v1)
 
-This **optional diagnostic contract** does not change Pi permissions, Zod schemas, approved contracts or Admission Engine gates.
+This **optional diagnostic contract** does not change Pi permissions, Zod schemas, approved contracts or Admission Engine gates. To record the *selection rationale*, reviewed contract fingerprints and semantic evidence references, see [E10 Pi decision records](pi-decision-records.md).
 
 ## Identifiers and event shape
 
