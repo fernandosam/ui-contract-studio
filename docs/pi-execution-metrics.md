@@ -2,6 +2,8 @@
 
 # E10 — Offline Pi execution metrics
 
+The [trends dashboard](pi-execution-trends.md) reuses the same validated reader and metrics aggregation to build local JSON/CSV/HTML views.
+
 The metrics command reads existing [structured E10 events](pi-execution-events.md) **offline**, without invoking Pi, requiring credentials, changing catalog authority, or uploading traces. All output is JSON on stdout; it does not write files.
 
 ## Capture and report
