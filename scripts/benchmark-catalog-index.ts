@@ -5,7 +5,7 @@ import pi from "../pi-catalog/contracts.json"
 import {buildReuiExampleIndex,filterIndexedReuiExamples,filterReuiExamples} from "../src/ui-runtime/reui-search"
 import {buildDiscoveryIndex,discoverContracts,discoverIndexedContracts,type DiscoveryEntry} from "../src/ui-runtime/catalog-discovery"
 
-const reuiGuides=groups as Record<string,{examples:[string,string][]}>
+const reuiGuides=groups as unknown as Record<string,{examples:[string,string][]}>
 const searchGuides=guides as Record<string,{bestFor:string;whenNotUse:string[]}>
 const allExamples=Object.entries(reuiGuides).map(([family,guide])=>({family,items:guide.examples,index:buildReuiExampleIndex(guide.examples,family,searchGuides)}))
 const entries:DiscoveryEntry[]=pi.components.map(item=>({
