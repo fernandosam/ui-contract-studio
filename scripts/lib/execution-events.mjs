@@ -43,7 +43,7 @@ export function validateExecutionEvent(event) {
   if (['failed','blocked'].includes(event.status) !== ('reasonCode' in event.details)) return false;
   const generationAttempt = event.source === 'pi-eval' && event.phase === 'generation';
   if ('attempt' in event.details && !generationAttempt) return false;
-  if ((safeTokens.has('inputTokens') && 'inputTokens' in event.details || 'outputTokens' in event.details) &&
+  if (('inputTokens' in event.details || 'outputTokens' in event.details) &&
       (!generationAttempt || event.status === 'started')) return false;
   return true;
 }
