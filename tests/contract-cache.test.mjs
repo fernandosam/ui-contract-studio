@@ -83,6 +83,7 @@ test('missing, invalid or private metadata fails closed; unsupported values are 
  }
  assert.equal(cache.set(good,{secret:()=>{}}),false);
  assert.equal(cache.set(good,undefined),false);
+ assert.equal(cache.set(good,'a'.repeat(600 * 1024)),false);
  assert.equal(cache.size(),0);
  assert.throws(()=>createContractVersionedCache({maxEntries:0}),/limits/);
  assert.throws(()=>createContractVersionedCache({ttlMs:0}),/limits/);
