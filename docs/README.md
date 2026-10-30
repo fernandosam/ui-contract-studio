@@ -24,6 +24,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Approved layout reuse evidence (E05)](layout-reuse.md) | Cross-origin structural recurrence, source pointers and deterministic audit |
 | [Versioned themes (E06)](versioned-themes.md) | Closed token choices, immutable theme versions and CSS injection boundary |
 | [Typed contract SDK (E12)](typed-contract-sdk.md) | Local, typed generation, inspection and validation of approved JSON contracts |
+| [E12 automated test matrix](e12-test-matrix.md) | Contract/compatibility, security and in-process end-to-end CI gates |
 | [SDK access control (E12)](sdk-access-control.md) | Trusted host authentication, scoped authorization, quotas and abuse controls |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
 | [Pi Agent threat model (E09)](pi-agent-threat-model.md) | Trust boundaries, input/output/execution review, prioritized risks and mitigations |

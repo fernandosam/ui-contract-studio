@@ -135,7 +135,8 @@
     "perf:web:all": "npm run build && node scripts/audit-web-performance.mjs && playwright test --config=playwright.performance.config.ts && node scripts/summarize-web-performance.mjs",
     "perf:load": "node scripts/run-e11-load.mjs",
     "perf:load:smoke": "node scripts/run-e11-load.mjs --profile=smoke",
-    "perf:load:stress": "node scripts/run-e11-load.mjs --profile=stress"
+    "perf:load:stress": "node scripts/run-e11-load.mjs --profile=stress",
+    "test:e12": "node --test tests/sdk-access-control.test.mjs tests/e12-gateway-security.test.mjs && tsx --test tests/contract-sdk.integration.test.ts tests/e12-contract-compatibility.integration.test.ts tests/e12-gateway.integration.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

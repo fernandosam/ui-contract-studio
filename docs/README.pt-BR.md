@@ -24,6 +24,7 @@ Esta página separa **guias vigentes** de **registros históricos de auditoria**
 | [Evidências de reutilização de layout (E05)](layout-reuse.pt-BR.md) | Estruturas recorrentes entre origens, referências ao código e auditoria determinística |
 | [Temas versionados (E06)](versioned-themes.pt-BR.md) | Tokens fechados, versões imutáveis e bloqueio de CSS arbitrário |
 | [SDK tipado de contratos (E12)](typed-contract-sdk.pt-BR.md) | Geração, inspeção e validação locais e tipadas de contratos JSON aprovados |
+| [Matriz de testes automatizados E12](e12-test-matrix.pt-BR.md) | Verificações CI de contrato/compatibilidade, segurança e integração ponta a ponta |
 | [Controle de acesso ao SDK (E12)](sdk-access-control.pt-BR.md) | Autenticação pelo host, autorização por escopo, quotas e proteção contra abuso |
 | [Agentes e Pi](agents.pt-BR.md) | Geração segura e validação de specs |
 | [Modelo de ameaças do Pi Agent (E09)](pi-agent-threat-model.pt-BR.md) | Fronteiras de confiança, revisão das entradas/saídas/execução e riscos priorizados |
