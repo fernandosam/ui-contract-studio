@@ -2,7 +2,7 @@
 
 # E11 — Avaliação de renderização, bundles, memória e dispositivos móveis
 
-Esta suíte é **diagnóstica e opcional**, executada localmente. Não aprova automaticamente baselines, altera contratos Pi ou schemas Zod, aumenta permissões do Admission Engine nem adiciona gate obrigatório de CI. Complementa os [baselines de carga E11](../benchmarks/baselines/README.md), quando o trabalho pendente for integrado.
+Esta suíte é **diagnóstica e opcional**, executada localmente. Não aprova automaticamente baselines, altera contratos Pi ou schemas Zod, aumenta permissões do Admission Engine nem adiciona gate obrigatório de CI. Complementa os [baselines de carga E11](https://github.com/fernandosam/ui-contract-studio/pull/180), quando o trabalho pendente for integrado.
 
 ## Execução
 
