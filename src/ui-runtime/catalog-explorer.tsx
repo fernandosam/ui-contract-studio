@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import {screens} from './screen-registry';
 import { z } from 'zod';
 import { componentDefinitions, catalog } from '@/ui-catalog/catalog';
 import contractLock from '@/ui-catalog/contracts.lock.json';
@@ -26,11 +27,15 @@ type PatternInfo = { id: string; title: string; category: string; description: s
 type FieldKind = 'text' | 'number' | 'boolean' | 'enum' | 'json';
 type FieldInfo = { name: string; kind: FieldKind; required: boolean; nullable: boolean; options: string[] };
 
-const examples = import.meta.glob('../../pi-catalog/examples/*.json', { eager: true, import: 'default' }) as Record<string, UiSpec>;
-const screenFiles = import.meta.glob('../ui-screens/*.json', { eager: true, import: 'default' }) as Record<string, UiSpec>;
-const screenMeta = import.meta.glob('../ui-screen-meta/*.json', { eager: true, import: 'default' }) as Record<string, { title:string;section:string;order:number }>;
-const patternFiles = import.meta.glob('../ui-patterns/*.json', { eager: true, import: 'default' }) as Record<string, UiSpec>;
+// Manifest provides stable IDs and provenance; specs are downloaded only on selection.
+const exampleLoaders = import.meta.glob<UiSpec>([
+ '../../pi-catalog/examples/*.json',
+ '../../pi-catalog/experimental-examples/*.json',
+], {import:'default'});
+const patternFiles = import.meta.glob<UiSpec>('../ui-patterns/*.json', {import:'default'});
 const patternMeta = import.meta.glob('../ui-patterns/*.meta.json', { eager: true, import: 'default' }) as Record<string, PatternInfo>;
+const exampleCache = new Map<string, UiSpec>();
+const patternCache = new Map<string, UiSpec>();
 
 function extractBranch(spec: UiSpec, root: string): UiSpec {
   const elements: Record<string,UiNode> = {};
@@ -50,17 +55,16 @@ const types = Object.keys(componentDefinitions).sort((a,b)=>a.localeCompare(b));
 const primitiveTypes = new Set(contractLock.components.filter(c=>c.tier==='base').map(c=>c.name).concat(compositionPolicy.primitiveExtensions));
 const primitiveList=types.filter(name=>primitiveTypes.has(name));
 const compositeList=types.filter(name=>!primitiveTypes.has(name));
-const screenOptions=Object.entries(screenFiles).map(([path,spec])=>{
- const filename=path.split('/').at(-1)??'';
- const meta=screenMeta[`../ui-screen-meta/${filename}`];
- return {id:filename.replace('.json',''),title:meta?.title??filename,path,spec,order:meta?.order??999};
-}).sort((a,b)=>a.order-b.order||a.title.localeCompare(b.title));
+// The app already owns these approved screens, so the explorer reuses the same registry.
+const screenOptions=Object.values(screens).map(({slug,title,order,spec})=>({
+ id:slug,title,path:`../ui-screens/${slug}.json`,spec:spec as UiSpec,order,
+})).sort((a,b)=>a.order-b.order||a.title.localeCompare(b.title));
 const versions = new Map(contractLock.components.map(item=>[item.name,item]));
-const samples: Record<string, {source:string;spec:UiSpec;id:string}> = {};
-// O Explorador e o Pi usam a mesma fonte de exemplos aprovados.
-for (const [path,spec] of Object.entries(examples)) {
-  const root=spec.elements[spec.root];
-  if(root?.type) samples[root.type] = {source:path.split('/').at(-1) ?? '',spec,id:spec.root};
+// The official Pi manifest is the source of truth for type -> example path.
+const samples: Record<string,{source:string;load:(()=>Promise<UiSpec>)|undefined}> = {};
+for(const entry of piManifest.components) {
+ const path=`../../${entry.example}`;
+ samples[entry.type]={source:entry.example.split('/').at(-1)??'',load:exampleLoaders[path]};
 }
 
 function getSchema(type:string): z.ZodObject<z.ZodRawShape> | undefined {
@@ -453,8 +457,27 @@ function ComponentExplorer({kind}:{kind:Kind}){
   if(activeCompare)params.set('catalogCompare',activeCompare);else params.delete('catalogCompare');
   window.history.replaceState(window.history.state,'',window.location.pathname+'?'+params.toString()+window.location.hash);
  },[search,stability,group,piFilter,compareOpen,selectedType,activeCompare]);
+ const [sampleState,setSampleState]=useState<{type:string;error:boolean}>({type:'',error:false});
+ useEffect(()=>{
+  if(!selectedType||exampleCache.has(selectedType))return;
+  const loader=samples[selectedType]?.load;
+  if(!loader){setSampleState({type:selectedType,error:true});return;}
+  let active=true;
+  loader().then(value=>{
+   if(!active)return;
+   if(value.elements?.[value.root]?.type!==selectedType){
+    setSampleState({type:selectedType,error:true});
+    return;
+   }
+   exampleCache.set(selectedType,value);
+   setSampleState({type:selectedType,error:false});
+  }).catch(()=>{if(active)setSampleState({type:selectedType,error:true});});
+  return ()=>{active=false;};
+ },[selectedType]);
  const sample=selectedType?samples[selectedType]:undefined;
- const spec=sample?extractBranch(sample.spec,sample.id):undefined;
+ const loadedSpec=selectedType?exampleCache.get(selectedType):undefined;
+ const spec=loadedSpec?extractBranch(loadedSpec,loadedSpec.root):undefined;
+ const sampleError=sampleState.type===selectedType&&sampleState.error;
  return <section className="min-w-0 space-y-5" aria-label={kind==='primitive'?'Explorador de primitivos shadcn':'Explorador de componentes compostos'}>
   <header><h2 className="text-lg font-semibold">{kind==='primitive'?'Primitivas':'Compostos'}</h2>
    <p className="text-sm text-muted-foreground">{available.length} contratos {kind==='primitive'?'de base e adaptadores oficiais':'com funcionalidades ou padrões reutilizáveis'} · edição local validada pelo Zod.</p></header>
@@ -513,7 +536,7 @@ function ComponentExplorer({kind}:{kind:Kind}){
      {kind==='primitive' && <ReuiGuidance type={selectedType}/>}
      <SemanticKnowledgePanel type={selectedType}/>
      {kind==='primitive' && pilotFamilies.some(family=>family===selectedType) && <CompositionRecommendationPanel key={selectedType} family={selectedType as (typeof pilotFamilies)[number]}/>}
-    </div> : spec ? <LivePropsEditor key={`${kind}:${selectedType}`} type={selectedType} original={spec} source={sample?.source??''}/> : <p role="status" className="rounded-lg border p-4 text-sm text-muted-foreground">Exemplo não disponível para este componente.</p>}
+    </div> : spec ? <LivePropsEditor key={`${kind}:${selectedType}`} type={selectedType} original={spec} source={sample?.source??''}/> : <p role={sampleError?'alert':'status'} className="rounded-lg border p-4 text-sm text-muted-foreground">{sampleError||!sample?.load?'Exemplo não disponível para este componente.':'Carregando exemplo aprovado…'}</p>}
    </>}
    </div>
   </div>
@@ -542,8 +565,21 @@ export function ExamplesExplorer(){
  const [query,setQuery]=useState('');
  const [sourceType,setSourceType]=useState<'screens'|'patterns'>('screens');
  const selectedScreen=screenOptions.find(x=>x.id===selectedSource)??screenOptions[0];
- const meta=Object.values(patternMeta).sort((a,b)=>a.title.localeCompare(b.title));
- const matched=sourceType==='screens'?selectedScreen?.spec:patternFiles[`../ui-patterns/${selectedSource}.json`];
+ const meta=useMemo(()=>Object.values(patternMeta).sort((a,b)=>a.title.localeCompare(b.title)),[]);
+ const [patternState,setPatternState]=useState<{id:string;error:boolean}>({id:'',error:false});
+ useEffect(()=>{
+  if(sourceType!=='patterns'||patternCache.has(selectedSource))return;
+  const loader=patternFiles[`../ui-patterns/${selectedSource}.json`];
+  if(!loader){setPatternState({id:selectedSource,error:true});return;}
+  let active=true;
+  loader().then(spec=>{
+   if(!active)return;
+   patternCache.set(selectedSource,spec);
+   setPatternState({id:selectedSource,error:false});
+  }).catch(()=>{if(active)setPatternState({id:selectedSource,error:true});});
+  return ()=>{active=false;};
+ },[sourceType,selectedSource]);
+ const matched=sourceType==='screens'?selectedScreen?.spec:patternCache.get(selectedSource);
  const sourcePath=sourceType==='screens'?selectedScreen?.path:`../ui-patterns/${selectedSource}.json`;
  const currentId=matched?.elements[selectedNode]?selectedNode:matched?.root;
  const candidateNodes=Object.entries(matched?.elements??{}).filter(([,node])=>types.includes(node.type)&&[node.type,node.props?.title,node.props?.label,node.props?.text].some(x=>String(x??'').toLowerCase().includes(query.toLowerCase())));
@@ -564,6 +600,7 @@ export function ExamplesExplorer(){
    <div className="min-w-0 space-y-4">
     <div className="rounded-lg border border-border bg-card p-4"><h3 className="font-semibold">{sourceType==='screens'?selectedScreen?.title:meta.find(x=>x.id===selectedSource)?.title}</h3>
      <p className="mt-1 text-xs text-muted-foreground">{sourcePath} · {Object.keys(matched?.elements??{}).length} nós · o editor aplica alterações apenas na prévia.</p></div>
+    {!matched&&sourceType==='patterns'&&<p role={patternState.id===selectedSource&&patternState.error?'alert':'status'} className="rounded-lg border p-4 text-sm text-muted-foreground">{patternState.id===selectedSource&&patternState.error?'Padrão não disponível.':'Carregando padrão…'}</p>}
     {matched&&currentNode&&currentId&&<LivePropsEditor key={`${sourceType}:${selectedSource}:${currentId}`} type={currentNode.type} original={matched} targetId={currentId} source={sourcePath??''}/>}
     {matched&&<TreePatchWorkbench key={`${sourceType}:${selectedSource}`} spec={matched} selectedId={currentId}/>}
    </div>
