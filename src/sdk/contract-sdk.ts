@@ -161,7 +161,7 @@ function authorized(type: string, channel: ContractChannel) {
     if (projected.validation?.e2e === "ci-required" && !ciApproved) return null;
     if (channel === "stable" && projected.lifecycle !== "stable") return null;
   }
-  const definition = definitions[type];
+  const definition = (definitions as Record<string, { props: z.ZodType; description?: string }>)[type];
   if (!definition) return null;
   return { projected, definition };
 }
