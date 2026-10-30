@@ -45,7 +45,7 @@ A avaliação Pi verifica Zod, invariantes de grafo e componentes exigidos. **N�
 
 ## Privacidade e limitações
 
-A lista fechada de metadados E10 passou a aceitar attempt (1 ou 2), inputTokens e outputTokens numéricos e limitados somente na fase de geração pi-eval. O uso de tokens só é aceito nos eventos terminais. Não se coletam prompts ou respostas do modelo. Registros inválidos/duplicados impedem a análise; interrupções contam como incompletas, nunca sucesso. Os arquivos devem ser JSONL locais regulares em reports/pi-execution/, sem symlinks ou travessia, com até 16 MiB. O relatório de avaliação também é local, limitado e ignorado pelo Git.
+A lista fechada de metadados E10 passou a aceitar attempt (1 ou 2), inputTokens e outputTokens numéricos e limitados somente na fase de geração pi-eval. O uso de tokens só é aceito nos eventos terminais. Não se coletam prompts ou respostas do modelo. Registros inválidos/duplicados impedem a análise; interrupções contam como incompletas, nunca sucesso. Os arquivos devem ser JSONL locais regulares em reports/pi-execution/, sem symlinks ou travessia, com até 4 MiB por arquivo, retenção de 7 dias e limites de cardinalidade. O relatório de avaliação também é local, limitado e ignorado pelo Git. Consultar a [política de logs E10](pi-execution-log-policy.pt-BR.md).
 
 O mecanismo é **diagnóstico**, não monitoramento automático, autorização, evidência de admissão ou substituto de auditoria visual independente. Definir retenção e controle de acesso antes de armazenar logs.
 
