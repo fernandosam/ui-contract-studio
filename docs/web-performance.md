@@ -21,6 +21,7 @@ Outputs are gitignored and remain local:
 - `reports/web-performance/bundle.json`: every emitted asset, JS/CSS raw/gzip/Brotli sizes, HTML-direct references (a **lower bound** for startup), largest JS/CSS files.
 - `reports/web-performance/browser/{desktop,mobile}-*.json`: three navigations, five representative repeated interactions, Chromium CDP JS heap observations, FCP/LCP/CLS, long tasks, resource bytes and horizontal overflow, browser exceptions and blocked external requests.
 - `reports/web-performance/summary.md`: aggregated, explicitly labeled diagnostic readings. Playwright also attaches individual JSON results.
+- `reports/web-performance/screenshots/`: one viewport screenshot per browser case, captured **after** timing and heap samples for human rendering review.
 
 The five scenarios are ReUI gallery filtering, primitive discovery, composite Dashboard01 preview, JSON example selection, and login theme switching. Both desktop and mobile projects are exercised, for **10 total browser cases**. The Pixel 7 profile uses browser device emulation plus CDP **4× CPU slowdown, 150 ms latency and 1.6 Mbit/s download**. The desktop profile is not throttled. Browser tests block outbound requests; fixtures should be public demonstration data only.
 
