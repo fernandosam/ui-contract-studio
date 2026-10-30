@@ -60,7 +60,7 @@ function eventPath(file, root) {
   mkdirSync(reports,{recursive:true});
   if (realpathSync(reports) !== resolve(realpathSync(root),'reports')) throw new Error('E10 reports directory must not be a symlink');
   if (existsSync(directory) && !lstatSync(directory).isDirectory()) throw new Error('E10 events directory cannot be a symlink');
-  mkdirSync(directory,{recursive:true});
+  mkdirSync(directory,{recursive:true,mode:0o700});
   // Prevent symlink redirection outside the project when the opt-in log is used.
   if (realpathSync(directory) !== resolve(realpathSync(root),'reports/pi-execution'))
     throw new Error('E10 events directory cannot be a symlink');
