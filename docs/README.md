@@ -10,6 +10,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | --- | --- |
 | [README](../README.md) | Introduction and installation |
 | [Architecture](architecture.md) | Sources of truth and layers |
+| [External integrations (E12)](external-integrations.md) | External use cases and the smallest supported read-only/CLI integration surface |
 | [Components and contracts](components.md) | shadcn/ui, ReUI, compositions, and admission |
 | [Admission Engine](admission-engine.md) | Experimental publication and post-E2E distribution |
 | [Composition strategy](composition-strategy.md) | Dependency map, semantic classification and new ReUI examples |
