@@ -83,7 +83,7 @@ export function createExecutionRecorder({source, executionId=process.env.UI_CONT
   const destination = eventPath(file,root);
   let sequence = 0;
   const emit = (phase,status,operationId,startedAt,details={}) => {
-    if(sequence>=EXECUTION_LOG_POLICY.maxEventsPerRecorder) throw new Error('E10 recorder event limit exceeded');
+    if(destination && sequence>=EXECUTION_LOG_POLICY.maxEventsPerRecorder) throw new Error('E10 recorder event limit exceeded');
     const event={schemaVersion:1,eventId:randomUUID(),executionId:id,operationId,
       sequence:++sequence,timestamp:new Date().toISOString(),source,phase,
       type:phase+'.'+status,status,
