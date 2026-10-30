@@ -136,7 +136,7 @@ function fixtureData(name,root) {
 function prepareFixtures(root,names) {
   const used=names.filter(x=>SCENARIOS[x].fixture);
   if(!used.length)return {paths:{},cleanup:()=>{}};
-  const dir=checkedDirectory(root,'reports/requirements');
+  checkedDirectory(root,'reports/requirements');
   const paths={},created=[];
   try{
     for(const scenario of used){
