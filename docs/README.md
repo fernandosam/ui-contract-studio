@@ -21,6 +21,7 @@ This page separates **current guides** from **historical audit records**. For cu
 | [Semantic catalog discovery and comparison](semantic-catalog-discovery.md) | Existing Primitivas/Compostos search, comparison, evidence and Pi availability labels |
 | [Semantic contract conformance audit (T31)](semantic-contract-conformance-t31.md) | Zod/Pi bindings, gap decisions and mandatory audit for knowledge edits |
 | [Layout quality evaluation](layout-quality.md) | Advisory hierarchy, grouping, density and responsive layout scores |
+| [Approved layout reuse evidence (E05)](layout-reuse.md) | Cross-origin structural recurrence, source pointers and deterministic audit |
 | [Versioned themes (E06)](versioned-themes.md) | Closed token choices, immutable theme versions and CSS injection boundary |
 | [Typed contract SDK (E12)](typed-contract-sdk.md) | Local, typed generation, inspection and validation of approved JSON contracts |
 | [Agents and Pi](agents.md) | Safe generation and spec validation |
