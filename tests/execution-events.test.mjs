@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {mkdtempSync,mkdirSync,readFileSync,symlinkSync,rmSync} from 'node:fs';
+import {mkdtempSync,mkdirSync,readFileSync,readdirSync,symlinkSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {createExecutionRecorder,validateExecutionEvent} from '../scripts/lib/execution-events.mjs';
@@ -82,4 +82,13 @@ test('tracing never writes JSON to stdout by itself',()=>withRoot(root=>{
   assert.equal(run.status,0,run.stderr);
   assert.deepEqual(JSON.parse(run.stdout),{ok:true});
   assert.equal(readEvents(root).length,2);
+}));
+
+test('reports parent symlink is rejected before writing outside the project',()=>withRoot(root=>{
+  const outside=mkdtempSync(join(tmpdir(),'e10-outside-'));
+  try {
+    symlinkSync(outside,join(root,'reports'),'dir');
+    assert.throws(()=>createExecutionRecorder({source:'pi-select',file:'reports/pi-execution/events.jsonl',root}),/symlink/);
+    assert.deepEqual(readdirSync(outside),[]);
+  } finally {rmSync(outside,{recursive:true,force:true});}
 }));
